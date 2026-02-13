@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-react-aria-components";
+@plugin "tailwindcss-animate";
+
+/* Tell Tailwind to scan the design-bootstrap package for classes */
+@source "../node_modules/keystone-design-bootstrap/src/**/*.{ts,tsx}";
+
+/* Design system styles (in order of specificity) */
+@import "keystone-design-bootstrap/styles/fonts.css";
+@import "keystone-design-bootstrap/styles/theme.css";
+@import "keystone-design-bootstrap/styles/typography.css";
+/* Change to match your theme, e.g. barelux, aman, classic */
+@import "keystone-design-bootstrap/styles/style-overrides.aman.css";
+
+/* Site-specific customizations - loads LAST to override everything */
+@import "../styles/custom-overrides.css";
+
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+
+@utility scrollbar-hide {
+    &::-webkit-scrollbar { display: none; -webkit-appearance: none; }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@utility max-w-container {
+    max-width: var(--max-width-container, 1280px);
+}
+
+html, body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
