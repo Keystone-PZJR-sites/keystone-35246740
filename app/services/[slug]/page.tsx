@@ -3,6 +3,7 @@ import { getService, getFAQs, getTestimonials, getWebsitePhotos, getCompanyInfor
 import { resolveCtaUrls, isExternalCtaUrl } from 'keystone-design-bootstrap';
 import { notFound } from 'next/navigation';
 import { Button, MarkdownRenderer, PhotoWithFallback } from 'keystone-design-bootstrap/elements';
+import { config } from '@/config';
 
 interface ServiceDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -95,6 +96,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
         websitePhotos={websitePhotos}
         title="*TR* Ready to Get Started?"
         subtitle="*TR* Contact us to learn more"
+        config={config}
       />
     </main>
   );

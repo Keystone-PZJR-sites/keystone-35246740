@@ -1,5 +1,6 @@
 import { GenericTextHero, TeamGrid, JobGallery, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getTeamMembers, getJobPostings, getTestimonials, getBlogPosts, getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function CareersPage() {
   const [teamMembers, jobs, testimonials, blogPosts, websitePhotos] = await Promise.all([
@@ -52,6 +53,7 @@ export default async function CareersPage() {
         websitePhotos={websitePhotos}
         title="*TR* Ready to Join Us?"
         subtitle="*TR* We are always looking for talented individuals"
+        config={config}
       />
     </main>
   );

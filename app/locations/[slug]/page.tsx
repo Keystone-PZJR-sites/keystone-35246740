@@ -1,6 +1,7 @@
 import { LocationDetailHero, LocationDetailsSection, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getLocation, getTestimonials, getBlogPosts, getWebsitePhotos, getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api';
 import { notFound } from 'next/navigation';
+import { config } from '@/config';
 
 interface LocationDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -48,6 +49,7 @@ export default async function LocationDetailPage({ params }: LocationDetailPageP
         websitePhotos={websitePhotos}
         title="*TR* Visit Us Today"
         subtitle="*TR* We look forward to seeing you"
+        config={config}
       />
     </main>
   );

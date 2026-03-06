@@ -1,5 +1,6 @@
 import { GenericTextHero, SocialMediaGrid, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getTestimonials, getBlogPosts, getSocialPosts } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function SocialMediaPage() {
   const [socialPosts, testimonials, blogPosts] = await Promise.all([
@@ -40,6 +41,7 @@ export default async function SocialMediaPage() {
       <ContactSection 
         title="*TR* Get in Touch"
         subtitle="*TR* We would love to hear from you"
+        config={config}
       />
     </main>
   );

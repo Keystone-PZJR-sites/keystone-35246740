@@ -1,5 +1,6 @@
 import { BlogGallery, TestimonialsHome, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getBlogPosts, getTestimonials, getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function BlogPage() {
   const [blogPosts, testimonials, websitePhotos] = await Promise.all([
@@ -30,6 +31,7 @@ export default async function BlogPage() {
         websitePhotos={websitePhotos}
         title="*TR* Have Questions?"
         subtitle="*TR* We are here to help you"
+        config={config}
       />
     </main>
   );

@@ -1,5 +1,6 @@
 import { TestimonialsHero, TestimonialsHome, StatisticsSection, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getTestimonials, getBlogPosts, getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function TestimonialsPage() {
   const [testimonials, blogPosts, websitePhotos] = await Promise.all([
@@ -46,6 +47,7 @@ export default async function TestimonialsPage() {
         websitePhotos={websitePhotos}
         title="*TR* Ready to Join Them?"
         subtitle="*TR* Get in touch with us today"
+        config={config}
       />
     </main>
   );

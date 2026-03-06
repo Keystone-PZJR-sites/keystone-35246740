@@ -1,5 +1,6 @@
 import { GenericTextHero, ValuesSection, TeamGrid, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getWebsitePhotos, getTeamMembers, getTestimonials, getBlogPosts } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function AboutPage() {
   const [websitePhotos, teamMembers, testimonials, blogPosts] = await Promise.all([
@@ -66,6 +67,7 @@ export default async function AboutPage() {
         websitePhotos={websitePhotos}
         title="*TR* Get in Touch"
         subtitle="*TR* We would love to hear from you"
+        config={config}
       />
     </main>
   );

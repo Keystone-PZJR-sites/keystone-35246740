@@ -15,6 +15,8 @@ import {
   getCompanyInformation,
   getWebsitePhotos,
 } from 'keystone-design-bootstrap/lib/server-api';
+import { resolveCtaUrls } from 'keystone-design-bootstrap/lib/cta-urls';
+import { config } from '@/config';
 
 export default async function HomePage() {
   // Fetch all data in parallel on the server
@@ -45,6 +47,7 @@ export default async function HomePage() {
         subhead="*TR* A brief description of your business and what makes you special"
         tagline="*TR* Your Tagline"
         ctaText="*TR* Book Now"
+        ctaHref={resolveCtaUrls(companyInformation).primaryHref}
         statistics={[
           { number: '*TR* 10+', label: '*TR* Years Experience', icon: 'Users01' },
           { number: '*TR* 500+', label: '*TR* Happy Clients', icon: 'Heart' },
@@ -96,6 +99,7 @@ export default async function HomePage() {
         websitePhotos={websitePhotos}
         title="*TR* Get in Touch"
         subtitle="*TR* We would love to hear from you"
+        config={config}
       />
       
       {/* 7. FAQ Section (last, before footer) */}

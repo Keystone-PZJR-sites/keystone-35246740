@@ -1,5 +1,6 @@
 import { FAQHero, FAQHome, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getFAQs, getTestimonials, getBlogPosts, getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function FAQPage() {
   const [faqs, testimonials, blogPosts, websitePhotos] = await Promise.all([
@@ -43,6 +44,7 @@ export default async function FAQPage() {
         websitePhotos={websitePhotos}
         title="*TR* Still Have Questions?"
         subtitle="*TR* We are happy to help"
+        config={config}
       />
     </main>
   );

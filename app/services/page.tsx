@@ -1,5 +1,6 @@
 import { GenericTextHero, ServicesGrid, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getServices, getTestimonials, getBlogPosts } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function ServicesPage() {
   const [services, testimonials, blogPosts] = await Promise.all([
@@ -41,6 +42,7 @@ export default async function ServicesPage() {
       <ContactSection 
         title="*TR* Ready to Get Started?"
         subtitle="*TR* Contact us to learn more about our services"
+        config={config}
       />
     </main>
   );

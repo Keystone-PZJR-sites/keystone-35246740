@@ -1,5 +1,6 @@
 import { GenericTextHero, LocationGrid, TestimonialsHome, BlogSection, ContactSection } from 'keystone-design-bootstrap/sections';
 import { getLocations, getTestimonials, getBlogPosts, getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
+import { config } from '@/config';
 
 export default async function LocationsPage() {
   const [locations, testimonials, blogPosts, websitePhotos] = await Promise.all([
@@ -43,6 +44,7 @@ export default async function LocationsPage() {
         websitePhotos={websitePhotos}
         title="*TR* Visit Us Today"
         subtitle="*TR* We look forward to seeing you"
+        config={config}
       />
     </main>
   );
