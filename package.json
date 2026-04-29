@@ -17,6 +17,7 @@
     "@untitledui/icons": "^0.0.19",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
+    "gsap": "^3.15.0",
     "input-otp": "^1.4.2",
     "keystone-design-bootstrap": "^1.0.74",
     "motion": "^12.23.12",
