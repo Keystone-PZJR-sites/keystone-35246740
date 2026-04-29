@@ -9,7 +9,7 @@ export const config: SiteConfig = {
   site: {
     title: "*TR* Your Business",
     description: "*TR* Providing exceptional services",
-    theme: "aman"
+    theme: "custom"
   },
   navigation: {
     header: [

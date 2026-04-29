@@ -4,17 +4,15 @@
 @plugin "tailwindcss-react-aria-components";
 @plugin "tailwindcss-animate";
 
-/* Tell Tailwind to scan the design-bootstrap package for classes */
+/*
+ * No design-system CSS is imported here.
+ * This is a fully custom site — all styles are defined in custom-overrides.css.
+ * The @source directive ensures Tailwind scans the design-bootstrap source so
+ * utility classes used by any data-layer components are not purged at build time.
+ */
 @source "../node_modules/keystone-design-bootstrap/src/**/*.{ts,tsx}";
 
-/* Design system styles (in order of specificity) */
-@import "keystone-design-bootstrap/styles/fonts.css";
-@import "keystone-design-bootstrap/styles/theme.css";
-@import "keystone-design-bootstrap/styles/typography.css";
-/* Change to match your theme, e.g. barelux, aman, classic */
-@import "keystone-design-bootstrap/styles/style-overrides.aman.css";
-
-/* Site-specific customizations - loads LAST to override everything */
+/* All site CSS lives here */
 @import "../styles/custom-overrides.css";
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
@@ -27,10 +25,4 @@
 
 @utility max-w-container {
     max-width: var(--max-width-container, 1280px);
-}
-
-html, body {
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }

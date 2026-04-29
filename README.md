@@ -1,6 +1,8 @@
 # Keystone Corporate Site — `keystone-35246740`
 
-This is **Keystone's own corporate website**, built on the Keystone platform itself. Unlike other customer sites (which are auto-generated from the standard template and rely almost entirely on `keystone-design-bootstrap` components configured through JSON), this site is a fully custom, agency-built product. It uses GSAP for complex animations and interactions while still leveraging the Keystone platform infrastructure for data fetching, SSR, routing, and design tokens.
+This is **Keystone's own corporate website**, built on the Keystone platform itself. Unlike other customer sites (which are auto-generated from the standard template and rely almost entirely on `keystone-design-bootstrap` components configured through JSON), this site is a fully custom, agency-built product. It uses GSAP for complex animations and interactions while still leveraging the Keystone platform infrastructure for data fetching, SSR, and routing.
+
+**CSS is built entirely within this site.** None of the design-system CSS files (`fonts.css`, `theme.css`, `typography.css`, theme overrides) are loaded. `styles/custom-overrides.css` is the only stylesheet — the agency defines everything there from scratch. The `custom` theme in `keystone-design-bootstrap` is a registered blank-slate theme with no associated CSS, which is specifically what makes this possible.
 
 > **For the design team / AI agents working in this repo:** This README is your primary source of context. Read it before making decisions about libraries, patterns, or architecture.
 
@@ -68,9 +70,13 @@ Data fetching goes through `keystone-design-bootstrap` utilities. Do not:
 Despite the differences, this site still uses `keystone-design-bootstrap` for:
 - **Data fetching** — hooks and server utilities that talk to the Keystone API
 - **SSR helpers** — `getPageData`, caching patterns, etc.
-- **Design tokens** — Tailwind CSS theme (colors, spacing, typography)
-- **Atomic elements** — `Button`, `Card`, `PhotoWithFallback`, `MarkdownRenderer`, etc.
+- **Atomic elements** — `Button`, `Card`, `PhotoWithFallback`, `MarkdownRenderer`, etc. (used sparingly — visuals are overridden by custom CSS)
 - **Config schema** — `config/index.ts` still follows the standard shape
+
+**What this site does NOT use from `keystone-design-bootstrap`:**
+- Any CSS file (`fonts.css`, `theme.css`, `typography.css`, style overrides) — none of it is loaded
+- Design token Tailwind classes (`bg-brand-solid`, `text-secondary`, etc.) — these have no values since `theme.css` is not imported
+- Pre-built section/element visual styling — if a design-system component is rendered, it will appear unstyled unless the agency explicitly styles it in `custom-overrides.css`
 
 ---
 
@@ -229,11 +235,13 @@ keystone-35246740/
 
 ---
 
-## Design System: `keystone-design-bootstrap`
+## Design System: `keystone-design-bootstrap` (Data Layer Only)
 
-**Current version:** `^1.0.74`
+**Current version:** `^1.0.75`
 
-This package is the shared design system and data layer for all Keystone customer sites. Import from it for:
+This package provides the **data and routing infrastructure** for this site. Its visual CSS is not loaded — do not import anything from `keystone-design-bootstrap/styles/`.
+
+Import from it for data and utilities only:
 
 ```ts
 // Section-level components
@@ -256,38 +264,65 @@ When `keystone-design-bootstrap` components don't fit the custom design, follow 
 
 ## Creating Custom CSS
 
-All CSS customization lives in `styles/custom-overrides.css`. This file is already imported in the correct order — do not move or rename it.
+`styles/custom-overrides.css` is the **only** CSS file for this site. No design-system CSS is imported — no reset of tokens, no inherited brand colors, no typography scale. Tailwind utilities still work (from `@import "tailwindcss"` in `globals.css`), but all design tokens, fonts, colors, and component styles must be defined here.
 
-### Theme Token Overrides
+### Setting Up Your Design Tokens
 
-The design system exposes CSS custom properties (variables) for colors, spacing, typography, and more. Override them scoped to the site's theme attribute:
+Define CSS custom properties under `[data-theme="custom"]` so they are scoped to this site and don't bleed into the design gallery or other contexts:
 
 ```css
-html[data-theme="keystone"] {
-  --color-bg-primary: #0a0a0a;
-  --color-text-primary: #f5f5f5;
-  --color-accent: #6c47ff;
+[data-theme="custom"] {
+  /* Fonts */
+  --font-body: "Your Font", sans-serif;
+  --font-display: "Your Display Font", serif;
+
+  /* Brand colors */
+  --color-brand: #your-color;
+  --color-brand-hover: #your-hover;
+
+  /* Backgrounds */
+  --color-bg: #0a0a0a;
+  --color-bg-surface: #141414;
+
+  /* Text */
+  --color-text: #f5f5f5;
+  --color-text-muted: #9ca3af;
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  /* Spacing / radius / whatever you need */
+  --radius: 0.5rem;
 }
 ```
 
-To see all available tokens, look at the Tailwind config exported from `keystone-design-bootstrap` or inspect `node_modules/keystone-design-bootstrap/styles/`.
-
-### Component-Level Custom CSS
-
-For one-off styles on custom components, use Tailwind utility classes first. Only fall back to `custom-overrides.css` for:
-- CSS that Tailwind can't express (complex `::before`/`::after`, `clip-path`, SVG filters, etc.)
-- Targeting third-party or design-system elements you can't add a `className` to
+Then reference those tokens in component-level CSS or Tailwind arbitrary values:
 
 ```css
-/* Target a design-system component you can't directly className */
-html[data-theme="keystone"] .ks-hero-section {
-  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+.hero-title {
+  color: var(--color-text);
+  font-family: var(--font-display);
 }
 ```
 
-### Animation CSS
+```tsx
+<div className="bg-[var(--color-bg-surface)] rounded-[var(--radius)]">
+```
 
-For CSS-driven animations (that don't need GSAP), add them in `custom-overrides.css`. Always pair with `prefers-reduced-motion`:
+### Body / Base Styles
+
+```css
+[data-theme="custom"] body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+```
+
+### CSS Animations
+
+For CSS-driven animations, always pair with `prefers-reduced-motion`:
 
 ```css
 @keyframes fadeSlideUp {
@@ -309,10 +344,10 @@ For CSS-driven animations (that don't need GSAP), add them in `custom-overrides.
 
 ### What NOT to Do with CSS
 
-- No `style={{ }}` inline styles — use Tailwind classes
-- No new `.css` files scattered in `components/` — keep everything in `custom-overrides.css`
-- Do not import any CSS file in `app/globals.css` — it has a specific import order managed by the design system
-- Do not override Tailwind's base reset or preflight
+- No `style={{ }}` inline styles — define CSS classes or use Tailwind utilities
+- No new `.css` files in `components/` — keep everything in `custom-overrides.css`
+- Do not import any CSS files into `app/globals.css` — its import order is intentional; add new styles to `custom-overrides.css` instead
+- Do not add `@import "keystone-design-bootstrap/styles/..."` — that would re-introduce the design system styles we've intentionally excluded
 
 ---
 
