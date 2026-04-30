@@ -1,34 +1,29 @@
 // ============================================================
 // HOME PAGE — Custom Corporate Site
 // ============================================================
-// This is the entry point for the Keystone corporate homepage.
-// The site is fully custom — no design-system section components
-// are used here. Build the UI from scratch using custom components
-// in components/sections/ and components/elements/.
-//
-// Data fetching pattern:
-//   - Always fetch in parallel with Promise.all (no waterfalls)
-//   - All fetch functions return null on error — handle gracefully
-//   - Keep this file a Server Component (no 'use client' here)
-//   - Push 'use client' down to leaf components that need GSAP or interactivity
-//
-// Example data you can fetch:
-//   import {
-//     getCompanyInformation,  // business info, hours, portal URL
-//     getServices,            // services with pricing
-//     getTestimonials,        // reviews
-//     getWebsitePhotos,       // logo, hero image, etc.
-//     getBlogPosts,
-//     getFAQs,
-//     getLocations,
-//     getTeamMembers,
-//   } from 'keystone-design-bootstrap/lib/server-api';
+// Server Component. Fetches data and passes it down to client
+// leaf components. No 'use client' here.
 // ============================================================
+
+import { HeroAnimatic } from '@/components/sections';
 
 export default async function HomePage() {
   return (
     <main>
-      <p>Hello World</p>
+      <HeroAnimatic
+        headlineLine1="Always ON "
+        headlineLine2="SALES & MARKETING"
+        subheadline="A team of experts running your marketing while you run your business."
+        cta1Label="Learn more"
+        cta1Href="#"
+        cta2Label="Get started"
+        cta2Href="#"
+        // Video file per spec default: public/videos/hero-animatic.mp4
+        // Using existing file until the production asset is added.
+        videoSrc="/videos/home-hero-bg.mp4"
+        wordmarkSrc="/images/keystone-wordmark.svg"
+        markSrc="/images/keystone-mark.svg"
+      />
     </main>
   );
 }

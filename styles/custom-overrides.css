@@ -3,46 +3,69 @@
  * ================
  * This file is for site-specific customizations that override the theme defaults.
  * It loads LAST in the CSS cascade, so any styles here will take precedence.
- * 
- * Use this for:
- * - Brand colors specific to this customer
- * - Custom fonts
- * - Any other visual tweaks that differ from the base theme
- * 
- * Example usage:
- * 
- *   :root {
- *     --color-bg-primary: #YOUR_COLOR;
- *     --color-text-primary: #YOUR_COLOR;
- *   }
- * 
- *   Or target the specific theme:
- * 
- *   [data-theme="aman"] {
- *     --color-bg-primary: #YOUR_COLOR;
- *   }
  */
+
+/* ==================== FONTS ==================== */
+
+@font-face {
+  font-family: 'FK Screamer';
+  src: url('/fonts/FKScreamer-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/fonts/FKGroteskNeue-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/fonts/FKGroteskNeue-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Mono';
+  src: url('/fonts/FKGroteskMono-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==================== DESIGN TOKENS ==================== */
+
+:root {
+  --color-hero-bg: #042019;
+  --color-hero-surface: #063126;
+  --color-hero-accent: #6ecc8b;
+  --color-hero-text: #f0eee6;
+}
 
 /* ==================== SITE-SPECIFIC OVERRIDES ==================== */
 
-/* Custom background color for this site */
-:root,
-[data-theme="aman"] {
-  --color-bg-primary: rgb(249, 250, 251);
-  --color-bg-secondary: rgb(249, 250, 251);
-  --background-color-primary: rgb(249, 250, 251);
-  --background-color-secondary: rgb(249, 250, 251);
-}
-
-/* Ensure body and sections use the custom background */
 body {
-  background-color: rgb(249, 250, 251) !important;
+  background-color: rgb(249, 250, 251);
 }
 
-[data-theme="aman"] header,
-[data-theme="aman"] section,
-[data-theme="aman"] .bg-primary {
-  background-color: rgb(249, 250, 251) !important;
+/* ==================== HERO ANIMATIC ==================== */
+
+/* Bottom content: hidden on mobile, invisible on desktop until GSAP animates it in */
+.hero-bottom-content {
+  display: none;
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .hero-bottom-content {
+    display: flex;
+  }
 }
 
 

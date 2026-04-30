@@ -10,14 +10,34 @@ These are non-negotiable rules. Every agent, designer, and contributor must read
 
 The development flow for every meaningful piece of work is:
 
-1. **Write the spec first.** Create a numbered spec file in `docs/specs/` before a single line of implementation code is written. The spec must include: scope (in and out), Figma reference(s) with node IDs, a section-by-section or feature-by-feature breakdown, and a **build checklist / acceptance criteria** designed before implementation, not after.
+1. **Write the spec first.** Create a numbered spec file in `docs/specs/` before a single line of implementation code is written. The spec must include: scope (in and out), Figma reference(s) with node IDs, a section-by-section or feature-by-feature breakdown, and acceptance criteria designed before implementation, not after.
 2. **Get the spec approved.** Do not start building until the spec is reviewed and signed off.
 3. **Build against the spec.** Every implementation decision should trace back to something in the spec. If you are doing something not in the spec, stop and update the spec first.
-4. **Check off the acceptance criteria.** The spec is not done until every item on the build checklist is verified.
+4. **Check off the acceptance criteria.** The spec is not done until every item is verified.
 
 ### Spec numbering
 
 Specs are sequentially numbered using zero-padded three-digit prefixes: `001_splash_page_alpha.md`, `002_about_page.md`, `003_blog_section.md`, and so on. Never reuse a number. Never skip a number. Numbers are assigned in the order work begins, not in the order sections appear on the page.
+
+### How to write a spec
+
+Specs are authored by designers, not engineers. A spec describes **what the section looks like and how it behaves** — never how to build it. The right reader for a spec is a non-technical person who knows Figma; the right author is that same person.
+
+**Write in design language, not engineering language.** Describe colors, sizes, spacing, motion, and visual states in plain words. Do not mention component names, libraries, CSS properties, or implementation patterns. A good test: if the sentence could only be written by an engineer, it does not belong in the spec.
+
+**Always include a Figma link for every visual state.** Link to the exact node for the start state, the end state, and any intermediate states. All exact values — colors, font sizes, spacing, corner radii — come from Figma, not from the spec author's memory.
+
+**Describe every visual state explicitly.** For animated or interactive sections, describe what the section looks like before any interaction, during the interaction, and when the interaction is complete. If a state is not described, it will be guessed.
+
+**Describe scroll and animation behavior as observable outcomes.** "As the visitor scrolls, the headline slides upward until both lines have fully exited the top of the screen" is a good spec sentence. It says what the visitor sees, not what code achieves it. Cover: what triggers the motion, what moves, in which direction, how far, whether it is tied to scroll position or time-based, whether it reverses, and whether it auto-completes.
+
+**Describe responsive behavior explicitly.** State what changes at mobile, tablet, and desktop — what is hidden, what scales, what repositions. Do not assume the engineer will infer it from the desktop design.
+
+**Describe edge cases.** At minimum: what happens on mobile, and what happens when the visitor has reduced motion turned on in their OS. These are not engineering concerns — they are design decisions that belong in the spec.
+
+**Acceptance criteria must be observable, not technical.** Each item should be something a non-engineer can verify by looking at the browser. "The headline slides fully off the top of the screen" is a good criterion. "The GSAP y-translation equals negative sectionHeight" is not — it belongs in no document.
+
+**No code snippets.** Ever. See Rule 15.
 
 ---
 
