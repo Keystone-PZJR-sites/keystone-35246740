@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'FK Screamer';
-  src: url('/fonts/FKScreamer-Bold.otf') format('opentype');
+  src: url('/fonts/FKScreamer-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: 'FK Grotesk Neue';
-  src: url('/fonts/FKGroteskNeue-Regular.otf') format('opentype');
+  src: url('/fonts/FKGroteskNeue-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: 'FK Grotesk Neue';
-  src: url('/fonts/FKGroteskNeue-Italic.otf') format('opentype');
+  src: url('/fonts/FKGroteskNeue-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -33,19 +33,42 @@
 
 @font-face {
   font-family: 'FK Grotesk Mono';
-  src: url('/fonts/FKGroteskMono-Regular.otf') format('opentype');
+  src: url('/fonts/FKGroteskMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/fonts/FKRomanStandard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/fonts/FKRomanStandard-Oblique.woff2') format('woff2');
+  font-weight: 400;
+  font-style: oblique;
+  font-display: swap;
+}
+
 /* ==================== DESIGN TOKENS ==================== */
 
-:root {
+[data-theme="custom"] {
+  /* Hero */
   --color-hero-bg: #042019;
   --color-hero-surface: #063126;
   --color-hero-accent: #6ecc8b;
   --color-hero-text: #f0eee6;
+
+  /* Work Showcase */
+  --color-work-accent: #f57e56;
+  --color-work-muted: #cbc5b4;
+  --color-work-muted-hover: #b1aa9a;
+  --color-work-text: #4f4d4a;
 }
 
 /* ==================== SITE-SPECIFIC OVERRIDES ==================== */

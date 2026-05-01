@@ -61,11 +61,15 @@ Specs are authored by designers, not engineers. A spec describes **what the sect
 
 ## 3. Zero Build Errors and Warnings
 
-- **`npm run build` must pass before every commit. No exceptions.**
-- Zero TypeScript errors (`tsc --noEmit` is run as part of the build).
-- Zero ESLint errors or warnings. Fix the root cause, never suppress with `// eslint-disable`.
+- **Before every commit, run the two checks below. No exceptions.**
+- Zero TypeScript errors — verified with `npx tsc --noEmit`.
+- Zero ESLint errors or warnings — verified with `npm run lint`. Fix the root cause, never suppress with `// eslint-disable`.
 - Zero unused imports, variables, or dead code.
-- If a build error is introduced, fix it before doing anything else.
+- If an error is introduced, fix it before doing anything else.
+
+**Do not use `npm run build` as a pre-commit check.** Running a production build invalidates Next.js's incremental dev cache (the `.next` directory), causing the dev server to fully recompile all assets on the next request — stale stylesheets, slow reloads, and lost HMR state. `tsc --noEmit` + `npm run lint` gives identical signal in ~5 seconds with zero side-effects.
+
+`npm run build` should only be run when explicitly testing the production output (e.g. before a deploy, or to verify bundle size).
 
 ---
 
@@ -115,8 +119,6 @@ This site has three primary viewports that must all work correctly:
 - **Do not delete pages, components, or config files without explicit instruction.**
 - Pages that aren't linked anywhere are intentionally orphaned — they may be used as landing pages, linked externally, or SEO-indexed. Deleting them breaks live URLs.
 - If something looks unused, add a comment flagging it. Do not remove it.
-
----
 
 ## 8. Server vs. Client Components
 
@@ -193,3 +195,35 @@ Each commit should be one logical unit of work — not ten micro-commits for a s
 - **Docs describe what exists.** Never document planned or future components, patterns, or conventions — that belongs in a spec. If something isn't built yet, it doesn't go in an explainer.
 - **One idea per sentence.** No long compound sentences joined by semicolons and em-dashes that require re-reading to parse.
 - **No preamble.** Get to the point immediately. Do not open with "This document covers…" or "The purpose of this file is…"
+
+---
+
+## 16. Public Asset Naming
+
+All static assets live in `/public/`. Assets for a specific section go in a subfolder named after that section (e.g., `/public/work-showcase/`).
+
+Before naming a new asset, scan the existing files in the target folder and match the naming pattern you observe — separators, prefixes, ordering of parts, and casing style. If the folder already has a consistent pattern, follow it exactly. If there are no existing files yet, use lowercase `kebab-case` with descriptive parts ordered from most general to most specific (e.g., `health-ads-photo-1.png` rather than `photo1-ads-health.png`).
+
+Every asset name must be identifiable by name alone without opening the file. Generic names like `rect4.png`, `img1.png`, or `icon.svg` are not acceptable.
+
+When an asset is replaced or made redundant, delete it immediately. Dead assets cause confusion and increase build size.
+
+---
+
+## 17. SVG Export Rules
+
+**Never export SVGs using Figma's Exclude / Boolean Subtract technique.** This technique creates a single path with transparent cutout holes that rely on a `background-color` set in the HTML container to make the cutouts visible. It causes a white anti-aliasing halo around circular containers regardless of `overflow: hidden`.
+
+Export SVGs as flattened compositions instead: the background shape is one `<path>` and any foreground letterforms or elements are separate `<path>` elements with explicit fills. The resulting SVG is fully self-contained and requires no background color in the HTML.
+
+If you receive an SVG from Figma that uses the Exclude technique, ask the designer to re-export it as a flattened composition.
+
+---
+
+## 18. CSS Transition Constraints
+
+**`transition-colors` does not work on gradients.** CSS cannot interpolate between a solid color and a `background-image` (gradient). To animate a gradient in/out: keep the element's solid background color, add an absolutely-positioned child div that contains the gradient, and transition that child's `opacity` from 0 to 1. Place the overlay as the first DOM child so all other content paints on top of it.
+
+**`transition-colors` is overridden by inline `style` color props.** If you apply `style={{ color: activeColor }}` to set an active state, the inline style wins at every point in the transition and the CSS transition has no visible effect. Apply the inline style only when active (`style={isActive ? { color } : undefined}`) and let the CSS class handle the default color and the easing.
+
+**`mix-blend-mode: luminosity` and a transitioning parent background interact badly.** When a photo is desaturated via `mix-blend-mode: luminosity` and its parent container also transitions its `background-color`, the photo blinks visually mid-transition. Use a CSS `filter` approach for desaturation on any card whose background color also transitions.
