@@ -91,4 +91,412 @@ body {
   }
 }
 
+/* ==================== WORK SHOWCASE ==================== */
+
+/* --- Carousel item: static hover zone that never transforms --- */
+.work-card-item {
+  padding-bottom: 24px;
+}
+
+/* --- Card wrapper: lifts on parent hover; 100ms exit delay prevents stutter loop --- */
+.work-card-wrapper {
+  will-change: transform;
+  /* exit: 100ms delay lets cursor settle in static hit zone before card drops */
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
+}
+
+/* --- Photo desaturation: CSS filter (Social + Content cards) --- */
+.work-card-img {
+  will-change: filter;
+  filter: grayscale(1) sepia(0.1) brightness(0.97);
+  transition: filter 350ms;
+}
+
+/* --- Photo desaturation: mix-blend-mode (Ads + Web cards) --- */
+.work-img-blend {
+  transform: translateZ(0);
+  mix-blend-mode: luminosity;
+}
+
+/* --- Ads card icon: brightness transition to match learn-more button --- */
+.ads-icon-bright {
+  transition: filter 350ms;
+}
+
+/* --- Label chip: hidden until card wrapper is hovered --- */
+.work-chip {
+  will-change: opacity;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms;
+}
+
+/* --- Ads card gradient overlay: fades in over 350ms --- */
+.work-ads-overlay {
+  will-change: opacity;
+  opacity: 0;
+  transition: opacity 350ms;
+}
+
+/* --- Ads card link icon: default visible, focused hidden (swap on hover) --- */
+.work-ads-link-focused {
+  opacity: 0;
+  transition: opacity 350ms;
+}
+
+/* --- Web card Book Now button: beige gradient default, pink via ::after on hover --- */
+.work-web-book-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(139.4deg, rgb(224, 221, 209) 0%, rgb(203, 197, 180) 100%);
+}
+.work-web-book-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(139.4deg, rgb(249, 209, 223) 0%, rgb(255, 127, 173) 100%);
+  opacity: 0;
+  transition: opacity 350ms;
+}
+
+/* --- Web card CTA text --- */
+.work-web-cta-text {
+  color: #5d5a56;
+  transition: color 350ms;
+}
+
+/* --- Social card photo images: 0.8 opacity default, transition to full on hover --- */
+.work-social-photo-img {
+  opacity: 0.8;
+  transition: opacity 350ms;
+}
+
+/* --- Ads card avatar swap: default visible, focused hidden --- */
+.work-ads-avatar-default {
+  opacity: 1;
+  transition: opacity 350ms;
+}
+.work-ads-avatar-focused {
+  opacity: 0;
+  transition: opacity 350ms;
+}
+
+/* --- Social card avatar swap: default visible, focused hidden --- */
+.work-social-avatar-default {
+  opacity: 1;
+  transition: opacity 350ms;
+}
+.work-social-avatar-focused {
+  opacity: 0;
+  transition: opacity 350ms;
+}
+
+/* --- Social card heart swap: default gray, focused pink --- */
+.work-social-heart-default {
+  opacity: 1;
+  transition: opacity 350ms;
+}
+.work-social-heart-focused {
+  opacity: 0;
+  transition: opacity 350ms;
+}
+
+/* --- Category bar buttons --- */
+.work-category-btn {
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+.work-category-btn[data-active="false"] {
+  color: var(--color-work-muted);
+}
+.work-category-btn[data-active="false"]:hover {
+  color: var(--color-work-muted-hover);
+}
+
+/* --- Sales card: color transitions (350ms) on card body elements --- */
+.work-sales-outer {
+  background-color: #e9e7dd;
+  transition: background-color 350ms;
+}
+.work-sales-island {
+  background-color: #cbc5b4;
+  transition: background-color 350ms;
+}
+.work-sales-studio-bubble {
+  background-color: #f0eee6;
+  transition: background-color 350ms;
+}
+.work-sales-studio-text {
+  color: #5d5a56;
+  transition: color 350ms;
+}
+.work-sales-customer-bubble {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-sales-customer-text {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-sales-indicator {
+  background-color: #cbc5b4;
+  transition: background-color 350ms;
+}
+
+/* --- Social card: color transitions (350ms) --- */
+.work-social-outer {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-social-profile-name {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-social-caption {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+
+/* --- Web card: color transitions (350ms; blend mode snaps instantly) --- */
+.work-web-outer {
+  background-color: #e9e7dd;
+  /* backdrop-filter always present (matches Figma default) — prevents compositing-layer blink */
+  backdrop-filter: blur(12.024px);
+  transition: background-color 350ms;
+}
+.work-web-inner {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-web-nav-link {
+  color: #847f71;
+  transition: color 350ms;
+}
+.work-web-buy-btn-bg {
+  background-color: #ede9e4;
+  transition: background-color 350ms;
+}
+.work-web-buy-btn-text {
+  color: #726c63;
+  transition: color 350ms;
+}
+.work-web-cta-bg {
+  background-color: #f0eee6;
+  transition: background-color 350ms;
+}
+.work-web-heading {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+
+/* --- Content card: color transitions (350ms) --- */
+.work-content-outer {
+  background-color: #e9e7dd;
+  /* backdrop-filter always present — prevents compositing-layer blink on hover */
+  backdrop-filter: blur(12px);
+  transition: background-color 350ms;
+}
+.work-content-inner {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-content-tag-bg {
+  background-color: #d6d2c2;
+  transition: background-color 350ms;
+}
+.work-content-tag-text {
+  color: #5d5a56;
+  transition: color 350ms;
+}
+.work-content-headline {
+  color: #5d5a56;
+  transition: color 350ms;
+}
+.work-content-body {
+  color: #3a3836;
+  transition: color 350ms;
+}
+
+/* --- Ads card elements: instant snap (no transition) --- */
+.work-ads-profile-text {
+  color: #4f4d4a;
+}
+.work-ads-caption {
+  color: #847f71;
+}
+.work-ads-cta-bg {
+  background-color: #d6d2c2;
+}
+.work-ads-cta-text {
+  color: #989281;
+}
+
+/* Desktop-only hover effects (md+) */
+@media (min-width: 768px) {
+  /* Lift: triggered by .work-card-item (static zone), 0ms delay on enter */
+  .work-card-item:hover .work-card-wrapper {
+    transform: translateY(-24px);
+    transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 0ms;
+  }
+
+  .work-card-item:hover .work-card-wrapper .work-card-img {
+    filter: none;
+  }
+
+  .work-card-item:hover .work-card-wrapper .work-img-blend {
+    mix-blend-mode: normal;
+  }
+
+  .work-card-item:hover .work-card-wrapper .ads-icon-bright {
+    filter: brightness(100);
+  }
+
+  .work-card-item:hover .work-card-wrapper .work-chip {
+    opacity: 1;
+  }
+
+  .work-card-item:hover .work-card-wrapper .work-ads-overlay {
+    opacity: 1;
+  }
+  .work-card-item:hover .work-card-wrapper .work-ads-link-focused {
+    opacity: 1;
+  }
+
+  /* Avatar swaps */
+  .work-card-item:hover .work-card-wrapper .work-ads-avatar-default {
+    opacity: 0;
+  }
+  .work-card-item:hover .work-card-wrapper .work-ads-avatar-focused {
+    opacity: 1;
+  }
+  .work-card-item:hover .work-card-wrapper .work-social-avatar-default {
+    opacity: 0;
+  }
+  .work-card-item:hover .work-card-wrapper .work-social-avatar-focused {
+    opacity: 1;
+  }
+
+  /* Heart icon: gray → pink */
+  .work-card-item:hover .work-card-wrapper .work-social-heart-default {
+    opacity: 0;
+  }
+  .work-card-item:hover .work-card-wrapper .work-social-heart-focused {
+    opacity: 1;
+  }
+
+  /* Sales */
+  .work-card-item:hover .work-card-wrapper .work-sales-outer {
+    background-color: #fcfbf8;
+  }
+  .work-card-item:hover .work-card-wrapper .work-sales-island {
+    background-color: #242323;
+  }
+  .work-card-item:hover .work-card-wrapper .work-sales-studio-bubble {
+    background-color: #ece2f3;
+  }
+  .work-card-item:hover .work-card-wrapper .work-sales-studio-text {
+    color: #422457;
+  }
+  .work-card-item:hover .work-card-wrapper .work-sales-customer-bubble {
+    background-color: #d9e7f7;
+  }
+  .work-card-item:hover .work-card-wrapper .work-sales-customer-text {
+    color: #153b65;
+  }
+  .work-card-item:hover .work-card-wrapper .work-sales-indicator {
+    background-color: #242323;
+  }
+
+  /* Ads (instant snaps — no transition defined on these elements) */
+  .work-card-item:hover .work-card-wrapper .work-ads-profile-text {
+    color: white;
+  }
+  .work-card-item:hover .work-card-wrapper .work-ads-caption {
+    color: white;
+  }
+  .work-card-item:hover .work-card-wrapper .work-ads-cta-bg {
+    background-color: white;
+  }
+  .work-card-item:hover .work-card-wrapper .work-ads-cta-text {
+    color: #242323;
+  }
+
+  /* Social */
+  .work-card-item:hover .work-card-wrapper .work-social-outer {
+    background-color: #fcfbf8;
+  }
+  .work-card-item:hover .work-card-wrapper .work-social-profile-name {
+    color: #242323;
+  }
+  .work-card-item:hover .work-card-wrapper .work-social-caption {
+    color: #242323;
+  }
+  .work-card-item:hover .work-card-wrapper .work-social-photo-img {
+    opacity: 1;
+  }
+
+  /* Web */
+  .work-card-item:hover .work-card-wrapper .work-web-outer {
+    background-color: rgba(255, 255, 255, 0.3);
+    /* backdrop-filter already at blur(12.024px) — no change needed, no blink */
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-inner {
+    background-color: white;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-nav-link {
+    color: #ff83af;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-buy-btn-bg {
+    background-color: #ede9e4;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-buy-btn-text {
+    color: #242323;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-book-btn::after {
+    opacity: 1;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-cta-bg {
+    background-color: white;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-cta-text {
+    color: #242323;
+  }
+  .work-card-item:hover .work-card-wrapper .work-web-heading {
+    color: #242323;
+  }
+
+  /* Content */
+  .work-card-item:hover .work-card-wrapper .work-content-outer {
+    background-color: rgba(255, 255, 255, 0.3);
+    /* backdrop-filter already at blur(12px) — no change needed, no blink */
+  }
+  .work-card-item:hover .work-card-wrapper .work-content-inner {
+    background-color: white;
+  }
+  .work-card-item:hover .work-card-wrapper .work-content-tag-bg {
+    background-color: #fcd8e5;
+  }
+  .work-card-item:hover .work-card-wrapper .work-content-tag-text {
+    color: #ff3d81;
+  }
+  .work-card-item:hover .work-card-wrapper .work-content-headline {
+    color: #242323;
+  }
+  .work-card-item:hover .work-card-wrapper .work-content-body {
+    color: #3a3836;
+  }
+}
+
+/* Reduced motion: suppress lift, preserve color transitions */
+@media (prefers-reduced-motion: reduce) {
+  .work-card-wrapper {
+    transition: none;
+  }
+  .work-card-item:hover .work-card-wrapper {
+    transform: none;
+  }
+  .work-chip {
+    transition: none;
+  }
+}
 
