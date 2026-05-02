@@ -5,7 +5,7 @@
 // leaf components. No 'use client' here.
 // ============================================================
 
-import { HeroAnimatic, WorkShowcase } from '@/components/sections';
+import { HeroAnimatic, WorkShowcase, OversizedFooter } from '@/components/sections';
 import type { WorkCardData, WorkIndustry, HeadlinePart } from '@/components/sections';
 
 // ---------------------------------------------------------------------------
@@ -209,6 +209,28 @@ export default async function HomePage() {
         headlineParts={WORK_HEADLINE_PARTS}
         industries={WORK_INDUSTRIES}
         cards={WORK_CARDS}
+      />
+      <OversizedFooter
+        line1="FOR BUSINESSES"
+        line2="THAT ARE"
+        line3=" DONE FIGURING"
+        line4="IT OUT THEMSELVES"
+        leftTagline="The modern growth team for local business."
+        rightTagline="Stay informed about our latest features and product releases"
+        cta1Label="Learn more"
+        cta1Href="#"
+        cta2Label="Get started"
+        cta2Href="#"
+        emailPlaceholder="Email Address"
+        signUpLabel="Sign Up"
+        keystoneMarkSrc="/footer/footer-keystone-mark.svg"
+        ctaArrowSrc="/footer/footer-cta-arrow.svg"
+        keystoneWordmarkSrc="/footer/footer-wordmark.svg"
+        videoA="/footer/footer-video-businesswoman.mp4"
+        videoB="/footer/footer-video-storefront.mp4"
+        videoC="/footer/footer-video-barbershop.mp4"
+        videoD="/footer/footer-video-phone-call.mp4"
+        videoE="/footer/footer-video-ceramics.mp4"
       />
     </main>
   );

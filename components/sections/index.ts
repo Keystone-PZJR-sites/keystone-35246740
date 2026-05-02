@@ -13,3 +13,5 @@ export type {
   ContentCardContent,
   SalesMessage,
 } from './WorkShowcase';
+export { OversizedFooter } from './OversizedFooter';
+export type { OversizedFooterProps } from './OversizedFooter';
