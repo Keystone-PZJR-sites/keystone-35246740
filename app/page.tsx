@@ -5,8 +5,22 @@
 // leaf components. No 'use client' here.
 // ============================================================
 
-import { HeroAnimatic, WorkShowcase, EveryChannel, OversizedFooter } from '@/components/sections';
-import type { WorkCardData, WorkIndustry, HeadlinePart, PillData } from '@/components/sections';
+import {
+  HeroAnimatic,
+  WorkShowcase,
+  EveryChannel,
+  SocialProofSection,
+  PricingSection,
+  OversizedFooter,
+} from '@/components/sections';
+import type {
+  WorkCardData,
+  WorkIndustry,
+  HeadlinePart,
+  PillData,
+  SocialProofSlide,
+  SocialProofThumbnail,
+} from '@/components/sections';
 
 // ---------------------------------------------------------------------------
 // Work Showcase — industry data
@@ -199,6 +213,133 @@ const EVERY_CHANNEL_PILLS: PillData[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Social Proof — thumbnails (positions are px values at the 1440px Figma canvas)
+// ---------------------------------------------------------------------------
+
+// Positions are px values at the 1440×1024 Figma canvas.
+// Each thumbnail owns its marker badge — center sits on the top-right corner.
+const SOCIAL_THUMBNAILS: SocialProofThumbnail[] = [
+  {
+    videoSrc: '/social-proof/social-proof-video-1.mp4',
+    width: 382, height: 215, initialLeft: 226, initialTop: 61,
+    markerSrc: '/social-proof/social-proof-marker-cross.svg',
+  },
+  {
+    videoSrc: '/social-proof/social-proof-video-2.mp4',
+    width: 278, height: 156, initialLeft: 833, initialTop: 88,
+    markerSrc: '/social-proof/social-proof-marker-cross.svg',
+  },
+  {
+    videoSrc: '/social-proof/social-proof-video-3.mp4',
+    width: 178, height: 100, initialLeft: 1238, initialTop: 287,
+    markerSrc: '/social-proof/social-proof-marker-cross.svg',
+  },
+  {
+    videoSrc: '/social-proof/social-proof-video-4.mp4',
+    width: 275, height: 214, initialLeft: 0, initialTop: 503.5,
+    markerSrc: '/social-proof/social-proof-marker-cross.svg',
+  },
+  {
+    videoSrc: '/social-proof/social-proof-video-5.mp4',
+    width: 381, height: 268, initialLeft: 934, initialTop: 684.69,
+    markerSrc: '/social-proof/social-proof-marker-cross.svg',
+  },
+  {
+    videoSrc: '/social-proof/social-proof-video-6.mp4',
+    width: 178, height: 100, initialLeft: 328, initialTop: 768,
+    markerSrc: '/social-proof/social-proof-marker-cross.svg',
+  },
+];
+
+// Quote shared by slides 1, 2, 4, 6
+const QUOTE_CANVA: SocialProofSlide['quoteSegments'] = [
+  { text: "I used to spend Sunday nights writing social captions. I haven\u2019t opened Canva in " },
+  { text: 'four months', oblique: true },
+  { text: '.' },
+];
+
+// Quote shared by slides 3, 5
+const QUOTE_MARKETING: SocialProofSlide['quoteSegments'] = [
+  { text: 'The weird part', oblique: true },
+  { text: ' is I think about marketing less than I did before I had a marketing team.' },
+];
+
+const SOCIAL_SLIDES: SocialProofSlide[] = [
+  {
+    videoSrc:       '/social-proof/social-proof-video-1.mp4',
+    cardBgColor:    '#d8c2ff',
+    textColor:      '#2f0d3f',
+    quoteSegments:  QUOTE_CANVA,
+    personName:     'Kristen Lovely',
+    businessName:   'Lean \u0026 Lovely Medspa',
+    location:       'Boulder, CO',
+    namePillBg:     '#f0e8ff', namePillText:     '#2f0d3f',
+    businessPillBg: '#2f0d3f', businessPillText: '#f0eee6',
+    locationPillBg: '#9c65ee', locationPillText: '#d8c2ff',
+  },
+  {
+    videoSrc:       '/social-proof/social-proof-video-2.mp4',
+    cardBgColor:    '#f57e56',
+    textColor:      '#3e181a',
+    quoteSegments:  QUOTE_CANVA,
+    personName:     'Kristen Lovely',
+    businessName:   'Lean \u0026 Lovely Medspa',
+    location:       'Boulder, CO',
+    namePillBg:     '#ffebd9', namePillText:     '#3c1618',
+    businessPillBg: '#3c1618', businessPillText: '#f0eee6',
+    locationPillBg: '#9f3722', locationPillText: '#ffbb8a',
+  },
+  {
+    videoSrc:       '/social-proof/social-proof-video-3.mp4',
+    cardBgColor:    '#6ecc8b',
+    textColor:      '#063126',
+    quoteSegments:  QUOTE_MARKETING,
+    personName:     'Kristen Lovely',
+    businessName:   'Lean \u0026 Lovely Medspa',
+    location:       'Boulder, CO',
+    namePillBg:     '#063126', namePillText:     '#dcfbd9',
+    businessPillBg: '#56b373', businessPillText: '#063126',
+    locationPillBg: '#dcfbd9', locationPillText: '#063126',
+  },
+  {
+    videoSrc:       '/social-proof/social-proof-video-4.mp4',
+    cardBgColor:    '#F2D474',
+    textColor:      '#835F20',
+    quoteSegments:  QUOTE_CANVA,
+    personName:     'Kristen Lovely',
+    businessName:   'Lean \u0026 Lovely Medspa',
+    location:       'Boulder, CO',
+    namePillBg:     '#F2BA46', namePillText:     '#835F20',
+    businessPillBg: '#835F20', businessPillText: '#F2D474',
+    locationPillBg: '#F2BA46', locationPillText: '#835F20',
+  },
+  {
+    videoSrc:       '/social-proof/social-proof-video-5.mp4',
+    cardBgColor:    '#AAE0D2',
+    textColor:      '#318175',
+    quoteSegments:  QUOTE_MARKETING,
+    personName:     'Kristen Lovely',
+    businessName:   'Lean \u0026 Lovely Medspa',
+    location:       'Boulder, CO',
+    namePillBg:     '#399587', namePillText:     '#AAE0D2',
+    businessPillBg: '#318175', businessPillText: '#AAE0D2',
+    locationPillBg: '#AAE0D2', locationPillText: '#318175',
+  },
+  {
+    videoSrc:       '/social-proof/social-proof-video-6.mp4',
+    cardBgColor:    '#9DCBFF',
+    textColor:      '#055CFF',
+    quoteSegments:  QUOTE_CANVA,
+    personName:     'Kristen Lovely',
+    businessName:   'Lean \u0026 Lovely Medspa',
+    location:       'Boulder, CO',
+    namePillBg:     '#56a6ff', namePillText:     '#f0eee6',
+    businessPillBg: '#055CFF', businessPillText: '#9DCBFF',
+    locationPillBg: '#9DCBFF', locationPillText: '#055CFF',
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 
@@ -236,8 +377,46 @@ export default async function HomePage() {
         videoSrc="/every-channel/every-channel-bg.mp4"
         pills={EVERY_CHANNEL_PILLS}
       />
-      {/* z-20 ensures the footer scrolls over the sticky WorkShowcase (z-10) */}
+      {/* z-20 ensures all sections after EveryChannel scroll over
+          the sticky WorkShowcase (z-10) */}
       <div className="relative z-20">
+        <SocialProofSection
+          headlineLine1="Great BUSINESSES "
+          headlineLine2="deserve to be found."
+          thumbnails={SOCIAL_THUMBNAILS}
+          slides={SOCIAL_SLIDES}
+          closeButtonSrc="/social-proof/social-proof-modal-button.svg"
+        />
+        <PricingSection
+          tagline="Always-on Sales & Marketing"
+          priceAmount="$49 "
+          pricePeriod="/ MONTH"
+          subCopyLine1="Per location. Every tool included."
+          subCopyLine2="No contracts. No negotiation. Simple to scale."
+          featureChips={[
+            { label: 'Your Website', iconColor: '#FF6F5C' },
+            { label: 'Your CRM', iconColor: '#F297B7' },
+            { label: 'Your Ads', iconColor: '#F38BB0' },
+            { label: 'Your Sales', iconColor: '#9C65EE' },
+            { label: 'Your Front Desk', iconColor: '#5BC3B3' },
+            { label: 'Your Social', iconColor: '#65CF78' },
+            { label: 'Your Reviews', iconColor: '#56A6FF' },
+            { label: 'Your Content', iconColor: '#F1C131' },
+            { label: 'Your Listings', iconColor: '#F57E56' },
+          ]}
+          creditsText="Keystone work runs on credits. Credits are usage-based and cover anything Keystone does for you. Posts written. Leads replied to. Campaigns launched. Reviews responded to."
+          addOnsHeading="ADD ONS"
+          marketplace={{
+            label: 'Marketplace',
+            description: "Checkout, memberships, and bookings from Keystone's consumer platform.",
+          }}
+          payments={{
+            label: 'Payments',
+            description: 'Standard payment processing on transactions.',
+          }}
+          comingSoonLabel="Coming soon."
+          addonIconSrc="/pricing/pricing-addon-icon.svg"
+        />
       <OversizedFooter
         line1="FOR BUSINESSES"
         line2="THAT ARE"
