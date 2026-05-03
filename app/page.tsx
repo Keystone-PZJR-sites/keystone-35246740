@@ -5,7 +5,7 @@
 // leaf components. No 'use client' here.
 // ============================================================
 
-import { HeroAnimatic, WorkShowcase, OversizedFooter } from '@/components/sections';
+import { HeroAnimatic, WorkShowcase, PricingSection, OversizedFooter } from '@/components/sections';
 import type { WorkCardData, WorkIndustry, HeadlinePart } from '@/components/sections';
 
 // ---------------------------------------------------------------------------
@@ -209,6 +209,36 @@ export default async function HomePage() {
         headlineParts={WORK_HEADLINE_PARTS}
         industries={WORK_INDUSTRIES}
         cards={WORK_CARDS}
+      />
+      <PricingSection
+        tagline="Always-on Sales & Marketing"
+        priceAmount="$49 "
+        pricePeriod="/ MONTH"
+        subCopyLine1="Per location. Every tool included."
+        subCopyLine2="No contracts. No negotiation. Simple to scale."
+        featureChips={[
+          { label: 'Your Website', iconColor: '#FF6F5C' },
+          { label: 'Your CRM', iconColor: '#F297B7' },
+          { label: 'Your Ads', iconColor: '#F38BB0' },
+          { label: 'Your Sales', iconColor: '#9C65EE' },
+          { label: 'Your Front Desk', iconColor: '#5BC3B3' },
+          { label: 'Your Social', iconColor: '#65CF78' },
+          { label: 'Your Reviews', iconColor: '#56A6FF' },
+          { label: 'Your Content', iconColor: '#F1C131' },
+          { label: 'Your Listings', iconColor: '#F57E56' },
+        ]}
+        creditsText="Keystone work runs on credits. Credits are usage-based and cover anything Keystone does for you. Posts written. Leads replied to. Campaigns launched. Reviews responded to."
+        addOnsHeading="ADD ONS"
+        marketplace={{
+          label: 'Marketplace',
+          description: "Checkout, memberships, and bookings from Keystone's consumer platform.",
+        }}
+        payments={{
+          label: 'Payments',
+          description: 'Standard payment processing on transactions.',
+        }}
+        comingSoonLabel="Coming soon."
+        addonIconSrc="/pricing/pricing-addon-icon.svg"
       />
       <OversizedFooter
         line1="FOR BUSINESSES"
