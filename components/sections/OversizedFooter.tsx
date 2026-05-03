@@ -186,7 +186,7 @@ export function OversizedFooter({
           ================================================================ */}
       {/* max-w-[1440px] prevents the lower zone from expanding beyond the
           design canvas width at very wide viewports */}
-      <div className="px-6 lg:px-[27px] pb-6 lg:pb-0 max-w-[1440px]">
+      <div className="px-6 pb-6">
 
         {/* Keystone geometric mark */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -204,7 +204,9 @@ export function OversizedFooter({
             <p className="footer-tagline max-w-[244px]">{leftTagline}</p>
           </div>
           <div className="footer-lower-right">
-            <p className="footer-tagline max-w-[388px]">{rightTagline}</p>
+            <div className="w-full ml-auto lg:max-w-[785px]">
+              <p className="footer-tagline max-w-[388px]">{rightTagline}</p>
+            </div>
           </div>
         </div>
 
@@ -230,7 +232,7 @@ export function OversizedFooter({
 
           {/* Right pill — email input + "Sign Up →" */}
           <div className="footer-lower-right">
-            <div className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full lg:max-w-[785px]">
+            <div className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full ml-auto lg:max-w-[785px]">
               <label htmlFor="footer-email" className="sr-only">
                 {emailPlaceholder}
               </label>

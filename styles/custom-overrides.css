@@ -706,8 +706,7 @@ body {
    "0 0 1389.5 268.297") so letterforms never stretch. --- */
 .footer-wordmark-img {
   display: block;
-  width: 96.49%;
-  max-width: 1389.5px;
+  width: 100%;
   height: auto;
   aspect-ratio: 1389.5 / 268.297;
 }

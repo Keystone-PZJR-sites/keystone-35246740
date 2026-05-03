@@ -101,10 +101,10 @@ export function HeroAnimatic({
     <>
       {/* Fixed nav bar — always visible, not part of the pinned section */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 md:px-6 md:pt-5"
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 md:px-12 md:pt-6"
         aria-label="Main navigation"
       >
-        <div className="flex w-full max-w-[1344px] items-center justify-between rounded-full bg-[#042019] px-6 py-3 md:px-12 md:py-5">
+        <div className="flex w-full items-center justify-between rounded-full bg-[#042019] px-6 py-3 md:px-12 md:py-5">
           <Image
             src={wordmarkSrc}
             alt="Keystone"
@@ -143,18 +143,20 @@ export function HeroAnimatic({
         {/* Headline — starts near the section bottom, GSAP translates it upward */}
         <div
           ref={headlineRef}
-          className="absolute bottom-6 left-0 right-0 z-10 pointer-events-none"
+          className="absolute bottom-6 left-0 right-0 z-10 pointer-events-none md:bottom-12 md:left-6 md:right-6"
           style={{ willChange: 'transform' }}
         >
+          {/* "Always ON" — left-anchored 24 px from video left edge */}
           <p
-            className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase"
-            style={{ fontSize: 'clamp(3rem, 15vw, 13.5rem)', marginLeft: '3.3vw' }}
+            className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-left md:pl-6"
+            style={{ fontSize: 'clamp(3rem, 15vw, 20rem)' }}
           >
             {headlineLine1}
           </p>
+          {/* "SALES & MARKETING" — right-anchored 24 px from video right edge */}
           <p
-            className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase"
-            style={{ fontSize: 'clamp(3rem, 15vw, 13.5rem)', marginLeft: '14.6vw' }}
+            className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-right md:pr-6"
+            style={{ fontSize: 'clamp(3rem, 15vw, 20rem)' }}
           >
             {headlineLine2}
           </p>
