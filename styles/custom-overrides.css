@@ -74,6 +74,9 @@
   /* Oversized Footer */
   --color-footer-bg: #3d1719;
 
+  /* Social Proof */
+  --color-social-proof-bg: #0d2a28;
+
   /* Pricing */
   --color-pricing-bg: #0a1f1e;
   --color-pricing-tagline: #4fafa0;
@@ -976,6 +979,491 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .pricing-section * {
     animation: none !important;
+  }
+}
+
+/* ==================== SOCIAL PROOF SECTION ==================== */
+
+/* --- Section container --- */
+.sp-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-social-proof-bg);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .sp-section {
+    /* Figma frame is 1440×1024 */
+    aspect-ratio: 1440 / 1024;
+  }
+}
+
+/* --- Headline wrapper — absolutely centered --- */
+.sp-headline-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* 10.254% = half of headline height (210px) as % of 1024px canvas,
+     so the headline is vertically centered at all canvas widths */
+  top: calc(50% - 10.254%);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sp-headline {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 8.889vw, 128px);
+  line-height: 0.82;
+  text-transform: uppercase;
+  color: var(--color-hero-text);
+  text-align: center;
+  width: 66.2%; /* 953.672px / 1440px */
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* --- Thumbnail layer — covers the full section --- */
+.sp-thumbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* --- Wrapper for each thumbnail + its badge.
+       GSAP targets this element for floating animation.               --- */
+.sp-thumb-wrap {
+  position: absolute;
+  left: var(--sp-left);
+  top: var(--sp-top);
+  width: var(--sp-width);
+  height: var(--sp-height);
+  will-change: transform;
+  /* Allow badge to visually overflow the thumbnail bounds */
+  overflow: visible;
+}
+
+/* --- Thumbnail button fills the wrapper --- */
+.sp-thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sp-thumb-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+  display: block;
+}
+
+/* --- Marker badge — center sits exactly on the thumbnail's top-right corner.
+       top: -7.5px  = badge center Y aligns with wrapper's top edge
+       right: -7.5px = badge center X aligns with wrapper's right edge    --- */
+.sp-thumb-badge {
+  position: absolute;
+  top: -7.5px;
+  right: -7.5px;
+  width: 15px;
+  height: 15px;
+  display: block;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==================== SOCIAL PROOF MODAL ==================== */
+
+/* --- Full-viewport modal overlay ---
+     Always in the DOM so Embla stays initialized.
+     visibility:hidden keeps it out of the accessibility tree and paint
+     while preserving layout, so getBoundingClientRect() on its children
+     returns the correct final positions before the modal is shown.
+     opacity:0 is the default — GSAP drives the fade in/out; no CSS
+     transition here so GSAP has sole ownership of the opacity value.  */
+.sp-modal {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-social-proof-bg);
+  overflow: hidden;
+  z-index: 100;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sp-modal--open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --- Close button: directly positioned, no wrapper needed ---
+       right: 7vw → left edge at 93vw - 46px ≈ 1293px at 1440px (matches Figma).
+       top = video top − 21px = (50vh − 23.435vw) − 21px.
+       Stays 21px above the video at every viewport size.              */
+.sp-close-btn {
+  position: absolute;
+  right: 7vw;
+  top: calc(50vh - 23.435vw - 21px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.sp-close-icon {
+  display: block;
+  width: 32.77px;
+  height: 32.77px;
+  /* "+" rotated 45° becomes "×" */
+  transform: rotate(45deg);
+}
+
+/* ==================== EMBLA CAROUSEL ==================== */
+
+/* --- Carousel viewport --- */
+.sp-embla {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* overflow is overridden to visible on desktop via JS after Embla init */
+}
+
+/* --- Flex container of slides --- */
+.sp-embla-container {
+  display: flex;
+  height: 100%;
+  user-select: none;
+}
+
+/* --- Individual slide --- */
+.sp-slide {
+  /* 85.14vw = 1226px / 1440px — the step between slides */
+  flex: 0 0 85.14vw;
+  min-width: 0;
+  position: relative;
+  height: 100%;
+}
+
+/* --- Transition wrapper: GSAP expand/shrink target on open/close.
+       Positioned so the active video is perfectly vertically centered.
+       Video height = 82.9vw × (675/1194) = 46.87vw → half = 23.435vw.
+       top = 50vh − 23.435vw  →  video center = 50vh  (exact).
+       Inactive slides add translateY(24px) via .sp-slide-video-wrap,
+       placing their center at 50vh + 12px (just below center).        --- */
+.sp-slide-transition-wrap {
+  position: absolute;
+  left: calc(7.14vw + 22px);
+  top: calc(50vh - 23.435vw);
+  width: 82.9vw;
+  /* Height determined by .sp-slide-video-wrap's aspect-ratio */
+}
+
+/* --- Video wrapper: CSS lift effect — active slide sits 24px higher.  --- */
+.sp-slide-video-wrap {
+  width: 100%;
+  aspect-ratio: 1194 / 675;
+  border-radius: 5px;
+  overflow: hidden;
+  /* Adjacent slides start 24px lower; active slides are at natural position */
+  transform: translateY(24px);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sp-slide-video-wrap--active {
+  transform: translateY(0);
+}
+
+.sp-slide-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+  display: block;
+}
+
+/* --- Testimonial card — positioned independently of the transition wrapper.
+       top = video_top + 63.3% of video_height
+           = (50vh − 23.435vw) + 29.67vw
+           = 50vh + 6.235vw.
+       Maintains the Figma-spec overlap between card and video.             --- */
+.sp-card-position {
+  position: absolute;
+  top: calc(50vh + 6.235vw);
+  left: calc(50vw + 65px);
+  width: min(534px, 37.1vw);
+  height: auto;
+}
+
+/* --- Shadow wrapper: filter:drop-shadow follows the clip-path boundary --- */
+.sp-card-filter-wrap {
+  width: 100%;
+  height: 100%;
+  filter:
+    drop-shadow(0px 4px 3px rgba(0, 0, 0, 0.1))
+    drop-shadow(0px 10px 8px rgba(0, 0, 0, 0.04));
+}
+
+/* --- Card: clip-path cuts the top-left corner diagonally --- */
+.sp-card {
+  clip-path: polygon(17.5px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 17.5px);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 30px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* --- Quote text --- */
+.sp-card-quote {
+  font-family: 'FK Roman Standard', serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.04;
+  letter-spacing: -1.2px;
+  margin: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Oblique spans for emphasized quote portions */
+.sp-card-quote-em {
+  font-style: oblique;
+}
+
+/* --- Attribution row --- */
+.sp-card-attribution {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.sp-card-pills-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* --- Individual pill chip --- */
+.sp-card-pill {
+  font-family: 'FK Grotesk Mono', monospace;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.36px;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* --- Dim overlay for adjacent (inactive) slides --- */
+.sp-card-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  clip-path: polygon(17.5px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 17.5px);
+}
+
+/* --- Navigation hit areas for adjacent slides (position: absolute within modal) --- */
+.sp-nav-prev,
+.sp-nav-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 5;
+}
+
+.sp-nav-prev {
+  left: 0;
+  width: calc(7.14vw + 22px);
+}
+
+.sp-nav-next {
+  right: 0;
+  width: calc(100vw - (7.14vw + 22px + 82.9vw));
+}
+
+/* ==================== SOCIAL PROOF — MOBILE ==================== */
+
+@media (max-width: 767px) {
+  /* Section: switch from aspect-ratio canvas to flex column */
+  .sp-section {
+    aspect-ratio: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 48px 0 64px;
+  }
+
+  /* Headline: in-flow, full-width */
+  .sp-headline-wrap {
+    position: static;
+    padding: 0 16px;
+    justify-content: center;
+  }
+
+  .sp-headline {
+    width: 100%;
+    font-size: clamp(32px, 14vw, 64px);
+  }
+
+  /* Thumbnail wrapper: in-flow grid cell */
+  .sp-thumbs {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0 16px;
+  }
+
+  .sp-thumb-wrap {
+    position: static;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    will-change: auto;
+    overflow: hidden; /* clip the button on mobile */
+  }
+
+  .sp-thumb {
+    position: relative;
+    border-radius: 5px;
+  }
+
+  /* Hide badges on mobile — decorative only */
+  .sp-thumb-badge {
+    display: none;
+  }
+
+  /* Modal: hide background headline on mobile */
+  .sp-modal .sp-headline-wrap {
+    display: none;
+  }
+
+  /* Mobile close button: small fixed offset from corner */
+  .sp-close-btn {
+    top: 16px !important;
+    right: 16px;
+  }
+
+  /* Mobile slide: full viewport width, column layout */
+  .sp-slide {
+    flex: 0 0 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Mobile transition wrapper: in-flow, full width, no absolute */
+  .sp-slide-transition-wrap {
+    position: static;
+    width: 100%;
+    top: auto;
+    left: auto;
+  }
+
+  /* Mobile video: full width, 16:9, below top controls */
+  .sp-slide-video-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 80px;
+    transform: none;
+    transition: none;
+  }
+
+  /* Mobile card: below video, full width */
+  .sp-card-position {
+    position: static;
+    width: 100%;
+    height: auto;
+    top: auto;
+    left: auto;
+    margin-top: 16px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .sp-card-filter-wrap {
+    height: auto;
+  }
+
+  .sp-card {
+    height: auto;
+  }
+
+  .sp-card-quote {
+    font-size: 24px;
+  }
+
+  /* Hide adjacent nav areas on mobile */
+  .sp-nav-prev,
+  .sp-nav-next {
+    display: none;
+  }
+}
+
+/* ==================== SOCIAL PROOF — TABLET ==================== */
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .sp-card-quote {
+    font-size: clamp(18px, 2.78vw, 40px);
+  }
+
+  .sp-card-position {
+    width: min(534px, 37.1vw);
+  }
+}
+
+/* ==================== SOCIAL PROOF — REDUCED MOTION ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-thumb-wrap {
+    will-change: auto;
+  }
+
+  .sp-slide-video-wrap {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .sp-embla-container {
+    transition: none;
   }
 }
 

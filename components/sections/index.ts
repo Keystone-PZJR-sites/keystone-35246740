@@ -17,3 +17,10 @@ export { OversizedFooter } from './OversizedFooter';
 export type { OversizedFooterProps } from './OversizedFooter';
 export { PricingSection } from './PricingSection';
 export type { PricingSectionProps, FeatureChip, AddOnData } from './PricingSection';
+export { SocialProofSection } from './SocialProofSection';
+export type {
+  SocialProofSectionProps,
+  SocialProofSlide,
+  SocialProofThumbnail,
+  QuoteSegment,
+} from './SocialProofSection';
