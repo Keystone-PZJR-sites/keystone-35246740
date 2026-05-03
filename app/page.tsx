@@ -5,8 +5,8 @@
 // leaf components. No 'use client' here.
 // ============================================================
 
-import { HeroAnimatic, WorkShowcase, OversizedFooter } from '@/components/sections';
-import type { WorkCardData, WorkIndustry, HeadlinePart } from '@/components/sections';
+import { HeroAnimatic, WorkShowcase, EveryChannel, OversizedFooter } from '@/components/sections';
+import type { WorkCardData, WorkIndustry, HeadlinePart, PillData } from '@/components/sections';
 
 // ---------------------------------------------------------------------------
 // Work Showcase — industry data
@@ -185,6 +185,20 @@ const WORK_CARDS: WorkCardData[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Every Channel — pill data
+// ---------------------------------------------------------------------------
+
+const EVERY_CHANNEL_PILLS: PillData[] = [
+  { label: 'Ads',      color: '#ff7c1f', left: '32.2%', top: '14.0%', beatIndex: 0 },
+  { label: 'Sales',    color: '#56a6ff', left: '61.5%', top: '38.0%', beatIndex: 1 },
+  { label: 'Web',      color: '#5bc3b3', left: '5.4%',  top: '48.7%', beatIndex: 2 },
+  { label: 'Leads',    color: '#f2ba46', left: '19.7%', top: '79.2%', beatIndex: 3 },
+  { label: 'Reviews',  color: '#f6523c', left: '76.8%', top: '70.5%', beatIndex: 4 },
+  { label: 'Content',  color: '#f38bb0', left: '86.6%', top: '27.7%', beatIndex: 5 },
+  { label: 'Social',   color: '#9c65ee', left: '39.8%', top: '55.3%', beatIndex: 6 },
+];
+
+// ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 
@@ -205,11 +219,25 @@ export default async function HomePage() {
         wordmarkSrc="/images/keystone-wordmark.svg"
         markSrc="/images/keystone-mark.svg"
       />
-      <WorkShowcase
-        headlineParts={WORK_HEADLINE_PARTS}
-        industries={WORK_INDUSTRIES}
-        cards={WORK_CARDS}
+      {/* Sticky wrapper keeps WorkShowcase frozen at top:0 while EveryChannel
+          (z-20) rises over it. WorkShowcase un-sticks naturally once
+          EveryChannel's 300vh wrapper has scrolled past. */}
+      <div className="md:sticky md:top-0 md:z-10">
+        <WorkShowcase
+          headlineParts={WORK_HEADLINE_PARTS}
+          industries={WORK_INDUSTRIES}
+          cards={WORK_CARDS}
+        />
+      </div>
+      <EveryChannel
+        line1="Every CHANNEL."
+        line2="Every INTERACTION."
+        line3="done-for-you."
+        videoSrc="/every-channel/every-channel-bg.mp4"
+        pills={EVERY_CHANNEL_PILLS}
       />
+      {/* z-20 ensures the footer scrolls over the sticky WorkShowcase (z-10) */}
+      <div className="relative z-20">
       <OversizedFooter
         line1="FOR BUSINESSES"
         line2="THAT ARE"
@@ -232,6 +260,7 @@ export default async function HomePage() {
         videoD="/footer/footer-video-phone-call.mp4"
         videoE="/footer/footer-video-ceramics.mp4"
       />
+      </div>
     </main>
   );
 }

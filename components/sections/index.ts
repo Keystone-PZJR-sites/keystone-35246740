@@ -1,6 +1,8 @@
 export { HeroAnimatic } from './HeroAnimatic';
 export type { HeroAnimaticProps } from './HeroAnimatic';
 export { WorkShowcase } from './WorkShowcase';
+export { EveryChannel } from './EveryChannel';
+export type { EveryChannelProps, PillData } from './EveryChannel';
 export type {
   WorkShowcaseProps,
   WorkIndustry,
