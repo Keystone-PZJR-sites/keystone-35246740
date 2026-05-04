@@ -10,6 +10,7 @@ import {
   HeroNav,
   WorkShowcase,
   EveryChannel,
+  ProductScreens,
   SocialProofSection,
   PricingSection,
   OversizedFooter,
@@ -20,6 +21,8 @@ import type {
   WorkIndustry,
   HeadlinePart,
   PillData,
+  ProductScreensTool,
+  ProductScreensPillPosition,
   SocialProofSlide,
   SocialProofThumbnail,
 } from '@/components/sections';
@@ -215,6 +218,114 @@ const EVERY_CHANNEL_PILLS: PillData[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Product Screens — per-tool data (all values from Figma node 1087:2360)
+// ---------------------------------------------------------------------------
+
+const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
+  {
+    id: 'web',
+    label: 'Web',
+    cardBg: '#042019',
+    copyAccent: '#6ecc8b',
+    pillFill: '#65cf78',
+    inactiveBorder: '#0a4d3c',
+    squareColor: '#65cf78',
+    copyText:
+      'A fast, conversion-optimized site built to your brand and kept current without you lifting a finger.',
+    markSrc: '/product-screens/mark-web.svg',
+    screenshotSrc: '/product-screens/screen-web.png',
+  },
+  {
+    id: 'leads',
+    label: 'Leads',
+    cardBg: '#3a2a0e',
+    copyAccent: '#f2ba46',
+    pillFill: '#f1c131',
+    inactiveBorder: '#594117',
+    squareColor: '#f1c131',
+    copyText:
+      'Every inbound lead gets a reply in minutes — 24/7 — so warm interest never goes cold.',
+    markSrc: '/product-screens/mark-leads.svg',
+    screenshotSrc: '/product-screens/screen-leads.png',
+  },
+  {
+    id: 'ads',
+    label: 'Ads',
+    cardBg: '#3c1618',
+    copyAccent: '#f57e56',
+    pillFill: '#f57e56',
+    inactiveBorder: '#652528',
+    squareColor: '#f57e56',
+    copyText:
+      'Meta campaigns that target the right customers, in your market, with the right offer at the right moment.',
+    markSrc: '/product-screens/mark-ads.svg',
+    screenshotSrc: '/product-screens/screen-ads.png',
+  },
+  {
+    id: 'social',
+    label: 'Social',
+    cardBg: '#2f0d3f',
+    copyAccent: '#9c65ee',
+    pillFill: '#9c65ee',
+    inactiveBorder: '#581876',
+    squareColor: '#9c65ee',
+    copyText:
+      'On-brand, consistent posting across your channels — without you writing a single caption.',
+    markSrc: '/product-screens/mark-social.svg',
+    screenshotSrc: '/product-screens/screen-social.png',
+  },
+  {
+    id: 'sales',
+    label: 'Sales',
+    cardBg: '#0f223d',
+    copyAccent: '#56a6ff',
+    pillFill: '#56a6ff',
+    inactiveBorder: '#1b3e6f',
+    squareColor: '#56a6ff',
+    copyText:
+      'On-brand, consistent posting across your channels — without you writing a single caption.',
+    markSrc: '/product-screens/mark-sales.svg',
+    screenshotSrc: '/product-screens/screen-sales.png',
+  },
+  {
+    id: 'reviews',
+    label: 'Reviews',
+    cardBg: '#0d2a28',
+    copyAccent: '#5bc3b3',
+    pillFill: '#5bc3b3',
+    inactiveBorder: '#174a46',
+    squareColor: '#5bc3b3',
+    copyText:
+      'On-brand, consistent posting across your channels — without you writing a single caption.',
+    markSrc: '/product-screens/mark-reviews.svg',
+    screenshotSrc: '/product-screens/screen-reviews.png',
+  },
+  {
+    id: 'content',
+    label: 'Content',
+    cardBg: '#3d1324',
+    copyAccent: '#f38bb0',
+    pillFill: '#f38bb0',
+    inactiveBorder: '#611e39',
+    squareColor: '#f38bb0',
+    copyText: 'Continuous, search-optimized content that builds your visibility over time.',
+    markSrc: '/product-screens/mark-content.svg',
+    screenshotSrc: '/product-screens/screen-content.png',
+  },
+];
+
+// Scatter positions match EVERY_CHANNEL_PILLS (same label→position mapping)
+const PRODUCT_SCREENS_SCATTER: ProductScreensPillPosition[] = [
+  { label: 'Web',     left: '5.4%',  top: '48.7%' },
+  { label: 'Leads',   left: '19.7%', top: '79.2%' },
+  { label: 'Ads',     left: '32.2%', top: '14.0%' },
+  { label: 'Social',  left: '39.8%', top: '55.3%' },
+  { label: 'Sales',   left: '61.5%', top: '38.0%' },
+  { label: 'Reviews', left: '76.8%', top: '70.5%' },
+  { label: 'Content', left: '86.6%', top: '27.7%' },
+];
+
+// ---------------------------------------------------------------------------
 // Social Proof — thumbnails (positions are px values at the 1440px Figma canvas)
 // ---------------------------------------------------------------------------
 
@@ -378,6 +489,12 @@ export default async function HomePage() {
           line3="done-for-you."
           videoSrc="/every-channel/every-channel-bg.mp4"
           pills={EVERY_CHANNEL_PILLS}
+        />
+      </div>
+      <div className="snap-start relative z-30">
+        <ProductScreens
+          tools={PRODUCT_SCREENS_TOOLS}
+          scatterPositions={PRODUCT_SCREENS_SCATTER}
         />
       </div>
       <div className="snap-start">

@@ -227,3 +227,11 @@ If you receive an SVG from Figma that uses the Exclude technique, ask the design
 **`transition-colors` is overridden by inline `style` color props.** If you apply `style={{ color: activeColor }}` to set an active state, the inline style wins at every point in the transition and the CSS transition has no visible effect. Apply the inline style only when active (`style={isActive ? { color } : undefined}`) and let the CSS class handle the default color and the easing.
 
 **`mix-blend-mode: luminosity` and a transitioning parent background interact badly.** When a photo is desaturated via `mix-blend-mode: luminosity` and its parent container also transitions its `background-color`, the photo blinks visually mid-transition. Use a CSS `filter` approach for desaturation on any card whose background color also transitions.
+
+---
+
+## 19. Code Is the Source of Truth
+
+**Specs document intent; code holds the current values.** Colors, spacing, measurements, animation timings, and data values in the codebase are always authoritative. Spec files capture design intent at a point in time and may be out of date.
+
+When continuing work beyond a spec — adding features, fixing bugs, or iterating — never revert to values written in the spec. Read the actual code to find what is currently in use and preserve it. Only consult the spec to understand the purpose or intent behind a section, not to recover numbers.

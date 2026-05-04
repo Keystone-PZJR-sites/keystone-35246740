@@ -984,6 +984,202 @@ body {
   }
 }
 
+/* ==================== PRODUCT SCREENS ==================== */
+
+/* --- Wrapper: stable layout boundary so GSAP's pin spacer doesn't pollute
+   the smoother's root coordinate space when all triggers refresh. --- */
+.ps-container {
+  position: relative;
+}
+
+/* --- Section: full viewport, cream background.
+   overflow:visible (not hidden) lets the full-screen scaled card extend above
+   the section top during the entrance — visible over the prior section at z-30.
+   position:relative anchors the absolutely-positioned card and pill nav. --- */
+.ps-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: visible;
+  background-color: var(--color-hero-text, #f0eee6);
+}
+
+/* --- Dark inset card: 24px from every edge at rest.
+   overflow:hidden clips the screenshot's rounded corners.
+   background-color is set via inline style (initial) and GSAP (transitions).
+   transform-origin is "center bottom" so GSAP scaleX contracts from the sides. --- */
+.ps-card {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* --- Pill nav row: floats above the card, 46px from card's top edge (70px from section top) --- */
+.ps-pill-nav {
+  position: absolute;
+  top: 70px;           /* 24px card-top + 46px */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  z-index: 20;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Individual pill button --- */
+.ps-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  /* border controlled via inline style (active: none, inactive: tool's border color) */
+  transition: none;   /* GSAP controls card-bg crossfade; CSS handles pill appearance snap */
+}
+
+/* Active pill snaps immediately; inactive border color adapts to active tool */
+.ps-pill:focus-visible {
+  outline: 2px solid #f0eee6;
+  outline-offset: 2px;
+}
+
+/* --- Color square inside each pill --- */
+.ps-pill-square {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  display: block;
+  /* background-color set via inline style */
+}
+
+/* --- Pill label text --- */
+.ps-pill-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 15.225px;
+  line-height: 26.929px;
+  letter-spacing: -0.1523px;
+  white-space: nowrap;
+  /* color set via inline style */
+}
+
+/* --- Left content zone: mark icon + value copy ---
+   Positioned at left: 48px, bottom area of the card. --- */
+.ps-left-zone {
+  position: absolute;
+  left: 48px;
+  top: 667px;
+  width: 412px;
+}
+
+/* --- Keystone mark icon --- */
+.ps-mark-icon {
+  display: block;
+  width: 36px;
+  height: auto;
+  aspect-ratio: 36.1826 / 41.0787;
+}
+
+/* --- Value copy text --- */
+.ps-copy {
+  position: absolute;
+  top: 93px;          /* 760px - 667px = 93px below mark */
+  left: 0;
+  width: 412px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.96px;
+  margin: 0;
+  /* color set via inline style (tool's copyAccent) */
+}
+
+/* --- Right screenshot zone: from ~508px to right edge of card ---
+   Positioned absolutely within the card. Top offset 162px, right edge flush. --- */
+.ps-screenshot-zone {
+  position: absolute;
+  left: 508px;
+  top: 162px;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* --- Screenshot fills the zone completely (no letterboxing) --- */
+.ps-screenshot-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+  display: block;
+  pointer-events: none;
+}
+
+/* ==================== PRODUCT SCREENS — MOBILE (<1280px) ==================== */
+
+@media (max-width: 1279px) {
+  .ps-card {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .ps-pill-nav {
+    top: 62px;          /* 16px + 46px */
+    flex-wrap: wrap;
+    justify-content: center;
+    width: calc(100% - 32px);
+    left: 16px;
+    transform: none;
+  }
+
+  .ps-left-zone {
+    left: 24px;
+    top: auto;
+    bottom: 40px;
+    width: calc(100% - 48px);
+  }
+
+  .ps-copy {
+    position: relative;
+    top: auto;
+    margin-top: 16px;
+    font-size: 22px;
+    width: 100%;
+  }
+
+  .ps-screenshot-zone {
+    left: 0;
+    top: 120px;
+    right: 0;
+    bottom: 240px;
+  }
+}
+
+/* ==================== PRODUCT SCREENS — REDUCED MOTION ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-pill {
+    transition: none !important;
+  }
+}
+
 /* ==================== SOCIAL PROOF SECTION ==================== */
 
 /* --- Section container --- */
