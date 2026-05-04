@@ -130,14 +130,10 @@ export function ProductScreens({ tools }: ProductScreensProps) {
             animation: tl,
           });
 
-          // Trigger 2 (pin): holds the section at viewport-top for interaction.
-          // By the time this fires, the entrance animation is at 100 %.
+          // Mark entrance done as soon as the section reaches the top.
           ScrollTrigger.create({
             trigger: sectionRef.current,
             start: 'top top',
-            end: '+=10%',
-            pin: true,
-            pinSpacing: true,
             onEnter: () => { entranceDoneRef.current = true; },
           });
         },
