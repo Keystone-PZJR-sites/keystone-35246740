@@ -168,7 +168,7 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
   // Renders one display line as slot-machine character wrappers.
   // Each character is duplicated: first span (visible, exits up),
   // second span (hidden below overflow mask, enters from below).
-  const renderLine = (text: string, ref: React.RefObject<HTMLParagraphElement>) => (
+  const renderLine = (text: string, ref: React.RefObject<HTMLParagraphElement | null>) => (
     <p
       ref={ref}
       className="font-['FK_Screamer',sans-serif] font-bold uppercase leading-[0.82] not-italic text-[#f0eee6]"

@@ -30,10 +30,9 @@ export interface ProductScreensPillPosition {
 
 export interface ProductScreensProps {
   tools: ProductScreensTool[];
-  scatterPositions: ProductScreensPillPosition[];
 }
 
-export function ProductScreens({ tools, scatterPositions }: ProductScreensProps) {
+export function ProductScreens({ tools }: ProductScreensProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const transitioningRef = useRef(false);
 
@@ -93,33 +92,10 @@ export function ProductScreens({ tools, scatterPositions }: ProductScreensProps)
           // Card content: hidden until Phase 3
           gsap.set([leftZone, screenshot], { opacity: 0, y: 24 });
 
-          // Pills: compute offset from final nav position to EveryChannel
-          // scatter position. Must be relative to the section (not absolute
-          // viewport) so the offsets are still correct when the section pins.
-          const sectionRect = section.getBoundingClientRect();
-
-          pillEls.forEach((pill, i) => {
-            const label   = tools[i].label;
-            const scatter = scatterPositions.find(p => p.label === label);
-            if (!scatter) return;
-
-            const pillRect         = pill.getBoundingClientRect();
-            const pillLeftInSection = pillRect.left - sectionRect.left;
-            const pillTopInSection  = pillRect.top  - sectionRect.top;
-            const scatterLeft = (parseFloat(scatter.left) / 100) * window.innerWidth;
-            const scatterTop  = (parseFloat(scatter.top)  / 100) * window.innerHeight;
-
-            gsap.set(pill, {
-              x: scatterLeft - pillLeftInSection,
-              y: scatterTop  - pillTopInSection,
-              opacity: 0,
-            });
-          });
-
           // ── Entrance timeline ──────────────────────────────────────────
           const tl = gsap.timeline({ paused: true });
 
-          // Phase 1 (0 → 0.65): card contracts + pills converge.
+          // Phase 1 (0 → 0.65): card contracts.
           // No y-travel needed — the section's natural scroll provides the
           // "rising from below" motion; the scale creates the contraction.
           tl.to(
@@ -127,22 +103,17 @@ export function ProductScreens({ tools, scatterPositions }: ProductScreensProps)
             { scaleX: 1, scaleY: 1, borderRadius: 20, ease: 'power2.inOut', duration: 0.65 },
             0,
           );
-          tl.to(
-            pillEls,
-            { x: 0, y: 0, opacity: 1, ease: 'power2.out', duration: 0.65, stagger: 0.025 },
-            0,
-          );
 
-          // Phase 3 (0.75 → 1.0): content loads in
+          // Phase 3 (0.4 → 1.0): content loads in
           tl.to(
             leftZone,
             { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 },
-            0.75,
+            0.4,
           );
           tl.to(
             screenshot,
             { opacity: 1, y: 0, ease: 'power2.out', duration: 0.22 },
-            0.82,
+            0.5,
           );
 
           // ── Two-trigger setup ──────────────────────────────────────────
@@ -178,9 +149,11 @@ export function ProductScreens({ tools, scatterPositions }: ProductScreensProps)
         const card       = cardRef.current;
         const leftZone   = leftZoneRef.current;
         const screenshot = screenshotRef.current;
+        const pillEls    = pillRefs.current.filter((el): el is HTMLButtonElement => el !== null);
         if (!card || !leftZone || !screenshot) return;
         gsap.set(card,                   { scaleX: 1, scaleY: 1, borderRadius: 20 });
         gsap.set([leftZone, screenshot], { opacity: 1, y: 0 });
+        gsap.set(pillEls,                { x: 0, y: 0, opacity: 1 });
       };
 
       mm.add('(max-width: 1279px)',             showRestingState);

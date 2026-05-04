@@ -22,7 +22,6 @@ import type {
   HeadlinePart,
   PillData,
   ProductScreensTool,
-  ProductScreensPillPosition,
   SocialProofSlide,
   SocialProofThumbnail,
 } from '@/components/sections';
@@ -314,17 +313,6 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
   },
 ];
 
-// Scatter positions match EVERY_CHANNEL_PILLS (same label→position mapping)
-const PRODUCT_SCREENS_SCATTER: ProductScreensPillPosition[] = [
-  { label: 'Web',     left: '5.4%',  top: '48.7%' },
-  { label: 'Leads',   left: '19.7%', top: '79.2%' },
-  { label: 'Ads',     left: '32.2%', top: '14.0%' },
-  { label: 'Social',  left: '39.8%', top: '55.3%' },
-  { label: 'Sales',   left: '61.5%', top: '38.0%' },
-  { label: 'Reviews', left: '76.8%', top: '70.5%' },
-  { label: 'Content', left: '86.6%', top: '27.7%' },
-];
-
 // ---------------------------------------------------------------------------
 // Social Proof — thumbnails (positions are px values at the 1440px Figma canvas)
 // ---------------------------------------------------------------------------
@@ -494,7 +482,6 @@ export default async function HomePage() {
       <div className="snap-start">
         <ProductScreens
           tools={PRODUCT_SCREENS_TOOLS}
-          scatterPositions={PRODUCT_SCREENS_SCATTER}
         />
       </div>
       <div className="snap-start">
