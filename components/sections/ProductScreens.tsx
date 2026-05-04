@@ -135,7 +135,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
           ScrollTrigger.create({
             trigger: sectionRef.current,
             start: 'top top',
-            end: '+=80%',
+            end: '+=10%',
             pin: true,
             pinSpacing: true,
             onEnter: () => { entranceDoneRef.current = true; },
