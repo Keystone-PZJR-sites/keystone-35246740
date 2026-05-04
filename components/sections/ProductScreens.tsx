@@ -4,6 +4,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import Image from 'next/image';
 import gsap from 'gsap';
+import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,7 +18,7 @@ export interface ProductScreensTool {
   inactiveBorder: string;
   squareColor: string;
   copyText: string;
-  markSrc: string;
+  markColor: string;
   screenshotSrc: string;
 }
 
@@ -251,13 +252,11 @@ export function ProductScreens({ tools, scatterPositions }: ProductScreensProps)
       >
         {/* Left content zone: mark icon + value copy */}
         <div ref={leftZoneRef} className="ps-left-zone">
-          <Image
-            src={currentTool.markSrc}
-            alt=""
+          <KeystoneMark
+            color={currentTool.markColor}
+            className="ps-mark-icon"
             width={36}
             height={41}
-            className="ps-mark-icon"
-            unoptimized
           />
           <p className="ps-copy" style={{ color: currentTool.copyAccent }}>
             {currentTool.copyText}

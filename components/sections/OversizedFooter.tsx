@@ -1,4 +1,5 @@
 // Server component — no GSAP, no state, no browser APIs required.
+import { KeystoneMark } from '@/components/elements';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -29,8 +30,8 @@ export interface OversizedFooterProps {
   emailPlaceholder: string;
   /** Label for the email sign-up button */
   signUpLabel: string;
-  /** Path to the Keystone geometric mark SVG */
-  keystoneMarkSrc: string;
+  /** CSS color for the Keystone geometric mark */
+  keystoneMarkColor: string;
   /** Path to the right-arrow icon used in CTA and Sign Up buttons */
   ctaArrowSrc: string;
   /** Path to the full-width Keystone logotype SVG */
@@ -124,7 +125,7 @@ export function OversizedFooter({
   cta2Href,
   emailPlaceholder,
   signUpLabel,
-  keystoneMarkSrc,
+  keystoneMarkColor,
   ctaArrowSrc,
   keystoneWordmarkSrc,
   videoA,
@@ -189,13 +190,11 @@ export function OversizedFooter({
       <div className="px-6 pb-6">
 
         {/* Keystone geometric mark */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={keystoneMarkSrc}
+        <KeystoneMark
+          color={keystoneMarkColor}
           width={36}
           height={41}
           alt="Keystone"
-          className="block"
         />
 
         {/* Taglines row — 60px gap from mark bottom (Figma: mark bottom=41px, taglines top=101px) */}

@@ -232,7 +232,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#65cf78',
     copyText:
       'A fast, conversion-optimized site built to your brand and kept current without you lifting a finger.',
-    markSrc: '/product-screens/mark-web.svg',
+      markColor: '#267D54',
     screenshotSrc: '/product-screens/screen-web.png',
   },
   {
@@ -245,7 +245,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#f1c131',
     copyText:
       'Every inbound lead gets a reply in minutes — 24/7 — so warm interest never goes cold.',
-    markSrc: '/product-screens/mark-leads.svg',
+      markColor: '#E0A733',
     screenshotSrc: '/product-screens/screen-leads.png',
   },
   {
@@ -258,7 +258,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#f57e56',
     copyText:
       'Meta campaigns that target the right customers, in your market, with the right offer at the right moment.',
-    markSrc: '/product-screens/mark-ads.svg',
+      markColor: '#9F3722',
     screenshotSrc: '/product-screens/screen-ads.png',
   },
   {
@@ -271,7 +271,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#9c65ee',
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
-    markSrc: '/product-screens/mark-social.svg',
+      markColor: '#6E3CA7',
     screenshotSrc: '/product-screens/screen-social.png',
   },
   {
@@ -284,7 +284,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#56a6ff',
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
-    markSrc: '/product-screens/mark-sales.svg',
+      markColor: '#397DFF',
     screenshotSrc: '/product-screens/screen-sales.png',
   },
   {
@@ -297,7 +297,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#5bc3b3',
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
-    markSrc: '/product-screens/mark-reviews.svg',
+      markColor: '#399587',
     screenshotSrc: '/product-screens/screen-reviews.png',
   },
   {
@@ -309,7 +309,7 @@ const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     inactiveBorder: '#611e39',
     squareColor: '#f38bb0',
     copyText: 'Continuous, search-optimized content that builds your visibility over time.',
-    markSrc: '/product-screens/mark-content.svg',
+      markColor: '#DD6F96',
     screenshotSrc: '/product-screens/screen-content.png',
   },
 ];
@@ -472,7 +472,7 @@ export default async function HomePage() {
         cta2Href="#"
         videoSrc="/videos/home-hero-bg.mp4"
         wordmarkSrc="/images/keystone-wordmark.svg"
-        markSrc="/images/keystone-mark.svg"
+        markColor="#6ECC8B"
         renderNav={false}
       />
       <div className="snap-start relative z-10">
@@ -552,7 +552,7 @@ export default async function HomePage() {
           cta2Href="#"
           emailPlaceholder="Email Address"
           signUpLabel="Sign Up"
-          keystoneMarkSrc="/footer/footer-keystone-mark.svg"
+          keystoneMarkColor="#F57E56"
           ctaArrowSrc="/footer/footer-cta-arrow.svg"
           keystoneWordmarkSrc="/footer/footer-wordmark.svg"
           videoA="/footer/footer-video-businesswoman.mp4"

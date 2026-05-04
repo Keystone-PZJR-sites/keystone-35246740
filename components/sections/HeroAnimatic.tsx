@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
+import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
 
@@ -18,7 +19,7 @@ export interface HeroAnimaticProps {
   cta2Href: string;
   videoSrc: string;
   wordmarkSrc: string;
-  markSrc: string;
+  markColor: string;
   /** Set to false when the nav is rendered externally (e.g. inside ScrollSmoother's wrapper) */
   renderNav?: boolean;
 }
@@ -33,7 +34,7 @@ export function HeroAnimatic({
   cta2Href,
   videoSrc,
   wordmarkSrc,
-  markSrc,
+  markColor,
   renderNav = true,
 }: HeroAnimaticProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -175,12 +176,12 @@ export function HeroAnimatic({
         >
           {/* Left: Keystone mark + subheadline */}
           <div className="flex flex-col items-start gap-3 max-w-[520px]">
-            <Image
-              src={markSrc}
-              alt="Keystone mark"
+            <KeystoneMark
+              color={markColor}
               width={37}
               height={41}
               className="h-10 w-auto"
+              alt="Keystone mark"
             />
             <p className="font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-xl lg:text-2xl leading-[1.2] tracking-[-0.03em]">
               {subheadline}
