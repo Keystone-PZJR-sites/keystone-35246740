@@ -3,8 +3,9 @@
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 export interface PillData {
   label: string;
@@ -80,16 +81,16 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
 
       // ── Desktop / tablet + full motion ─────────────────────────────────
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-        const wrapper = wrapperRef.current;
         const section = sectionRef.current;
         const l1 = line1Ref.current;
         const l2 = line2Ref.current;
         const l3 = line3Ref.current;
-        if (!wrapper || !section || !l1 || !l2 || !l3) return;
+        if (!section || !l1 || !l2 || !l3) return;
 
         const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
 
-        // Lines start off-screen below; autoAlpha:1 so they're opaque when they enter.
+        // Lines start off-screen below (section itself stays visible so the
+        // video plays in the background as it scrolls into view).
         // Pills hidden for pop-up entry.
         gsap.set([l1, l2, l3], { y: '120vh', autoAlpha: 1 });
         gsap.set(pillEls, { y: 30, scale: 0.5, autoAlpha: 0 });
@@ -101,30 +102,16 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
         const lastSpans = (el: HTMLElement) =>
           el.querySelectorAll<HTMLSpanElement>('.ec-char > span:last-child');
 
-        // ── Master timeline (time-driven, not scroll-driven) ────────────
-        // Total duration ≈ 3.35s. onComplete silently advances scroll to the
-        // wrapper's bottom edge so the sticky section releases on the user's
-        // very next scroll event — no dead hold zone to scroll through.
-        const masterTl = gsap.timeline({
-          paused: true,
-          onComplete: () => {
-            const target = wrapper.getBoundingClientRect().bottom + window.scrollY;
-            window.scrollTo({ top: target });
-            ScrollTrigger.refresh();
-          },
-        });
+        // ── Master timeline (time-driven, triggered on section entry) ───
+        const masterTl = gsap.timeline({ paused: true });
 
         // Add a slot-machine sequence for one line at position `at` (seconds).
-        // Both span sets animate simultaneously with identical stagger so each
-        // letter's outgoing and incoming chars move in perfect sync.
         function addLine(lineEl: HTMLElement, at: number) {
-          // Whole line rises from below (same feel as the original slide-up)
           masterTl.fromTo(lineEl,
             { y: '120vh', autoAlpha: 1 },
             { y: 0, ease: 'power3.out', duration: 0.55 },
             at,
           );
-          // Simultaneously: characters slot in random order — scattered, not L→R
           masterTl.to(firstSpans(lineEl), {
             y: '-100%',
             ease: 'power2.inOut',
@@ -161,45 +148,42 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
         // Hold after Social pill (beat 6 ends ≈ 3.1s)
         masterTl.to({}, { duration: 0.25 }, 3.1);
 
-        // ── Phase 1 — rising cover + snap ──────────────────────────────
-        // At 60% scroll progress (just past the 50% snap trigger point),
-        // masterTl fires while the video snap is still completing — so
-        // the first letters start slotting as the video finishes filling.
-        // One-and-done: animTriggered is never reset.
-        let animTriggered = false;
-
+        // ── ScrollTrigger + scroll lock ──────────────────────────────────────
+        // Fires when the section's top edge reaches the viewport top (= the
+        // h-screen section fully covers the screen). On entry we:
+        //   1. Freeze ScrollSmoother so content stays in place
+        //   2. Block wheel / touch / keyboard scroll events via AbortController
+        //   3. Play masterTl
+        //   4. On masterTl complete: unblock, reset scroll position, unpause
         ScrollTrigger.create({
-          trigger: wrapper,
-          start: 'top bottom',
-          end: 'top top',
-          scrub: true,
-          snap: {
-            // Commit to full coverage at just 25% visible — feels magnetic,
-            // almost no resistance. Only snaps back if barely touched (<25%).
-            snapTo: (progress: number) => (progress >= 0.25 ? 1 : 0),
-            duration: { min: 0.2, max: 0.3 },
-            ease: 'power2.inOut',
-          },
-          onUpdate: self => {
-            // Trigger animation slightly past the snap point (35%) so line 1
-            // starts slotting while the video is still snapping to full coverage.
-            if (self.progress >= 0.35 && !animTriggered) {
-              animTriggered = true;
-              masterTl.play(0);
-            }
-          },
-        });
-
-        // ── Phase 2 — hold zone ─────────────────────────────────────────
-        // No scrub. The sticky section keeps EveryChannel visible while
-        // masterTl plays. onLeave catches fast-scrollers who exit the
-        // 60vh hold zone before the ~3.35s animation finishes.
-        ScrollTrigger.create({
-          trigger: wrapper,
+          trigger: section,
           start: 'top top',
-          end: 'bottom bottom',
-          onLeave: () => {
-            masterTl.progress(1, true);
+          once: true,
+          onEnter: () => {
+            const smoother = ScrollSmoother.get();
+            const pinnedAt = smoother?.scrollTop() ?? window.scrollY;
+
+            smoother?.paused(true);
+
+            // Use AbortController so all listeners are removed in one call
+            const ac = new AbortController();
+            const { signal } = ac;
+            const blockScroll = (e: Event) => e.preventDefault();
+            const blockKeys = (e: Event) => {
+              const scrollKeys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' '];
+              if (scrollKeys.includes((e as KeyboardEvent).key)) e.preventDefault();
+            };
+            window.addEventListener('wheel',     blockScroll, { passive: false, signal } as AddEventListenerOptions);
+            window.addEventListener('touchmove', blockScroll, { passive: false, signal } as AddEventListenerOptions);
+            window.addEventListener('keydown',   blockKeys,   { signal } as AddEventListenerOptions);
+
+            masterTl.eventCallback('onComplete', () => {
+              ac.abort();                             // Remove all scroll locks
+              smoother?.scrollTo(pinnedAt, false);    // Snap back to exact pin position
+              smoother?.paused(false);                // Resume smooth scroll
+            });
+
+            masterTl.play(0);
           },
         });
       });
@@ -237,20 +221,21 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
   );
 
   return (
-    // md:h-[160vh] — 100vh cover reveal + 60vh hold zone
-    // z-20 — paints over the sticky WorkShowcase (z-10) during and after reveal
-    <div ref={wrapperRef} className="relative z-20 md:h-[160vh]">
+    <div ref={wrapperRef} className="relative">
       <section
         ref={sectionRef}
-        className="h-screen w-full overflow-hidden bg-[#f0eee6] md:sticky md:top-0"
+        className="h-screen w-full overflow-hidden bg-[#042019]"
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
+        {/* preload="auto" tells the browser to buffer the video while the section
+            is still off-screen so it is ready the moment it enters the viewport. */}
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <video
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         >

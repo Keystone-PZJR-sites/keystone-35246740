@@ -872,15 +872,27 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
   const sectionRef = useRef<HTMLElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    align: 'center',
+    // Custom align: position every selected slide 24 px from the viewport left edge.
+    // Using a pixel-returning function bypasses Embla's containerPadding compensation
+    // that occurs with 'start', which would otherwise cancel the paddingLeft offset.
+    align: () => 24,
     dragFree: false,
     containScroll: false,
-    duration: 30,
+    duration: 50,
   });
 
   const [activeIndustryIndex, setActiveIndustryIndex] = useState(0);
   const autoScrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isAutoScrollingRef = useRef(false);
+
+  // Refs for the 5 original cards of the default industry.
+  // Using explicit refs (not querySelectorAll) to avoid selecting Embla's prepended
+  // loop-clones, which appear before the originals in the DOM after Embla initialises.
+  const initialCardRefs = useRef<(HTMLElement | null)[]>([null, null, null, null, null]);
+
+  // Stable ref so the GSAP closure always calls the current startAutoScroll without
+  // needing the useLayoutEffect to re-run when emblaApi becomes available.
+  const startAutoScrollRef = useRef<() => void>(() => {});
 
   const CARDS_PER_INDUSTRY = 5;
 
@@ -914,6 +926,11 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
     scheduleNextScroll();
   }, [scheduleNextScroll]);
 
+  // Keep the ref current so the GSAP closure never goes stale
+  useEffect(() => {
+    startAutoScrollRef.current = startAutoScroll;
+  }, [startAutoScroll]);
+
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -941,18 +958,71 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
+
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+        // Hide every original .work-card-item now, before Embla's useEffect runs.
+        // Embla creates loop-clones via cloneNode(true), which copies inline styles,
+        // so the clones will also start hidden — no flash from prepended clones.
+        const allOriginals = Array.from(
+          sectionRef.current?.querySelectorAll('.work-card-item') ?? [],
+        ) as HTMLElement[];
+        gsap.set(allOriginals, { opacity: 0 });
+
+        // First 5 real cards get the upward offset for the slide-in
+        const initialCards = initialCardRefs.current.filter((el): el is HTMLElement => !!el);
+        gsap.set(initialCards, { y: 30 });
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 45%',
+          once: true,
+          onEnter: () => {
+            gsap.to(initialCards, {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: 'power2.out',
+              stagger: 0.3,
+              onComplete: () => {
+                // Reveal all cards (originals + Embla clones) — they're off-screen
+                const allCards = Array.from(
+                  sectionRef.current?.querySelectorAll('.work-card-item') ?? [],
+                ) as HTMLElement[];
+                gsap.set(allCards, { clearProps: 'all' });
+                startAutoScrollRef.current();
+              },
+            });
+          },
+        });
+      });
+
+      // Reduced motion: skip animation, start auto scroll on entry
+      mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top 80%',
           once: true,
-          onEnter: () => startAutoScroll(),
+          onEnter: () => startAutoScrollRef.current(),
+        });
+      });
+
+      // Cover-reveal pin: hold WorkShowcase fixed for one viewport-height of
+      // scroll while EveryChannel rises over it from below.
+      // pinSpacing:false means no spacer is added — EveryChannel sits
+      // immediately after in the DOM and scrolls into view during the pin.
+      mm.add('(min-width: 768px)', () => {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          pinSpacing: false,
         });
       });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [startAutoScroll]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     return () => stopAutoScroll();
@@ -1053,7 +1123,7 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden min-h-[820px] md:h-[1024px]"
+      className="relative w-full overflow-hidden h-screen"
       style={{ backgroundColor: '#f0eee6' }}
     >
       {/* Section headline — centered, 32px FK Roman Standard, mixed oblique */}
@@ -1098,10 +1168,15 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
         >
           <div
             className="flex items-start"
-            style={{ gap: '32px', paddingLeft: '24px', paddingRight: '24px' }}
+            style={{ gap: '32px', paddingRight: '24px' }}
           >
             {cards.map((card, i) => (
-              <div key={i} className="work-card-item shrink-0 cursor-pointer" onClick={() => handleCardClick(i)}>
+              <div
+                key={i}
+                className="work-card-item shrink-0 cursor-pointer"
+                ref={i < 5 ? (el) => { initialCardRefs.current[i] = el; } : undefined}
+                onClick={() => handleCardClick(i)}
+              >
                 {renderCard(card, i)}
               </div>
             ))}
@@ -1109,11 +1184,8 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
         </div>
       </div>
 
-      {/* Category bar — top edge at 890px */}
-      <div
-        className="absolute inset-x-0 hidden justify-center md:flex"
-        style={{ top: '890px' }}
-      >
+      {/* Category bar + sub-labels — bottom-anchored, always 24px from section bottom */}
+      <div className="absolute bottom-6 left-0 right-0 hidden flex-col items-center gap-2 md:flex">
         <div className="flex items-end gap-[24px]">
           {industries.map((industry, i) => (
             <button
@@ -1133,13 +1205,6 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
             </button>
           ))}
         </div>
-      </div>
-
-      {/* Sub-labels row — top edge at 963px */}
-      <div
-        className="absolute inset-x-0 hidden justify-center md:flex"
-        style={{ top: '963px' }}
-      >
         <div className="flex items-baseline gap-[8px]">
           {activeIndustry?.subLabels.map((label, i) => (
             <span key={label} className="flex items-baseline gap-[8px]">

@@ -7,12 +7,14 @@
 
 import {
   HeroAnimatic,
+  HeroNav,
   WorkShowcase,
   EveryChannel,
   SocialProofSection,
   PricingSection,
   OversizedFooter,
 } from '@/components/sections';
+import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
 import type {
   WorkCardData,
   WorkIndustry,
@@ -345,6 +347,9 @@ const SOCIAL_SLIDES: SocialProofSlide[] = [
 
 export default async function HomePage() {
   return (
+    <SmoothScrollProvider
+      fixedChildren={<HeroNav wordmarkSrc="/images/keystone-wordmark.svg" />}
+    >
     <main>
       <HeroAnimatic
         headlineLine1="Always ON "
@@ -354,32 +359,28 @@ export default async function HomePage() {
         cta1Href="#"
         cta2Label="Get started"
         cta2Href="#"
-        // Video file per spec default: public/videos/hero-animatic.mp4
-        // Using existing file until the production asset is added.
         videoSrc="/videos/home-hero-bg.mp4"
         wordmarkSrc="/images/keystone-wordmark.svg"
         markSrc="/images/keystone-mark.svg"
+        renderNav={false}
       />
-      {/* Sticky wrapper keeps WorkShowcase frozen at top:0 while EveryChannel
-          (z-20) rises over it. WorkShowcase un-sticks naturally once
-          EveryChannel's 300vh wrapper has scrolled past. */}
-      <div className="md:sticky md:top-0 md:z-10">
+      <div className="snap-start relative z-10">
         <WorkShowcase
           headlineParts={WORK_HEADLINE_PARTS}
           industries={WORK_INDUSTRIES}
           cards={WORK_CARDS}
         />
       </div>
-      <EveryChannel
-        line1="Every CHANNEL."
-        line2="Every INTERACTION."
-        line3="done-for-you."
-        videoSrc="/every-channel/every-channel-bg.mp4"
-        pills={EVERY_CHANNEL_PILLS}
-      />
-      {/* z-20 ensures all sections after EveryChannel scroll over
-          the sticky WorkShowcase (z-10) */}
-      <div className="relative z-20">
+      <div className="snap-start relative z-20">
+        <EveryChannel
+          line1="Every CHANNEL."
+          line2="Every INTERACTION."
+          line3="done-for-you."
+          videoSrc="/every-channel/every-channel-bg.mp4"
+          pills={EVERY_CHANNEL_PILLS}
+        />
+      </div>
+      <div className="snap-start">
         <SocialProofSection
           headlineLine1="Great BUSINESSES "
           headlineLine2="deserve to be found."
@@ -387,6 +388,8 @@ export default async function HomePage() {
           slides={SOCIAL_SLIDES}
           closeButtonSrc="/social-proof/social-proof-modal-button.svg"
         />
+      </div>
+      <div className="snap-start">
         <PricingSection
           tagline="Always-on Sales & Marketing"
           priceAmount="$49 "
@@ -417,29 +420,32 @@ export default async function HomePage() {
           comingSoonLabel="Coming soon."
           addonIconSrc="/pricing/pricing-addon-icon.svg"
         />
-      <OversizedFooter
-        line1="FOR BUSINESSES"
-        line2="THAT ARE"
-        line3=" DONE FIGURING"
-        line4="IT OUT THEMSELVES"
-        leftTagline="The modern growth team for local business."
-        rightTagline="Stay informed about our latest features and product releases"
-        cta1Label="Learn more"
-        cta1Href="#"
-        cta2Label="Get started"
-        cta2Href="#"
-        emailPlaceholder="Email Address"
-        signUpLabel="Sign Up"
-        keystoneMarkSrc="/footer/footer-keystone-mark.svg"
-        ctaArrowSrc="/footer/footer-cta-arrow.svg"
-        keystoneWordmarkSrc="/footer/footer-wordmark.svg"
-        videoA="/footer/footer-video-businesswoman.mp4"
-        videoB="/footer/footer-video-storefront.mp4"
-        videoC="/footer/footer-video-barbershop.mp4"
-        videoD="/footer/footer-video-phone-call.mp4"
-        videoE="/footer/footer-video-ceramics.mp4"
-      />
+      </div>
+      <div className="snap-start">
+        <OversizedFooter
+          line1="FOR BUSINESSES"
+          line2="THAT ARE"
+          line3=" DONE FIGURING"
+          line4="IT OUT THEMSELVES"
+          leftTagline="The modern growth team for local business."
+          rightTagline="Stay informed about our latest features and product releases"
+          cta1Label="Learn more"
+          cta1Href="#"
+          cta2Label="Get started"
+          cta2Href="#"
+          emailPlaceholder="Email Address"
+          signUpLabel="Sign Up"
+          keystoneMarkSrc="/footer/footer-keystone-mark.svg"
+          ctaArrowSrc="/footer/footer-cta-arrow.svg"
+          keystoneWordmarkSrc="/footer/footer-wordmark.svg"
+          videoA="/footer/footer-video-businesswoman.mp4"
+          videoB="/footer/footer-video-storefront.mp4"
+          videoC="/footer/footer-video-barbershop.mp4"
+          videoD="/footer/footer-video-phone-call.mp4"
+          videoE="/footer/footer-video-ceramics.mp4"
+        />
       </div>
     </main>
+    </SmoothScrollProvider>
   );
 }

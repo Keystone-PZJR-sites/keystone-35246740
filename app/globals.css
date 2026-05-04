@@ -17,6 +17,26 @@
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 
+/* ── ScrollSmoother sub-pixel gap fix ─────────────────────────────────────
+ * When translateY() uses fractional pixel values, adjacent sections can
+ * round their painted positions in opposite directions leaving a 1 px gap.
+ * 1. Give the scroll containers a neutral background so any gap is invisible.
+ * 2. Promote each section to its own GPU layer so positions are rounded
+ *    consistently rather than independently per element.
+ * 3. Negative bottom margin collapses any remaining sub-pixel gap.
+ * ───────────────────────────────────────────────────────────────────────── */
+#smooth-wrapper,
+#smooth-content {
+  background-color: #f0eee6;
+}
+
+#smooth-content section {
+  will-change: transform;
+  backface-visibility: hidden;
+  margin-bottom: -1px;
+}
+
+
 @utility scrollbar-hide {
     &::-webkit-scrollbar { display: none; -webkit-appearance: none; }
     -ms-overflow-style: none;

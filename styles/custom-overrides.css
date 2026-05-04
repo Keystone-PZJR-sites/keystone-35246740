@@ -760,6 +760,7 @@ body {
 .pricing-section {
   background-color: var(--color-pricing-bg);
   width: 100%;
+  height: 100vh;
 }
 
 /* --- Centered inner container — flex column, all children horizontally centered --- */
@@ -767,15 +768,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 64px 24px 85px;
+  min-height: 100%;
+  padding: clamp(32px, 6vh, 64px) 24px clamp(42px, 8vh, 85px);
 }
 
 /* --- Tagline --- */
 .pricing-tagline {
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
-  font-size: 32px;
+  font-size: clamp(20px, 3vh, 32px);
   line-height: 1.2;
   letter-spacing: -0.96px;
   color: var(--color-pricing-tagline);
@@ -784,7 +787,7 @@ body {
 
 /* --- Price display container --- */
 .pricing-price {
-  margin-top: 72px;
+  margin-top: clamp(28px, 7vh, 72px);
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
   font-size: clamp(44px, 11.67vw, 168px);
@@ -858,7 +861,7 @@ body {
 
 /* --- Credits paragraph --- */
 .pricing-credits {
-  margin-top: 48px;
+  margin-top: clamp(16px, 4vh, 40px);
   font-family: 'FK Grotesk Mono', monospace;
   font-weight: 400;
   font-size: 14px;
@@ -871,7 +874,7 @@ body {
 
 /* --- "ADD ONS" heading — positive letter-spacing (unlike negative tracking elsewhere) --- */
 .pricing-addons-heading {
-  margin-top: 62px;
+  margin-top: clamp(16px, 4vh, 40px);
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
   font-size: 40px;
@@ -993,8 +996,7 @@ body {
 
 @media (min-width: 768px) {
   .sp-section {
-    /* Figma frame is 1440×1024 */
-    aspect-ratio: 1440 / 1024;
+    height: 100vh;
   }
 }
 
