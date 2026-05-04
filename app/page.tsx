@@ -475,14 +475,14 @@ export default async function HomePage() {
         markColor="#6ECC8B"
         renderNav={false}
       />
-      <div className="snap-start relative z-10">
+      <div className="snap-start">
         <WorkShowcase
           headlineParts={WORK_HEADLINE_PARTS}
           industries={WORK_INDUSTRIES}
           cards={WORK_CARDS}
         />
       </div>
-      <div className="snap-start relative z-20">
+      <div className="snap-start">
         <EveryChannel
           line1="Every CHANNEL."
           line2="Every INTERACTION."
@@ -491,7 +491,7 @@ export default async function HomePage() {
           pills={EVERY_CHANNEL_PILLS}
         />
       </div>
-      <div className="snap-start relative z-30">
+      <div className="snap-start">
         <ProductScreens
           tools={PRODUCT_SCREENS_TOOLS}
           scatterPositions={PRODUCT_SCREENS_SCATTER}

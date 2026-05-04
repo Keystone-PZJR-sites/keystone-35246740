@@ -3,9 +3,7 @@
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
-
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 export interface PillData {
   label: string;
@@ -148,43 +146,12 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
         // Hold after Social pill (beat 6 ends ≈ 3.1s)
         masterTl.to({}, { duration: 0.25 }, 3.1);
 
-        // ── ScrollTrigger + scroll lock ──────────────────────────────────────
-        // Fires when the section's top edge reaches the viewport top (= the
-        // h-screen section fully covers the screen). On entry we:
-        //   1. Freeze ScrollSmoother so content stays in place
-        //   2. Block wheel / touch / keyboard scroll events via AbortController
-        //   3. Play masterTl
-        //   4. On masterTl complete: unblock, reset scroll position, unpause
+        // ── ScrollTrigger: play animation when section enters viewport ──────
         ScrollTrigger.create({
           trigger: section,
           start: 'top top',
           once: true,
-          onEnter: () => {
-            const smoother = ScrollSmoother.get();
-            const pinnedAt = smoother?.scrollTop() ?? window.scrollY;
-
-            smoother?.paused(true);
-
-            // Use AbortController so all listeners are removed in one call
-            const ac = new AbortController();
-            const { signal } = ac;
-            const blockScroll = (e: Event) => e.preventDefault();
-            const blockKeys = (e: Event) => {
-              const scrollKeys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' '];
-              if (scrollKeys.includes((e as KeyboardEvent).key)) e.preventDefault();
-            };
-            window.addEventListener('wheel',     blockScroll, { passive: false, signal } as AddEventListenerOptions);
-            window.addEventListener('touchmove', blockScroll, { passive: false, signal } as AddEventListenerOptions);
-            window.addEventListener('keydown',   blockKeys,   { signal } as AddEventListenerOptions);
-
-            masterTl.eventCallback('onComplete', () => {
-              ac.abort();                             // Remove all scroll locks
-              smoother?.scrollTo(pinnedAt, false);    // Snap back to exact pin position
-              smoother?.paused(false);                // Resume smooth scroll
-            });
-
-            masterTl.play(0);
-          },
+          onEnter: () => masterTl.play(0),
         });
       });
 

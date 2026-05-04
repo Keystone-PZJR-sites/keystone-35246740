@@ -1006,19 +1006,6 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
         });
       });
 
-      // Cover-reveal pin: hold WorkShowcase fixed for one viewport-height of
-      // scroll while EveryChannel rises over it from below.
-      // pinSpacing:false means no spacer is added — EveryChannel sits
-      // immediately after in the DOM and scrolls into view during the pin.
-      mm.add('(min-width: 768px)', () => {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=100%',
-          pin: true,
-          pinSpacing: false,
-        });
-      });
     }, sectionRef);
 
     return () => ctx.revert();
