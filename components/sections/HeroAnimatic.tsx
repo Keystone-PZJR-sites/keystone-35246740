@@ -66,6 +66,7 @@ export function HeroAnimatic({
           );
 
           ScrollTrigger.create({
+            id: 'hero-pin',
             trigger: sectionRef.current,
             start: 'top top',
             // Scroll distance driving the animation — snap means most visitors
@@ -128,6 +129,7 @@ export function HeroAnimatic({
 
       {/* Hero section — full viewport height, dark green, pinned during animation */}
       <section
+        id="hero-animatic"
         ref={sectionRef}
         className="relative h-screen w-full overflow-hidden bg-[#042019]"
       >
