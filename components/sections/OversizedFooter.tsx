@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
@@ -72,9 +73,10 @@ interface PillButtonProps {
   arrowSrc?: string;
   variant: 'orange' | 'peach';
   type?: 'submit' | 'button';
+  disabled?: boolean;
 }
 
-function PillButton({ href, label, arrowSrc, variant, type }: PillButtonProps) {
+function PillButton({ href, label, arrowSrc, variant, type, disabled }: PillButtonProps) {
   const baseClass =
     'footer-btn-text flex h-12 items-center rounded-full px-4 gap-2';
   const colorClass =
@@ -93,7 +95,7 @@ function PillButton({ href, label, arrowSrc, variant, type }: PillButtonProps) {
 
   if (type === 'submit' || type === 'button') {
     return (
-      <button type={type} className={`${baseClass} ${colorClass}`}>
+      <button type={type} className={`${baseClass} ${colorClass}`} disabled={disabled}>
         {inner}
       </button>
     );
@@ -131,6 +133,35 @@ export function OversizedFooter({
   videoE,
 }: OversizedFooterProps) {
   const { openModal } = useLeadCapture();
+
+  const [emailValue, setEmailValue] = useState('');
+  const [signUpState, setSignUpState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [signUpError, setSignUpError] = useState('');
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailValue.trim()) return;
+    setSignUpState('submitting');
+    setSignUpError('');
+    try {
+      const res = await fetch('/api/form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formType: 'marketing_list_signup', email: emailValue.trim() }),
+      });
+      const result = await res.json() as { success: boolean; error?: string };
+      if (result.success) {
+        setSignUpState('success');
+        setEmailValue('');
+      } else {
+        setSignUpState('error');
+        setSignUpError(result.error ?? 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setSignUpState('error');
+      setSignUpError('Something went wrong. Please try again.');
+    }
+  };
   return (
     <section className="footer-section" data-theme="custom">
 
@@ -234,24 +265,40 @@ export function OversizedFooter({
 
           {/* Right pill — email input + "Sign Up →" */}
           <div className="footer-lower-right">
-            <div className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full ml-auto lg:max-w-[785px]">
-              <label htmlFor="footer-email" className="sr-only">
-                {emailPlaceholder}
-              </label>
-              <input
-                id="footer-email"
-                type="email"
-                className="footer-email-input pl-3"
-                placeholder={emailPlaceholder}
-                aria-label={emailPlaceholder}
-              />
-              <PillButton
-                label={signUpLabel}
-                arrowSrc={ctaArrowSrc}
-                variant="peach"
-                type="button"
-              />
-            </div>
+            {signUpState === 'success' ? (
+              <div className="w-full ml-auto lg:max-w-[785px]">
+                <p className="footer-signup-success">You&apos;re in! We&apos;ll keep you posted.</p>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSignUp}
+                className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full ml-auto lg:max-w-[785px]"
+              >
+                <label htmlFor="footer-email" className="sr-only">
+                  {emailPlaceholder}
+                </label>
+                <input
+                  id="footer-email"
+                  type="email"
+                  required
+                  className="footer-email-input pl-3"
+                  placeholder={emailPlaceholder}
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
+                  disabled={signUpState === 'submitting'}
+                />
+                <PillButton
+                  label={signUpState === 'submitting' ? '…' : signUpLabel}
+                  arrowSrc={signUpState === 'submitting' ? undefined : ctaArrowSrc}
+                  variant="peach"
+                  type="submit"
+                  disabled={signUpState === 'submitting'}
+                />
+              </form>
+            )}
+            {signUpState === 'error' && signUpError && (
+              <p className="footer-signup-error" role="alert">{signUpError}</p>
+            )}
           </div>
         </div>
 

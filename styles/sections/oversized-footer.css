@@ -181,6 +181,24 @@
   opacity: 1;
 }
 
+.footer-signup-success {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.66px;
+  color: var(--color-work-accent);
+  padding: 0 12px;
+}
+
+.footer-signup-error {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #e05252;
+  margin-top: 8px;
+  padding: 0 16px;
+}
+
 /* --- Wordmark SVG.
    The Figma export has preserveAspectRatio="none" which causes distortion
    at non-intrinsic sizes. Enforce the correct ratio (from the SVG viewBox
