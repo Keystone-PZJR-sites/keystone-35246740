@@ -66,10 +66,6 @@ export function ProductScreens({ tools }: ProductScreensProps) {
           const screenshot = screenshotRef.current;
           if (!section || !card || !pillNav || !leftZone || !screenshot) return;
 
-          const pillEls = pillRefs.current.filter(
-            (el): el is HTMLButtonElement => el !== null,
-          );
-
           // ── Initial states ─────────────────────────────────────────────
           // Scale the card to cover the full section (= full viewport).
           // transform-origin: center bottom means:
@@ -157,7 +153,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // ── Tool switching ──────────────────────────────────────────────────────
   const handlePillClick = useCallback(

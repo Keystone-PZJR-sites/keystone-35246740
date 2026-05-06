@@ -65,9 +65,11 @@ Specs are authored by designers, not engineers. A spec describes **what the sect
 
 - **Before every commit, run the two checks below. No exceptions.**
 - Zero TypeScript errors — verified with `npx tsc --noEmit`.
-- Zero ESLint errors or warnings — verified with `npm run lint`. Fix the root cause, never suppress with `// eslint-disable`.
+- Zero ESLint errors or warnings — verified with `npm run lint`.
 - Zero unused imports, variables, or dead code.
 - If an error is introduced, fix it before doing anything else.
+
+**Fix the root cause. Never suppress.** `// eslint-disable`, `// @ts-ignore`, `// @ts-expect-error`, and `// @ts-nocheck` are not solutions — they hide problems and create technical debt. The only acceptable response to a type error or lint warning is to fix the underlying code. If a rule fires incorrectly on a third-party import or a genuine edge case, document why in a comment and raise it for discussion — do not silently suppress it.
 
 **Do not use `npm run build` as a pre-commit check.** Running a production build invalidates Next.js's incremental dev cache (the `.next` directory), causing the dev server to fully recompile all assets on the next request — stale stylesheets, slow reloads, and lost HMR state. `tsc --noEmit` + `npm run lint` gives identical signal in ~5 seconds with zero side-effects.
 
@@ -242,6 +244,8 @@ If you receive an SVG from Figma that uses the Exclude technique, ask the design
 - **Library utilities:** Before writing any helper logic, check whether a function already exists in `keystone-design-bootstrap` or another installed package. See Rule 5.
 
 **The Figma MCP does not know the codebase.** It exports whatever Figma contains — including assets and shapes that are already implemented as components, tokens, or files in the repo. Always cross-reference its output against what already exists before committing anything it produces.
+
+**The Figma MCP names exported assets with SHA hashes** (e.g. `bf2d9cddb67aa3e9d81353d03a3d395d5bbb7ba5.svg`). These names are meaningless and must never be committed. For every hash-named file the MCP writes to disk: either rename it to a descriptive kebab-case name that follows the folder's existing convention, or delete it if the asset is already present under another name or implemented as a component.
 
 ---
 

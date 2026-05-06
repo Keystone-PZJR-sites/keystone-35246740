@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
+import { useLeadCapture } from './LeadCaptureModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,9 +15,7 @@ export interface HeroAnimaticProps {
   headlineLine2: string;
   subheadline: string;
   cta1Label: string;
-  cta1Href: string;
   cta2Label: string;
-  cta2Href: string;
   videoSrc: string;
   wordmarkSrc: string;
   markColor: string;
@@ -29,9 +28,7 @@ export function HeroAnimatic({
   headlineLine2,
   subheadline,
   cta1Label,
-  cta1Href,
   cta2Label,
-  cta2Href,
   videoSrc,
   wordmarkSrc,
   markColor,
@@ -40,6 +37,7 @@ export function HeroAnimatic({
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useLeadCapture();
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -190,19 +188,21 @@ export function HeroAnimatic({
 
           {/* Right: CTA pill with two buttons */}
           <div className="flex items-center gap-3 rounded-full bg-[#042019] p-3">
-            <a
-              href={cta1Href}
+            <button
+              type="button"
+              onClick={(e) => openModal(e.currentTarget)}
               className="flex h-12 items-center rounded-full bg-[#063126] px-4 font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-lg tracking-[-0.01em] whitespace-nowrap"
             >
               {cta1Label}
-            </a>
-            <a
-              href={cta2Href}
+            </button>
+            <button
+              type="button"
+              onClick={(e) => openModal(e.currentTarget)}
               className="flex h-12 items-center gap-2 rounded-full bg-[#6ecc8b] pl-4 pr-3 font-['FK_Grotesk_Neue',sans-serif] text-[#042019] text-lg tracking-[-0.01em] whitespace-nowrap"
             >
               {cta2Label}
               <ArrowNarrowRight size={16} color="#042019" />
-            </a>
+            </button>
           </div>
         </div>
       </section>

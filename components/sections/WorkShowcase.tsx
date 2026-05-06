@@ -1009,7 +1009,7 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     return () => stopAutoScroll();

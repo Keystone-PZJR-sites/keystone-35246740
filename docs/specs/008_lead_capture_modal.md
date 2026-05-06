@@ -73,7 +73,7 @@ The green "keystone" wordmark logotype at the top-left of the card content, in t
 
 One paragraph of supporting copy directly below the wordmark, with a small gap between them:
 
-> "Keystone is the modern sales and marketing team for local businesses. Reach out below to connect with our team."
+> "The modern sales and marketing team for local businesses. Reach out below to connect with our team."
 
 Small body text in a muted warm gray, FK Grotesk Neue Regular, full content width. See Figma for exact type styles.
 
@@ -206,7 +206,7 @@ No element may overflow the viewport horizontally at any breakpoint.
 | Keystone K mark | `KeystoneMark` component — pass the site's green accent color via the `color` prop |
 | "keystone" wordmark | Green version of the wordmark (`public/images/keystone-wordmark.svg`) |
 | Card background SVG | `public/lead-capture/lead-capture-card-bg.svg` (see Assets section below) |
-| Subheadline | "Keystone is the modern sales and marketing team for local businesses. Reach out below to connect with our team." |
+| Subheadline | "The modern sales and marketing team for local businesses. Reach out below to connect with our team." |
 | Submit button label | "Learn More" |
 | Submit button arrow | `public/lead-capture/lead-capture-cta-arrow.svg` |
 | Terms link href | `/terms-of-service` |

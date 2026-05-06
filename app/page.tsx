@@ -14,6 +14,7 @@ import {
   SocialProofSection,
   PricingSection,
   OversizedFooter,
+  LeadCaptureProvider,
 } from '@/components/sections';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
 import type {
@@ -446,6 +447,15 @@ const SOCIAL_SLIDES: SocialProofSlide[] = [
 
 export default async function HomePage() {
   return (
+    <LeadCaptureProvider
+      wordmarkSrc="/images/keystone-wordmark.svg"
+      markColor="#6ECC8B"
+      ctaArrowSrc="/lead-capture/lead-capture-cta-arrow.svg"
+      submitLabel="Learn More"
+      subheadline="The modern sales and marketing team for local businesses. Reach out below to connect with our team."
+      termsHref="/terms-of-service"
+      privacyHref="/privacy-policy"
+    >
     <SmoothScrollProvider
       fixedChildren={<HeroNav wordmarkSrc="/images/keystone-wordmark.svg" />}
     >
@@ -455,9 +465,7 @@ export default async function HomePage() {
         headlineLine2="SALES & MARKETING"
         subheadline="A team of experts running your marketing while you run your business."
         cta1Label="Learn more"
-        cta1Href="#"
         cta2Label="Get started"
-        cta2Href="#"
         videoSrc="/videos/home-hero-bg.mp4"
         wordmarkSrc="/images/keystone-wordmark.svg"
         markColor="#6ECC8B"
@@ -534,9 +542,7 @@ export default async function HomePage() {
           leftTagline="The modern growth team for local business."
           rightTagline="Stay informed about our latest features and product releases"
           cta1Label="Learn more"
-          cta1Href="#"
           cta2Label="Get started"
-          cta2Href="#"
           emailPlaceholder="Email Address"
           signUpLabel="Sign Up"
           keystoneMarkColor="#F57E56"
@@ -551,5 +557,6 @@ export default async function HomePage() {
       </div>
     </main>
     </SmoothScrollProvider>
+    </LeadCaptureProvider>
   );
 }

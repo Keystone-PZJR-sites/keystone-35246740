@@ -1,5 +1,8 @@
-// Server component — no GSAP, no state, no browser APIs required.
+'use client';
+
+import Image from 'next/image';
 import { KeystoneMark } from '@/components/elements';
+import { useLeadCapture } from './LeadCaptureModal';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -20,12 +23,8 @@ export interface OversizedFooterProps {
   rightTagline: string;
   /** Label for the first CTA button ("Learn more") */
   cta1Label: string;
-  /** href for the first CTA button */
-  cta1Href: string;
   /** Label for the second CTA button ("Get started") */
   cta2Label: string;
-  /** href for the second CTA button */
-  cta2Href: string;
   /** Placeholder text for the email input */
   emailPlaceholder: string;
   /** Label for the email sign-up button */
@@ -87,8 +86,7 @@ function PillButton({ href, label, arrowSrc, variant, type }: PillButtonProps) {
     <>
       <span>{label}</span>
       {arrowSrc && (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img src={arrowSrc} width={16} height={16} alt="" aria-hidden="true" />
+        <Image src={arrowSrc} width={16} height={16} alt="" aria-hidden="true" />
       )}
     </>
   );
@@ -120,9 +118,7 @@ export function OversizedFooter({
   leftTagline,
   rightTagline,
   cta1Label,
-  cta1Href,
   cta2Label,
-  cta2Href,
   emailPlaceholder,
   signUpLabel,
   keystoneMarkColor,
@@ -134,6 +130,7 @@ export function OversizedFooter({
   videoD,
   videoE,
 }: OversizedFooterProps) {
+  const { openModal } = useLeadCapture();
   return (
     <section className="footer-section" data-theme="custom">
 
@@ -215,17 +212,23 @@ export function OversizedFooter({
           {/* Left pill — "Learn more" + "Get started →" */}
           <div className="footer-lower-left">
             <div className="inline-flex items-center gap-3 rounded-full border border-[var(--color-work-accent)] p-3">
-              <PillButton
-                href={cta1Href}
-                label={cta1Label}
-                variant="orange"
-              />
-              <PillButton
-                href={cta2Href}
-                label={cta2Label}
-                arrowSrc={ctaArrowSrc}
-                variant="peach"
-              />
+              <button
+                type="button"
+                onClick={(e) => openModal(e.currentTarget)}
+                className="footer-btn-text flex h-12 items-center rounded-full px-4 gap-2 bg-[var(--color-work-accent)] text-[var(--color-footer-bg)]"
+              >
+                <span>{cta1Label}</span>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => openModal(e.currentTarget)}
+                className="footer-btn-text flex h-12 items-center rounded-full px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
+              >
+                <span>{cta2Label}</span>
+                {ctaArrowSrc && (
+                  <Image src={ctaArrowSrc} width={16} height={16} alt="" aria-hidden="true" />
+                )}
+              </button>
             </div>
           </div>
 
@@ -254,11 +257,12 @@ export function OversizedFooter({
 
         {/* Full-width wordmark — 60px gap from CTA bottom */}
         <div className="mt-8 lg:mt-[60px] pb-6 lg:pb-[24px]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={keystoneWordmarkSrc}
             alt="keystone"
             className="footer-wordmark-img"
+            width={1390}
+            height={268}
           />
         </div>
 

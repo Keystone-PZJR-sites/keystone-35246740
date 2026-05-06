@@ -34,3 +34,5 @@ export type {
   SocialProofThumbnail,
   QuoteSegment,
 } from './SocialProofSection';
+export { LeadCaptureProvider, useLeadCapture } from './LeadCaptureModal';
+export type { LeadCaptureProviderProps } from './LeadCaptureModal';

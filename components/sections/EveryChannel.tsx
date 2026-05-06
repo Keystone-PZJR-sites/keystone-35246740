@@ -196,7 +196,6 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
       >
         {/* preload="auto" tells the browser to buffer the video while the section
             is still off-screen so it is ready the moment it enters the viewport. */}
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <video
           autoPlay
           muted

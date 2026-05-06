@@ -1664,3 +1664,590 @@ body {
   }
 }
 
+/* ==================== LEAD CAPTURE MODAL ==================== */
+
+/* Full-screen overlay — sits above everything via portal */
+.lc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+/* Fixed dark green backdrop with blur */
+.lc-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 32, 25, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 0;
+}
+
+/* Scrollable content area (K mark + card) */
+.lc-content-area {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  /* Desktop: match Figma — K mark at 140px from top */
+  padding-top: 140px;
+  padding-bottom: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Keystone K mark container */
+.lc-kmark-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-shrink: 0;
+}
+
+/* Card outer container */
+.lc-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  flex-shrink: 0;
+}
+
+/* Card background SVG (provides the cream shape + folded corner) */
+.lc-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Card content — sits above the background SVG */
+.lc-card-inner {
+  position: relative;
+  z-index: 1;
+  padding: 24px;
+}
+
+/* ---- Form header ---- */
+
+.lc-form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.lc-wordmark {
+  width: 154px;
+  height: 30px;
+  display: block;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.lc-subheadline {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.32px;
+  color: #847f71;
+  margin: 0;
+  width: 100%;
+}
+
+/* ---- Form stack ---- */
+
+.lc-form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Side-by-side row (e.g., first name + last name) */
+.lc-field-row {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.lc-field-row-item {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- Floating label field ---- */
+
+.lc-field-wrapper {
+  display: block;
+  position: relative;
+  height: 60px;
+  background: #e9e7dd;
+  border-radius: 8px;
+  padding: 0 12px;
+  border: 2px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  overflow: hidden;
+  cursor: text;
+}
+
+.lc-field-wrapper.is-focused {
+  background: #f0eee6;
+  border-color: #beb8a7;
+}
+
+/* Resting state: label centered at 18px */
+/* Field height 60px; label ~20px tall; top = (60 - 20) / 2 = 20px */
+.lc-field-label {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 20px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1.11;
+  letter-spacing: -0.02em;
+  color: #847f71;
+  transition: top 0.15s ease, font-size 0.15s ease, line-height 0.15s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: text;
+}
+
+/* Active: label floats to top (12px). Pair height = 11.4+6+20 = 37.4; top ≈ 11px */
+.lc-field-wrapper.is-active .lc-field-label,
+.lc-phone-input-wrapper.is-active .lc-field-label {
+  top: 11px;
+  font-size: 12px;
+  line-height: 0.95;
+}
+
+/* Input — always positioned, invisible until active */
+/* Input top = label top + label height + gap = 11 + 11.4 + 6 ≈ 29px */
+.lc-field-input {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 29px;
+  height: 20px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  letter-spacing: -0.02em;
+  color: #3a3836;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.lc-field-wrapper.is-active .lc-field-input,
+.lc-phone-input-wrapper.is-active .lc-field-input {
+  opacity: 1;
+}
+
+/* ---- Phone field ---- */
+
+.lc-phone-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 60px;
+  background: #e9e7dd;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+/* Country code pill */
+.lc-country-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0eee6;
+  border-radius: 4px;
+  padding: 8px 6px;
+  box-shadow: 0 1px 3px 0 rgba(108, 104, 96, 0.1), 0 1px 2px 0 rgba(108, 104, 96, 0.1);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Native <select> overlaid invisibly over the pill so clicking anywhere on the pill opens it */
+.lc-country-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.lc-country-code {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  color: #4f4d4a;
+  white-space: nowrap;
+}
+
+/* Phone input inner wrapper — takes up remaining width */
+.lc-phone-input-wrapper {
+  display: block;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 60px;
+}
+
+.lc-phone-input-wrapper .lc-field-label {
+  left: 0;
+  right: 0;
+}
+
+/* Phone input is always visible and centred — no floating label */
+.lc-phone-input-wrapper .lc-field-input {
+  opacity: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+}
+
+.lc-phone-input-wrapper .lc-field-input::placeholder {
+  color: #847f71;
+}
+
+/* ---- Message textarea ---- */
+
+.lc-textarea-wrapper {
+  position: relative;
+}
+
+.lc-textarea {
+  width: 100%;
+  min-height: 137px;
+  background: #e9e7dd;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding: 20px 12px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+  color: #847f71;
+  resize: none;
+  box-sizing: border-box;
+  display: block;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lc-textarea::placeholder {
+  color: #847f71;
+}
+
+.lc-textarea:focus {
+  outline: none;
+  background: #f0eee6;
+  border-color: #beb8a7;
+  color: #3a3836;
+}
+
+/* ---- Bottom row ---- */
+
+.lc-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Terms & Privacy links */
+.lc-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.lc-legal-link {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: #989281;
+  text-decoration: underline;
+  text-decoration-color: #d6d2c2;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+.lc-legal-link:hover {
+  color: #6b6757;
+}
+
+/* Submit pill button */
+.lc-submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  background: #6ecc8b;
+  border-radius: 9999px;
+  border: none;
+  padding-left: 16px;
+  padding-right: 12px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #042019;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.lc-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lc-submit-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.lc-submit-arrow {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ---- Error message ---- */
+
+.lc-error-message {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #c0392b;
+  margin: 0;
+}
+
+/* ---- Success state ---- */
+
+.lc-success {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.lc-success-message {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #4f4d4a;
+  margin: 0;
+}
+
+/* ---- Responsive ---- */
+
+/* Tablet (768–1279px) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .lc-content-area {
+    padding-top: 100px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .lc-kmark-wrapper {
+    margin-bottom: 24px;
+  }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  .lc-content-area {
+    padding-top: 80px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 32px;
+  }
+
+  .lc-kmark-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .lc-card {
+    max-width: 100%;
+  }
+
+  .lc-field-row {
+    gap: 8px;
+  }
+}
+
+/* Reduced motion: disable field transitions */
+@media (prefers-reduced-motion: reduce) {
+  .lc-field-wrapper,
+  .lc-field-label,
+  .lc-field-input,
+  .lc-textarea,
+  .lc-submit-btn,
+  .lc-phone-input-wrapper {
+    transition: none;
+  }
+}
+
+/* ---- Checkboxes ---- */
+
+/* Single row: checkbox square + label text */
+.lc-checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Wrapper that layers the real (invisible) input over the custom visual */
+.lc-checkbox-control {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  /* Align visually with the cap-height of 14px label text */
+  margin-top: 2px;
+}
+
+/* The real checkbox — invisible but fully interactive */
+.lc-checkbox-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* The visual square */
+.lc-checkbox-visual {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #beb8a7;
+  border-radius: 4px;
+  background: #f0eee6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  pointer-events: none;
+}
+
+/* Checkmark drawn with a pure-CSS rotated border */
+.lc-checkbox-visual::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid #042019;
+  border-bottom: 2px solid #042019;
+  transform: rotate(45deg) translate(-1px, -1px);
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+/* Checked state */
+.lc-checkbox-input:checked + .lc-checkbox-visual {
+  background: #6ecc8b;
+  border-color: #6ecc8b;
+}
+
+.lc-checkbox-input:checked + .lc-checkbox-visual::after {
+  opacity: 1;
+}
+
+/* Focus ring on the visual (keyboard navigation) */
+.lc-checkbox-input:focus-visible + .lc-checkbox-visual {
+  outline: 2px solid #6ecc8b;
+  outline-offset: 2px;
+}
+
+/* Label text */
+.lc-checkbox-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: #4f4d4a;
+  flex: 1;
+  cursor: pointer;
+}
+
+/* Links inside checkbox labels */
+.lc-checkbox-link {
+  color: #4f4d4a;
+  text-decoration: underline;
+  text-decoration-color: #beb8a7;
+  text-underline-offset: 2px;
+}
+
+.lc-checkbox-link:hover {
+  color: #3a3836;
+  text-decoration-color: #6ecc8b;
+}
+
+/* Checkbox group: optional legend above a list of options */
+.lc-checkbox-group-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lc-checkbox-group-legend {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: #847f71;
+  margin-bottom: 6px;
+}
+
+.lc-checkbox-group-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Reduced motion: suppress checkbox transitions */
+@media (prefers-reduced-motion: reduce) {
+  .lc-checkbox-visual,
+  .lc-checkbox-visual::after {
+    transition: none;
+  }
+}
+
