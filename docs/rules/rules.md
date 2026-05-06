@@ -27,6 +27,8 @@ Specs are authored by designers, not engineers. A spec describes **what the sect
 
 **Always include a Figma link for every visual state.** Link to the exact node for the start state, the end state, and any intermediate states. All exact values — colors, font sizes, spacing, corner radii — come from Figma, not from the spec author's memory.
 
+**No exact values in specs.** Do not write hex codes, pixel measurements, font sizes, timing values, or any other numeric design token into a spec. These values belong exclusively in Figma — writing them into a spec creates a second copy that will inevitably drift out of sync. Use visual language instead: describe a color as "the site's dark green" or "a muted warm gray", describe a size as "compact" or "full-width", describe timing as "a quick fade". When the implementer needs a precise value, they look it up in the linked Figma node. The one exception is breakpoint widths defined in the project rules (768px, 1280px) — those are project conventions, not Figma design values, and may appear in specs.
+
 **Describe every visual state explicitly.** For animated or interactive sections, describe what the section looks like before any interaction, during the interaction, and when the interaction is complete. If a state is not described, it will be guessed.
 
 **Describe scroll and animation behavior as observable outcomes.** "As the visitor scrolls, the headline slides upward until both lines have fully exited the top of the screen" is a good spec sentence. It says what the visitor sees, not what code achieves it. Cover: what triggers the motion, what moves, in which direction, how far, whether it is tied to scroll position or time-based, whether it reverses, and whether it auto-completes.
@@ -227,6 +229,19 @@ If you receive an SVG from Figma that uses the Exclude technique, ask the design
 **`transition-colors` is overridden by inline `style` color props.** If you apply `style={{ color: activeColor }}` to set an active state, the inline style wins at every point in the transition and the CSS transition has no visible effect. Apply the inline style only when active (`style={isActive ? { color } : undefined}`) and let the CSS class handle the default color and the easing.
 
 **`mix-blend-mode: luminosity` and a transitioning parent background interact badly.** When a photo is desaturated via `mix-blend-mode: luminosity` and its parent container also transitions its `background-color`, the photo blinks visually mid-transition. Use a CSS `filter` approach for desaturation on any card whose background color also transitions.
+
+---
+
+## 20. Search Before You Build
+
+**Before creating anything new, verify it does not already exist.**
+
+- **Components:** Search `components/` before building any new element. Many visual elements — icons, marks, wordmarks, decorative shapes — are already implemented as inline React components with prop-driven color and size. An SVG file in `public/` is never the right answer when a component already exists for the same thing.
+- **Assets:** Before adding any file to `public/`, check whether the same asset is already present elsewhere in the folder tree. Figma exports often produce exact duplicates of already-committed files. Delete duplicates immediately — two copies of the same asset will always diverge.
+- **Design tokens:** Before writing any color, spacing, or font value into a component or stylesheet, check `styles/custom-overrides.css` for an existing token. Using a token is always preferable to repeating a raw value.
+- **Library utilities:** Before writing any helper logic, check whether a function already exists in `keystone-design-bootstrap` or another installed package. See Rule 5.
+
+**The Figma MCP does not know the codebase.** It exports whatever Figma contains — including assets and shapes that are already implemented as components, tokens, or files in the repo. Always cross-reference its output against what already exists before committing anything it produces.
 
 ---
 
