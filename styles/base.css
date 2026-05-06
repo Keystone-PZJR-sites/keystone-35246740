@@ -1,0 +1,96 @@
+/**
+ * Custom Overrides
+ * ================
+ * This file is for site-specific customizations that override the theme defaults.
+ * It loads LAST in the CSS cascade, so any styles here will take precedence.
+ */
+
+/* ==================== FONTS ==================== */
+
+@font-face {
+  font-family: 'FK Screamer';
+  src: url('/fonts/FKScreamer-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/fonts/FKGroteskNeue-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/fonts/FKGroteskNeue-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Mono';
+  src: url('/fonts/FKGroteskMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/fonts/FKRomanStandard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/fonts/FKRomanStandard-Oblique.woff2') format('woff2');
+  font-weight: 400;
+  font-style: oblique;
+  font-display: swap;
+}
+
+/* ==================== DESIGN TOKENS ==================== */
+
+[data-theme="custom"] {
+  /* Hero */
+  --color-hero-bg: #042019;
+  --color-hero-surface: #063126;
+  --color-hero-accent: #6ecc8b;
+  --color-hero-text: #f0eee6;
+
+  /* Work Showcase */
+  --color-work-accent: #f57e56;
+  --color-work-chip-bg: #ffbb8a;
+  --color-work-muted: #cbc5b4;
+  --color-work-muted-hover: #b1aa9a;
+  --color-work-text: #4f4d4a;
+
+  /* Oversized Footer */
+  --color-footer-bg: #3d1719;
+
+  /* Social Proof */
+  --color-social-proof-bg: #0d2a28;
+
+  /* Pricing */
+  --color-pricing-bg: #0a1f1e;
+  --color-pricing-tagline: #4fafa0;
+  --color-pricing-price-primary: #9febd7;
+  --color-pricing-price-secondary: #399587;
+  --color-pricing-accent: #5bc3b3;
+  --color-pricing-chip-border: #19524e;
+  --color-pricing-chip-label: #f8f7f2;
+  --color-pricing-addon-chip-bg: #0d2a28;
+}
+
+/* ==================== SITE-SPECIFIC OVERRIDES ==================== */
+
+body {
+  background-color: rgb(249, 250, 251);
+}
+

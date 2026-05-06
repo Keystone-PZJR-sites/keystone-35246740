@@ -1,4 +1,5 @@
 // Server component — no GSAP, no state, no browser APIs required.
+import Image from 'next/image';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -82,8 +83,7 @@ function AddOnCol({ addon, addonIconSrc, comingSoonLabel }: AddOnColProps) {
   return (
     <div className="pricing-addon-col">
       <div className="pricing-addon-pill">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={addonIconSrc}
           width={24}
           height={24}

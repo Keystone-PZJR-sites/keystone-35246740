@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
@@ -648,8 +649,7 @@ export function SocialProofSection({
                   <source src={thumb.videoSrc} type="video/mp4" />
                 </video>
               </button>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 className="sp-thumb-badge"
                 src={thumb.markerSrc}
                 alt=""
@@ -692,14 +692,13 @@ export function SocialProofSection({
           onClick={closeModal}
           aria-label="Close"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={closeButtonSrc}
             alt=""
             aria-hidden="true"
             className="sp-close-icon"
-            width={32.77}
-            height={32.77}
+            width={33}
+            height={33}
           />
         </button>
 

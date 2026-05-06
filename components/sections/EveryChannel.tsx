@@ -163,7 +163,7 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
     }, wrapperRef);
 
     return () => ctx.revert();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [sortedPills]);
 
   // Renders one display line as slot-machine character wrappers.
   // Each character is duplicated: first span (visible, exits up),
