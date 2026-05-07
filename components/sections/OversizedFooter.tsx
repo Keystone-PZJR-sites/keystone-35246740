@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
+import { setPixelUserData, captureEvent } from 'keystone-design-bootstrap/tracking';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -200,6 +201,8 @@ export function OversizedFooter({
       });
       const result = await res.json() as { success: boolean; error?: string };
       if (result.success) {
+        await setPixelUserData({ email: emailValue.trim() });
+        captureEvent('form_submitted', { form_type: 'marketing_list_signup' });
         setSignUpState('success');
         setEmailValue('');
       } else {

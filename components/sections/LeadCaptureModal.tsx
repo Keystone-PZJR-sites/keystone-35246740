@@ -18,7 +18,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import gsap from 'gsap';
 import { useFormDefinitions } from 'keystone-design-bootstrap/next/contexts/form-definitions';
-import { submitLeadFormAction } from 'keystone-design-bootstrap';
+import { setPixelUserData, firePixelEvent, captureEvent } from 'keystone-design-bootstrap/tracking';
 import type { FormFieldDefinition, FormFieldItem } from 'keystone-design-bootstrap/types';
 import { KeystoneMark } from '@/components/elements';
 
@@ -575,16 +575,28 @@ function Modal({
 
   const onSubmit = async (values: Record<string, string>) => {
     setSubmitState('submitting');
-    const formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
-      if (value != null) formData.append(key, String(value));
-    });
-    if (leadFormDefinition?.id) {
-      formData.append('form_id', String(leadFormDefinition.id));
-    }
     try {
-      const result = await submitLeadFormAction(formData);
+      const payload: Record<string, string | number> = { formType: 'lead', ...values };
+      if (leadFormDefinition?.id) {
+        payload.form_id = leadFormDefinition.id;
+      }
+      const response = await fetch('/api/form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json() as { success: boolean; error?: string; eventId?: string };
       if (result.success) {
+        // Hash and store user identity for Meta advanced matching, then fire Lead event.
+        // captureEvent is a silent no-op when PostHog is not configured.
+        const emailKey = Object.keys(values).find(k => k === 'email' || k.includes('email'));
+        const phoneKey = Object.keys(values).find(k => k === 'phone' || k.includes('phone') || k.includes('mobile'));
+        await setPixelUserData({
+          email: emailKey ? values[emailKey] : undefined,
+          phone: phoneKey ? values[phoneKey] : undefined,
+        });
+        firePixelEvent('Lead', undefined, result.eventId);
+        captureEvent('form_submitted', { form_type: 'lead', ...(result.eventId && { event_id: result.eventId }) });
         setSubmitState('success');
         reset();
       } else {
