@@ -12,3 +12,15 @@
   }
 }
 
+/* Shared pill button base — used in HeroNav and HeroAnimatic CTA pill.
+   Color and size variants are applied via Tailwind utilities on each usage site. */
+.hero-pill-btn {
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+

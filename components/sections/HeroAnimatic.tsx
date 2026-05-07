@@ -187,21 +187,21 @@ export function HeroAnimatic({
           </div>
 
           {/* Right: CTA pill with two buttons */}
-          <div className="flex items-center gap-3 rounded-full bg-[#042019] p-3">
+          <div className="flex items-center gap-3 rounded-full bg-[var(--color-hero-bg)] p-3">
             <button
               type="button"
               onClick={(e) => openModal(e.currentTarget)}
-              className="flex h-12 items-center rounded-full bg-[#063126] px-4 font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-lg tracking-[-0.01em] whitespace-nowrap"
+              className="hero-pill-btn h-12 bg-[var(--color-hero-surface)] px-4 text-[var(--color-hero-accent)] text-lg tracking-[-0.01em]"
             >
               {cta1Label}
             </button>
             <button
               type="button"
               onClick={(e) => openModal(e.currentTarget)}
-              className="flex h-12 items-center gap-2 rounded-full bg-[#6ecc8b] pl-4 pr-3 font-['FK_Grotesk_Neue',sans-serif] text-[#042019] text-lg tracking-[-0.01em] whitespace-nowrap"
+              className="hero-pill-btn h-12 gap-2 bg-[var(--color-hero-accent)] pl-4 pr-3 text-[var(--color-hero-bg)] text-lg tracking-[-0.01em]"
             >
               {cta2Label}
-              <ArrowNarrowRight size={16} color="#042019" />
+              <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
             </button>
           </div>
         </div>
