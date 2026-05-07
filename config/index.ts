@@ -7,8 +7,8 @@ import type { Theme, SiteConfig } from 'keystone-design-bootstrap/types';
 
 export const config: SiteConfig = {
   site: {
-    title: "*TR* Your Business",
-    description: "*TR* Providing exceptional services",
+    title: "Keystone | Sales & Marketing for Local Businesses",
+    description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
     theme: "custom"
   },
   navigation: {

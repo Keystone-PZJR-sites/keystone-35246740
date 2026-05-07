@@ -9,8 +9,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const faviconUrl = websitePhotos?.favicon?.url;
   const previewImageUrl = websitePhotos?.preview_image?.url;
   return {
-    title: "*TR* Your Business",
-    description: "*TR* Providing exceptional services",
+    title: "Keystone | Sales & Marketing for Local Businesses",
+    description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
     ...(faviconUrl && {
       icons: { icon: faviconUrl, shortcut: faviconUrl },
     }),
