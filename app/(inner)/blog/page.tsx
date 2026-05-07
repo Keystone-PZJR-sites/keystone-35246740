@@ -49,10 +49,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   if (allPosts.length === 0) {
     return (
       <div className="blog-page" data-theme="custom">
-        <header className="blog-page-header">
-          <div className="blog-page-header-inner">
-            <h1 className="blog-page-title">Blog</h1>
-            <p className="blog-page-subtitle">
+        <header className="inner-page-header">
+          <div className="inner-page-header-inner">
+            <h1 className="inner-page-title blog-page-title">Blog</h1>
+            <p className="inner-page-subtitle">
               Insights, guides, and stories from the Keystone team.
             </p>
           </div>
@@ -106,10 +106,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <div className="blog-page" data-theme="custom">
       {/* Page header — same maroon as InnerNav, reads as one block */}
-      <header className="blog-page-header">
-        <div className="blog-page-header-inner">
-          <h1 className="blog-page-title">Blog</h1>
-          <p className="blog-page-subtitle">
+      <header className="inner-page-header">
+        <div className="inner-page-header-inner">
+          <h1 className="inner-page-title blog-page-title">Blog</h1>
+          <p className="inner-page-subtitle">
             Insights, guides, and stories from the Keystone team.
           </p>
         </div>

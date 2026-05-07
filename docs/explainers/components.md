@@ -10,8 +10,9 @@ Reusable components live in `components/`. TypeScript interfaces are defined in 
 |-----------|---------------|
 | `components/sections/` | One component per homepage section (HeroAnimatic, WorkShowcase, etc.) plus shared inner-page chrome (InnerNav). |
 | `components/elements/` | Small shared UI primitives reused across many pages (e.g. KeystoneMark). |
-| `components/blog/` | Components specific to the blog pages (BlogPostCard, BlogFeaturedCard, BlogFilterBar, BlogPagination, utils). Add similar per-page directories as new inner pages are built. |
-| `components/<page>/` | For any future page that needs more than one or two components, follow the `blog/` pattern: one directory, one `index.ts` barrel export. |
+| `components/blog/` | Components specific to the blog pages (BlogPostCard, BlogFeaturedCard, BlogFilterBar, BlogPagination, utils). |
+| `components/legal/` | Shared component and utilities for legal document pages (Terms of Service, Privacy Policy). |
+| `components/<page>/` | For any future page that needs more than one or two components, follow the `blog/` or `legal/` pattern: one directory, one `index.ts` barrel export. |
 
 ---
 

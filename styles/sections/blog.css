@@ -5,7 +5,9 @@
    header zones that merge seamlessly with InnerNav.
    ============================================================ */
 
-/* ── Shared background ───────────────────────────────────────── */
+/* ── Background — blog uses the shared inner-page cream ──────── */
+/* The .inner-page class in inner-nav.css provides background-color: #f0eee6 */
+/* .blog-page and .blog-post-page alias it for semantic clarity in TSX */
 
 .blog-page,
 .blog-post-page {
@@ -16,53 +18,13 @@
    GALLERY PAGE
    ============================================================ */
 
-/* ── Page header (maroon, reads as one block with InnerNav) ─── */
+/* ── Page header — uses shared .inner-page-header classes ────── */
+/* Header chrome (.inner-page-header, .inner-page-header-inner,  */
+/* .inner-page-title, .inner-page-subtitle) lives in inner-nav.css */
 
-.blog-page-header {
-  background-color: var(--color-hero-bg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.blog-page-header-inner {
-  max-width: var(--max-width-container, 1280px);
-  margin: 0 auto;
-  padding: 48px 24px 52px;
-}
-
-@media (min-width: 768px) {
-  .blog-page-header-inner {
-    padding: 56px 48px 60px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .blog-page-header-inner {
-    padding: 56px 0 60px;
-  }
-}
-
+/* Blog gallery title is larger than the generic inner-page-title */
 .blog-page-title {
-  font-family: 'FK Screamer', sans-serif;
-  font-weight: 700;
   font-size: clamp(3.5rem, 7vw, 5.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  color: var(--color-work-accent);
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.blog-page-subtitle {
-  font-family: 'FK Grotesk Neue', sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--color-work-muted);
-}
-
-@media (min-width: 768px) {
-  .blog-page-subtitle {
-    font-size: 1.0625rem;
-  }
 }
 
 /* ── Content wrapper ─────────────────────────────────────────── */
