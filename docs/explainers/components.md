@@ -2,7 +2,16 @@
 
 Reusable components live in `components/`. TypeScript interfaces are defined in each component's own file — read the source, don't guess at prop names.
 
-This file is updated as components are built. For the planned component inventory, see [`docs/specs/001_splash_page_alpha.md`](../specs/001_splash_page_alpha.md).
+---
+
+## Directory structure
+
+| Directory | What goes here |
+|-----------|---------------|
+| `components/sections/` | One component per homepage section (HeroAnimatic, WorkShowcase, etc.) plus shared inner-page chrome (InnerNav). |
+| `components/elements/` | Small shared UI primitives reused across many pages (e.g. KeystoneMark). |
+| `components/blog/` | Components specific to the blog pages (BlogPostCard, BlogFeaturedCard, BlogFilterBar, BlogPagination, utils). Add similar per-page directories as new inner pages are built. |
+| `components/<page>/` | For any future page that needs more than one or two components, follow the `blog/` pattern: one directory, one `index.ts` barrel export. |
 
 ---
 
@@ -13,4 +22,4 @@ This file is updated as components are built. For the planned component inventor
 3. **TypeScript interfaces** declared in the same file, above the component.
 4. **`'use client'` only when necessary** — GSAP, browser events, React state.
 5. **Responsive classes** on every component. Test at mobile (< 768px), tablet (768–1279px), desktop (≥ 1280px).
-6. **Barrel exports** — always re-export from `components/sections/index.ts` and `components/elements/index.ts`.
+6. **Barrel exports** — every directory under `components/` must have an `index.ts` that re-exports everything in that directory.

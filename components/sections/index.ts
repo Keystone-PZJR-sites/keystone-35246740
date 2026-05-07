@@ -1,5 +1,7 @@
 export { HeroAnimatic } from './HeroAnimatic';
 export type { HeroAnimaticProps } from './HeroAnimatic';
+export { InnerNav } from './InnerNav';
+export type { InnerNavProps } from './InnerNav';
 export { HeroNav } from './HeroNav';
 export type { HeroNavProps } from './HeroNav';
 export { WorkShowcase } from './WorkShowcase';
