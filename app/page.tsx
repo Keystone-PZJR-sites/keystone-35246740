@@ -17,6 +17,7 @@ import {
   LeadCaptureProvider,
 } from '@/components/sections';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
+import { getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api';
 import type {
   WorkCardData,
   WorkIndustry,
@@ -446,6 +447,7 @@ const SOCIAL_SLIDES: SocialProofSlide[] = [
 // ---------------------------------------------------------------------------
 
 export default async function HomePage() {
+  const companyInfo = await getCompanyInformation();
   return (
     <LeadCaptureProvider
       wordmarkSrc="/images/keystone-wordmark.svg"
@@ -541,10 +543,16 @@ export default async function HomePage() {
           line4="IT OUT THEMSELVES"
           leftTagline="The modern growth team for local business."
           rightTagline="Stay informed about our latest features and product releases"
-          cta1Label="Learn more"
+          cta1Label="The Blog"
+          cta1Href="/blog"
           cta2Label="Get started"
           emailPlaceholder="Email Address"
           signUpLabel="Sign Up"
+          podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+          youtubeUrl={companyInfo?.youtube_url}
+          instagramUrl={companyInfo?.instagram_url}
+          facebookUrl={companyInfo?.facebook_url}
+          linkedinUrl={companyInfo?.linkedin_url}
           keystoneMarkColor="#F57E56"
           ctaArrowSrc="/footer/footer-cta-arrow.svg"
           keystoneWordmarkSrc="/footer/footer-wordmark.svg"

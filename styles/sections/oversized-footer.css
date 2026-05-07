@@ -152,6 +152,11 @@
   color: var(--color-work-accent);
 }
 
+.footer-tagline-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .footer-btn-text {
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
@@ -210,40 +215,54 @@
   aspect-ratio: 1389.5 / 268.297;
 }
 
-/* --- Lower zone two-column layout --- */
-.footer-lower-row {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+/* --- Lower zone three-column grid layout ---
+   Mobile: each column's tagline and action stack together.
+   Desktop (≥768px): taglines across row 1, actions across row 2. */
+.footer-lower-grid {
+  display: grid;
+  grid-template-areas:
+    "tag1"
+    "act1"
+    "tag2"
+    "act2"
+    "tag3"
+    "act3";
+  gap: 32px;
 }
 
 @media (min-width: 768px) {
-  .footer-lower-row {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 0;
+  .footer-lower-grid {
+    grid-template-areas:
+      "tag1 tag2 tag3"
+      "act1 act2 act3";
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 60px;
   }
 }
 
-.footer-lower-left {
-  flex-shrink: 0;
+.footer-lower-tag1 { grid-area: tag1; }
+.footer-lower-tag2 { grid-area: tag2; }
+.footer-lower-tag3 { grid-area: tag3; }
+.footer-lower-act1 { grid-area: act1; }
+.footer-lower-act2 { grid-area: act2; }
+.footer-lower-act3 { grid-area: act3; }
+
+/* --- Social icon links --- */
+.footer-social-icons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
-@media (min-width: 1280px) {
-  .footer-lower-left {
-    width: 44.17%; /* 636px / 1440px */
-  }
+.footer-social-link {
+  color: var(--color-work-accent);
+  display: block;
+  transition: opacity 0.15s ease;
 }
 
-@media (min-width: 768px) and (max-width: 1279px) {
-  .footer-lower-left {
-    width: 50%;
-  }
-}
-
-.footer-lower-right {
-  flex: 1;
-  min-width: 0;
+.footer-social-link:hover {
+  opacity: 0.7;
 }
 
 /* Reduced motion: no entrance animations to suppress */

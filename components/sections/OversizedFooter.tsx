@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 
@@ -46,6 +47,18 @@ export interface OversizedFooterProps {
   videoD: string;
   /** Path to video clip E — ceramics */
   videoE: string;
+  /** href for the first CTA button — links to the blog */
+  cta1Href: string;
+  /** Spotify podcast URL */
+  podcastUrl: string;
+  /** YouTube channel URL from company info */
+  youtubeUrl?: string;
+  /** Instagram profile URL from company info */
+  instagramUrl?: string;
+  /** Facebook profile URL from company info */
+  facebookUrl?: string;
+  /** LinkedIn profile URL from company info */
+  linkedinUrl?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -108,6 +121,36 @@ function PillButton({ href, label, arrowSrc, variant, type, disabled }: PillButt
   );
 }
 
+interface SocialIconProps {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}
+
+function SocialIcon({ href, label, children }: SocialIconProps) {
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="footer-social-link"
+    >
+      <svg
+        width="44"
+        height="44"
+        viewBox="0 0 44 44"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <circle cx="22" cy="22" r="20" stroke="currentColor" strokeWidth="1.5" />
+        {children}
+      </svg>
+    </a>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
@@ -131,6 +174,12 @@ export function OversizedFooter({
   videoC,
   videoD,
   videoE,
+  cta1Href,
+  podcastUrl,
+  youtubeUrl,
+  instagramUrl,
+  facebookUrl,
+  linkedinUrl,
 }: OversizedFooterProps) {
   const { openModal } = useLeadCapture();
 
@@ -225,31 +274,33 @@ export function OversizedFooter({
           alt="Keystone"
         />
 
-        {/* Taglines row — 60px gap from mark bottom (Figma: mark bottom=41px, taglines top=101px) */}
-        <div className="footer-lower-row mt-8 lg:mt-[60px]">
-          <div className="footer-lower-left">
-            <p className="footer-tagline max-w-[244px]">{leftTagline}</p>
-          </div>
-          <div className="footer-lower-right">
-            <div className="w-full ml-auto lg:max-w-[785px]">
-              <p className="footer-tagline max-w-[388px]">{rightTagline}</p>
-            </div>
-          </div>
-        </div>
+        {/* 3-column lower grid — taglines in row 1, actions in row 2.
+            On mobile the grid stacks as tag→act pairs per column. */}
+        <div className="footer-lower-grid mt-8 lg:mt-[60px]">
 
-        {/* CTA buttons + email bar row — 60px gap from taglines bottom */}
-        <div className="footer-lower-row mt-8 lg:mt-[60px]">
-
-          {/* Left pill — "Learn more" + "Get started →" */}
-          <div className="footer-lower-left">
+          {/* ── Row 1: taglines ── */}
+          <p className="footer-lower-tag1 footer-tagline">{leftTagline}</p>
+          <p className="footer-lower-tag2 footer-tagline">{rightTagline}</p>
+          <p className="footer-lower-tag3 footer-tagline">
+            Read{' '}
+            <Link href={cta1Href} className="footer-tagline-link">the blog</Link>
+            {' '}and check out{' '}
+            <a
+              href={podcastUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-tagline-link"
+            >our podcast</a>.
+          </p>
+          {/* ── Row 2, col 1: CTA pill ── */}
+          <div className="footer-lower-act1">
             <div className="inline-flex items-center gap-3 rounded-full border border-[var(--color-work-accent)] p-3">
-              <button
-                type="button"
-                onClick={(e) => openModal(e.currentTarget)}
+              <Link
+                href={cta1Href}
                 className="footer-btn-text flex h-12 items-center rounded-full px-4 gap-2 bg-[var(--color-work-accent)] text-[var(--color-footer-bg)]"
               >
                 <span>{cta1Label}</span>
-              </button>
+              </Link>
               <button
                 type="button"
                 onClick={(e) => openModal(e.currentTarget)}
@@ -263,16 +314,14 @@ export function OversizedFooter({
             </div>
           </div>
 
-          {/* Right pill — email input + "Sign Up →" */}
-          <div className="footer-lower-right">
+          {/* ── Row 2, col 2: email signup ── */}
+          <div className="footer-lower-act2">
             {signUpState === 'success' ? (
-              <div className="w-full ml-auto lg:max-w-[785px]">
-                <p className="footer-signup-success">You&apos;re in! We&apos;ll keep you posted.</p>
-              </div>
+              <p className="footer-signup-success">You&apos;re in! We&apos;ll keep you posted.</p>
             ) : (
               <form
                 onSubmit={handleSignUp}
-                className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full ml-auto lg:max-w-[785px]"
+                className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full"
               >
                 <label htmlFor="footer-email" className="sr-only">
                   {emailPlaceholder}
@@ -300,6 +349,55 @@ export function OversizedFooter({
               <p className="footer-signup-error" role="alert">{signUpError}</p>
             )}
           </div>
+
+          {/* ── Row 2, col 3: social icons ── */}
+          <div className="footer-lower-act3">
+            <div className="footer-social-icons">
+              {youtubeUrl && (
+                <SocialIcon href={youtubeUrl} label="YouTube">
+                  {/* Play triangle */}
+                  <polygon points="17,15 17,29 31,22" fill="currentColor" />
+                </SocialIcon>
+              )}
+              {instagramUrl && (
+                <SocialIcon href={instagramUrl} label="Instagram">
+                  {/* Camera body */}
+                  <rect x="13" y="13" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
+                  {/* Lens */}
+                  <circle cx="22" cy="22" r="5" stroke="currentColor" strokeWidth="1.5" />
+                  {/* Flash dot */}
+                  <circle cx="27.5" cy="16.5" r="1.25" fill="currentColor" />
+                </SocialIcon>
+              )}
+              {facebookUrl && (
+                <SocialIcon href={facebookUrl} label="Facebook">
+                  <text
+                    x="22"
+                    y="29"
+                    textAnchor="middle"
+                    fontSize="22"
+                    fontWeight="700"
+                    fill="currentColor"
+                    fontFamily="'FK Grotesk Neue', system-ui, sans-serif"
+                  >f</text>
+                </SocialIcon>
+              )}
+              {linkedinUrl && (
+                <SocialIcon href={linkedinUrl} label="LinkedIn">
+                  <text
+                    x="22"
+                    y="28"
+                    textAnchor="middle"
+                    fontSize="15"
+                    fontWeight="700"
+                    fill="currentColor"
+                    fontFamily="'FK Grotesk Neue', system-ui, sans-serif"
+                  >in</text>
+                </SocialIcon>
+              )}
+            </div>
+          </div>
+
         </div>
 
         {/* Full-width wordmark — 60px gap from CTA bottom */}

@@ -175,7 +175,7 @@ Work on a branch, never commit directly to `main`. Branch names follow the patte
 
 Commit messages use [Conventional Commits](https://www.conventionalcommits.org/) format: a type prefix (`feat`, `fix`, `docs`, `chore`, `refactor`, `style`, `perf`) followed by a short imperative summary. Example: `feat: add HeroSection with video background`.
 
-Each commit should be one logical unit of work — not ten micro-commits for a single feature, and not an unrelated mix of features and chores in the same commit. `npm run build` must pass before every commit. `git push --force` to `main` is forbidden. PRs should be squashed to a small number of logical commits before merging.
+Each commit should be one logical unit of work — not ten micro-commits for a single feature, and not an unrelated mix of features and chores in the same commit. `npx tsc --noEmit` and `npm run lint` must pass before every commit (see Rule 3). `git push --force` to `main` is forbidden. PRs should be squashed to a small number of logical commits before merging.
 
 ---
 
