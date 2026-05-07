@@ -9,6 +9,11 @@ import { useLeadCapture } from './LeadCaptureModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Use a velocity threshold rather than direction so GSAP's snap micro-events
+// (which briefly reverse direction during easing) don't toggle the nav.
+// 80 px/s requires deliberate human scrolling while ignoring snap corrections.
+const VEL_THRESHOLD = 80;
+
 export interface HeroNavProps {
   wordmarkSrc: string;
 }
@@ -38,10 +43,11 @@ export function HeroNav({ wordmarkSrc }: HeroNavProps) {
           return;
         }
 
-        if (self.direction === 1 && !isHidden) {
+        const vel = self.getVelocity();
+        if (vel > VEL_THRESHOLD && !isHidden) {
           gsap.to(nav, { y: '-120%', duration: 0.3, ease: 'power2.in', overwrite: true });
           isHidden = true;
-        } else if (self.direction === -1 && isHidden) {
+        } else if (vel < -VEL_THRESHOLD && isHidden) {
           gsap.to(nav, { y: 0, duration: 0.4, ease: 'power2.out', overwrite: true });
           isHidden = false;
         }

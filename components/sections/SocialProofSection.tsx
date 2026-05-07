@@ -1,12 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 // ============================================================
 // Types
@@ -225,6 +228,18 @@ export function SocialProofSection({
   const [modalOpen, setModalOpen] = useState(false);
   const [openAtSlide, setOpenAtSlide] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Portal target — resolved on the client so the modal renders directly into
+  // document.body, completely outside #smooth-content. ScrollSmoother applies a
+  // CSS transform to #smooth-content which breaks position:fixed for its children;
+  // moving the modal to document.body gives it a true viewport-covering overlay.
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+  useEffect(() => { setPortalTarget(document.body); }, []);
+
+  // Saved scroll position — captured when the modal opens so we can restore
+  // it exactly on close (guards against any in-flight GSAP scroll tweens that
+  // might have shifted the position between open and close).
+  const savedScrollTopRef = useRef(0);
 
   // align: 'start' so slides are left-aligned — CSS positions are viewport-relative
   // when the active slide's left edge is at x=0.
@@ -559,36 +574,55 @@ export function SocialProofSection({
   }, [modalOpen, emblaApi, closeModal]);
 
   // ── Move focus to close button when modal opens ───────────────────────────
+  // preventScroll: true is required here. Without it the browser performs a
+  // native scroll to bring the focused element into view. Inside a CSS-transformed
+  // ancestor the browser miscalculates the element's position as offset 0,0 of
+  // the document and scrolls to the top — causing the page to jump to the hero.
 
   useEffect(() => {
     if (modalOpen && closeButtonRef.current) {
-      closeButtonRef.current.focus();
+      closeButtonRef.current.focus({ preventScroll: true });
     }
   }, [modalOpen]);
 
-  // ── GSAP organic floating animation ──────────────────────────────────────
+  // ── GSAP pin + snap + organic floating animation ──────────────────────────
+  //
+  // The section holds the visitor for one scroll-to-reveal + one scroll-to-advance.
+  // Thumbnails are immediately visible so there is no timed transition to wait for
+  // before allowing the second scroll. The floating animation starts on section entry.
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
+
       mm.add(
         '(prefers-reduced-motion: no-preference) and (min-width: 768px)',
         () => {
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top 90%',
-            once: true,
-            onEnter: () => {
-              floatTimelinesRef.current = wrapperRefs.current.map((ref, i) => {
-                const path = FLOAT_PATHS[i] ?? FLOAT_PATHS[0];
-                const delay = FLOAT_DELAYS[i] ?? 0;
-                const tl = gsap.timeline({ repeat: -1, delay });
-                path.forEach(({ x, y, scale, duration }) => {
-                  tl.to(ref, { x, y, scale, duration, ease: 'sine.inOut' });
-                });
-                return tl;
+          const section = sectionRef.current;
+          if (!section) return;
+
+          const startFloating = () => {
+            if (floatTimelinesRef.current.length > 0) return;
+            floatTimelinesRef.current = wrapperRefs.current.map((ref, i) => {
+              const path = FLOAT_PATHS[i] ?? FLOAT_PATHS[0];
+              const delay = FLOAT_DELAYS[i] ?? 0;
+              const tl = gsap.timeline({ repeat: -1, delay });
+              path.forEach(({ x, y, scale, duration }) => {
+                tl.to(ref, { x, y, scale, duration, ease: 'sine.inOut' });
               });
+              return tl;
+            });
+          };
+
+          // No staged entrance — isAnimComplete always true, no hold.
+          createSectionPin({
+            id: 'social-proof-pin',
+            section,
+            onEnter: () => {
+              logSectionEvent('social-proof-pin', 'ANIM_ENTER_CALLED');
+              startFloating();
             },
+            isAnimComplete: () => true,
           });
         },
       );
@@ -597,13 +631,44 @@ export function SocialProofSection({
     return () => ctx.revert();
   }, []);
 
-  // ── Pause/resume floating when modal is open/closed ───────────────────────
+  // ── Pause/resume floating + ScrollSmoother when modal is open/closed ────────
+  //
+  // The scroll position at the moment of click can be arbitrary — the snap
+  // delay (0.1 s) means snapTo may not yet have fired, and the visitor could
+  // be at p ≥ 0.02 with the animation already complete. Restoring that raw
+  // position on close would cause snapTo to immediately schedule the deferred
+  // advance jump, skipping past the section entirely.
+  //
+  // Fix: on open, normalise to the pin zone's exact 50% point (the canonical
+  // held state) before saving. The modal covers the viewport so the instant
+  // reposition is invisible. On close the restore always lands at a clean,
+  // predictable position where snapTo returns p (no advance).
 
   useEffect(() => {
+    const smoother = ScrollSmoother.get();
     if (modalOpen) {
       floatTimelinesRef.current.forEach((t) => t.pause());
+      if (smoother) {
+        // Kill any in-flight smooth-scroll tweens (gap-closing carries, etc.)
+        gsap.killTweensOf(smoother);
+
+        // Normalize to the pin zone's 50% point. The sp trigger's start and end
+        // bracket the 200% scroll travel; 50% is the canonical held state.
+        const spTrigger = ScrollTrigger.getById('social-proof-pin');
+        let cleanScroll = smoother.scrollTop();
+        if (spTrigger) {
+          cleanScroll = spTrigger.start + (spTrigger.end - spTrigger.start) * 0.5;
+          smoother.scrollTo(cleanScroll, false);
+        }
+        savedScrollTopRef.current = cleanScroll;
+        smoother.paused(true);
+      }
     } else {
       floatTimelinesRef.current.forEach((t) => t.resume());
+      if (smoother) {
+        smoother.scrollTo(savedScrollTopRef.current, false);
+        smoother.paused(false);
+      }
     }
   }, [modalOpen]);
 
@@ -668,98 +733,108 @@ export function SocialProofSection({
       </section>
 
       {/*
-       * ── Modal — ALWAYS MOUNTED (not conditionally rendered).
+       * ── Modal — rendered via React portal into document.body.
        *
-       * Keeping the modal in the DOM means Embla is initialized exactly once
-       * and is always ready to accept scrollTo() calls synchronously. This
-       * eliminates the race between Embla's async init and the expand animation.
+       * The modal must live OUTSIDE #smooth-content. ScrollSmoother applies a
+       * CSS transform to #smooth-content which breaks position:fixed for its
+       * children — fixed elements become positioned relative to the transformed
+       * ancestor instead of the viewport. This causes the modal overlay to
+       * mis-align and focus() on the close button to trigger a native scroll to
+       * the top of the document (the browser miscalculates the element's
+       * viewport position as 0,0 inside the transformed container).
        *
-       * visibility:hidden / pointer-events:none (via CSS class) hides it
-       * completely while keeping the layout tree intact.
+       * portalTarget is null on the server (no document.body) and set to
+       * document.body in a useEffect so the portal only mounts on the client.
+       * The modal is kept always-mounted so Embla stays initialized and
+       * getBoundingClientRect() on its children is always available for the
+       * thumbnail-to-fullscreen expand/shrink animation.
        */}
-      <div
-        ref={modalRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Customer testimonials carousel"
-        aria-hidden={modalOpen ? undefined : 'true'}
-        className={`sp-modal${modalOpen ? ' sp-modal--open' : ''}`}
-        data-theme="custom"
-      >
-        <button
-          ref={closeButtonRef}
-          className="sp-close-btn"
-          onClick={closeModal}
-          aria-label="Close"
+      {portalTarget && createPortal(
+        <div
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Customer testimonials carousel"
+          aria-hidden={modalOpen ? undefined : 'true'}
+          className={`sp-modal${modalOpen ? ' sp-modal--open' : ''}`}
+          data-theme="custom"
         >
-          <Image
-            src={closeButtonSrc}
-            alt=""
-            aria-hidden="true"
-            className="sp-close-icon"
-            width={33}
-            height={33}
+          <button
+            ref={closeButtonRef}
+            className="sp-close-btn"
+            onClick={closeModal}
+            aria-label="Close"
+          >
+            <Image
+              src={closeButtonSrc}
+              alt=""
+              aria-hidden="true"
+              className="sp-close-icon"
+              width={33}
+              height={33}
+            />
+          </button>
+
+          <button
+            className="sp-nav-prev"
+            onClick={() => emblaApi?.scrollPrev()}
+            aria-label="Previous testimonial"
+            tabIndex={modalOpen ? undefined : -1}
           />
-        </button>
+          <button
+            className="sp-nav-next"
+            onClick={() => emblaApi?.scrollNext()}
+            aria-label="Next testimonial"
+            tabIndex={modalOpen ? undefined : -1}
+          />
 
-        <button
-          className="sp-nav-prev"
-          onClick={() => emblaApi?.scrollPrev()}
-          aria-label="Previous testimonial"
-          tabIndex={modalOpen ? undefined : -1}
-        />
-        <button
-          className="sp-nav-next"
-          onClick={() => emblaApi?.scrollNext()}
-          aria-label="Next testimonial"
-          tabIndex={modalOpen ? undefined : -1}
-        />
-
-        <div ref={setEmblaRef} className="sp-embla">
-          <div className="sp-embla-container">
-            {slides.map((slide, i) => (
-              <div key={i} className="sp-slide">
-                {/*
-                 * .sp-slide-transition-wrap: GSAP expand/shrink target.
-                 * openModal() positions it at the thumbnail's screen rect before
-                 * the modal becomes visible; this effect then animates to 0,0,1,1.
-                 */}
-                <div
-                  ref={(el) => {
-                    modalVideoTransitionWrapRefs.current[i] = el;
-                  }}
-                  className="sp-slide-transition-wrap"
-                >
+          <div ref={setEmblaRef} className="sp-embla">
+            <div className="sp-embla-container">
+              {slides.map((slide, i) => (
+                <div key={i} className="sp-slide">
+                  {/*
+                   * .sp-slide-transition-wrap: GSAP expand/shrink target.
+                   * openModal() positions it at the thumbnail's screen rect before
+                   * the modal becomes visible; this effect then animates to 0,0,1,1.
+                   */}
                   <div
-                    className={`sp-slide-video-wrap${i === currentSlide ? ' sp-slide-video-wrap--active' : ''}`}
+                    ref={(el) => {
+                      modalVideoTransitionWrapRefs.current[i] = el;
+                    }}
+                    className="sp-slide-transition-wrap"
                   >
-                    <video
-                      ref={(el) => {
-                        modalVideoRefs.current[i] = el;
-                      }}
-                      className="sp-slide-video"
-                      playsInline
-                      loop={false}
-                      aria-label={`Testimonial video ${i + 1}`}
+                    <div
+                      className={`sp-slide-video-wrap${i === currentSlide ? ' sp-slide-video-wrap--active' : ''}`}
                     >
-                      <source src={slide.videoSrc} type="video/mp4" />
-                    </video>
+                      <video
+                        ref={(el) => {
+                          modalVideoRefs.current[i] = el;
+                        }}
+                        className="sp-slide-video"
+                        playsInline
+                        loop={false}
+                        aria-label={`Testimonial video ${i + 1}`}
+                      >
+                        <source src={slide.videoSrc} type="video/mp4" />
+                      </video>
+                    </div>
+                  </div>
+
+                  <div
+                    ref={(el) => {
+                      cardPositionRefs.current[i] = el;
+                    }}
+                    className="sp-card-position"
+                  >
+                    <TestimonialCard slide={slide} dimmed={i !== currentSlide} />
                   </div>
                 </div>
-
-                <div
-                  ref={(el) => {
-                    cardPositionRefs.current[i] = el;
-                  }}
-                  className="sp-card-position"
-                >
-                  <TestimonialCard slide={slide} dimmed={i !== currentSlide} />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </div>,
+        portalTarget,
+      )}
     </>
   );
 }

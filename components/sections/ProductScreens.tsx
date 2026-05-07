@@ -6,6 +6,8 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getEveryChannelPillRects } from '@/lib/pillHandoff';
+import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,12 +24,6 @@ export interface ProductScreensTool {
   screenshotSrc: string;
 }
 
-export interface ProductScreensPillPosition {
-  label: string;
-  left: string;
-  top: string;
-}
-
 export interface ProductScreensProps {
   tools: ProductScreensTool[];
 }
@@ -36,20 +32,12 @@ export function ProductScreens({ tools }: ProductScreensProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const transitioningRef = useRef(false);
 
-  // Wrapper provides a stable, isolated layout boundary for GSAP's pin spacer.
-  // Without it, the spacer inserts directly into #smooth-content and GSAP's
-  // internal ScrollTrigger.refresh() can mis-measure all other trigger offsets.
-  const containerRef  = useRef<HTMLDivElement>(null);
   const sectionRef    = useRef<HTMLElement>(null);
   const cardRef       = useRef<HTMLDivElement>(null);
-  const pillNavRef    = useRef<HTMLDivElement>(null);
   const pillRefs      = useRef<(HTMLButtonElement | null)[]>([]);
   const screenshotRef = useRef<HTMLDivElement>(null);
   // leftZoneRef wraps mark icon + copy text as a single animation unit
   const leftZoneRef   = useRef<HTMLDivElement>(null);
-
-  // Whether the entrance animation has completed (enables full pill interaction)
-  const entranceDoneRef = useRef(false);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -61,83 +49,110 @@ export function ProductScreens({ tools }: ProductScreensProps) {
         () => {
           const section    = sectionRef.current;
           const card       = cardRef.current;
-          const pillNav    = pillNavRef.current;
           const leftZone   = leftZoneRef.current;
           const screenshot = screenshotRef.current;
-          if (!section || !card || !pillNav || !leftZone || !screenshot) return;
+          if (!section || !card || !leftZone || !screenshot) return;
 
-          // ── Initial states ─────────────────────────────────────────────
-          // Scale the card to cover the full section (= full viewport).
-          // transform-origin: center bottom means:
-          //   • horizontal center stays fixed (cream appears symmetrically on sides)
-          //   • bottom edge stays at its CSS position (section bottom − 24 px)
-          //   • top edge extends *above* the section top, visible over the prior section
-          //     because .ps-section has overflow: visible on desktop.
-          // Net effect: as the section scrolls up and the scale decreases, the card
-          // appears to rise from a full-screen green background into the inset card.
+          // Scale card to cover the full viewport (transform-origin: center bottom
+          // keeps the bottom edge anchored so the card "rises" from below).
           const initialScaleX = section.offsetWidth  / card.offsetWidth;
           const initialScaleY = section.offsetHeight / card.offsetHeight;
 
-          gsap.set(card, {
-            scaleX: initialScaleX,
-            scaleY: initialScaleY,
-            borderRadius: 0,
-            transformOrigin: 'center bottom',
-          });
+          const setInitialState = () => {
+            gsap.set(card, {
+              scaleX: initialScaleX,
+              scaleY: initialScaleY,
+              borderRadius: 0,
+              transformOrigin: 'center bottom',
+            });
+            gsap.set([leftZone, screenshot], { opacity: 0, y: 24 });
+            // Pills start hidden — positions set from EveryChannel before play
+            const pillEls = pillRefs.current.filter((el): el is HTMLButtonElement => el !== null);
+            gsap.set(pillEls, { x: 0, y: 0, opacity: 0 });
+          };
 
-          // Card content: hidden until Phase 3
-          gsap.set([leftZone, screenshot], { opacity: 0, y: 24 });
+          setInitialState();
 
-          // ── Entrance timeline ──────────────────────────────────────────
-          const tl = gsap.timeline({ paused: true });
-
-          // Phase 1 (0 → 0.65): card contracts.
-          // No y-travel needed — the section's natural scroll provides the
-          // "rising from below" motion; the scale creates the contraction.
-          tl.to(
-            card,
-            { scaleX: 1, scaleY: 1, borderRadius: 20, ease: 'power2.inOut', duration: 0.65 },
-            0,
-          );
-
-          // Phase 3 (0.4 → 1.0): content loads in
-          tl.to(
-            leftZone,
-            { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 },
-            0.4,
-          );
-          tl.to(
-            screenshot,
-            { opacity: 1, y: 0, ease: 'power2.out', duration: 0.22 },
-            0.5,
-          );
-
-          // ── Two-trigger setup ──────────────────────────────────────────
+          // ── Entrance timeline (triggered, not scrubbed) ────────────────
           //
-          // Trigger 1 (no pin): drives the entrance animation while the section
-          // scrolls naturally from viewport-bottom to viewport-top. This starts
-          // while the previous section (EveryChannel) is still visible — the
-          // card's scaled overflow (above section bounds) is already on screen.
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'top top',
-            scrub: 0.5,
-            animation: tl,
-          });
+          // The animation plays at its own pace after the first scroll commits.
+          // Pills fly from their EveryChannel scattered positions to the nav row
+          // simultaneously with the card contracting from full-screen to inset.
+          const buildEntranceTl = () => {
+            const tl = gsap.timeline({ paused: true });
+            const pillEls = pillRefs.current.filter((el): el is HTMLButtonElement => el !== null);
 
-          // Mark entrance done as soon as the section reaches the top.
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top top',
-            onEnter: () => { entranceDoneRef.current = true; },
+            // Position pills at EveryChannel locations before playing
+            const ecRects = getEveryChannelPillRects();
+            pillEls.forEach((el, i) => {
+              const label = tools[i]?.label;
+              const ecRect = ecRects.get(label ?? '');
+              if (ecRect && el) {
+                const psRect = el.getBoundingClientRect();
+                // Offset: how far from the PS nav pill to the EC pill center
+                const dx =
+                  ecRect.left + ecRect.width / 2 - (psRect.left + psRect.width / 2);
+                const dy =
+                  ecRect.top  + ecRect.height / 2 - (psRect.top  + psRect.height / 2);
+                gsap.set(el, { x: dx, y: dy, opacity: 1 });
+              } else {
+                // No EC position available → pills fade in from opacity 0
+                gsap.set(el, { x: 0, y: 0, opacity: 0 });
+              }
+            });
+
+            // Phase 1 (0 → 0.65s): card contracts from full-screen to inset
+            tl.to(
+              card,
+              { scaleX: 1, scaleY: 1, borderRadius: 20, ease: 'power2.inOut', duration: 0.65 },
+              0,
+            );
+
+            // Phase 1 (0 → 0.65s): pills converge from EC positions to nav row
+            if (pillEls.length > 0) {
+              tl.to(
+                pillEls,
+                { x: 0, y: 0, opacity: 1, ease: 'power2.inOut', duration: 0.55, stagger: 0.04 },
+                0,
+              );
+            }
+
+            // Phase 2 (0.4 → 0.6s): copy fades in
+            tl.to(leftZone,   { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 }, 0.4);
+            // Phase 2 (0.5 → 0.72s): screenshot fades in
+            tl.to(screenshot, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.22 }, 0.5);
+
+            return tl;
+          };
+
+          // ── State flags ────────────────────────────────────────────────
+          let played = false;
+          let entranceComplete = false;
+          let entranceTl: gsap.core.Timeline | null = null;
+
+          const playEntrance = () => {
+            logSectionEvent('product-screens-pin', 'ANIM_ENTER_CALLED', { played });
+            if (played) return;
+            played = true;
+            entranceTl = buildEntranceTl();
+            logSectionEvent('product-screens-pin', 'ANIM_START');
+            entranceTl.play(0).then(() => {
+              entranceComplete = true;
+              logSectionEvent('product-screens-pin', 'ANIM_COMPLETE');
+            });
+          };
+
+          createSectionPin({
+            id: 'product-screens-pin',
+            section,
+            onEnter: playEntrance,
+            isAnimComplete: () => entranceComplete,
           });
         },
       );
 
       // ── Below 1280px or reduced motion: resting state immediately ──────
       const showRestingState = () => {
-        entranceDoneRef.current = true;
         const card       = cardRef.current;
         const leftZone   = leftZoneRef.current;
         const screenshot = screenshotRef.current;
@@ -148,12 +163,12 @@ export function ProductScreens({ tools }: ProductScreensProps) {
         gsap.set(pillEls,                { x: 0, y: 0, opacity: 1 });
       };
 
-      mm.add('(max-width: 1279px)',             showRestingState);
+      mm.add('(max-width: 1279px)',              showRestingState);
       mm.add('(prefers-reduced-motion: reduce)', showRestingState);
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [tools]);
 
   // ── Tool switching ──────────────────────────────────────────────────────
   const handlePillClick = useCallback(
@@ -203,7 +218,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
   const currentTool = tools[activeIndex];
 
   return (
-    <div ref={containerRef} className="ps-container">
+    <div className="ps-container">
       <section
         ref={sectionRef}
         className="ps-section"
@@ -241,7 +256,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
       </div>
 
       {/* Pill nav row — floats above the card at z-20 */}
-      <nav ref={pillNavRef} className="ps-pill-nav" aria-label="Product tools">
+      <nav className="ps-pill-nav" aria-label="Product tools">
         {tools.map((tool, i) => {
           const isActive = i === activeIndex;
           return (

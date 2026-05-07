@@ -20,11 +20,7 @@ export type {
   SalesMessage,
 } from './WorkShowcase';
 export { ProductScreens } from './ProductScreens';
-export type {
-  ProductScreensProps,
-  ProductScreensTool,
-  ProductScreensPillPosition,
-} from './ProductScreens';
+export type { ProductScreensProps, ProductScreensTool } from './ProductScreens';
 export { OversizedFooter } from './OversizedFooter';
 export type { OversizedFooterProps } from './OversizedFooter';
 export { PricingSection } from './PricingSection';

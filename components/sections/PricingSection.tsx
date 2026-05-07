@@ -1,5 +1,12 @@
-// Server component — no GSAP, no state, no browser APIs required.
+'use client';
+
+import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ---------------------------------------------------------------------------
 // Types
@@ -47,7 +54,7 @@ export interface PricingSectionProps {
 }
 
 // ---------------------------------------------------------------------------
-// Sub-components
+// Sub-components (no 'use client' needed — they're rendered inside a client component)
 // ---------------------------------------------------------------------------
 
 /**
@@ -116,9 +123,63 @@ export function PricingSection({
   comingSoonLabel,
   addonIconSrc,
 }: PricingSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const innerRef   = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      // ── Desktop / tablet + full motion ─────────────────────────────────
+      mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+        const section = sectionRef.current;
+        const inner   = innerRef.current;
+        if (!section || !inner) return;
+
+        // Start hidden — reveal on entry
+        gsap.set(inner, { opacity: 0, y: 32 });
+
+        let played = false;
+        let animComplete = false;
+
+        const playEntrance = () => {
+          logSectionEvent('pricing-pin', 'ANIM_ENTER_CALLED', { played });
+          if (played) return;
+          played = true;
+          logSectionEvent('pricing-pin', 'ANIM_START');
+          gsap.to(inner, {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            ease: 'power2.out',
+            onComplete: () => {
+              animComplete = true;
+              logSectionEvent('pricing-pin', 'ANIM_COMPLETE');
+            },
+          });
+        };
+
+        createSectionPin({
+          id: 'pricing-pin',
+          section,
+          onEnter: playEntrance,
+          isAnimComplete: () => animComplete,
+        });
+      });
+
+      // ── Reduced motion / mobile: show final state immediately, no pin ──
+      mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
+        const inner = innerRef.current;
+        if (inner) gsap.set(inner, { opacity: 1, y: 0 });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="pricing-section" data-theme="custom">
-      <div className="pricing-inner">
+    <section ref={sectionRef} className="pricing-section" data-theme="custom">
+      <div ref={innerRef} className="pricing-inner">
 
         {/* Tagline */}
         <p className="pricing-tagline">{tagline}</p>

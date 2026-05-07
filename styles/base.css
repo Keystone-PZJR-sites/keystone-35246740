@@ -12,7 +12,7 @@
   src: url('/fonts/FKScreamer-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -20,7 +20,7 @@
   src: url('/fonts/FKGroteskNeue-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -28,7 +28,7 @@
   src: url('/fonts/FKGroteskNeue-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -36,7 +36,7 @@
   src: url('/fonts/FKGroteskMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -44,7 +44,7 @@
   src: url('/fonts/FKRomanStandard-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -52,7 +52,7 @@
   src: url('/fonts/FKRomanStandard-Oblique.woff2') format('woff2');
   font-weight: 400;
   font-style: oblique;
-  font-display: swap;
+  font-display: block;
 }
 
 /* ==================== DESIGN TOKENS ==================== */

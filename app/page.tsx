@@ -461,26 +461,26 @@ export default async function HomePage() {
     <SmoothScrollProvider
       fixedChildren={<HeroNav wordmarkSrc="/images/keystone-wordmark.svg" />}
     >
-    <main>
-      <HeroAnimatic
-        headlineLine1="Always ON "
-        headlineLine2="SALES & MARKETING"
-        subheadline="A team of experts running your marketing while you run your business."
-        cta1Label="Learn more"
-        cta2Label="Get started"
-        videoSrc="/videos/home-hero-bg.mp4"
-        wordmarkSrc="/images/keystone-wordmark.svg"
-        markColor="#6ECC8B"
-        renderNav={false}
-      />
-      <div className="snap-start">
+      {/*
+       * Animated sections — one contained group driven by the scroll state machine.
+       * Every section inside <main> is viewport-height and participates in the
+       * pin + snap animator. The footer is intentionally a sibling, not a child.
+       */}
+      <main>
+        <HeroAnimatic
+          headlineLine1="Always ON "
+          headlineLine2="SALES & MARKETING"
+          subheadline="A team of experts running your marketing while you run your business."
+          cta1Label="Learn more"
+          cta2Label="Get started"
+          videoSrc="/videos/home-hero-bg.mp4"
+          markColor="#6ECC8B"
+        />
         <WorkShowcase
           headlineParts={WORK_HEADLINE_PARTS}
           industries={WORK_INDUSTRIES}
           cards={WORK_CARDS}
         />
-      </div>
-      <div className="snap-start">
         <EveryChannel
           line1="Every CHANNEL."
           line2="Every INTERACTION."
@@ -488,13 +488,9 @@ export default async function HomePage() {
           videoSrc="/every-channel/every-channel-bg.mp4"
           pills={EVERY_CHANNEL_PILLS}
         />
-      </div>
-      <div className="snap-start">
         <ProductScreens
           tools={PRODUCT_SCREENS_TOOLS}
         />
-      </div>
-      <div className="snap-start">
         <SocialProofSection
           headlineLine1="Great BUSINESSES "
           headlineLine2="deserve to be found."
@@ -502,8 +498,6 @@ export default async function HomePage() {
           slides={SOCIAL_SLIDES}
           closeButtonSrc="/social-proof/social-proof-modal-button.svg"
         />
-      </div>
-      <div className="snap-start">
         <PricingSection
           tagline="Always-on Sales & Marketing"
           priceAmount="$49 "
@@ -534,36 +528,39 @@ export default async function HomePage() {
           comingSoonLabel="Coming soon."
           addonIconSrc="/pricing/pricing-addon-icon.svg"
         />
-      </div>
-      <div className="snap-start">
-        <OversizedFooter
-          line1="FOR BUSINESSES"
-          line2="THAT ARE"
-          line3=" DONE FIGURING"
-          line4="IT OUT THEMSELVES"
-          leftTagline="The modern growth team for local business."
-          rightTagline="Stay informed about our latest features and product releases"
-          cta1Label="The Blog"
-          cta1Href="/blog"
-          cta2Label="Get started"
-          emailPlaceholder="Email Address"
-          signUpLabel="Sign Up"
-          podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
-          youtubeUrl={companyInfo?.youtube_url}
-          instagramUrl={companyInfo?.instagram_url}
-          facebookUrl={companyInfo?.facebook_url}
-          linkedinUrl={companyInfo?.linkedin_url}
-          keystoneMarkColor="#F57E56"
-          ctaArrowSrc="/footer/footer-cta-arrow.svg"
-          keystoneWordmarkSrc="/footer/footer-wordmark.svg"
-          videoA="/footer/footer-video-businesswoman.mp4"
-          videoB="/footer/footer-video-storefront.mp4"
-          videoC="/footer/footer-video-barbershop.mp4"
-          videoD="/footer/footer-video-phone-call.mp4"
-          videoE="/footer/footer-video-ceramics.mp4"
-        />
-      </div>
-    </main>
+      </main>
+
+      {/*
+       * Footer — outside the animated sections group.
+       * Not viewport-height, not held by the animator, no states or transitions.
+       * The visitor scrolls into it naturally after Pricing releases.
+       */}
+      <OversizedFooter
+        line1="FOR BUSINESSES"
+        line2="THAT ARE"
+        line3=" DONE FIGURING"
+        line4="IT OUT THEMSELVES"
+        leftTagline="The modern growth team for local business."
+        rightTagline="Stay informed about our latest features and product releases"
+        cta1Label="The Blog"
+        cta1Href="/blog"
+        cta2Label="Get started"
+        emailPlaceholder="Email Address"
+        signUpLabel="Sign Up"
+        podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+        youtubeUrl={companyInfo?.youtube_url}
+        instagramUrl={companyInfo?.instagram_url}
+        facebookUrl={companyInfo?.facebook_url}
+        linkedinUrl={companyInfo?.linkedin_url}
+        keystoneMarkColor="#F57E56"
+        ctaArrowSrc="/footer/footer-cta-arrow.svg"
+        keystoneWordmarkSrc="/footer/footer-wordmark.svg"
+        videoA="/footer/footer-video-businesswoman.mp4"
+        videoB="/footer/footer-video-storefront.mp4"
+        videoC="/footer/footer-video-barbershop.mp4"
+        videoD="/footer/footer-video-phone-call.mp4"
+        videoE="/footer/footer-video-ceramics.mp4"
+      />
     </SmoothScrollProvider>
     </LeadCaptureProvider>
   );

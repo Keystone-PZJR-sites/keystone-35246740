@@ -5,8 +5,12 @@ import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Cards per industry tab — used to map card index ↔ industry index.
+const CARDS_PER_INDUSTRY = 5;
 
 // ---------------------------------------------------------------------------
 // Types
@@ -894,8 +898,6 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
   // needing the useLayoutEffect to re-run when emblaApi becomes available.
   const startAutoScrollRef = useRef<() => void>(() => {});
 
-  const CARDS_PER_INDUSTRY = 5;
-
   const industryForCard = useCallback(
     (cardIndex: number) => Math.floor(cardIndex / CARDS_PER_INDUSTRY),
     [],
@@ -960,11 +962,13 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
       const mm = gsap.matchMedia();
 
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-        // Hide every original .work-card-item now, before Embla's useEffect runs.
-        // Embla creates loop-clones via cloneNode(true), which copies inline styles,
-        // so the clones will also start hidden — no flash from prepended clones.
+        const section = sectionRef.current;
+        if (!section) return;
+
+        // Hide every original .work-card-item before Embla's useEffect runs.
+        // Embla creates loop-clones via cloneNode(true), so clones start hidden too.
         const allOriginals = Array.from(
-          sectionRef.current?.querySelectorAll('.work-card-item') ?? [],
+          section.querySelectorAll('.work-card-item'),
         ) as HTMLElement[];
         gsap.set(allOriginals, { opacity: 0 });
 
@@ -972,34 +976,55 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
         const initialCards = initialCardRefs.current.filter((el): el is HTMLElement => !!el);
         gsap.set(initialCards, { y: 30 });
 
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top 45%',
-          once: true,
-          onEnter: () => {
-            gsap.to(initialCards, {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              stagger: 0.3,
-              onComplete: () => {
-                // Reveal all cards (originals + Embla clones) — they're off-screen
-                const allCards = Array.from(
-                  sectionRef.current?.querySelectorAll('.work-card-item') ?? [],
-                ) as HTMLElement[];
-                gsap.set(allCards, { clearProps: 'all' });
-                startAutoScrollRef.current();
-              },
-            });
-          },
+        // Track whether the card animation has finished — used to gate the
+        // second snap point so the visitor cannot advance past the section
+        // until all cards are visible (spec: hold while transitions play).
+        let played = false;
+        let animComplete = false;
+
+        const playEntrance = () => {
+          logSectionEvent('work-pin', 'ANIM_ENTER_CALLED', { played });
+          if (played) return;
+          played = true;
+          logSectionEvent('work-pin', 'ANIM_START', { cardCount: initialCards.length });
+          gsap.to(initialCards, {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: 'power2.out',
+            stagger: 0.3,
+            onComplete: () => {
+              const allCards = Array.from(
+                section.querySelectorAll('.work-card-item'),
+              ) as HTMLElement[];
+              gsap.set(allCards, { clearProps: 'all' });
+              startAutoScrollRef.current();
+              animComplete = true;
+              logSectionEvent('work-pin', 'ANIM_COMPLETE');
+            },
+          });
+        };
+
+        createSectionPin({
+          id: 'work-pin',
+          section,
+          onEnter: playEntrance,
+          isAnimComplete: () => animComplete,
         });
       });
 
-      // Reduced motion: skip animation, start auto scroll on entry
+      // Reduced motion: show all cards and start carousel on entry, no pin
       mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const allOriginals = Array.from(
+          section.querySelectorAll('.work-card-item'),
+        ) as HTMLElement[];
+        gsap.set(allOriginals, { clearProps: 'all' });
+
         ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: section,
           start: 'top 80%',
           once: true,
           onEnter: () => startAutoScrollRef.current(),
@@ -1009,6 +1034,8 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
     }, sectionRef);
 
     return () => ctx.revert();
+    // Pin setup is intentionally mount-only; all callbacks access state via
+    // stable refs (startAutoScrollRef, initialCardRefs) to avoid stale closures.
   }, []);
 
   useEffect(() => {
@@ -1022,6 +1049,9 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
       const cardIndex = industryIndex * CARDS_PER_INDUSTRY;
       emblaApi.scrollTo(cardIndex);
       setActiveIndustryIndex(industryIndex);
+      // Resume auto-scroll after the user picks a category tab — the intent is
+      // to browse all industries in sequence. Contrast with handleCardClick,
+      // which leaves isAutoScrollingRef false so the user stays on their pick.
       isAutoScrollingRef.current = true;
     },
     [emblaApi, stopAutoScroll],
@@ -1194,7 +1224,7 @@ export function WorkShowcase({ headlineParts, industries, cards }: WorkShowcaseP
         </div>
         <div className="flex items-baseline gap-[8px]">
           {activeIndustry?.subLabels.map((label, i) => (
-            <span key={label} className="flex items-baseline gap-[8px]">
+            <span key={i} className="flex items-baseline gap-[8px]">
               {i > 0 && (
                 <span
                   style={{

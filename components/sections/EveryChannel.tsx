@@ -3,6 +3,9 @@
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { registerEveryChannelPillRects } from '@/lib/pillHandoff';
+import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export interface PillData {
@@ -87,23 +90,18 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
 
         const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
 
-        // Lines start off-screen below (section itself stays visible so the
-        // video plays in the background as it scrolls into view).
-        // Pills hidden for pop-up entry.
+        // Lines start off-screen below; pills hidden for pop-up entry.
         gsap.set([l1, l2, l3], { y: '120vh', autoAlpha: 1 });
         gsap.set(pillEls, { y: 30, scale: 0.5, autoAlpha: 0 });
 
-        // Query helpers: first child (outgoing) and last child (incoming) spans
-        // inside every .ec-char wrapper for a given line element.
         const firstSpans = (el: HTMLElement) =>
           el.querySelectorAll<HTMLSpanElement>('.ec-char > span:first-child');
         const lastSpans = (el: HTMLElement) =>
           el.querySelectorAll<HTMLSpanElement>('.ec-char > span:last-child');
 
-        // ── Master timeline (time-driven, triggered on section entry) ───
+        // ── Master timeline (time-driven, triggered by scroll) ───────────
         const masterTl = gsap.timeline({ paused: true });
 
-        // Add a slot-machine sequence for one line at position `at` (seconds).
         function addLine(lineEl: HTMLElement, at: number) {
           masterTl.fromTo(lineEl,
             { y: '120vh', autoAlpha: 1 },
@@ -128,7 +126,6 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
         addLine(l2, LINE_STARTS[1]);
         addLine(l3, LINE_STARTS[2]);
 
-        // Pills — slide up + spring scale-pop, interleaved with text lines
         sortedPills.forEach((_, i) => {
           const el = pillRefs.current[i];
           if (!el) return;
@@ -143,23 +140,66 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
           masterTl.to(el, { scale: 1, ease: 'power1.out', duration: td * 0.35 }, ts + td * 0.65);
         });
 
-        // Hold after Social pill (beat 6 ends ≈ 3.1s)
+        // Slight hold after the last pill settles before the visitor can release
         masterTl.to({}, { duration: 0.25 }, 3.1);
 
-        // ── ScrollTrigger: play animation when section enters viewport ──────
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          once: true,
-          onEnter: () => masterTl.play(0),
+        // ── State flags ──────────────────────────────────────────────────
+        // played: masterTl has been triggered for this visit.
+        // buildingComplete: masterTl has finished → allow release.
+        let played = false;
+        let buildingComplete = false;
+
+        const playBuilding = () => {
+          logSectionEvent('every-channel-pin', 'ANIM_ENTER_CALLED', { played });
+          if (played) return;
+          played = true;
+          logSectionEvent('every-channel-pin', 'ANIM_START', { duration: masterTl.duration() });
+          masterTl.play(0).then(() => {
+            // Capture pill viewport positions for ProductScreens while section is
+            // still pinned — positions change once the pin releases.
+            const rectsMap = new Map<string, DOMRect>();
+            sortedPills.forEach((pill, i) => {
+              const el = pillRefs.current[i];
+              if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
+            });
+            registerEveryChannelPillRects(rectsMap);
+            buildingComplete = true;
+            logSectionEvent('every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
+          });
+        };
+
+        // Two-phase hold: Building animation plays between snap 0→0.5,
+        // then visitor needs one more scroll to release (snap 0.5→1).
+        createSectionPin({
+          id: 'every-channel-pin',
+          section,
+          onEnter: playBuilding,
+          isAnimComplete: () => buildingComplete,
         });
       });
 
       // ── Mobile + reduced-motion: final state immediately ───────────────
-      // No GSAP sets run outside mm.add. The first char spans are visible
-      // by default (in-flow), second spans are hidden below the overflow
-      // mask (transform: translateY(100%) set via inline CSS). Text is
-      // fully readable, no animation runs.
+      // First char spans are visible by default (in-flow). Second spans are
+      // hidden below the overflow mask via inline CSS. No GSAP, no pin.
+      mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
+        const section = sectionRef.current;
+        const l1 = line1Ref.current;
+        const l2 = line2Ref.current;
+        const l3 = line3Ref.current;
+        if (!section || !l1 || !l2 || !l3) return;
+
+        const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
+
+        // Show final state: lines at rest, pills fully visible, second spans visible
+        gsap.set([l1, l2, l3], { y: 0, autoAlpha: 1 });
+        gsap.set(pillEls, { y: 0, scale: 1, autoAlpha: 1 });
+
+        // Make second spans visible (they start at translateY(100%) via inline CSS)
+        const allSecondSpans = section.querySelectorAll<HTMLSpanElement>(
+          '.ec-char > span:last-child',
+        );
+        gsap.set(Array.from(allSecondSpans), { y: 0 });
+      });
     }, wrapperRef);
 
     return () => ctx.revert();
