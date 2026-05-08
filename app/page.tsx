@@ -823,7 +823,14 @@ export default async function HomePage() {
           subheadline="A team of experts running your marketing while you run your business."
           cta1Label="Learn more"
           cta2Label="Get started"
-          videoSrc="/videos/home-hero-bg.mp4"
+          videoSrcs={[
+            '/videos/hero-autoloop-clips/herovideo-01.mp4',
+            '/videos/hero-autoloop-clips/herovideo-02.mp4',
+            '/videos/hero-autoloop-clips/herovideo-03.mp4',
+            '/videos/hero-autoloop-clips/herovideo-04.mp4',
+            '/videos/hero-autoloop-clips/herovideo-05.mp4',
+            '/videos/hero-autoloop-clips/herovideo-06.mp4',
+          ]}
           markColor="#6ECC8B"
         />
         <WorkShowcase

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,7 +16,8 @@ export interface HeroAnimaticProps {
   subheadline: string;
   cta1Label: string;
   cta2Label: string;
-  videoSrc: string;
+  /** Ordered array of clip URLs; must have at least one entry. */
+  videoSrcs: string[];
   markColor: string;
 }
 
@@ -26,13 +27,65 @@ export function HeroAnimatic({
   subheadline,
   cta1Label,
   cta2Label,
-  videoSrc,
+  videoSrcs,
   markColor,
 }: HeroAnimaticProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const indexRef = useRef(0);
   const { openModal } = useLeadCapture();
+
+  // Advance to the next clip on ended or error; skip silently on error.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || videoSrcs.length === 0) return;
+
+    const advance = () => {
+      indexRef.current = (indexRef.current + 1) % videoSrcs.length;
+      video.src = videoSrcs[indexRef.current];
+      video.load();
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener('ended', advance);
+    video.addEventListener('error', advance);
+    return () => {
+      video.removeEventListener('ended', advance);
+      video.removeEventListener('error', advance);
+    };
+  }, [videoSrcs]);
+
+  // Preload the clip that follows the currently-playing one.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || videoSrcs.length <= 1) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'video';
+    link.type = 'video/mp4';
+    document.head.appendChild(link);
+
+    const updatePreload = () => {
+      // indexRef has already been incremented by the advance listener
+      // (which fires first), so this correctly preloads the clip after next.
+      const nextIndex = (indexRef.current + 1) % videoSrcs.length;
+      link.href = videoSrcs[nextIndex];
+    };
+
+    // Seed the preload for clip[1] on mount.
+    updatePreload();
+
+    video.addEventListener('ended', updatePreload);
+    video.addEventListener('error', updatePreload);
+    return () => {
+      video.removeEventListener('ended', updatePreload);
+      video.removeEventListener('error', updatePreload);
+      link.parentNode?.removeChild(link);
+    };
+  }, [videoSrcs]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -108,13 +161,13 @@ export function HeroAnimatic({
       {/* Video frame — inset 24 px on desktop, full width on mobile */}
       <div className="absolute inset-x-0 top-0 bottom-0 md:inset-x-6 md:bottom-6 md:rounded-b-2xl overflow-hidden">
         <video
+          ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           className="absolute h-full w-full object-cover"
         >
-          <source src={videoSrc} type="video/mp4" />
+          <source src={videoSrcs[0]} type="video/mp4" />
         </video>
       </div>
 
