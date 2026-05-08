@@ -168,8 +168,14 @@ export function createSectionPin({
         } else if (!complete) {
           // Animation still running: soft hold wherever the user scrolled.
           result = p;
+        } else if (p < 0.95) {
+          // User paused somewhere in the middle of the section — hold in place.
+          // Never auto-advance; section transitions are always human-triggered
+          // (the visitor must scroll almost all the way through the pinned zone).
+          result = p;
         } else if (!advancing) {
-          // Animation done AND user committed to advancing.
+          // User has scrolled ≥ 95% through the pinned zone AND animation is
+          // done — they clearly intend to advance to the next section.
           //
           // CRITICAL: do NOT return 1. Returning 1 would start a GSAP snap
           // tween targeting trigger.end. That tween targets an internal proxy

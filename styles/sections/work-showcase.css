@@ -1,28 +1,19 @@
 /* ==================== WORK SHOWCASE ==================== */
 
-/* --- Carousel item: static hover zone that never transforms --- */
+/* --- Carousel item: static hover zone that never transforms.
+      margin-right is used (not flex gap) so Embla loop clones inherit the spacing. --- */
 .work-card-item {
   padding-bottom: 24px;
+  margin-right: 32px;
 }
 
-/* --- Card wrapper: lifts on parent hover; 100ms exit delay prevents stutter loop --- */
+/* --- Card wrapper: desaturates whole card (logos, text, bg, images, everything).
+      100ms exit delay prevents stutter when cursor re-enters the static hit zone. --- */
 .work-card-wrapper {
-  will-change: transform;
-  /* exit: 100ms delay lets cursor settle in static hit zone before card drops */
-  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
-}
-
-/* --- Photo desaturation: CSS filter (Social + Content cards) --- */
-.work-card-img {
-  will-change: filter;
+  will-change: transform, filter;
   filter: grayscale(1) sepia(0.1) brightness(0.97);
-  transition: filter 350ms;
-}
-
-/* --- Photo desaturation: mix-blend-mode (Ads + Web cards) --- */
-.work-img-blend {
-  transform: translateZ(0);
-  mix-blend-mode: luminosity;
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 100ms,
+              filter 350ms 100ms;
 }
 
 /* --- Ads card icon: brightness transition to match learn-more button --- */
@@ -224,12 +215,155 @@
   transition: color 350ms;
 }
 
+/* --- Listings card (252px simple rounded card, no phone mockup) --- */
+.work-listings-outer {
+  background-color: #f0eee6;
+  transition: background-color 350ms;
+}
+.work-listings-business-name {
+  color: #242323;
+  transition: color 350ms;
+}
+.work-listings-meta-text {
+  color: #847f71;
+  transition: color 350ms;
+}
+.work-listings-star {
+  color: #847f71;
+  transition: color 350ms;
+}
+.work-listings-score-bg {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-listings-score-num {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-listings-description {
+  color: #989281;
+  transition: color 350ms;
+}
+.work-listings-pill-bg {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-listings-pill-text {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+
+/* --- Home web card (CanopyWorks — utility bar + Fraunces serif layout) --- */
+.work-home-web-inner {
+  background-color: #e0ddd1;
+  transition: background-color 350ms;
+}
+.work-home-web-utility {
+  background-color: #5d5a56;
+  transition: background-color 350ms;
+}
+.work-home-web-utility-text {
+  color: rgba(245, 240, 230, 0.8);
+  transition: color 350ms;
+}
+.work-home-web-header {
+  background-color: rgba(245, 240, 230, 0.5);
+  border-color: rgba(217, 209, 189, 0.4);
+  transition: background-color 350ms, border-color 350ms;
+}
+.work-home-web-brand {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-home-web-nav {
+  color: #847f71;
+  transition: color 350ms;
+}
+.work-home-web-leaf {
+  filter: saturate(0);
+  transition: filter 350ms;
+}
+.work-home-web-cta-btn {
+  background-color: #5d5a56;
+  transition: background-color 350ms;
+}
+.work-home-web-cta-btn span {
+  color: rgba(245, 240, 230, 0.8);
+  transition: color 350ms;
+}
+.work-home-web-headline {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-home-web-headline-italic {
+  color: #5d5a56;
+  transition: color 350ms;
+}
+.work-home-web-stats-border {
+  border-color: #d6d2c2;
+  transition: border-color 350ms;
+}
+.work-home-web-stat-num {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-home-web-stat-label {
+  color: #989281;
+  transition: color 350ms;
+}
+.work-home-web-cta-primary {
+  background-color: #5d5a56;
+  transition: background-color 350ms;
+}
+.work-home-web-cta-primary span {
+  color: rgba(245, 240, 230, 0.9);
+  transition: color 350ms;
+}
+.work-home-web-cta-secondary {
+  border-color: rgba(0, 0, 0, 0.1);
+  transition: border-color 350ms;
+}
+.work-home-web-cta-secondary span {
+  color: #4f4d4a;
+  transition: color 350ms;
+}
+.work-home-web-below {
+  background-color: rgba(220, 215, 200, 0.5);
+  border-color: #d6d2c2;
+  transition: background-color 350ms, border-color 350ms;
+}
+
+/* --- Care web card variant elements --- */
+.work-care-web-brand {
+  color: #5d5a56;
+  transition: color 350ms;
+}
+.work-care-web-book-btn {
+  background-color: #cbc5b4;
+  transition: background-color 350ms;
+}
+.work-care-web-book-text {
+  color: #e0ddd1;
+  transition: color 350ms;
+}
+.work-care-web-service-title {
+  color: #847f71;
+  transition: color 350ms;
+}
+
 /* --- Ads card elements: instant snap (no transition) --- */
 .work-ads-profile-text {
   color: #4f4d4a;
 }
 .work-ads-caption {
   color: #847f71;
+}
+/* Home ads variant — text is always white on dark bg, stays white on hover */
+.work-ads-home-profile-text {
+  color: rgba(245, 240, 230, 0.9);
+}
+.work-ads-home-caption {
+  color: white;
 }
 .work-ads-cta-bg {
   background-color: #d6d2c2;
@@ -238,158 +372,245 @@
   color: #989281;
 }
 
-/* Desktop-only hover effects (md+) */
+/* Desktop: hover OR selected both show full focus state. Only click scrolls (JS). */
 @media (min-width: 768px) {
-  /* Lift: triggered by .work-card-item (static zone), 0ms delay on enter */
-  .work-card-item:hover .work-card-wrapper {
+  /* Lift + remove wrapper grayscale — restores photos and inline-colored elements */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper {
     transform: translateY(-24px);
-    transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 0ms;
-  }
-
-  .work-card-item:hover .work-card-wrapper .work-card-img {
     filter: none;
+    transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 0ms,
+                filter 350ms 0ms;
   }
 
-  .work-card-item:hover .work-card-wrapper .work-img-blend {
-    mix-blend-mode: normal;
+  /* Chip */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-chip {
+    opacity: 1;
   }
 
-  .work-card-item:hover .work-card-wrapper .ads-icon-bright {
+  /* Ads overlay + link icon swap */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-overlay {
+    opacity: 1;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-link-focused {
+    opacity: 1;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .ads-icon-bright {
     filter: brightness(100);
   }
 
-  .work-card-item:hover .work-card-wrapper .work-chip {
-    opacity: 1;
-  }
-
-  .work-card-item:hover .work-card-wrapper .work-ads-overlay {
-    opacity: 1;
-  }
-  .work-card-item:hover .work-card-wrapper .work-ads-link-focused {
-    opacity: 1;
-  }
-
-  /* Avatar swaps */
-  .work-card-item:hover .work-card-wrapper .work-ads-avatar-default {
+  /* Avatar + heart: hide default, show focused variant */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-avatar-default,
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-avatar-default,
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-heart-default {
     opacity: 0;
   }
-  .work-card-item:hover .work-card-wrapper .work-ads-avatar-focused {
-    opacity: 1;
-  }
-  .work-card-item:hover .work-card-wrapper .work-social-avatar-default {
-    opacity: 0;
-  }
-  .work-card-item:hover .work-card-wrapper .work-social-avatar-focused {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-avatar-focused,
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-avatar-focused,
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-heart-focused,
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-photo-img {
     opacity: 1;
   }
 
-  /* Heart icon: gray → pink */
-  .work-card-item:hover .work-card-wrapper .work-social-heart-default {
-    opacity: 0;
-  }
-  .work-card-item:hover .work-card-wrapper .work-social-heart-focused {
+  /* Web book btn: reveal pink ::after gradient */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-book-btn::after {
     opacity: 1;
   }
 
-  /* Sales */
-  .work-card-item:hover .work-card-wrapper .work-sales-outer {
+  /* Sales — restore real brand colors over the muted CSS base values */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-outer {
     background-color: #fcfbf8;
   }
-  .work-card-item:hover .work-card-wrapper .work-sales-island {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-island {
     background-color: #242323;
   }
-  .work-card-item:hover .work-card-wrapper .work-sales-studio-bubble {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-studio-bubble {
     background-color: #ece2f3;
   }
-  .work-card-item:hover .work-card-wrapper .work-sales-studio-text {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-studio-text {
     color: #422457;
   }
-  .work-card-item:hover .work-card-wrapper .work-sales-customer-bubble {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-customer-bubble {
     background-color: #d9e7f7;
   }
-  .work-card-item:hover .work-card-wrapper .work-sales-customer-text {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-customer-text {
     color: #153b65;
   }
-  .work-card-item:hover .work-card-wrapper .work-sales-indicator {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-sales-indicator {
     background-color: #242323;
   }
 
-  /* Ads (instant snaps — no transition defined on these elements) */
-  .work-card-item:hover .work-card-wrapper .work-ads-profile-text {
+  /* Ads */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-profile-text {
     color: white;
   }
-  .work-card-item:hover .work-card-wrapper .work-ads-caption {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-caption {
     color: white;
   }
-  .work-card-item:hover .work-card-wrapper .work-ads-cta-bg {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-cta-bg {
     background-color: white;
   }
-  .work-card-item:hover .work-card-wrapper .work-ads-cta-text {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-ads-cta-text {
     color: #242323;
   }
 
   /* Social */
-  .work-card-item:hover .work-card-wrapper .work-social-outer {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-outer {
     background-color: #fcfbf8;
   }
-  .work-card-item:hover .work-card-wrapper .work-social-profile-name {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-profile-name {
     color: #242323;
   }
-  .work-card-item:hover .work-card-wrapper .work-social-caption {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-social-caption {
     color: #242323;
-  }
-  .work-card-item:hover .work-card-wrapper .work-social-photo-img {
-    opacity: 1;
   }
 
   /* Web */
-  .work-card-item:hover .work-card-wrapper .work-web-outer {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-outer {
     background-color: rgba(255, 255, 255, 0.3);
-    /* backdrop-filter already at blur(12.024px) — no change needed, no blink */
   }
-  .work-card-item:hover .work-card-wrapper .work-web-inner {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-inner {
     background-color: white;
   }
-  .work-card-item:hover .work-card-wrapper .work-web-nav-link {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-nav-link {
     color: #ff83af;
   }
-  .work-card-item:hover .work-card-wrapper .work-web-buy-btn-bg {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-buy-btn-bg {
     background-color: #ede9e4;
   }
-  .work-card-item:hover .work-card-wrapper .work-web-buy-btn-text {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-buy-btn-text {
     color: #242323;
   }
-  .work-card-item:hover .work-card-wrapper .work-web-book-btn::after {
-    opacity: 1;
-  }
-  .work-card-item:hover .work-card-wrapper .work-web-cta-bg {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-cta-bg {
     background-color: white;
   }
-  .work-card-item:hover .work-card-wrapper .work-web-cta-text {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-cta-text {
     color: #242323;
   }
-  .work-card-item:hover .work-card-wrapper .work-web-heading {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-web-heading {
+    color: #242323;
+  }
+
+  /* Listings */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-outer {
+    background-color: #fcfbf8;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-business-name {
+    color: #242323;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-meta-text {
+    color: #4f4d4a;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-star {
+    color: #4f4d4a;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-score-bg {
+    background-color: #f0eee6;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-score-num {
+    color: #4f4d4a;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-description {
+    color: #847f71;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-pill-bg {
+    background-color: #f8f7f2;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-listings-pill-text {
+    color: #4f4d4a;
+  }
+
+  /* Home web */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-inner {
+    background-color: #f8f7f2;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-utility {
+    background-color: #122319;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-utility-text {
+    color: rgba(245, 240, 230, 0.8);
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-header {
+    background-color: rgba(245, 240, 230, 0.75);
+    border-color: rgba(217, 209, 189, 0.6);
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-brand {
+    color: #1a1f17;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-nav {
+    color: #3b443a;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-leaf {
+    filter: saturate(1);
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-cta-btn {
+    background-color: #1f3a2c;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-cta-btn span {
+    color: #f5f0e6;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-headline {
+    color: #1a1f17;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-headline-italic {
+    color: #1f3a2c;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-stats-border {
+    border-color: #d9d1bd;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-stat-num {
+    color: #1a1f17;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-stat-label {
+    color: #6c7468;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-cta-primary {
+    background-color: #1f3a2c;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-cta-primary span {
+    color: #f5f0e6;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-cta-secondary {
+    border-color: rgba(26, 31, 23, 0.15);
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-cta-secondary span {
+    color: #1a1f17;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-home-web-below {
+    background-color: rgba(235, 227, 211, 0.6);
+    border-color: #d9d1bd;
+  }
+
+  /* Care web */
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-care-web-brand {
+    color: #6d46e2;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-care-web-book-btn {
+    background-color: #6d46e2;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-care-web-book-text {
+    color: white;
+  }
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-care-web-service-title {
     color: #242323;
   }
 
   /* Content */
-  .work-card-item:hover .work-card-wrapper .work-content-outer {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-content-outer {
     background-color: rgba(255, 255, 255, 0.3);
-    /* backdrop-filter already at blur(12px) — no change needed, no blink */
   }
-  .work-card-item:hover .work-card-wrapper .work-content-inner {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-content-inner {
     background-color: white;
   }
-  .work-card-item:hover .work-card-wrapper .work-content-tag-bg {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-content-tag-bg {
     background-color: #fcd8e5;
   }
-  .work-card-item:hover .work-card-wrapper .work-content-tag-text {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-content-tag-text {
     color: #ff3d81;
   }
-  .work-card-item:hover .work-card-wrapper .work-content-headline {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-content-headline {
     color: #242323;
   }
-  .work-card-item:hover .work-card-wrapper .work-content-body {
+  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-content-body {
     color: #3a3836;
   }
 }
@@ -399,7 +620,7 @@
   .work-card-wrapper {
     transition: none;
   }
-  .work-card-item:hover .work-card-wrapper {
+  .work-card-item[data-focused="true"] .work-card-wrapper {
     transform: none;
   }
   .work-chip {
