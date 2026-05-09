@@ -628,6 +628,19 @@ export function SocialProofSection({
           });
         },
       );
+
+      // Mobile: pin the section — no staged entrance, floating not used on mobile.
+      mm.add('(max-width: 767px)', () => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        createSectionPin({
+          id: 'social-proof-pin',
+          section,
+          onEnter: () => {},
+          isAnimComplete: () => true,
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();

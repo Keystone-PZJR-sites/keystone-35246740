@@ -167,10 +167,23 @@ export function PricingSection({
         });
       });
 
-      // ── Reduced motion / mobile: show final state immediately, no pin ──
+      // ── Reduced motion / desktop: show final state immediately, no pin ──
       mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
         const inner = innerRef.current;
         if (inner) gsap.set(inner, { opacity: 1, y: 0 });
+      });
+
+      // ── Mobile: pin the section — content already visible, no entrance ────
+      mm.add('(max-width: 767px)', () => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        createSectionPin({
+          id: 'pricing-pin',
+          section,
+          onEnter: () => {},
+          isAnimComplete: () => true,
+        });
       });
     }, sectionRef);
 

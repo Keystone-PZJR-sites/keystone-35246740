@@ -3071,6 +3071,21 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
         });
       });
 
+      // Mobile: pin the section using the same state-machine so the visitor
+      // dwells on the carousel before scrolling past. No staged animation —
+      // Embla runs independently once mounted.
+      mm.add('(max-width: 767px)', () => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        createSectionPin({
+          id: 'work-pin',
+          section,
+          onEnter: () => startAutoScrollRef.current(),
+          isAnimComplete: () => true,
+        });
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();

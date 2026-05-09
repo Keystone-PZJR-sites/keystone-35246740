@@ -1,0 +1,381 @@
+/* ==================== VALUE PROPS ==================== */
+/* Desktop layout shown at md+ (≥768px). Mobile carousel shown below md. */
+
+/* ── Desktop ─────────────────────────────────────────────────────────────── */
+
+/* --- Section container ---
+   Full-viewport pinned section — same pattern as WorkShowcase and EveryChannel.
+   createSectionPin (in ValueProps.tsx) handles the scroll-state machine.      */
+.vp-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #f0eee6;
+  overflow: hidden;
+}
+
+/* --- Header row: headline left, CTA bubble right ---
+   Absolute so it sits at 56px from the section top without affecting
+   the card flow layout. Centred with transform so it aligns with the
+   cards row at any viewport width. */
+.vp-header {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1392px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Section headline --- */
+.vp-headline {
+  font-family: 'FK Roman Standard', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.96px;
+  color: #4f4d4a;
+  max-width: 482px;
+  margin: 0;
+}
+
+.vp-headline em {
+  font-style: oblique;
+}
+
+/* --- CTA bubble: pill group wrapping both buttons --- */
+.vp-cta-bubble {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #e0ddd1;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* --- "Learn more" pill --- */
+.vp-cta-learn-more {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 48px;
+  background-color: #f0eee6;
+  border: none;
+  border-radius: 9999px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: -0.18px;
+  color: #5d5a56;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.vp-cta-learn-more:focus-visible {
+  outline: 2px solid #5d5a56;
+  outline-offset: 2px;
+}
+
+/* --- "Get started" pill --- */
+.vp-cta-get-started {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 16px;
+  height: 48px;
+  background-color: #5d5a56;
+  border: none;
+  border-radius: 9999px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: -0.18px;
+  color: #f0eee6;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.vp-cta-get-started:focus-visible {
+  outline: 2px solid #f0eee6;
+  outline-offset: 2px;
+}
+
+.vp-cta-arrow {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* --- Cards row --- absolute, matching Figma y=225px card top offset */
+.vp-cards-row {
+  position: absolute;
+  top: 225px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1392px;
+  display: flex;
+  gap: 24px;
+}
+
+/* --- Individual card --- */
+.vp-card {
+  flex: 1 1 0%;
+  position: relative;
+  height: 711px;
+  min-width: 0;
+}
+
+/* --- Video panel (top of card) ---
+   Figma: 375px tall, rounded top corners only. When videoLeft/videoWidth are
+   not supplied, the video fills via object-fit: cover (placeholder mode).    */
+.vp-card-video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 375px;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.vp-card-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  max-width: none;
+}
+
+/* --- Colored panel (bottom of card) ---
+   Figma: 376px tall, positioned at top=335px (40px overlap with video).
+   clip-path replicates the 17×17px diagonal notch at the top-left corner
+   from the Figma Subtract shape — no SVG file needed.                    --- */
+.vp-card-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 335px;     /* 375px video height − 40px overlap */
+  bottom: 0;
+  clip-path: polygon(17px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 17px);
+}
+
+/* --- Card headline ---
+   Figma: FK Screamer Bold, 50px, uppercase, line-height 0.82.
+   Position: 382px from card top = 47px from panel top (335px offset).    --- */
+.vp-card-headline {
+  position: absolute;
+  left: 48px;
+  right: 8px;
+  max-width: 290px;
+  top: 47px;     /* relative to panel: 382px card − 335px panel offset */
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 50px;
+  line-height: 0.82;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* --- Body copy ---
+   Figma: FK Grotesk Neue 22px, line-height 1.2, tracking -0.66px.
+   top=573px within card → 238px within panel. Width 352px (Figma).       --- */
+.vp-card-copy {
+  position: absolute;
+  left: 48px;
+  right: 8px;
+  max-width: 352px;
+  top: 238px;    /* relative to panel: 573px card − 335px panel offset */
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.66px;
+  margin: 0;
+}
+
+/* ── Mobile carousel ─────────────────────────────────────────────────────── */
+
+/* --- Section container ---
+   Full-viewport pinned section — matched to every other mobile section.
+   Flex column: header is fixed-size, carousel grows to fill the rest.  --- */
+.mvp-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0eee6;
+  overflow: hidden;
+}
+
+/* --- Header area --- */
+.mvp-header {
+  padding: 48px 24px 0;
+  flex-shrink: 0;
+}
+
+/* --- Section headline ---
+   Figma: FK Roman Standard, 24px, two-line.
+   Line 1: regular; Line 2: oblique ("Something Better.").               --- */
+.mvp-headline {
+  font-family: 'FK Roman Standard', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  letter-spacing: -0.72px;
+  color: #4f4d4a;
+  margin: 0;
+  line-height: 0;
+}
+
+.mvp-headline-line1 {
+  display: block;
+  line-height: 1.2;
+}
+
+.mvp-headline-line2 {
+  display: block;
+  line-height: 1.2;
+  font-style: oblique;
+}
+
+/* --- Horizontal rule below the headline ---
+   Figma: 113px wide, 2px, warm gray #cbc5b4.                           --- */
+.mvp-divider {
+  width: 113px;
+  height: 2px;
+  background-color: #cbc5b4;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+/* --- Embla viewport ---
+   flex: 1 / min-height: 0 so the viewport grows to fill whatever space the
+   header leaves behind. padding-top creates headroom for the elevated active
+   card so the translateY(-24px) lift is not clipped at the top.          --- */
+.mvp-carousel-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding-top: 28px;
+}
+
+/* --- Embla slide container: horizontal flex row ---
+   padding-left = 24px for the left edge inset. Right edge uses margin-right
+   on the last slide instead of padding-right — CSS drops padding-right on
+   overflowing flex containers in most browsers.                           --- */
+.mvp-carousel-container {
+  display: flex;
+  gap: 16px;
+  padding-left: 24px;
+}
+
+.mvp-slide:last-child {
+  margin-right: 24px;
+}
+
+/* --- Individual slide ---
+   Uniform height for all slides. The active card is distinguished solely by
+   translateY(-24px), matching the WorkShowcase desktop interaction model.
+   Inactive cards sit 24px lower, giving the active card visual prominence. --- */
+.mvp-slide {
+  flex: 0 0 310px;
+  position: relative;
+  height: 558px;
+  will-change: transform;
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
+}
+
+/* Active card lifts up — delayed=0 so it responds immediately on selection */
+.mvp-slide[data-focused="true"] {
+  transform: translateY(-24px);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 0ms;
+}
+
+/* --- Mobile video panel ---
+   Figma: 326px tall, rounded top corners only.                          --- */
+.mvp-slide-video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 326px;
+  border-radius: 7px 7px 0 0;
+  overflow: hidden;
+}
+
+.mvp-slide-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  max-width: none;
+}
+
+/* --- Mobile colored panel ---
+   top=298px (28px overlap with 326px video).
+   clip-path: 12×12px diagonal notch at top-left (Figma mobile Subtract shape). */
+.mvp-slide-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 298px;
+  bottom: 0;
+  clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 12px);
+}
+
+/* --- Mobile headline ---
+   Figma: FK Screamer Bold, 36px, line-height 0.85.
+   Left=32px, top=32px within panel.                                     --- */
+.mvp-slide-headline {
+  position: absolute;
+  left: 32px;
+  right: 12px;
+  max-width: 246px;
+  top: 32px;
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 36px;
+  line-height: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* --- Mobile body copy ---
+   Figma: FK Grotesk Neue 16px, line-height 1.3, tracking -0.48px.       --- */
+.mvp-slide-copy {
+  position: absolute;
+  left: 32px;
+  right: 12px;
+  max-width: 246px;
+  top: 160px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3;
+  letter-spacing: -0.48px;
+  margin: 0;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .mvp-slide {
+    transition: none;
+  }
+}

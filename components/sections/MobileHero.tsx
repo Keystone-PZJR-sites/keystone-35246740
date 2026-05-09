@@ -1,9 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
+import { createSectionPin } from '@/lib/sectionPin';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export interface MobileHeroProps {
   headlineLine1: string;
@@ -19,9 +24,14 @@ export interface MobileHeroProps {
 /**
  * Mobile-only hero section (below 768px).
  *
- * Structurally different from the desktop HeroAnimatic: no GSAP, no scroll pin,
- * no animation of any kind. The visitor sees everything immediately and scrolls
- * past naturally.
+ * Full-viewport (h-screen) section that pins using the standard scroll
+ * state-machine — matching every other section on the page. Because this is
+ * the first section on the page it uses `fireOnScroll: true` so the pin does
+ * not trigger on initial page load before the visitor scrolls.
+ *
+ * The section is a flex column: the video zone takes 40 vh at the top;
+ * the content zone fills the remainder. The layout never overflows its
+ * 100 vh container.
  *
  * Shown via `md:hidden` — the desktop HeroAnimatic uses `hidden md:block`.
  */
@@ -34,9 +44,33 @@ export function MobileHero({
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const indexRef = useRef(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef   = useRef<HTMLVideoElement>(null);
+  const indexRef   = useRef(0);
   const { openModal } = useLeadCapture();
+
+  // Pin the section at full viewport height (mobile only, fire on scroll so
+  // initial page-load does not trigger the entrance before the user scrolls).
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add('(max-width: 767px)', () => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        createSectionPin({
+          id: 'mobile-hero-pin',
+          section,
+          onEnter: () => {},
+          isAnimComplete: () => true,
+          fireOnScroll: true,
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Advance to the next clip on ended or error.
   useEffect(() => {
@@ -86,13 +120,14 @@ export function MobileHero({
 
   return (
     <section
-      className="md:hidden relative bg-[var(--color-hero-surface)]"
+      ref={sectionRef}
+      className="md:hidden relative h-screen overflow-hidden flex flex-col bg-[var(--color-hero-surface)]"
       aria-label="Hero"
     >
-      {/* ── Video zone ─────────────────────────────────────────────────────── */}
-      {/* Full-bleed, no side insets, no rounded corners. The fixed HeroNav    */}
-      {/* overlays the top of this zone via its own z-50 fixed positioning.    */}
-      <div className="relative h-[331px] w-full overflow-hidden">
+      {/* ── Video zone — top 40 vh ─────────────────────────────────────────── */}
+      {/* Full-bleed, no side insets. The fixed HeroNav overlays the top via   */}
+      {/* its own z-50 fixed positioning.                                       */}
+      <div className="relative w-full flex-none h-[40vh] overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
@@ -104,11 +139,10 @@ export function MobileHero({
         </video>
       </div>
 
-      {/* ── Content zone ───────────────────────────────────────────────────── */}
-      {/* px-6 = 24 px side padding (matches Figma's 24 px from edge).        */}
-      {/* pt-12 = 48 px top padding (Figma gap from video bottom to mark).    */}
-      {/* pb-8  = 32 px bottom padding (≈ 30 px below CTA in Figma).          */}
-      <div className="px-6 pt-12 pb-8">
+      {/* ── Content zone — remainder of viewport ──────────────────────────── */}
+      {/* flex-1 fills whatever space the video zone leaves. overflow-hidden   */}
+      {/* ensures nothing escapes the section on very small screens.           */}
+      <div className="flex-1 overflow-hidden px-6 pt-10 pb-6">
         <KeystoneMark
           color={markColor}
           width={36}
@@ -116,11 +150,9 @@ export function MobileHero({
           alt="Keystone mark"
         />
 
-        {/* Headline — 32 px gap below mark (Figma: 452 − 420 = 32 px).      */}
-        {/* Two props rendered as two paragraphs; natural wrapping at 90 px   */}
-        {/* on the ~345 px content width produces the Figma's three-line      */}
-        {/* layout: "ALWAYS ON" / "SALES &" / "MARKETING".                   */}
-        <div className="mt-8">
+        {/* Headline — 28 px gap below mark. Two lines rendered as two        */}
+        {/* paragraphs; natural wrapping produces the Figma layout.            */}
+        <div className="mt-7">
           <p
             className="font-['FK_Screamer',sans-serif] font-bold not-italic uppercase leading-[0.82] text-[var(--color-hero-text)]"
             style={{ fontSize: 'clamp(3.5rem, 23vw, 5.625rem)' }}
@@ -135,15 +167,13 @@ export function MobileHero({
           </p>
         </div>
 
-        {/* Subheadline — 24 px gap below headline (Figma ≈ 25 px).           */}
-        <p className="mt-6 font-['FK_Grotesk_Neue',sans-serif] text-base leading-[1.2] tracking-[-0.03em] text-[var(--color-hero-accent)]">
+        {/* Subheadline */}
+        <p className="mt-5 font-['FK_Grotesk_Neue',sans-serif] text-base leading-[1.2] tracking-[-0.03em] text-[var(--color-hero-accent)]">
           {subheadline}
         </p>
 
-        {/* CTA pill — 32 px gap below subheadline.                           */}
-        {/* opacity-80: the container is intentionally 80% opaque per Figma,  */}
-        {/* creating a slight depth effect on the dark green background.       */}
-        <div className="mt-8 flex w-fit items-center gap-2 rounded-full bg-[var(--color-hero-bg)] p-2 opacity-80">
+        {/* CTA pill */}
+        <div className="mt-7 flex w-fit items-center gap-2 rounded-full bg-[var(--color-hero-bg)] p-2 opacity-80">
           <button
             type="button"
             onClick={(e) => openModal(e.currentTarget)}
