@@ -4,14 +4,9 @@
 .sp-section {
   position: relative;
   width: 100%;
+  height: 100vh;
   background-color: var(--color-social-proof-bg);
   overflow: hidden;
-}
-
-@media (min-width: 768px) {
-  .sp-section {
-    height: 100vh;
-  }
 }
 
 /* --- Headline wrapper — absolutely centered --- */
@@ -331,138 +326,6 @@
 .sp-nav-next {
   right: 0;
   width: calc(100vw - (7.14vw + 22px + 82.9vw));
-}
-
-/* ==================== SOCIAL PROOF — MOBILE ==================== */
-
-@media (max-width: 767px) {
-  /* Section: switch from aspect-ratio canvas to flex column */
-  .sp-section {
-    aspect-ratio: unset;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding: 48px 0 64px;
-  }
-
-  /* Headline: in-flow, full-width */
-  .sp-headline-wrap {
-    position: static;
-    padding: 0 16px;
-    justify-content: center;
-  }
-
-  .sp-headline {
-    width: 100%;
-    font-size: clamp(32px, 14vw, 64px);
-  }
-
-  /* Thumbnail wrapper: in-flow grid cell */
-  .sp-thumbs {
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    padding: 0 16px;
-  }
-
-  .sp-thumb-wrap {
-    position: static;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    will-change: auto;
-    overflow: hidden; /* clip the button on mobile */
-  }
-
-  .sp-thumb {
-    position: relative;
-    border-radius: 5px;
-  }
-
-  /* Hide badges on mobile — decorative only */
-  .sp-thumb-badge {
-    display: none;
-  }
-
-  /* Modal: hide background headline on mobile */
-  .sp-modal .sp-headline-wrap {
-    display: none;
-  }
-
-  /* Mobile close button: small fixed offset from corner */
-  .sp-close-btn {
-    top: 16px !important;
-    right: 16px;
-  }
-
-  /* Mobile slide: full viewport width, column layout */
-  .sp-slide {
-    flex: 0 0 100vw;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Mobile transition wrapper: in-flow, full width, no absolute */
-  .sp-slide-transition-wrap {
-    position: static;
-    width: 100%;
-    top: auto;
-    left: auto;
-  }
-
-  /* Mobile video: full width, 16:9, below top controls */
-  .sp-slide-video-wrap {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    height: auto;
-    border-radius: 5px;
-    margin-top: 80px;
-    transform: none;
-    transition: none;
-  }
-
-  /* Mobile card: below video, full width */
-  .sp-card-position {
-    position: static;
-    width: 100%;
-    height: auto;
-    top: auto;
-    left: auto;
-    margin-top: 16px;
-    padding: 0 16px;
-    box-sizing: border-box;
-  }
-
-  .sp-card-filter-wrap {
-    height: auto;
-  }
-
-  .sp-card {
-    height: auto;
-  }
-
-  .sp-card-quote {
-    font-size: 24px;
-  }
-
-  /* Hide adjacent nav areas on mobile */
-  .sp-nav-prev,
-  .sp-nav-next {
-    display: none;
-  }
-}
-
-/* ==================== SOCIAL PROOF — TABLET ==================== */
-
-@media (min-width: 768px) and (max-width: 1279px) {
-  .sp-card-quote {
-    font-size: clamp(18px, 2.78vw, 40px);
-  }
-
-  .sp-card-position {
-    width: min(534px, 37.1vw);
-  }
 }
 
 /* ==================== SOCIAL PROOF — REDUCED MOTION ==================== */

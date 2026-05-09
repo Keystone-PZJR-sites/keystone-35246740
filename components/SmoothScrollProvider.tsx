@@ -25,6 +25,12 @@ export function SmoothScrollProvider({ children, fixedChildren }: SmoothScrollPr
     // Guard against React Strict Mode double-invoke or hot reload
     ScrollSmoother.get()?.kill();
 
+    // On mobile (<768px), hide the overlay immediately — no scroll animations
+    // run on mobile so the overlay serves no purpose there.
+    if (overlayRef.current && window.innerWidth < 768) {
+      overlayRef.current.style.display = 'none';
+    }
+
     const smoother = ScrollSmoother.create({
       wrapper: '#smooth-wrapper',
       content: '#smooth-content',

@@ -35,17 +35,11 @@
   width: 100%;
   aspect-ratio: 1440 / 812;
   overflow: hidden;
-  display: none;
+  display: flex;
   flex-direction: column;
   /* Symmetric padding: breathing room on both left AND right edges */
   padding: clamp(12px, 2.639vw, 38px) clamp(12px, 1.667vw, 24px) 0;
   gap: clamp(8px, 1.528vw, 22px);
-}
-
-@media (min-width: 768px) {
-  .footer-collage-outer {
-    display: flex;
-  }
 }
 
 /* Each row: equal share of the collage height */
@@ -108,38 +102,9 @@
   min-width: 0;
 }
 
-/* --- Mobile collage (<768px): stacked text only, no videos --- */
-.footer-mobile-collage {
-  display: block;
-  padding: 24px 16px 0;
-}
-
-@media (min-width: 768px) {
-  .footer-mobile-collage {
-    display: none;
-  }
-}
-
-.footer-mobile-headline {
-  font-family: 'FK Screamer', sans-serif;
-  font-weight: 700;
-  font-size: clamp(56px, 20vw, 96px);
-  line-height: 0.9;
-  text-transform: uppercase;
-  color: var(--color-work-accent);
-  display: block;
-  margin-bottom: 4px;
-}
-
 /* --- Breathing space (623px at 1440vw, caps at 623px) --- */
 .footer-breathing-space {
   height: clamp(48px, 43.26vw, 623px);
-}
-
-@media (max-width: 767px) {
-  .footer-breathing-space {
-    height: 48px;
-  }
 }
 
 /* --- Lower zone typography --- */
@@ -215,30 +180,15 @@
   aspect-ratio: 1389.5 / 268.297;
 }
 
-/* --- Lower zone three-column grid layout ---
-   Mobile: each column's tagline and action stack together.
-   Desktop (≥768px): taglines across row 1, actions across row 2. */
+/* --- Lower zone three-column grid layout --- */
 .footer-lower-grid {
   display: grid;
   grid-template-areas:
-    "tag1"
-    "act1"
-    "tag2"
-    "act2"
-    "tag3"
-    "act3";
-  gap: 32px;
-}
-
-@media (min-width: 768px) {
-  .footer-lower-grid {
-    grid-template-areas:
-      "tag1 tag2 tag3"
-      "act1 act2 act3";
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 40px;
-    row-gap: 60px;
-  }
+    "tag1 tag2 tag3"
+    "act1 act2 act3";
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 40px;
+  row-gap: 60px;
 }
 
 .footer-lower-tag1 { grid-area: tag1; }

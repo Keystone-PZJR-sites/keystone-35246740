@@ -248,16 +248,6 @@ export function OversizedFooter({
       </div>
 
       {/* ================================================================
-          UPPER ZONE — mobile (<768px): simplified stacked layout
-          ================================================================ */}
-      <div className="footer-mobile-collage">
-        <span className="footer-mobile-headline">{line1}</span>
-        <span className="footer-mobile-headline">{line2}</span>
-        <span className="footer-mobile-headline">{line3}</span>
-        <span className="footer-mobile-headline">{line4}</span>
-      </div>
-
-      {/* ================================================================
           BREATHING SPACE — 623px of intentional dark maroon emptiness
           ================================================================ */}
       <div className="footer-breathing-space" aria-hidden="true" />
@@ -279,7 +269,7 @@ export function OversizedFooter({
 
         {/* 3-column lower grid — taglines in row 1, actions in row 2.
             On mobile the grid stacks as tag→act pairs per column. */}
-        <div className="footer-lower-grid mt-8 lg:mt-[60px]">
+        <div className="footer-lower-grid mt-[60px]">
 
           {/* ── Row 1: taglines ── */}
           <p className="footer-lower-tag1 footer-tagline">{leftTagline}</p>
@@ -404,7 +394,7 @@ export function OversizedFooter({
         </div>
 
         {/* Full-width wordmark — 60px gap from CTA bottom */}
-        <div className="mt-8 lg:mt-[60px] pb-6 lg:pb-[24px]">
+        <div className="mt-[60px] pb-[24px]">
           <Image
             src={keystoneWordmarkSrc}
             alt="keystone"

@@ -1,15 +1,9 @@
 /* ==================== HERO ANIMATIC ==================== */
 
-/* Bottom content: hidden on mobile, invisible on desktop until GSAP animates it in */
+/* Bottom content: invisible until GSAP animates it in */
 .hero-bottom-content {
-  display: none;
+  display: flex;
   opacity: 0;
-}
-
-@media (min-width: 768px) {
-  .hero-bottom-content {
-    display: flex;
-  }
 }
 
 /* Shared pill button base — used in HeroNav and HeroAnimatic CTA pill.

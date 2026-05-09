@@ -158,8 +158,8 @@ export function HeroAnimatic({
       ref={sectionRef}
       className="relative h-screen w-full overflow-hidden bg-[#042019]"
     >
-      {/* Video frame — inset 24 px on desktop, full width on mobile */}
-      <div className="absolute inset-x-0 top-0 bottom-0 md:inset-x-6 md:bottom-6 md:rounded-b-2xl overflow-hidden">
+      {/* Video frame — inset 24 px */}
+      <div className="absolute inset-x-6 top-0 bottom-6 rounded-b-2xl overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
@@ -174,19 +174,19 @@ export function HeroAnimatic({
       {/* Headline — starts near the section bottom, GSAP translates it upward */}
       <div
         ref={headlineRef}
-        className="absolute bottom-6 left-0 right-0 z-10 pointer-events-none md:bottom-12 md:left-6 md:right-6"
+        className="absolute bottom-12 left-6 right-6 z-10 pointer-events-none"
         style={{ willChange: 'transform' }}
       >
         {/* "Always ON" — left-anchored 24 px from video left edge */}
         <p
-          className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-left md:pl-6"
+          className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-left pl-6"
           style={{ fontSize: 'clamp(3rem, 15vw, 20rem)' }}
         >
           {headlineLine1}
         </p>
         {/* "SALES & MARKETING" — right-anchored 24 px from video right edge */}
         <p
-          className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-right md:pr-6"
+          className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-right pr-6"
           style={{ fontSize: 'clamp(3rem, 15vw, 20rem)' }}
         >
           {headlineLine2}
@@ -196,7 +196,7 @@ export function HeroAnimatic({
       {/* Bottom content — hidden on mobile via CSS, opacity 0 until animated in on desktop */}
       <div
         ref={bottomContentRef}
-        className="hero-bottom-content absolute bottom-15 left-6 right-6 md:bottom-16 md:left-24 md:right-[110px] z-10 items-end justify-between"
+        className="hero-bottom-content absolute bottom-16 left-24 right-[110px] z-10 items-end justify-between"
       >
         {/* Left: Keystone mark + subheadline */}
         <div className="flex flex-col items-start gap-3 max-w-[520px]">
@@ -207,7 +207,7 @@ export function HeroAnimatic({
             className="h-10 w-auto"
             alt="Keystone mark"
           />
-          <p className="font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-xl lg:text-2xl leading-[1.2] tracking-[-0.03em]">
+          <p className="font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-2xl leading-[1.2] tracking-[-0.03em]">
             {subheadline}
           </p>
         </div>

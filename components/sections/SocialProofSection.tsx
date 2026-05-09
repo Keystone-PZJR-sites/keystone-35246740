@@ -401,18 +401,14 @@ export function SocialProofSection({
     [emblaRef],
   );
 
-  // ── Override Embla's overflow:hidden on desktop so adjacent slides peek ──
+  // ── Override Embla's overflow:hidden so adjacent slides peek ──
 
   useEffect(() => {
     if (!emblaApi) return;
     const viewport = emblaViewportRef.current;
     if (!viewport) return;
 
-    const updateOverflow = () => {
-      viewport.style.overflow = window.innerWidth >= 768 ? 'visible' : 'hidden';
-    };
-    updateOverflow();
-    window.addEventListener('resize', updateOverflow);
+    viewport.style.overflow = 'visible';
 
     // Prime Embla's loop state: visit the last slide then jump back to first.
     // Without this, Embla places loop clones at the far-end "wrap position"
@@ -425,8 +421,6 @@ export function SocialProofSection({
       emblaApi.scrollTo(snapCount - 1, true);
       emblaApi.scrollTo(0, true);
     }
-
-    return () => window.removeEventListener('resize', updateOverflow);
   }, [emblaApi]);
 
   // ── Track active slide index (state + ref) ────────────────────────────────

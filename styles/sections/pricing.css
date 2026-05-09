@@ -129,7 +129,7 @@
   margin-bottom: 0;
 }
 
-/* --- Add-ons row: side-by-side on desktop, stacked on mobile --- */
+/* --- Add-ons row: side-by-side --- */
 .pricing-addons-row {
   display: flex;
   flex-direction: row;
@@ -137,20 +137,6 @@
   gap: 227px;
   margin-top: 40px;
   width: 100%;
-}
-
-@media (min-width: 768px) and (max-width: 1279px) {
-  .pricing-addons-row {
-    gap: 80px;
-  }
-}
-
-@media (max-width: 767px) {
-  .pricing-addons-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-  }
 }
 
 /* --- Individual add-on column --- */
@@ -204,21 +190,6 @@
   line-height: 1.3;
   color: var(--color-pricing-chip-label);
   margin-bottom: 0;
-}
-
-/* --- Mobile adjustments --- */
-@media (max-width: 767px) {
-  .pricing-inner {
-    padding: 48px 16px 64px;
-  }
-
-  .pricing-tagline {
-    font-size: 24px;
-  }
-
-  .pricing-price {
-    margin-top: 40px;
-  }
 }
 
 /* Reduced motion */

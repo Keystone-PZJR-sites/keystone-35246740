@@ -403,43 +403,6 @@
   margin: 0;
 }
 
-/* ---- Responsive ---- */
-
-/* Tablet (768–1279px) */
-@media (min-width: 768px) and (max-width: 1279px) {
-  .lc-content-area {
-    padding-top: 100px;
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-
-  .lc-kmark-wrapper {
-    margin-bottom: 24px;
-  }
-}
-
-/* Mobile (< 768px) */
-@media (max-width: 767px) {
-  .lc-content-area {
-    padding-top: 80px;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-bottom: 32px;
-  }
-
-  .lc-kmark-wrapper {
-    margin-bottom: 20px;
-  }
-
-  .lc-card {
-    max-width: 100%;
-  }
-
-  .lc-field-row {
-    gap: 8px;
-  }
-}
-
 /* Reduced motion: disable field transitions */
 @media (prefers-reduced-motion: reduce) {
   .lc-field-wrapper,

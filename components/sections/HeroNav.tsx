@@ -60,29 +60,29 @@ export function HeroNav({ wordmarkSrc }: HeroNavProps) {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 md:px-12 md:pt-6"
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-12 pt-6"
       aria-label="Main navigation"
     >
-      <div className="flex w-full items-center justify-between rounded-full bg-[var(--color-hero-bg)] px-6 py-3 md:px-12 md:py-5">
+      <div className="flex w-full items-center justify-between rounded-full bg-[var(--color-hero-bg)] px-12 py-5">
         <Image
           src={wordmarkSrc}
           alt="Keystone"
           width={154}
           height={30}
-          className="h-6 w-auto md:h-[30px]"
+          className="h-[30px] w-auto"
         />
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={(e) => openModal(e.currentTarget)}
-            className="hero-pill-btn h-10 bg-[var(--color-hero-surface)] px-3 text-sm md:text-base text-[var(--color-hero-accent)] tracking-[-0.02em]"
+            className="hero-pill-btn h-10 bg-[var(--color-hero-surface)] px-3 text-base text-[var(--color-hero-accent)] tracking-[-0.02em]"
           >
             Learn more
           </button>
           <button
             type="button"
             onClick={(e) => openModal(e.currentTarget)}
-            className="hero-pill-btn h-10 gap-2 bg-[var(--color-hero-accent)] pl-3 pr-2 text-sm md:text-base text-[var(--color-hero-bg)] tracking-[-0.02em]"
+            className="hero-pill-btn h-10 gap-2 bg-[var(--color-hero-accent)] pl-3 pr-2 text-base text-[var(--color-hero-bg)] tracking-[-0.02em]"
           >
             Login
             <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
