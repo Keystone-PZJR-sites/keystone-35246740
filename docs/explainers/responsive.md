@@ -28,6 +28,19 @@ FK Screamer headlines are massive on desktop (216px) and must scale down dramati
 
 ---
 
+## Mobile Section Pattern
+
+Some homepage sections look structurally different on mobile — different element count, different hierarchy, different interactions. Those sections get a dedicated `Mobile*.tsx` file alongside the desktop component. Both files share the same content props. CSS handles which is shown.
+
+- The **desktop** component carries `hidden md:block` on its root element.
+- The **mobile** component carries `md:hidden` on its root element.
+- The switch is handled entirely by CSS — no JavaScript breakpoint detection, no flash of the wrong layout.
+- Mobile sections have natural height (no `h-screen`). GSAP does not initialise on them — the scroll-animation matchMedia guards (`(min-width: 768px)`) prevent that.
+
+The test for whether a section needs a separate mobile file: if describing the mobile layout requires saying "this element moves here and that element disappears", use separate files. If it only requires saying "this is smaller and this has less padding", keep one file with responsive utilities.
+
+---
+
 ## Testing Checklist
 
 Before marking a section complete:

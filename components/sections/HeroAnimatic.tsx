@@ -156,7 +156,8 @@ export function HeroAnimatic({
     <section
       id="hero-animatic"
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-[#042019]"
+      // hidden md:block — the MobileHero component renders in its place below 768px.
+      className="hidden md:block relative h-screen w-full overflow-hidden bg-[#042019]"
     >
       {/* Video frame — inset 24 px */}
       <div className="absolute inset-x-6 top-0 bottom-6 rounded-b-2xl overflow-hidden">

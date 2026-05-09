@@ -1,5 +1,7 @@
 export { HeroAnimatic } from './HeroAnimatic';
 export type { HeroAnimaticProps } from './HeroAnimatic';
+export { MobileHero } from './MobileHero';
+export type { MobileHeroProps } from './MobileHero';
 export { InnerNav } from './InnerNav';
 export type { InnerNavProps } from './InnerNav';
 export { HeroNav } from './HeroNav';

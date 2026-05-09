@@ -7,6 +7,7 @@
 
 import {
   HeroAnimatic,
+  MobileHero,
   HeroNav,
   WorkShowcase,
   EveryChannel,
@@ -817,6 +818,24 @@ export default async function HomePage() {
        * pin + snap animator. The footer is intentionally a sibling, not a child.
        */}
       <main>
+        {/* Mobile hero — visible below 768 px, hidden at md+ (MobileHero is md:hidden) */}
+        <MobileHero
+          headlineLine1="Always ON "
+          headlineLine2="SALES & MARKETING"
+          subheadline="A team of experts running your marketing while you run your business."
+          cta1Label="Learn more"
+          cta2Label="Get started"
+          videoSrcs={[
+            '/videos/hero-autoloop-clips/herovideo-01.mp4',
+            '/videos/hero-autoloop-clips/herovideo-02.mp4',
+            '/videos/hero-autoloop-clips/herovideo-03.mp4',
+            '/videos/hero-autoloop-clips/herovideo-04.mp4',
+            '/videos/hero-autoloop-clips/herovideo-05.mp4',
+            '/videos/hero-autoloop-clips/herovideo-06.mp4',
+          ]}
+          markColor="#6ECC8B"
+        />
+        {/* Desktop/tablet hero — hidden below 768 px (HeroAnimatic is hidden md:block) */}
         <HeroAnimatic
           headlineLine1="Always ON "
           headlineLine2="SALES & MARKETING"
