@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -229,12 +229,20 @@ export function SocialProofSection({
   const [openAtSlide, setOpenAtSlide] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Portal target — resolved on the client so the modal renders directly into
-  // document.body, completely outside #smooth-content. ScrollSmoother applies a
-  // CSS transform to #smooth-content which breaks position:fixed for its children;
-  // moving the modal to document.body gives it a true viewport-covering overlay.
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
-  useEffect(() => { setPortalTarget(document.body); }, []);
+  // Portal target — resolved once on the client so the modal renders directly
+  // into document.body, completely outside #smooth-content. ScrollSmoother
+  // applies a CSS transform to #smooth-content which breaks position:fixed for
+  // its children; moving the modal to document.body gives it a true
+  // viewport-covering overlay.
+  //
+  // useMemo with [] runs synchronously on the client during hydration, returning
+  // document.body. On the server, document is undefined, so it returns null and
+  // the portal is not rendered. createPortal is excluded from React hydration
+  // checks, so this causes no hydration mismatch.
+  const portalTarget = useMemo<HTMLElement | null>(
+    () => (typeof document === 'undefined' ? null : document.body),
+    [],
+  );
 
   // Saved scroll position — captured when the modal opens so we can restore
   // it exactly on close (guards against any in-flight GSAP scroll tweens that
