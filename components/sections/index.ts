@@ -42,5 +42,10 @@ export type {
   SocialProofThumbnail,
   QuoteSegment,
 } from './SocialProofSection';
+export { MobileSocialProof } from './MobileSocialProof';
+export type {
+  MobileSocialProofProps,
+  MobileSocialProofThumbnail,
+} from './MobileSocialProof';
 export { LeadCaptureProvider, useLeadCapture } from './LeadCaptureModal';
 export type { LeadCaptureProviderProps } from './LeadCaptureModal';

@@ -629,18 +629,6 @@ export function SocialProofSection({
         },
       );
 
-      // Mobile: pin the section — no staged entrance, floating not used on mobile.
-      mm.add('(max-width: 767px)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'social-proof-pin',
-          section,
-          onEnter: () => {},
-          isAnimComplete: () => true,
-        });
-      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -692,7 +680,7 @@ export function SocialProofSection({
   return (
     <>
       {/* ── Section ── */}
-      <section ref={sectionRef} className="sp-section" data-theme="custom">
+      <section ref={sectionRef} className="sp-section hidden md:block" data-theme="custom">
         <SectionHeadline line1={headlineLine1} line2={headlineLine2} />
 
         <div className="sp-thumbs" aria-label="Customer video clips" role="list">

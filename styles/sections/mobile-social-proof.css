@@ -1,0 +1,240 @@
+/* ============================================================
+   Mobile Social Proof Section — spec 020
+   Canvas reference: 393 × 852 px (Figma mobile frame)
+   ============================================================ */
+
+/* ── Section ── */
+
+.msp-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #0d2a28;
+  overflow: hidden;
+}
+
+/* ── Headline ──
+   Figma: centered at left=50%-2.5px (optical), top=calc(50%-104px).
+   We center exactly — the 2.5px optical offset is imperceptible. */
+
+.msp-headline-wrap {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 104px);
+  transform: translateX(-50%);
+  width: 296px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.msp-headline {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-size: 63px;
+  line-height: 0.82;
+  text-transform: uppercase;
+  color: #f0eee6;
+  text-align: center;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ── Thumbnails ──
+   Positioned as % of 393×852 canvas via inline styles on each element.
+   The <button> wrapper resets all button chrome. */
+
+.msp-thumbnail {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+.msp-thumbnail-video {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Marker badge — overflows top-right corner of thumbnail */
+
+.msp-marker {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+/* ── Overlay ──
+   Always mounted; CSS opacity + pointer-events toggle the visible state.
+   data-open="true"  → visible, interactive.
+   data-open="false" → invisible, non-interactive. */
+
+.msp-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(13, 42, 40, 0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+  z-index: 10;
+}
+
+.msp-overlay[data-open='true'] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Close button ──
+   Figma: left=337, top=182 on 393px canvas → right: 24px, top: 182px. */
+
+.msp-close-btn {
+  position: absolute;
+  right: 24px;
+  top: 182px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 11;
+}
+
+/* ── Embla viewport ──
+   Positioned so the card group (455px tall) is vertically centered
+   on the section, matching Figma's calc(50% - 99px) video-center formula.
+
+   Card top = calc(50% - 228px)  (= 198px on 852px screen)
+   Card height = 455px (258px video + 208px panel − 11px overlap)      */
+
+.msp-embla-viewport {
+  position: absolute;
+  top: calc(50% - 228px);
+  left: 0;
+  right: 0;
+  height: 455px;
+  overflow: hidden;
+}
+
+.msp-embla-container {
+  display: flex;
+  height: 100%;
+  gap: 16px;
+}
+
+/* ── Testimonial card ──
+   Fixed 329px wide so adjacent cards peek exactly 16px from each edge
+   on a 393px screen. */
+
+.msp-slide {
+  flex: 0 0 329px;
+  position: relative;
+  height: 455px;
+}
+
+/* Video zone — top portion of each card */
+
+.msp-slide-video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 258px;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.msp-slide-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+}
+
+/* Notch panel — bottom portion, overlaps video by 11px.
+   Background set via --msp-panel-bg CSS custom property.
+   clip-path creates the 10px diagonal notch at the top-left corner,
+   consistent with the Value Props mobile card notch style. */
+
+.msp-slide-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 247px;
+  bottom: 0;
+  background-color: var(--msp-panel-bg, #dcfbd9);
+  clip-path: polygon(10px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 10px);
+}
+
+/* Content inside the panel — 24px inset on all sides */
+
+.msp-slide-content {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Quote text */
+
+.msp-slide-quote {
+  font-size: 26px;
+  line-height: 1.04;
+  letter-spacing: -0.78px;
+  margin: 0;
+  font-style: normal;
+}
+
+.msp-slide-quote-oblique {
+  font-family: 'FK Roman Standard', serif;
+  font-style: oblique;
+  font-weight: 300;
+}
+
+.msp-slide-quote-regular {
+  font-family: 'FK Roman Standard', serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Pills row */
+
+.msp-slide-pills {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.msp-slide-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-family: 'FK Grotesk SemiMono', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.36px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

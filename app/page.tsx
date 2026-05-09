@@ -17,6 +17,7 @@ import {
   ValueProps,
   MobileValueProps,
   SocialProofSection,
+  MobileSocialProof,
   PricingSection,
   OversizedFooter,
   LeadCaptureProvider,
@@ -34,6 +35,7 @@ import type {
   ValuePropCard,
   SocialProofSlide,
   SocialProofThumbnail,
+  MobileSocialProofThumbnail,
 } from '@/components/sections';
 
 // ---------------------------------------------------------------------------
@@ -763,6 +765,17 @@ const SOCIAL_THUMBNAILS: SocialProofThumbnail[] = [
   },
 ];
 
+// Mobile thumbnail positions are px values at the 393×852 Figma mobile canvas.
+// Each entry maps to a slide by slideIndex (0-based).
+const MOBILE_SOCIAL_THUMBNAILS: MobileSocialProofThumbnail[] = [
+  { videoSrc: '/social-proof/social-proof-video-1.mp4', width: 200, height: 112, left: 24,  top: 32,  markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 0 },
+  { videoSrc: '/social-proof/social-proof-video-2.mp4', width: 144, height: 96,  left: 229, top: 164, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 1 },
+  { videoSrc: '/social-proof/social-proof-video-3.mp4', width: 168, height: 87,  left: 16,  top: 271, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 2 },
+  { videoSrc: '/social-proof/social-proof-video-4.mp4', width: 112, height: 64,  left: 265, top: 544, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 3 },
+  { videoSrc: '/social-proof/social-proof-video-5.mp4', width: 114, height: 64,  left: 16,  top: 615, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 4 },
+  { videoSrc: '/social-proof/social-proof-video-6.mp4', width: 216, height: 152, left: 147, top: 668, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 5 },
+];
+
 // Quote shared by slides 1, 2, 4, 6
 const QUOTE_CANVA: SocialProofSlide['quoteSegments'] = [
   { text: "I used to spend Sunday nights writing social captions. I haven\u2019t opened Canva in " },
@@ -951,6 +964,13 @@ export default async function HomePage() {
           headlineLine1="Great BUSINESSES "
           headlineLine2="deserve to be found."
           thumbnails={SOCIAL_THUMBNAILS}
+          slides={SOCIAL_SLIDES}
+          closeButtonSrc="/social-proof/social-proof-modal-button.svg"
+        />
+        <MobileSocialProof
+          headlineLine1="Great BUSINESSES "
+          headlineLine2="deserve to be found."
+          thumbnails={MOBILE_SOCIAL_THUMBNAILS}
           slides={SOCIAL_SLIDES}
           closeButtonSrc="/social-proof/social-proof-modal-button.svg"
         />
