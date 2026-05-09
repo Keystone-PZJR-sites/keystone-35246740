@@ -1,0 +1,88 @@
+/* ==================== MOBILE EVERY CHANNEL ==================== */
+/* Shown below 768px only (md:hidden on the component wrapper).  */
+
+/* --- Section: full viewport, dark green, clips video overflow --- */
+.mec-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  /* background-color set via inline style from props (#063126 default) */
+}
+
+/* --- Video container: lower portion, inset 24px each side, rounded corners ---
+   Figma reference: left=24px, top≈40.5vh, right=24px, height≈53.8vh,
+   border-radius=10px. The video itself is cropped to fill this container. --- */
+.mec-video-container {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 40.5vh;
+  height: 53.8vh;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* --- Video fills the container, cropped landscape → portrait --- */
+.mec-video {
+  position: absolute;
+  top: 0;
+  left: -31.5%;   /* matches Figma: left:-31.53% */
+  width: 235%;    /* matches Figma: width:235.27% to fill with aspect ratio */
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+}
+
+/* --- Text block: upper portion, left-aligned ---
+   Figma: left≈31px (≈7.9% of 393px), top≈25vh (213px at 853px height).
+   Uses 24px left to align with the video inset for visual consistency.   --- */
+.mec-text-block {
+  position: absolute;
+  left: 24px;
+  top: 25vh;
+  pointer-events: none;
+}
+
+/* --- Individual text line --- */
+.mec-line {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  line-height: 0.82;
+  color: #f0eee6;
+  /* Font size: 59px on a 393px Figma canvas = 15vw.
+     Clamped so it doesn't grow beyond 60px or shrink below 40px. */
+  font-size: clamp(2.5rem, 15vw, 3.75rem);
+  white-space: pre;
+}
+
+/* --- Pill: absolutely positioned, small variant ---
+   Figma: px=10px py=5px gap=8px, font=12px, dot=6px --- */
+.mec-pill {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  /* background-color set via inline style */
+}
+
+.mec-pill-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  /* background-color set via inline style */
+}
+
+.mec-pill-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.12px;
+  white-space: nowrap;
+  color: #f0eee6;
+}

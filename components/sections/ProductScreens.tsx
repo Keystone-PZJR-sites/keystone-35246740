@@ -218,7 +218,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
   const currentTool = tools[activeIndex];
 
   return (
-    <div className="ps-container">
+    <div className="ps-container hidden md:block">
       <section
         ref={sectionRef}
         className="ps-section"

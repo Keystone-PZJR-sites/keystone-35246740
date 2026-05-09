@@ -7,8 +7,6 @@ export type { InnerNavProps } from './InnerNav';
 export { HeroNav } from './HeroNav';
 export type { HeroNavProps } from './HeroNav';
 export { WorkShowcase } from './WorkShowcase';
-export { EveryChannel } from './EveryChannel';
-export type { EveryChannelProps, PillData } from './EveryChannel';
 export type {
   WorkShowcaseProps,
   WorkIndustry,
@@ -21,8 +19,14 @@ export type {
   ContentCardContent,
   SalesMessage,
 } from './WorkShowcase';
+export { EveryChannel } from './EveryChannel';
+export type { EveryChannelProps, PillData } from './EveryChannel';
+export { MobileEveryChannel } from './MobileEveryChannel';
+export type { MobileEveryChannelProps, MobileEveryChannelPillData } from './MobileEveryChannel';
 export { ProductScreens } from './ProductScreens';
 export type { ProductScreensProps, ProductScreensTool } from './ProductScreens';
+export { MobileProductScreens } from './MobileProductScreens';
+export type { MobileProductScreensProps } from './MobileProductScreens';
 export { OversizedFooter } from './OversizedFooter';
 export type { OversizedFooterProps } from './OversizedFooter';
 export { PricingSection } from './PricingSection';

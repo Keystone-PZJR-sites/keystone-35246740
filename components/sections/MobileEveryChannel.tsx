@@ -3,47 +3,41 @@
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { registerEveryChannelPillRects } from '@/lib/pillHandoff';
+import { registerMobileEveryChannelPillRects } from '@/lib/pillHandoff';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export interface PillData {
+export interface MobileEveryChannelPillData {
   label: string;
   color: string;
+  /** Dot color — defaults to #f0eee6 if omitted. */
+  dotColor?: string;
+  /** Left position as a CSS percentage of the section width. */
   left: string;
+  /** Top position as a CSS percentage of the section height (100vh). */
   top: string;
   beatIndex: number;
 }
 
-export interface EveryChannelProps {
+export interface MobileEveryChannelProps {
   line1: string;
   line2: string;
   line3: string;
   videoSrc: string;
-  pills: PillData[];
+  pills: MobileEveryChannelPillData[];
+  /** Section background color. Defaults to #063126. */
+  bgColor?: string;
 }
 
-// Slot-machine character animation constants
-const LINE_STAGGER  = 0.04;   // seconds between each letter triggering
-const CHAR_DURATION = 0.35;   // seconds per character tween
-
-// Start time of each line's slot-machine sequence inside masterTl.
-// Each line begins before the previous line has fully settled so they
-// overlap and feel continuous rather than sequential.
-const LINE_STARTS = [0, 0.65, 1.35] as const;
-
-// Pill beats interleaved with the text lines (beat 0 begins as line 1 settles).
-const BEAT_STARTS    = [0.70, 1.10, 1.50, 1.85, 2.15, 2.45, 2.75] as const;
+// Animation timing constants — identical to desktop EveryChannel.
+const LINE_STAGGER  = 0.04;
+const CHAR_DURATION = 0.35;
+const LINE_STARTS   = [0, 0.65, 1.35] as const;
+const BEAT_STARTS   = [0.70, 1.10, 1.50, 1.85, 2.15, 2.45, 2.75] as const;
 const BEAT_DURATIONS = [0.35, 0.35, 0.35, 0.35, 0.35, 0.25, 0.35] as const;
 
-// Shared styles extracted to avoid repetition in JSX
-const LINE_P_STYLE: React.CSSProperties = {
-  fontSize: 'clamp(3rem, 15vw, 13.5rem)',
-};
-
-// Each character gets its own clipping mask via overflow:hidden.
-// position:relative allows the absolute-positioned second span to anchor to it.
+// Character wrapper styles — each character gets its own clipping mask.
 const CHAR_WRAP: React.CSSProperties = {
   display: 'inline-block',
   position: 'relative',
@@ -51,8 +45,7 @@ const CHAR_WRAP: React.CSSProperties = {
   verticalAlign: 'top',
 };
 
-// Second (incoming) span lives absolutely at top:0, initially translated
-// below the mask so overflow:hidden hides it. GSAP moves it to y:0.
+// Second (incoming) span — hidden below the overflow mask initially.
 const CHAR_SECOND: React.CSSProperties = {
   display: 'block',
   position: 'absolute',
@@ -63,7 +56,29 @@ const CHAR_SECOND: React.CSSProperties = {
   willChange: 'transform',
 };
 
-export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChannelProps) {
+/**
+ * Mobile-only Every Channel section (below 768px).
+ *
+ * Visual differences from the desktop EveryChannel:
+ *  - Text is left-aligned in the upper portion of the section.
+ *  - Video occupies the lower portion only, inset 24px from each side with
+ *    rounded corners. The dark green background is visible on both sides.
+ *  - Pills are smaller and at mobile-specific percentage positions.
+ *
+ * Animation behaviour is identical to the desktop: the same three phases
+ * (snap to fill viewport → text + pill sequence → release), the same
+ * slot-machine character reveal, and the same spring-pop pill entrance.
+ *
+ * Shown via `md:hidden` — the desktop EveryChannel uses `hidden md:block`.
+ */
+export function MobileEveryChannel({
+  line1,
+  line2,
+  line3,
+  videoSrc,
+  pills,
+  bgColor = '#063126',
+}: MobileEveryChannelProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const line1Ref   = useRef<HTMLParagraphElement>(null);
@@ -80,8 +95,8 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // ── Desktop / tablet + full motion ─────────────────────────────────
-      mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      // ── Mobile + full motion ────────────────────────────────────────────
+      mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
         const section = sectionRef.current;
         const l1 = line1Ref.current;
         const l2 = line2Ref.current;
@@ -90,16 +105,16 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
 
         const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
 
-        // Lines start off-screen below; pills hidden for pop-up entry.
+        // Lines start off-screen below; pills hidden for spring entry.
         gsap.set([l1, l2, l3], { y: '120vh', autoAlpha: 1 });
         gsap.set(pillEls, { y: 30, scale: 0.5, autoAlpha: 0 });
 
         const firstSpans = (el: HTMLElement) =>
-          el.querySelectorAll<HTMLSpanElement>('.ec-char > span:first-child');
+          el.querySelectorAll<HTMLSpanElement>('.mec-char > span:first-child');
         const lastSpans = (el: HTMLElement) =>
-          el.querySelectorAll<HTMLSpanElement>('.ec-char > span:last-child');
+          el.querySelectorAll<HTMLSpanElement>('.mec-char > span:last-child');
 
-        // ── Master timeline (time-driven, triggered by scroll) ───────────
+        // ── Master timeline (time-driven, triggered by scroll) ──────────
         const masterTl = gsap.timeline({ paused: true });
 
         function addLine(lineEl: HTMLElement, at: number) {
@@ -140,48 +155,41 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
           masterTl.to(el, { scale: 1, ease: 'power1.out', duration: td * 0.35 }, ts + td * 0.65);
         });
 
-        // Slight hold after the last pill settles before the visitor can release
+        // Brief hold after the last pill settles before release.
         masterTl.to({}, { duration: 0.25 }, 3.1);
 
-        // ── State flags ──────────────────────────────────────────────────
-        // played: masterTl has been triggered for this visit.
-        // buildingComplete: masterTl has finished → allow release.
         let played = false;
         let buildingComplete = false;
 
         const playBuilding = () => {
-          logSectionEvent('every-channel-pin', 'ANIM_ENTER_CALLED', { played });
+          logSectionEvent('mobile-every-channel-pin', 'ANIM_ENTER_CALLED', { played });
           if (played) return;
           played = true;
-          logSectionEvent('every-channel-pin', 'ANIM_START', { duration: masterTl.duration() });
+          logSectionEvent('mobile-every-channel-pin', 'ANIM_START', { duration: masterTl.duration() });
           masterTl.play(0).then(() => {
-            // Capture pill viewport positions for ProductScreens while section is
-            // still pinned — positions change once the pin releases.
+            // Capture pill viewport positions for MobileProductScreens while the
+            // section is still pinned — positions shift once the pin releases.
             const rectsMap = new Map<string, DOMRect>();
             sortedPills.forEach((pill, i) => {
               const el = pillRefs.current[i];
               if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
             });
-            registerEveryChannelPillRects(rectsMap);
+            registerMobileEveryChannelPillRects(rectsMap);
             buildingComplete = true;
-            logSectionEvent('every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
+            logSectionEvent('mobile-every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
           });
         };
 
-        // Two-phase hold: Building animation plays between snap 0→0.5,
-        // then visitor needs one more scroll to release (snap 0.5→1).
         createSectionPin({
-          id: 'every-channel-pin',
+          id: 'mobile-every-channel-pin',
           section,
           onEnter: playBuilding,
           isAnimComplete: () => buildingComplete,
         });
       });
 
-      // ── Mobile + reduced-motion: final state immediately ───────────────
-      // First char spans are visible by default (in-flow). Second spans are
-      // hidden below the overflow mask via inline CSS. No GSAP, no pin.
-      mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
+      // ── Mobile + reduced motion: final state immediately ────────────────
+      mm.add('(max-width: 767px) and (prefers-reduced-motion: reduce)', () => {
         const section = sectionRef.current;
         const l1 = line1Ref.current;
         const l2 = line2Ref.current;
@@ -190,13 +198,12 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
 
         const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
 
-        // Show final state: lines at rest, pills fully visible, second spans visible
         gsap.set([l1, l2, l3], { y: 0, autoAlpha: 1 });
         gsap.set(pillEls, { y: 0, scale: 1, autoAlpha: 1 });
 
-        // Make second spans visible (they start at translateY(100%) via inline CSS)
+        // Second spans start at translateY(100%) via inline CSS — push them to 0.
         const allSecondSpans = section.querySelectorAll<HTMLSpanElement>(
-          '.ec-char > span:last-child',
+          '.mec-char > span:last-child',
         );
         gsap.set(Array.from(allSecondSpans), { y: 0 });
       });
@@ -206,16 +213,10 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
   }, [sortedPills]);
 
   // Renders one display line as slot-machine character wrappers.
-  // Each character is duplicated: first span (visible, exits up),
-  // second span (hidden below overflow mask, enters from below).
   const renderLine = (text: string, ref: React.RefObject<HTMLParagraphElement | null>) => (
-    <p
-      ref={ref}
-      className="font-['FK_Screamer',sans-serif] font-bold uppercase leading-[0.82] not-italic text-[#f0eee6]"
-      style={LINE_P_STYLE}
-    >
+    <p ref={ref} className="mec-line">
       {text.split('').map((char, i) => (
-        <span key={i} className="ec-char" style={CHAR_WRAP}>
+        <span key={i} className="mec-char" style={CHAR_WRAP}>
           <span style={{ display: 'block', willChange: 'transform' }}>
             {char === ' ' ? '\u00a0' : char}
           </span>
@@ -228,48 +229,54 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
   );
 
   return (
-    <div ref={wrapperRef} className="relative hidden md:block">
+    <div ref={wrapperRef} className="relative md:hidden">
       <section
         ref={sectionRef}
-        className="h-screen w-full overflow-hidden bg-[#042019]"
+        className="mec-section"
+        style={{ backgroundColor: bgColor }}
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
-        {/* preload="auto" tells the browser to buffer the video while the section
-            is still off-screen so it is ready the moment it enters the viewport. */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-          aria-hidden="true"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
+        {/* Video — lower portion, inset from sides with rounded corners */}
+        <div className="mec-video-container">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="mec-video"
+            aria-hidden="true"
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        </div>
 
-        {/* Display text — vertically centered, slot-machine character reveal */}
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
-          style={{ width: 'clamp(300px, 86vw, 1238px)' }}
-        >
+        {/* Display text — upper portion, left-aligned, slot-machine reveal */}
+        <div className="mec-text-block">
           {renderLine(line1, line1Ref)}
           {renderLine(line2, line2Ref)}
           {renderLine(line3, line3Ref)}
         </div>
 
-        {/* Channel pills */}
+        {/* Channel pills — scattered at mobile percentage positions */}
         {sortedPills.map((pill, i) => (
           <div
             key={pill.label}
             ref={el => { pillRefs.current[i] = el; }}
-            className="absolute flex items-center rounded-full px-4 py-2"
-            style={{ left: pill.left, top: pill.top, backgroundColor: pill.color, gap: 12 }}
+            className="mec-pill"
+            style={{
+              left: pill.left,
+              top: pill.top,
+              backgroundColor: pill.color,
+            }}
           >
-            <div className="shrink-0 bg-[#f0eee6]" style={{ width: 10, height: 10 }} />
+            <div
+              className="mec-pill-dot"
+              style={{ backgroundColor: pill.dotColor ?? '#f0eee6' }}
+            />
             <span
-              className="whitespace-nowrap font-['FK_Grotesk_Neue',sans-serif] font-normal text-[#f0eee6]"
-              style={{ fontSize: 18, letterSpacing: '-0.18px' }}
+              className="mec-pill-label"
+              style={{ color: pill.dotColor ?? '#f0eee6' }}
             >
               {pill.label}
             </span>

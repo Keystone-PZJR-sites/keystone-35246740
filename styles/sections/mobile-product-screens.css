@@ -1,0 +1,170 @@
+/* ==================== MOBILE PRODUCT SCREENS ==================== */
+/* Shown below 768px only (md:hidden on the component wrapper).   */
+
+/* --- Outer container: stable layout boundary --- */
+.mps-mobile-container {
+  position: relative;
+}
+
+/* --- Section: full viewport, edge-to-edge dark background.
+   overflow:visible lets pill offsets extend outside the section bounds
+   during the convergence entrance animation. --- */
+.mps-mobile-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: visible;
+  /* background-color set via inline style (tool.cardBg) */
+}
+
+/* --- Screenshot clip layer: masks the screenshot at the right edge.
+   Sits below interactive content so it doesn't intercept pointer events. --- */
+.mps-mobile-screenshot-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* --- Decorative bg shape: slightly darker rounded rect, offset right.
+   Figma: left=13px, top≈24.4vh, width≈127% (extends beyond right), height≈73.5vh,
+   border-radius=15px, opacity≈0.8.
+   Uses a static rgba(0,0,0,0.15) overlay so the darkening scales correctly
+   across all tool background colours without per-tool derivation.          --- */
+.mps-mobile-deco {
+  position: absolute;
+  left: 13px;
+  top: 24.4vh;
+  width: 127%;
+  height: 73.5vh;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+/* --- Pill nav: two-row flex, centred at top of section ---
+   Figma: top=56px, width=345px (calc 100%-48px with 24px each side). --- */
+.mps-mobile-pill-nav {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: calc(100% - 48px);
+  z-index: 20;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Individual pill button (mobile size) ---
+   Figma: px=12px py=8px gap=6px. --- */
+.mps-mobile-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  /* border + background controlled via inline style */
+}
+
+.mps-mobile-pill:focus-visible {
+  outline: 2px solid #f0eee6;
+  outline-offset: 2px;
+}
+
+/* --- Colour square inside each pill ---
+   Figma: size=6px --- */
+.mps-mobile-pill-square {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  display: block;
+  /* background-color set via inline style */
+}
+
+/* --- Pill label --- */
+.mps-mobile-pill-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+  white-space: nowrap;
+  /* color set via inline style */
+}
+
+/* --- Left zone: mark icon + tool label + value copy ---
+   Figma: left≈38px, mark-top≈27.5vh, label below mark, copy below label.
+   Uses absolute positioning from section top. --- */
+.mps-mobile-left-zone {
+  position: absolute;
+  left: 38px;
+  top: 27.5vh;  /* 235px / 853px ≈ 27.5vh (Figma: top=234.74px) */
+  width: calc(100% - 76px);
+  max-width: 302px;  /* matches Figma copy block width */
+  z-index: 10;
+}
+
+/* --- Tool label (e.g. "LEADS"): FK Grotesk Mono, 10px ---
+   Figma: mark-bottom=264.74px (234.74+30), label-top=315.18px.
+   Gap = 315.18 - 264.74 = 50.44px ≈ 5.9vh at 853px.              --- */
+.mps-mobile-tool-label {
+  display: block;
+  font-family: 'FK Grotesk Mono', monospace;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: -0.2px;
+  margin-top: 5.9vh;
+  /* color set via inline style */
+}
+
+/* --- Value copy text: FK Grotesk Neue Regular ---
+   Figma: font-size=16px, line-height=1.2, letter-spacing=-0.48px.
+   Label bottom = 325.18px (315.18+10). Copy top ≈ 344px.
+   Gap ≈ 19px ≈ 2.2vh at 853px.                                    --- */
+.mps-mobile-copy {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.48px;
+  margin-top: 2.2vh;
+  /* color set via inline style */
+}
+
+/* --- Screenshot zone: starts at left=24px, extends past the right edge ---
+   Figma: left=35.76px≈6%, top=404.68px≈47.5vh, width=623.407px≈158.5%,
+   height=405.154px≈47.5vh, border-radius=13.041px. --- */
+.mps-mobile-screenshot-zone {
+  position: absolute;
+  left: 6%;
+  top: 47.5vh;
+  width: 158.5%;  /* 623.407 / 393 ≈ 158.5% — extends beyond right */
+  height: 47.5vh; /* 405.154 / 853 ≈ 47.5vh */
+  border-radius: 13px;
+  overflow: hidden;
+}
+
+/* --- Screenshot image fills the zone --- */
+.mps-mobile-screenshot-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+  display: block;
+  pointer-events: none;
+}
+
+/* ==================== MOBILE PRODUCT SCREENS — REDUCED MOTION ==================== */
+/* (No transition properties are defined on .mps-mobile-pill, so no override needed.) */

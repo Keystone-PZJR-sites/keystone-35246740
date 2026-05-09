@@ -9,12 +9,14 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 // ---------------------------------------------------------------------------
 
 const COLORS: Record<string, string> = {
-  'hero-pin':            '#6ecc8b',
-  'work-pin':            '#f57e56',
-  'every-channel-pin':   '#9febd7',
-  'product-screens-pin': '#4fafa0',
-  'social-proof-pin':    '#ffbb8a',
-  'pricing-pin':         '#399587',
+  'hero-pin':                    '#6ecc8b',
+  'work-pin':                    '#f57e56',
+  'every-channel-pin':           '#9febd7',
+  'mobile-every-channel-pin':    '#7ed9c6',
+  'product-screens-pin':         '#4fafa0',
+  'mobile-product-screens-pin':  '#3a9085',
+  'social-proof-pin':            '#ffbb8a',
+  'pricing-pin':                 '#399587',
 };
 
 function log(id: string, event: string, detail: Record<string, unknown> = {}) {

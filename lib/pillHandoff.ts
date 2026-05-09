@@ -24,3 +24,25 @@ export function registerEveryChannelPillRects(map: Map<string, DOMRect>): void {
 export function getEveryChannelPillRects(): Map<string, DOMRect> {
   return _pillRectsMap;
 }
+
+// ---------------------------------------------------------------------------
+// Mobile-specific pill handoff (MobileEveryChannel → MobileProductScreens)
+// ---------------------------------------------------------------------------
+
+let _mobilePillRectsMap = new Map<string, DOMRect>();
+
+/**
+ * Called by MobileEveryChannel when its masterTl reaches Complete state.
+ * Captures current viewport-relative rects for each labelled mobile pill.
+ */
+export function registerMobileEveryChannelPillRects(map: Map<string, DOMRect>): void {
+  _mobilePillRectsMap = map;
+}
+
+/**
+ * Called by MobileProductScreens at the start of its entrance animation.
+ * Returns the stored map — empty if MobileEveryChannel hasn't completed yet.
+ */
+export function getMobileEveryChannelPillRects(): Map<string, DOMRect> {
+  return _mobilePillRectsMap;
+}

@@ -11,7 +11,9 @@ import {
   HeroNav,
   WorkShowcase,
   EveryChannel,
+  MobileEveryChannel,
   ProductScreens,
+  MobileProductScreens,
   SocialProofSection,
   PricingSection,
   OversizedFooter,
@@ -25,6 +27,7 @@ import type {
   WorkIndustry,
   HeadlinePart,
   PillData,
+  MobileEveryChannelPillData,
   ProductScreensTool,
   SocialProofSlide,
   SocialProofThumbnail,
@@ -570,6 +573,22 @@ const EVERY_CHANNEL_PILLS: PillData[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Mobile Every Channel — pill positions (mobile-specific scatter layout)
+// Positions are percentage of section width × section height (100vh).
+// Source: Figma node 1277:460 (393×853 canvas).
+// ---------------------------------------------------------------------------
+
+const MOBILE_EVERY_CHANNEL_PILLS: MobileEveryChannelPillData[] = [
+  { label: 'Sales',   color: '#56a6ff', left: '78.4%', top: '5.4%',  beatIndex: 0 },
+  { label: 'Leads',   color: '#f2ba46', left: '5.6%',  top: '13.0%', beatIndex: 1, dotColor: 'rgba(58,42,14,0.8)' },
+  { label: 'Reviews', color: '#f6523c', left: '62.1%', top: '23.0%', beatIndex: 2 },
+  { label: 'Ads',     color: '#ff7c1f', left: '77.9%', top: '35.9%', beatIndex: 3 },
+  { label: 'Social',  color: '#9c65ee', left: '31.8%', top: '67.3%', beatIndex: 4 },
+  { label: 'Web',     color: '#5bc3b3', left: '4.1%',  top: '85.8%', beatIndex: 5 },
+  { label: 'Content', color: '#f38bb0', left: '75.8%', top: '93.0%', beatIndex: 6 },
+];
+
+// ---------------------------------------------------------------------------
 // Product Screens — per-tool data (all values from Figma node 1087:2360)
 // ---------------------------------------------------------------------------
 
@@ -864,7 +883,17 @@ export default async function HomePage() {
           videoSrc="/every-channel/every-channel-bg.mp4"
           pills={EVERY_CHANNEL_PILLS}
         />
+        <MobileEveryChannel
+          line1="Every CHANNEL."
+          line2="Every INTERACTION."
+          line3="done-for-you."
+          videoSrc="/every-channel/every-channel-bg.mp4"
+          pills={MOBILE_EVERY_CHANNEL_PILLS}
+        />
         <ProductScreens
+          tools={PRODUCT_SCREENS_TOOLS}
+        />
+        <MobileProductScreens
           tools={PRODUCT_SCREENS_TOOLS}
         />
         <SocialProofSection
