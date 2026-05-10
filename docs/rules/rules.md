@@ -249,7 +249,77 @@ If you receive an SVG from Figma that uses the Exclude technique, ask the design
 
 ---
 
-## 19. Code Is the Source of Truth
+## 21. Layout Must Scale — No Fragile Positioning
+
+A layout is fragile when it looks correct on one specific viewport size and breaks or drifts on any other. An April 2026 audit found fragile positioning in nearly every section. This rule documents the patterns to use and the patterns to avoid.
+
+---
+
+### When absolute positioning is acceptable
+
+Absolute positioning is **only acceptable** in these four cases:
+
+1. **Media fills.** A video or image that must fill its container uses `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover`. The container carries `position: relative` and drives the size via `aspect-ratio` or flex.
+
+2. **GSAP animation states.** GSAP sets initial `transform`, `opacity`, and occasionally `y`/`x` values on elements before animating them. These are transient animation states, not layout instructions. They must be inside a `gsap.context()` that is reverted on unmount.
+
+3. **Overlay layers.** Modal backdrops, decorative pseudo-elements, gradient overlays, and layered effects that intentionally paint on top of document flow.
+
+4. **True escape from document flow.** A close button that floats over a full-screen modal, or a navigation bar that is pinned to the viewport, can be absolutely or fixed positioned because its position is defined relative to the viewport or modal, not to variable content.
+
+**Everything else must use normal document flow — flex, grid, or block — so the layout responds to the actual content and viewport size.**
+
+---
+
+### Anti-patterns to stop using
+
+**Fixed pixel coordinates for layout.**
+`top: 415px`, `left: 30.71px`, `bottom: 379px` — these values came from Figma's pixel ruler at one canvas size. They are correct at exactly that one size and wrong everywhere else. Replace with flex order and margin, or with percentages of a proportionally sized container.
+
+**`calc(50% + Npx)` with `transform: translateX(-50%)` for off-center alignment.**
+The `Npx` offset is a hardcoded pixel shift that does not scale. On a 393 px phone it is proportional; on a 430 px phone it is not. Use `margin-inline: auto` plus padding, or a named grid column, to achieve right-of-center alignment.
+
+**Fixed pixel widths on text containers.**
+`width: 189px`, `width: 308px`, `width: 169px` — these values work on one reference phone and clip or leave whitespace on others. Use `max-width` with `width: 100%`, or `min(Xpx, calc(100% - 48px))` to let the element fill its space up to the design maximum.
+
+**Fixed pixel heights on section sub-containers.**
+`height: 455px`, `height: 558px`, `height: 375px` — these make cards and video wraps a rigid box that does not adapt to different screen heights or font sizes. Use `aspect-ratio`, `min-height`, or proportional `vh`/`svh` values instead.
+
+**`line-height: 0` on a container as a spacing hack.**
+Setting `line-height: 0` on a wrapper and then resetting it on children was used in several places to collapse unwanted whitespace. The correct tool is `display: flex; flex-direction: column; gap: Xpx` on the container.
+
+**Magic number gaps.**
+`gap: 227px` in a flex row does not adapt to narrower desktops. `gap: clamp(24px, 15vw, 227px)` achieves the same maximum while collapsing gracefully.
+
+---
+
+### How proportional collages work
+
+The desktop and mobile footer collages are the reference implementation for proportional layout. The pattern:
+
+1. Give the outer container a fixed `aspect-ratio` derived from the Figma canvas dimensions. Its height is always a fixed fraction of its width at any viewport size.
+2. Use `padding` and `gap` expressed in `vw` so that all breathing room scales with the viewport.
+3. Calibrate `font-size` in `vw` so that text height equals row height at every viewport width. No min-max cap is needed on mobile-only sections because `md:hidden` removes the element before viewport sizes grow large.
+4. Make video clips `flex: 1; min-width: 0` so they fill all space the text does not occupy. The resulting clip size is proportional at every width without any hardcoded dimension.
+5. Use an invisible `flex: 1` spacer between two text blocks to hold proportional space between them without a video.
+
+This pattern is documented mathematically in the comment block at the top of `styles/sections/oversized-footer.css` and `styles/sections/mobile-footer.css`. Read those comments before building any new collage.
+
+---
+
+### How mobile section layouts work
+
+Mobile sections that are pinned full-screen (`height: 100vh`) can use `calc(N / 852 * 100%)` for vertical positions because `100%` of the section height equals `100vh` — a stable, proportional base. This is acceptable for the Y axis only.
+
+For the X axis, never use fixed pixel `left` values. All horizontal positioning must use one of:
+- `left: 50%; transform: translateX(-50%)` for centering.
+- `padding-inline: 24px` (or the section's standard gutter) for edge-aligned content.
+- `width: calc(100% - 48px)` with `margin-inline: auto` for full-width-minus-gutter containers.
+- Flex or grid for multi-column content.
+
+---
+
+## 22. Code Is the Source of Truth
 
 **Specs document intent; code holds the current values.** Colors, spacing, measurements, animation timings, and data values in the codebase are always authoritative. Spec files capture design intent at a point in time and may be out of date.
 
