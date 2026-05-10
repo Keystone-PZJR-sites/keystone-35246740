@@ -15,12 +15,11 @@
 }
 
 /* --- Header row: headline left, CTA bubble right ---
-   Absolute so it sits at 56px from the section top without affecting
-   the card flow layout. Centred with transform so it aligns with the
-   cards row at any viewport width. */
+   top expressed in vh so it scales to the section's 100vh height.
+   5.47vh = 56px at the 1024px reference desktop height.              */
 .vp-header {
   position: absolute;
-  top: 56px;
+  top: 5.47vh;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 48px);
@@ -112,10 +111,11 @@
   flex-shrink: 0;
 }
 
-/* --- Cards row --- absolute, matching Figma y=225px card top offset */
+/* --- Cards row ---
+   21.97vh = 225px at the 1024px reference desktop height.            */
 .vp-cards-row {
   position: absolute;
-  top: 225px;
+  top: 21.97vh;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 48px);
@@ -124,23 +124,26 @@
   gap: 24px;
 }
 
-/* --- Individual card --- */
+/* --- Individual card ---
+   69.43vh = 711px at the 1024px reference height; min-height guards
+   against very short viewports collapsing the cards.                 */
 .vp-card {
   flex: 1 1 0%;
   position: relative;
-  height: 711px;
+  height: 69.43vh;
+  min-height: 400px;
   min-width: 0;
 }
 
 /* --- Video panel (top of card) ---
-   Figma: 375px tall, rounded top corners only. When videoLeft/videoWidth are
-   not supplied, the video fills via object-fit: cover (placeholder mode).    */
+   52.74% = 375px / 711px — scales with the card height.
+   When videoLeft/videoWidth are not supplied, video fills via cover.  */
 .vp-card-video-wrap {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 375px;
+  height: 52.74%;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
 }
@@ -156,27 +159,27 @@
 }
 
 /* --- Colored panel (bottom of card) ---
-   Figma: 376px tall, positioned at top=335px (40px overlap with video).
-   clip-path replicates the 17×17px diagonal notch at the top-left corner
-   from the Figma Subtract shape — no SVG file needed.                    --- */
+   47.12% = 335px / 711px (panel starts at video − 40px overlap).
+   Flex-column layout replaces absolute-positioned headline/copy so both
+   scale proportionally as the card resizes.
+   clip-path replicates the 17×17px diagonal notch at top-left.        */
 .vp-card-panel {
   position: absolute;
   left: 0;
   right: 0;
-  top: 335px;     /* 375px video height − 40px overlap */
+  top: 47.12%;
   bottom: 0;
   clip-path: polygon(17px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 17px);
+  /* Flex column: headline top-anchored, copy bottom-anchored */
+  display: flex;
+  flex-direction: column;
+  padding: 47px 8px 32px 48px;
 }
 
 /* --- Card headline ---
-   Figma: FK Screamer Bold, 50px, uppercase, line-height 0.82.
-   Position: 382px from card top = 47px from panel top (335px offset).    --- */
+   FK Screamer Bold 50px in-flow (no absolute position).               */
 .vp-card-headline {
-  position: absolute;
-  left: 48px;
-  right: 8px;
   max-width: 290px;
-  top: 47px;     /* relative to panel: 382px card − 335px panel offset */
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -186,23 +189,21 @@
   letter-spacing: 0;
   margin: 0;
   white-space: pre-wrap;
+  flex-shrink: 0;
 }
 
 /* --- Body copy ---
-   Figma: FK Grotesk Neue 22px, line-height 1.2, tracking -0.66px.
-   top=573px within card → 238px within panel. Width 352px (Figma).       --- */
+   margin-top: auto pushes the copy to the bottom of the panel space,
+   replicating the Figma bottom-anchor at 238px within the panel.      */
 .vp-card-copy {
-  position: absolute;
-  left: 48px;
-  right: 8px;
   max-width: 352px;
-  top: 238px;    /* relative to panel: 573px card − 335px panel offset */
+  margin-top: auto;
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
   font-size: 22px;
   line-height: 1.2;
   letter-spacing: -0.66px;
-  margin: 0;
+  margin: auto 0 0;
 }
 
 /* ── Mobile carousel ─────────────────────────────────────────────────────── */
@@ -232,7 +233,8 @@
 
 /* --- Section headline ---
    Figma: FK Roman Standard, 24px, two-line.
-   Line 1: regular; Line 2: oblique ("Something Better.").               --- */
+   Line 1: regular; Line 2: oblique ("Something Better.").
+   Flex column replaces line-height:0 hack for clean multi-line spacing. --- */
 .mvp-headline {
   font-family: 'FK Roman Standard', serif;
   font-weight: 400;
@@ -241,24 +243,23 @@
   letter-spacing: -0.72px;
   color: #4f4d4a;
   margin: 0;
-  line-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .mvp-headline-line1 {
-  display: block;
   line-height: 1.2;
 }
 
 .mvp-headline-line2 {
-  display: block;
   line-height: 1.2;
   font-style: oblique;
 }
 
 /* --- Horizontal rule below the headline ---
-   Figma: 113px wide, 2px, warm gray #cbc5b4.                           --- */
+   min() caps at design value and prevents overflow on narrow phones.  --- */
 .mvp-divider {
-  width: 113px;
+  width: min(113px, 28.75vw);
   height: 2px;
   background-color: #cbc5b4;
   margin-top: 16px;
@@ -267,21 +268,31 @@
 
 /* --- Embla viewport ---
    flex: 1 / min-height: 0 so the viewport grows to fill whatever space the
-   header leaves behind. padding-top creates headroom for the elevated active
-   card so the translateY(-24px) lift is not clipped at the top.          --- */
+   header leaves behind.
+   flex-direction: column + justify-content: center vertically centers the
+   card strip in that remaining space.
+   padding: 28px top and bottom — top creates headroom so the elevated active
+   card (translateY(-24px)) is not clipped; bottom keeps symmetry.         --- */
 .mvp-carousel-viewport {
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 0;
 }
 
 /* --- Embla slide container: horizontal flex row ---
+   height: min(100%, 558px) — 558px is the natural Figma card height.
+   On short viewports the card fills the available height; on tall viewports
+   it caps at 558px and is centered by the viewport's justify-content.
    padding-left = 24px for the left edge inset. Right edge uses margin-right
    on the last slide instead of padding-right — CSS drops padding-right on
    overflowing flex containers in most browsers.                           --- */
 .mvp-carousel-container {
   display: flex;
+  height: min(100%, 558px);
   gap: 16px;
   padding-left: 24px;
 }
@@ -291,13 +302,14 @@
 }
 
 /* --- Individual slide ---
-   Uniform height for all slides. The active card is distinguished solely by
-   translateY(-24px), matching the WorkShowcase desktop interaction model.
-   Inactive cards sit 24px lower, giving the active card visual prominence. --- */
+   Width: min(310px, 80vw) so the slide scales on small phones while the
+   24px inset ensures the adjacent card always peeks.
+   Height: 100% fills the Embla viewport (sized by flex remainder above).
+   The active card is distinguished solely by translateY(-24px).         --- */
 .mvp-slide {
-  flex: 0 0 310px;
+  flex: 0 0 min(310px, 80vw);
   position: relative;
-  height: 558px;
+  height: 100%;
   will-change: transform;
   transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
 }
@@ -309,13 +321,14 @@
 }
 
 /* --- Mobile video panel ---
-   Figma: 326px tall, rounded top corners only.                          --- */
+   58.42% = 326px / 558px — scales with the slide height.
+   Rounded top corners only.                                             --- */
 .mvp-slide-video-wrap {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 326px;
+  height: 58.42%;
   border-radius: 7px 7px 0 0;
   overflow: hidden;
 }
@@ -331,26 +344,25 @@
 }
 
 /* --- Mobile colored panel ---
-   top=298px (28px overlap with 326px video).
-   clip-path: 12×12px diagonal notch at top-left (Figma mobile Subtract shape). */
+   53.41% = 298px / 558px (28px overlap with 326px video).
+   Flex-column with padding replaces absolutely-positioned headline/copy.
+   clip-path: 12×12px diagonal notch at top-left.                       --- */
 .mvp-slide-panel {
   position: absolute;
   left: 0;
   right: 0;
-  top: 298px;
+  top: 53.41%;
   bottom: 0;
   clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 12px);
+  display: flex;
+  flex-direction: column;
+  padding: 32px 12px 24px 32px;
 }
 
 /* --- Mobile headline ---
-   Figma: FK Screamer Bold, 36px, line-height 0.85.
-   Left=32px, top=32px within panel.                                     --- */
+   FK Screamer Bold 36px in-flow.                                        --- */
 .mvp-slide-headline {
-  position: absolute;
-  left: 32px;
-  right: 12px;
   max-width: 246px;
-  top: 32px;
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -360,22 +372,19 @@
   letter-spacing: 0;
   margin: 0;
   white-space: pre-wrap;
+  flex-shrink: 0;
 }
 
 /* --- Mobile body copy ---
-   Figma: FK Grotesk Neue 16px, line-height 1.3, tracking -0.48px.       --- */
+   margin-top: auto pushes copy to the bottom of the panel space.       --- */
 .mvp-slide-copy {
-  position: absolute;
-  left: 32px;
-  right: 12px;
   max-width: 246px;
-  top: 160px;
+  margin: auto 0 0;
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.3;
   letter-spacing: -0.48px;
-  margin: 0;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

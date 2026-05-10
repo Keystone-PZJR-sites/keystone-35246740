@@ -1,9 +1,12 @@
 /* ==================== HERO ANIMATIC ==================== */
 
-/* Bottom content: invisible until GSAP animates it in */
+/* Bottom content: invisible until GSAP animates it in.
+   right: clamp scales from 24px on narrow viewports to 110px at full width,
+   replacing the fragile Tailwind right-[110px] arbitrary value.         */
 .hero-bottom-content {
   display: flex;
   opacity: 0;
+  right: clamp(24px, 7.64vw, 110px);
 }
 
 /* Shared pill button base — used in HeroNav and HeroAnimatic CTA pill.

@@ -305,6 +305,47 @@ function Chip({ label, bg, color }: { label: string; bg: string; color: string }
 }
 
 // ---------------------------------------------------------------------------
+// Shared scaled-card shell — wraps every mock outer div so it scales with
+// the viewport via CSS transform.  Internal px values stay exact (Rule 21).
+// ---------------------------------------------------------------------------
+
+function ScaledMockCard({
+  naturalWidth,
+  naturalHeight,
+  className = '',
+  style = {},
+  innerClassName = '',
+  innerStyle = {},
+  children,
+}: {
+  naturalWidth: number;
+  naturalHeight: number;
+  className?: string;
+  style?: React.CSSProperties;
+  innerClassName?: string;
+  innerStyle?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={`ws-scale-root ${className}`.trim()}
+      style={{
+        '--ws-natural-w': `${naturalWidth}px`,
+        '--ws-natural-h': `${naturalHeight}px`,
+        ...style,
+      } as React.CSSProperties}
+    >
+      <div
+        className={`ws-scale-inner ${innerClassName}`.trim()}
+        style={innerStyle}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Sales card — iPhone chat UI (302 × 638, rounded-[56px])
 // ---------------------------------------------------------------------------
 
@@ -322,9 +363,11 @@ function SalesCard({
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
       {/* Phone outer — rounded-[56px] per Figma */}
-      <div
-        className="work-sales-outer relative overflow-hidden"
-        style={{ width: '302px', height: '638px', borderRadius: '56px' }}
+      <ScaledMockCard
+        naturalWidth={302}
+        naturalHeight={638}
+        className="work-sales-outer"
+        style={{ borderRadius: '56px' }}
       >
         {/* Dynamic Island */}
         <div
@@ -416,7 +459,7 @@ function SalesCard({
           className="work-sales-indicator absolute bottom-[8px] left-1/2 -translate-x-1/2 rounded-full"
           style={{ width: '92px', height: '4px' }}
         />
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -440,14 +483,10 @@ function AdsCardStandard({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: '286px',
-          height: '594px',
-          borderRadius: '8px',
-          backgroundColor: '#e0ddd1',
-        }}
+      <ScaledMockCard
+        naturalWidth={286}
+        naturalHeight={594}
+        style={{ borderRadius: '8px', backgroundColor: '#e0ddd1' }}
       >
         {/* Dark gradient overlay — fades in on hover */}
         <div
@@ -625,7 +664,7 @@ function AdsCardStandard({
             {content.ctaLabel}
           </span>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -649,14 +688,10 @@ function AdsCardHome({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: '286px',
-          height: '594px',
-          borderRadius: '8px',
-          background: 'linear-gradient(to bottom, #324822, #152312)',
-        }}
+      <ScaledMockCard
+        naturalWidth={286}
+        naturalHeight={594}
+        style={{ borderRadius: '8px', background: 'linear-gradient(to bottom, #324822, #152312)' }}
       >
         {/* Story progress bar */}
         <div
@@ -745,7 +780,7 @@ function AdsCardHome({
             {content.ctaLabel}
           </span>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -771,14 +806,10 @@ function AdsCardFood({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: '286px',
-          height: '594px',
-          borderRadius: '8px',
-          background: 'linear-gradient(rgb(58,56,54) 0%, rgb(0,0,0) 100%)',
-        }}
+      <ScaledMockCard
+        naturalWidth={286}
+        naturalHeight={594}
+        style={{ borderRadius: '8px', background: 'linear-gradient(rgb(58,56,54) 0%, rgb(0,0,0) 100%)' }}
       >
         {/* Full-bleed background photo — cropped to center */}
         <div className="absolute inset-0 overflow-hidden">
@@ -856,7 +887,7 @@ function AdsCardFood({
             {content.ctaLabel}
           </span>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -928,14 +959,10 @@ function AdsCardRetail({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: '286px',
-          height: '594px',
-          borderRadius: '8px',
-          background: 'linear-gradient(to bottom, #d3d7d3, #a8b4c4)',
-        }}
+      <ScaledMockCard
+        naturalWidth={286}
+        naturalHeight={594}
+        style={{ borderRadius: '8px', background: 'linear-gradient(to bottom, #d3d7d3, #a8b4c4)' }}
       >
         {/* Story progress bar */}
         <div
@@ -1013,7 +1040,7 @@ function AdsCardRetail({
             {content.ctaLabel}
           </span>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -1038,14 +1065,10 @@ function AdsCardCare({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: '286px',
-          height: '594px',
-          borderRadius: '8px',
-          background: 'linear-gradient(to bottom, #352745, #382355)',
-        }}
+      <ScaledMockCard
+        naturalWidth={286}
+        naturalHeight={594}
+        style={{ borderRadius: '8px', background: 'linear-gradient(to bottom, #352745, #382355)' }}
       >
         {/* Story progress bar */}
         <div
@@ -1141,7 +1164,7 @@ function AdsCardCare({
             {content.ctaLabel}
           </span>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -1195,16 +1218,13 @@ function SocialCard({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="work-social-outer relative overflow-hidden flex flex-col"
-        style={{
-          width: '292px',
-          height: '424px',
-          borderRadius: '8px',
-          padding: '17.557px 21.068px',
-          gap: '10.534px',
-          backdropFilter: 'blur(5.267px)',
-        }}
+      <ScaledMockCard
+        naturalWidth={292}
+        naturalHeight={424}
+        className="work-social-outer"
+        style={{ borderRadius: '8px', backdropFilter: 'blur(5.267px)' }}
+        innerClassName="flex flex-col"
+        innerStyle={{ padding: '17.557px 21.068px', gap: '10.534px' }}
       >
         {/* Profile header */}
         <div
@@ -1289,7 +1309,7 @@ function SocialCard({
         >
           {content.caption}
         </p>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -1314,14 +1334,12 @@ function WebCardStandard({
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
       {/* Outer wrapper: rounded-[16px], p-[7px] */}
-      <div
-        className="work-web-outer relative overflow-hidden"
-        style={{
-          width: '868px',
-          borderRadius: '16px',
-          padding: '7px',
-          backdropFilter: 'blur(12.024px)',
-        }}
+      <ScaledMockCard
+        naturalWidth={868}
+        naturalHeight={583}
+        className="work-web-outer"
+        style={{ borderRadius: '16px', backdropFilter: 'blur(12.024px)' }}
+        innerStyle={{ padding: '7px' }}
       >
         {/* Inner card */}
         <div
@@ -1415,7 +1433,6 @@ function WebCardStandard({
                 fontWeight: 300,
                 color: '#f0eee6',
                 letterSpacing: '-0.5067px',
-                lineHeight: 0,
               }}
             >
               {content.heroHeadlineLines.map((line, i) => (
@@ -1481,7 +1498,7 @@ function WebCardStandard({
             <Image src={content.galleryImageSrcs[2]} alt="" fill className="object-cover" unoptimized />
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -1505,9 +1522,12 @@ function WebCardCare({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="work-web-outer relative overflow-hidden"
-        style={{ width: '868px', borderRadius: '16px', padding: '7px', backdropFilter: 'blur(12.024px)' }}
+      <ScaledMockCard
+        naturalWidth={868}
+        naturalHeight={583}
+        className="work-web-outer"
+        style={{ borderRadius: '16px', backdropFilter: 'blur(12.024px)' }}
+        innerStyle={{ padding: '7px' }}
       >
         <div
           className="work-web-inner relative overflow-hidden"
@@ -1623,7 +1643,7 @@ function WebCardCare({
             ))}
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -1655,9 +1675,12 @@ function WebCardHome({
 
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="work-web-outer relative overflow-hidden"
-        style={{ width: '868px', borderRadius: '16px', padding: '7px', backdropFilter: 'blur(12.024px)' }}
+      <ScaledMockCard
+        naturalWidth={868}
+        naturalHeight={583}
+        className="work-web-outer"
+        style={{ borderRadius: '16px', backdropFilter: 'blur(12.024px)' }}
+        innerStyle={{ padding: '7px' }}
       >
         <div
           className="work-home-web-inner relative overflow-hidden flex flex-col"
@@ -1867,7 +1890,7 @@ function WebCardHome({
             </div>
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -1894,19 +1917,13 @@ function WebCardFood({
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
       {/* Outer wrapper: 868 × 584, rounded-[16px], p-[7px], backdrop-blur */}
-      <div
-        className="work-web-outer relative overflow-hidden"
-        style={{
-          width: '868px',
-          height: '584px',
-          borderRadius: '16px',
-          padding: '7px',
-          backdropFilter: 'blur(12.024px)',
-          background: 'rgba(255,255,255,0.3)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+      <ScaledMockCard
+        naturalWidth={868}
+        naturalHeight={584}
+        className="work-web-outer"
+        style={{ borderRadius: '16px', backdropFilter: 'blur(12.024px)', background: 'rgba(255,255,255,0.3)' }}
+        innerClassName="flex items-center justify-center"
+        innerStyle={{ padding: '7px' }}
       >
         {/* Inner card: 852 × 568, bg #e6edfa */}
         <div
@@ -1994,7 +2011,7 @@ function WebCardFood({
             ))}
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -2023,15 +2040,11 @@ function WebCardFoodMenu({
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
       {/* Outer frosted-glass shell */}
-      <div
-        className="work-img-blend relative overflow-hidden flex-shrink-0"
-        style={{
-          width: '316px',
-          height: '583px',
-          borderRadius: '16px',
-          backdropFilter: 'blur(12.024px)',
-          backgroundColor: 'rgba(255,255,255,0.3)',
-        }}
+      <ScaledMockCard
+        naturalWidth={316}
+        naturalHeight={583}
+        className="work-img-blend flex-shrink-0"
+        style={{ borderRadius: '16px', backdropFilter: 'blur(12.024px)', backgroundColor: 'rgba(255,255,255,0.3)' }}
       >
         {/* Inner white card, centered, top: 6px */}
         <div
@@ -2167,7 +2180,7 @@ function WebCardFoodMenu({
             ))}
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -2192,9 +2205,12 @@ function WebCardRetail({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="work-web-outer relative overflow-hidden"
-        style={{ width: '868px', borderRadius: '16px', padding: '7px', backdropFilter: 'blur(12.024px)' }}
+      <ScaledMockCard
+        naturalWidth={868}
+        naturalHeight={582}
+        className="work-web-outer"
+        style={{ borderRadius: '16px', backdropFilter: 'blur(12.024px)' }}
+        innerStyle={{ padding: '7px' }}
       >
         <div
           className="work-web-inner relative overflow-hidden"
@@ -2276,7 +2292,7 @@ function WebCardRetail({
             ))}
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -2334,9 +2350,11 @@ function ContentCardRetail({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      <div
-        className="work-content-outer relative overflow-hidden"
-        style={{ width: '316px', height: '583px', borderRadius: '16px' }}
+      <ScaledMockCard
+        naturalWidth={316}
+        naturalHeight={583}
+        className="work-content-outer"
+        style={{ borderRadius: '16px' }}
       >
         <div
           className="work-content-inner absolute overflow-hidden"
@@ -2481,7 +2499,7 @@ function ContentCardRetail({
             <img alt="" src={content.photo2Src} className="work-card-img absolute inset-0 w-full h-full object-cover block" />
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
@@ -2510,9 +2528,11 @@ function ContentCard({
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
       {/* Outer: rounded-[16px], overflow-hidden */}
-      <div
-        className="work-content-outer relative overflow-hidden"
-        style={{ width: '316px', height: '583px', borderRadius: '16px' }}
+      <ScaledMockCard
+        naturalWidth={316}
+        naturalHeight={583}
+        className="work-content-outer"
+        style={{ borderRadius: '16px' }}
       >
         {/* Inner: positioned 6px from top, centered, rounded-[10px] */}
         <div
@@ -2621,7 +2641,7 @@ function ContentCard({
             </p>
           </div>
         </div>
-      </div>
+      </ScaledMockCard>
 
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>

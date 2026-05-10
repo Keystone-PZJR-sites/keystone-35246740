@@ -134,7 +134,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 227px;
+  gap: clamp(24px, 15.76vw, 227px);
   margin-top: 40px;
   width: 100%;
 }

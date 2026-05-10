@@ -147,7 +147,9 @@
   line-height: 1.2;
   letter-spacing: -0.42px;
   color: #f57e56;
-  width: 169px;
+  /* max-width caps at design value; width: 100% lets it shrink on small phones */
+  max-width: 169px;
+  width: 100%;
   margin: 0;
 }
 
@@ -192,7 +194,8 @@
   line-height: 1.2;
   letter-spacing: -0.42px;
   color: #f57e56;
-  width: 169px;
+  max-width: 169px;
+  width: 100%;
   margin: 0;
   flex-shrink: 0;
 }
@@ -248,7 +251,8 @@
   line-height: 1.2;
   letter-spacing: -0.42px;
   color: #f57e56;
-  width: 169px;
+  max-width: 169px;
+  width: 100%;
   margin: 0;
 }
 
@@ -338,16 +342,12 @@
   display: block;
 }
 
-/* ── Legal — right-of-center per Figma: center at calc(50%+74.5px) ─────────
-   translateX(calc(-50% + 74.5px)) shifts the centered element 74.5px right,
-   placing its visual center past the footer midline (right-heavy alignment). */
-
+/* ── Legal — right-aligned per Figma, with consistent 24px right inset.
+   align-self: flex-end (on a flex-column parent) pushes it to the right.
+   padding-right keeps it off the edge at any phone width. */
 .mfooter-legal {
-  position: relative;
-  width: fit-content;
-  /* Center the element at 50% of the footer width, then shift 74.5px right */
-  left: 50%;
-  transform: translateX(calc(-50% + 74.5px));
+  align-self: flex-end;
+  padding-right: 24px;
   display: flex;
   gap: 16px;
   align-items: center;

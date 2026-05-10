@@ -27,7 +27,7 @@
   top: calc(56 / 852 * 100%);
   left: 50%;
   transform: translateX(-50%);
-  width: 189.52px;
+  width: min(189.52px, calc(100% - 48px));
   text-align: center;
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
@@ -45,7 +45,8 @@
   top: calc(144 / 852 * 100%);
   left: 50%;
   transform: translateX(-50%);
-  line-height: 0;
+  /* Use same line-height as children so the container has no phantom extra spacing */
+  line-height: 0.82;
   text-align: center;
   white-space: nowrap;
   margin: 0;
@@ -76,12 +77,12 @@
   top: calc(251 / 852 * 100%);
   left: 50%;
   transform: translateX(-50%);
-  width: 301.453px;
+  width: min(301.453px, calc(100% - 48px));
   text-align: center;
   font-family: 'FK Grotesk Mono', monospace;
   font-weight: 400;
   font-size: 12px;
-  line-height: 0;
+  /* No line-height:0 hack — block-level <p> children each define their own */
   letter-spacing: -0.24px;
   color: #5bc3b3;
   white-space: pre-wrap;
@@ -122,7 +123,7 @@
   top: calc(422 / 852 * 100%);
   left: 50%;
   transform: translateX(-50%);
-  width: 308.945px;
+  width: min(308.945px, calc(100% - 48px));
   text-align: center;
   font-family: 'FK Grotesk Mono', monospace;
   font-weight: 400;
@@ -144,24 +145,25 @@
   top: calc(542 / 852 * 100%);
   left: 50%;
   transform: translateX(-50%);
-  width: 345px; /* 2 × 168 + 9px gap */
+  /* Fluid: fills up to the 2-column ideal width, constrained by the screen */
+  width: min(345px, calc(100% - 48px));
   display: flex;
   flex-direction: column;
-  /* ~24px gap from Figma: desc top(603) − pills top(542) − pill height(≈37) */
   gap: 24px;
 }
 
-/* Pills row — each pill centered within its 168px column slot */
+/* Pills row — each pill centered within its equal-width column slot */
 .mprice-addon-pills-row {
   display: flex;
   gap: 9px;
 }
 
 .mprice-pill-col {
-  width: 168px;
+  /* Equal columns that shrink gracefully instead of a fixed 168px */
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .mprice-addon-pill {
@@ -200,8 +202,9 @@
 
 .mprice-desc-col {
   display: flex;
-  width: 168px;
-  flex-shrink: 0;
+  /* Equal columns instead of fixed 168px */
+  flex: 1 1 0;
+  min-width: 0;
   padding: 8px;
 }
 

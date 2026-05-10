@@ -123,12 +123,12 @@
 
 /* --- Close button: directly positioned, no wrapper needed ---
        right: 7vw → left edge at 93vw - 46px ≈ 1293px at 1440px (matches Figma).
-       top = video top − 21px = (50vh − 23.435vw) − 21px.
-       Stays 21px above the video at every viewport size.              */
+       top: calc(50vh - 24.895vw) ≡ (50vh - 23.435vw - 1.46vw)
+         where 1.46vw = 21px at 1440px — stays 21px above the video at every size. */
 .sp-close-btn {
   position: absolute;
   right: 7vw;
-  top: calc(50vh - 23.435vw - 21px);
+  top: calc(50vh - 24.895vw);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,14 +176,13 @@
 }
 
 /* --- Transition wrapper: GSAP expand/shrink target on open/close.
-       Positioned so the active video is perfectly vertically centered.
-       Video height = 82.9vw × (675/1194) = 46.87vw → half = 23.435vw.
+       left: 8.67vw  ≡  7.14vw + 22px  at 1440px reference width.
        top = 50vh − 23.435vw  →  video center = 50vh  (exact).
        Inactive slides add translateY(24px) via .sp-slide-video-wrap,
        placing their center at 50vh + 12px (just below center).        --- */
 .sp-slide-transition-wrap {
   position: absolute;
-  left: calc(7.14vw + 22px);
+  left: 8.67vw;
   top: calc(50vh - 23.435vw);
   width: 82.9vw;
   /* Height determined by .sp-slide-video-wrap's aspect-ratio */
@@ -218,11 +217,11 @@
        top = video_top + 63.3% of video_height
            = (50vh − 23.435vw) + 29.67vw
            = 50vh + 6.235vw.
-       Maintains the Figma-spec overlap between card and video.             --- */
+       left: 54.51vw  ≡  50vw + 65px  at 1440px reference width.       --- */
 .sp-card-position {
   position: absolute;
   top: calc(50vh + 6.235vw);
-  left: calc(50vw + 65px);
+  left: 54.51vw;
   width: min(534px, 37.1vw);
   height: auto;
 }
@@ -320,12 +319,14 @@
 
 .sp-nav-prev {
   left: 0;
-  width: calc(7.14vw + 22px);
+  /* 8.67vw ≡ 7.14vw + 22px at 1440px — pure vw, no mixed units */
+  width: 8.67vw;
 }
 
 .sp-nav-next {
   right: 0;
-  width: calc(100vw - (7.14vw + 22px + 82.9vw));
+  /* 8.43vw ≡ 100vw − (8.67vw + 82.9vw) at 1440px — pure vw */
+  width: 8.43vw;
 }
 
 /* ==================== SOCIAL PROOF — REDUCED MOTION ==================== */

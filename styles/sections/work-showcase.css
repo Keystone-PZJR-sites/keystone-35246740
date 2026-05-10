@@ -1,5 +1,36 @@
 /* ==================== WORK SHOWCASE ==================== */
 
+/* ── Proportionally scaled mock card ───────────────────────────────────────
+   Usage: the outermost mock container element gets class "ws-scale-root" and
+   inline CSS vars --ws-natural-w / --ws-natural-h (e.g. style="--ws-natural-w:868px").
+   All of the card's content goes inside a single "ws-scale-inner" child div.
+
+   How it works:
+     --ws-card-scale  = min(1, (100vw − 48px) / natural-width)
+       → 1.0 on large screens (card renders at full Figma size)
+       → < 1 on narrow screens (card shrinks proportionally)
+     ws-scale-root    = the outer shell; occupies SCALED dimensions in layout
+                        so flex/Embla measure the correct width
+     ws-scale-inner   = renders at NATURAL dimensions then transform:scale shrinks
+                        it visually — all internal px positions/fonts stay exact
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.ws-scale-root {
+  /* 48px = combined carousel gutters so the card never bleeds off-screen */
+  --ws-card-scale: min(1, calc((100vw - 48px) / var(--ws-natural-w)));
+  width: calc(var(--ws-natural-w) * var(--ws-card-scale));
+  height: calc(var(--ws-natural-h) * var(--ws-card-scale));
+  position: relative;
+  overflow: hidden;
+}
+
+.ws-scale-inner {
+  width: var(--ws-natural-w);
+  height: var(--ws-natural-h);
+  transform: scale(var(--ws-card-scale));
+  transform-origin: top left;
+}
+
 /* --- Carousel item: static hover zone that never transforms.
       margin-right is used (not flex gap) so Embla loop clones inherit the spacing. --- */
 .work-card-item {

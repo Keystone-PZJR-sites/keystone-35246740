@@ -197,7 +197,7 @@ export function HeroAnimatic({
       {/* Bottom content — hidden on mobile via CSS, opacity 0 until animated in on desktop */}
       <div
         ref={bottomContentRef}
-        className="hero-bottom-content absolute bottom-16 left-24 right-[110px] z-10 items-end justify-between"
+        className="hero-bottom-content absolute bottom-16 left-24 z-10 items-end justify-between"
       >
         {/* Left: Keystone mark + subheadline */}
         <div className="flex flex-col items-start gap-3 max-w-[520px]">

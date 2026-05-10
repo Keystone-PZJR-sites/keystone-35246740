@@ -26,8 +26,9 @@
   flex-direction: column;
   align-items: center;
   min-height: 100%;
-  /* Desktop: match Figma — K mark at 140px from top */
-  padding-top: 140px;
+  /* Desktop: match Figma — K mark at 140px from top.
+     clamp scales down on small viewports (modal can be narrower).     */
+  padding-top: clamp(80px, 13.67vh, 140px);
   padding-bottom: 48px;
   padding-left: 16px;
   padding-right: 16px;
@@ -77,8 +78,11 @@
 }
 
 .lc-wordmark {
-  width: 154px;
-  height: 30px;
+  /* max-width + height: auto preserves the SVG aspect ratio (154:30)
+     at any container width — no fixed pixel dimensions needed.        */
+  max-width: 154px;
+  width: 100%;
+  height: auto;
   display: block;
   object-fit: contain;
   object-position: left center;

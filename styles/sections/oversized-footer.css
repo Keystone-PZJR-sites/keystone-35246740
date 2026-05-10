@@ -187,8 +187,8 @@
     "tag1 tag2 tag3"
     "act1 act2 act3";
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 40px;
-  row-gap: 60px;
+  column-gap: clamp(16px, 2.78vw, 40px);
+  row-gap: clamp(32px, 4.17vw, 60px);
 }
 
 .footer-lower-tag1 { grid-area: tag1; }

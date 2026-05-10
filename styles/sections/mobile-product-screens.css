@@ -27,13 +27,11 @@
 }
 
 /* --- Decorative bg shape: slightly darker rounded rect, offset right.
-   Figma: left=13px, top≈24.4vh, width≈127% (extends beyond right), height≈73.5vh,
-   border-radius=15px, opacity≈0.8.
-   Uses a static rgba(0,0,0,0.15) overlay so the darkening scales correctly
-   across all tool background colours without per-tool derivation.          --- */
+   left: 3.3vw = 13px at 393px reference width — scales proportionally.
+   top/height already in vh.                                              --- */
 .mps-mobile-deco {
   position: absolute;
-  left: 13px;
+  left: 3.3vw;
   top: 24.4vh;
   width: 127%;
   height: 73.5vh;
@@ -43,10 +41,10 @@
 }
 
 /* --- Pill nav: two-row flex, centred at top of section ---
-   Figma: top=56px, width=345px (calc 100%-48px with 24px each side). --- */
+   top: 6.57vh = 56px at 852px reference height — scales proportionally. */
 .mps-mobile-pill-nav {
   position: absolute;
-  top: 56px;
+  top: 6.57vh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -102,14 +100,14 @@
 }
 
 /* --- Left zone: mark icon + tool label + value copy ---
-   Figma: left≈38px, mark-top≈27.5vh, label below mark, copy below label.
-   Uses absolute positioning from section top. --- */
+   left: 24px — standard mobile gutter (aligns with all other mobile sections).
+   top already in vh.                                                      --- */
 .mps-mobile-left-zone {
   position: absolute;
-  left: 38px;
-  top: 27.5vh;  /* 235px / 853px ≈ 27.5vh (Figma: top=234.74px) */
-  width: calc(100% - 76px);
-  max-width: 302px;  /* matches Figma copy block width */
+  left: 24px;
+  top: 27.5vh;
+  width: calc(100% - 48px);
+  max-width: 302px;
   z-index: 10;
 }
 

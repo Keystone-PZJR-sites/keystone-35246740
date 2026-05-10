@@ -32,10 +32,12 @@
   overflow: hidden;
 }
 
-/* --- Pill nav row: floats above the card, 46px from card's top edge (70px from section top) --- */
+/* --- Pill nav row: floats above the card, 46px from card's top edge.
+   top expressed as vh so it scales with the section height.
+   6.84vh = 70px at 1024px reference height (24px card inset + 46px nav offset). */
 .ps-pill-nav {
   position: absolute;
-  top: 70px;           /* 24px card-top + 46px */
+  top: 6.84vh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -89,12 +91,18 @@
 }
 
 /* --- Left content zone: mark icon + value copy ---
-   Positioned at left: 48px, bottom area of the card. --- */
+   All positions are % of the card's inner dimensions
+   (card = viewport − 48px on each axis at reference 1440×1024).
+
+   top:  68.34% = 667px / 976px card height  → scales with vh
+   width: 29.6% = 412px / 1392px card width  → scales with vw
+   min-width guards against narrow viewports collapsing the zone.     */
 .ps-left-zone {
   position: absolute;
   left: 48px;
-  top: 667px;
-  width: 412px;
+  top: 68.34%;
+  width: min(412px, 29.6%);
+  min-width: 200px;
 }
 
 /* --- Keystone mark icon --- */
@@ -105,27 +113,31 @@
   aspect-ratio: 36.1826 / 41.0787;
 }
 
-/* --- Value copy text --- */
+/* --- Value copy text ---
+   In flow below the mark icon; margin-top replaces the old absolute top.
+   Width inherits from ps-left-zone (no fixed px needed).               */
 .ps-copy {
-  position: absolute;
-  top: 93px;          /* 760px - 667px = 93px below mark */
-  left: 0;
-  width: 412px;
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  margin-top: 16px;
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
   font-size: 32px;
   line-height: 1.2;
   letter-spacing: -0.96px;
-  margin: 0;
+  margin: 16px 0 0;
   /* color set via inline style (tool's copyAccent) */
 }
 
-/* --- Right screenshot zone: from ~508px to right edge of card ---
-   Positioned absolutely within the card. Top offset 162px, right edge flush. --- */
+/* --- Right screenshot zone: from the split point to the right edge.
+   left: 36.5% = 508px / 1392px card width   → scales with vw
+   top:  16.6% = 162px / 976px card height   → scales with vh            */
 .ps-screenshot-zone {
   position: absolute;
-  left: 508px;
-  top: 162px;
+  left: 36.5%;
+  top: 16.6%;
   right: 0;
   bottom: 0;
   border-radius: 20px;

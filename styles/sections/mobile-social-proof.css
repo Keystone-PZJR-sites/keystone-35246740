@@ -14,15 +14,15 @@
 }
 
 /* ── Headline ──
-   Figma: centered at left=50%-2.5px (optical), top=calc(50%-104px).
-   We center exactly — the 2.5px optical offset is imperceptible. */
+   Both offset values expressed as % of section height (100vh) so they
+   scale to every device height.  104px / 852px = 12.21%. */
 
 .msp-headline-wrap {
   position: absolute;
   left: 50%;
-  top: calc(50% - 104px);
+  top: calc(50% - 12.21%);
   transform: translateX(-50%);
-  width: 296px;
+  width: min(296px, calc(100% - 48px));
   pointer-events: none;
   z-index: 1;
 }
@@ -30,7 +30,8 @@
 .msp-headline {
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
-  font-size: 63px;
+  /* clamp: grows with vw up to 63px, scales down on small phones */
+  font-size: clamp(48px, 16vw, 63px);
   line-height: 0.82;
   text-transform: uppercase;
   color: #f0eee6;
@@ -112,18 +113,20 @@
 }
 
 /* ── Embla viewport ──
-   Positioned so the card group (455px tall) is vertically centered
-   on the section, matching Figma's calc(50% - 99px) video-center formula.
+   All dimensions expressed as % of section height (100vh) so they scale
+   to every device.
 
-   Card top = calc(50% - 228px)  (= 198px on 852px screen)
-   Card height = 455px (258px video + 208px panel − 11px overlap)      */
+   228/852 = 26.76%  →  card group starts at calc(50% - 26.76%)
+   455/852 = 53.40%  →  card strip height
+   258/455 = 56.70%  →  video region as % of card
+   247/455 = 54.29%  →  panel overlap point as % of card            */
 
 .msp-embla-viewport {
   position: absolute;
-  top: calc(50% - 228px);
+  top: calc(50% - 26.76%);
   left: 0;
   right: 0;
-  height: 455px;
+  height: 53.40%;
   overflow: hidden;
 }
 
@@ -134,23 +137,23 @@
 }
 
 /* ── Testimonial card ──
-   Fixed 329px wide so adjacent cards peek exactly 16px from each edge
-   on a 393px screen. */
+   Width scales with viewport; peek effect maintained via 32px total margin.
+   Height fills the Embla viewport (driven by % of section above). */
 
 .msp-slide {
-  flex: 0 0 329px;
+  flex: 0 0 min(329px, calc(100vw - 64px));
   position: relative;
-  height: 455px;
+  height: 100%;
 }
 
-/* Video zone — top portion of each card */
+/* Video zone — proportional share of each card */
 
 .msp-slide-video-wrap {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 258px;
+  height: 56.70%;
   border-radius: 8px 8px 0 0;
   overflow: hidden;
 }
@@ -164,16 +167,15 @@
   max-width: none;
 }
 
-/* Notch panel — bottom portion, overlaps video by 11px.
+/* Notch panel — overlaps video; top expressed as % of card height.
    Background set via --msp-panel-bg CSS custom property.
-   clip-path creates the 10px diagonal notch at the top-left corner,
-   consistent with the Value Props mobile card notch style. */
+   clip-path creates the 10px diagonal notch at the top-left corner. */
 
 .msp-slide-panel {
   position: absolute;
   left: 0;
   right: 0;
-  top: 247px;
+  top: 54.29%;
   bottom: 0;
   background-color: var(--msp-panel-bg, #dcfbd9);
   clip-path: polygon(10px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 10px);

@@ -218,8 +218,9 @@
 
 @media (min-width: 768px) {
   .blog-featured-thumb {
-    aspect-ratio: unset;
-    min-height: 340px;
+    /* 2:1 ≈ 340px tall inside a 672px column at 1440px canvas.
+       Proportional replacement for the old min-height: 340px. */
+    aspect-ratio: 2 / 1;
   }
 }
 
