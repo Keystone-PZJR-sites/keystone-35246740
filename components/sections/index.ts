@@ -47,5 +47,9 @@ export type {
   MobileSocialProofProps,
   MobileSocialProofThumbnail,
 } from './MobileSocialProof';
+export { MobilePricingSection } from './MobilePricingSection';
+export type { MobilePricingSectionProps } from './MobilePricingSection';
+export { MobileFooter } from './MobileFooter';
+export type { MobileFooterProps } from './MobileFooter';
 export { LeadCaptureProvider, useLeadCapture } from './LeadCaptureModal';
 export type { LeadCaptureProviderProps } from './LeadCaptureModal';

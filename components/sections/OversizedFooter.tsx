@@ -215,7 +215,7 @@ export function OversizedFooter({
     }
   };
   return (
-    <section className="footer-section" data-theme="custom">
+    <section className="footer-section hidden md:block" data-theme="custom">
 
       {/* ================================================================
           UPPER ZONE — collage (tablet + desktop ≥768px)

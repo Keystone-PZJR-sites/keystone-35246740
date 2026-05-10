@@ -218,6 +218,12 @@
   overflow: hidden;
 }
 
+@media (min-width: 768px) {
+  .mvp-section {
+    display: none;
+  }
+}
+
 /* --- Header area --- */
 .mvp-header {
   padding: 48px 24px 0;

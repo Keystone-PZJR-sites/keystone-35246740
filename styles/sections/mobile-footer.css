@@ -1,0 +1,373 @@
+/* ==========================================================================
+   Mobile Footer (Spec 022)
+   Reference canvas: 393 px wide (iPhone 14 Pro)
+   Figma node 1281:607.
+
+   COLLAGE ZONE uses the same proportional flex-row model as the desktop
+   footer (oversized-footer.css).  Key relationships at any viewport width:
+
+     collage height  = viewport × (372/393)      [from aspect-ratio]
+     top padding     = viewport × 0.0611          [6.11vw = 24px at 393px]
+     row gap         = viewport × 0.0204          [2.04vw =  8px at 393px]
+     row height      = (height − pad − 4×gap) / 5
+                     = viewport × 0.16078
+
+     font-size       = viewport × 0.196           [19.6vw]
+     text height     = font-size × 0.82
+                     = viewport × 0.1607  ✓  (matches row height)
+
+   This means text height = row height = video height at every mobile width —
+   with zero hardcoded pixel values in the collage layout logic.
+
+   The five rows are:
+     Row 1 — text only "FOR BUSINESSES"   (font calibrated to fill row width)
+     Row 2 — [video clip fills left] + "THAT ARE"
+     Row 3 — "DONE" + [spacer fills] + "FIGURING"
+     Row 4 — "IT OUT" + [video clip fills right]
+     Row 5 — [video clip fills left] + "THEMSELVES"
+   ========================================================================== */
+
+/* ── Section shell ────────────────────────────────────────────────────────── */
+
+.mfooter-section {
+  width: 100%;
+  background-color: #3d1719;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .mfooter-section {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   COLLAGE ZONE
+   ========================================================================== */
+
+/* -----------------------------------------------------------------------
+   Outer container: aspect-ratio pins the total collage height so the
+   proportional math below holds at every viewport width.
+   padding-top and gap are expressed in vw so they scale with the viewport.
+   ----------------------------------------------------------------------- */
+.mfooter-collage {
+  width: 100%;
+  aspect-ratio: 393 / 372;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* 6.11vw = 24px at 393px; also applies left and right */
+  padding: 6.11vw 6.11vw 0;
+  /* 2.04vw = 8px at 393px */
+  gap: 2.04vw;
+}
+
+/* Each row takes an equal share of the collage height */
+.mfooter-collage-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  /* Same gap used within rows: text and video stay proportionally spaced */
+  gap: 2.04vw;
+}
+
+/* FK Screamer headline — 19.6vw calibrated so "FOR BUSINESSES" (14 chars)
+   fills the full row width at any viewport width.  No flex-grow: the text
+   anchors each row; videos and spacers fill the rest. */
+.mfooter-col-headline {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  /* 19.6vw × 393px = 77.1px — matches the Figma reference size.
+     max(60px, ...) provides a sensible floor for tiny screens. */
+  font-size: max(60px, 19.6vw);
+  line-height: 0.82;
+  text-transform: uppercase;
+  color: #f57e56;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/* Video clip — sized entirely by flex; no aspect-ratio or pixel constraints */
+.mfooter-collage-clip {
+  position: relative;
+  border-radius: 1px;
+  overflow: hidden;
+  /* Grows to fill all space the text in its row doesn't occupy */
+  flex: 1;
+  min-width: 0;
+}
+
+.mfooter-collage-clip video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+}
+
+/* Row 3 spacer: invisible flex fill between "DONE" and "FIGURING".
+   Grows proportionally so the gap between them scales with the viewport,
+   keeping both words anchored to the container edges. */
+.mfooter-collage-spacer {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   CONTENT ZONE — natural flow, below the collage
+   ========================================================================== */
+
+/* ── Keystone K mark — 43px gap below the collage, flush left at 24px ─────── */
+
+.mfooter-mark {
+  padding: 43px 0 0 24px;
+  flex-shrink: 0;
+}
+
+/* ── Row 1: Tagline + Get Started CTA ────────────────────────────────────── */
+
+.mfooter-row-tagline {
+  /* 75px gap below K mark (matches Figma collage-to-content spacing) */
+  margin-top: 75px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mfooter-tagline {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: #f57e56;
+  width: 169px;
+  margin: 0;
+}
+
+.mfooter-cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffbb8a;
+  color: #3d1719;
+  border-radius: 9999px;
+  padding: 12px 10px 12px 12px;
+  border: none;
+  cursor: pointer;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mfooter-cta-btn:hover {
+  opacity: 0.9;
+}
+
+/* ── Row 2: Blog/Podcast text + Social icons ─────────────────────────────── */
+
+.mfooter-row-social {
+  /* 40px equal gap above (same as gap below social row) */
+  margin-top: 40px;
+  padding: 0 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.mfooter-social-copy {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: #f57e56;
+  width: 169px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.mfooter-underline-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 5.5%;
+  text-underline-offset: 2px;
+}
+
+.mfooter-social-icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.mfooter-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #f57e56;
+  color: #3d1719;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.mfooter-social-btn:hover {
+  opacity: 0.9;
+}
+
+/* ── Row 3: Email signup ─────────────────────────────────────────────────── */
+
+.mfooter-row-email {
+  /* 40px equal gap above (same as gap above social row) */
+  margin-top: 40px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.mfooter-email-copy {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: #f57e56;
+  width: 169px;
+  margin: 0;
+}
+
+.mfooter-email-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+  border: 1px solid #9f3722;
+  border-radius: 9999px;
+  padding: 8px 8px 8px 20px;
+  flex-shrink: 0;
+}
+
+.mfooter-email-input {
+  flex: 1 0 0;
+  min-width: 1px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: #f57e56;
+}
+
+.mfooter-email-input::placeholder {
+  color: #f57e56;
+}
+
+.mfooter-signup-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f57e56;
+  color: #3d1719;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  padding: 12px 10px 12px 12px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mfooter-signup-btn:hover {
+  opacity: 0.9;
+}
+
+.mfooter-signup-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.mfooter-signup-error {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #f57e56;
+  margin: 0;
+}
+
+/* ── Wordmark ────────────────────────────────────────────────────────────── */
+
+/* Full-width, proportionally scaled — same 24px side padding as other rows.
+   width: 100% + height: auto preserves the SVG's aspect ratio (345 : 67)
+   at every viewport width, matching the Figma constraint behavior. */
+.mfooter-wordmark {
+  /* 32px gap from email row, flush to side padding */
+  margin: 32px 0 0;
+  padding: 0 24px;
+  flex-shrink: 0;
+  display: block;
+  width: 100%;
+}
+
+.mfooter-wordmark img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Legal — right-of-center per Figma: center at calc(50%+74.5px) ─────────
+   translateX(calc(-50% + 74.5px)) shifts the centered element 74.5px right,
+   placing its visual center past the footer midline (right-heavy alignment). */
+
+.mfooter-legal {
+  position: relative;
+  width: fit-content;
+  /* Center the element at 50% of the footer width, then shift 74.5px right */
+  left: 50%;
+  transform: translateX(calc(-50% + 74.5px));
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: -0.36px;
+  color: #b24934;
+  white-space: nowrap;
+  margin: 16px 0 24px;
+}
+
+.mfooter-legal-link {
+  color: #b24934;
+  text-decoration: underline;
+  text-decoration-color: #b24934;
+  text-decoration-thickness: 7.5%;
+}
+
+.mfooter-legal-text {
+  color: #b24934;
+}

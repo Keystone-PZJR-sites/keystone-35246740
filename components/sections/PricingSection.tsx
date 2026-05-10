@@ -173,25 +173,13 @@ export function PricingSection({
         if (inner) gsap.set(inner, { opacity: 1, y: 0 });
       });
 
-      // ── Mobile: pin the section — content already visible, no entrance ────
-      mm.add('(max-width: 767px)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'pricing-pin',
-          section,
-          onEnter: () => {},
-          isAnimComplete: () => true,
-        });
-      });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="pricing-section" data-theme="custom">
+    <section ref={sectionRef} className="pricing-section hidden md:block" data-theme="custom">
       <div ref={innerRef} className="pricing-inner">
 
         {/* Tagline */}

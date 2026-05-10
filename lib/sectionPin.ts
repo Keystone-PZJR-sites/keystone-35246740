@@ -21,6 +21,7 @@ const COLORS: Record<string, string> = {
   'mobile-hero-pin':             '#f0eee6',
   'mobile-value-props-pin':      '#4fafa0',
   'mobile-social-proof-pin':     '#ffd580',
+  'mobile-pricing-pin':          '#80d4ff',
 };
 
 function log(id: string, event: string, detail: Record<string, unknown> = {}) {

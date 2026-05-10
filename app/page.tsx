@@ -19,7 +19,9 @@ import {
   SocialProofSection,
   MobileSocialProof,
   PricingSection,
+  MobilePricingSection,
   OversizedFooter,
+  MobileFooter,
   LeadCaptureProvider,
 } from '@/components/sections';
 import { MeridianAvatar } from '@/components/sections/WorkShowcase';
@@ -1004,6 +1006,25 @@ export default async function HomePage() {
           comingSoonLabel="Coming soon."
           addonIconSrc="/pricing/pricing-addon-icon.svg"
         />
+        <MobilePricingSection
+          tagline="Always-on Sales & Marketing"
+          priceAmount="$49 "
+          pricePeriod="/ MONTH"
+          subCopyLine1="Per location. Every tool included."
+          subCopyLine2="No contracts. No negotiation. Simple to scale."
+          creditsText="Keystone work runs on credits. Credits are usage-based and cover anything Keystone does for you. Posts written. Leads replied to. Campaigns launched. Reviews responded to."
+          addOnsHeading="ADD ONS"
+          marketplace={{
+            label: 'Marketplace',
+            description: "Checkout, memberships, and bookings from Keystone's consumer platform.",
+          }}
+          payments={{
+            label: 'Payments',
+            description: 'Standard payment processing on transactions.',
+          }}
+          comingSoonLabel="Coming soon."
+          addonIconSrc="/pricing/pricing-addon-icon.svg"
+        />
       </main>
 
       {/*
@@ -1012,6 +1033,32 @@ export default async function HomePage() {
        * The visitor scrolls into it naturally after Pricing releases.
        */}
       <OversizedFooter
+        line1="FOR BUSINESSES"
+        line2="THAT ARE"
+        line3=" DONE FIGURING"
+        line4="IT OUT THEMSELVES"
+        leftTagline="The modern growth team for local business."
+        rightTagline="Stay informed about our latest features and product releases"
+        cta1Label="The Blog"
+        cta1Href="/blog"
+        cta2Label="Get started"
+        emailPlaceholder="Email Address"
+        signUpLabel="Sign Up"
+        podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+        youtubeUrl={companyInfo?.youtube_url}
+        instagramUrl={companyInfo?.instagram_url}
+        facebookUrl={companyInfo?.facebook_url}
+        linkedinUrl={companyInfo?.linkedin_url}
+        keystoneMarkColor="#F57E56"
+        ctaArrowSrc="/footer/footer-cta-arrow.svg"
+        keystoneWordmarkSrc="/footer/footer-wordmark.svg"
+        videoA="/footer/footer-video-businesswoman.mp4"
+        videoB="/footer/footer-video-storefront.mp4"
+        videoC="/footer/footer-video-barbershop.mp4"
+        videoD="/footer/footer-video-phone-call.mp4"
+        videoE="/footer/footer-video-ceramics.mp4"
+      />
+      <MobileFooter
         line1="FOR BUSINESSES"
         line2="THAT ARE"
         line3=" DONE FIGURING"
