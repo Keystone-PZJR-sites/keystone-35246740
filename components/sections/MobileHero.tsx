@@ -92,32 +92,6 @@ export function MobileHero({
     };
   }, [videoSrcs]);
 
-  // Preload the clip after the one currently playing.
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || videoSrcs.length <= 1) return;
-
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'video';
-    link.type = 'video/mp4';
-    document.head.appendChild(link);
-
-    const updatePreload = () => {
-      const nextIndex = (indexRef.current + 1) % videoSrcs.length;
-      link.href = videoSrcs[nextIndex];
-    };
-
-    updatePreload();
-    video.addEventListener('ended', updatePreload);
-    video.addEventListener('error', updatePreload);
-    return () => {
-      video.removeEventListener('ended', updatePreload);
-      video.removeEventListener('error', updatePreload);
-      link.parentNode?.removeChild(link);
-    };
-  }, [videoSrcs]);
-
   return (
     <section
       ref={sectionRef}

@@ -57,36 +57,6 @@ export function HeroAnimatic({
     };
   }, [videoSrcs]);
 
-  // Preload the clip that follows the currently-playing one.
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || videoSrcs.length <= 1) return;
-
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'video';
-    link.type = 'video/mp4';
-    document.head.appendChild(link);
-
-    const updatePreload = () => {
-      // indexRef has already been incremented by the advance listener
-      // (which fires first), so this correctly preloads the clip after next.
-      const nextIndex = (indexRef.current + 1) % videoSrcs.length;
-      link.href = videoSrcs[nextIndex];
-    };
-
-    // Seed the preload for clip[1] on mount.
-    updatePreload();
-
-    video.addEventListener('ended', updatePreload);
-    video.addEventListener('error', updatePreload);
-    return () => {
-      video.removeEventListener('ended', updatePreload);
-      video.removeEventListener('error', updatePreload);
-      link.parentNode?.removeChild(link);
-    };
-  }, [videoSrcs]);
-
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();

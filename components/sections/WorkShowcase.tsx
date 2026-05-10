@@ -816,7 +816,7 @@ function AdsCardFood({
           <Image
             alt=""
             src={content.heroSrc}
-            width={1228}
+            width={891}
             height={594}
             unoptimized
             className="work-img-blend absolute max-w-none"

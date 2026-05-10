@@ -164,36 +164,49 @@ export function createSectionPin({
     snap: {
       snapTo: (p: number) => {
         const complete = isAnimComplete();
-        let result: number;
+        // null = skip snapping (no tween created). GSAP documents null/undefined
+        // as valid return values that skip the snap, though the TS type doesn't
+        // reflect this. We cast at the return site to satisfy the compiler.
+        let result: number | null;
 
         if (lastDir < 0) {
-          // Backward scroll is always free — no snap, no holds.
-          result = p;
+          // Backward scroll — free movement, no snap tween.
+          // Returning null (vs returning p) is critical: returning any value
+          // creates a GSAP snap tween on its internal proxy.  If onLeaveBack
+          // fires while that tween is still running, the tween continues
+          // forward and cascades through multiple sections.
+          result = null;
         } else if (p < 0.02) {
           // Didn't commit (< 2%) — snap back to section top.
+          // This is the one case where we DO want a tween: a short in-trigger
+          // backward animation to p=0 is safe (stays within the trigger zone,
+          // cannot trigger onLeaveBack cascade).
           result = 0;
         } else if (!complete) {
-          // Animation still running: soft hold wherever the user scrolled.
-          result = p;
+          // Animation still running — soft hold via natural deceleration.
+          // Do NOT return p here.  Returning p creates a snap tween that
+          // targets the current scroll position.  When onLeaveBack fires
+          // (backward gap bridge instant-jumps the scroll), that orphaned
+          // tween keeps trying to reach its target and drags the scroll back
+          // into the section it just left, triggering another onLeaveBack,
+          // cascading all the way to the page top.
+          // null = no tween; the near-zero velocity at snap time means natural
+          // decel keeps the user within a pixel or two of where they stopped.
+          result = null;
         } else if (p < 0.95) {
-          // User paused somewhere in the middle of the section — hold in place.
-          // Never auto-advance; section transitions are always human-triggered
-          // (the visitor must scroll almost all the way through the pinned zone).
-          result = p;
+          // User paused mid-section after animation finished — hold in place
+          // via natural decel (same reasoning: no orphan-tween risk).
+          result = null;
         } else if (!advancing) {
-          // User has scrolled ≥ 95% through the pinned zone AND animation is
-          // done — they clearly intend to advance to the next section.
+          // User has scrolled ≥ 95% AND animation is done — advance.
           //
-          // CRITICAL: do NOT return 1. Returning 1 would start a GSAP snap
-          // tween targeting trigger.end. That tween targets an internal proxy
-          // object — gsap.killTweensOf(smoother.wrapper()) cannot reach it.
-          // When onLeave then fires and we jump to the next section, the snap
-          // tween keeps running and drags the scroll backward, creating an
-          // infinite cascade.
+          // CRITICAL: do NOT return 1.  Returning 1 starts a snap tween to
+          // trigger.end — that tween targets an internal proxy that
+          // gsap.killTweensOf(smoother.wrapper()) cannot reach. When onLeave
+          // fires and we jump to the next section the tween drags backward.
           //
-          // Instead: return p (hold in place) and schedule a DIRECT jump to
-          // the next section's trigger start. Because we never start a snap
-          // tween, there is nothing to conflict with the jump.
+          // Returning null means no snap tween; the delayedCall below does the
+          // direct jump so there is nothing to conflict with it.
           advancing = true;
           const triggerEnd = ScrollTrigger.getById(id)?.end ?? 0;
           const targetPos = triggerEnd + section.offsetHeight;
@@ -208,10 +221,10 @@ export function createSectionPin({
             }
           });
 
-          result = p; // hold while jump is pending in next tick
+          result = null;
         } else {
-          // Already advancing — hold in place while the jump is pending.
-          result = p;
+          // Already advancing — no tween.
+          result = null;
         }
 
         log(id, 'SNAP_EVAL', {
@@ -220,10 +233,10 @@ export function createSectionPin({
           vel: lastVelocity,
           animDone: complete,
           advancing,
-          '→': result,
+          '→': result ?? 'null',
         });
 
-        return result;
+        return (result as unknown) as number;
       },
       duration: { min: 0.2, max: 0.4 },
       delay: 0.1,
