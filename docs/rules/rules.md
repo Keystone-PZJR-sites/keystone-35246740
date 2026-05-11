@@ -31,6 +31,24 @@ Specs are written for a non-technical Figma-literate reader, in design language 
 
 ---
 
+## Figma Links Are Read Through the MCP
+
+Every Figma node URL in a spec, comment, or chat message exists to be opened through the Figma MCP. This applies to spec authoring, implementation, asset refreshes, and revisions — every workflow that touches the design.
+
+Before writing or updating a spec that references a Figma node, run `get_metadata`, `get_variable_defs`, and `get_design_context` on that node. Before implementing or refreshing a section, do the same. The MCP returns the structural facts — layer names, sizes, asset URLs, bound variables, per-tool variants — that a screenshot or recollection cannot. Specs written from a Figma URL in a browser tab or from prior implementations always drift.
+
+**If the Figma MCP is unreachable, stop.** Do not write the spec. Do not implement the section. Do not approximate values from the screenshot or carry them over from the previous implementation. Report the failure (which server, which tool, which node) and wait for the MCP to be restored. The user has explicit Figma MCP access for this project; needing it is never a surprise.
+
+Acceptable recovery steps:
+
+- Server reports unauthenticated → run its `mcp_auth` tool.
+- Server requires Figma Desktop and Figma Desktop is closed → ask the user to open Figma Desktop with the file loaded.
+- Node ID is malformed or the node was deleted → ask the user to re-share the URL.
+
+Falling back to "I'll just read the screenshot" or "the data file probably still matches" is not on the list.
+
+---
+
 ## Code Is the Source of Truth
 
 Specs document intent at a point in time. Code holds the current values. When extending or fixing work beyond a spec, read the actual code for measurements, copy, animation timings, and data values — never recover them from the spec. Consult the spec only for purpose and intent.
