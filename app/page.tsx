@@ -47,12 +47,12 @@ import {
 } from '@/data';
 
 const HERO_VIDEOS = [
-  '/videos/hero-autoloop-clips/herovideo-01.mp4',
-  '/videos/hero-autoloop-clips/herovideo-02.mp4',
-  '/videos/hero-autoloop-clips/herovideo-03.mp4',
-  '/videos/hero-autoloop-clips/herovideo-04.mp4',
-  '/videos/hero-autoloop-clips/herovideo-05.mp4',
-  '/videos/hero-autoloop-clips/herovideo-06.mp4',
+  '/videos/hero-autoloop-clips/hero-01.mp4',
+  '/videos/hero-autoloop-clips/hero-02.mp4',
+  '/videos/hero-autoloop-clips/hero-03.mp4',
+  '/videos/hero-autoloop-clips/hero-04.mp4',
+  '/videos/hero-autoloop-clips/hero-05.mp4',
+  '/videos/hero-autoloop-clips/hero-06.mp4',
 ];
 
 const PRICING_CHIPS = [

@@ -446,6 +446,7 @@ const careWebContent = {
 };
 
 const careSalesContent = {
+  messageOffset: 2,
   messages: [
     {
       side: 'studio' as const,

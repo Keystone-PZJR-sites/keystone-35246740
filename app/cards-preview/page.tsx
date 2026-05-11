@@ -405,6 +405,7 @@ const careWebContent = {
 };
 
 const careSalesContent = {
+  messageOffset: 2,
   messages: [
     { side: 'studio' as const, text: "Hi John! This is Good Dog Grooming — thanks for reaching out. What can we help you with? 🐾" },
     { side: 'customer' as const, text: "I need to get my dog groomed. He's a golden, kind of anxious." },

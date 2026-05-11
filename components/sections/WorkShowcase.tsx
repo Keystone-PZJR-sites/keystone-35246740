@@ -64,6 +64,8 @@ export interface SalesMessage {
 
 export interface SalesCardContent {
   messages: SalesMessage[];
+  /** Skip the first N messages — used when a longer conversation should open mid-thread */
+  messageOffset?: number;
 }
 
 export interface AdsCardContentStandard {
@@ -404,7 +406,7 @@ function SalesCard({
           className="absolute left-1/2 -translate-x-1/2 flex flex-col"
           style={{ top: '50px', width: '270px', gap: '16px' }}
         >
-          {content.messages.map((msg, i) => (
+          {content.messages.slice(content.messageOffset ?? 0).map((msg, i) => (
             <div
               key={i}
               className={`flex flex-col ${msg.side === 'customer' ? 'items-end pl-[24px] gap-[4px]' : 'items-start pr-[24px]'}`}
