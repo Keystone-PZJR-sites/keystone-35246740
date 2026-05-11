@@ -2948,6 +2948,86 @@ function ListingsCard({
 }
 
 // ---------------------------------------------------------------------------
+// Shared card renderer — routes a `WorkCardData` to the right variant
+// component, looking up chip colours from the matching `WorkIndustry`. Used
+// by both the desktop `WorkShowcase` carousel and the `MobileWorkShowcase`
+// industry strips, so card visual definitions live in exactly one place.
+// ---------------------------------------------------------------------------
+
+export function renderWorkCard(
+  card: WorkCardData,
+  industries: WorkIndustry[],
+  key: string | number,
+): React.ReactElement {
+  const industry = industries.find((ind) => ind.id === card.industryId);
+  const chipBg = industry?.chipBg ?? '#cbc5b4';
+  const chipText = industry?.chipText ?? '#4f4d4a';
+
+  switch (card.type) {
+    case 'sales':
+      return (
+        <SalesCard
+          key={key}
+          content={card.content}
+          chipLabel={card.chipLabel}
+          chipBg={chipBg}
+          chipText={chipText}
+        />
+      );
+    case 'ads':
+      return (
+        <AdsCard
+          key={key}
+          content={card.content}
+          chipLabel={card.chipLabel}
+          chipBg={chipBg}
+          chipText={chipText}
+        />
+      );
+    case 'social':
+      return (
+        <SocialCard
+          key={key}
+          content={card.content}
+          chipLabel={card.chipLabel}
+          chipBg={chipBg}
+          chipText={chipText}
+        />
+      );
+    case 'web':
+      return (
+        <WebCard
+          key={key}
+          content={card.content}
+          chipLabel={card.chipLabel}
+          chipBg={chipBg}
+          chipText={chipText}
+        />
+      );
+    case 'content':
+      return (
+        <ContentCard
+          key={key}
+          content={card.content}
+          chipLabel={card.chipLabel}
+          chipBg={chipBg}
+          chipText={chipText}
+        />
+      );
+    case 'listings':
+      return (
+        <ListingsCard
+          key={key}
+          content={card.content}
+          chipLabel={card.chipLabel}
+          chipBg={chipBg}
+          chipText={chipText}
+        />
+      );
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
 
@@ -3116,21 +3196,10 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
         });
       });
 
-      // Mobile: pin the section using the same state-machine so the visitor
-      // dwells on the carousel before scrolling past. No staged animation —
-      // Embla runs independently once mounted.
-      mm.add('(max-width: 767px)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'work-pin',
-          section,
-          onEnter: () => startAutoScrollRef.current(),
-          isAnimComplete: () => true,
-        });
-      });
-
+      // No mobile branch — MobileWorkShowcase (Spec 023) renders below 768px
+      // and the desktop section is `hidden md:block`. A ScrollTrigger pinning
+      // a display:none element would create zero-height trigger zones and
+      // race with Embla measurements.
     }, sectionRef);
 
     return () => ctx.revert();
@@ -3173,74 +3242,8 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
 
   const activeIndustry = industries[activeIndustryIndex];
 
-  function renderCard(card: WorkCardData, index: number) {
-    const industry = industries.find((ind) => ind.id === card.industryId);
-    const chipBg = industry?.chipBg ?? '#cbc5b4';
-    const chipText = industry?.chipText ?? '#4f4d4a';
-
-    switch (card.type) {
-      case 'sales':
-        return (
-          <SalesCard
-            key={index}
-            content={card.content}
-            chipLabel={card.chipLabel}
-            chipBg={chipBg}
-            chipText={chipText}
-          />
-        );
-      case 'ads':
-        return (
-          <AdsCard
-            key={index}
-            content={card.content}
-            chipLabel={card.chipLabel}
-            chipBg={chipBg}
-            chipText={chipText}
-          />
-        );
-      case 'social':
-        return (
-          <SocialCard
-            key={index}
-            content={card.content}
-            chipLabel={card.chipLabel}
-            chipBg={chipBg}
-            chipText={chipText}
-          />
-        );
-      case 'web':
-        return (
-          <WebCard
-            key={index}
-            content={card.content}
-            chipLabel={card.chipLabel}
-            chipBg={chipBg}
-            chipText={chipText}
-          />
-        );
-      case 'content':
-        return (
-          <ContentCard
-            key={index}
-            content={card.content}
-            chipLabel={card.chipLabel}
-            chipBg={chipBg}
-            chipText={chipText}
-          />
-        );
-      case 'listings':
-        return (
-          <ListingsCard
-            key={index}
-            content={card.content}
-            chipLabel={card.chipLabel}
-            chipBg={chipBg}
-            chipText={chipText}
-          />
-        );
-    }
-  }
+  const renderCard = (card: WorkCardData, index: number) =>
+    renderWorkCard(card, industries, index);
 
   // ── Static preview mode (no GSAP, no Embla) ─────────────────────────────
   if (staticPreview) {
@@ -3278,7 +3281,11 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden h-screen"
+      // hidden md:block — below 768px, MobileWorkShowcase (Spec 023) takes
+      // over with a per-industry strip layout. The desktop section here
+      // assumes ScrollSmoother + Embla + GSAP entrance, none of which suit
+      // a touch device.
+      className="hidden md:block relative w-full overflow-hidden h-screen"
       style={{ backgroundColor: '#f0eee6' }}
     >
       {/* Section headline — centered, 32px FK Roman Standard, mixed oblique */}

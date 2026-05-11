@@ -15,6 +15,7 @@ import {
   MobileHero,
   HeroNav,
   WorkShowcase,
+  MobileWorkShowcase,
   EveryChannel,
   MobileEveryChannel,
   ProductScreens,
@@ -122,6 +123,11 @@ export default async function HomePage() {
               markColor="#6ECC8B"
             />
             <WorkShowcase
+              headlineParts={WORK_HEADLINE_PARTS}
+              industries={WORK_INDUSTRIES}
+              cards={WORK_CARDS}
+            />
+            <MobileWorkShowcase
               headlineParts={WORK_HEADLINE_PARTS}
               industries={WORK_INDUSTRIES}
               cards={WORK_CARDS}

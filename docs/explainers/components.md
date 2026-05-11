@@ -24,3 +24,13 @@ Reusable components live in `components/`. TypeScript interfaces are defined in 
 4. **`'use client'` only when necessary** — GSAP, browser events, React state.
 5. **Responsive classes** on every component. Test at mobile (< 768px), tablet (768–1279px), desktop (≥ 1280px).
 6. **Barrel exports** — every directory under `components/` must have an `index.ts` that re-exports everything in that directory.
+
+---
+
+## Shared hooks
+
+| Hook | Lives in | Use for |
+|------|----------|---------|
+| `useEmblaWithIndex` | `lib/useEmblaWithIndex.ts` | Every mobile horizontal carousel. Owns Embla init, active-index tracking, `scrollTo` helper, `select` listener cleanup, and `prefers-reduced-motion: reduce` ⇒ snap-duration-0. Callers pass their own Embla options object and render their own slides. |
+
+`MobileValueProps` (Spec 019) and `MobileWorkShowcase` (Spec 023) both consume `useEmblaWithIndex`. Any future mobile carousel does too — never inline `useEmblaCarousel` plus a hand-rolled `select`-event `useEffect` again.

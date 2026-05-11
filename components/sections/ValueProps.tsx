@@ -1,10 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { useEmblaWithIndex } from '@/lib/useEmblaWithIndex';
 import { useLeadCapture } from './LeadCaptureModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -258,26 +258,13 @@ export function MobileValueProps({
   headlineLine2,
   cards,
 }: MobileValuePropsProps) {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
+  const sectionRef = useRef<HTMLElement>(null);
+  const { emblaRef, activeIndex, scrollTo } = useEmblaWithIndex({
     align: 'center',
     containScroll: 'trimSnaps',
     dragFree: false,
     loop: false,
   });
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setActiveIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on('select', onSelect);
-    return () => { emblaApi.off('select', onSelect); };
-  }, [emblaApi, onSelect]);
 
   // Pin the section at full viewport height so the carousel gets the same
   // scroll-dwell treatment as every other section on the page.
@@ -328,7 +315,7 @@ export function MobileValueProps({
               aria-label={`${i + 1} of ${cards.length}: ${card.headline}`}
               aria-current={i === activeIndex ? 'true' : undefined}
               onClick={() => {
-                if (emblaApi && i !== activeIndex) emblaApi.scrollTo(i);
+                if (i !== activeIndex) scrollTo(i);
               }}
             >
               {/* Video panel */}

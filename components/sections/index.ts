@@ -6,7 +6,7 @@ export { InnerNav } from './InnerNav';
 export type { InnerNavProps } from './InnerNav';
 export { HeroNav } from './HeroNav';
 export type { HeroNavProps } from './HeroNav';
-export { WorkShowcase } from './WorkShowcase';
+export { WorkShowcase, renderWorkCard } from './WorkShowcase';
 export type {
   WorkShowcaseProps,
   WorkIndustry,
@@ -19,6 +19,8 @@ export type {
   ContentCardContent,
   SalesMessage,
 } from './WorkShowcase';
+export { MobileWorkShowcase } from './MobileWorkShowcase';
+export type { MobileWorkShowcaseProps } from './MobileWorkShowcase';
 export { EveryChannel } from './EveryChannel';
 export type { EveryChannelProps, PillData } from './EveryChannel';
 export { MobileEveryChannel } from './MobileEveryChannel';

@@ -1,0 +1,377 @@
+/* ==================== MOBILE WORK SHOWCASE ==================== */
+/* Shown below 768px only; hidden via md:hidden on the component wrapper.
+   This is the only mobile section whose intentional content height exceeds
+   one viewport — five stacked industry strips. It is NOT pinned (see the
+   block comment at the top of MobileWorkShowcase.tsx).                  */
+
+/* ── Section container ───────────────────────────────────────────────────
+   Vertical rhythm (Figma 393×3354):
+     24px top  → headline starts at y=24
+     headline (max-width 293) wraps to 2 lines
+     104px to first industry header
+     40px tail below last carousel (= section padding-bottom)        */
+.mws-section {
+  background-color: #f0eee6;
+  padding: 24px 0 40px;
+  /* The section itself must not horizontally overflow. Each card rail's
+     viewport is intentionally narrower than its contents — Embla clips
+     inside the rail's own overflow-hidden box.                       */
+  overflow-x: clip;
+}
+
+/* ── Section headline ────────────────────────────────────────────────────
+   FK Roman Standard 24/1.2 with -0.72px tracking. Same regular / oblique
+   mix as desktop, driven by the `headlineParts` prop.                 */
+.mws-headline {
+  margin: 0 0 104px;
+  padding: 0 24px;
+  font-family: 'FK Roman Standard', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.72px;
+  color: #4f4d4a;
+  max-width: calc(293px + 48px);
+}
+
+.mws-headline-oblique {
+  font-style: oblique;
+}
+
+/* ── Divider between industry strips ─────────────────────────────────────
+   Sits in the section flow as an `<hr>` between consecutive industries.
+   32px above (the previous rail's natural breathing room), 40px below
+   (gap to next industry header), matching the Figma rhythm.           */
+.mws-divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-work-muted, #cbc5b4);
+  border: 0;
+  margin: 32px 0 40px;
+}
+
+/* ── Industry strip ──────────────────────────────────────────────────── */
+.mws-strip {
+  display: block;
+}
+
+/* Industry name in the site's display font, in the industry's accent
+   color (provided as inline style). 40px Bold per Figma (smaller than the
+   50px desktop category bar — different scale, same face).             */
+.mws-strip-name {
+  margin: 0 0 16px;
+  padding: 0 24px;
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 0.82;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  /* Long names ("RETAIL & SERVICES", "CARE & MAINTENANCE") must wrap
+     cleanly on narrow viewports. Allow the line to wrap; never truncate. */
+  overflow-wrap: anywhere;
+}
+
+/* Sub-category row. flex-wrap drops labels onto a second line whenever the
+   row would exceed the section's content width — matching the Figma
+   layout where Health/Food/Home/Retail wrap to two lines and Care fits on
+   one. Color is provided inline per industry.                          */
+.mws-sublabels {
+  margin: 0 0 32px;
+  padding: 0 24px;
+  font-family: 'FK Grotesk Mono', monospace;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.mws-bullet {
+  font-size: 10px;
+  letter-spacing: -0.2px;
+}
+
+/* ── Card rail (Embla viewport) ──────────────────────────────────────────
+   The viewport clips horizontally; Embla translates the inner container.
+   Focus outline appears when the rail itself receives keyboard focus.  */
+.mws-rail-viewport {
+  overflow: hidden;
+}
+
+.mws-rail-viewport:focus-visible {
+  outline: 2px solid var(--color-work-accent, #f57e56);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Embla container — horizontal flex with all this industry's cards.
+   24px left padding aligns the first card with the section's left gutter;
+   the rail intentionally extends past the right edge of the viewport.
+   align-items: flex-end so cards of different heights bottom-align,
+   producing a single shared baseline across the rail.                  */
+.mws-rail-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 23px;
+  padding-left: 24px;
+  /* trailing margin on the last slide gives the visitor a hint of
+     breathing room when the rail is swiped to the far right.          */
+  padding-right: 24px;
+  list-style: none;
+  margin: 0;
+}
+
+.mws-rail-slide {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* ── Card visual overrides scoped to the mobile section ──────────────────
+   The desktop `WorkShowcase` cards have two visual states (see
+   work-showcase.css):
+     • DEFAULT  — desaturated, label chip hidden, sub-elements in their
+       "muted" state (e.g. focused avatars at opacity 0, default avatars at
+       opacity 1). The plain `.work-card-wrapper`, `.work-chip`, `.work-ads-
+       overlay`, `.work-ads-avatar-default`, etc. rules drive this.
+     • FOCUSED  — full color, label chip visible, sub-elements in their
+       "bright" state. Gated to `@media (min-width: 768px)` and triggered
+       by `.work-card-item:is(:hover, [data-focused="true"])`.
+
+   Mobile (per Spec 023) requires the FOCUSED state at all times, minus the
+   lift transform and minus the label chip. Since the desktop focused-state
+   rules sit inside a `min-width: 768px` media query, none of them fire on
+   mobile — we have to replicate them here with `.mws-section .work-card-
+   wrapper` as the ancestor selector. The duplication is intentional:
+   keeping desktop hover chrome and mobile static chrome in separate files
+   means each component's CSS reflects its own state model.            */
+
+.mws-section .work-card-wrapper {
+  filter: none;
+  transform: none;
+  transition: none;
+  will-change: auto;
+  padding-top: 0;
+  gap: 0;
+}
+
+.mws-section .work-chip {
+  display: none;
+}
+
+/* Ads / Social / Web sub-element swaps — show the "focused" half of each
+   pair, hide the "default" half. Mirrors the @media-gated focused-state
+   block in work-showcase.css. */
+.mws-section .work-card-wrapper .work-ads-overlay,
+.mws-section .work-card-wrapper .work-ads-link-focused,
+.mws-section .work-card-wrapper .work-ads-avatar-focused,
+.mws-section .work-card-wrapper .work-social-avatar-focused,
+.mws-section .work-card-wrapper .work-social-heart-focused,
+.mws-section .work-card-wrapper .work-social-photo-img {
+  opacity: 1;
+}
+
+.mws-section .work-card-wrapper .work-ads-avatar-default,
+.mws-section .work-card-wrapper .work-social-avatar-default,
+.mws-section .work-card-wrapper .work-social-heart-default {
+  opacity: 0;
+}
+
+.mws-section .work-card-wrapper .ads-icon-bright {
+  filter: brightness(100);
+}
+
+.mws-section .work-card-wrapper .work-web-book-btn::after {
+  opacity: 1;
+}
+
+/* Sales card — restore brand colors over the muted defaults. */
+.mws-section .work-card-wrapper .work-sales-outer {
+  background-color: #fcfbf8;
+}
+.mws-section .work-card-wrapper .work-sales-island {
+  background-color: #242323;
+}
+.mws-section .work-card-wrapper .work-sales-studio-bubble {
+  background-color: #ece2f3;
+}
+.mws-section .work-card-wrapper .work-sales-studio-text {
+  color: #422457;
+}
+.mws-section .work-card-wrapper .work-sales-customer-bubble {
+  background-color: #d9e7f7;
+}
+.mws-section .work-card-wrapper .work-sales-customer-text {
+  color: #153b65;
+}
+.mws-section .work-card-wrapper .work-sales-indicator {
+  background-color: #242323;
+}
+
+/* Ads card. */
+.mws-section .work-card-wrapper .work-ads-profile-text,
+.mws-section .work-card-wrapper .work-ads-caption {
+  color: white;
+}
+.mws-section .work-card-wrapper .work-ads-cta-bg {
+  background-color: white;
+}
+.mws-section .work-card-wrapper .work-ads-cta-text {
+  color: #242323;
+}
+
+/* Social card. */
+.mws-section .work-card-wrapper .work-social-outer {
+  background-color: #fcfbf8;
+}
+.mws-section .work-card-wrapper .work-social-profile-name,
+.mws-section .work-card-wrapper .work-social-caption {
+  color: #242323;
+}
+
+/* Web card (standard). */
+.mws-section .work-card-wrapper .work-web-outer {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.mws-section .work-card-wrapper .work-web-inner {
+  background-color: white;
+}
+.mws-section .work-card-wrapper .work-web-nav-link {
+  color: #ff83af;
+}
+.mws-section .work-card-wrapper .work-web-buy-btn-bg {
+  background-color: #ede9e4;
+}
+.mws-section .work-card-wrapper .work-web-buy-btn-text,
+.mws-section .work-card-wrapper .work-web-cta-text,
+.mws-section .work-card-wrapper .work-web-heading {
+  color: #242323;
+}
+.mws-section .work-card-wrapper .work-web-cta-bg {
+  background-color: white;
+}
+
+/* Listings. */
+.mws-section .work-card-wrapper .work-listings-outer {
+  background-color: #fcfbf8;
+}
+.mws-section .work-card-wrapper .work-listings-business-name {
+  color: #242323;
+}
+.mws-section .work-card-wrapper .work-listings-meta-text,
+.mws-section .work-card-wrapper .work-listings-star,
+.mws-section .work-card-wrapper .work-listings-score-num,
+.mws-section .work-card-wrapper .work-listings-pill-text {
+  color: #4f4d4a;
+}
+.mws-section .work-card-wrapper .work-listings-score-bg {
+  background-color: #f0eee6;
+}
+.mws-section .work-card-wrapper .work-listings-description {
+  color: #847f71;
+}
+.mws-section .work-card-wrapper .work-listings-pill-bg {
+  background-color: #f8f7f2;
+}
+
+/* Home & Property web. */
+.mws-section .work-card-wrapper .work-home-web-inner {
+  background-color: #f8f7f2;
+}
+.mws-section .work-card-wrapper .work-home-web-utility {
+  background-color: #122319;
+}
+.mws-section .work-card-wrapper .work-home-web-utility-text {
+  color: rgba(245, 240, 230, 0.8);
+}
+.mws-section .work-card-wrapper .work-home-web-header {
+  background-color: rgba(245, 240, 230, 0.75);
+  border-color: rgba(217, 209, 189, 0.6);
+}
+.mws-section .work-card-wrapper .work-home-web-brand,
+.mws-section .work-card-wrapper .work-home-web-headline,
+.mws-section .work-card-wrapper .work-home-web-stat-num {
+  color: #1a1f17;
+}
+.mws-section .work-card-wrapper .work-home-web-nav {
+  color: #3b443a;
+}
+.mws-section .work-card-wrapper .work-home-web-leaf {
+  filter: saturate(1);
+}
+.mws-section .work-card-wrapper .work-home-web-cta-btn,
+.mws-section .work-card-wrapper .work-home-web-cta-primary {
+  background-color: #1f3a2c;
+}
+.mws-section .work-card-wrapper .work-home-web-cta-btn span,
+.mws-section .work-card-wrapper .work-home-web-cta-primary span {
+  color: #f5f0e6;
+}
+.mws-section .work-card-wrapper .work-home-web-headline-italic {
+  color: #1f3a2c;
+}
+.mws-section .work-card-wrapper .work-home-web-stats-border,
+.mws-section .work-card-wrapper .work-home-web-below {
+  border-color: #d9d1bd;
+}
+.mws-section .work-card-wrapper .work-home-web-stat-label {
+  color: #6c7468;
+}
+.mws-section .work-card-wrapper .work-home-web-cta-secondary {
+  border-color: rgba(26, 31, 23, 0.15);
+}
+.mws-section .work-card-wrapper .work-home-web-cta-secondary span {
+  color: #1a1f17;
+}
+.mws-section .work-card-wrapper .work-home-web-below {
+  background-color: rgba(235, 227, 211, 0.6);
+}
+
+/* Care & Maintenance web. */
+.mws-section .work-card-wrapper .work-care-web-brand {
+  color: #6d46e2;
+}
+.mws-section .work-card-wrapper .work-care-web-book-btn {
+  background-color: #6d46e2;
+}
+.mws-section .work-card-wrapper .work-care-web-book-text {
+  color: white;
+}
+.mws-section .work-card-wrapper .work-care-web-service-title {
+  color: #242323;
+}
+
+/* Content card. */
+.mws-section .work-card-wrapper .work-content-outer {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.mws-section .work-card-wrapper .work-content-inner {
+  background-color: white;
+}
+.mws-section .work-card-wrapper .work-content-tag-bg {
+  background-color: #fcd8e5;
+}
+.mws-section .work-card-wrapper .work-content-tag-text {
+  color: #ff3d81;
+}
+.mws-section .work-card-wrapper .work-content-headline {
+  color: #242323;
+}
+.mws-section .work-card-wrapper .work-content-body {
+  color: #3a3836;
+}
+
+/* Mobile card scale. Every card variant (sales, ads, social, web, content,
+   listings) renders at ~72% of its natural Figma width — confirmed by
+   reading the per-industry rail widths off Figma node 1305:453. Overrides
+   the viewport-based `min(1, …)` scale that `.ws-scale-root` applies for
+   desktop fluidity.                                                     */
+.mws-section .ws-scale-root {
+  --ws-card-scale: 0.72;
+}
