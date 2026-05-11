@@ -83,10 +83,10 @@ const healthSalesContent = {
 const healthAdsContent = {
   profileLabel: 'x2o Studio / Sponsored',
   photoSrcs: [
-    '/work-showcase/health-ads-photo-1.png',
-    '/work-showcase/health-ads-photo-2.png',
-    '/work-showcase/health-ads-photo-3.png',
-    '/work-showcase/health-ads-photo-4.png',
+    '/work-showcase/health-ads-photo-1.jpg',
+    '/work-showcase/health-ads-photo-2.jpg',
+    '/work-showcase/health-ads-photo-3.jpg',
+    '/work-showcase/health-ads-photo-4.jpg',
   ] as [string, string, string, string],
   caption: "The workout that actually sticks.\nLow-impact, full-body, never the same class twice. Come try us, the first class is on us!",
   ctaLabel: 'Learn More',
@@ -99,8 +99,8 @@ const healthAdsContent = {
 
 const healthSocialContent = {
   profileName: 'x2o Studio',
-  photoSrc: '/work-showcase/health-social-photo.png',
-  photoOverlaySrc: '/work-showcase/health-social-photo-2.png',
+  photoSrc: '/work-showcase/health-social-photo.jpg',
+  photoOverlaySrc: '/work-showcase/health-social-photo-2.jpg',
   caption: 'Starting the day strong with @MovaPilates! Join us for a class! #pilates #fitness #healthylifestyle',
   avatarDefaultSrc: '/work-showcase/health-avatar-default.svg',
   avatarFocusedSrc: '/work-showcase/health-avatar-focused.svg',
@@ -116,15 +116,14 @@ const healthWebContent = {
   navLinks: ['Locations', 'Blog', 'About Us', 'FAQ'],
   buyButtonLabel: 'Buy Classes',
   bookButtonLabel: 'Book Now',
-  heroSrc: '/work-showcase/health-web-hero.png',
-  heroOverlaySrc: '/work-showcase/health-web-hero-2.png',
+  heroSrc: '/work-showcase/health-web-hero.jpg',
   heroHeadlineLines: ['High Intensity. Low Impact.', 'Real Results.'],
   bookCtaLabel: 'Book Your Class',
   belowFoldHeading: 'Train Your Way at X2O Studio',
   galleryImageSrcs: [
-    '/work-showcase/health-web-gallery-1.png',
-    '/work-showcase/health-web-gallery-2.png',
-    '/work-showcase/health-web-gallery-3.png',
+    '/work-showcase/health-web-gallery-1.jpg',
+    '/work-showcase/health-web-gallery-2.jpg',
+    '/work-showcase/health-web-gallery-3.jpg',
   ] as [string, string, string],
 };
 
@@ -133,7 +132,7 @@ const healthContentCardContent = {
   tagLabel: 'BLOG',
   headline: "A Personal Journey \nto Strength and Flexibility",
   byline: 'Ellen Piccolotti',
-  photoSrc: '/work-showcase/health-content-photo.png',
+  photoSrc: '/work-showcase/health-content-photo.jpg',
   bodyParagraphs: [
     "Throughout the years, I've explored various fitness regimes. I've always been intrigued by the differences and benefits of Pilates vs weight training. Both have unique advantages and understanding them can help you make an informed decision about your fitness journey.",
     "With a plethora of information out there, it's important to rely on authentic experiences and well-researched facts. This article aims to do just that—drawing from my experiences and the latest research in the fitness industry.",
@@ -155,17 +154,17 @@ const foodListingsContent = {
   replyRatePill: '100% reply rate',
   photoLayout: 'tall-left' as const,
   photoSrcs: [
-    '/work-showcase/food-listings-photo-1.png',
-    '/work-showcase/food-listings-photo-top-right.png',
-    '/work-showcase/food-listings-photo-bottom-right.png',
-    '/work-showcase/food-listings-photo-bottom-right.png',
+    '/work-showcase/food-listings-photo-1.jpg',
+    '/work-showcase/food-listings-photo-top-right.jpg',
+    '/work-showcase/food-listings-photo-bottom-right.jpg',
+    '/work-showcase/food-listings-photo-bottom-right.jpg',
   ] as [string, string, string, string],
   mapOffset: { left: -120.18, top: -69.38 },
 };
 
 const foodAdsContent = {
   variant: 'food' as const,
-  heroSrc: '/work-showcase/food-ads-photo.png',
+  heroSrc: '/work-showcase/food-ads-photo.jpg',
   caption: 'Baked in-house and brewed to order at alma.',
   ctaLabel: 'Learn More',
   avatarSrc: '/work-showcase/food-web-logo-mark.svg',
@@ -175,8 +174,8 @@ const foodAdsContent = {
 
 const foodSocialContent = {
   profileName: 'Alma Café',
-  photoSrc: '/work-showcase/food-social-photo.png',
-  photoOverlaySrc: '/work-showcase/food-social-photo.png',
+  photoSrc: '/work-showcase/food-social-photo.jpg',
+  photoOverlaySrc: '/work-showcase/food-social-photo.jpg',
   caption: 'Starting the day strong with @MovaPilates! Join us for a class! #pilates #fitness #healthylifestyle',
   avatarDefaultSrc: '/work-showcase/food-web-logo-mark.svg',
   avatarFocusedSrc: '/work-showcase/food-web-logo-mark.svg',
@@ -194,13 +193,13 @@ const foodWebContent = {
   instagramIconSrc: '/work-showcase/food-web-icon-instagram.svg',
   facebookIconSrc: '/work-showcase/food-web-icon-facebook.svg',
   navLinks: ['menu', 'about', 'shop', 'order online'] as [string, string, string, string],
-  heroSrc: '/work-showcase/food-web-hero.png',
+  heroSrc: '/work-showcase/food-web-hero.jpg',
 };
 
 const foodMenuWebContent = {
   variant: 'food-menu' as const,
   logoMarkSrc: '/work-showcase/food-web-logo-mark.svg',
-  heroSrc: '/work-showcase/food-listings-photo-bottom-right.png',
+  heroSrc: '/work-showcase/food-listings-photo-bottom-right.jpg',
   sectionHeading: 'coffee & espresso',
   menuItems: [
     {
@@ -233,10 +232,10 @@ const homeListingsContent = {
   totalReviewsPill: '35 total reviews',
   replyRatePill: '95% reply rate',
   photoSrcs: [
-    '/work-showcase/home-listings-photo-1.png',
-    '/work-showcase/home-listings-photo-2.png',
-    '/work-showcase/home-listings-photo-top-right.png',
-    '/work-showcase/home-web-hero.png',
+    '/work-showcase/home-listings-photo-1.jpg',
+    '/work-showcase/home-listings-photo-2.jpg',
+    '/work-showcase/home-listings-photo-top-right.jpg',
+    '/work-showcase/home-web-hero.jpg',
   ] as [string, string, string, string],
   mapOffset: { left: -51, top: -258 },
 };
@@ -244,7 +243,7 @@ const homeListingsContent = {
 const homeAdsContent = {
   variant: 'home' as const,
   profileLabel: 'CanopyWorks / Sponsored',
-  heroSrc: '/work-showcase/home-ads-photo.png',
+  heroSrc: '/work-showcase/home-ads-photo.jpg',
   caption: "From safe removals to careful pruning, our certified arborists keep your trees healthy, your yard beautiful, and your home protected.\n\nBook a free tree inspection today and give your trees the expert care they deserve.",
   ctaLabel: 'Book Now',
   avatarDefaultSrc: '/work-showcase/home-avatar-default.svg',
@@ -256,8 +255,8 @@ const homeAdsContent = {
 
 const homeSocialContent = {
   profileName: 'CanopyWorks',
-  photoSrc: '/work-showcase/home-social-photo.png',
-  photoOverlaySrc: '/work-showcase/home-social-photo.png',
+  photoSrc: '/work-showcase/home-social-photo.jpg',
+  photoOverlaySrc: '/work-showcase/home-social-photo.jpg',
   caption: "Office with a view. No complaints. 🌲\n#CanopyWorks #CertifiedArborist #TreeCare #Pasadena #OfficeLife",
   avatarDefaultSrc: '/work-showcase/home-avatar-default.svg',
   avatarFocusedSrc: '/work-showcase/home-avatar-focused.svg',
@@ -268,7 +267,7 @@ const homeSocialContent = {
   saveIconSrc: '/work-showcase/social-icon-save.svg',
 };
 
-const homeWebContent = { variant: 'home' as const, heroSrc: '/work-showcase/home-web-hero.png' };
+const homeWebContent = { variant: 'home' as const, heroSrc: '/work-showcase/home-web-hero.jpg' };
 
 const homeSalesContent = {
   messages: [
@@ -295,10 +294,10 @@ const retailListingsContent = {
   replyRatePill: '92% reply rate',
   photoLayout: 'tall-left' as const,
   photoSrcs: [
-    '/work-showcase/retail-listings-photo-1.png',
-    '/work-showcase/retail-listings-photo-top-right.png',
-    '/work-showcase/retail-listings-photo-top-right.png',
-    '/work-showcase/retail-listings-photo-bottom-right.png',
+    '/work-showcase/retail-listings-photo-1.jpg',
+    '/work-showcase/retail-listings-photo-top-right.jpg',
+    '/work-showcase/retail-listings-photo-top-right.jpg',
+    '/work-showcase/retail-listings-photo-bottom-right.jpg',
   ] as [string, string, string, string],
   mapOffset: { left: -166, top: -3 },
   mapFlipped: true,
@@ -306,8 +305,8 @@ const retailListingsContent = {
 
 const retailAdsContent = {
   variant: 'retail' as const,
-  photo1Src: '/work-showcase/retail-ads-photo-1.png',
-  photo2Src: '/work-showcase/retail-ads-photo-2.png',
+  photo1Src: '/work-showcase/retail-ads-photo-1.jpg',
+  photo2Src: '/work-showcase/retail-ads-photo-2.jpg',
   ctaLabel: 'Shop Now',
   threeDotsIconSrc: '/work-showcase/ads-icon-more-white.svg',
   linkIconSrc: '/work-showcase/ads-icon-link-arrow.svg',
@@ -315,8 +314,8 @@ const retailAdsContent = {
 
 const retailSocialContent = {
   profileName: 'Meridian',
-  photoSrc: '/work-showcase/retail-social-photo.png',
-  photoOverlaySrc: '/work-showcase/retail-social-photo.png',
+  photoSrc: '/work-showcase/retail-social-photo.jpg',
+  photoOverlaySrc: '/work-showcase/retail-social-photo.jpg',
   caption: "Something good found its way here. Come see before it finds its way somewhere else.",
   avatarEl: <MeridianAvatar />,
   heartIconSrc: '/work-showcase/social-icon-heart.svg',
@@ -328,13 +327,13 @@ const retailSocialContent = {
 
 const retailWebContent = {
   variant: 'retail' as const,
-  heroSrc: '/work-showcase/retail-web-hero.png',
+  heroSrc: '/work-showcase/retail-web-hero.jpg',
 };
 
 const retailContentCardContent = {
   variant: 'retail' as const,
-  photo1Src: '/work-showcase/retail-content-photo-1.png',
-  photo2Src: '/work-showcase/retail-content-photo-2.png',
+  photo1Src: '/work-showcase/retail-content-photo-1.jpg',
+  photo2Src: '/work-showcase/retail-content-photo-2.jpg',
   listIconSrc: '/work-showcase/retail-content-icon-list.svg',
   articleTitle: 'The Jewelry Table',
   articleBody: "We celebrate the artistry of adornment. Each piece tells a story, reflecting the unique spirit of its creator. Discover handcrafted treasures that resonate with your soul and elevate your style.",
@@ -355,10 +354,10 @@ const careListingsContent = {
   replyRatePill: '90% reply rate',
   photoLayout: 'tall-left' as const,
   photoSrcs: [
-    '/work-showcase/care-listings-photo-1.png',
-    '/work-showcase/care-service-bath.png',
-    '/work-showcase/care-service-bath.png',
-    '/work-showcase/care-service-haircut.png',
+    '/work-showcase/care-listings-photo-1.jpg',
+    '/work-showcase/care-service-bath.jpg',
+    '/work-showcase/care-service-bath.jpg',
+    '/work-showcase/care-service-haircut.jpg',
   ] as [string, string, string, string],
   mapOffset: { left: -258, top: -191 },
   mapFlipped: true,
@@ -367,9 +366,9 @@ const careListingsContent = {
 const careAdsContent = {
   variant: 'care' as const,
   profileName: 'Good Dog Grooming',
-  photo1Src: '/work-showcase/care-listings-photo-1.png',
-  photo2Src: '/work-showcase/care-service-haircut.png',
-  photo3Src: '/work-showcase/care-ads-photo-3.png',
+  photo1Src: '/work-showcase/care-listings-photo-1.jpg',
+  photo2Src: '/work-showcase/care-service-haircut.jpg',
+  photo3Src: '/work-showcase/care-ads-photo-3.jpg',
   caption: "Wash, Cut, Trim.",
   ctaLabel: 'Book Now',
   avatarSrc: '/work-showcase/care-avatar.svg',
@@ -379,8 +378,8 @@ const careAdsContent = {
 
 const careSocialContent = {
   profileName: 'Good Dog Grooming',
-  photoSrc: '/work-showcase/care-service-bath.png',
-  photoOverlaySrc: '/work-showcase/care-service-bath.png',
+  photoSrc: '/work-showcase/care-service-bath.jpg',
+  photoOverlaySrc: '/work-showcase/care-service-bath.jpg',
   caption: "Towel mode: activated. 🐾\n#GoodDogGrooming #CleanDog #ShibaInu",
   avatarDefaultSrc: '/work-showcase/care-avatar.svg',
   avatarFocusedSrc: '/work-showcase/care-avatar.svg',
@@ -397,11 +396,11 @@ const careWebContent = {
   brandName: 'GOOD DOG groominG',
   navLinks: ['Services', 'About', 'Contact Us'],
   bookButtonLabel: 'Book Now',
-  heroSrc: '/work-showcase/care-web-hero.png',
+  heroSrc: '/work-showcase/care-web-hero.jpg',
   services: [
-    { title: 'Bath & Brush', imageSrc: '/work-showcase/care-service-bath.png' },
-    { title: 'Hair Cuts', imageSrc: '/work-showcase/care-service-haircut.png' },
-    { title: 'Teeth & Nails', imageSrc: '/work-showcase/care-service-nails.png' },
+    { title: 'Bath & Brush', imageSrc: '/work-showcase/care-service-bath.jpg' },
+    { title: 'Hair Cuts', imageSrc: '/work-showcase/care-service-haircut.jpg' },
+    { title: 'Teeth & Nails', imageSrc: '/work-showcase/care-service-nails.jpg' },
   ] as [{ title: string; imageSrc: string }, { title: string; imageSrc: string }, { title: string; imageSrc: string }],
 };
 

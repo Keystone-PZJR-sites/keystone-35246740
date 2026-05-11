@@ -161,7 +161,6 @@ export interface WebCardContentStandard {
   buyButtonLabel: string;
   bookButtonLabel: string;
   heroSrc: string;
-  heroOverlaySrc: string;
   heroHeadlineLines: string[];
   bookCtaLabel: string;
   belowFoldHeading: string;
@@ -841,11 +840,9 @@ function AdsCardFood({
           <Image
             alt=""
             src={content.heroSrc}
-            width={891}
-            height={594}
+            fill
             unoptimized
-            className="work-img-blend absolute max-w-none"
-            style={{ height: '100%', top: 0, left: '-129.08%', width: '311.54%' }}
+            className="work-img-blend object-cover object-center"
           />
         </div>
 
