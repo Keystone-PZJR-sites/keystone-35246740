@@ -6,7 +6,7 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { getEveryChannelPillRects } from '@/lib/pillHandoff';
+import { usePillHandoff } from '@/components/PillHandoffProvider';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,6 +31,7 @@ export interface ProductScreensProps {
 export function ProductScreens({ tools }: ProductScreensProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const transitioningRef = useRef(false);
+  const { getDesktopRects } = usePillHandoff();
 
   const sectionRef    = useRef<HTMLElement>(null);
   const cardRef       = useRef<HTMLDivElement>(null);
@@ -83,7 +84,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
             const pillEls = pillRefs.current.filter((el): el is HTMLButtonElement => el !== null);
 
             // Position pills at EveryChannel locations before playing
-            const ecRects = getEveryChannelPillRects();
+            const ecRects = getDesktopRects();
             pillEls.forEach((el, i) => {
               const label = tools[i]?.label;
               const ecRect = ecRects.get(label ?? '');
@@ -168,7 +169,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [tools]);
+  }, [tools, getDesktopRects]);
 
   // ── Tool switching ──────────────────────────────────────────────────────
   const handlePillClick = useCallback(

@@ -149,7 +149,7 @@ An Embla Carousel renders inside the overlay with `align: 'center'` and `contain
 - `MobileSocialProof` component root: `md:hidden` + `msp-section`
 - Embla carousel for the overlay is always mounted (CSS opacity/pointer-events toggle); when `activeIndex` changes, `emblaApi.scrollTo(activeIndex, true)` jumps to the slide with no scroll animation
 - `/_videos/v1/` paths from Figma are internal CDN URLs not available in this codebase; placeholder sources from `public/social-proof/` are used — final video assets to be provided
-- Hash-named assets downloaded to `public/spec-020-assets/` during research must be deleted before commit (Rule 20)
+- Hash-named assets downloaded to `public/spec-020-assets/` during research must be deleted before commit (asset-naming rule in `docs/rules/rules.md`)
 - `sectionPin.ts` gains a `'mobile-social-proof-pin'` debug color entry
 
 ---

@@ -18,9 +18,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import gsap from 'gsap';
 import { useFormDefinitions } from 'keystone-design-bootstrap/next/contexts/form-definitions';
-import { setPixelUserData, firePixelEvent, captureEvent } from 'keystone-design-bootstrap/tracking';
 import type { FormFieldDefinition, FormFieldItem } from 'keystone-design-bootstrap/types';
 import { KeystoneMark } from '@/components/elements';
+import { lockScroll } from '@/lib/scrollLock';
+import { classifyField } from '@/lib/leadFormFields';
+import { useLeadSubmit } from '@/lib/useLeadSubmit';
 
 // ─── Phone / country utilities from keystone-design-bootstrap ──────────────
 // countries is imported via a types/keystone-design-bootstrap.d.ts declaration
@@ -54,9 +56,7 @@ function formatDigitsToMask(digits: string, mask: string): string {
   return out;
 }
 
-// ============================================================
-// Context
-// ============================================================
+// ─── Context ────────────────────────────────────────────────────────────────
 
 interface LeadCaptureContextValue {
   openModal: (triggerElement?: HTMLElement) => void;
@@ -72,9 +72,7 @@ export function useLeadCapture(): LeadCaptureContextValue {
   return ctx;
 }
 
-// ============================================================
-// Provider props
-// ============================================================
+// ─── Provider props ─────────────────────────────────────────────────────────
 
 export interface LeadCaptureProviderProps {
   children: React.ReactNode;
@@ -87,9 +85,7 @@ export interface LeadCaptureProviderProps {
   privacyHref: string;
 }
 
-// ============================================================
-// Internal: Floating label input
-// ============================================================
+// ─── Internal: Floating label input ─────────────────────────────────────────
 
 interface FloatingLabelInputProps {
   id: string;
@@ -104,41 +100,26 @@ function FloatingLabelInput({
   placeholder,
   registerProps,
 }: FloatingLabelInputProps) {
-  const [isFocused, setIsFocused] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
-  const isActive = isFocused || hasValue;
-
-  // Destructure RHF callbacks so we can call both ours and theirs
-  const { ref, name, onChange: rhfOnChange, onBlur: rhfOnBlur } = registerProps;
-
+  // Focused / has-value styling is driven entirely from CSS via :focus-within
+  // and :placeholder-shown — no React state involved. The space placeholder is
+  // what makes :placeholder-shown work as an inverse of hasValue; users never
+  // see it because the input is opacity:0 until active.
   return (
-    <label htmlFor={id} className={`lc-field-wrapper${isActive ? ' is-active' : ''}${isFocused ? ' is-focused' : ''}`}>
+    <label htmlFor={id} className="lc-field-wrapper">
       <span className="lc-field-label">{placeholder}</span>
       <input
         id={id}
-        ref={ref}
-        name={name}
+        {...registerProps}
         type={type}
+        placeholder=" "
         className="lc-field-input"
         autoComplete={type === 'email' ? 'email' : 'on'}
-        onFocus={() => setIsFocused(true)}
-        onBlur={(e) => {
-          setIsFocused(false);
-          setHasValue(e.target.value.length > 0);
-          rhfOnBlur(e);
-        }}
-        onChange={(e) => {
-          setHasValue(e.target.value.length > 0);
-          rhfOnChange(e);
-        }}
       />
     </label>
   );
 }
 
-// ============================================================
-// Internal: Phone input with country code dropdown
-// ============================================================
+// ─── Internal: Phone input with country code dropdown ──────────────────────
 
 interface PhoneInputProps {
   id: string;
@@ -148,7 +129,9 @@ interface PhoneInputProps {
 }
 
 function PhoneInput({ id, placeholder, registerProps, caretDownSrc }: PhoneInputProps) {
-  const [isFocused, setIsFocused] = useState(false);
+  // Focus visual lives in CSS (:focus-within). Country and display value still
+  // need React state because they affect the masked rendering and the value
+  // dispatched into RHF — those are not derivable from the DOM.
   const [selectedCountryCode, setSelectedCountryCode] = useState('US');
   const [displayValue, setDisplayValue] = useState('');
 
@@ -202,7 +185,7 @@ function PhoneInput({ id, placeholder, registerProps, caretDownSrc }: PhoneInput
       </div>
 
       {/* Phone number input — plain, no floating label */}
-      <label htmlFor={id} className={`lc-phone-input-wrapper${isFocused ? ' is-focused' : ''}`}>
+      <label htmlFor={id} className="lc-phone-input-wrapper">
         <input
           id={id}
           ref={ref}
@@ -212,11 +195,7 @@ function PhoneInput({ id, placeholder, registerProps, caretDownSrc }: PhoneInput
           className="lc-field-input"
           placeholder={maskPlaceholder || placeholder}
           autoComplete="tel-national"
-          onFocus={() => setIsFocused(true)}
-          onBlur={(e) => {
-            setIsFocused(false);
-            rhfOnBlur(e);
-          }}
+          onBlur={rhfOnBlur}
           onChange={handlePhoneChange}
         />
       </label>
@@ -224,43 +203,10 @@ function PhoneInput({ id, placeholder, registerProps, caretDownSrc }: PhoneInput
   );
 }
 
-// ============================================================
-// Internal: Helpers to identify field types
-// ============================================================
+// ─── Field classification, identity field lookup, and submit logic all live
+// ─── in `lib/leadFormFields.ts` and `lib/useLeadSubmit.ts`.
 
-function isPhoneField(field: FormFieldDefinition): boolean {
-  return (
-    field.type === 'tel' ||
-    field.type === 'phone' ||
-    field.name.includes('phone') ||
-    field.name.includes('mobile')
-  );
-}
-
-function isTextareaField(field: FormFieldDefinition): boolean {
-  return (
-    field.type === 'textarea' ||
-    field.name === 'message' ||
-    field.name === 'description' ||
-    field.name === 'note'
-  );
-}
-
-function isHiddenField(field: FormFieldDefinition): boolean {
-  return field.type === 'hidden';
-}
-
-function isCheckboxField(field: FormFieldDefinition): boolean {
-  return field.type === 'checkbox';
-}
-
-function isCheckboxGroupField(field: FormFieldDefinition): boolean {
-  return field.type === 'checkbox_group';
-}
-
-// ============================================================
-// Internal: Checkbox field (single consent checkbox)
-// ============================================================
+// ─── Internal: Checkbox field (single consent checkbox) ─────────────────────
 
 interface CheckboxFieldProps {
   field: FormFieldDefinition;
@@ -341,9 +287,7 @@ function CheckboxField({
   );
 }
 
-// ============================================================
-// Internal: Checkbox group field (multiple selectable options)
-// ============================================================
+// ─── Internal: Checkbox group field (multiple selectable options) ──────────
 
 interface CheckboxGroupFieldProps {
   field: FormFieldDefinition;
@@ -399,9 +343,7 @@ function CheckboxGroupField({ field, fieldIndex, companyName }: CheckboxGroupFie
   );
 }
 
-// ============================================================
-// Internal: Render a single form field
-// ============================================================
+// ─── Internal: Render a single form field ──────────────────────────────────
 
 interface FormFieldProps {
   field: FormFieldDefinition;
@@ -417,82 +359,78 @@ function FormField({ field, fieldIndex, register, caretDownSrc, companyName, ter
   const inputId = `lc-field-${fieldIndex}-${field.name}`;
   const placeholder = field.placeholder || field.label || '';
   const registerProps = register(field.name, { required: field.required ?? false });
+  const classification = classifyField(field);
 
-  if (isHiddenField(field)) {
-    return (
-      <input
-        type="hidden"
-        value={field.value ?? ''}
-        {...register(field.name)}
-      />
-    );
-  }
-
-  if (isCheckboxField(field)) {
-    return (
-      <CheckboxField
-        field={field}
-        fieldIndex={fieldIndex}
-        register={register}
-        companyName={companyName}
-        termsHref={termsHref}
-        privacyHref={privacyHref}
-      />
-    );
-  }
-
-  if (isCheckboxGroupField(field)) {
-    return (
-      <CheckboxGroupField
-        field={field}
-        fieldIndex={fieldIndex}
-        companyName={companyName}
-      />
-    );
-  }
-
-  if (isTextareaField(field)) {
-    return (
-      <div className="lc-textarea-wrapper">
-        <label htmlFor={inputId} className="sr-only">
-          {field.label}
-        </label>
-        <textarea
-          id={inputId}
-          className="lc-textarea"
-          placeholder={placeholder}
-          {...registerProps}
+  switch (classification.kind) {
+    case 'hidden':
+      return (
+        <input
+          type="hidden"
+          value={field.value ?? ''}
+          {...register(field.name)}
         />
-      </div>
-    );
+      );
+
+    case 'checkbox':
+      return (
+        <CheckboxField
+          field={field}
+          fieldIndex={fieldIndex}
+          register={register}
+          companyName={companyName}
+          termsHref={termsHref}
+          privacyHref={privacyHref}
+        />
+      );
+
+    case 'checkbox_group':
+      return (
+        <CheckboxGroupField
+          field={field}
+          fieldIndex={fieldIndex}
+          companyName={companyName}
+        />
+      );
+
+    case 'textarea':
+      return (
+        <div className="lc-textarea-wrapper">
+          <label htmlFor={inputId} className="sr-only">
+            {field.label}
+          </label>
+          <textarea
+            id={inputId}
+            className="lc-textarea"
+            placeholder={placeholder}
+            {...registerProps}
+          />
+        </div>
+      );
+
+    case 'phone':
+      return (
+        <PhoneInput
+          id={inputId}
+          placeholder={placeholder}
+          registerProps={registerProps}
+          caretDownSrc={caretDownSrc}
+        />
+      );
+
+    case 'email':
+    case 'text':
+      return (
+        <FloatingLabelInput
+          id={inputId}
+          type={classification.kind === 'email' ? 'email' : 'text'}
+          placeholder={placeholder}
+          registerProps={registerProps}
+        />
+      );
   }
-
-  if (isPhoneField(field)) {
-    return (
-      <PhoneInput
-        id={inputId}
-        placeholder={placeholder}
-        registerProps={registerProps}
-        caretDownSrc={caretDownSrc}
-      />
-    );
-  }
-
-  const inputType = field.type === 'email' ? 'email' : 'text';
-
-  return (
-    <FloatingLabelInput
-      id={inputId}
-      type={inputType}
-      placeholder={placeholder}
-      registerProps={registerProps}
-    />
-  );
 }
 
-// ============================================================
-// Internal: Render a form row (one or more fields side-by-side)
-// ============================================================
+// ─── Internal: Render a form row (one or more fields side-by-side) ─────────
 
 interface FormRowProps {
   item: FormFieldItem;
@@ -538,11 +476,7 @@ function FormRow({ item, baseIndex, register, caretDownSrc, companyName, termsHr
   );
 }
 
-// ============================================================
-// Internal: Modal
-// ============================================================
-
-type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
+// ─── Internal: Modal ────────────────────────────────────────────────────────
 
 interface ModalProps {
   closeModal: () => void;
@@ -569,45 +503,15 @@ function Modal({
 }: ModalProps) {
   const { leadFormDefinition } = useFormDefinitions();
   const { register, handleSubmit, reset } = useForm<Record<string, string>>();
-  const [submitState, setSubmitState] = useState<SubmitState>('idle');
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const onSubmit = async (values: Record<string, string>) => {
-    setSubmitState('submitting');
-    try {
-      const payload: Record<string, string | number> = { formType: 'lead', ...values };
-      if (leadFormDefinition?.id) {
-        payload.form_id = leadFormDefinition.id;
-      }
-      const response = await fetch('/api/form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const result = await response.json() as { success: boolean; error?: string; eventId?: string };
-      if (result.success) {
-        // Hash and store user identity for Meta advanced matching, then fire Lead event.
-        // captureEvent is a silent no-op when PostHog is not configured.
-        const emailKey = Object.keys(values).find(k => k === 'email' || k.includes('email'));
-        const phoneKey = Object.keys(values).find(k => k === 'phone' || k.includes('phone') || k.includes('mobile'));
-        await setPixelUserData({
-          email: emailKey ? values[emailKey] : undefined,
-          phone: phoneKey ? values[phoneKey] : undefined,
-        });
-        firePixelEvent('Lead', undefined, result.eventId);
-        captureEvent('form_submitted', { form_type: 'lead', ...(result.eventId && { event_id: result.eventId }) });
-        setSubmitState('success');
-        reset();
-      } else {
-        setSubmitState('error');
-        setErrorMessage(result.error || 'Something went wrong. Please try again.');
-      }
-    } catch {
-      setSubmitState('error');
-      setErrorMessage('Something went wrong. Please try again.');
-    }
-  };
+  const fields = leadFormDefinition?.fields ?? [];
+
+  const { state: submitState, errorMessage, submit } = useLeadSubmit({
+    fields,
+    formId: leadFormDefinition?.id,
+    onSuccess: reset,
+  });
 
   // Escape key handler
   useEffect(() => {
@@ -618,13 +522,13 @@ function Modal({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeModal]);
 
-  // Focus first input on mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const firstInput = cardRef.current?.querySelector<HTMLElement>('input, textarea');
-      firstInput?.focus();
-    }, 80);
-    return () => clearTimeout(timer);
+  // Focus first input on mount. preventScroll keeps the viewport anchored so
+  // focusing inside the freshly-portaled modal cannot trigger the browser's
+  // default "scroll element into view" behaviour — coordinating via the
+  // mount lifecycle is the canonical alternative to a setTimeout guess.
+  useLayoutEffect(() => {
+    const firstInput = cardRef.current?.querySelector<HTMLElement>('input, textarea');
+    firstInput?.focus({ preventScroll: true });
   }, []);
 
   // Auto-close after success
@@ -640,7 +544,6 @@ function Modal({
     if (e.target === e.currentTarget) closeModal();
   };
 
-  const fields = leadFormDefinition?.fields ?? [];
   const companyName = leadFormDefinition?.company_name ?? '';
 
   return (
@@ -695,7 +598,7 @@ function Modal({
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <form onSubmit={handleSubmit(submit)} noValidate>
                 {/* Form header: wordmark + subheadline */}
                 <div className="lc-form-header">
                   <Image
@@ -785,9 +688,7 @@ function Modal({
   );
 }
 
-// ============================================================
-// Provider
-// ============================================================
+// ─── Provider ──────────────────────────────────────────────────────────────
 
 export function LeadCaptureProvider({
   children,
@@ -819,16 +720,13 @@ export function LeadCaptureProvider({
     [openModal, closeModal, isOpen]
   );
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open. `lockScroll()` returns the unlock
+  // function so cleanup can never accidentally lock when it should unlock.
+  // Branches to ScrollSmoother.paused() on the homepage; otherwise pins the
+  // body via position:fixed (iOS-Safari-safe). See `lib/scrollLock.ts`.
   useEffect(() => {
-    if (displayModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (!displayModal) return;
+    return lockScroll();
   }, [displayModal]);
 
   // Animate in when modal becomes visible

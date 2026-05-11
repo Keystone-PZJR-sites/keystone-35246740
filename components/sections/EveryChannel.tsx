@@ -3,7 +3,7 @@
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { registerEveryChannelPillRects } from '@/lib/pillHandoff';
+import { usePillHandoff } from '@/components/PillHandoffProvider';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -70,6 +70,7 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
   const line2Ref   = useRef<HTMLParagraphElement>(null);
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
+  const { setDesktopRects } = usePillHandoff();
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
@@ -162,7 +163,7 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
               const el = pillRefs.current[i];
               if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
             });
-            registerEveryChannelPillRects(rectsMap);
+            setDesktopRects(rectsMap);
             buildingComplete = true;
             logSectionEvent('every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
           });
@@ -203,27 +204,29 @@ export function EveryChannel({ line1, line2, line3, videoSrc, pills }: EveryChan
     }, wrapperRef);
 
     return () => ctx.revert();
-  }, [sortedPills]);
+  }, [sortedPills, setDesktopRects]);
 
   // Renders one display line as slot-machine character wrappers.
   // Each character is duplicated: first span (visible, exits up),
   // second span (hidden below overflow mask, enters from below).
+  // \u00a0 is intentional: a literal NBSP would be indistinguishable from ' '
+  // in source, but the layout depends on it — a regular space between
+  // inline-block per-character spans collapses to zero.
   const renderLine = (text: string, ref: React.RefObject<HTMLParagraphElement | null>) => (
     <p
       ref={ref}
       className="font-['FK_Screamer',sans-serif] font-bold uppercase leading-[0.82] not-italic text-[#f0eee6]"
       style={LINE_P_STYLE}
     >
-      {text.split('').map((char, i) => (
-        <span key={i} className="ec-char" style={CHAR_WRAP}>
-          <span style={{ display: 'block', willChange: 'transform' }}>
-            {char === ' ' ? '\u00a0' : char}
+      {text.split('').map((char, i) => {
+        const display = char === ' ' ? '\u00a0' : char;
+        return (
+          <span key={i} className="ec-char" style={CHAR_WRAP}>
+            <span style={{ display: 'block', willChange: 'transform' }}>{display}</span>
+            <span aria-hidden="true" style={CHAR_SECOND}>{display}</span>
           </span>
-          <span aria-hidden="true" style={CHAR_SECOND}>
-            {char === ' ' ? '\u00a0' : char}
-          </span>
-        </span>
-      ))}
+        );
+      })}
     </p>
   );
 

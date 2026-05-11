@@ -71,13 +71,8 @@ export function SmoothScrollProvider({ children, fixedChildren }: SmoothScrollPr
        */}
       <div
         ref={overlayRef}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 9999,
-          backgroundColor: '#042019',
-          pointerEvents: 'auto',
-        }}
+        className="smooth-scroll-loading-overlay"
+        aria-hidden="true"
       />
       {fixedChildren}
       <div id="smooth-content">

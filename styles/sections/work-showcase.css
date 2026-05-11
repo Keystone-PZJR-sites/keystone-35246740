@@ -32,10 +32,29 @@
 }
 
 /* --- Carousel item: static hover zone that never transforms.
-      margin-right is used (not flex gap) so Embla loop clones inherit the spacing. --- */
+      margin-right is used (not flex gap) so Embla loop clones inherit the spacing.
+      Now a <button> (interactive elements get button semantics) so these
+      declarations also reset the default button chrome. --- */
 .work-card-item {
   padding-bottom: 24px;
   margin-right: 32px;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  display: block;
+}
+
+.work-card-item:focus-visible {
+  outline: 2px solid var(--color-work-accent, #f57e56);
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+.work-card-item[aria-current="true"] {
+  cursor: default;
 }
 
 /* --- Card wrapper: desaturates whole card (logos, text, bg, images, everything).

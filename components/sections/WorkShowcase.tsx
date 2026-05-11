@@ -1,5 +1,30 @@
 'use client';
 
+/**
+ * WorkShowcase — “mock UI” gallery (Sales/Ads/Social/Web/Content cards per industry).
+ *
+ * Why so many `eslint-disable @next/next/no-img-element`?
+ * Each card is a `ScaledMockCard` (see the ScaledMockCard pattern in
+ * `docs/rules/rules.md`): a fixed-pixel mock UI that lives at the design's
+ * intrinsic size and is then transformed via CSS `transform: scale()` so the
+ * entire layered composition shrinks/grows as one. Inside that scale-transform
+ * context:
+ *
+ *   - `next/image` injects a `position: absolute` wrapper plus its own srcset
+ *     and sizes machinery, both of which are tuned for layout-time sizing.
+ *     They fight the synthetic `aspect-ratio` of the parent and produce
+ *     subpixel jitter when the card scales.
+ *   - The assets are explicitly pre-sized, never lazy candidates for srcset,
+ *     and many are `.svg`s where srcset would be a no-op anyway.
+ *   - LCP for this section is the headline + first card photo; that one image
+ *     is loaded with `next/image` (`fetchPriority="high"`) at the section
+ *     level. Everything else is decorative chrome inside the mock UI.
+ *
+ * Every `<img>` below is therefore intentional and falls under the same
+ * exemption. `Image` from `next/image` is still imported and used for any
+ * non-`ScaledMockCard` photo in this file.
+ */
+
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -305,8 +330,8 @@ function Chip({ label, bg, color }: { label: string; bg: string; color: string }
 }
 
 // ---------------------------------------------------------------------------
-// Shared scaled-card shell — wraps every mock outer div so it scales with
-// the viewport via CSS transform.  Internal px values stay exact (Rule 21).
+// Shared scaled-card shell — wraps every mock outer div so it scales with the
+// viewport via CSS transform. Internal px values stay exact inside the scale.
 // ---------------------------------------------------------------------------
 
 function ScaledMockCard({
@@ -3301,14 +3326,17 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
             style={{ paddingRight: '24px' }}
           >
             {cards.map((card, i) => (
-              <div
+              <button
                 key={i}
-                className="work-card-item shrink-0 cursor-pointer"
+                type="button"
+                className="work-card-item shrink-0"
                 ref={i < 5 ? (el) => { initialCardRefs.current[i] = el; } : undefined}
                 onClick={() => handleCardClick(i)}
+                aria-label={`Show case study ${i + 1} of ${cards.length}`}
+                aria-current={i === focusedCardIndex ? 'true' : undefined}
               >
                 {renderCard(card, i)}
-              </div>
+              </button>
             ))}
           </div>
         </div>

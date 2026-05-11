@@ -33,7 +33,6 @@ export function KeystoneMark({
       aria-hidden={ariaHidden ?? (alt ? undefined : true)}
     >
       <path d="M12.0675 13.6473L0 20.471V6.82366L12.0675 0V13.6473Z" fill={color} />
-      <path d="M12.0675 13.6473L0 20.471V6.82366L12.0675 0V13.6473Z" fill={color} />
       <path d="M0 34.1287L12.0675 40.9523V27.3002L0 20.4766V34.1287Z" fill={color} />
       <path
         fillRule="evenodd"

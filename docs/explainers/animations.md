@@ -1,6 +1,6 @@
 # Animation Guide
 
-All animations use **GSAP 3.15.0**. See Rule 5 for the "use a library" mandate and Rule 9 for the `prefers-reduced-motion` requirement.
+All animations use **GSAP 3.15.0**. See `docs/rules/rules.md` for the "use a library" mandate and the `prefers-reduced-motion` requirement.
 
 ---
 

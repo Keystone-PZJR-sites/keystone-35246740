@@ -215,10 +215,6 @@
   opacity: 0.7;
 }
 
-/* Reduced motion: no entrance animations to suppress */
-@media (prefers-reduced-motion: reduce) {
-  .footer-section * {
-    animation: none !important;
-  }
-}
+/* No reduced-motion overrides needed — there are no CSS animations or
+   transitions in this stylesheet, and the footer is not GSAP-animated. */
 

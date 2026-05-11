@@ -214,14 +214,14 @@ export function PricingSection({
             Feature chips — nine pill-shaped chips in a centered flex-wrap row.
             Max-width 1177px (set in CSS) forces the 5+4 desktop layout.
             ================================================================ */}
-        <div className="pricing-chips" role="list" aria-label="Included features">
+        <ul className="pricing-chips" aria-label="Included features">
           {featureChips.map((chip) => (
-            <div key={chip.label} className="pricing-chip" role="listitem">
+            <li key={chip.label} className="pricing-chip">
               <CheckmarkIcon color={chip.iconColor} />
               <span className="pricing-chip-label">{chip.label}</span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {/* Credits paragraph */}
         <p className="pricing-credits">{creditsText}</p>

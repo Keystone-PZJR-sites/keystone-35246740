@@ -312,19 +312,24 @@ export function MobileValueProps({
         <div className="mvp-divider" aria-hidden="true" />
       </div>
 
-      {/* Embla carousel — active card is lifted via data-focused CSS */}
+      {/* Embla carousel — active card is lifted via data-focused CSS.
+          Each slide is a <button> so keyboard users can advance the carousel
+          by tabbing through cards and pressing Enter/Space. The active slide
+          stays in the tab order but its handler is a no-op (Embla pagination
+          dots / drag gesture cover the "advance from active" case). */}
       <div className="mvp-carousel-viewport" ref={emblaRef}>
-        <div className="mvp-carousel-container">
+        <ul className="mvp-carousel-container">
           {cards.map((card, i) => (
-            <div
-              key={card.id}
+            <li key={card.id} className="mvp-slide-item">
+            <button
+              type="button"
               className="mvp-slide"
               data-focused={i === activeIndex ? 'true' : 'false'}
               aria-label={`${i + 1} of ${cards.length}: ${card.headline}`}
+              aria-current={i === activeIndex ? 'true' : undefined}
               onClick={() => {
                 if (emblaApi && i !== activeIndex) emblaApi.scrollTo(i);
               }}
-              style={i !== activeIndex ? { cursor: 'pointer' } : undefined}
             >
               {/* Video panel */}
               <div className="mvp-slide-video-wrap">
@@ -364,9 +369,10 @@ export function MobileValueProps({
                   {card.copy}
                 </p>
               </div>
-            </div>
+            </button>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

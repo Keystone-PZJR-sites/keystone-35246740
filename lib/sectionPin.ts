@@ -1,41 +1,9 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { log } from './logger';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-// ---------------------------------------------------------------------------
-// Debug logging helpers
-// ---------------------------------------------------------------------------
-
-const COLORS: Record<string, string> = {
-  'hero-pin':                    '#6ecc8b',
-  'work-pin':                    '#f57e56',
-  'every-channel-pin':           '#9febd7',
-  'mobile-every-channel-pin':    '#7ed9c6',
-  'product-screens-pin':         '#4fafa0',
-  'mobile-product-screens-pin':  '#3a9085',
-  'social-proof-pin':            '#ffbb8a',
-  'pricing-pin':                 '#399587',
-  'value-props-pin':             '#e0a733',
-  'mobile-hero-pin':             '#f0eee6',
-  'mobile-value-props-pin':      '#4fafa0',
-  'mobile-social-proof-pin':     '#ffd580',
-  'mobile-pricing-pin':          '#80d4ff',
-};
-
-function log(id: string, event: string, detail: Record<string, unknown> = {}) {
-  const color = COLORS[id] ?? '#aaa';
-  const detailStr = Object.entries(detail)
-    .map(([k, v]) => `${k}=${typeof v === 'number' ? (v as number).toFixed(4) : v}`)
-    .join('  ');
-  console.log(
-    `%c[${id}] %c${event}%c ${detailStr}`,
-    `color:${color}; font-weight:bold`,
-    'color:#fff; font-weight:bold',
-    'color:#999; font-weight:normal',
-  );
-}
 
 // ---------------------------------------------------------------------------
 // Public API
@@ -273,7 +241,9 @@ export function createSectionPin({
 }
 
 // ---------------------------------------------------------------------------
-// Section-level logging helper — call from inside section components
+// Section-level logging helper — call from inside section components.
+// Re-exported here as a thin convenience wrapper so callers don't need to
+// know about `lib/logger.ts` directly when the channel is a pin id.
 // ---------------------------------------------------------------------------
 
 export function logSectionEvent(id: string, event: string, detail: Record<string, unknown> = {}) {

@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { KeystoneMark } from '@/components/elements';
+import { KeystoneMark, SocialIcon } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
-import { setPixelUserData, captureEvent } from 'keystone-design-bootstrap/tracking';
+import { useEmailSignup } from '@/lib/useEmailSignup';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -122,36 +121,6 @@ function PillButton({ href, label, arrowSrc, variant, type, disabled }: PillButt
   );
 }
 
-interface SocialIconProps {
-  href: string;
-  label: string;
-  children: React.ReactNode;
-}
-
-function SocialIcon({ href, label, children }: SocialIconProps) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="footer-social-link"
-    >
-      <svg
-        width="44"
-        height="44"
-        viewBox="0 0 44 44"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <circle cx="22" cy="22" r="20" stroke="currentColor" strokeWidth="1.5" />
-        {children}
-      </svg>
-    </a>
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
@@ -183,37 +152,7 @@ export function OversizedFooter({
   linkedinUrl,
 }: OversizedFooterProps) {
   const { openModal } = useLeadCapture();
-
-  const [emailValue, setEmailValue] = useState('');
-  const [signUpState, setSignUpState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [signUpError, setSignUpError] = useState('');
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!emailValue.trim()) return;
-    setSignUpState('submitting');
-    setSignUpError('');
-    try {
-      const res = await fetch('/api/form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formType: 'marketing_list_signup', email: emailValue.trim() }),
-      });
-      const result = await res.json() as { success: boolean; error?: string };
-      if (result.success) {
-        await setPixelUserData({ email: emailValue.trim() });
-        captureEvent('form_submitted', { form_type: 'marketing_list_signup' });
-        setSignUpState('success');
-        setEmailValue('');
-      } else {
-        setSignUpState('error');
-        setSignUpError(result.error ?? 'Something went wrong. Please try again.');
-      }
-    } catch {
-      setSignUpState('error');
-      setSignUpError('Something went wrong. Please try again.');
-    }
-  };
+  const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
   return (
     <section className="footer-section hidden md:block" data-theme="custom">
 
@@ -321,12 +260,11 @@ export function OversizedFooter({
                 </label>
                 <input
                   id="footer-email"
+                  name="email"
                   type="email"
                   required
                   className="footer-email-input pl-3"
                   placeholder={emailPlaceholder}
-                  value={emailValue}
-                  onChange={(e) => setEmailValue(e.target.value)}
                   disabled={signUpState === 'submitting'}
                 />
                 <PillButton
@@ -346,48 +284,10 @@ export function OversizedFooter({
           {/* ── Row 2, col 3: social icons ── */}
           <div className="footer-lower-act3">
             <div className="footer-social-icons">
-              {youtubeUrl && (
-                <SocialIcon href={youtubeUrl} label="YouTube">
-                  {/* Play triangle */}
-                  <polygon points="17,15 17,29 31,22" fill="currentColor" />
-                </SocialIcon>
-              )}
-              {instagramUrl && (
-                <SocialIcon href={instagramUrl} label="Instagram">
-                  {/* Camera body */}
-                  <rect x="13" y="13" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
-                  {/* Lens */}
-                  <circle cx="22" cy="22" r="5" stroke="currentColor" strokeWidth="1.5" />
-                  {/* Flash dot */}
-                  <circle cx="27.5" cy="16.5" r="1.25" fill="currentColor" />
-                </SocialIcon>
-              )}
-              {facebookUrl && (
-                <SocialIcon href={facebookUrl} label="Facebook">
-                  <text
-                    x="22"
-                    y="29"
-                    textAnchor="middle"
-                    fontSize="22"
-                    fontWeight="700"
-                    fill="currentColor"
-                    fontFamily="'FK Grotesk Neue', system-ui, sans-serif"
-                  >f</text>
-                </SocialIcon>
-              )}
-              {linkedinUrl && (
-                <SocialIcon href={linkedinUrl} label="LinkedIn">
-                  <text
-                    x="22"
-                    y="28"
-                    textAnchor="middle"
-                    fontSize="15"
-                    fontWeight="700"
-                    fill="currentColor"
-                    fontFamily="'FK Grotesk Neue', system-ui, sans-serif"
-                  >in</text>
-                </SocialIcon>
-              )}
+              <SocialIcon platform="youtube"   href={youtubeUrl}   variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="instagram" href={instagramUrl} variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="facebook"  href={facebookUrl}  variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="linkedin"  href={linkedinUrl}  variant="desktop" className="footer-social-link" />
             </div>
           </div>
 

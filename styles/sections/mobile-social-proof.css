@@ -88,7 +88,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 250ms ease;
-  z-index: 10;
+  z-index: var(--z-raised);
 }
 
 .msp-overlay[data-open='true'] {
@@ -109,7 +109,8 @@
   border: none;
   background: none;
   cursor: pointer;
-  z-index: 11;
+  /* +1 above the overlay backdrop (--z-raised) so the close button paints on top */
+  z-index: calc(var(--z-raised) + 1);
 }
 
 /* ── Embla viewport ──

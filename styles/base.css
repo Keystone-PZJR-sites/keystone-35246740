@@ -57,6 +57,19 @@
 
 /* ==================== DESIGN TOKENS ==================== */
 
+/* Site-wide stacking scale.
+   Use these tokens for anything that stacks against the rest of the page.
+   Local stacking contexts inside a single component (e.g. layered photos in
+   one card) may use small relative values like z-index: 1/2/3 freely. */
+:root {
+  --z-base:    0;     /* default flow */
+  --z-raised:  10;    /* in-section overlays — section nav, close buttons */
+  --z-sticky:  20;    /* in-section pinned UI on top of cards */
+  --z-nav:     50;    /* site-wide navigation, ScrollSmoother-aware */
+  --z-modal:  100;    /* full-viewport modal, in-flow */
+  --z-portal: 9999;   /* portaled content above everything (escapes ScrollSmoother transform) */
+}
+
 [data-theme="custom"] {
   /* Hero */
   --color-hero-bg: #042019;
@@ -92,5 +105,16 @@
 
 body {
   background-color: rgb(249, 250, 251);
+}
+
+/* Loading overlay sits above ScrollSmoother content while it bootstraps —
+   matches hero background so the fade-out is invisible. GSAP fades opacity
+   to 0 in `SmoothScrollProvider` once the smoother is ready. */
+.smooth-scroll-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-portal);
+  background-color: var(--color-hero-bg, #042019);
+  pointer-events: auto;
 }
 

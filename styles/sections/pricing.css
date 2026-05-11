@@ -73,6 +73,8 @@
   margin-top: 41px;
   max-width: 1177px;
   width: 100%;
+  list-style: none;
+  padding: 0;
 }
 
 /* --- Individual feature chip — pill shape, transparent fill --- */
@@ -192,10 +194,7 @@
   margin-bottom: 0;
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .pricing-section * {
-    animation: none !important;
-  }
-}
+/* Pricing has no CSS animations or transitions — entrance is GSAP-driven and
+   already short-circuits to the resting state under (prefers-reduced-motion:
+   reduce) via gsap.matchMedia in PricingSection.tsx. No overrides required. */
 

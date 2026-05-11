@@ -3,7 +3,7 @@
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { registerMobileEveryChannelPillRects } from '@/lib/pillHandoff';
+import { usePillHandoff } from '@/components/PillHandoffProvider';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -85,6 +85,7 @@ export function MobileEveryChannel({
   const line2Ref   = useRef<HTMLParagraphElement>(null);
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
+  const { setMobileRects } = usePillHandoff();
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
@@ -174,7 +175,7 @@ export function MobileEveryChannel({
               const el = pillRefs.current[i];
               if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
             });
-            registerMobileEveryChannelPillRects(rectsMap);
+            setMobileRects(rectsMap);
             buildingComplete = true;
             logSectionEvent('mobile-every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
           });
@@ -210,21 +211,23 @@ export function MobileEveryChannel({
     }, wrapperRef);
 
     return () => ctx.revert();
-  }, [sortedPills]);
+  }, [sortedPills, setMobileRects]);
 
   // Renders one display line as slot-machine character wrappers.
+  // \u00a0 is intentional: a literal NBSP would be indistinguishable from ' '
+  // in source, but the layout depends on it — a regular space between
+  // inline-block per-character spans collapses to zero.
   const renderLine = (text: string, ref: React.RefObject<HTMLParagraphElement | null>) => (
     <p ref={ref} className="mec-line">
-      {text.split('').map((char, i) => (
-        <span key={i} className="mec-char" style={CHAR_WRAP}>
-          <span style={{ display: 'block', willChange: 'transform' }}>
-            {char === ' ' ? '\u00a0' : char}
+      {text.split('').map((char, i) => {
+        const display = char === ' ' ? '\u00a0' : char;
+        return (
+          <span key={i} className="mec-char" style={CHAR_WRAP}>
+            <span style={{ display: 'block', willChange: 'transform' }}>{display}</span>
+            <span aria-hidden="true" style={CHAR_SECOND}>{display}</span>
           </span>
-          <span aria-hidden="true" style={CHAR_SECOND}>
-            {char === ' ' ? '\u00a0' : char}
-          </span>
-        </span>
-      ))}
+        );
+      })}
     </p>
   );
 

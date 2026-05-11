@@ -44,7 +44,7 @@
   align-items: center;
   gap: 8px;
   width: max-content;
-  z-index: 20;
+  z-index: var(--z-sticky);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -200,9 +200,9 @@
 
 /* ==================== PRODUCT SCREENS — REDUCED MOTION ==================== */
 
-@media (prefers-reduced-motion: reduce) {
-  .ps-pill {
-    transition: none !important;
-  }
-}
+/* No reduced-motion overrides needed here:
+   - .ps-pill already sets transition: none unconditionally.
+   - Card/screenshot/copy/pill animations are owned by gsap.matchMedia in
+     ProductScreens.tsx, which short-circuits to the resting state under
+     (prefers-reduced-motion: reduce). */
 

@@ -1,10 +1,12 @@
 /* ==================== LEAD CAPTURE MODAL ==================== */
 
-/* Full-screen overlay — sits above everything via portal */
+/* Full-screen overlay — sits above everything via portal.
+   Portaled into <body>, so it lives outside ScrollSmoother's transformed
+   #smooth-content. --z-portal is the highest scale token for that reason. */
 .lc-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: var(--z-portal);
   overflow-y: auto;
 }
 
@@ -136,7 +138,7 @@
   cursor: text;
 }
 
-.lc-field-wrapper.is-focused {
+.lc-field-wrapper:focus-within {
   background: #f0eee6;
   border-color: #beb8a7;
 }
@@ -163,9 +165,12 @@
   cursor: text;
 }
 
-/* Active: label floats to top (12px). Pair height = 11.4+6+20 = 37.4; top ≈ 11px */
-.lc-field-wrapper.is-active .lc-field-label,
-.lc-phone-input-wrapper.is-active .lc-field-label {
+/* Active: label floats to top (12px). Pair height = 11.4+6+20 = 37.4; top ≈ 11px.
+   Active = focused OR has value. The space-character placeholder on .lc-field-input
+   is what makes :placeholder-shown act as an inverse of "has value". */
+.lc-field-wrapper:focus-within .lc-field-label,
+.lc-field-wrapper:has(.lc-field-input:not(:placeholder-shown)) .lc-field-label,
+.lc-phone-input-wrapper:focus-within .lc-field-label {
   top: 11px;
   font-size: 12px;
   line-height: 0.95;
@@ -193,8 +198,9 @@
   transition: opacity 0.1s ease;
 }
 
-.lc-field-wrapper.is-active .lc-field-input,
-.lc-phone-input-wrapper.is-active .lc-field-input {
+.lc-field-wrapper:focus-within .lc-field-input,
+.lc-field-wrapper:has(.lc-field-input:not(:placeholder-shown)) .lc-field-input,
+.lc-phone-input-wrapper:focus-within .lc-field-input {
   opacity: 1;
 }
 

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { getMobileEveryChannelPillRects } from '@/lib/pillHandoff';
+import { usePillHandoff } from '@/components/PillHandoffProvider';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
 import type { ProductScreensTool } from './ProductScreens';
 
@@ -37,6 +37,7 @@ export interface MobileProductScreensProps {
 export function MobileProductScreens({ tools }: MobileProductScreensProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const transitioningRef = useRef(false);
+  const { getMobileRects } = usePillHandoff();
 
   const sectionRef     = useRef<HTMLElement>(null);
   const pillRefs       = useRef<(HTMLButtonElement | null)[]>([]);
@@ -72,7 +73,7 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
           const pillEls = pillRefs.current.filter((el): el is HTMLButtonElement => el !== null);
 
           // Position pills at mobile EC locations before playing.
-          const ecRects = getMobileEveryChannelPillRects();
+          const ecRects = getMobileRects();
           pillEls.forEach((el, i) => {
             const label   = tools[i]?.label;
             const ecRect  = ecRects.get(label ?? '');
@@ -139,7 +140,7 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [tools]);
+  }, [tools, getMobileRects]);
 
   // ── Tool switching ────────────────────────────────────────────────────────
   const handlePillClick = useCallback(

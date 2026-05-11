@@ -7,7 +7,7 @@
 .inner-nav {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: var(--z-nav);
   width: 100%;
   background-color: var(--color-hero-bg);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);

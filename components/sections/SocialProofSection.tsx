@@ -213,7 +213,7 @@ export function SocialProofSection({
 }: SocialProofSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const wrapperRefs = useRef<(HTMLLIElement | null)[]>([]);
   const cardPositionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const floatTimelinesRef = useRef<gsap.core.Timeline[]>([]);
   const modalVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -229,20 +229,26 @@ export function SocialProofSection({
   const [openAtSlide, setOpenAtSlide] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Portal target — resolved once on the client so the modal renders directly
-  // into document.body, completely outside #smooth-content. ScrollSmoother
-  // applies a CSS transform to #smooth-content which breaks position:fixed for
-  // its children; moving the modal to document.body gives it a true
-  // viewport-covering overlay.
+  // Portal target — resolved on the client AFTER hydration so the modal
+  // renders directly into document.body, completely outside #smooth-content.
+  // ScrollSmoother applies a CSS transform to #smooth-content which breaks
+  // position:fixed for its descendants; mounting the modal under document.body
+  // sidesteps the transformed ancestor.
   //
-  // portalTarget starts as null on both server and client so the initial
-  // hydration render matches the server HTML (no portal on either side).
-  // After hydration the useEffect sets it to document.body, causing React to
-  // mount the portal on the next commit.  Using useMemo would return
-  // document.body synchronously on the client during the hydration render,
-  // diverging from the server and causing a hydration mismatch.
+  // Why useState + useEffect (and not useMemo)?
+  //   `{portalTarget && createPortal(...)}` produces a fiber in the parent
+  //   tree's child list when `portalTarget` is non-null. If useMemo returned
+  //   `document.body` synchronously on the client, hydration would compare
+  //   the SSR HTML (no portal fiber) against the client tree (has portal
+  //   fiber) and mismatch. Starting at `null` and switching after mount keeps
+  //   the first client render identical to the server output.
+  //
+  // The Next.js `react-hooks/set-state-in-effect` lint is intentionally
+  // suppressed here — this is the canonical "client-only initialisation
+  // after hydration" pattern documented in `docs/rules/rules.md`.
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalTarget(document.body);
   }, []);
 
@@ -685,9 +691,9 @@ export function SocialProofSection({
       <section ref={sectionRef} className="sp-section hidden md:block" data-theme="custom">
         <SectionHeadline line1={headlineLine1} line2={headlineLine2} />
 
-        <div className="sp-thumbs" aria-label="Customer video clips" role="list">
+        <ul className="sp-thumbs" aria-label="Customer video clips">
           {thumbnails.map((thumb, i) => (
-            <div
+            <li
               key={i}
               ref={(el) => {
                 wrapperRefs.current[i] = el;
@@ -703,7 +709,7 @@ export function SocialProofSection({
               }
             >
               <button
-                role="listitem"
+                type="button"
                 className="sp-thumb"
                 onClick={() => openModal(i)}
                 aria-label={`Play customer testimonial ${i + 1}`}
@@ -732,9 +738,9 @@ export function SocialProofSection({
                     : undefined
                 }
               />
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/*

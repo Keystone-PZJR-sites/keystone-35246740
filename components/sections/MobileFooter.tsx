@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { KeystoneMark } from '@/components/elements';
+import { KeystoneMark, SocialIcon } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
-import { setPixelUserData, captureEvent } from 'keystone-design-bootstrap/tracking';
+import { useEmailSignup } from '@/lib/useEmailSignup';
 import type { OversizedFooterProps } from './OversizedFooter';
 
 // ---------------------------------------------------------------------------
@@ -13,39 +12,6 @@ import type { OversizedFooterProps } from './OversizedFooter';
 // ---------------------------------------------------------------------------
 
 export type MobileFooterProps = OversizedFooterProps;
-
-// ---------------------------------------------------------------------------
-// Sub-components
-// ---------------------------------------------------------------------------
-
-interface SocialBtnProps {
-  href: string;
-  label: string;
-  children: React.ReactNode;
-}
-
-function SocialBtn({ href, label, children }: SocialBtnProps) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="mfooter-social-btn"
-    >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        {children}
-      </svg>
-    </a>
-  );
-}
 
 // ---------------------------------------------------------------------------
 // Main component
@@ -70,39 +36,7 @@ export function MobileFooter({
   videoE,
 }: MobileFooterProps) {
   const { openModal } = useLeadCapture();
-
-  const [emailValue, setEmailValue] = useState('');
-  const [signUpState, setSignUpState] = useState<'idle' | 'submitting' | 'success' | 'error'>(
-    'idle'
-  );
-  const [signUpError, setSignUpError] = useState('');
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!emailValue.trim()) return;
-    setSignUpState('submitting');
-    setSignUpError('');
-    try {
-      const res = await fetch('/api/form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formType: 'marketing_list_signup', email: emailValue.trim() }),
-      });
-      const result = (await res.json()) as { success: boolean; error?: string };
-      if (result.success) {
-        await setPixelUserData({ email: emailValue.trim() });
-        await captureEvent('form_submitted', { form_type: 'marketing_list_signup' });
-        setSignUpState('success');
-        setEmailValue('');
-      } else {
-        setSignUpError(result.error ?? 'Something went wrong. Please try again.');
-        setSignUpState('error');
-      }
-    } catch {
-      setSignUpError('Something went wrong. Please try again.');
-      setSignUpState('error');
-    }
-  };
+  const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
 
   return (
     <footer className="mfooter-section md:hidden" data-theme="custom">
@@ -207,42 +141,10 @@ export function MobileFooter({
           <span>.</span>
         </p>
         <div className="mfooter-social-icons">
-          {instagramUrl && (
-            <SocialBtn href={instagramUrl} label="Instagram">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M5.09 5.09A5.56 5.56 0 018 4a5.56 5.56 0 014.11 9.91A5.56 5.56 0 018 13.11a5.56 5.56 0 01-4.11-9.01l1.2 1.2A3.89 3.89 0 004.55 8c0 1.07.42 2.1 1.17 2.86A3.89 3.89 0 008 12c1.07 0 2.1-.42 2.86-1.17A3.89 3.89 0 0012 8c0-1.07-.42-2.1-1.17-2.86A3.89 3.89 0 008 4c-.77 0-1.52.23-2.17.63L5.09 5.09z"
-                fill="currentColor"
-              />
-              <circle cx="8" cy="8" r="2.33" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="11" cy="5" r="0.75" fill="currentColor" />
-            </SocialBtn>
-          )}
-          {facebookUrl && (
-            <SocialBtn href={facebookUrl} label="Facebook">
-              <path
-                d="M9.33 4H10.67V2H8.67C7.19 2 6 3.19 6 4.67V7H4v2h2v5h2V9h2.33L11 7H8V4.67C8 4.3 8.3 4 8.67 4h.66z"
-                fill="currentColor"
-              />
-            </SocialBtn>
-          )}
-          {youtubeUrl && (
-            <SocialBtn href={youtubeUrl} label="YouTube">
-              <path
-                d="M13.9 4.9a1.65 1.65 0 00-1.16-1.17C11.69 3.5 8 3.5 8 3.5s-3.69 0-4.74.23A1.65 1.65 0 002.1 4.9C1.88 5.96 1.88 8 1.88 8s0 2.04.22 3.1c.12.62.62 1.1 1.16 1.17C4.31 12.5 8 12.5 8 12.5s3.69 0 4.74-.23c.54-.07 1.04-.55 1.16-1.17.22-1.06.22-3.1.22-3.1s0-2.04-.22-3.1zM6.5 10V6l3.5 2-3.5 2z"
-                fill="currentColor"
-              />
-            </SocialBtn>
-          )}
-          {linkedinUrl && (
-            <SocialBtn href={linkedinUrl} label="LinkedIn">
-              <path
-                d="M3 4a1 1 0 112 0 1 1 0 01-2 0zm0 2.5h2V13H3V6.5zm4 0h1.9v.9h.02C9.28 6.9 10.1 6.4 11.2 6.4 13.16 6.4 14 7.5 14 9.46V13h-2V9.9c0-.77-.01-1.76-1.07-1.76-1.07 0-1.24.84-1.24 1.7V13H7V6.5z"
-                fill="currentColor"
-              />
-            </SocialBtn>
-          )}
+          <SocialIcon platform="instagram" href={instagramUrl} variant="mobile" className="mfooter-social-btn" />
+          <SocialIcon platform="facebook"  href={facebookUrl}  variant="mobile" className="mfooter-social-btn" />
+          <SocialIcon platform="youtube"   href={youtubeUrl}   variant="mobile" className="mfooter-social-btn" />
+          <SocialIcon platform="linkedin"  href={linkedinUrl}  variant="mobile" className="mfooter-social-btn" />
         </div>
       </div>
 
@@ -260,9 +162,9 @@ export function MobileFooter({
             <input
               className="mfooter-email-input"
               type="email"
+              name="email"
+              required
               placeholder={emailPlaceholder}
-              value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
               aria-label={emailPlaceholder}
               disabled={signUpState === 'submitting'}
             />
@@ -307,7 +209,14 @@ export function MobileFooter({
         <Link href="/privacy" className="mfooter-legal-link">
           Privacy
         </Link>
-        <span className="mfooter-legal-text">© {new Date().getFullYear()} Keystone</span>
+        {/* `new Date().getFullYear()` differs between server and client across
+            the Dec 31 → Jan 1 boundary (server may serialise the old year while
+            the hydrating browser sees the new one). suppressHydrationWarning
+            is the React-blessed escape hatch for genuinely unstable values
+            like wall-clock dates. */}
+        <span className="mfooter-legal-text" suppressHydrationWarning>
+          © {new Date().getFullYear()} Keystone
+        </span>
       </div>
     </footer>
   );
