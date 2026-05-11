@@ -50,6 +50,27 @@ When available, use `SplitText` on FK Screamer headlines to split into individua
 
 ---
 
+## Homepage Pinning Toggle
+
+The homepage scroll-state machine — every section pinning, snapping, and
+holding the visitor while its entrance animation plays (spec 011) — is
+gated by a single boolean in `lib/sectionPin.ts`:
+
+```ts
+export const HOMEPAGE_PINNING_ENABLED = false;
+```
+
+When `false` (the current default), no section pins. The visitor scrolls
+the page freely. Entrance animations still play once when each section
+first enters the viewport, so elements that start at `opacity: 0` still
+reveal — only the pin / snap / hold goes away.
+
+This is the only place to flip the behaviour. There is no per-section
+override and no environment variable. Flipping the constant immediately
+affects every desktop and mobile section that calls `createSectionPin`.
+
+---
+
 ## Performance Notes
 
 - Never create a ScrollTrigger inside a `useEffect` that runs on every render.

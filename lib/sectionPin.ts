@@ -6,6 +6,32 @@ import { log } from './logger';
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 // ---------------------------------------------------------------------------
+// Homepage pinning toggle
+// ---------------------------------------------------------------------------
+
+/**
+ * Master switch for the homepage scroll-state machine.
+ *
+ * When `true` (the spec 011 design intent): every full-viewport section pins,
+ * snaps to its boundaries, and holds the visitor in place while its entrance
+ * animation plays — the "powerpoint slide" experience.
+ *
+ * When `false` (the default today): no section pins. The visitor scrolls
+ * through the page freely. Entrance animations still play once when each
+ * section first enters the viewport, so elements that start at `opacity: 0`
+ * still reveal — only the pin / snap / hold behaviour goes away.
+ *
+ * This is the single knob. Flip it here and every call to `createSectionPin`
+ * across the site (desktop and mobile) reacts in lockstep. There is no
+ * per-section override and there should never be one — the whole point is
+ * that the homepage is one cohesive scroll experience.
+ *
+ * If you change this default, also update the spec 011 status note and the
+ * pinning section in `docs/explainers/animations.md`.
+ */
+export const HOMEPAGE_PINNING_ENABLED = false;
+
+// ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
 
@@ -98,6 +124,38 @@ export function createSectionPin({
     log(id, 'ENTER_DISPATCHED', { reason });
     onEnter();
   };
+
+  // Pinning disabled — no pin, no snap, no hold. We still fire `onEnter`
+  // once on viewport entry so entrance animations play; without that, every
+  // section that starts at `opacity: 0` would stay invisible.
+  //
+  // `fireOnScroll` is honoured: the hero is in the viewport at scroll=0 on
+  // page load, and we still don't want its headline animation to fire before
+  // the visitor has moved.
+  if (!HOMEPAGE_PINNING_ENABLED) {
+    log(id, 'CREATED_NO_PIN', { offsetHeight: section.offsetHeight, fireOnScroll });
+    // `isAnimComplete` is unused when not pinning — there is no hold to
+    // gate. Reading it keeps the callsite contract honest and silences the
+    // unused-parameter lint without a suppression.
+    void isAnimComplete;
+    ScrollTrigger.create({
+      id,
+      trigger: section,
+      // For sections that should fire only after the visitor scrolls,
+      // wait until the section has scrolled up by 2% of viewport height
+      // (matches the same 2% commit threshold the pinned path uses).
+      // Other sections fire when their top edge reaches 80% from the top
+      // of the viewport — the project-wide entrance trigger from
+      // docs/explainers/animations.md.
+      start: fireOnScroll ? 'top top-=2%' : 'top 80%',
+      once: true,
+      onEnter: () => {
+        log(id, 'ON_ENTER_NO_PIN');
+        dispatchEnter(fireOnScroll ? 'first-scroll' : 'on-enter');
+      },
+    });
+    return;
+  }
 
   log(id, 'CREATED', { offsetHeight: section.offsetHeight, fireOnScroll });
 
