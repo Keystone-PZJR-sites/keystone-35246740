@@ -186,6 +186,15 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
 
   const currentTool = tools[activeIndex];
 
+  // Per-tool overrides: mobile data may differ from desktop. The mobile
+  // screenshot defaults to the desktop primary (front of the layered stack)
+  // when no `mobileScreenshotSrc` is provided. Mobile copy and inactive
+  // border fall back to the desktop values when no override exists.
+  const mobileScreenshot =
+    currentTool.mobileScreenshotSrc ?? currentTool.screenshotLayers[0];
+  const mobileCopy = currentTool.mobileCopyText ?? currentTool.copyText;
+  const mobileBorder = currentTool.mobileInactiveBorder ?? currentTool.inactiveBorder;
+
   return (
     <div className="mps-mobile-container md:hidden">
       <section
@@ -194,13 +203,28 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
         style={{ backgroundColor: currentTool.cardBg }}
         aria-label="Product showcase"
       >
+        {/* Decorative bg panel: per-tool darker shade of the card background
+            (spec 024 § Visual design — mobile). Rendered FIRST so it paints
+            behind the screenshot and the left content zone — Figma's design
+            tints the section bg behind the content but never the screenshot.
+            Color and opacity are forwarded as inline styles so each tool
+            gets its Figma-verified value. */}
+        <div
+          className="mps-mobile-deco"
+          aria-hidden="true"
+          style={{
+            backgroundColor: currentTool.mobileDecoColor,
+            opacity: currentTool.mobileDecoOpacity,
+          }}
+        />
+
         {/* Screenshot clip layer — overflow:hidden clips the screenshot at the
             right edge. Separate from the section so pill offsets can extend
             outside the section bounds during the convergence animation. */}
         <div className="mps-mobile-screenshot-clip">
           <div ref={screenshotRef} className="mps-mobile-screenshot-zone">
             <Image
-              src={currentTool.screenshotSrc}
+              src={mobileScreenshot}
               alt=""
               fill
               className="mps-mobile-screenshot-img"
@@ -209,18 +233,12 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
           </div>
         </div>
 
-        {/* Decorative bg shape: slightly darker rounded rect behind content.
-            Uses rgba(0,0,0,0.15) so the darkening effect holds for every tool
-            without needing to derive a per-tool colour. */}
-        <div
-          className="mps-mobile-deco"
-          aria-hidden="true"
-        />
-
         {/* Left zone: mark + tool label + value copy */}
         <div ref={leftZoneRef} className="mps-mobile-left-zone">
+          {/* Mobile mark color matches the copy accent so the mark, label,
+              and copy read as a single visual block (spec 024). */}
           <KeystoneMark
-            color={currentTool.markColor}
+            color={currentTool.copyAccent}
             width={26}
             height={30}
           />
@@ -234,7 +252,7 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
             className="mps-mobile-copy"
             style={{ color: currentTool.copyAccent }}
           >
-            {currentTool.copyText}
+            {mobileCopy}
           </p>
         </div>
 
@@ -256,7 +274,9 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
                     ? { backgroundColor: tool.pillFill, border: 'none' }
                     : {
                         backgroundColor: 'transparent',
-                        border: `1px solid ${currentTool.inactiveBorder}`,
+                        borderWidth: 'var(--mps-pill-border-w)',
+                        borderStyle: 'solid',
+                        borderColor: mobileBorder,
                       }
                 }
                 onClick={() => handlePillClick(i)}
@@ -274,7 +294,7 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
                 />
                 <span
                   className="mps-mobile-pill-label"
-                  style={{ color: isActive ? currentTool.cardBg : '#f8f7f2' }}
+                  style={isActive ? { color: currentTool.cardBg } : undefined}
                 >
                   {tool.label}
                 </span>

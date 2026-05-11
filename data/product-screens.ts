@@ -1,6 +1,21 @@
 import type { ProductScreensTool } from '@/components/sections';
 
-// All values from Figma node 1087:2360.
+/*
+ * Product Screens — per-tool content.
+ *
+ * Desktop values verified against Figma node `1087:2360` (file `XRbD11WIevI5szRFiRrguZ`),
+ * one variant per tool. Mobile values verified against node `1255:1117` (the Leads
+ * mobile variant). Per spec 024, the other six tools share the mobile layout with
+ * per-tool data overrides; values not present in Figma for those tools are derived
+ * from each tool's `cardBg` using the same darker-shade relationship Figma uses
+ * for Leads (RGB scaled to ~70 % luminance, paired with opacity 0.8).
+ *
+ * Screenshot layers are ordered front-to-back: index 0 is the visible primary,
+ * later indices sit behind it. The deepest layer for every tool is the universal
+ * "Contacts" UI (`screen-stack-base.png`), which Figma reuses across all variants.
+ * Three tools (Social, Sales, Reviews) share the same back-1 calendar UI
+ * (`screen-stack-calendar.png`).
+ */
 export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
   {
     id: 'web',
@@ -13,7 +28,13 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'A fast, conversion-optimized site built to your brand and kept current without you lifting a finger.',
     markColor: '#267D54',
-    screenshotSrc: '/product-screens/screen-web.png',
+    screenshotLayers: [
+      '/product-screens/screen-web.png',
+      '/product-screens/screen-web-back-1.png',
+      '/product-screens/screen-stack-base.png',
+    ],
+    mobileDecoColor: '#031611',
+    mobileDecoOpacity: 0.8,
   },
   {
     id: 'leads',
@@ -26,7 +47,15 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'Every inbound lead gets a reply in minutes — 24/7 — so warm interest never goes cold.',
     markColor: '#E0A733',
-    screenshotSrc: '/product-screens/screen-leads.png',
+    screenshotLayers: [
+      '/product-screens/screen-leads.png',
+      '/product-screens/screen-stack-base.png',
+    ],
+    mobileCopyText:
+      'A team of experts running your marketing while you run your business.',
+    mobileInactiveBorder: '#513b2a',
+    mobileDecoColor: '#2f2218',
+    mobileDecoOpacity: 0.8,
   },
   {
     id: 'ads',
@@ -39,7 +68,12 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'Meta campaigns that target the right customers, in your market, with the right offer at the right moment.',
     markColor: '#9F3722',
-    screenshotSrc: '/product-screens/screen-ads.png',
+    screenshotLayers: [
+      '/product-screens/screen-ads.png',
+      '/product-screens/screen-ads-back-1.png',
+    ],
+    mobileDecoColor: '#2a0f11',
+    mobileDecoOpacity: 0.8,
   },
   {
     id: 'social',
@@ -52,7 +86,13 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#6E3CA7',
-    screenshotSrc: '/product-screens/screen-social.png',
+    screenshotLayers: [
+      '/product-screens/screen-social.png',
+      '/product-screens/screen-stack-calendar.png',
+      '/product-screens/screen-stack-base.png',
+    ],
+    mobileDecoColor: '#21092c',
+    mobileDecoOpacity: 0.8,
   },
   {
     id: 'sales',
@@ -65,7 +105,13 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#397DFF',
-    screenshotSrc: '/product-screens/screen-sales.png',
+    screenshotLayers: [
+      '/product-screens/screen-sales.png',
+      '/product-screens/screen-stack-calendar.png',
+      '/product-screens/screen-stack-base.png',
+    ],
+    mobileDecoColor: '#0a182b',
+    mobileDecoOpacity: 0.8,
   },
   {
     id: 'reviews',
@@ -78,7 +124,13 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#399587',
-    screenshotSrc: '/product-screens/screen-reviews.png',
+    screenshotLayers: [
+      '/product-screens/screen-reviews.png',
+      '/product-screens/screen-stack-calendar.png',
+      '/product-screens/screen-stack-base.png',
+    ],
+    mobileDecoColor: '#091d1c',
+    mobileDecoOpacity: 0.8,
   },
   {
     id: 'content',
@@ -90,6 +142,11 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#f38bb0',
     copyText: 'Continuous, search-optimized content that builds your visibility over time.',
     markColor: '#DD6F96',
-    screenshotSrc: '/product-screens/screen-content.png',
+    screenshotLayers: [
+      '/product-screens/screen-content.png',
+      '/product-screens/screen-stack-base.png',
+    ],
+    mobileDecoColor: '#2b0d19',
+    mobileDecoOpacity: 0.8,
   },
 ];

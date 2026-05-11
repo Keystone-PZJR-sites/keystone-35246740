@@ -21,7 +21,23 @@ export interface ProductScreensTool {
   squareColor: string;
   copyText: string;
   markColor: string;
-  screenshotSrc: string;
+  /**
+   * Front-to-back stack of screenshot asset paths for desktop. The first entry
+   * is the visible primary; subsequent entries sit behind it and create the
+   * page-stack depth effect described in spec 024. Layer count varies per
+   * tool (Figma node `1087:2360`): some tools have 2 layers, others 3.
+   */
+  screenshotLayers: string[];
+  /** Optional override when the mobile screenshot differs from desktop primary. */
+  mobileScreenshotSrc?: string;
+  /** Optional override when the mobile copy differs from the desktop copy. */
+  mobileCopyText?: string;
+  /** Optional override when the mobile inactive pill border differs from desktop. */
+  mobileInactiveBorder?: string;
+  /** Per-tool fill behind the mobile content — a darker shade of `cardBg`. */
+  mobileDecoColor: string;
+  /** Per-tool opacity for the mobile decorative panel fill (0–1). */
+  mobileDecoOpacity: number;
 }
 
 export interface ProductScreensProps {
@@ -244,15 +260,30 @@ export function ProductScreens({ tools }: ProductScreensProps) {
           </p>
         </div>
 
-        {/* Right content zone: product UI screenshot */}
+        {/*
+          Right content zone: stacked screenshot composition.
+          The screenshot is wider than the card; the card's overflow:hidden
+          clips it at the right rounded corner. Renders one layer per entry
+          in `tool.screenshotLayers`, front-to-back. The CSS uses the
+          `data-depth` attribute to offset each back layer behind the
+          previous, producing the page-stack depth effect (spec 024).
+        */}
         <div ref={screenshotRef} className="ps-screenshot-zone">
-          <Image
-            src={currentTool.screenshotSrc}
-            alt=""
-            fill
-            className="ps-screenshot-img"
-            unoptimized
-          />
+          {currentTool.screenshotLayers.map((src, depth) => (
+            <div
+              key={`${currentTool.id}-${depth}`}
+              className="ps-screenshot-layer"
+              data-depth={depth}
+            >
+              <Image
+                src={src}
+                alt=""
+                fill
+                className="ps-screenshot-img"
+                unoptimized
+              />
+            </div>
+          ))}
         </div>
       </div>
 
@@ -274,7 +305,9 @@ export function ProductScreens({ tools }: ProductScreensProps) {
                   ? { backgroundColor: tool.pillFill, border: 'none' }
                   : {
                       backgroundColor: 'transparent',
-                      border: `1.346px solid ${currentTool.inactiveBorder}`,
+                      borderWidth: 'var(--ps-pill-border-w)',
+                      borderStyle: 'solid',
+                      borderColor: currentTool.inactiveBorder,
                     }
               }
               onClick={() => handlePillClick(i)}
@@ -292,7 +325,7 @@ export function ProductScreens({ tools }: ProductScreensProps) {
               />
               <span
                 className="ps-pill-label"
-                style={{ color: isActive ? currentTool.cardBg : '#f8f7f2' }}
+                style={isActive ? { color: currentTool.cardBg } : undefined}
               >
                 {tool.label}
               </span>

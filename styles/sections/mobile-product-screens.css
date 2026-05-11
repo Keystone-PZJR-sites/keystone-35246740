@@ -1,9 +1,92 @@
 /* ==================== MOBILE PRODUCT SCREENS ==================== */
-/* Shown below 768px only (md:hidden on the component wrapper).   */
+/*
+ * Spec 024 (refresh of Spec 018). Renders below 768 px via `md:hidden` on
+ * the wrapper. All measurements come from Figma node 1255:1117 at the
+ * 393 × 852 reference viewport. Repeated raw values are promoted to per-
+ * section custom properties (--mps-*) so they have one source of truth.
+ *
+ * Fluid scaling: horizontal positions of edge-aligned content use the
+ * standard 24 px mobile gutter (codebase convention — see rules.md
+ * § Mobile section pattern). Other measurements use vw / vh so they hold
+ * their Figma proportions across the mobile range (320 – 767 px wide,
+ * 568 – 932 px tall) without a hard breakpoint switch.
+ *
+ * Mobile design provides only the Leads variant (node 1255:1117). The
+ * other six tools share this layout with per-tool data overrides
+ * (`mobileDecoColor`, `mobileCopyText`, `mobileInactiveBorder`) read from
+ * Figma per spec 024 § Visual design — mobile.
+ */
 
-/* --- Outer container: stable layout boundary --- */
 .mps-mobile-container {
   position: relative;
+
+  /* === Per-section design tokens (Figma node 1255:1117 @ 393 × 852) === */
+
+  /* Standard mobile content gutter — 24 px for consistency with the rest
+     of the mobile layouts. Figma renders this section at ~36 px, but the
+     codebase convention (rules.md § Mobile section pattern) and visual
+     equivalence to other mobile sections take precedence. */
+  --mps-gutter: 24px;
+
+  /* Pill nav.
+     Top y = 56 / 852 = 6.57 vh. Two-row centered grid (4 + 3 in the Leads
+     variant) with the Figma per-pill geometry. */
+  --mps-pill-top: 6.57vh;
+  --mps-pill-gap: 6px;
+  --mps-pill-padding-x: 12px;
+  --mps-pill-padding-y: 8px;
+  --mps-pill-border-w: 1px;
+  --mps-pill-square-size: 6px;
+  --mps-pill-label-size: 14px;
+  --mps-pill-label-tracking: -0.01em;
+  /* Off-white text for inactive pill labels. Same Figma value (#f8f7f2)
+     used by the desktop variant — promoted to a per-section token so the
+     component never reaches for a raw hex. */
+  --mps-pill-label-inactive-color: #f8f7f2;
+
+  /* Decorative panel.
+     Figma: x = 13 / 393 = 3.31 vw, y = 208 / 852 = 24.41 vh,
+     width = 500.76 / 393 = 127.42 %, height = 626.53 / 852 = 73.54 vh.
+     The corner radius uses Figma `radius-3xl` like the desktop card. */
+  --mps-deco-x: 3.3vw;
+  --mps-deco-y: 24.4vh;
+  --mps-deco-w: 127%;
+  --mps-deco-h: 73.5vh;
+  --mps-deco-radius: 15px;
+
+  /* Left content zone.
+     Mark top y = 234.74 / 852 = 27.55 vh.
+     Mark size 26 × 30 px (Figma 26.51 × 30 — the KeystoneMark component
+     scales by width and derives height from its intrinsic ratio). */
+  --mps-left-zone-y: 27.5vh;
+  --mps-mark-w: 26px;
+  --mps-left-zone-w-max: 302px;     /* Copy max-width per Figma (302.07 px) */
+
+  /* Tool label (small caps in monospace).
+     Figma: 10 px, line-height 1, letter-spacing -0.2 px / 10 px = -2 %.
+     Vertical gap from mark bottom to label top = 50.44 px ≈ 5.9 vh. */
+  --mps-label-size: 10px;
+  --mps-label-tracking: -0.02em;
+  --mps-label-mark-gap: 5.9vh;
+
+  /* Value copy.
+     Figma: 16 px, line-height 1.2, letter-spacing -0.48 px / 16 px = -3 %.
+     Vertical gap from label bottom to copy top ≈ 19 px ≈ 2.2 vh. */
+  --mps-copy-size: 16px;
+  --mps-copy-line: 1.2;
+  --mps-copy-tracking: -0.03em;
+  --mps-copy-label-gap: 2.2vh;
+
+  /* Screenshot.
+     Figma: x = 35.76 / 393 ≈ 9.1 % (ignored — we use the standard 24 px
+     gutter), y = 404.68 / 852 = 47.5 vh, width = 623.41 / 393 = 158.5 %,
+     height = 405.15 / 852 = 47.5 vh. The intentional clip past the right
+     edge is created by the screenshot's 158 % width inside the section's
+     overflow:hidden clip. */
+  --mps-screenshot-y: 47.5vh;
+  --mps-screenshot-w: 158.5%;
+  --mps-screenshot-h: 47.5vh;
+  --mps-screenshot-radius: 13px;
 }
 
 /* --- Section: full viewport, edge-to-edge dark background.
@@ -26,51 +109,48 @@
   pointer-events: none;
 }
 
-/* --- Decorative bg shape: slightly darker rounded rect, offset right.
-   left: 3.3vw = 13px at 393px reference width — scales proportionally.
-   top/height already in vh.                                              --- */
+/* --- Decorative bg panel: per-tool darker shade of the active tool's
+   card background. Color and opacity are forwarded as inline styles
+   (component reads `mobileDecoColor` and `mobileDecoOpacity` from data). --- */
 .mps-mobile-deco {
   position: absolute;
-  left: 3.3vw;
-  top: 24.4vh;
-  width: 127%;
-  height: 73.5vh;
-  border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.15);
+  left: var(--mps-deco-x);
+  top: var(--mps-deco-y);
+  width: var(--mps-deco-w);
+  height: var(--mps-deco-h);
+  border-radius: var(--mps-deco-radius);
   pointer-events: none;
+  /* background-color and opacity set via inline style. */
 }
 
-/* --- Pill nav: two-row flex, centred at top of section ---
-   top: 6.57vh = 56px at 852px reference height — scales proportionally. */
+/* --- Pill nav: two-row flex, centred at top of section. --- */
 .mps-mobile-pill-nav {
   position: absolute;
-  top: 6.57vh;
+  top: var(--mps-pill-top);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: calc(100% - 48px);
+  gap: var(--mps-pill-gap);
+  width: calc(100% - 2 * var(--mps-gutter));
   z-index: var(--z-sticky);
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* --- Individual pill button (mobile size) ---
-   Figma: px=12px py=8px gap=6px. --- */
 .mps-mobile-pill {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 9999px;
+  gap: var(--mps-pill-gap);
+  padding: var(--mps-pill-padding-y) var(--mps-pill-padding-x);
+  border-radius: 9999px;            /* Figma var `radius-full` */
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
-  /* border + background controlled via inline style */
+  /* border + background controlled inline (active vs inactive). */
 }
 
 .mps-mobile-pill:focus-visible {
@@ -78,91 +158,85 @@
   outline-offset: 2px;
 }
 
-/* --- Colour square inside each pill ---
-   Figma: size=6px --- */
 .mps-mobile-pill-square {
-  width: 6px;
-  height: 6px;
+  width: var(--mps-pill-square-size);
+  height: var(--mps-pill-square-size);
   flex-shrink: 0;
   display: block;
-  /* background-color set via inline style */
+  /* background-color set via inline style. */
 }
 
-/* --- Pill label --- */
 .mps-mobile-pill-label {
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--mps-pill-label-size);
   line-height: 1;
-  letter-spacing: -0.14px;
+  letter-spacing: var(--mps-pill-label-tracking);
   white-space: nowrap;
-  /* color set via inline style */
+  /* Default to the inactive (off-white) color; the active label color
+     (the tool's card background) is set via inline style on the active pill. */
+  color: var(--mps-pill-label-inactive-color);
 }
 
-/* --- Left zone: mark icon + tool label + value copy ---
-   left: 24px — standard mobile gutter (aligns with all other mobile sections).
-   top already in vh.                                                      --- */
+/* --- Left zone: mark icon + tool label + value copy. --- */
 .mps-mobile-left-zone {
   position: absolute;
-  left: 24px;
-  top: 27.5vh;
-  width: calc(100% - 48px);
-  max-width: 302px;
+  left: var(--mps-gutter);
+  top: var(--mps-left-zone-y);
+  width: calc(100% - 2 * var(--mps-gutter));
+  max-width: var(--mps-left-zone-w-max);
   z-index: var(--z-raised);
 }
 
-/* --- Tool label (e.g. "LEADS"): FK Grotesk Mono, 10px ---
-   Figma: mark-bottom=264.74px (234.74+30), label-top=315.18px.
-   Gap = 315.18 - 264.74 = 50.44px ≈ 5.9vh at 853px.              --- */
+/* --- Tool label (e.g. "LEADS"): FK Grotesk Mono. --- */
 .mps-mobile-tool-label {
   display: block;
   font-family: 'FK Grotesk Mono', monospace;
   font-weight: 400;
-  font-size: 10px;
+  font-size: var(--mps-label-size);
   line-height: 1;
-  letter-spacing: -0.2px;
-  margin-top: 5.9vh;
-  /* color set via inline style */
+  letter-spacing: var(--mps-label-tracking);
+  margin-top: var(--mps-label-mark-gap);
+  /* color set via inline style. */
 }
 
-/* --- Value copy text: FK Grotesk Neue Regular ---
-   Figma: font-size=16px, line-height=1.2, letter-spacing=-0.48px.
-   Label bottom = 325.18px (315.18+10). Copy top ≈ 344px.
-   Gap ≈ 19px ≈ 2.2vh at 853px.                                    --- */
+/* --- Value copy text: FK Grotesk Neue Regular. --- */
 .mps-mobile-copy {
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.2;
-  letter-spacing: -0.48px;
-  margin-top: 2.2vh;
-  /* color set via inline style */
+  font-size: var(--mps-copy-size);
+  line-height: var(--mps-copy-line);
+  letter-spacing: var(--mps-copy-tracking);
+  margin-top: var(--mps-copy-label-gap);
+  /* color set via inline style. */
 }
 
-/* --- Screenshot zone: starts at left=24px, extends past the right edge ---
-   Figma: left=35.76px≈6%, top=404.68px≈47.5vh, width=623.407px≈158.5%,
-   height=405.154px≈47.5vh, border-radius=13.041px. --- */
+/* --- Screenshot zone: starts at the section gutter, extends past the
+   right edge. The portion past the viewport is clipped by
+   .mps-mobile-screenshot-clip's overflow:hidden. --- */
 .mps-mobile-screenshot-zone {
   position: absolute;
-  left: 6%;
-  top: 47.5vh;
-  width: 158.5%;  /* 623.407 / 393 ≈ 158.5% — extends beyond right */
-  height: 47.5vh; /* 405.154 / 853 ≈ 47.5vh */
-  border-radius: 13px;
+  left: var(--mps-gutter);
+  top: var(--mps-screenshot-y);
+  width: var(--mps-screenshot-w);
+  height: var(--mps-screenshot-h);
+  border-radius: var(--mps-screenshot-radius);
   overflow: hidden;
 }
 
-/* --- Screenshot image fills the zone --- */
 .mps-mobile-screenshot-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top left;
   max-width: none;
   display: block;
   pointer-events: none;
 }
 
 /* ==================== MOBILE PRODUCT SCREENS — REDUCED MOTION ==================== */
-/* (No transition properties are defined on .mps-mobile-pill, so no override needed.) */
+/* No transition properties are defined on .mps-mobile-pill, so no override
+   needed. GSAP entrance animation gates on prefers-reduced-motion via
+   gsap.matchMedia inside MobileProductScreens.tsx. */
