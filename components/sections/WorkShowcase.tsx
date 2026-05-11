@@ -3349,7 +3349,7 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
       </div>
 
       {/* Category bar + sub-labels — bottom-anchored, always 24px from section bottom */}
-      <div className="absolute bottom-6 left-0 right-0 hidden flex-col items-center gap-2 md:flex">
+      <div className="absolute bottom-12 left-0 right-0 hidden flex-col items-center gap-4 md:flex">
         <div className="flex items-end gap-[24px]">
           {industries.map((industry, i) => (
             <button

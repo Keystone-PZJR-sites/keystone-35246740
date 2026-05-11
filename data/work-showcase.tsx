@@ -503,9 +503,9 @@ export const WORK_HEADLINE_PARTS: HeadlinePart[] = [
 export const WORK_CARDS: WorkCardData[] = [
   // Health & Body — X2O Studio
   { type: 'sales',   industryId: 'health', chipLabel: 'SALES',   content: healthSalesContent },
+  { type: 'web',     industryId: 'health', chipLabel: 'WEB',     content: healthWebContent },
   { type: 'ads',     industryId: 'health', chipLabel: 'ADS',     content: healthAdsContent },
   { type: 'social',  industryId: 'health', chipLabel: 'SOCIAL',  content: healthSocialContent },
-  { type: 'web',     industryId: 'health', chipLabel: 'WEB',     content: healthWebContent },
   { type: 'content', industryId: 'health', chipLabel: 'CONTENT', content: healthContentCardContent },
   // Food & Drink — Alma Café
   { type: 'ads',      industryId: 'food', chipLabel: 'ADS',      content: foodAdsContent },
@@ -525,10 +525,10 @@ export const WORK_CARDS: WorkCardData[] = [
   { type: 'ads',      industryId: 'retail', chipLabel: 'ADS',      content: retailAdsContent },
   { type: 'social',   industryId: 'retail', chipLabel: 'SOCIAL',   content: retailSocialContent },
   { type: 'content',  industryId: 'retail', chipLabel: 'CONTENT',  content: retailContentCardContent },
-  // Care & Maintenance — Good Dog Grooming (Figma order: WEB, LISTINGS, SOCIAL, ADS, SALES)
+  // Care & Maintenance — Good Dog Grooming
   { type: 'web',      industryId: 'care', chipLabel: 'WEB',      content: careWebContent },
+  { type: 'sales',    industryId: 'care', chipLabel: 'SALES',    content: careSalesContent },
+  { type: 'ads',      industryId: 'care', chipLabel: 'ADS',      content: careAdsContent },
   { type: 'listings', industryId: 'care', chipLabel: 'LISTINGS', content: careListingsContent },
   { type: 'social',   industryId: 'care', chipLabel: 'SOCIAL',   content: careSocialContent },
-  { type: 'ads',      industryId: 'care', chipLabel: 'ADS',      content: careAdsContent },
-  { type: 'sales',    industryId: 'care', chipLabel: 'SALES',    content: careSalesContent },
 ];
