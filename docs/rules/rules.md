@@ -31,6 +31,23 @@ Specs are written for a non-technical Figma-literate reader, in design language 
 
 ---
 
+## Specs Are Immutable
+
+Specs are append-only, like database migrations. Once a spec exists, its body is not edited to reflect new behaviour, new defaults, or new intent. The `Status` line and acceptance-criteria checkboxes within an existing spec may be updated as that spec is implemented and verified — nothing else.
+
+When the design intent changes, write a **new spec** with the next sequential number. The new spec describes what is changing and why, and lists the prior spec under `Depends on:`. The old spec stays exactly as it was — a frozen statement of what the design intended at the time it was written.
+
+This matters because specs are referenced from code comments, commit messages, and other specs by their number. Editing an old spec invalidates every reference to it without warning. A reader who follows a `// see Spec 011` comment expects to find what Spec 011 said when the comment was written — not a later edit.
+
+Two exceptions exist for revising the same section:
+
+- **`.r1`, `.r2` suffixes on the same number** — a focused revision of one section that supersedes earlier revisions of that same section (`002_work_showcase.md` → `002_work_showcase.r1.md` → `002_work_showcase.r2.md`). Use this when the revision is contained to one section's visual design.
+- **A new sequential number with a `_refresh` (or similar) suffix** — a substantive redesign that needs to live alongside the original (`007_productscreens.md` → `024_product_screens_refresh.md`). Use this when the change is large enough that future readers benefit from seeing both side by side.
+
+In both cases the prior spec is left unedited.
+
+---
+
 ## Figma Links Are Read Through the MCP
 
 Every Figma node URL in a spec, comment, or chat message exists to be opened through the Figma MCP. This applies to spec authoring, implementation, asset refreshes, and revisions — every workflow that touches the design.
