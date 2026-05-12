@@ -142,7 +142,10 @@
   background: transparent;
   border: none;
   outline: none;
-  width: 100%;
+  /* flex: 1 fills the available space left of the Sign Up button.
+     Using flex shorthand rather than width: 100% avoids the flex-basis
+     ambiguity that caused the button to have no right breathing room. */
+  flex: 1 1 auto;
   min-width: 0;
 }
 
@@ -180,29 +183,63 @@
   aspect-ratio: 1389.5 / 268.297;
 }
 
-/* --- Lower zone three-column grid layout --- */
+/* Container makes the wordmark+legal stack a positioning context so the
+   legal row can be pinned to the descender bottom absolutely. */
+.footer-wordmark-container {
+  position: relative;
+}
+
+/* --- Lower zone three-column grid layout ---
+   Proportions mirror the Figma canvas (1440px):
+     col1 ≈ 404px (29%)  col2 ≈ 606px (43%)  col3 ≈ 382px (28%)
+   1fr : 1.5fr : 1fr gives the closest fluid equivalent.               */
 .footer-lower-grid {
   display: grid;
   grid-template-areas:
     "tag1 tag2 tag3"
     "act1 act2 act3";
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr 1fr;
   column-gap: clamp(16px, 2.78vw, 40px);
   row-gap: clamp(32px, 4.17vw, 60px);
 }
 
-.footer-lower-tag1 { grid-area: tag1; }
-.footer-lower-tag2 { grid-area: tag2; }
-.footer-lower-tag3 { grid-area: tag3; }
-.footer-lower-act1 { grid-area: act1; }
+.footer-lower-tag1 { grid-area: tag1; max-width: 244px; }
+.footer-lower-tag2 { grid-area: tag2; max-width: 397px; }
+.footer-lower-tag3 { grid-area: tag3; max-width: 278px; }
+.footer-lower-act1 { grid-area: act1; display: flex; align-items: center; }
 .footer-lower-act2 { grid-area: act2; }
-.footer-lower-act3 { grid-area: act3; }
+.footer-lower-act3 { grid-area: act3; display: flex; align-items: center; container-type: inline-size; }
 
 /* --- Social icon links --- */
+
+/* Default: all 6 icons on a single nowrap row, scaling 48→32px as viewport
+   narrows. The clamp is calibrated so icons hit 32px at exactly the viewport
+   where 6×32px + 5×16px = the col3 grid-column width (~1059px), meaning
+   wrapping cannot happen before icons reach their minimum. */
 .footer-social-icons {
   display: flex;
-  gap: 12px;
+  flex-wrap: nowrap;
+  gap: 16px;
   align-items: center;
+}
+
+.footer-social-link {
+  flex-shrink: 0;
+}
+
+.footer-social-link svg {
+  width: clamp(32px, 3.02vw, 48px);
+  height: clamp(32px, 3.02vw, 48px);
+  display: block;
+}
+
+/* When act3 column shrinks below the 6-icon minimum (6×32 + 5×16 = 272px),
+   switch to a 3-column grid so icons wrap 3+3 instead of 5+1. */
+@container (max-width: 271px) {
+  .footer-social-icons {
+    display: grid;
+    grid-template-columns: repeat(3, clamp(32px, 3.02vw, 48px));
+  }
 }
 
 .footer-social-link {
@@ -217,4 +254,29 @@
 
 /* No reduced-motion overrides needed — there are no CSS animations or
    transitions in this stylesheet, and the footer is not GSAP-animated. */
+
+/* --- Legal row (Terms · Privacy · ©) below the wordmark ---
+   Absolutely positioned so its bottom edge sits exactly on the bottom of
+   the wordmark SVG (= the descender of the "y" in "keystone"). */
+.footer-legal {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.42px;
+  color: var(--color-work-chip-bg);
+}
+
+.footer-legal-link {
+  color: #B24934;
+  text-decoration: underline;
+  text-decoration-color: #B24934;
+  text-underline-offset: 3px;
+}
 

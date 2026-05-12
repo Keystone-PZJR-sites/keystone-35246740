@@ -59,6 +59,8 @@ export interface OversizedFooterProps {
   facebookUrl?: string;
   /** LinkedIn profile URL from company info */
   linkedinUrl?: string;
+  /** Apple Podcasts show URL */
+  applePodcastsUrl?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -91,7 +93,7 @@ interface PillButtonProps {
 
 function PillButton({ href, label, arrowSrc, variant, type, disabled }: PillButtonProps) {
   const baseClass =
-    'footer-btn-text flex h-12 items-center rounded-full px-4 gap-2';
+    'footer-btn-text flex h-12 shrink-0 items-center rounded-full px-4 gap-2';
   const colorClass =
     variant === 'orange'
       ? 'bg-[var(--color-work-accent)] text-[var(--color-footer-bg)]'
@@ -150,6 +152,7 @@ export function OversizedFooter({
   instagramUrl,
   facebookUrl,
   linkedinUrl,
+  applePodcastsUrl,
 }: OversizedFooterProps) {
   const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
@@ -216,34 +219,20 @@ export function OversizedFooter({
           <p className="footer-lower-tag3 footer-tagline">
             Read{' '}
             <Link href={cta1Href} className="footer-tagline-link">the blog</Link>
-            {' '}and check out{' '}
-            <a
-              href={podcastUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-tagline-link"
-            >our podcast</a>.
+            {' '}and check out our podcast.
           </p>
-          {/* ── Row 2, col 1: CTA pill ── */}
+          {/* ── Row 2, col 1: CTA — standalone "Get started" (no border wrapper, no Blog link) ── */}
           <div className="footer-lower-act1">
-            <div className="inline-flex items-center gap-3 rounded-full border border-[var(--color-work-accent)] p-3">
-              <Link
-                href={cta1Href}
-                className="footer-btn-text flex h-12 items-center rounded-full px-4 gap-2 bg-[var(--color-work-accent)] text-[var(--color-footer-bg)]"
-              >
-                <span>{cta1Label}</span>
-              </Link>
-              <button
-                type="button"
-                onClick={(e) => openModal(e.currentTarget)}
-                className="footer-btn-text flex h-12 items-center rounded-full px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
-              >
-                <span>{cta2Label}</span>
-                {ctaArrowSrc && (
-                  <Image src={ctaArrowSrc} width={16} height={16} alt="" aria-hidden="true" />
-                )}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={(e) => openModal(e.currentTarget)}
+              className="footer-btn-text flex h-12 shrink-0 items-center rounded-full px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
+            >
+              <span>{cta2Label}</span>
+              {ctaArrowSrc && (
+                <Image src={ctaArrowSrc} width={16} height={16} alt="" aria-hidden="true" />
+              )}
+            </button>
           </div>
 
           {/* ── Row 2, col 2: email signup ── */}
@@ -253,7 +242,7 @@ export function OversizedFooter({
             ) : (
               <form
                 onSubmit={handleSignUp}
-                className="flex items-center rounded-full border border-[var(--color-work-accent)] p-3 w-full"
+                className="flex items-center rounded-full border border-[#9f3722] p-3 w-full max-w-[480px]"
               >
                 <label htmlFor="footer-email" className="sr-only">
                   {emailPlaceholder}
@@ -270,7 +259,7 @@ export function OversizedFooter({
                 <PillButton
                   label={signUpState === 'submitting' ? '…' : signUpLabel}
                   arrowSrc={signUpState === 'submitting' ? undefined : ctaArrowSrc}
-                  variant="peach"
+                  variant="orange"
                   type="submit"
                   disabled={signUpState === 'submitting'}
                 />
@@ -284,17 +273,21 @@ export function OversizedFooter({
           {/* ── Row 2, col 3: social icons ── */}
           <div className="footer-lower-act3">
             <div className="footer-social-icons">
-              <SocialIcon platform="youtube"   href={youtubeUrl}   variant="desktop" className="footer-social-link" />
-              <SocialIcon platform="instagram" href={instagramUrl} variant="desktop" className="footer-social-link" />
-              <SocialIcon platform="facebook"  href={facebookUrl}  variant="desktop" className="footer-social-link" />
-              <SocialIcon platform="linkedin"  href={linkedinUrl}  variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="youtube"       href={youtubeUrl}       variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="spotify"       href={podcastUrl}       variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="applepodcasts" href={applePodcastsUrl} variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="instagram"     href={instagramUrl}     variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="facebook"      href={facebookUrl}      variant="desktop" className="footer-social-link" />
+              <SocialIcon platform="linkedin"      href={linkedinUrl}      variant="desktop" className="footer-social-link" />
             </div>
           </div>
 
         </div>
 
-        {/* Full-width wordmark — 60px gap from CTA bottom */}
-        <div className="mt-[60px] pb-[24px]">
+        {/* Full-width wordmark + legal overlay.
+            The legal row is absolutely positioned so its bottom edge aligns
+            with the bottom of the wordmark's descender (the "y" tail). */}
+        <div className="footer-wordmark-container mt-[60px]">
           <Image
             src={keystoneWordmarkSrc}
             alt="keystone"
@@ -302,6 +295,12 @@ export function OversizedFooter({
             width={1390}
             height={268}
           />
+          {/* Terms · Privacy · © */}
+          <div className="footer-legal">
+            <Link href="/terms" className="footer-legal-link">Terms</Link>
+            <Link href="/privacy" className="footer-legal-link">Privacy</Link>
+            <span>© {new Date().getFullYear()} Keystone</span>
+          </div>
         </div>
 
       </div>
