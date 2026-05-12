@@ -124,14 +124,16 @@
   pointer-events: auto;
 }
 
-/* --- Close button: directly positioned, no wrapper needed ---
-       right: 7vw → left edge at 93vw - 46px ≈ 1293px at 1440px (matches Figma).
-       top: calc(50vh - 24.895vw) ≡ (50vh - 23.435vw - 1.46vw)
-         where 1.46vw = 21px at 1440px — stays 21px above the video at every size. */
+/* --- Close button: centered on the top-right corner of the active video.
+       Video top-right corner:
+         right = 100vw − (8.67vw + 82.9vw) = 8.43vw from modal right
+         top   = 50vh − 23.435vw  (from .sp-slide-transition-wrap)
+       Button is 46px × 46px; offset by a full button-width (46px) on the
+       right axis so the centre lands exactly on the corner. */
 .sp-close-btn {
   position: absolute;
-  right: 7vw;
-  top: calc(50vh - 24.895vw);
+  right: calc(8.43vw - 40px);
+  top: calc(50vh - 23.435vw - 23px);
   display: flex;
   align-items: center;
   justify-content: center;

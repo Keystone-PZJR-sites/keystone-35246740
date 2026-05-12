@@ -29,12 +29,9 @@ export interface SocialProofSlide {
   /** Quote broken into segments; oblique segments render in italic */
   quoteSegments: QuoteSegment[];
   personName: string;
-  businessName: string;
   location: string;
   namePillBg: string;
   namePillText: string;
-  businessPillBg: string;
-  businessPillText: string;
   locationPillBg: string;
   locationPillText: string;
 }
@@ -173,20 +170,12 @@ function TestimonialCard({ slide, dimmed }: TestimonialCardProps) {
           )}
         </p>
         <div className="sp-card-attribution">
-          <div className="sp-card-pills-left">
-            <span
-              className="sp-card-pill"
-              style={{ backgroundColor: slide.namePillBg, color: slide.namePillText }}
-            >
-              {slide.personName}
-            </span>
-            <span
-              className="sp-card-pill"
-              style={{ backgroundColor: slide.businessPillBg, color: slide.businessPillText }}
-            >
-              {slide.businessName}
-            </span>
-          </div>
+          <span
+            className="sp-card-pill"
+            style={{ backgroundColor: slide.namePillBg, color: slide.namePillText }}
+          >
+            {slide.personName}
+          </span>
           <span
             className="sp-card-pill"
             style={{ backgroundColor: slide.locationPillBg, color: slide.locationPillText }}
