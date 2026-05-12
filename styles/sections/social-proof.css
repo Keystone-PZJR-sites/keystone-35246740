@@ -141,7 +141,8 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: var(--z-raised);
+  /* One level above sp-nav-prev/next so it always wins click events */
+  z-index: calc(var(--z-raised) + 1);
 }
 
 .sp-close-icon {
@@ -309,7 +310,9 @@
 
 /* --- Navigation hit areas for adjacent slides (position: absolute within modal) ---
    Raised above the dim overlay (which has no z-index) so clicks land on the
-   nav, not the dim layer. Within the modal's local stacking context. */
+   nav, not the dim layer. Within the modal's local stacking context.
+   Widths are kept narrow enough to leave the close button (right: 7vw, 46px wide)
+   fully clear of the nav-next hit area. */
 .sp-nav-prev,
 .sp-nav-next {
   position: absolute;
@@ -324,14 +327,18 @@
 
 .sp-nav-prev {
   left: 0;
-  /* 8.67vw ≡ 7.14vw + 22px at 1440px — pure vw, no mixed units */
-  width: 8.67vw;
+  /* 6.43vw = right edge of the previous slide's video from the modal origin.
+     Calculated as: prev slide start (−85.14vw) + video offset (8.67vw) + video width (82.9vw)
+     = 6.43vw. Stops at the video edge, not the gutter. */
+  width: 6.43vw;
 }
 
 .sp-nav-next {
   right: 0;
-  /* 8.43vw ≡ 100vw − (8.67vw + 82.9vw) at 1440px — pure vw */
-  width: 8.43vw;
+  /* 6.19vw = 100vw − left edge of the next slide's video from the modal origin.
+     Calculated as: 100vw − (next slide start (85.14vw) + video offset (8.67vw))
+     = 100vw − 93.81vw = 6.19vw. Stops at the video edge, not the gutter. */
+  width: 6.19vw;
 }
 
 /* ==================== SOCIAL PROOF — REDUCED MOTION ====================
