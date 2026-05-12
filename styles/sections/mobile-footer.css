@@ -176,15 +176,16 @@
   opacity: 0.9;
 }
 
-/* ── Row 2: Blog/Podcast text + Social icons ─────────────────────────────── */
+/* ── Row 2: Blog/Podcast text, then social icons below ──────────────────── */
 
 .mfooter-row-social {
-  /* 40px equal gap above (same as gap below social row) */
+  /* 40px gap above */
   margin-top: 40px;
   padding: 0 24px;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 16px;
 }
 
 .mfooter-social-copy {
@@ -195,9 +196,7 @@
   letter-spacing: -0.42px;
   color: #f57e56;
   max-width: 169px;
-  width: 100%;
   margin: 0;
-  flex-shrink: 0;
 }
 
 .mfooter-underline-link {
@@ -210,20 +209,20 @@
 
 .mfooter-social-icons {
   display: flex;
-  gap: 8px;
+  flex-direction: row;
+  gap: 16px;
   align-items: center;
-  flex-shrink: 0;
+}
+
+/* The desktop SocialIcon renders a 48×48 SVG; override to 32×32 for mobile. */
+.mfooter-social-btn svg {
+  width: 32px;
+  height: 32px;
+  display: block;
 }
 
 .mfooter-social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background-color: #f57e56;
-  color: #3d1719;
+  display: block;
   flex-shrink: 0;
   text-decoration: none;
 }
@@ -251,7 +250,7 @@
   line-height: 1.2;
   letter-spacing: -0.42px;
   color: #f57e56;
-  max-width: 169px;
+  max-width: 251px;
   width: 100%;
   margin: 0;
 }

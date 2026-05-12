@@ -28,6 +28,7 @@ export function MobileFooter({
   instagramUrl,
   facebookUrl,
   linkedinUrl,
+  applePodcastsUrl,
   keystoneMarkColor,
   ctaArrowSrc,
   keystoneWordmarkSrc,
@@ -122,29 +123,22 @@ export function MobileFooter({
         </button>
       </div>
 
-      {/* Row 2: Blog/Podcast text + Social icons */}
+      {/* Row 2: Blog/Podcast text + Social icons (2-col × 3-row grid) */}
       <div className="mfooter-row-social">
         <p className="mfooter-social-copy">
           <span>Read </span>
           <Link href={cta1Href} className="mfooter-underline-link">
             the blog
           </Link>
-          <span> and check out </span>
-          <a
-            href={podcastUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mfooter-underline-link"
-          >
-            our podcast
-          </a>
-          <span>.</span>
+          <span> and check out our podcast.</span>
         </p>
         <div className="mfooter-social-icons">
-          <SocialIcon platform="instagram" href={instagramUrl} variant="mobile" className="mfooter-social-btn" />
-          <SocialIcon platform="facebook"  href={facebookUrl}  variant="mobile" className="mfooter-social-btn" />
-          <SocialIcon platform="youtube"   href={youtubeUrl}   variant="mobile" className="mfooter-social-btn" />
-          <SocialIcon platform="linkedin"  href={linkedinUrl}  variant="mobile" className="mfooter-social-btn" />
+          <SocialIcon platform="youtube"       href={youtubeUrl}       variant="desktop" className="mfooter-social-btn" />
+          <SocialIcon platform="spotify"       href={podcastUrl}       variant="desktop" className="mfooter-social-btn" />
+          <SocialIcon platform="applepodcasts" href={applePodcastsUrl} variant="desktop" className="mfooter-social-btn" />
+          <SocialIcon platform="instagram"     href={instagramUrl}     variant="desktop" className="mfooter-social-btn" />
+          <SocialIcon platform="facebook"      href={facebookUrl}      variant="desktop" className="mfooter-social-btn" />
+          <SocialIcon platform="linkedin"      href={linkedinUrl}      variant="desktop" className="mfooter-social-btn" />
         </div>
       </div>
 
