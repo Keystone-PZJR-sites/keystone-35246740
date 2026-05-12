@@ -41,6 +41,22 @@
 
 @font-face {
   font-family: 'FK Roman Standard';
+  src: url('/fonts/FKRomanStandard-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/fonts/FKRomanStandard-LightOblique.woff2') format('woff2');
+  font-weight: 300;
+  font-style: oblique;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
   src: url('/fonts/FKRomanStandard-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
