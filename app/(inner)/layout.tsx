@@ -38,7 +38,6 @@ export default async function InnerLayout({
           line4="IT OUT THEMSELVES"
           leftTagline="The modern growth team for local business."
           rightTagline="Stay informed about our latest features and product releases"
-          cta1Label="The Blog"
           cta1Href="/blog"
           cta2Label="Get started"
           emailPlaceholder="Email Address"

@@ -23,8 +23,6 @@ export interface OversizedFooterProps {
   leftTagline: string;
   /** Short tagline in the right column of the lower zone */
   rightTagline: string;
-  /** Label for the first CTA button ("Learn more") */
-  cta1Label: string;
   /** Label for the second CTA button ("Get started") */
   cta2Label: string;
   /** Placeholder text for the email input */
@@ -134,7 +132,6 @@ export function OversizedFooter({
   line4,
   leftTagline,
   rightTagline,
-  cta1Label,
   cta2Label,
   emailPlaceholder,
   signUpLabel,

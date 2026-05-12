@@ -1,6 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
@@ -195,7 +196,8 @@ export function ValueProps({
             {/* Media panel — rounded top corners */}
             <div className="vp-card-video-wrap">
               {card.imageSrc ? (
-                <img
+                <Image
+                  fill
                   src={card.imageSrc}
                   alt=""
                   aria-hidden="true"
@@ -335,7 +337,8 @@ export function MobileValueProps({
               {/* Media panel */}
               <div className="mvp-slide-video-wrap">
                 {card.imageSrc ? (
-                  <img
+                  <Image
+                    fill
                     src={card.imageSrc}
                     alt=""
                     aria-hidden="true"
