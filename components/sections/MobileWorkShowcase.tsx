@@ -7,12 +7,12 @@
  * section is hidden and this component takes over: five vertically-stacked
  * industry strips, each with its own horizontally-swipeable Embla carousel.
  *
- * Notable departure from the rest of the mobile sections: this is the only
- * mobile section whose intentional content height exceeds one viewport. The
- * spec calls out that it is deliberately NOT pinned by `createSectionPin` —
- * every other mobile section is one viewport tall and held by the scroll
- * state machine. See Spec 015 (Mobile Experience Model) and Spec 023 for
- * the rationale.
+ * This is the only mobile section whose intentional content height exceeds
+ * one viewport (five stacked industry strips). Every other mobile section
+ * has a `min-height: 100svh` floor and grows only when its own content
+ * requires it (see Spec 026 for the section-height model). See Spec 015
+ * (Mobile Experience Model) and Spec 023 for the rationale specific to
+ * this section.
  *
  * Each strip is its own component instance with its own Embla via
  * `useEmblaWithIndex` — strips track their swipe position independently and

@@ -1,26 +1,38 @@
 /* ==================== SOCIAL PROOF SECTION ==================== */
 
-/* --- Section container --- */
+/* --- Section container ---
+   Spec 026: min-height: 100svh + flex centring replaces height: 100vh +
+   absolute headline at top: calc(50% − 10.254%). The thumbnails layer stays
+   absolute (decoratively scattered overlay — named spec 026 exception). --- */
 .sp-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
   background-color: var(--color-social-proof-bg);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section-padding-y) 0;
 }
 
-/* --- Headline wrapper — absolutely centered --- */
+/* Custom CSS is unlayered and so beats Tailwind's `hidden` utility. The
+   component carries `hidden md:block`; restate that intent here. */
+@media (max-width: 767px) {
+  .sp-section {
+    display: none;
+  }
+}
+
+/* --- Headline wrapper ---
+   Spec 026: in normal flow, centred by the section's flex alignment. --- */
 .sp-headline-wrap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  /* 10.254% = half of headline height (210px) as % of 1024px canvas,
-     so the headline is vertically centered at all canvas widths */
-  top: calc(50% - 10.254%);
+  position: relative;
   display: flex;
   justify-content: center;
   pointer-events: none;
   z-index: 1;
+  width: 100%;
 }
 
 .sp-headline {

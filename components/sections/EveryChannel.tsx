@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -112,8 +112,14 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
 
         const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
 
+        // Spec 026: with the pin retired the section is no longer guaranteed
+        // to be exactly the viewport height. Capture the visible viewport
+        // height once at setup and use it as a concrete pixel offset so the
+        // lines still start the same distance below the viewport edge.
+        const offscreen = window.innerHeight * 1.2;
+
         // Lines start off-screen below; pills hidden for pop-up entry.
-        gsap.set([l1, l2, l3], { y: '120vh', autoAlpha: 1 });
+        gsap.set([l1, l2, l3], { y: offscreen, autoAlpha: 1 });
         gsap.set(pillEls, { y: 30, scale: 0.5, autoAlpha: 0 });
 
         const firstSpans = (el: HTMLElement) =>
@@ -126,7 +132,7 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
 
         function addLine(lineEl: HTMLElement, at: number) {
           masterTl.fromTo(lineEl,
-            { y: '120vh', autoAlpha: 1 },
+            { y: offscreen, autoAlpha: 1 },
             { y: 0, ease: 'power3.out', duration: 0.55 },
             at,
           );
@@ -165,38 +171,32 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
         // Slight hold after the last pill settles before the visitor can release
         masterTl.to({}, { duration: 0.25 }, 3.1);
 
-        // ── State flags ──────────────────────────────────────────────────
-        // played: masterTl has been triggered for this visit.
-        // buildingComplete: masterTl has finished → allow release.
+        // Spec 026: pin retired. Entrance plays once on viewport entry via a
+        // direct ScrollTrigger; visitor scrolls freely while it plays.
         let played = false;
-        let buildingComplete = false;
 
-        const playBuilding = () => {
-          logSectionEvent('every-channel-pin', 'ANIM_ENTER_CALLED', { played });
-          if (played) return;
-          played = true;
-          logSectionEvent('every-channel-pin', 'ANIM_START', { duration: masterTl.duration() });
-          masterTl.play(0).then(() => {
-            // Capture pill viewport positions for ProductScreens while section is
-            // still pinned — positions change once the pin releases.
-            const rectsMap = new Map<string, DOMRect>();
-            sortedPills.forEach((pill, i) => {
-              const el = pillRefs.current[i];
-              if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
+        ScrollTrigger.create({
+          id: 'every-channel-entrance',
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (played) return;
+            played = true;
+            log('every-channel-entrance', 'ANIM_START', { duration: masterTl.duration() });
+            masterTl.play(0).then(() => {
+              // Capture pill viewport positions for ProductScreens. Without
+              // the pin, EC pills may already have started scrolling by the
+              // time PS triggers — accepted looseness per spec 026.
+              const rectsMap = new Map<string, DOMRect>();
+              sortedPills.forEach((pill, i) => {
+                const el = pillRefs.current[i];
+                if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
+              });
+              setDesktopRects(rectsMap);
+              log('every-channel-entrance', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
             });
-            setDesktopRects(rectsMap);
-            buildingComplete = true;
-            logSectionEvent('every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
-          });
-        };
-
-        // Two-phase hold: Building animation plays between snap 0→0.5,
-        // then visitor needs one more scroll to release (snap 0.5→1).
-        createSectionPin({
-          id: 'every-channel-pin',
-          section,
-          onEnter: playBuilding,
-          isAnimComplete: () => buildingComplete,
+          },
         });
       });
 
@@ -255,7 +255,11 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
     <div ref={wrapperRef} className="relative hidden md:block">
       <section
         ref={sectionRef}
-        className="h-screen w-full overflow-hidden bg-[#042019]"
+        // Spec 026: min-height: 100svh + flex centering replaces h-screen +
+        // absolute -50/-50 transform. The video stays absolute inset:0 as a
+        // full-bleed background fill (named exception); pills stay absolute
+        // as decoratively-scattered overlays (named exception).
+        className="relative min-h-[100svh] w-full overflow-hidden bg-[#042019] flex items-center justify-center"
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
         {/* preload="auto" tells the browser to buffer the video while the section
@@ -273,9 +277,10 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
           <source src={videoSrcs[0]} type="video/mp4" />
         </video>
 
-        {/* Display text — vertically centered, slot-machine character reveal */}
+        {/* Display text — in normal flow, centred via the section's flex
+            alignment. slot-machine character reveal. */}
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
+          className="pointer-events-none relative z-10 text-center"
           style={{ width: 'clamp(300px, 86vw, 1238px)' }}
         >
           {renderLine(line1, line1Ref)}
@@ -283,12 +288,13 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
           {renderLine(line3, line3Ref)}
         </div>
 
-        {/* Channel pills */}
+        {/* Channel pills — decoratively scattered overlays (spec 026
+            exception). Per-pill percentages of section dimensions. */}
         {sortedPills.map((pill, i) => (
           <div
             key={pill.label}
             ref={el => { pillRefs.current[i] = el; }}
-            className="absolute flex items-center rounded-full px-4 py-2"
+            className="absolute flex items-center rounded-full px-4 py-2 z-20"
             style={{ left: pill.left, top: pill.top, backgroundColor: pill.color, gap: 12 }}
           >
             <div className="shrink-0 bg-[#f0eee6]" style={{ width: 10, height: 10 }} />

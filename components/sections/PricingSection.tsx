@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -136,38 +136,33 @@ export function PricingSection({
         const inner   = innerRef.current;
         if (!section || !inner) return;
 
-        // Start hidden — reveal on entry
         gsap.set(inner, { opacity: 0, y: 32 });
 
         let played = false;
-        let animComplete = false;
 
-        const playEntrance = () => {
-          logSectionEvent('pricing-pin', 'ANIM_ENTER_CALLED', { played });
-          if (played) return;
-          played = true;
-          logSectionEvent('pricing-pin', 'ANIM_START');
-          gsap.to(inner, {
-            opacity: 1,
-            y: 0,
-            duration: 0.65,
-            ease: 'power2.out',
-            onComplete: () => {
-              animComplete = true;
-              logSectionEvent('pricing-pin', 'ANIM_COMPLETE');
-            },
-          });
-        };
-
-        createSectionPin({
-          id: 'pricing-pin',
-          section,
-          onEnter: playEntrance,
-          isAnimComplete: () => animComplete,
+        // Spec 026: no pin, no hold — entrance plays once when the section
+        // first enters the viewport at the project-wide "top 80%" trigger.
+        ScrollTrigger.create({
+          id: 'pricing-entrance',
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (played) return;
+            played = true;
+            log('pricing-entrance', 'ANIM_START');
+            gsap.to(inner, {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease: 'power2.out',
+              onComplete: () => log('pricing-entrance', 'ANIM_COMPLETE'),
+            });
+          },
         });
       });
 
-      // ── Reduced motion / desktop: show final state immediately, no pin ──
+      // ── Reduced motion: show final state immediately ────────────────────
       mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
         const inner = innerRef.current;
         if (inner) gsap.set(inner, { opacity: 1, y: 0 });

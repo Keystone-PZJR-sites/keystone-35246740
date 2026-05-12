@@ -1,47 +1,54 @@
 /* ==================== PRODUCT SCREENS ==================== */
 /*
- * Spec 024 (refresh of Spec 007). Renders ≥ 768 px via `hidden md:block` on
- * the wrapper. All measurements come from Figma node 1087:2360 at the
- * 1440 × 1024 reference viewport. Repeated raw values are promoted to per-
- * section custom properties (--ps-*) so they have one source of truth.
+ * Spec 024 (refresh of Spec 007), refactored under Spec 026 to drop the
+ * pin and the absolutely-positioned card. Renders ≥ 768 px via
+ * `hidden md:block` on the wrapper. Reference viewport: 1440 × 1024
+ * (Figma node 1087:2360).
  *
- * Fluid scaling: every measurement scales with viewport. Card-internal
- * positions are expressed as percentages of card width (X-axis) or card
- * height (Y-axis), so they keep their Figma proportions at every viewport
- * size — no hard breakpoint switches inside the desktop range
- * (768 – 2560 px). Where a value must scale across viewport widths
- * directly (font sizes, paddings), it uses clamp(min, vw, max) with bounds
- * derived from the Figma reference.
+ * Spec 026 changes:
+ *   - Section is `min-height: 100svh` (was `height: 100vh`).
+ *   - Dark card is an in-flow flex child of the section instead of an
+ *     absolutely-positioned `top/left/right/bottom: var(--ps-card-inset)`
+ *     box. Section padding equal to the Figma card inset produces the
+ *     cream frame around the card — `--ps-card-inset` is the spec-026
+ *     named exception that takes the place of `--section-padding-y` here.
+ *
+ * Card-internal positioning preserved: pill nav, left zone, and
+ * screenshot stack remain absolutely positioned at Figma percentages of
+ * card dimensions. The screenshot stack is intentionally wider than the
+ * card and the card's overflow:hidden does the clipping; expressing this
+ * via flex/grid would either lose the overflow or shrink the screenshot
+ * because grid columns can't easily exceed their container. The card
+ * itself never grows past one viewport in practice (its content fits in
+ * 100svh − 2*--ps-card-inset), so the percent-of-card-height anchors are
+ * stable and don't suffer the spec-026 problem `min-height: 100svh` was
+ * introduced to fix.
  *
  * Reference math in the comments cites Figma's raw pixels at the 1440 ×
  * 1024 canvas. The card at reference is 1392 × 976 (24 px inset on all
- * sides). All "% of card …" values divide a Figma raw pixel by the
- * matching card dimension.
+ * sides).
  */
 
 .ps-container {
-  /* Stable layout boundary so GSAP's pin spacer doesn't pollute the smoother's
-     root coordinate space when all triggers refresh. */
+  /* Stable layout boundary so GSAP refresh doesn't pollute the smoother. */
   position: relative;
 
   /* === Per-section design tokens (Figma node 1087:2360 @ 1440×1024) === */
 
-  /* Card geometry. inset clamped so it stays uniform on all four sides at
-     every viewport but shrinks gracefully on narrow tablets and grows on
-     ultra-wide. 1.67vw → 24 px @ 1440 — exact Figma value at reference. */
+  /* Card inset (= section padding). 1.67vw → 24 px @ 1440. Spec 026 named
+     exception — this section uses --ps-card-inset instead of the global
+     --section-padding-y because the inset matches the Figma card geometry. */
   --ps-card-inset: clamp(16px, 1.67vw, 32px);
   /* Figma var `radius-3xl`. */
   --ps-card-radius: 20px;
 
-  /* Pill nav.
-     46 px from card top edge at reference (= 70 px from viewport top, minus
-     24 px inset). Clamped so it doesn't crowd the mark/copy on shorter
-     desktops or float into dead space on taller ones. */
+  /* Pill nav row.
+     46 px from card top edge at reference. Clamped so it doesn't crowd
+     the mark/copy on shorter desktops or float into dead space on taller. */
   --ps-pill-top: clamp(28px, 4.5vh, 60px);
-  /* Figma's auto-layout centers the pill row around the screenshot stack,
-     producing a +24.5 px right-shift from true center on every variant
-     except Leads (which has only same-size siblings). The spec requires
-     this offset across all variants — see spec 024 § Visual design. */
+  /* Figma's auto-layout centres the pill row around the screenshot stack,
+     producing a +24.5 px right-shift from true centre on every variant
+     except Leads. The spec requires this offset across all variants. */
   --ps-pill-shift: 24.5px;
   --ps-pill-gap: clamp(6px, 0.56vw, 11px);
   --ps-pill-padding-x: clamp(10px, 0.97vw, 18px);
@@ -50,83 +57,82 @@
   --ps-pill-square-size: clamp(7px, 0.625vw, 11px);
   --ps-pill-label-size: clamp(13px, 1.06vw, 18px);
   --ps-pill-label-line: clamp(22px, 1.87vw, 32px);
-  /* Figma raw -0.1523 px @ 15.225 px ≈ -1 % — express as em so it scales. */
   --ps-pill-label-tracking: -0.01em;
-  /* Off-white text for inactive pill labels. Same Figma value (#f8f7f2)
-     reused in PricingSection — promoted to a per-section token here so the
-     value has one home and the component never reaches for a raw hex. */
   --ps-pill-label-inactive-color: #f8f7f2;
 
   /* Left content zone (mark + copy).
      Mark at (48, 663) inside 1392×976 card → x = 3.45 %, y = 67.93 %.
-     The Content variant's mark is at (48, 667) — 0.4 % lower. The spec
-     allows one canonical value confirmed visually; using the Content
-     variant's value would push every other tool's mark down by ~4 px,
-     so we anchor to the majority value (663). */
+     Copy width 412 px → 29.6 % of card width at reference. */
   --ps-left-zone-x: 3.45%;
   --ps-left-zone-y: 67.93%;
-  /* Copy width 412 px / 1392 px = 29.6 % of card width at reference. */
   --ps-left-zone-w: 29.6%;
-  /* Mark icon — Figma 36.18 × 40.95 (Content) / 37 × 41 (others). The
-     KeystoneMark component has the 36.18 × 40.95 aspect ratio baked in.
-     2.57 vw → 37 px @ 1440. */
   --ps-mark-w: clamp(28px, 2.57vw, 48px);
-  /* Copy text — 32 px @ 1440 → 2.22 vw. Letter-spacing -0.96 px / 32 px
-     = -3 %; line-height 1.2 (raw value, no Figma var). */
   --ps-copy-size: clamp(20px, 2.22vw, 38px);
   --ps-copy-line: 1.2;
   --ps-copy-tracking: -0.03em;
   /* Gap from mark bottom to copy top: Figma 760 - (663 + 41) = 56 px →
-     5.74 % of card height. Holds the rhythm at every card height. */
+     5.74 % of card height. */
   --ps-copy-mark-gap: 5.74%;
 
   /* Right (screenshot stack) zone.
      Figma: image 40 (front) at (508, 162) sized 1288 × 837 inside the
-     1392 × 976 card. */
-  --ps-screenshot-x: 36.5%;        /* 508 / 1392 */
-  --ps-screenshot-y: 16.6%;        /* 162 / 976 */
-  --ps-screenshot-w: 92.5%;        /* 1288 / 1392 — overflows the card right edge */
-  --ps-screenshot-h: 85.7%;        /* 837 / 976 — clipped slightly at the bottom by the card */
-  /* Figma image 40 corner radius is `radius-3xl` for most variants and
-     23.286 px for Leads. The card's overflow:hidden masks the right edge
-     with the card radius regardless. */
+     1392 × 976 card. Width = 92.5 %, height = 85.7 %, x = 36.5 %, y = 16.6 %
+     (all of card). The 92.5 % width intentionally overflows the card's
+     right edge; card overflow:hidden does the clipping. */
+  --ps-screenshot-x: 36.5%;
+  --ps-screenshot-y: 16.6%;
+  --ps-screenshot-w: 92.5%;
+  --ps-screenshot-h: 85.7%;
   --ps-screenshot-radius: 20px;
   /* Each back layer in the stack peeks `--ps-stack-peek` past the layer
-     in front of it (spec 024 § Visual design — desktop). Centered behind
-     so the depth reads symmetrically. 0.42 vw ≈ 6 px @ 1440 — matches
-     Figma's image 42/43 sibling overhang of 12 px diameter / 2 = 6 px. */
+     in front of it (spec 024 § Visual design — desktop). */
   --ps-stack-peek: clamp(4px, 0.42vw, 8px);
 }
 
-/* --- Section: full viewport, cream background.
-   overflow:visible (not hidden) lets the full-screen scaled card extend above
-   the section top during the entrance — visible over the prior section.
-   position:relative anchors the absolutely-positioned card and pill nav. --- */
+/* --- Section: at least one viewport tall, dark card colour fills the
+   entire section. The cream "outer frame" comes from the surrounding
+   page background (sibling sections, ScrollSmoother bg). overflow:
+   visible lets the card-rise animation paint above the section top
+   during entrance. position:relative anchors the in-flow card body
+   plus any GSAP-transformed content. --- */
 .ps-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
   overflow: visible;
   background-color: var(--color-hero-text, #f0eee6);
+  display: flex;
+  /* The section is the cream outer frame; the inner ps-card is the dark
+     rounded inset that holds the content. */
+  padding: var(--ps-card-inset);
 }
 
-/* --- Dark inset card.
-   overflow:hidden clips the screenshot's rounded corners and the screenshot
-   stack overflow past the right edge.
-   background-color set via inline style (initial) and GSAP (transitions).
-   transform-origin "center bottom" so GSAP scaleX contracts from the sides. --- */
+@media (max-width: 767px) {
+  .ps-section {
+    display: none;
+  }
+}
+
+/* --- Dark inset card: in-flow flex child of the section that fills the
+   section content area (= section minus --ps-card-inset on all sides).
+   Card interior uses absolute positioning for content elements anchored
+   at Figma percentages of card dimensions — the card is the local
+   coordinate system the screenshot stack overflows out of, and the card
+   never grows past one viewport in practice (its content fits in
+   100svh - 2*--ps-card-inset), so percent-of-card-height anchors are
+   stable. transform-origin "center bottom" so the GSAP card-rise scales
+   the card up from below during entrance. --- */
 .ps-card {
-  position: absolute;
-  top: var(--ps-card-inset);
-  left: var(--ps-card-inset);
-  right: var(--ps-card-inset);
-  bottom: var(--ps-card-inset);
+  position: relative;
+  flex: 1;
   border-radius: var(--ps-card-radius);
   overflow: hidden;
+  transform-origin: center bottom;
+  /* background-color set via inline style (currentTool.cardBg). */
 }
 
-/* --- Pill nav row: floats above the card, offset slightly right of center
-   to match Figma's auto-layout center (+24.5 px). --- */
+/* --- Pill nav row: floats above the card, offset slightly right of
+   centre to match Figma's auto-layout centre (+24.5 px). --- */
 .ps-pill-nav {
   position: absolute;
   top: var(--ps-pill-top);
@@ -151,7 +157,7 @@
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: none;                  /* GSAP owns card-bg crossfade; CSS handles the snap */
+  transition: none;                  /* GSAP owns crossfade */
   /* border + background controlled inline (active vs inactive). */
 }
 
@@ -175,12 +181,11 @@
   line-height: var(--ps-pill-label-line);
   letter-spacing: var(--ps-pill-label-tracking);
   white-space: nowrap;
-  /* Default to the inactive (off-white) color; the active label color
-     (the card background) is set via inline style on the active pill. */
   color: var(--ps-pill-label-inactive-color);
 }
 
-/* --- Left content zone: mark icon + value copy. --- */
+/* --- Left content zone: mark + copy. Anchored at Figma percentages of
+   card dimensions (see --ps-left-zone-* tokens). --- */
 .ps-left-zone {
   position: absolute;
   left: var(--ps-left-zone-x);
@@ -193,7 +198,6 @@
   display: block;
   width: var(--ps-mark-w);
   height: auto;
-  /* The mark's intrinsic ratio (Figma 36.18 × 40.95). */
   aspect-ratio: 36.1826 / 40.9523;
 }
 
@@ -209,8 +213,9 @@
 }
 
 /* --- Right screenshot zone: positioning context for the stacked layers.
-   Width is intentionally larger than (right - left), letting the stack overflow
-   the card's right edge. The card's overflow:hidden does the clipping. --- */
+   Width is intentionally larger than (right - left), letting the stack
+   overflow the card's right edge — the card's overflow:hidden does the
+   clipping. All anchors are Figma percentages of card dimensions. --- */
 .ps-screenshot-zone {
   position: absolute;
   left: var(--ps-screenshot-x);
@@ -219,10 +224,9 @@
   height: var(--ps-screenshot-h);
 }
 
-/* --- Individual layer in the screenshot stack. data-depth orders front (0)
-   to back (1, 2). Each back layer extends `--ps-stack-peek` further past the
-   layer in front of it on every side, producing the page-stack depth effect
-   (spec 024 § Visual design — desktop). --- */
+/* --- Individual screenshot layer in the stack. data-depth orders front
+   (0) to back (1, 2). Each back layer extends `--ps-stack-peek` further
+   past the layer in front. Same depth treatment as pre-spec-026. --- */
 .ps-screenshot-layer {
   position: absolute;
   inset: 0;
@@ -242,7 +246,6 @@
   inset: calc(-2 * var(--ps-stack-peek));
 }
 
-/* Image fills its layer (no letterboxing). */
 .ps-screenshot-img {
   position: absolute;
   inset: 0;
@@ -256,8 +259,7 @@
 }
 
 /* ==================== REDUCED MOTION ==================== */
-/*
- * No reduced-motion overrides needed here:
+/* No reduced-motion overrides needed:
  *  - .ps-pill already sets transition:none unconditionally.
  *  - Card / screenshot / copy / pill animations are owned by gsap.matchMedia
  *    in ProductScreens.tsx, which short-circuits to the resting state under

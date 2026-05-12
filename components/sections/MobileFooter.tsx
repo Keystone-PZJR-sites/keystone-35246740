@@ -182,16 +182,15 @@ export function MobileFooter({
       </div>
 
       {/* Wordmark — full-width, proportionally scaled, 32px gap above.
-          width/height are the SVG's intrinsic dimensions (ratio source only).
-          CSS sets width: 100%; height: auto so it fills the padded container
-          and scales with the viewport, matching the Figma constraint. */}
+          width/height are the SVG's intrinsic dimensions (ratio source
+          only); CSS in mobile-footer.css sizes the rendered img and pins
+          the SVG's viewBox aspect so letterforms never stretch. */}
       <div className="mfooter-wordmark">
         <Image
           src={keystoneWordmarkSrc}
           width={345}
           height={67}
           alt="keystone"
-          style={{ width: '100%', height: 'auto' }}
         />
       </div>
 

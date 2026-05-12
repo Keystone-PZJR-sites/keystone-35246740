@@ -7,7 +7,7 @@ import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,10 +70,14 @@ export function ProductScreens({ tools }: ProductScreensProps) {
           const screenshot = screenshotRef.current;
           if (!section || !card || !leftZone || !screenshot) return;
 
-          // Scale card to cover the full viewport (transform-origin: center bottom
-          // keeps the bottom edge anchored so the card "rises" from below).
+          // Scale card to cover the visible viewport (transform-origin: center
+          // bottom keeps the bottom edge anchored so the card "rises" from
+          // below). Spec 026 cleanup: cap the Y scale to the visible viewport
+          // height so a section that grows past one viewport doesn't make the
+          // card initial state larger than the screen and break the rise.
           const initialScaleX = section.offsetWidth  / card.offsetWidth;
-          const initialScaleY = section.offsetHeight / card.offsetHeight;
+          const initialScaleY =
+            Math.min(window.innerHeight, section.offsetHeight) / card.offsetHeight;
 
           const setInitialState = () => {
             gsap.set(card, {
@@ -142,28 +146,24 @@ export function ProductScreens({ tools }: ProductScreensProps) {
             return tl;
           };
 
-          // ── State flags ────────────────────────────────────────────────
+          // Spec 026: pin retired. Entrance plays once on viewport entry
+          // via a direct ScrollTrigger; visitor scrolls freely while it plays.
           let played = false;
-          let entranceComplete = false;
-          let entranceTl: gsap.core.Timeline | null = null;
 
-          const playEntrance = () => {
-            logSectionEvent('product-screens-pin', 'ANIM_ENTER_CALLED', { played });
-            if (played) return;
-            played = true;
-            entranceTl = buildEntranceTl();
-            logSectionEvent('product-screens-pin', 'ANIM_START');
-            entranceTl.play(0).then(() => {
-              entranceComplete = true;
-              logSectionEvent('product-screens-pin', 'ANIM_COMPLETE');
-            });
-          };
-
-          createSectionPin({
-            id: 'product-screens-pin',
-            section,
-            onEnter: playEntrance,
-            isAnimComplete: () => entranceComplete,
+          ScrollTrigger.create({
+            id: 'product-screens-entrance',
+            trigger: section,
+            start: 'top 80%',
+            once: true,
+            onEnter: () => {
+              if (played) return;
+              played = true;
+              const entranceTl = buildEntranceTl();
+              log('product-screens-entrance', 'ANIM_START');
+              entranceTl.play(0).then(() => {
+                log('product-screens-entrance', 'ANIM_COMPLETE');
+              });
+            },
           });
         },
       );
@@ -241,98 +241,102 @@ export function ProductScreens({ tools }: ProductScreensProps) {
         className="ps-section"
         aria-label="Product showcase"
       >
-      {/* Dark inset card — overflow:hidden clips screenshot rounded corners */}
-      <div
-        ref={cardRef}
-        className="ps-card"
-        style={{ backgroundColor: currentTool.cardBg }}
-      >
-        {/* Left content zone: mark icon + value copy */}
-        <div ref={leftZoneRef} className="ps-left-zone">
-          <KeystoneMark
-            color={currentTool.markColor}
-            className="ps-mark-icon"
-            width={36}
-            height={41}
-          />
-          <p className="ps-copy" style={{ color: currentTool.copyAccent }}>
-            {currentTool.copyText}
-          </p>
-        </div>
-
-        {/*
-          Right content zone: stacked screenshot composition.
-          The screenshot is wider than the card; the card's overflow:hidden
-          clips it at the right rounded corner. Renders one layer per entry
-          in `tool.screenshotLayers`, front-to-back. The CSS uses the
-          `data-depth` attribute to offset each back layer behind the
-          previous, producing the page-stack depth effect (spec 024).
-        */}
-        <div ref={screenshotRef} className="ps-screenshot-zone">
-          {currentTool.screenshotLayers.map((src, depth) => (
-            <div
-              key={`${currentTool.id}-${depth}`}
-              className="ps-screenshot-layer"
-              data-depth={depth}
-            >
-              <Image
-                src={src}
-                alt=""
-                fill
-                className="ps-screenshot-img"
-                unoptimized
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Pill nav row — floats above the card at z-20 */}
-      <nav className="ps-pill-nav" aria-label="Product tools">
-        {tools.map((tool, i) => {
-          const isActive = i === activeIndex;
-          return (
-            <button
-              key={tool.id}
-              ref={el => { pillRefs.current[i] = el; }}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              aria-label={`${tool.label} product`}
-              className="ps-pill"
-              style={
-                isActive
-                  ? { backgroundColor: tool.pillFill, border: 'none' }
-                  : {
-                      backgroundColor: 'transparent',
-                      borderWidth: 'var(--ps-pill-border-w)',
-                      borderStyle: 'solid',
-                      borderColor: currentTool.inactiveBorder,
+        {/* Dark inset card — in-flow flex child of the section, fills the
+            section content area. Children are absolutely positioned at
+            Figma percentages of card dimensions (the card is the local
+            coordinate system the screenshot stack overflows out of).
+            overflow:hidden clips the screenshot's rounded corners and the
+            right-edge overflow of the stack. */}
+        <div
+          ref={cardRef}
+          className="ps-card"
+          style={{ backgroundColor: currentTool.cardBg }}
+        >
+          {/* Pill nav row — top-anchored, slightly right of centre. */}
+          <nav className="ps-pill-nav" aria-label="Product tools">
+            {tools.map((tool, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <button
+                  key={tool.id}
+                  ref={el => { pillRefs.current[i] = el; }}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`${tool.label} product`}
+                  className="ps-pill"
+                  style={
+                    isActive
+                      ? { backgroundColor: tool.pillFill, border: 'none' }
+                      : {
+                          backgroundColor: 'transparent',
+                          borderWidth: 'var(--ps-pill-border-w)',
+                          borderStyle: 'solid',
+                          borderColor: currentTool.inactiveBorder,
+                        }
+                  }
+                  onClick={() => handlePillClick(i)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handlePillClick(i);
                     }
-              }
-              onClick={() => handlePillClick(i)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handlePillClick(i);
-                }
-              }}
-            >
-              <span
-                className="ps-pill-square"
-                style={{ backgroundColor: isActive ? currentTool.cardBg : tool.squareColor }}
-                aria-hidden="true"
-              />
-              <span
-                className="ps-pill-label"
-                style={isActive ? { color: currentTool.cardBg } : undefined}
+                  }}
+                >
+                  <span
+                    className="ps-pill-square"
+                    style={{ backgroundColor: isActive ? currentTool.cardBg : tool.squareColor }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="ps-pill-label"
+                    style={isActive ? { color: currentTool.cardBg } : undefined}
+                  >
+                    {tool.label}
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Left content zone: mark icon + value copy in the lower-left
+              of the card (Figma percentages). */}
+          <div ref={leftZoneRef} className="ps-left-zone">
+            <KeystoneMark
+              color={currentTool.markColor}
+              className="ps-mark-icon"
+              width={36}
+              height={41}
+            />
+            <p className="ps-copy" style={{ color: currentTool.copyAccent }}>
+              {currentTool.copyText}
+            </p>
+          </div>
+
+          {/* Right screenshot zone: stacked screenshot composition. Width
+              is wider than the available space so the stack extends past
+              the card's right edge; card's overflow:hidden clips it.
+              Renders one layer per entry in `tool.screenshotLayers`,
+              front-to-back. CSS uses `data-depth` to offset back layers,
+              producing the page-stack depth effect (spec 024). */}
+          <div ref={screenshotRef} className="ps-screenshot-zone">
+            {currentTool.screenshotLayers.map((src, depth) => (
+              <div
+                key={`${currentTool.id}-${depth}`}
+                className="ps-screenshot-layer"
+                data-depth={depth}
               >
-                {tool.label}
-              </span>
-            </button>
-          );
-        })}
-        </nav>
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  className="ps-screenshot-img"
+                  unoptimized
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );

@@ -6,10 +6,10 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { lockScroll } from '@/lib/scrollLock';
+import { log } from '@/lib/logger';
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================
 // Types
@@ -240,11 +240,6 @@ export function SocialProofSection({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalTarget(document.body);
   }, []);
-
-  // Saved scroll position — captured when the modal opens so we can restore
-  // it exactly on close (guards against any in-flight GSAP scroll tweens that
-  // might have shifted the position between open and close).
-  const savedScrollTopRef = useRef(0);
 
   // align: 'start' so slides are left-aligned — CSS positions are viewport-relative
   // when the active slide's left edge is at x=0.
@@ -584,11 +579,12 @@ export function SocialProofSection({
     }
   }, [modalOpen]);
 
-  // ── GSAP pin + snap + organic floating animation ──────────────────────────
+  // ── Floating animation ───────────────────────────────────────────────────
   //
-  // The section holds the visitor for one scroll-to-reveal + one scroll-to-advance.
-  // Thumbnails are immediately visible so there is no timed transition to wait for
-  // before allowing the second scroll. The floating animation starts on section entry.
+  // Spec 026 retired the section pin. The thumbnail floating animation now
+  // starts the first time the section enters the viewport via a direct
+  // ScrollTrigger; this matches the pre-spec-026 behaviour where the pin's
+  // onEnter started the floating timelines.
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -613,15 +609,15 @@ export function SocialProofSection({
             });
           };
 
-          // No staged entrance — isAnimComplete always true, no hold.
-          createSectionPin({
-            id: 'social-proof-pin',
-            section,
+          ScrollTrigger.create({
+            id: 'social-proof-entrance',
+            trigger: section,
+            start: 'top 80%',
+            once: true,
             onEnter: () => {
-              logSectionEvent('social-proof-pin', 'ANIM_ENTER_CALLED');
+              log('social-proof-entrance', 'ANIM_START');
               startFloating();
             },
-            isAnimComplete: () => true,
           });
         },
       );
@@ -631,45 +627,23 @@ export function SocialProofSection({
     return () => ctx.revert();
   }, []);
 
-  // ── Pause/resume floating + ScrollSmoother when modal is open/closed ────────
+  // ── Pause/resume floating + lock scroll when modal is open/closed ───────
   //
-  // The scroll position at the moment of click can be arbitrary — the snap
-  // delay (0.1 s) means snapTo may not yet have fired, and the visitor could
-  // be at p ≥ 0.02 with the animation already complete. Restoring that raw
-  // position on close would cause snapTo to immediately schedule the deferred
-  // advance jump, skipping past the section entirely.
-  //
-  // Fix: on open, normalise to the pin zone's exact 50% point (the canonical
-  // held state) before saving. The modal covers the viewport so the instant
-  // reposition is invisible. On close the restore always lands at a clean,
-  // predictable position where snapTo returns p (no advance).
+  // Spec 026 cleanup: the previous implementation hand-rolled a scroll lock
+  // that depended on the section pin's scroll-state machine. With the pin
+  // retired, use the project's standard lockScroll() helper from
+  // lib/scrollLock.ts (the single approved approach per the rules). It
+  // returns an unlock callback that handles both the ScrollSmoother and
+  // the no-smoother fallback scenarios.
 
   useEffect(() => {
-    const smoother = ScrollSmoother.get();
-    if (modalOpen) {
-      floatTimelinesRef.current.forEach((t) => t.pause());
-      if (smoother) {
-        // Kill any in-flight smooth-scroll tweens (gap-closing carries, etc.)
-        gsap.killTweensOf(smoother);
-
-        // Normalize to the pin zone's 50% point. The sp trigger's start and end
-        // bracket the 200% scroll travel; 50% is the canonical held state.
-        const spTrigger = ScrollTrigger.getById('social-proof-pin');
-        let cleanScroll = smoother.scrollTop();
-        if (spTrigger) {
-          cleanScroll = spTrigger.start + (spTrigger.end - spTrigger.start) * 0.5;
-          smoother.scrollTo(cleanScroll, false);
-        }
-        savedScrollTopRef.current = cleanScroll;
-        smoother.paused(true);
-      }
-    } else {
+    if (!modalOpen) return;
+    floatTimelinesRef.current.forEach((t) => t.pause());
+    const unlock = lockScroll();
+    return () => {
       floatTimelinesRef.current.forEach((t) => t.resume());
-      if (smoother) {
-        smoother.scrollTo(savedScrollTopRef.current, false);
-        smoother.paused(false);
-      }
-    }
+      unlock();
+    };
   }, [modalOpen]);
 
   // ──────────────────────────────────────────────────────────────────────────

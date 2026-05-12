@@ -324,8 +324,9 @@
 /* ── Wordmark ────────────────────────────────────────────────────────────── */
 
 /* Full-width, proportionally scaled — same 24px side padding as other rows.
-   width: 100% + height: auto preserves the SVG's aspect ratio (345 : 67)
-   at every viewport width, matching the Figma constraint behavior. */
+   The img inside (rule below) carries the actual aspect-ratio so letterforms
+   never stretch; this wrapper just provides the gutter and stretches to
+   100% of the footer column. */
 .mfooter-wordmark {
   /* 32px gap from email row, flush to side padding */
   margin: 32px 0 0;
@@ -335,9 +336,18 @@
   width: 100%;
 }
 
+/* The exported SVG (public/footer/footer-wordmark.svg) carries
+   preserveAspectRatio="none" + width/height=100%, so it advertises no
+   usable intrinsic aspect ratio. Without an explicit aspect-ratio here,
+   `height: auto` resolves inconsistently with the Image component's
+   width/height props and Next.js logs a "width or height modified, but
+   not the other" warning. Pin the aspect from the SVG's viewBox
+   ("0 0 1389.5 268.297") so letterforms never stretch and the warning
+   never fires — same fix as OversizedFooter (see oversized-footer.css). */
 .mfooter-wordmark img {
   width: 100%;
   height: auto;
+  aspect-ratio: 1389.5 / 268.297;
   display: block;
 }
 

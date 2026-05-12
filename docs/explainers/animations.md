@@ -50,24 +50,23 @@ When available, use `SplitText` on FK Screamer headlines to split into individua
 
 ---
 
-## Homepage Pinning Toggle
+## Homepage Section Entrances
 
-The homepage scroll-state machine — every section pinning, snapping, and
-holding the visitor while its entrance animation plays (spec 011) — is
-gated by a single boolean in `lib/sectionPin.ts`:
+Spec 026 retired the homepage scroll-state machine (specs 011, 025) and
+the `lib/sectionPin.ts` helper that powered it. There is no pin, no snap,
+no hold — the visitor scrolls the page freely from hero to footer.
 
-```ts
-export const HOMEPAGE_PINNING_ENABLED = false;
-```
+Entrance animations remain. Each section that previously called
+`createSectionPin` now creates a direct `ScrollTrigger` that fires
+`onEnter` once when the section first enters the viewport. The standard
+trigger is `start: 'top 80%'` with `once: true`. Hero is the one
+exception: it uses `start: 'top top-=2%'` so the animation does not
+fire on initial page load before the visitor has scrolled.
 
-When `false` (the current default), no section pins. The visitor scrolls
-the page freely. Entrance animations still play once when each section
-first enters the viewport, so elements that start at `opacity: 0` still
-reveal — only the pin / snap / hold goes away.
-
-This is the only place to flip the behaviour. There is no per-section
-override and no environment variable. Flipping the constant immediately
-affects every desktop and mobile section that calls `createSectionPin`.
+Sections size to their content with a `min-height: 100svh` floor — see
+`docs/explainers/responsive.md` for the layout side. Pinning is
+fundamentally incompatible with content-driven section heights, which
+is the reason for the retirement.
 
 ---
 

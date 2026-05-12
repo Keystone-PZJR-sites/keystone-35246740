@@ -35,7 +35,17 @@ Some homepage sections look structurally different on mobile — different eleme
 - The **desktop** component carries `hidden md:block` on its root element.
 - The **mobile** component carries `md:hidden` on its root element.
 - The switch is handled entirely by CSS — no JavaScript breakpoint detection, no flash of the wrong layout.
-- Mobile sections have natural height (no `h-screen`). GSAP does not initialise on them — the scroll-animation matchMedia guards (`(min-width: 768px)`) prevent that.
+- Where the custom CSS file sets `display: flex` (or any value other than `block` / `none`), restate the visibility rule in a media query in the CSS file — Tailwind utilities live in `@layer utilities` and unlayered custom CSS beats them.
+
+## Section Heights
+
+Per spec 026, every homepage section is sized to its content with a `min-height: 100svh` floor. That means:
+
+- The section is always at least the visible viewport height (`svh` accounts for mobile browser chrome — see spec 026 for why `svh` was chosen over `vh` and `dvh`).
+- If the content is taller than one viewport on a short window, the section grows past `100svh` so nothing clips.
+- The breathing room above the first content element and below the last comes from a single token: `--section-padding-y`, defined in `styles/base.css`. Every affected section uses it; the named exceptions (Hero desktop, Every Channel, Product Screens desktop, footers) are documented in spec 026.
+- No section uses `h-screen`, `height: 100vh`, or 100vh-based positional math anywhere.
+- No homepage section is pinned. Spec 026 retired the pin system; entrance animations play once on viewport entry via direct ScrollTriggers (`docs/explainers/animations.md` has the details).
 
 The test for whether a section needs a separate mobile file: if describing the mobile layout requires saying "this element moves here and that element disappears", use separate files. If it only requires saying "this is smaller and this has less padding", keep one file with responsive utilities.
 

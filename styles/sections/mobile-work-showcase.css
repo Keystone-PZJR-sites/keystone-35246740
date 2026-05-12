@@ -17,6 +17,17 @@
      viewport is intentionally narrower than its contents — Embla clips
      inside the rail's own overflow-hidden box.                       */
   overflow-x: clip;
+
+  /* Uniform mobile work-card height. Every slide in every industry rail
+     renders at this exact pixel height so the rail's vertical extent is
+     constant and no slide looks "short" relative to its neighbours.
+     460 px is chosen to match the previous natural-tallest scaled card
+     (sales: 638 × 0.72 ≈ 459 px) so the sales card barely changes scale;
+     web / ads / content upscale modestly (within ~10 %), the social card
+     upscales most (~9 %, since it's the shortest natural card), and
+     listings shrinks from its previous unscaled ~540 px down to 460 px.
+     See `.mws-section .ws-scale-root` below for the per-card scale calc. */
+  --mws-card-h: 460px;
 }
 
 /* ── Section headline ────────────────────────────────────────────────────
@@ -113,8 +124,12 @@
 /* Embla container — horizontal flex with all this industry's cards.
    24px left padding aligns the first card with the section's left gutter;
    the rail intentionally extends past the right edge of the viewport.
-   align-items: flex-end so cards of different heights bottom-align,
-   producing a single shared baseline across the rail.                  */
+   `align-items: flex-end` is a safety net only: every slide is now sized
+   to --mws-card-h (see `.mws-section .ws-scale-root`), so all cards share
+   the same height and no cross-axis alignment is actually visible. If a
+   card variant ever falls outside ScaledMockCard again or its natural
+   height drifts, flex-end keeps its bottom edge on the rail's baseline
+   instead of leaving it floating mid-rail.                             */
 .mws-rail-container {
   display: flex;
   align-items: flex-end;
@@ -367,11 +382,27 @@
   color: #3a3836;
 }
 
-/* Mobile card scale. Every card variant (sales, ads, social, web, content,
-   listings) renders at ~72% of its natural Figma width — confirmed by
-   reading the per-industry rail widths off Figma node 1305:453. Overrides
-   the viewport-based `min(1, …)` scale that `.ws-scale-root` applies for
-   desktop fluidity.                                                     */
+/* Mobile card scale (height-targeted). Every card variant — sales, ads,
+   social, web, content, listings — renders at the same uniform height
+   (--mws-card-h). The scale factor is derived per card from its natural
+   height (the inline --ws-natural-h that ScaledMockCard sets on each
+   .ws-scale-root), so width follows aspect from the card's natural
+   dimensions and the rail's vertical extent stays constant across all
+   slides. Overrides the viewport-based `min(1, …)` scale that
+   `.ws-scale-root` applies for desktop fluidity.
+
+   Why this replaced the previous flat 0.72: Figma renders the per-
+   industry rails at ~72 % of each card's natural width (Figma node
+   1305:453), which gave each card a different rendered height because
+   their natural heights differ. On top of that, the listings card was
+   not wrapped in ScaledMockCard at all, so the 0.72 mobile override
+   never reached it and its rail-tallest unscaled height (~540 px) drove
+   every Retail / Care / Food / Home rail to use that as the rail height
+   under `align-items: flex-end`. Visible shorter cards (web, social,
+   etc.) sat at the bottom with empty space above them — the gap the
+   user reported. Wrapping listings (now done in WorkShowcase.tsx) and
+   driving the scale from a target height instead of natural width
+   removes both sources of variance. */
 .mws-section .ws-scale-root {
-  --ws-card-scale: 0.72;
+  --ws-card-scale: calc(var(--mws-card-h) / var(--ws-natural-h));
 }

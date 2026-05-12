@@ -1,14 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { createSectionPin } from '@/lib/sectionPin';
 import type { SocialProofSlide, QuoteSegment } from './SocialProofSection';
-
-gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================
 // Types
@@ -133,7 +128,6 @@ export function MobileSocialProof({
   slides,
   closeButtonSrc,
 }: MobileSocialProofProps) {
-  const sectionRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const slideVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -188,31 +182,8 @@ export function MobileSocialProof({
     return () => window.removeEventListener('keydown', handleKey);
   }, [activeIndex, emblaApi, closeOverlay]);
 
-  // ── GSAP pin (mobile only) ────────────────────────────────────────────────
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(max-width: 767px)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'mobile-social-proof-pin',
-          section,
-          onEnter: () => {},
-          isAnimComplete: () => true,
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       className="msp-section md:hidden"
       aria-label={`${headlineLine1.trim()} ${headlineLine2}`}
     >

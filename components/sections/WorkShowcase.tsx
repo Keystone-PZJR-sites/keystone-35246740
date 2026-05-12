@@ -30,7 +30,7 @@ import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -2690,258 +2690,268 @@ function ListingsCard({
 }) {
   return (
     <div className="work-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
-      {/* 252px simple rounded card — matches Figma exactly (NOT a phone mockup) */}
-      <div
-        className="work-listings-outer flex flex-col items-start overflow-hidden relative rounded-[8px]"
-        style={{ width: '252px', padding: '12px', gap: '12px', backdropFilter: 'blur(5.267px)' }}
-      >
-        {/* Header row: business name + open status + compact rating + dots */}
-        <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col" style={{ gap: '4px' }}>
-            {/* Business name + Open */}
-            <div className="flex items-baseline" style={{ gap: '8px' }}>
-              <p
-                className="work-listings-business-name font-semibold"
-                style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '14px', lineHeight: 'normal', letterSpacing: '-0.14px' }}
-              >
-                {content.businessName}
-              </p>
-              {content.isOpen && (
-                <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', color: '#4ea764' }}>
-                  Open
-                </p>
-              )}
-            </div>
-            {/* Compact rating + review count + category */}
-            <div className="flex items-center" style={{ gap: '6px' }}>
-              <div className="flex items-center" style={{ gap: '2px' }}>
-                {/* Star icon */}
-                <div className="relative flex-shrink-0" style={{ width: '12px', height: '12px' }}>
-                  <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M6 1 L7.35 3.74 L10.37 4.14 L8.19 6.27 L8.71 9.27 L6 7.85 L3.29 9.27 L3.81 6.27 L1.63 4.14 L4.65 3.74 Z"
-                      className="work-listings-star"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-                <span
-                  className="work-listings-meta-text"
-                  style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}
+      {/* 252px simple rounded card — matches Figma exactly (NOT a phone mockup).
+          Wrapped in ScaledMockCard so the mobile target-height scale (set on
+          .mws-section .ws-scale-root) reaches it. Without the wrapper, the
+          listings card would render at its natural ~540 px height while every
+          other card variant scales down via ws-scale-root, making listings the
+          rail's silent tallest slide and creating empty space above the shorter
+          (visible) cards under `align-items: flex-end`. naturalHeight is set to
+          the rendered content height so the scaled outer matches the visible
+          card and stays consistent with the other slides. */}
+      <ScaledMockCard naturalWidth={252} naturalHeight={540}>
+        <div
+          className="work-listings-outer flex flex-col items-start overflow-hidden relative rounded-[8px]"
+          style={{ width: '252px', padding: '12px', gap: '12px', backdropFilter: 'blur(5.267px)' }}
+        >
+          {/* Header row: business name + open status + compact rating + dots */}
+          <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col" style={{ gap: '4px' }}>
+              {/* Business name + Open */}
+              <div className="flex items-baseline" style={{ gap: '8px' }}>
+                <p
+                  className="work-listings-business-name font-semibold"
+                  style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '14px', lineHeight: 'normal', letterSpacing: '-0.14px' }}
                 >
-                  {content.rating.toFixed(1)}
+                  {content.businessName}
+                </p>
+                {content.isOpen && (
+                  <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', color: '#4ea764' }}>
+                    Open
+                  </p>
+                )}
+              </div>
+              {/* Compact rating + review count + category */}
+              <div className="flex items-center" style={{ gap: '6px' }}>
+                <div className="flex items-center" style={{ gap: '2px' }}>
+                  {/* Star icon */}
+                  <div className="relative flex-shrink-0" style={{ width: '12px', height: '12px' }}>
+                    <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6 1 L7.35 3.74 L10.37 4.14 L8.19 6.27 L8.71 9.27 L6 7.85 L3.29 9.27 L3.81 6.27 L1.63 4.14 L4.65 3.74 Z"
+                        className="work-listings-star"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="work-listings-meta-text"
+                    style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}
+                  >
+                    {content.rating.toFixed(1)}
+                  </span>
+                </div>
+                <span className="work-listings-meta-text" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>∙</span>
+                <span className="work-listings-meta-text whitespace-nowrap" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>
+                  {content.reviewCount} Reviews
+                </span>
+                <span className="work-listings-meta-text" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>∙</span>
+                <span className="work-listings-meta-text whitespace-nowrap" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>
+                  {content.category}
                 </span>
               </div>
-              <span className="work-listings-meta-text" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>∙</span>
-              <span className="work-listings-meta-text whitespace-nowrap" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>
-                {content.reviewCount} Reviews
-              </span>
-              <span className="work-listings-meta-text" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>∙</span>
-              <span className="work-listings-meta-text whitespace-nowrap" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}>
-                {content.category}
-              </span>
+            </div>
+            {/* Three-dots menu */}
+            <div className="relative flex-shrink-0" style={{ width: '22px', height: '22px' }}>
+              <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="4" cy="11" r="1.8" className="work-listings-meta-text" fill="currentColor" />
+                <circle cx="11" cy="11" r="1.8" className="work-listings-meta-text" fill="currentColor" />
+                <circle cx="18" cy="11" r="1.8" className="work-listings-meta-text" fill="currentColor" />
+              </svg>
             </div>
           </div>
-          {/* Three-dots menu */}
-          <div className="relative flex-shrink-0" style={{ width: '22px', height: '22px' }}>
-            <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="4" cy="11" r="1.8" className="work-listings-meta-text" fill="currentColor" />
-              <circle cx="11" cy="11" r="1.8" className="work-listings-meta-text" fill="currentColor" />
-              <circle cx="18" cy="11" r="1.8" className="work-listings-meta-text" fill="currentColor" />
-            </svg>
-          </div>
-        </div>
 
-        {/* Photo grid — layout determined by photoLayout prop */}
-        {content.photoLayout === 'tall-left' ? (
-          /* tall-left: left column = one 182px tall photo, right column = two 90px photos */
-          <div
-            className="work-img-blend w-full flex-shrink-0"
-            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px' }}
-          >
-            {/* Column 1: single tall photo */}
-            <div className="relative overflow-hidden" style={{ height: '182px', borderRadius: '8px 0 0 8px' }}>
-              <Image src={content.photoSrcs[0]} alt="" fill className="work-card-img object-cover" unoptimized />
-            </div>
-            {/* Column 2: two stacked photos */}
-            <div className="flex flex-col" style={{ gap: '2px' }}>
-              <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 8px 0 0' }}>
-                <Image src={content.photoSrcs[1]} alt="" fill className="work-card-img object-cover" unoptimized />
-              </div>
-              <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 0 8px 0' }}>
-                <Image src={content.photoSrcs[3]} alt="" fill className="work-card-img object-cover" unoptimized />
-              </div>
-            </div>
-          </div>
-        ) : (
-          /* grid-2x2 (default): symmetric 2×2 grid */
-          <div
-            className="grid work-img-blend w-full flex-shrink-0"
-            style={{ gridTemplateColumns: '1fr 1fr', gap: '2px' }}
-          >
-            {/* Column 1: top-left, bottom-left */}
-            <div className="flex flex-col" style={{ gap: '2px' }}>
-              <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '8px 0 0 0' }}>
+          {/* Photo grid — layout determined by photoLayout prop */}
+          {content.photoLayout === 'tall-left' ? (
+            /* tall-left: left column = one 182px tall photo, right column = two 90px photos */
+            <div
+              className="work-img-blend w-full flex-shrink-0"
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px' }}
+            >
+              {/* Column 1: single tall photo */}
+              <div className="relative overflow-hidden" style={{ height: '182px', borderRadius: '8px 0 0 8px' }}>
                 <Image src={content.photoSrcs[0]} alt="" fill className="work-card-img object-cover" unoptimized />
               </div>
-              <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 0 0 8px' }}>
-                <Image src={content.photoSrcs[2]} alt="" fill className="work-card-img object-cover" unoptimized />
-              </div>
-            </div>
-            {/* Column 2: top-right, bottom-right */}
-            <div className="flex flex-col" style={{ gap: '2px' }}>
-              <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 8px 0 0' }}>
-                <Image src={content.photoSrcs[1]} alt="" fill className="work-card-img object-cover" unoptimized />
-              </div>
-              <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 0 8px 0' }}>
-                <Image src={content.photoSrcs[3]} alt="" fill className="work-card-img object-cover" unoptimized />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Map section: full-width, 125px tall, with border */}
-        <div
-          className="relative overflow-hidden work-img-blend flex-shrink-0 w-full"
-          style={{ height: '125px', borderRadius: '6px', border: '1px solid rgba(0,0,0,0.1)' }}
-        >
-          {/* MAP 2 composite — exact Figma SVG layers, offset per industry via mapOffset prop */}
-          <div
-            className="absolute overflow-hidden"
-            style={{
-              background: '#85d5eb',
-              width: '529.191px',
-              height: '414.771px',
-              left: `${(content.mapOffset ?? { left: -120.18, top: -69.38 }).left}px`,
-              top: `${(content.mapOffset ?? { left: -120.18, top: -69.38 }).top}px`,
-              transform: content.mapFlipped ? 'scaleX(-1)' : undefined,
-            }}
-          >
-            {/* imgVector32 — roads base layer */}
-            <div className="absolute" style={{ height: '419.172px', left: '-2.75px', top: 0, width: '536.342px' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-roads-base.svg" />
-            </div>
-            {/* imgYellow — yellow highlighted road */}
-            <div className="absolute" style={{ height: '400.194px', left: '100.67px', top: '14.03px', width: '272.297px' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-roads-yellow.svg" />
-            </div>
-            {/* imgGreen — green park areas */}
-            <div className="absolute" style={{ height: '275.322px', left: '31.08px', top: '139.45px', width: '428.799px' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-parks-green.svg" />
-            </div>
-            {/* imgFrame7 — frame overlay */}
-            <div className="absolute" style={{ height: '415.321px', left: '0.55px', top: '0.28px', width: '487.934px' }}>
-              <div className="absolute" style={{ inset: '0 0 0 -0.15%' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="block w-full h-full" src="/work-showcase/map-frame.svg" />
-              </div>
-            </div>
-            {/* imgVector30 — west street layer */}
-            <div className="absolute" style={{ height: '417.522px', left: '0.27px', top: '-1.93px', width: '399.094px' }}>
-              <div className="absolute" style={{ inset: '0 -0.14% 0 0' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-west.svg" />
-              </div>
-            </div>
-            {/* imgVector33 — east street layer */}
-            <div className="absolute" style={{ height: '416.972px', left: '267.07px', top: '-0.55px', width: '267.896px' }}>
-              <div className="absolute" style={{ inset: '0 -0.82% -1.06% -0.82%' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-east.svg" />
-              </div>
-            </div>
-            {/* imgVector35 + imgVector29 + RIVER NORTH label */}
-            <div className="absolute" style={{ height: '415.046px', left: '0.82px', top: '0.28px', width: '490.134px' }}>
-              <div className="absolute" style={{ height: '415.046px', left: 0, top: 0, width: '490.134px' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-streets-overlay.svg" />
-              </div>
-              <div className="absolute" style={{ height: '415.046px', left: 0, top: 0, width: '490.134px' }}>
-                <div className="absolute" style={{ inset: '-0.13% -0.62% 0 0' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-overlay.svg" />
+              {/* Column 2: two stacked photos */}
+              <div className="flex flex-col" style={{ gap: '2px' }}>
+                <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 8px 0 0' }}>
+                  <Image src={content.photoSrcs[1]} alt="" fill className="work-card-img object-cover" unoptimized />
+                </div>
+                <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 0 8px 0' }}>
+                  <Image src={content.photoSrcs[3]} alt="" fill className="work-card-img object-cover" unoptimized />
                 </div>
               </div>
-              <p
-                className="absolute font-semibold whitespace-nowrap"
-                style={{ fontFamily: 'Roboto, system-ui, sans-serif', fontSize: '9.902px', left: '37.13px', top: '330.88px', color: '#000', lineHeight: 'normal' }}
+            </div>
+          ) : (
+            /* grid-2x2 (default): symmetric 2×2 grid */
+            <div
+              className="grid work-img-blend w-full flex-shrink-0"
+              style={{ gridTemplateColumns: '1fr 1fr', gap: '2px' }}
+            >
+              {/* Column 1: top-left, bottom-left */}
+              <div className="flex flex-col" style={{ gap: '2px' }}>
+                <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '8px 0 0 0' }}>
+                  <Image src={content.photoSrcs[0]} alt="" fill className="work-card-img object-cover" unoptimized />
+                </div>
+                <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 0 0 8px' }}>
+                  <Image src={content.photoSrcs[2]} alt="" fill className="work-card-img object-cover" unoptimized />
+                </div>
+              </div>
+              {/* Column 2: top-right, bottom-right */}
+              <div className="flex flex-col" style={{ gap: '2px' }}>
+                <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 8px 0 0' }}>
+                  <Image src={content.photoSrcs[1]} alt="" fill className="work-card-img object-cover" unoptimized />
+                </div>
+                <div className="relative overflow-hidden" style={{ height: '90px', borderRadius: '0 0 8px 0' }}>
+                  <Image src={content.photoSrcs[3]} alt="" fill className="work-card-img object-cover" unoptimized />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Map section: full-width, 125px tall, with border */}
+          <div
+            className="relative overflow-hidden work-img-blend flex-shrink-0 w-full"
+            style={{ height: '125px', borderRadius: '6px', border: '1px solid rgba(0,0,0,0.1)' }}
+          >
+            {/* MAP 2 composite — exact Figma SVG layers, offset per industry via mapOffset prop */}
+            <div
+              className="absolute overflow-hidden"
+              style={{
+                background: '#85d5eb',
+                width: '529.191px',
+                height: '414.771px',
+                left: `${(content.mapOffset ?? { left: -120.18, top: -69.38 }).left}px`,
+                top: `${(content.mapOffset ?? { left: -120.18, top: -69.38 }).top}px`,
+                transform: content.mapFlipped ? 'scaleX(-1)' : undefined,
+              }}
+            >
+              {/* imgVector32 — roads base layer */}
+              <div className="absolute" style={{ height: '419.172px', left: '-2.75px', top: 0, width: '536.342px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-roads-base.svg" />
+              </div>
+              {/* imgYellow — yellow highlighted road */}
+              <div className="absolute" style={{ height: '400.194px', left: '100.67px', top: '14.03px', width: '272.297px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-roads-yellow.svg" />
+              </div>
+              {/* imgGreen — green park areas */}
+              <div className="absolute" style={{ height: '275.322px', left: '31.08px', top: '139.45px', width: '428.799px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-parks-green.svg" />
+              </div>
+              {/* imgFrame7 — frame overlay */}
+              <div className="absolute" style={{ height: '415.321px', left: '0.55px', top: '0.28px', width: '487.934px' }}>
+                <div className="absolute" style={{ inset: '0 0 0 -0.15%' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt="" className="block w-full h-full" src="/work-showcase/map-frame.svg" />
+                </div>
+              </div>
+              {/* imgVector30 — west street layer */}
+              <div className="absolute" style={{ height: '417.522px', left: '0.27px', top: '-1.93px', width: '399.094px' }}>
+                <div className="absolute" style={{ inset: '0 -0.14% 0 0' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-west.svg" />
+                </div>
+              </div>
+              {/* imgVector33 — east street layer */}
+              <div className="absolute" style={{ height: '416.972px', left: '267.07px', top: '-0.55px', width: '267.896px' }}>
+                <div className="absolute" style={{ inset: '0 -0.82% -1.06% -0.82%' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-east.svg" />
+                </div>
+              </div>
+              {/* imgVector35 + imgVector29 + RIVER NORTH label */}
+              <div className="absolute" style={{ height: '415.046px', left: '0.82px', top: '0.28px', width: '490.134px' }}>
+                <div className="absolute" style={{ height: '415.046px', left: 0, top: 0, width: '490.134px' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-streets-overlay.svg" />
+                </div>
+                <div className="absolute" style={{ height: '415.046px', left: 0, top: 0, width: '490.134px' }}>
+                  <div className="absolute" style={{ inset: '-0.13% -0.62% 0 0' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-overlay.svg" />
+                  </div>
+                </div>
+                <p
+                  className="absolute font-semibold whitespace-nowrap"
+                  style={{ fontFamily: 'Roboto, system-ui, sans-serif', fontSize: '9.902px', left: '37.13px', top: '330.88px', color: '#000', lineHeight: 'normal' }}
+                >
+                  RIVER NORTH
+                </p>
+              </div>
+            </div>
+            {/* Location pin — imgVector1 */}
+            <div className="absolute" style={{ height: '33px', left: '111px', top: '49px', width: '28px' }}>
+              <div className="absolute" style={{ inset: '-27.27% -67.86% -57.58% -32.14%' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt="" className="block w-full h-full" src="/work-showcase/map-pin.svg" />
+              </div>
+            </div>
+          </div>
+
+          {/* Review score box + business description */}
+          <div className="flex items-start w-full flex-shrink-0" style={{ height: '90px', gap: '10px' }}>
+            {/* Score box: 90×90px */}
+            <div
+              className="work-listings-score-bg flex flex-col items-center justify-center flex-shrink-0 work-img-blend"
+              style={{ width: '90px', height: '90px', borderRadius: '16px', gap: '8px' }}
+            >
+              <span
+                className="work-listings-score-num"
+                style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '48px', fontWeight: 200, lineHeight: '40px', letterSpacing: '-0.48px' }}
               >
-                RIVER NORTH
-              </p>
+                {content.rating.toFixed(1)}
+              </span>
+              {/* 5 small stars */}
+              <div className="flex items-center" style={{ gap: '2px' }}>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <svg key={i} width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5 0.5 L6.1 2.84 L8.66 3.18 L6.83 4.97 L7.27 7.52 L5 6.29 L2.73 7.52 L3.17 4.97 L1.34 3.18 L3.9 2.84 Z"
+                      fill={i < Math.round(content.rating) - 1 ? '#f5a623' : i < Math.round(content.rating) ? '#f5c96e' : '#d6d2c2'}
+                    />
+                  </svg>
+                ))}
+              </div>
             </div>
+            {/* Business description text */}
+            <p
+              className="work-listings-description flex-1 overflow-hidden h-full"
+              style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+            >
+              {content.descriptionText}
+            </p>
           </div>
-          {/* Location pin — imgVector1 */}
-          <div className="absolute" style={{ height: '33px', left: '111px', top: '49px', width: '28px' }}>
-            <div className="absolute" style={{ inset: '-27.27% -67.86% -57.58% -32.14%' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="" className="block w-full h-full" src="/work-showcase/map-pin.svg" />
-            </div>
-          </div>
-        </div>
 
-        {/* Review score box + business description */}
-        <div className="flex items-start w-full flex-shrink-0" style={{ height: '90px', gap: '10px' }}>
-          {/* Score box: 90×90px */}
-          <div
-            className="work-listings-score-bg flex flex-col items-center justify-center flex-shrink-0 work-img-blend"
-            style={{ width: '90px', height: '90px', borderRadius: '16px', gap: '8px' }}
-          >
-            <span
-              className="work-listings-score-num"
-              style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '48px', fontWeight: 200, lineHeight: '40px', letterSpacing: '-0.48px' }}
+          {/* Stats pills row */}
+          <div className="flex items-start w-full flex-shrink-0" style={{ gap: '10px' }}>
+            <div
+              className="work-listings-pill-bg flex flex-1 items-center justify-center min-w-0 rounded-full"
+              style={{ paddingLeft: '8px', paddingRight: '8px', paddingTop: '2px', paddingBottom: '2px' }}
             >
-              {content.rating.toFixed(1)}
-            </span>
-            {/* 5 small stars */}
-            <div className="flex items-center" style={{ gap: '2px' }}>
-              {Array.from({ length: 5 }, (_, i) => (
-                <svg key={i} width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M5 0.5 L6.1 2.84 L8.66 3.18 L6.83 4.97 L7.27 7.52 L5 6.29 L2.73 7.52 L3.17 4.97 L1.34 3.18 L3.9 2.84 Z"
-                    fill={i < Math.round(content.rating) - 1 ? '#f5a623' : i < Math.round(content.rating) ? '#f5c96e' : '#d6d2c2'}
-                  />
-                </svg>
-              ))}
+              <span
+                className="work-listings-pill-text whitespace-nowrap overflow-hidden text-ellipsis"
+                style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}
+              >
+                {content.totalReviewsPill}
+              </span>
+            </div>
+            <div
+              className="work-listings-pill-bg flex flex-1 items-center justify-center min-w-0 rounded-full"
+              style={{ paddingLeft: '8px', paddingRight: '8px', paddingTop: '2px', paddingBottom: '2px' }}
+            >
+              <span
+                className="work-listings-pill-text whitespace-nowrap overflow-hidden text-ellipsis"
+                style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}
+              >
+                {content.replyRatePill}
+              </span>
             </div>
           </div>
-          {/* Business description text */}
-          <p
-            className="work-listings-description flex-1 overflow-hidden h-full"
-            style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', overflow: 'hidden', textOverflow: 'ellipsis' }}
-          >
-            {content.descriptionText}
-          </p>
         </div>
-
-        {/* Stats pills row */}
-        <div className="flex items-start w-full flex-shrink-0" style={{ gap: '10px' }}>
-          <div
-            className="work-listings-pill-bg flex flex-1 items-center justify-center min-w-0 rounded-full"
-            style={{ paddingLeft: '8px', paddingRight: '8px', paddingTop: '2px', paddingBottom: '2px' }}
-          >
-            <span
-              className="work-listings-pill-text whitespace-nowrap overflow-hidden text-ellipsis"
-              style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}
-            >
-              {content.totalReviewsPill}
-            </span>
-          </div>
-          <div
-            className="work-listings-pill-bg flex flex-1 items-center justify-center min-w-0 rounded-full"
-            style={{ paddingLeft: '8px', paddingRight: '8px', paddingTop: '2px', paddingBottom: '2px' }}
-          >
-            <span
-              className="work-listings-pill-text whitespace-nowrap overflow-hidden text-ellipsis"
-              style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', lineHeight: '18px', letterSpacing: '-0.12px' }}
-            >
-              {content.replyRatePill}
-            </span>
-          </div>
-        </div>
-      </div>
+      </ScaledMockCard>
       <Chip label={chipLabel} bg={chipBg} color={chipText} />
     </div>
   );
@@ -3141,40 +3151,36 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
         const initialCards = initialCardRefs.current.filter((el): el is HTMLElement => !!el);
         gsap.set(initialCards, { opacity: 0, y: 30 });
 
-        // Track whether the card animation has finished — used to gate the
-        // second snap point so the visitor cannot advance past the section
-        // until all cards are visible (spec: hold while transitions play).
+        // Spec 026: pin retired. The entrance plays once on viewport entry
+        // (start: 'top 80%') via a direct ScrollTrigger; the visitor scrolls
+        // freely through the section while the entrance is in progress.
         let played = false;
-        let animComplete = false;
 
-        const playEntrance = () => {
-          logSectionEvent('work-pin', 'ANIM_ENTER_CALLED', { played });
-          if (played) return;
-          played = true;
-          logSectionEvent('work-pin', 'ANIM_START', { cardCount: initialCards.length });
-          gsap.to(initialCards, {
-            opacity: 1,
-            y: 0,
-            duration: 1.1,
-            ease: 'power2.out',
-            stagger: 0.3,
-            onComplete: () => {
-              // Only clear GSAP inline styles from the cards we actually animated.
-              // Calling clearProps on Embla's loop-clone nodes removes their
-              // Embla-injected transform, causing them to snap out of position.
-              gsap.set(initialCards, { clearProps: 'opacity,y,transform' });
-              startAutoScrollRef.current();
-              animComplete = true;
-              logSectionEvent('work-pin', 'ANIM_COMPLETE');
-            },
-          });
-        };
-
-        createSectionPin({
-          id: 'work-pin',
-          section,
-          onEnter: playEntrance,
-          isAnimComplete: () => animComplete,
+        ScrollTrigger.create({
+          id: 'work-entrance',
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (played) return;
+            played = true;
+            log('work-entrance', 'ANIM_START', { cardCount: initialCards.length });
+            gsap.to(initialCards, {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: 'power2.out',
+              stagger: 0.3,
+              onComplete: () => {
+                // Only clear GSAP inline styles from the cards we actually animated.
+                // Calling clearProps on Embla's loop-clone nodes removes their
+                // Embla-injected transform, causing them to snap out of position.
+                gsap.set(initialCards, { clearProps: 'opacity,y,transform' });
+                startAutoScrollRef.current();
+                log('work-entrance', 'ANIM_COMPLETE');
+              },
+            });
+          },
         });
       });
 
@@ -3285,14 +3291,15 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
       // over with a per-industry strip layout. The desktop section here
       // assumes ScrollSmoother + Embla + GSAP entrance, none of which suit
       // a touch device.
-      className="hidden md:block relative w-full overflow-hidden h-screen"
+      // Spec 026: min-height: 100svh + flex column. Headline anchors to the
+      // top with --section-padding-y above, category bar to the bottom with
+      // --section-padding-y below, carousel is the flex-grow region between.
+      className="work-showcase-section hidden md:flex relative w-full overflow-hidden flex-col"
       style={{ backgroundColor: '#f0eee6' }}
     >
-      {/* Section headline — centered, 32px FK Roman Standard, mixed oblique */}
-      <div
-        className="pointer-events-none absolute inset-x-0 flex justify-center"
-        style={{ top: '78px', transform: 'translateY(-50%)' }}
-      >
+      {/* Section headline — centered, 32px FK Roman Standard, mixed oblique.
+          In normal flow at the top of the section. */}
+      <div className="pointer-events-none flex justify-center w-full flex-shrink-0">
         <p
           className="text-center"
           style={{
@@ -3316,10 +3323,10 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
         </p>
       </div>
 
-      {/* Carousel — vertically centered between the headline and the category bar */}
+      {/* Carousel — flex-1 fills the space between headline and category bar
+          and centres the card strip vertically inside that space. */}
       <div
-        className="absolute inset-x-0"
-        style={{ top: '50%', transform: 'translateY(-50%)' }}
+        className="flex-1 flex items-center w-full"
         onMouseEnter={handleCarouselMouseEnter}
         onMouseLeave={handleCarouselMouseLeave}
       >
@@ -3349,18 +3356,52 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
         </div>
       </div>
 
-      {/* Category bar + sub-labels — bottom-anchored, always 24px from section bottom */}
-      <div className="absolute bottom-12 left-0 right-0 hidden flex-col items-center gap-4 md:flex">
-        <div className="flex items-end gap-[24px]">
+      {/* Category bar + sub-labels — in normal flow at the bottom of the
+          section. Section's --section-padding-y provides the breathing room
+          to the section bottom edge.
+
+          The bar's font-size and inter-button gap stay at the Figma values
+          (50 px / 24 px) on any viewport wide enough to fit the row, and
+          only scale down when the row would otherwise need to wrap. This
+          is implemented as `clamp(min, vw-based, max)` on both:
+
+            • font-size: clamp(20px, 3.85vw, 50px)
+              — 50 px is the Figma cap (FK Screamer Bold, 50 px,
+                line-height 0.82, per spec 002 r2);
+              — 3.85vw resolves to 50 px at viewport ≈ 1299 px and shrinks
+                proportionally below that (50 / 1299 ≈ 0.0385 → 3.85vw);
+              — 20 px is the floor so labels stay legible at the desktop
+                breakpoint (≥ 768 px, where this section is shown via
+                md:flex; below 768 px MobileWorkShowcase replaces it).
+
+            • gap: clamp(10px, 1.85vw, 24px) — 24 px Figma cap, scales in
+              lockstep with font so the row stays proportional, with a
+              10 px floor.
+
+          Threshold derivation: Figma metadata (node 1009:26343, "All
+          states overview") gives label box widths of 205 + 190 + 254 + 261
+          + 296 = 1206 px at 50 px font. Plus 4 × 24 px gaps = 1302 px
+          total bar width. So on any viewport ≥ ~1302 px the row fits at
+          full size with no shrinkage; below that the clamp kicks in.
+
+          `whitespace-nowrap` on every button is the hard guarantee against
+          two-line labels — the clamp keeps the row narrow enough to fit,
+          and nowrap stops the browser from wrapping if any tiny rounding
+          error pushes a label one pixel past its container. */}
+      <div className="flex-shrink-0 flex flex-col items-center gap-4 w-full">
+        <div
+          className="flex items-end"
+          style={{ gap: 'clamp(10px, 1.85vw, 24px)' }}
+        >
           {industries.map((industry, i) => (
             <button
               key={industry.id}
-              className="work-category-btn uppercase leading-[0.82]"
+              className="work-category-btn uppercase leading-[0.82] whitespace-nowrap"
               data-active={i === activeIndustryIndex ? 'true' : 'false'}
               style={{
                 fontFamily: "'FK Screamer', sans-serif",
                 fontWeight: 700,
-                fontSize: '50px',
+                fontSize: 'clamp(20px, 3.85vw, 50px)',
                 ...(i === activeIndustryIndex ? { color: industry.activeColor } : undefined),
               }}
               onClick={() => handleCategoryClick(i)}

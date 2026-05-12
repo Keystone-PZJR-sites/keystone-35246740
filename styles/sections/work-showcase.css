@@ -1,5 +1,14 @@
 /* ==================== WORK SHOWCASE ==================== */
 
+/* Section shell — spec 026: min-height: 100svh + flex column. Headline,
+   carousel, and category bar are in normal flow with the standard
+   --section-padding-y above the headline and below the category bar.
+   Pre-spec-026 used `h-screen` + absolute positioning for all three zones. */
+.work-showcase-section {
+  min-height: 100svh;
+  padding: var(--section-padding-y) 0;
+}
+
 /* ── Proportionally scaled mock card ───────────────────────────────────────
    Usage: the outermost mock container element gets class "ws-scale-root" and
    inline CSS vars --ws-natural-w / --ws-natural-h (e.g. style="--ws-natural-w:868px").

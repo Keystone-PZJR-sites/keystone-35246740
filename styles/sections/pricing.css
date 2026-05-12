@@ -1,21 +1,38 @@
 /* ==================== PRICING SECTION ==================== */
 
-/* --- Outer section --- */
+/* --- Outer section ---
+   Spec 026: min-height: 100svh ensures the section is at least as tall as
+   the visible viewport (svh accounts for mobile browser chrome) but grows
+   if the inner content needs more room on a short window. --- */
 .pricing-section {
   background-color: var(--color-pricing-bg);
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
+  display: flex;
 }
 
-/* --- Centered inner container — flex column, all children horizontally centered --- */
+/* Custom CSS is unlayered and so beats Tailwind's `hidden` utility. The
+   component carries `hidden md:block` for desktop-only visibility; restate
+   that intent here so the section actually disappears below the breakpoint. */
+@media (max-width: 767px) {
+  .pricing-section {
+    display: none;
+  }
+}
+
+/* --- Centered inner container — flex column, all children horizontally centered.
+   Vertical padding uses the site-wide --section-padding-y token; horizontal
+   stays at 24 px gutter. flex: 1 fills the section so justify-content: center
+   centers content inside the available space when content is shorter than
+   the viewport, and lets it grow naturally when it isn't. --- */
 .pricing-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 100%;
-  padding: clamp(32px, 6vh, 64px) 24px clamp(42px, 8vh, 85px);
+  flex: 1;
+  padding: var(--section-padding-y) 24px;
 }
 
 /* --- Tagline --- */

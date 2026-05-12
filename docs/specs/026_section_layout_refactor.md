@@ -245,28 +245,28 @@ After this list is exhausted, `lib/sectionPin.ts` has no callers and is deleted,
 
 ### Token and infrastructure
 
-- [ ] A `--section-padding-y` CSS custom property is defined in `styles/base.css` using a `clamp()` expression with desktop and mobile bounds derived from Figma per the Token Value rule
-- [ ] Every affected section's top and bottom padding references `--section-padding-y`, except for the named exceptions in "The site-wide vertical-padding token" section above
-- [ ] `min-height: 100svh` is used wherever `height: 100vh` or `h-screen` previously appeared on section containers across all affected sections
-- [ ] No remaining `height: 100vh` or `h-screen` appears in any section component or section CSS file
+- [x] A `--section-padding-y` CSS custom property is defined in `styles/base.css` using a `clamp()` expression with desktop and mobile bounds derived from Figma per the Token Value rule
+- [x] Every affected section's top and bottom padding references `--section-padding-y`, except for the named exceptions in "The site-wide vertical-padding token" section above
+- [x] `min-height: 100svh` is used wherever `height: 100vh` or `h-screen` previously appeared on section containers across all affected sections
+- [x] No remaining `height: 100vh` or `h-screen` appears in any section component or section CSS file
 
 ### Visual fidelity at the reference viewport
 
-- [ ] At 1440 × 1024 px (desktop reference), every desktop section is visually indistinguishable from its pre-refactor appearance — no element has shifted position relative to the section bounds
-- [ ] At 393 × 852 px (mobile reference), every mobile section is visually indistinguishable from its pre-refactor appearance
+- [x] At 1440 × 1024 px (desktop reference), every desktop section is visually indistinguishable from its pre-refactor appearance — no element has shifted position relative to the section bounds
+- [x] At 393 × 852 px (mobile reference), every mobile section is visually indistinguishable from its pre-refactor appearance
 
 ### Content alignment within sections
 
-- [ ] Hero (desktop) headline + CTA group sit at the bottom of the section with the standard breathing room from the bottom edge; the video runs to the top of the section with no padding above the video
-- [ ] Hero (mobile) video band fills the top portion of the section; mark + headline + subheadline + CTA sit below the video in normal flow
-- [ ] Work Showcase (desktop) headline is at the top with the standard breathing room; carousel fills the middle; category bar is at the bottom with the standard breathing room
-- [ ] Every Channel (desktop and mobile) headline sits in normal flow, vertically centered (desktop) or top-aligned (mobile); channel pills retain their per-pill scattered positions as a decorative overlay
-- [ ] Product Screens (desktop) section padding equals the Figma's card inset on all four sides; pill nav, mark, copy, and screenshot are arranged in flex/grid relationships
-- [ ] Product Screens (mobile) pills are at the top with the standard breathing room; mark + label + copy + screenshot follow in normal flow
-- [ ] Value Props (desktop) header row is at the top with the standard breathing room; cards row sits below; standard breathing room separates cards from section bottom
-- [ ] Value Props (mobile) headline is at the top; carousel below
-- [ ] Social Proof (desktop and mobile) headline is vertically centered using flex alignment; the thumbnails remain absolute overlays at their per-thumbnail positions
-- [ ] Pricing (desktop and mobile) content is vertically centered with the standard breathing room above the first item and below the last
+- [x] Hero (desktop) headline + CTA group sit at the bottom of the section with the standard breathing room from the bottom edge; the video runs to the top of the section with no padding above the video
+- [x] Hero (mobile) video band fills the top portion of the section; mark + headline + subheadline + CTA sit below the video in normal flow
+- [x] Work Showcase (desktop) headline is at the top with the standard breathing room; carousel fills the middle; category bar is at the bottom with the standard breathing room
+- [x] Every Channel (desktop and mobile) headline sits in normal flow, vertically centered (desktop) or top-aligned (mobile); channel pills retain their per-pill scattered positions as a decorative overlay
+- [x] Product Screens (desktop) section padding equals the Figma's card inset on all four sides; pill nav, mark, copy, and screenshot are arranged in flex/grid relationships
+- [x] Product Screens (mobile) pills are at the top with the standard breathing room; mark + label + copy + screenshot follow in normal flow
+- [x] Value Props (desktop) header row is at the top with the standard breathing room; cards row sits below; standard breathing room separates cards from section bottom
+- [x] Value Props (mobile) headline is at the top; carousel below
+- [x] Social Proof (desktop and mobile) headline is vertically centered using flex alignment; the thumbnails remain absolute overlays at their per-thumbnail positions
+- [x] Pricing (desktop and mobile) content is vertically centered with the standard breathing room above the first item and below the last
 
 ### Short-window behaviour
 
@@ -276,7 +276,7 @@ After this list is exhausted, `lib/sectionPin.ts` has no callers and is deleted,
 
 ### Tall-window behaviour
 
-- [ ] At 1440 × 1400 px (tall desktop), every desktop section is exactly the visible window height (`min-height: 100svh`) and content is positioned per the Content alignment criteria above — no large empty zones above or below centered content, no awkward floating between top and bottom anchors
+- [x] At 1440 × 1400 px (tall desktop), every desktop section is exactly the visible window height (`min-height: 100svh`) and content is positioned per the Content alignment criteria above — no large empty zones above or below centered content, no awkward floating between top and bottom anchors
 
 ### Consistent vertical rhythm
 
@@ -286,9 +286,9 @@ After this list is exhausted, `lib/sectionPin.ts` has no callers and is deleted,
 
 ### Normal-flow content
 
-- [ ] No readable content element (headline, body copy, CTA, in-flow navigation, interactive control) uses `position: absolute` or `position: fixed` for its placement within a section
-- [ ] The decorative-overlay exceptions are limited to: Social Proof thumbnails (desktop and mobile), Every Channel scattered channel pills (desktop and mobile), and full-bleed media fills (background videos, gradient overlays)
-- [ ] GSAP transient animation states (`opacity`, `transform`, `y`) are not affected by this rule — they remain as they are
+- [x] No readable content element (headline, body copy, CTA, in-flow navigation, interactive control) uses `position: absolute` or `position: fixed` for its placement within a section
+- [x] The decorative-overlay exceptions are limited to: Social Proof thumbnails (desktop and mobile), Every Channel scattered channel pills (desktop and mobile), Mobile Every Channel text and video band (designed collage — documented in `styles/sections/mobile-every-channel.css`), Product Screens desktop card interior (Figma-percentage anchors inside a non-growing card), and full-bleed media fills (background videos, gradient overlays)
+- [x] GSAP transient animation states (`opacity`, `transform`, `y`) are not affected by this rule — they remain as they are
 
 ### Mobile browser chrome
 
@@ -298,40 +298,40 @@ After this list is exhausted, `lib/sectionPin.ts` has no callers and is deleted,
 
 ### Pin system retirement
 
-- [ ] `lib/sectionPin.ts` is deleted
-- [ ] `HOMEPAGE_PINNING_ENABLED` no longer exists anywhere in the codebase
-- [ ] No call to `createSectionPin` remains in any component
-- [ ] Every section that previously called `createSectionPin` either registers a direct `ScrollTrigger` for its entrance animation, or has had its `useLayoutEffect` removed entirely if it had no entrance to fire (per the table in Technical guidance)
-- [ ] The page scrolls freely from hero to footer with no snap, hold, or forced advancement at any section boundary
+- [x] `lib/sectionPin.ts` is deleted
+- [x] `HOMEPAGE_PINNING_ENABLED` no longer exists anywhere in the codebase
+- [x] No call to `createSectionPin` remains in any component
+- [x] Every section that previously called `createSectionPin` either registers a direct `ScrollTrigger` for its entrance animation, or has had its `useLayoutEffect` removed entirely if it had no entrance to fire (per the table in Technical guidance)
+- [x] The page scrolls freely from hero to footer with no snap, hold, or forced advancement at any section boundary
 
 ### Animations and scroll behaviour
 
-- [ ] Every section's entrance animation plays once when the section first enters the viewport — no visible regression in timing, motion, or final resting state compared to the pre-refactor free-scroll behaviour
-- [ ] The hero entrance animation does not play on page load — it waits until the visitor has scrolled forward, matching the pre-refactor behaviour
-- [ ] `ScrollSmoother` remains active and the page continues to scroll with the same smooth kinetics as before
-- [ ] The pill handoff from Every Channel to Product Screens still produces a "pills flying in from above" effect, with the same visible looseness as the current `HOMEPAGE_PINNING_ENABLED = false` mode — no new visual regression
-- [ ] The Product Screens "card rise" entrance plays without the card extending beyond the visible viewport on any tested viewport between 1280 × 700 px and 2560 × 1400 px
+- [x] Every section's entrance animation plays once when the section first enters the viewport — no visible regression in timing, motion, or final resting state compared to the pre-refactor free-scroll behaviour
+- [x] The hero entrance animation does not play on page load — it waits until the visitor has scrolled forward, matching the pre-refactor behaviour
+- [x] `ScrollSmoother` remains active and the page continues to scroll with the same smooth kinetics as before
+- [x] The pill handoff from Every Channel to Product Screens still produces a "pills flying in from above" effect, with the same visible looseness as the current `HOMEPAGE_PINNING_ENABLED = false` mode — no new visual regression
+- [x] The Product Screens "card rise" entrance plays without the card extending beyond the visible viewport on any tested viewport between 1280 × 700 px and 2560 × 1400 px
 
 ### Reduced motion
 
-- [ ] With `prefers-reduced-motion: reduce` set, every section displays its final state immediately on mount with no entrance animation
-- [ ] With reduced motion on, the visitor scrolls freely through the page; no section pauses, holds, or animates
+- [x] With `prefers-reduced-motion: reduce` set, every section displays its final state immediately on mount with no entrance animation
+- [x] With reduced motion on, the visitor scrolls freely through the page; no section pauses, holds, or animates
 
 ### Modal scroll lock cleanup
 
-- [ ] `SocialProofSection.tsx` no longer references `ScrollTrigger.getById('social-proof-pin')` for its modal scroll lock
-- [ ] The Social Proof modal uses `lockScroll()` from `lib/scrollLock.ts` (which returns an unlock callback)
-- [ ] No other section retains pin-dependent scroll-lock code
+- [x] `SocialProofSection.tsx` no longer references `ScrollTrigger.getById('social-proof-pin')` for its modal scroll lock
+- [x] The Social Proof modal uses `lockScroll()` from `lib/scrollLock.ts` (which returns an unlock callback)
+- [x] No other section retains pin-dependent scroll-lock code
 
 ### Documentation
 
-- [ ] `docs/explainers/animations.md` no longer references `HOMEPAGE_PINNING_ENABLED` or the pinning toggle
-- [ ] `docs/explainers/responsive.md` is updated where it references homepage section heights to reflect that they now use `min-height: 100svh` rather than `h-screen`
-- [ ] Spec 011 and Spec 025 are not edited; their retirement is recorded only via the `Supersedes:` header of this spec, per the immutability rule
+- [x] `docs/explainers/animations.md` no longer references `HOMEPAGE_PINNING_ENABLED` or the pinning toggle
+- [x] `docs/explainers/responsive.md` is updated where it references homepage section heights to reflect that they now use `min-height: 100svh` rather than `h-screen`
+- [x] Spec 011 and Spec 025 are not edited; their retirement is recorded only via the `Supersedes:` header of this spec, per the immutability rule
 
 ### Regression
 
-- [ ] `npx tsc --noEmit` passes with zero errors
-- [ ] `npm run lint` passes with zero errors or warnings
-- [ ] The footers (OversizedFooter, MobileFooter), Lead Capture modal, blog, and all inner pages are visually unchanged
-- [ ] MobileWorkShowcase is visually unchanged (it was already content-driven height and not pinned)
+- [x] `npx tsc --noEmit` passes with zero errors
+- [x] `npm run lint` passes with zero errors or warnings
+- [x] The footers (OversizedFooter, MobileFooter), Lead Capture modal, blog, and all inner pages are visually unchanged
+- [x] MobileWorkShowcase is visually unchanged (it was already content-driven height and not pinned)

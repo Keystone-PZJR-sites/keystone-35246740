@@ -1,7 +1,9 @@
 /* ==========================================================================
-   Mobile Pricing Section (Spec 021)
+   Mobile Pricing Section (Spec 021, refactored under Spec 026)
    Reference canvas: 393 × 852 px (iPhone 14 Pro)
-   All positions from Figma node 1281:583.
+   Spec 026: content sits in a single centred flex column instead of
+   percentage-of-viewport-height absolute positions, so the layout adapts to
+   the actual content height and never clips on a short window.
    ========================================================================== */
 
 /* ── Section shell ────────────────────────────────────────────────────────── */
@@ -9,8 +11,9 @@
 .mprice-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
   background-color: #0a1f1e;
+  display: flex;
   overflow: hidden;
 }
 
@@ -20,15 +23,24 @@
   }
 }
 
-/* ── Tagline — Figma top=56, left=calc(50%+0.62px), w=189.52px ───────────── */
+/* Centered inner column. flex: 1 + justify-content: center vertically
+   centers content when the viewport has spare room; the column grows
+   beyond the section's min-height when content needs more space. */
+.mprice-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--section-padding-y) 24px;
+  width: 100%;
+}
+
+/* ── Tagline ──────────────────────────────────────────────────────────────── */
 
 .mprice-tagline {
-  position: absolute;
-  top: calc(56 / 852 * 100%);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(189.52px, calc(100% - 48px));
-  text-align: center;
+  width: min(189.52px, 100%);
   font-family: 'FK Grotesk Neue', sans-serif;
   font-weight: 400;
   font-size: 24px;
@@ -38,18 +50,12 @@
   margin: 0;
 }
 
-/* ── Price — Figma top=144, left=50%, w=auto ──────────────────────────────── */
+/* ── Price ────────────────────────────────────────────────────────────────── */
 
 .mprice-price {
-  position: absolute;
-  top: calc(144 / 852 * 100%);
-  left: 50%;
-  transform: translateX(-50%);
-  /* Use same line-height as children so the container has no phantom extra spacing */
+  margin-top: 32px;
   line-height: 0.82;
-  text-align: center;
   white-space: nowrap;
-  margin: 0;
 }
 
 .mprice-price-amount {
@@ -70,19 +76,14 @@
   color: #399587;
 }
 
-/* ── Sub-copy — Figma top=251, w=301.453px, whitespace-pre-wrap ───────────── */
+/* ── Sub-copy ─────────────────────────────────────────────────────────────── */
 
 .mprice-subcopy {
-  position: absolute;
-  top: calc(251 / 852 * 100%);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(301.453px, calc(100% - 48px));
-  text-align: center;
+  margin-top: 28px;
+  width: min(301.453px, 100%);
   font-family: 'FK Grotesk Mono', monospace;
   font-weight: 400;
   font-size: 12px;
-  /* No line-height:0 hack — block-level <p> children each define their own */
   letter-spacing: -0.24px;
   color: #5bc3b3;
   white-space: pre-wrap;
@@ -98,13 +99,10 @@
   margin-top: 12px;
 }
 
-/* ── ADD ONS heading — Figma top=365, centered ────────────────────────────── */
+/* ── ADD ONS heading ──────────────────────────────────────────────────────── */
 
 .mprice-addons-heading {
-  position: absolute;
-  top: calc(365 / 852 * 100%);
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 36px;
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
   font-size: 40px;
@@ -113,53 +111,38 @@
   letter-spacing: 0.8px;
   color: #5bc3b3;
   white-space: nowrap;
-  margin: 0;
 }
 
-/* ── Credits — Figma top=422, w=308.945px ─────────────────────────────────── */
+/* ── Credits ─────────────────────────────────────────────────────────────── */
 
 .mprice-credits {
-  position: absolute;
-  top: calc(422 / 852 * 100%);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(308.945px, calc(100% - 48px));
-  text-align: center;
+  margin-top: 16px;
+  width: min(308.945px, 100%);
   font-family: 'FK Grotesk Mono', monospace;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.3;
   letter-spacing: -0.24px;
   color: #5bc3b3;
-  margin: 0;
+  margin-bottom: 0;
 }
 
-/* ── Add-ons block — pills + descriptions, centered as a unit ─────────────
-   Positioned at the pills' Y; desc rows follow in natural flow below.
-   Width matches 2 × desc-col (168px) + gap (9px) = 345px, so both pills
-   and descriptions share the same horizontal centre at every viewport width.
-   ─────────────────────────────────────────────────────────────────────── */
+/* ── Add-ons block ────────────────────────────────────────────────────────── */
 
 .mprice-addons-block {
-  position: absolute;
-  top: calc(542 / 852 * 100%);
-  left: 50%;
-  transform: translateX(-50%);
-  /* Fluid: fills up to the 2-column ideal width, constrained by the screen */
-  width: min(345px, calc(100% - 48px));
+  margin-top: 32px;
+  width: min(345px, 100%);
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* Pills row — each pill centered within its equal-width column slot */
 .mprice-addon-pills-row {
   display: flex;
   gap: 9px;
 }
 
 .mprice-pill-col {
-  /* Equal columns that shrink gracefully instead of a fixed 168px */
   flex: 1 1 0;
   min-width: 0;
   display: flex;
@@ -202,7 +185,6 @@
 
 .mprice-desc-col {
   display: flex;
-  /* Equal columns instead of fixed 168px */
   flex: 1 1 0;
   min-width: 0;
   padding: 8px;
@@ -213,7 +195,6 @@
   min-width: 1px;
   display: flex;
   flex-direction: column;
-  /* top-aligned: both description texts start at the same Y */
   justify-content: flex-start;
   text-align: center;
 }

@@ -5,17 +5,31 @@
 
 /* ── Section ── */
 
+/* Spec 026: scattered-thumbnail collage — every interactive element is
+   `position: absolute` and the centred headline + modal don't contribute to
+   intrinsic height. min-height: 100svh keeps the section a full viewport
+   tall (in practice = 100svh, since nothing forces it taller) so the
+   percentage-of-section anchors below resolve to the same offsets they did
+   under the previous fixed 100vh. svh accounts for mobile browser chrome so
+   the layout no longer pushes thumbnails off-screen on iOS Safari. */
 .msp-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
   background-color: #0d2a28;
   overflow: hidden;
 }
 
+@media (min-width: 768px) {
+  .msp-section {
+    display: none;
+  }
+}
+
 /* ── Headline ──
-   Both offset values expressed as % of section height (100vh) so they
-   scale to every device height.  104px / 852px = 12.21%. */
+   Both offset values expressed as % of section height (the section is
+   `min-height: 100svh` per spec 026 and has no flow children, so it
+   resolves to 100svh in practice). 104px / 852px = 12.21%. */
 
 .msp-headline-wrap {
   position: absolute;
@@ -114,8 +128,9 @@
 }
 
 /* ── Embla viewport ──
-   All dimensions expressed as % of section height (100vh) so they scale
-   to every device.
+   All dimensions expressed as % of section height (the section is
+   `min-height: 100svh` per spec 026 and has no flow children, so it
+   resolves to 100svh in practice).
 
    228/852 = 26.76%  →  card group starts at calc(50% - 26.76%)
    455/852 = 53.40%  →  card strip height

@@ -1,14 +1,9 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
-import { createSectionPin } from '@/lib/sectionPin';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export interface MobileHeroProps {
   headlineLine1: string;
@@ -24,14 +19,10 @@ export interface MobileHeroProps {
 /**
  * Mobile-only hero section (below 768px).
  *
- * Full-viewport (h-screen) section that pins using the standard scroll
- * state-machine — matching every other section on the page. Because this is
- * the first section on the page it uses `fireOnScroll: true` so the pin does
- * not trigger on initial page load before the visitor scrolls.
- *
- * The section is a flex column: the video zone takes 40 vh at the top;
- * the content zone fills the remainder. The layout never overflows its
- * 100 vh container.
+ * Spec 026 retired the pin: the section now sizes to its content with a
+ * `min-height: 100svh` floor so it still fills the visible viewport on tall
+ * windows. The video zone occupies the top 40svh; the content zone fills
+ * whatever remains, so the layout never overflows the section.
  *
  * Shown via `md:hidden` — the desktop HeroAnimatic uses `hidden md:block`.
  */
@@ -44,33 +35,9 @@ export function MobileHero({
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
-  const sectionRef = useRef<HTMLElement>(null);
   const videoRef   = useRef<HTMLVideoElement>(null);
   const indexRef   = useRef(0);
   const { openModal } = useLeadCapture();
-
-  // Pin the section at full viewport height (mobile only, fire on scroll so
-  // initial page-load does not trigger the entrance before the user scrolls).
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(max-width: 767px)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'mobile-hero-pin',
-          section,
-          onEnter: () => {},
-          isAnimComplete: () => true,
-          fireOnScroll: true,
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   // Advance to the next clip on ended or error.
   useEffect(() => {
@@ -94,14 +61,13 @@ export function MobileHero({
 
   return (
     <section
-      ref={sectionRef}
-      className="md:hidden relative h-screen overflow-hidden flex flex-col bg-[var(--color-hero-surface)]"
+      className="md:hidden relative min-h-[100svh] overflow-hidden flex flex-col bg-[var(--color-hero-surface)]"
       aria-label="Hero"
     >
-      {/* ── Video zone — top 40 vh ─────────────────────────────────────────── */}
+      {/* ── Video zone — top 40 svh ────────────────────────────────────────── */}
       {/* Full-bleed, no side insets. The fixed HeroNav overlays the top via   */}
-      {/* its own z-50 fixed positioning.                                       */}
-      <div className="relative w-full flex-none h-[40vh] overflow-hidden">
+      {/* its own z-50 fixed positioning.                                      */}
+      <div className="relative w-full flex-none h-[40svh] overflow-hidden">
         <video
           ref={videoRef}
           autoPlay

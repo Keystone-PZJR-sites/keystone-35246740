@@ -4,26 +4,42 @@
 /* ── Desktop ─────────────────────────────────────────────────────────────── */
 
 /* --- Section container ---
-   Full-viewport pinned section — same pattern as WorkShowcase and EveryChannel.
-   createSectionPin (in ValueProps.tsx) handles the scroll-state machine.      */
+   Spec 026: not pinned. min-height: 100svh keeps the section at least one
+   visible viewport tall but lets it grow when content needs more space. --- */
 .vp-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
   background-color: #f0eee6;
-  overflow: hidden;
+  display: flex;
+}
+
+/* Custom CSS is unlayered and so beats Tailwind's `hidden` utility. The
+   component carries `hidden md:block` for desktop-only visibility; restate
+   that intent here so the section actually disappears below the breakpoint. */
+@media (max-width: 767px) {
+  .vp-section {
+    display: none;
+  }
+}
+
+/* Inner column: header at top, cards row centered below. flex: 1 fills the
+   section so justify-content distributes the breathing room. */
+.vp-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--section-padding-y) 24px;
+  gap: clamp(40px, 5vh, 96px);
 }
 
 /* --- Header row: headline left, CTA bubble right ---
-   top expressed in vh so it scales to the section's 100vh height.
-   5.47vh = 56px at the 1024px reference desktop height.              */
+   In normal flow at the top of the inner column. */
 .vp-header {
-  position: absolute;
-  top: 5.47vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
+  width: 100%;
   max-width: 1392px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,26 +128,31 @@
 }
 
 /* --- Cards row ---
-   21.97vh = 225px at the 1024px reference desktop height.            */
+   In normal flow below the header, centred and constrained to the design
+   width. Vertically centred within the remaining vertical space via
+   margin-block: auto so very tall windows don't push the cards toward one
+   edge. --- */
 .vp-cards-row {
-  position: absolute;
-  top: 21.97vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
+  width: 100%;
   max-width: 1392px;
+  margin: auto auto 0;
   display: flex;
   gap: 24px;
+  flex: 1 1 auto;
+  align-items: stretch;
 }
 
 /* --- Individual card ---
-   69.43vh = 711px at the 1024px reference height; min-height guards
-   against very short viewports collapsing the cards.                 */
+   711px is the natural Figma card height at the 1024 reference.
+   The flex parent stretches the card to fill the available row height,
+   bounded between the natural value and a min-height guard so very short
+   windows don't collapse the cards. --- */
 .vp-card {
   flex: 1 1 0%;
   position: relative;
-  height: 69.43vh;
   min-height: 400px;
+  max-height: 711px;
+  height: 100%;
   min-width: 0;
 }
 
@@ -209,10 +230,11 @@
 /* ── Mobile carousel ─────────────────────────────────────────────────────── */
 
 /* --- Section container ---
-   Full-viewport pinned section — matched to every other mobile section.
+   Spec 026: not pinned. min-height: 100svh keeps the section at least the
+   visible viewport tall; the carousel viewport flexes to fill the remainder.
    Flex column: header is fixed-size, carousel grows to fill the rest.  --- */
 .mvp-section {
-  height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   background-color: #f0eee6;
@@ -225,9 +247,11 @@
   }
 }
 
-/* --- Header area --- */
+/* --- Header area ---
+   Top padding uses the site-wide section padding token; horizontal padding
+   stays at the design 24px gutter. --- */
 .mvp-header {
-  padding: 48px 24px 0;
+  padding: var(--section-padding-y) 24px 0;
   flex-shrink: 0;
 }
 
@@ -269,30 +293,45 @@
 /* --- Embla viewport ---
    flex: 1 / min-height: 0 so the viewport grows to fill whatever space the
    header leaves behind.
-   flex-direction: column + justify-content: center vertically centers the
-   card strip in that remaining space.
-   padding: 28px top and bottom — top creates headroom so the elevated active
-   card (translateY(-24px)) is not clipped; bottom keeps symmetry.         --- */
+   Spec 026 / Figma reference (393×852, node 1278:467): the active card sits at
+   y=246 in an 852-tall section, with the divider ending at y=174 — a 72px gap
+   between divider bottom and card top. justify-content: flex-start anchors the
+   carousel to the top of the viewport remainder so that gap stays consistent
+   across all viewport heights, instead of drifting down (and away from the
+   headline) on tall windows where centering puts >100px above the cards.
+   Top padding 48px combined with the divider's 24px bottom margin reproduces
+   the Figma 72px gap; this also clears the elevated active card's
+   translateY(-24px) (48 > 24) so the lift is not clipped. Bottom uses the
+   site-wide section padding token to match every other section's bottom
+   breathing room. Any remaining vertical space on tall windows fills the
+   section with cream below the carousel — the next section provides its own
+   contrasting background.                                                   --- */
 .mvp-carousel-viewport {
   flex: 1;
   min-height: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 28px 0;
+  justify-content: flex-start;
+  padding: 48px 0 var(--section-padding-y);
 }
 
 /* --- Embla slide container: horizontal flex row ---
-   height: min(100%, 558px) — 558px is the natural Figma card height.
-   On short viewports the card fills the available height; on tall viewports
-   it caps at 558px and is centered by the viewport's justify-content.
+   height: 558px — natural Figma card height. Spec 026: section is sized via
+   `min-height: 100svh`, which is not a definite height; combined with
+   `flex: 1` on the viewport, percentage heights down the slide chain
+   (slide-item, slide, slide-video-wrap) resolve to 0 in Chrome/Safari (the
+   slide-wrap was 0 px tall, breaking <Image fill> and collapsing the cards
+   to just the panel's text content). A definite pixel height here gives
+   the entire slide chain a concrete reference. On short viewports the
+   section grows past 100svh to keep the cards visible — that is the spec's
+   stated content-driven-height behaviour.
    padding-left = 24px for the left edge inset. Right edge uses margin-right
    on the last slide instead of padding-right — CSS drops padding-right on
    overflowing flex containers in most browsers.                           --- */
 .mvp-carousel-container {
   display: flex;
-  height: min(100%, 558px);
+  height: 558px;
   gap: 16px;
   padding-left: 24px;
   list-style: none;

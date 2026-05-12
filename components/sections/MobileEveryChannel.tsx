@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +15,7 @@ export interface MobileEveryChannelPillData {
   dotColor?: string;
   /** Left position as a CSS percentage of the section width. */
   left: string;
-  /** Top position as a CSS percentage of the section height (100vh). */
+  /** Top position as a CSS percentage of the section height (min-height: 100svh per spec 026). */
   top: string;
   beatIndex: number;
 }
@@ -60,14 +60,24 @@ const CHAR_SECOND: React.CSSProperties = {
  * Mobile-only Every Channel section (below 768px).
  *
  * Visual differences from the desktop EveryChannel:
- *  - Text is left-aligned in the upper portion of the section.
- *  - Video occupies the lower portion only, inset 24px from each side with
- *    rounded corners. The dark green background is visible on both sides.
+ *  - Text is left-aligned in the upper portion of the section, deliberately
+ *    overlapping the top edge of the video band (this overlap is the
+ *    design intent per Figma node 1362:421).
+ *  - Video occupies the lower portion of the section, inset 24px from each
+ *    side with rounded corners. The dark green background is visible on
+ *    both sides and above.
  *  - Pills are smaller and at mobile-specific percentage positions.
  *
- * Animation behaviour is identical to the desktop: the same three phases
- * (snap to fill viewport → text + pill sequence → release), the same
- * slot-machine character reveal, and the same spring-pop pill entrance.
+ * Layout: this is a designed collage. Pills, text, and the video band are
+ * all absolutely positioned at percentages of section height — the same
+ * "decoratively scattered overlay" pattern spec 026 grants the pills,
+ * extended here because the text and video positions are intrinsic to the
+ * design (text overlapping the top of the video cannot be expressed in
+ * normal flow). The section uses `min-height: 100svh` so the percentages
+ * resolve against the visible viewport height by default.
+ *
+ * Spec 026 retired the pin: the masterTl (slot-machine reveal + spring
+ * pill pop) plays once on viewport entry via a direct ScrollTrigger.
  *
  * Shown via `md:hidden` — the desktop EveryChannel uses `hidden md:block`.
  */
@@ -127,8 +137,14 @@ export function MobileEveryChannel({
 
         const pillEls = pillRefs.current.filter((el): el is HTMLDivElement => el !== null);
 
-        // Lines start off-screen below; pills hidden for spring entry.
-        gsap.set([l1, l2, l3], { y: '120vh', autoAlpha: 1 });
+        // Spec 026: with the pin retired the section is no longer guaranteed to
+        // be exactly the viewport height, so `'120vh'` strings don't translate
+        // a known distance relative to the section. Capture the visible viewport
+        // height once at setup and use that as a concrete pixel offset — the
+        // lines still start the same visible distance below the viewport edge.
+        const offscreen = window.innerHeight * 1.2;
+
+        gsap.set([l1, l2, l3], { y: offscreen, autoAlpha: 1 });
         gsap.set(pillEls, { y: 30, scale: 0.5, autoAlpha: 0 });
 
         const firstSpans = (el: HTMLElement) =>
@@ -141,7 +157,7 @@ export function MobileEveryChannel({
 
         function addLine(lineEl: HTMLElement, at: number) {
           masterTl.fromTo(lineEl,
-            { y: '120vh', autoAlpha: 1 },
+            { y: offscreen, autoAlpha: 1 },
             { y: 0, ease: 'power3.out', duration: 0.55 },
             at,
           );
@@ -181,32 +197,29 @@ export function MobileEveryChannel({
         masterTl.to({}, { duration: 0.25 }, 3.1);
 
         let played = false;
-        let buildingComplete = false;
 
-        const playBuilding = () => {
-          logSectionEvent('mobile-every-channel-pin', 'ANIM_ENTER_CALLED', { played });
-          if (played) return;
-          played = true;
-          logSectionEvent('mobile-every-channel-pin', 'ANIM_START', { duration: masterTl.duration() });
-          masterTl.play(0).then(() => {
-            // Capture pill viewport positions for MobileProductScreens while the
-            // section is still pinned — positions shift once the pin releases.
-            const rectsMap = new Map<string, DOMRect>();
-            sortedPills.forEach((pill, i) => {
-              const el = pillRefs.current[i];
-              if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
+        ScrollTrigger.create({
+          id: 'mobile-every-channel-entrance',
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (played) return;
+            played = true;
+            log('mobile-every-channel-entrance', 'ANIM_START', { duration: masterTl.duration() });
+            masterTl.play(0).then(() => {
+              // Capture pill viewport positions for MobileProductScreens.
+              // Without the pin, EC pills may already have started scrolling
+              // by the time PS triggers — accepted looseness per spec 026.
+              const rectsMap = new Map<string, DOMRect>();
+              sortedPills.forEach((pill, i) => {
+                const el = pillRefs.current[i];
+                if (el) rectsMap.set(pill.label, el.getBoundingClientRect());
+              });
+              setMobileRects(rectsMap);
+              log('mobile-every-channel-entrance', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
             });
-            setMobileRects(rectsMap);
-            buildingComplete = true;
-            logSectionEvent('mobile-every-channel-pin', 'ANIM_COMPLETE', { pillsRegistered: rectsMap.size });
-          });
-        };
-
-        createSectionPin({
-          id: 'mobile-every-channel-pin',
-          section,
-          onEnter: playBuilding,
-          isAnimComplete: () => buildingComplete,
+          },
         });
       });
 

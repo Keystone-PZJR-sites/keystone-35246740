@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 import { useEmblaWithIndex } from '@/lib/useEmblaWithIndex';
 import { useLeadCapture } from './LeadCaptureModal';
 
@@ -61,11 +61,10 @@ export interface ValuePropsProps {
 /**
  * Value Props section — desktop layout (≥768px).
  *
- * Full-viewport pinned section (h-screen) on a warm cream background. Three
- * value-proposition cards sit side-by-side; each has a looping video on top
- * and a distinctively-coloured shaped panel below. The section pins at the top
- * of the viewport while its entrance animation plays, matching the standard
- * scroll-state-machine behaviour used by every other full-screen section.
+ * Spec 026 retired the pin: the section now sizes to its content, with a
+ * `min-height: 100svh` floor so it still fills the visible viewport on tall
+ * windows. The header row sits at the top, the cards row centers below it,
+ * and standard breathing room separates each from the section edges.
  *
  * Hidden below 768px — MobileValueProps takes over there.
  */
@@ -92,53 +91,38 @@ export function ValueProps({
         const els = cardRefs.current.filter((el): el is HTMLDivElement => el !== null);
         if (!els.length) return;
 
-        // Start hidden so entrance plays on section entry.
         gsap.set(els, { y: 60, opacity: 0 });
 
         let played = false;
-        let animComplete = false;
 
-        const playEntrance = () => {
-          logSectionEvent('value-props-pin', 'ANIM_ENTER_CALLED', { played });
-          if (played) return;
-          played = true;
-          logSectionEvent('value-props-pin', 'ANIM_START', { cardCount: els.length });
+        ScrollTrigger.create({
+          id: 'value-props-entrance',
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (played) return;
+            played = true;
+            log('value-props-entrance', 'ANIM_START', { cardCount: els.length });
 
-          gsap.to(els, {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: 'power2.out',
-            stagger: 0.12,
-            onComplete: () => {
-              gsap.set(els, { clearProps: 'y,opacity,transform' });
-              animComplete = true;
-              logSectionEvent('value-props-pin', 'ANIM_COMPLETE');
-            },
-          });
-        };
-
-        createSectionPin({
-          id: 'value-props-pin',
-          section,
-          onEnter: playEntrance,
-          isAnimComplete: () => animComplete,
+            gsap.to(els, {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: 'power2.out',
+              stagger: 0.12,
+              onComplete: () => {
+                gsap.set(els, { clearProps: 'y,opacity,transform' });
+                log('value-props-entrance', 'ANIM_COMPLETE');
+              },
+            });
+          },
         });
       });
 
-      // Reduced motion: skip animation, still pin the section so the visitor
-      // experiences the same scroll rhythm as the rest of the page.
-      mm.add('(min-width: 768px) and (prefers-reduced-motion: reduce)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'value-props-pin',
-          section,
-          onEnter: () => {},
-          isAnimComplete: () => true,
-        });
-      });
+      // Reduced motion: nothing to do — cards render in their final state by
+      // default; the entrance only ever set `y: 60, opacity: 0` inside the
+      // motion branch.
     }, sectionRef);
 
     return () => ctx.revert();
@@ -150,99 +134,101 @@ export function ValueProps({
       className="vp-section hidden md:block"
       aria-labelledby="vp-headline"
     >
-      {/* Header row */}
-      <div className="vp-header">
-        <p id="vp-headline" className="vp-headline">
-          {headlinePreamble}
-          <em>{headlineItalic}</em>
-          {headlineSuffix}
-        </p>
-        <div className="vp-cta-bubble" aria-label="Page actions">
-          <button type="button" className="vp-cta-learn-more"
-            onClick={(e) => openModal(e.currentTarget)}
-          >
-            {learnMoreLabel}
-          </button>
-          <button type="button" className="vp-cta-get-started"
-            onClick={(e) => openModal(e.currentTarget)}
-          >
-            {getStartedLabel}
-            {/* Right-arrow icon — 16×16, inline SVG */}
-            <svg
-              width={16}
-              height={16}
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-              className="vp-cta-arrow"
+      <div className="vp-inner">
+        {/* Header row */}
+        <div className="vp-header">
+          <p id="vp-headline" className="vp-headline">
+            {headlinePreamble}
+            <em>{headlineItalic}</em>
+            {headlineSuffix}
+          </p>
+          <div className="vp-cta-bubble" aria-label="Page actions">
+            <button type="button" className="vp-cta-learn-more"
+              onClick={(e) => openModal(e.currentTarget)}
             >
-              <path
-                d="M13.854 8.354l-4.5 4.5a.5.5 0 01-.708-.708L12.293 8.5H2.5a.5.5 0 010-1h9.793L8.646 3.854a.5.5 0 11.708-.708l4.5 4.5a.5.5 0 010 .708z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Cards row */}
-      <div className="vp-cards-row">
-        {cards.map((card, i) => (
-          <div
-            key={card.id}
-            ref={el => { cardRefs.current[i] = el; }}
-            className="vp-card"
-          >
-            {/* Media panel — rounded top corners */}
-            <div className="vp-card-video-wrap">
-              {card.imageSrc ? (
-                <Image
-                  fill
-                  src={card.imageSrc}
-                  alt=""
-                  aria-hidden="true"
-                  className="vp-card-video"
+              {learnMoreLabel}
+            </button>
+            <button type="button" className="vp-cta-get-started"
+              onClick={(e) => openModal(e.currentTarget)}
+            >
+              {getStartedLabel}
+              {/* Right-arrow icon — 16×16, inline SVG */}
+              <svg
+                width={16}
+                height={16}
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+                className="vp-cta-arrow"
+              >
+                <path
+                  d="M13.854 8.354l-4.5 4.5a.5.5 0 01-.708-.708L12.293 8.5H2.5a.5.5 0 010-1h9.793L8.646 3.854a.5.5 0 11.708-.708l4.5 4.5a.5.5 0 010 .708z"
+                  fill="currentColor"
                 />
-              ) : (
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  aria-hidden="true"
-                  className="vp-card-video"
-                  style={card.videoLeft ? {
-                    left: card.videoLeft,
-                    width: card.videoWidth,
-                    height: card.videoHeight ?? '100%',
-                  } : undefined}
-                >
-                  <source src={card.videoSrc} type="video/mp4" />
-                </video>
-              )}
-            </div>
-
-            {/* Colored panel — diagonal notch at top-left */}
-            <div
-              className="vp-card-panel"
-              style={{ backgroundColor: card.cardBg }}
-            >
-              <p
-                className="vp-card-headline"
-                style={{ color: card.textColor }}
-              >
-                {card.headline}
-              </p>
-              <p
-                className="vp-card-copy"
-                style={{ color: card.textColor }}
-              >
-                {card.copy}
-              </p>
-            </div>
+              </svg>
+            </button>
           </div>
-        ))}
+        </div>
+
+        {/* Cards row */}
+        <div className="vp-cards-row">
+          {cards.map((card, i) => (
+            <div
+              key={card.id}
+              ref={el => { cardRefs.current[i] = el; }}
+              className="vp-card"
+            >
+              {/* Media panel — rounded top corners */}
+              <div className="vp-card-video-wrap">
+                {card.imageSrc ? (
+                  <Image
+                    fill
+                    src={card.imageSrc}
+                    alt=""
+                    aria-hidden="true"
+                    className="vp-card-video"
+                  />
+                ) : (
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    aria-hidden="true"
+                    className="vp-card-video"
+                    style={card.videoLeft ? {
+                      left: card.videoLeft,
+                      width: card.videoWidth,
+                      height: card.videoHeight ?? '100%',
+                    } : undefined}
+                  >
+                    <source src={card.videoSrc} type="video/mp4" />
+                  </video>
+                )}
+              </div>
+
+              {/* Colored panel — diagonal notch at top-left */}
+              <div
+                className="vp-card-panel"
+                style={{ backgroundColor: card.cardBg }}
+              >
+                <p
+                  className="vp-card-headline"
+                  style={{ color: card.textColor }}
+                >
+                  {card.headline}
+                </p>
+                <p
+                  className="vp-card-copy"
+                  style={{ color: card.textColor }}
+                >
+                  {card.copy}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -259,13 +245,9 @@ export interface MobileValuePropsProps {
 /**
  * Value Props section — mobile carousel layout (<768px).
  *
- * An Embla carousel showing the active card elevated above its neighbours via
- * `translateY`, matching the WorkShowcase desktop interaction pattern. The
- * active card carries `data-focused="true"` so CSS handles the lift purely
- * through a transition — no GSAP needed on mobile.
- *
- * No scroll-triggered entrance animation — the section appears immediately as
- * the visitor scrolls to it, per the mobile experience model (Spec 015).
+ * Spec 026: not pinned. Section is at least one viewport tall (min-height:
+ * 100svh) but grows if the carousel needs more room. Headline at the top
+ * with the standard breathing room; the carousel viewport fills below.
  *
  * Hidden at 768px and above — the desktop ValueProps component takes over.
  */
@@ -274,7 +256,6 @@ export function MobileValueProps({
   headlineLine2,
   cards,
 }: MobileValuePropsProps) {
-  const sectionRef = useRef<HTMLElement>(null);
   const { emblaRef, activeIndex, scrollTo } = useEmblaWithIndex({
     align: 'center',
     containScroll: 'trimSnaps',
@@ -282,30 +263,8 @@ export function MobileValueProps({
     loop: false,
   });
 
-  // Pin the section at full viewport height so the carousel gets the same
-  // scroll-dwell treatment as every other section on the page.
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(max-width: 767px)', () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        createSectionPin({
-          id: 'mobile-value-props-pin',
-          section,
-          onEnter: () => {},
-          isAnimComplete: () => true,
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="mvp-section md:hidden" aria-label="Why Keystone">
+    <section className="mvp-section md:hidden" aria-label="Why Keystone">
       {/* Section headline */}
       <div className="mvp-header">
         <p className="mvp-headline">
@@ -317,9 +276,7 @@ export function MobileValueProps({
 
       {/* Embla carousel — active card is lifted via data-focused CSS.
           Each slide is a <button> so keyboard users can advance the carousel
-          by tabbing through cards and pressing Enter/Space. The active slide
-          stays in the tab order but its handler is a no-op (Embla pagination
-          dots / drag gesture cover the "advance from active" case). */}
+          by tabbing through cards and pressing Enter/Space. */}
       <div className="mvp-carousel-viewport" ref={emblaRef}>
         <ul className="mvp-carousel-container">
           {cards.map((card, i) => (

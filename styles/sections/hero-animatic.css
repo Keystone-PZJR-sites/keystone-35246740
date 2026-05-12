@@ -1,12 +1,15 @@
 /* ==================== HERO ANIMATIC ==================== */
 
-/* Bottom content: invisible until GSAP animates it in.
-   right: clamp scales from 24px on narrow viewports to 110px at full width,
-   replacing the fragile Tailwind right-[110px] arbitrary value.         */
+/* Spec 026: bottom-content row is in normal flow (was absolute pre-spec
+   026 with `right: clamp(...)`). Asymmetric padding preserves the Figma
+   anchor: 96 px from the left, clamp(24px, 7.64vw, 110px) from the right
+   (was the absolute `right: clamp(...)` value). opacity:0 keeps the row
+   invisible until GSAP fades it in during the entrance. */
 .hero-bottom-content {
   display: flex;
   opacity: 0;
-  right: clamp(24px, 7.64vw, 110px);
+  padding-left: 96px;
+  padding-right: clamp(24px, 7.64vw, 110px);
 }
 
 /* Shared pill button base — used in HeroNav and HeroAnimatic CTA pill.

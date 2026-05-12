@@ -84,6 +84,25 @@
   --z-nav:     50;    /* site-wide navigation, ScrollSmoother-aware */
   --z-modal:  100;    /* full-viewport modal, in-flow */
   --z-portal: 9999;   /* portaled content above everything (escapes ScrollSmoother transform) */
+
+  /* Site-wide section vertical padding (spec 026).
+     One value used for the breathing room above the first content element
+     and below the last, in every affected homepage section. The clamp upper
+     bound at each breakpoint is the Figma-derived intent; the lower bound
+     guards against collapse on very short windows. Mobile default; desktop
+     widened via the (min-width: 768px) override below.
+     Approved exceptions live with the per-section CSS that overrides this:
+     Hero (no top padding — video to top edge), Every Channel (full-bleed
+     video; padding applies to the inner layout), Product Screens (section
+     padding equals --ps-card-inset, which differs from this token), and
+     the footers (proportional collages with no vertical padding token). */
+  --section-padding-y: clamp(24px, 7vh, 56px);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-padding-y: clamp(32px, 8vh, 80px);
+  }
 }
 
 [data-theme="custom"] {

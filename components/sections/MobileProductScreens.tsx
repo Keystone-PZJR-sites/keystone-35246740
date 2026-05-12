@@ -7,7 +7,7 @@ import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
-import { createSectionPin, logSectionEvent } from '@/lib/sectionPin';
+import { log } from '@/lib/logger';
 import type { ProductScreensTool } from './ProductScreens';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -21,16 +21,25 @@ export interface MobileProductScreensProps {
  *
  * Visual differences from the desktop ProductScreens:
  *  - No cream outer background — the active tool's dark colour fills edge-to-edge.
- *  - Pill nav wraps into two rows, centred near the top of the section.
- *  - Keystone mark, tool label (small-caps), and value copy are stacked
- *    vertically, left-aligned below the nav.
- *  - Product screenshot starts at the left edge and extends beyond the right
- *    edge of the screen, clipped by the section.
+ *  - Pill nav wraps into two rows, centred at the top of the section.
+ *  - The darker deco container holds the Keystone mark, tool label (small-
+ *    caps), value copy, and the product screenshot — all stacked vertically
+ *    inside a rounded panel that sits below the pill nav.
+ *  - Product screenshot starts at the left edge of the deco and extends
+ *    past the deco's right edge and the viewport right edge — clipped by
+ *    the ScrollSmoother wrapper's overflow:hidden.
  *
- * Entrance animation mirrors the desktop: pills converge from their mobile
- * Every Channel scatter positions to the two-row nav; content fades in as
- * the section settles. Tool switching uses the same horizontal slide
- * transition as desktop.
+ * Spec 026 retired the pin: the layout is entirely in normal flow with
+ * no absolute positioning. The section is a flex column where the deco
+ * fills the remaining height under the pills; inside the deco, the
+ * mark/label/copy block is intrinsic-height and the screenshot zone
+ * flex-grows to absorb any extra vertical space at tall viewports. The
+ * mark/label/copy block always sits the same fixed distance from the
+ * deco's top, the deco always sits the same fixed distance from the
+ * pill nav and from the section bottom, and only the screenshot's
+ * height changes with viewport height. The entrance animation (EC pill
+ * convergence + content fade-in) plays once on viewport entry via a
+ * direct ScrollTrigger.
  *
  * Shown via `md:hidden` — the desktop ProductScreens uses `hidden md:block`.
  */
@@ -104,25 +113,21 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
         };
 
         let played = false;
-        let entranceComplete = false;
 
-        const playEntrance = () => {
-          logSectionEvent('mobile-product-screens-pin', 'ANIM_ENTER_CALLED', { played });
-          if (played) return;
-          played = true;
-          const entranceTl = buildEntranceTl();
-          logSectionEvent('mobile-product-screens-pin', 'ANIM_START');
-          entranceTl.play(0).then(() => {
-            entranceComplete = true;
-            logSectionEvent('mobile-product-screens-pin', 'ANIM_COMPLETE');
-          });
-        };
-
-        createSectionPin({
-          id: 'mobile-product-screens-pin',
-          section,
-          onEnter: playEntrance,
-          isAnimComplete: () => entranceComplete,
+        ScrollTrigger.create({
+          id: 'mobile-product-screens-entrance',
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (played) return;
+            played = true;
+            const entranceTl = buildEntranceTl();
+            log('mobile-product-screens-entrance', 'ANIM_START');
+            entranceTl.play(0).then(() => {
+              log('mobile-product-screens-entrance', 'ANIM_COMPLETE');
+            });
+          },
         });
       });
 
@@ -203,60 +208,7 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
         style={{ backgroundColor: currentTool.cardBg }}
         aria-label="Product showcase"
       >
-        {/* Decorative bg panel: per-tool darker shade of the card background
-            (spec 024 § Visual design — mobile). Rendered FIRST so it paints
-            behind the screenshot and the left content zone — Figma's design
-            tints the section bg behind the content but never the screenshot.
-            Color and opacity are forwarded as inline styles so each tool
-            gets its Figma-verified value. */}
-        <div
-          className="mps-mobile-deco"
-          aria-hidden="true"
-          style={{
-            backgroundColor: currentTool.mobileDecoColor,
-            opacity: currentTool.mobileDecoOpacity,
-          }}
-        />
-
-        {/* Screenshot clip layer — overflow:hidden clips the screenshot at the
-            right edge. Separate from the section so pill offsets can extend
-            outside the section bounds during the convergence animation. */}
-        <div className="mps-mobile-screenshot-clip">
-          <div ref={screenshotRef} className="mps-mobile-screenshot-zone">
-            <Image
-              src={mobileScreenshot}
-              alt=""
-              fill
-              className="mps-mobile-screenshot-img"
-              unoptimized
-            />
-          </div>
-        </div>
-
-        {/* Left zone: mark + tool label + value copy */}
-        <div ref={leftZoneRef} className="mps-mobile-left-zone">
-          {/* Mobile mark color matches the copy accent so the mark, label,
-              and copy read as a single visual block (spec 024). */}
-          <KeystoneMark
-            color={currentTool.copyAccent}
-            width={26}
-            height={30}
-          />
-          <span
-            className="mps-mobile-tool-label"
-            style={{ color: currentTool.copyAccent }}
-          >
-            {currentTool.label.toUpperCase()}
-          </span>
-          <p
-            className="mps-mobile-copy"
-            style={{ color: currentTool.copyAccent }}
-          >
-            {mobileCopy}
-          </p>
-        </div>
-
-        {/* Pill nav — two rows, centred at top */}
+        {/* Pill nav — two rows, in normal flow at the top */}
         <nav className="mps-mobile-pill-nav" aria-label="Product tools">
           {tools.map((tool, i) => {
             const isActive = i === activeIndex;
@@ -302,6 +254,61 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
             );
           })}
         </nav>
+
+        {/* Darker container: in normal flow as a flex column that fills the
+            remaining vertical space below the pills (with a fixed gap above
+            and a fixed inset from the section's left edge and bottom). It
+            holds the mark/label/copy at the top and the product screenshot
+            below — the screenshot flex-grows to absorb any extra vertical
+            space at tall viewports. Color and opacity are forwarded as
+            inline styles so each tool gets its Figma-verified value. */}
+        <div
+          className="mps-mobile-deco"
+          style={{
+            backgroundColor: currentTool.mobileDecoColor,
+            opacity: currentTool.mobileDecoOpacity,
+          }}
+        >
+          {/* Mark + tool label + value copy — fixed distance from deco top
+              (set by deco's padding-top). */}
+          <div ref={leftZoneRef} className="mps-mobile-left-zone">
+            {/* Mobile mark color matches the copy accent so the mark, label,
+                and copy read as a single visual block (spec 024). */}
+            <KeystoneMark
+              color={currentTool.copyAccent}
+              width={26}
+              height={30}
+            />
+            <span
+              className="mps-mobile-tool-label"
+              style={{ color: currentTool.copyAccent }}
+            >
+              {currentTool.label.toUpperCase()}
+            </span>
+            <p
+              className="mps-mobile-copy"
+              style={{ color: currentTool.copyAccent }}
+            >
+              {mobileCopy}
+            </p>
+          </div>
+
+          {/* Product screenshot — flex-grows to fill remaining height inside
+              the deco. Wider than the deco (158.5vw) so it extends past the
+              deco's right edge and the viewport's right edge; the
+              ScrollSmoother wrapper's overflow:hidden clips at the viewport
+              edge. The image inside uses object-fit:cover so it scales to
+              the zone's actual dimensions at any viewport height. */}
+          <div ref={screenshotRef} className="mps-mobile-screenshot-zone">
+            <Image
+              src={mobileScreenshot}
+              alt=""
+              fill
+              className="mps-mobile-screenshot-img"
+              unoptimized
+            />
+          </div>
+        </div>
       </section>
     </div>
   );
