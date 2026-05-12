@@ -13,8 +13,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export interface ValuePropCard {
   id: string;
-  /** Path to the looping background video. */
-  videoSrc: string;
+  /**
+   * Path to a static image shown in the top panel of the card.
+   * When set, takes precedence over videoSrc.
+   */
+  imageSrc?: string;
+  /** Path to the looping background video (used when imageSrc is absent). */
+  videoSrc?: string;
   /**
    * Optional CSS left offset for manually cropping a landscape video into the
    * portrait card. When omitted the video fills the container via object-fit.
@@ -187,24 +192,33 @@ export function ValueProps({
             ref={el => { cardRefs.current[i] = el; }}
             className="vp-card"
           >
-            {/* Video panel — rounded top corners */}
+            {/* Media panel — rounded top corners */}
             <div className="vp-card-video-wrap">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-hidden="true"
-                className="vp-card-video"
-                style={card.videoLeft ? {
-                  left: card.videoLeft,
-                  width: card.videoWidth,
-                  height: card.videoHeight ?? '100%',
-                } : undefined}
-              >
-                <source src={card.videoSrc} type="video/mp4" />
-              </video>
+              {card.imageSrc ? (
+                <img
+                  src={card.imageSrc}
+                  alt=""
+                  aria-hidden="true"
+                  className="vp-card-video"
+                />
+              ) : (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-hidden="true"
+                  className="vp-card-video"
+                  style={card.videoLeft ? {
+                    left: card.videoLeft,
+                    width: card.videoWidth,
+                    height: card.videoHeight ?? '100%',
+                  } : undefined}
+                >
+                  <source src={card.videoSrc} type="video/mp4" />
+                </video>
+              )}
             </div>
 
             {/* Colored panel — diagonal notch at top-left */}
@@ -318,24 +332,33 @@ export function MobileValueProps({
                 if (i !== activeIndex) scrollTo(i);
               }}
             >
-              {/* Video panel */}
+              {/* Media panel */}
               <div className="mvp-slide-video-wrap">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  aria-hidden="true"
-                  className="mvp-slide-video"
-                  style={card.videoLeft ? {
-                    left: card.videoLeft,
-                    width: card.videoWidth,
-                    height: card.videoHeight ?? '100%',
-                  } : undefined}
-                >
-                  <source src={card.videoSrc} type="video/mp4" />
-                </video>
+                {card.imageSrc ? (
+                  <img
+                    src={card.imageSrc}
+                    alt=""
+                    aria-hidden="true"
+                    className="mvp-slide-video"
+                  />
+                ) : (
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    aria-hidden="true"
+                    className="mvp-slide-video"
+                    style={card.videoLeft ? {
+                      left: card.videoLeft,
+                      width: card.videoWidth,
+                      height: card.videoHeight ?? '100%',
+                    } : undefined}
+                  >
+                    <source src={card.videoSrc} type="video/mp4" />
+                  </video>
+                )}
               </div>
 
               {/* Colored panel */}

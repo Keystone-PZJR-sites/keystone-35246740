@@ -1,13 +1,9 @@
 import type { ValuePropCard } from '@/components/sections';
 
-// Placeholder videos use existing footer assets so the cards render with real
-// content while the final value-props clips are being prepared. Replace
-// videoSrc with the actual paths under /value-props/ when they are ready.
-// (videoLeft / videoWidth can be added back then for precise Figma-matched crops.)
 export const VALUE_PROP_CARDS: ValuePropCard[] = [
   {
     id: 'sales-marketing',
-    videoSrc: '/footer/footer-video-businesswoman.mp4',
+    imageSrc: '/value-props/01-expertise.png',
     cardBg: '#4FAFA0',
     textColor: '#0d2a28',
     headline: 'SALES & MARKETING EXPERTISE',
@@ -15,7 +11,7 @@ export const VALUE_PROP_CARDS: ValuePropCard[] = [
   },
   {
     id: 'quality-focused',
-    videoSrc: '/footer/footer-video-ceramics.mp4',
+    imageSrc: '/value-props/02-quality.png',
     cardBg: '#E0A733',
     textColor: '#3a2a0e',
     headline: 'QUALITY\nFOCUSED',
@@ -23,7 +19,7 @@ export const VALUE_PROP_CARDS: ValuePropCard[] = [
   },
   {
     id: 'local-experience',
-    videoSrc: '/footer/footer-video-storefront.mp4',
+    imageSrc: '/value-props/03-experience.png',
     cardBg: '#DD6F96',
     textColor: '#3d1324',
     headline: 'LOCAL BUSINESS\nEXPERIENCE',
