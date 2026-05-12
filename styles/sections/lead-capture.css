@@ -52,6 +52,15 @@
   flex-shrink: 0;
 }
 
+/* Card receives programmatic focus on modal open (Spec 028) so keyboard users
+   land inside the dialog without any field being activated. Focus rings
+   belong on real controls — the card is a container, not an interactive
+   element. */
+.lc-card:focus,
+.lc-card:focus-visible {
+  outline: none;
+}
+
 /* Card background SVG (provides the cream shape + folded corner) */
 .lc-card-bg {
   position: absolute;

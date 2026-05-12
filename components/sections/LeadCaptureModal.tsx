@@ -522,13 +522,16 @@ function Modal({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeModal]);
 
-  // Focus first input on mount. preventScroll keeps the viewport anchored so
-  // focusing inside the freshly-portaled modal cannot trigger the browser's
-  // default "scroll element into view" behaviour — coordinating via the
-  // mount lifecycle is the canonical alternative to a setTimeout guess.
+  // Move focus into the modal — but to the dialog container, not any field.
+  // Focusing First Name (Spec 008's original behaviour) triggered 1Password
+  // and similar extensions to surface their autofill dropdown the instant the
+  // modal opened. Focusing the card keeps keyboard users inside the modal
+  // (Escape works, Tab walks fields in order) without activating an input.
+  // See Spec 028 and `docs/rules/rules.md` § Focus management. preventScroll
+  // keeps the viewport anchored — focusing inside a freshly-portaled modal
+  // could otherwise trigger the browser's "scroll into view" behaviour.
   useLayoutEffect(() => {
-    const firstInput = cardRef.current?.querySelector<HTMLElement>('input, textarea');
-    firstInput?.focus({ preventScroll: true });
+    cardRef.current?.focus({ preventScroll: true });
   }, []);
 
   // Auto-close after success
@@ -565,11 +568,13 @@ function Modal({
           <KeystoneMark color={markColor} width={38} height={43} />
         </div>
 
-        {/* Form card */}
+        {/* Form card. tabIndex={-1} so it can receive programmatic focus on
+            modal open without entering the natural Tab order (Spec 028). */}
         <div
           ref={cardRef}
           className="lc-card"
           role="document"
+          tabIndex={-1}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Card background SVG (folded top-right corner) */}

@@ -652,7 +652,11 @@ The narrow exception is **modal backdrop dismissal**: a `<div role="dialog" aria
 
 ### Focus management
 
-When a modal opens, focus moves into it (close button or first input). When it closes, focus returns to the element that opened it. Use `focus({ preventScroll: true })` so the browser doesn't scroll to the element — especially critical inside a transformed ancestor (ScrollSmoother, GSAP `transform`), where the browser miscalculates position and would jump to the top of the document.
+When a modal opens, focus moves into it — by default to the dialog container itself (a `<div role="dialog">` with `tabIndex={-1}`), not to the first input. Auto-focusing an input on open triggers password manager extensions (1Password, LastPass, etc.) to surface their autofill dropdown the moment the modal appears, which reads as the site overstepping when the visitor has only just clicked a CTA. Focusing the dialog container keeps keyboard users inside the modal (Escape closes, Tab walks the form in order) without activating any field. The dialog container's own focus outline is suppressed in CSS — focus rings belong on real controls.
+
+The narrow exception is a modal whose unambiguous purpose is text entry the moment it opens (a command palette, a search overlay triggered by `/`). There, focusing the input is the expected behaviour and matches the visitor's intent.
+
+When a modal closes, focus returns to the element that opened it. Use `focus({ preventScroll: true })` in both directions so the browser doesn't scroll to the element — especially critical inside a transformed ancestor (ScrollSmoother, GSAP `transform`), where the browser miscalculates position and would jump to the top of the document.
 
 ### Decorative SVGs
 
