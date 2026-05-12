@@ -230,6 +230,7 @@ export default async function HomePage() {
             emailPlaceholder="Email Address"
             signUpLabel="Sign Up"
             podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+            applePodcastsUrl="https://podcasts.apple.com/us/podcast/made-locally/id1895736090"
             youtubeUrl={companyInfo?.youtube_url}
             instagramUrl={companyInfo?.instagram_url}
             facebookUrl={companyInfo?.facebook_url}
@@ -255,6 +256,7 @@ export default async function HomePage() {
             emailPlaceholder="Email Address"
             signUpLabel="Sign Up"
             podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+            applePodcastsUrl="https://podcasts.apple.com/us/podcast/made-locally/id1895736090"
             youtubeUrl={companyInfo?.youtube_url}
             instagramUrl={companyInfo?.instagram_url}
             facebookUrl={companyInfo?.facebook_url}
