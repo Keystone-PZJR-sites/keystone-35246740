@@ -1,7 +1,9 @@
 # Spec 026 — Section Layout Refactor: Content-Driven Height and Standardised Vertical Rhythm
 
 **Status:** Ready for implementation
-**Depends on:** Spec 001 (Hero Animatic), Spec 002 (Work Showcase), Spec 003 (Every Channel), Spec 005 (Pricing), Spec 006 (Social Proof), Spec 007 (Product Screens), Spec 011 (Scroll State Machine), Spec 015 (Mobile Experience Model), Spec 016 (Mobile Hero), Spec 017 (Mobile Every Channel), Spec 018 (Mobile Product Screens), Spec 019 (Value Props), Spec 020 (Mobile Social Proof), Spec 021 (Mobile Pricing), Spec 024 (Product Screens Refresh), Spec 025 (Homepage Pinning Toggle)
+**Supersedes:** Spec 011 (Page Animation Model: Scroll States), Spec 025 (Homepage Pinning Toggle)
+**Realigns:** Spec 015 (Mobile Experience Model — already specified content-height mobile sections), Spec 019 (Value Props — already specified non-pinned)
+**Depends on:** Spec 001 (Hero Animatic), Spec 002 (Work Showcase), Spec 003 (Every Channel), Spec 005 (Pricing), Spec 006 (Social Proof), Spec 007 (Product Screens), Spec 016 (Mobile Hero), Spec 017 (Mobile Every Channel), Spec 018 (Mobile Product Screens), Spec 019 (Value Props), Spec 020 (Mobile Social Proof), Spec 021 (Mobile Pricing), Spec 024 (Product Screens Refresh)
 
 ---
 
@@ -16,15 +18,23 @@ Every homepage section today is locked to exactly the browser window's height. T
 
 This spec establishes two things: sections should be tall enough to fill the window but never shorter than their content requires, and the breathing room above and below content should follow a single site-wide standard.
 
+It also realigns the codebase with two earlier specs that drifted:
+
+- **Spec 015 (Mobile Experience Model)** stated *"Mobile sections have natural height. Mobile sections should be as tall as their content requires — no more, no less."* The current code violates this: every mobile section is locked to the window height and pinned. This spec restores Spec 015's stated intent.
+- **Spec 019 (Value Props)** stated *"This section is not a full-viewport hold like the Product Screens or Every Channel sections. It is a standard scrolling section."* The current code pins it. This spec restores Spec 019's stated intent.
+
 ---
 
 ## Design intent
 
-### Sections fill the window by default
+### Sections fill the window by default, but never less than their content
 
-A homepage section seen on its own should look like a complete "frame" — it occupies the full window and feels intentional at that size. This is preserved. The change is that on shorter windows the section does not clip its content; it grows as needed. On any window tall enough to show the full design, the section stays exactly window-height.
+A homepage section seen on its own should look like a complete "frame" — it occupies the full window and feels intentional at that size. This is preserved. What changes:
 
-No section is ever smaller than the visible browser window. Content never clips below the bottom of the window just because the window is short.
+- On a window tall enough to contain the section's content with the standard breathing room, the section is exactly the visible window height. The section's content sits inside it according to that section's design intent (centered, top-anchored, or bottom-anchored — see "Affected sections" below).
+- On a shorter window, the section grows beyond the window so all content remains visible. Nothing clips, nothing overlaps.
+
+Content never clips below the bottom of the window just because the window is short. Content never disappears under the mobile browser's address bar.
 
 ### A single vertical rhythm
 
@@ -36,71 +46,74 @@ The breathing room applies to both the top and the bottom of the content area in
 
 Elements inside a section are positioned relative to each other and to the section's padding — not as a percentage of the window height. Layouts that currently use window-height percentages to place a headline "at 5.47% from the top" or content "at 67.93% from the top" need to be rebuilt so those positions are expressed as spacing between adjacent elements.
 
-The sole exception is the decorative background fill: a full-bleed video, a gradient that covers the whole section, or a floating decorative thumbnail layer that intentionally escapes the content flow. Those may remain anchored to the section bounds. Every piece of readable content — text, interactive elements, navigation pills — must be in normal flow.
+There are two narrow exceptions, both for elements whose visual identity is "decoratively scattered across the section":
+
+- **Full-bleed media fills** — a video, image, or gradient covering the whole section as a background.
+- **Decoratively scattered overlay elements** — Social Proof's six floating thumbnails, Every Channel's seven scattered channel pills. These are not in-flow content: their per-element positioning is the design.
+
+Everything else — headlines, body copy, CTAs, in-flow navigation, interactive controls — must be in normal flow.
 
 ---
 
 ## Affected sections
 
-### Hero (desktop)
+Every section listed here loses its fixed-window-height constraint and replaces window-fraction internal positioning with normal flow. Each entry names how its content aligns vertically inside the section so the implementer is not left guessing.
 
-**Current behaviour:** The background video covers the section. The large headline and the CTA group at the bottom of the section are both positioned as absolute overlays anchored to the bottom edge of the window.
+### Hero (desktop) — bottom-anchored
 
-**After this spec:** The section is a vertically stacked flex container. The video remains as a full-bleed background. The headline and CTA sit in normal flow — the headline near the bottom, the CTA below it — separated by the standard vertical spacing. The section fills the window; if for some reason the content is taller than the window, the section grows.
+The background video fills the section. The large headline and CTA group sit at the bottom of the section, separated by the standard breathing room from the bottom edge. There is no breathing room from the top — the video runs to the top of the section. The section fills the window; on a window too short to contain the headline + CTA + breathing room, the section grows.
 
-### Work Showcase (desktop)
+### Hero (mobile) — top-anchored content under a fixed-ratio video band
 
-**Current behaviour:** The section is locked to window height. The headline, industry filters, and card carousel all sit inside it.
+The video fills a fixed top portion of the section (its current 40 vh band, expressed instead as a fraction of section height or fixed aspect ratio per Figma). The Keystone mark, headline, subheadline, and CTA group sit below the video in normal flow, separated from the video by the standard breathing room. The section is at least the visible window height; it grows if the content requires it.
 
-**After this spec:** The section grows to fit the headline, filters, and carousel at their natural sizes, with the standard vertical padding above and below. On windows tall enough to contain all of it, it looks identical to today.
+### Work Showcase (desktop) — top-anchored headline, centered carousel, bottom-anchored category bar
 
-### Every Channel (desktop)
+Three zones in normal flow: headline near the top with the standard breathing room, carousel filling the middle, category bar near the bottom with the standard breathing room. The carousel zone is the flex-grow region between the two anchors.
 
-**Current behaviour:** Section is locked to window height. The three-line headline and the pill row float as absolute overlays over the full-bleed video background.
+### Every Channel (desktop) — centered
 
-**After this spec:** Section is a flex container. The full-bleed video remains as a background fill. The headline and pill row sit in normal flow, centered in the flex container, separated by their Figma spacing. Standard vertical padding above and below.
+The full-bleed video runs to all four edges of the section as a decorative background. The three-line headline is vertically centered inside the section using flex alignment (not an absolute offset). The seven channel pills are decoratively scattered overlays on top of the video — they keep their per-pill positions as a percentage of the section dimensions; this is the design intent of the section and falls under the same exception as the Social Proof thumbnails.
 
-### Every Channel (mobile)
+### Every Channel (mobile) — top-aligned text, bottom-anchored video band, scattered pills
 
-Same principle as desktop. Standard vertical padding replaces the absolute vertical positioning.
+Text block at the top of the section with the standard breathing room above. Video band fills a fixed lower portion of the section. Channel pills remain as decorative overlays at per-pill positions across the section.
 
-### Product Screens (desktop)
+### Product Screens (desktop) — full-bleed dark card with centered content
 
-**Current behaviour:** The outer section is locked to window height. The entire inset dark card is an absolute box inset from all four edges of the window. The pill nav, mark, copy, and screenshot inside the card are all absolutely positioned by percentage of the card.
+The dark card is the section background, with rounded corners produced by section padding equal to the Figma's card inset on all four sides. Inside the card: pill nav near the top, mark + copy in the lower-left, layered screenshot stack on the right — all positioned by flex/grid relationships rather than percentages of the card. The card no longer needs to be a separately-positioned absolute box.
 
-**After this spec:** The section grows to at least window height. The inset card is converted to a padded flex container (the inset gap becomes padding on the section, and the card fills the section). Content inside the card — pill nav, mark, copy, screenshot — is arranged in flex/grid layout. The standard section vertical padding replaces the current inset gap at the top and bottom.
+### Product Screens (mobile) — top-anchored pills, content + screenshot below
 
-### Product Screens (mobile)
+Pill nav at the top with the standard breathing room. Mark, label, copy, and decorative panel sit below the nav. Screenshot extends past the right edge as today. Section fills the window or grows to fit content.
 
-Same principle. Standard vertical padding replaces absolute vertical positioning.
+### Value Props (desktop) — top-anchored header, centered cards row
 
-### Value Props (desktop)
+Header row (headline left, CTA right) sits at the top of the section with the standard breathing room. The three cards sit below the header, with the standard breathing room separating the bottom of the cards from the section bottom. The section is no longer pinned (this realigns with Spec 019's stated intent).
 
-**Current behaviour:** Section is locked to window height. The header row (headline left, CTA right) is absolutely positioned near the top of the window. The three-column card grid sits below it.
+### Value Props (mobile) — top-anchored headline, centered carousel
 
-**After this spec:** The header and card grid are in normal flow inside a flex column. Standard vertical padding above the header and below the cards.
+Headline at the top with the standard breathing room; carousel below. The section is no longer pinned. Section is at least the visible window height; grows if content requires it.
 
-### Value Props (mobile)
+### Social Proof (desktop) — centered headline with floating decorative thumbnails
 
-**Current behaviour:** Section is locked to window height. The headline sits at the top; the carousel fills the rest.
+The headline is vertically centered inside the section using flex alignment — not an absolute offset computed from window height. The six decorative thumbnails remain absolute overlays positioned by per-thumbnail percentages; this matches the design intent and is the canonical example of the decorative-overlay exception.
 
-**After this spec:** Section grows to fit its content. Standard vertical padding.
+### Social Proof (mobile) — centered headline with scattered thumbnails overlay
 
-### Social Proof (desktop)
+Same principle as desktop. Headline centered; thumbnails as scattered overlays.
 
-**Current behaviour:** Section is locked to window height. The headline is centered with an absolute position computed from the window height. The decorative thumbnails float as absolute overlays positioned by percentage of the window height.
+### Pricing (desktop and mobile) — centered
 
-**After this spec:** The headline is in normal flow, vertically centered inside the section using flex alignment — not with an absolute offset. The decorative thumbnail layer remains absolutely positioned as a decorative overlay (thumbnails intentionally float outside the content flow, same as today). Standard vertical padding above and below the headline. The section grows if the headline somehow requires more space.
+Single flex column, vertically centered inside the section. Standard breathing room above the first content item and below the last. The current `clamp(..., 6vh, ...)` and `clamp(..., 8vh, ...)` window-fraction padding is replaced by the site-wide token.
 
-### Social Proof (mobile)
+### MobileFooter and OversizedFooter — unchanged
 
-Same principle. Headline in normal flow; decorative thumbnails stay as absolute overlay. Standard padding.
+Both footers are already proportional collages with `aspect-ratio` constraints and were never tied to viewport height. They remain as today.
 
-### Pricing (desktop and mobile)
+### MobileWorkShowcase — unchanged
 
-**Current behaviour:** Section is locked to window height. Inner content container uses flex centering with padding expressed as a fraction of the window height.
-
-**After this spec:** Section grows to at least window height. Inner container stays flex column but vertical padding comes from the site-wide token, not a window-height fraction.
+Per Spec 023, this is the one mobile section whose content height is intentionally larger than one viewport. It already has natural height and is not pinned. No changes.
 
 ---
 
@@ -108,7 +121,11 @@ Same principle. Headline in normal flow; decorative thumbnails stay as absolute 
 
 The current `100vh` unit on iOS Safari equals the *large* viewport height — the height of the window including the address bar. Content sized to `100vh` is therefore taller than the actual visible area when the browser chrome is shown, causing the bottom of each section to be hidden under the browser bar.
 
-All `height: 100vh` and `h-screen` references across all affected sections must be replaced with `min-height: 100svh`. The `svh` unit (small viewport height) matches the visible content area with the browser chrome present — the same area the visitor actually sees. On desktop, `svh` equals `vh`; the change has no effect at the desktop breakpoint.
+All `height: 100vh` and `h-screen` references across all affected sections must be replaced with **`min-height: 100svh`**. The `svh` unit (small viewport height) matches the visible content area with the browser chrome present — the same area the visitor actually sees at scroll position 0. On desktop, `svh` equals `vh`; the change has no effect at the desktop breakpoint.
+
+`100dvh` (dynamic viewport height) was considered and rejected. `dvh` resizes as the visitor scrolls and the address bar collapses, which causes the section's height — and therefore the position of every other section on the page — to shift mid-scroll. That layout thrash is worse than the small dead zone `svh` produces below a section once the address bar collapses. The dead zone fills with the next section's background as the visitor continues to scroll, so the visual cost is minor.
+
+Sections still use `min-height` rather than `height` so content that exceeds one viewport on a short device grows the section beyond `100svh` rather than clipping.
 
 ---
 
@@ -116,7 +133,19 @@ All `height: 100vh` and `h-screen` references across all affected sections must 
 
 A single CSS custom property — `--section-padding-y` — is introduced in `styles/base.css`. Every affected section's top and bottom padding references this token. The token's value uses fluid sizing so it scales with the screen.
 
-No section defines its own vertical padding independently. If a section has a design reason to differ (e.g. a section that intentionally bleeds to the top edge), that exception is documented here and the token is explicitly not applied to that element.
+The token's value is derived from Figma in two steps:
+
+1. The implementer reads the top-and-bottom padding intended for each section in Figma at the desktop reference (1440 × 1024) and the mobile reference (393 × 852). Most sections share the same intent within a few pixels — the implementer picks the value the majority of sections use.
+2. That single value becomes the upper bound of a desktop clamp expression (`clamp(min, vh, max)`) and the upper bound of a mobile clamp expression. The lower bounds are chosen so the token never collapses below the smallest reasonable breathing room (suggested ~32 px desktop, ~24 px mobile) and never grows beyond the Figma value on tall screens.
+
+Approved exceptions to "every section uses the token":
+
+- **Hero (desktop)** — has no top padding. Video runs to the top of the section.
+- **Every Channel** — full-bleed video runs to all four edges. Padding applies to the headline + pills layout container, not the video.
+- **Product Screens (desktop)** — the section's padding equals the Figma's card inset on all four sides; the dark card *is* the section background. This may be a different value from `--section-padding-y` if Figma's card inset differs; if so, the value is named separately (e.g. `--ps-card-inset`) so the relationship to the standard token is explicit.
+- **MobileFooter and OversizedFooter** — proportional collages, no vertical padding token.
+
+Any new exception must be added to this list. A section silently substituting its own value is the anti-pattern this token exists to prevent.
 
 ---
 
@@ -128,7 +157,22 @@ The pinned scroll experience (Spec 011) and the pinning toggle (Spec 025) are re
 
 The entrance animations are not removed. Every section's entrance — elements fading or sliding into place the first time the section enters the viewport — continues exactly as before, driven by `ScrollTrigger` directly without the pin. Each section component that currently calls `createSectionPin` replaces that call with a plain `ScrollTrigger.create` that fires `onEnter` once when the section first enters the viewport. This is already exactly what `createSectionPin` does when `HOMEPAGE_PINNING_ENABLED = false` — this spec makes that the only code path and removes everything else.
 
+`prefers-reduced-motion: reduce` behaviour carries forward unchanged: every section's reduced-motion branch already shows the final state immediately. Removing the pin does not change that — sections that previously pinned-without-animation under reduced motion now simply render in flow with no entrance. The visual outcome is identical.
+
 GSAP animations that currently reference viewport-height values (`y: '-110vh'`, `top: calc(50% − N%)`) must be re-expressed relative to the element's own dimensions or fixed spacing values, since content is now in normal flow rather than anchored to the viewport. Each affected animation must be verified visually after the layout change for that section.
+
+### Cleanup that follows from removing the pin
+
+**Social Proof modal scroll lock.** `SocialProofSection.tsx` currently hand-rolls a scroll lock for its testimonial modal that depends on the pin's scroll-state machine — it reads `ScrollTrigger.getById('social-proof-pin')` to compute a "canonical pinned position" before pausing `ScrollSmoother`. With the pin removed, that whole block targets nothing. Replace it with the project's standard `lockScroll()` helper from `lib/scrollLock.ts` (which returns an unlock callback), per the rules' "Body Scroll Locking Has One Approved Approach" guidance. The same applies to any other section that may have similar pin-dependent scroll logic — verify by searching for `ScrollTrigger.getById` in section components.
+
+**Cross-section pill handoff.** `PillHandoffProvider` (which lets EveryChannel hand pill rectangles off to ProductScreens for the convergence animation) is preserved as-is. Without pinning, the EC pills may have already begun to scroll up and out of the viewport by the time PS triggers, so the visual flight illusion is looser than the pinned version. This is the same behaviour as today with `HOMEPAGE_PINNING_ENABLED = false` and is the accepted intent in non-pinned mode. No change to the handoff API or the per-section pill positioning code.
+
+**ProductScreens "card rise" entrance.** PS's desktop entrance computes a starting card scale by dividing `section.offsetHeight / card.offsetHeight` so the card initially fills the section, then animates back to its natural size. This calculation is sensitive to section height: if content overflows on a short window and the section grows beyond one viewport, the card initial state would be larger than the screen and the "rise" effect breaks visually. The implementer either:
+
+- caps the calculation at the viewport height (`Math.min(window.innerHeight, section.offsetHeight) / card.offsetHeight`), or
+- re-expresses the entrance entirely so the card starts at full visible viewport coverage (a fixed-position overlay) and contracts to its in-flow position — decoupling the scale from `section.offsetHeight`.
+
+The chosen approach is verified visually at the reference viewport (no regression) and at the short-viewport checkpoints in the acceptance criteria.
 
 ---
 
@@ -142,13 +186,16 @@ No section should look different at the reference viewport (1440 × 1024 px on d
 
 ## What does not change
 
-- The visual design of any section — colors, type, imagery, spacing between elements within a section.
+- The visual design of any section — colors, type, imagery, the spacing between elements within a section.
 - The entrance animations for every section — they continue to play once on viewport entry, exactly as today.
-- `SmoothScrollProvider` and the `ScrollSmoother` instance — smooth scroll kinetics are preserved.
-- The footer (OversizedFooter, MobileFooter) — it is already outside the scroll-state machine and uses proportional collage layout, not fixed viewport height.
+- `SmoothScrollProvider` and the `ScrollSmoother` instance — smooth scroll kinetics on desktop are preserved.
+- `PillHandoffProvider` and the cross-section EC → PS pill rectangle handoff — preserved as-is, with the same visible looseness already accepted in non-pinned mode.
+- The footers (OversizedFooter, MobileFooter) — already outside the scroll-state machine, already proportional collage layouts, never tied to viewport height.
+- MobileWorkShowcase — already content-driven height per Spec 023, already not pinned.
 - The Lead Capture modal — not a homepage section.
-- The blog and inner pages — not in scope.
+- The blog, legal pages, and inner pages — not in scope.
 - The `-1px` bottom margin on `#smooth-content section` that prevents sub-pixel gaps in ScrollSmoother.
+- `prefers-reduced-motion: reduce` behaviour — every section already shows its final state immediately when reduced motion is on, and that continues to be true.
 
 ---
 
@@ -156,17 +203,41 @@ No section should look different at the reference viewport (1440 × 1024 px on d
 
 These are guidelines for the implementer, not requirements.
 
-**Order of implementation.** Pricing is the simplest section (already flex, no absolute content positioning). Start there to verify the token approach works end to end. Value Props and Every Channel next. Hero, Work Showcase, and Product Screens in the middle. Social Proof last (most involved because of the floating thumbnail layer).
+**Order of implementation.** Pricing is the simplest desktop section (already flex, no absolute content positioning). Start there with its mobile counterpart to verify the token approach works end to end. Then in order of increasing complexity:
 
-**Mobile sections.** Each desktop section has a paired mobile section that currently also uses `height: 100vh`. Both should be converted together per section so regression testing is complete in one pass.
+1. Pricing + Mobile Pricing (already flex; minimal layout change)
+2. Value Props + Mobile Value Props (header is absolute today; carousel and grid are already flex; pin removal is the bigger change here)
+3. Mobile Hero, Mobile Social Proof, Mobile Product Screens, Mobile Every Channel — convert from `height: 100vh` to `min-height: 100svh`, remove `createSectionPin` (most are stub pins with no animation; only Mobile Every Channel has a real entrance timeline)
+4. Hero (desktop) + Work Showcase (desktop) — content is bottom/top-anchored, conversion is a flex layout pass
+5. Every Channel (desktop) — flex centering replaces `top: 50%; left: 50%; translate -50% -50%`
+6. Product Screens (desktop) — most involved (card-rise entrance, layered screenshot stack, pill nav handoff). The card-rise calculation needs special attention per the "Cleanup that follows from removing the pin" section above.
+7. Social Proof (desktop) — last, because it also requires switching the modal's scroll lock from the pin-dependent custom code to `lib/scrollLock.ts`.
 
-**Token value.** The `--section-padding-y` value should be derived from the Figma designs. Read the actual intended breathing room from each section in Figma; the token value is the one that matches the reference viewport across the majority of sections. Outliers that differ from the majority in Figma are documented as intentional per-section overrides.
+**Sections to delete `createSectionPin` from.** Every component listed below currently imports `createSectionPin` and calls it. After this spec, every one of these imports is removed and the call site is replaced with a direct `ScrollTrigger.create` (or removed entirely for sections that pin without an entrance):
 
-**Absolute-to-flex conversion.** When converting an absolute-positioned content element to normal flow, the equivalent pattern is: wrap the section in a flex column, set the standard padding on the section, place the content elements as flex children in the order they appear top-to-bottom in the design. If two elements must appear side-by-side (like a headline on the left and a CTA on the right), they are children of a flex row.
+| Component | Current pin call | After |
+|---|---|---|
+| `HeroAnimatic.tsx` | pin with `fireOnScroll: true`, plays headline timeline | Direct `ScrollTrigger` with `start: 'top top-=2%'`, `once: true` |
+| `WorkShowcase.tsx` | pin with entrance | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true` |
+| `EveryChannel.tsx` | pin holding the masterTl until complete | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true` |
+| `ProductScreens.tsx` | pin holding the entrance until complete | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true` |
+| `ValueProps.tsx` | pin (animation + reduced-motion stubs) | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true`; the reduced-motion stub has no entrance and needs no trigger at all |
+| `SocialProofSection.tsx` | pin (no animation, just hold) | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true`, starting the floating timeline |
+| `PricingSection.tsx` | pin (entrance fades in) | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true` |
+| `MobileHero.tsx` | stub pin with `fireOnScroll: true` (no animation) | Remove the entire `useLayoutEffect` — no entrance to fire |
+| `MobileEveryChannel.tsx` | pin with masterTl | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true` |
+| `MobileProductScreens.tsx` | pin with entrance | Direct `ScrollTrigger` with `start: 'top 80%'`, `once: true` |
+| `MobileSocialProof.tsx` | stub pin (no animation) | Remove the entire `useLayoutEffect` — no entrance to fire |
+| `MobilePricingSection.tsx` | stub pin (no animation) | Remove the entire `useLayoutEffect` — no entrance to fire |
+| `ValueProps.tsx` (MobileValueProps export) | stub pin (no animation) | Remove the entire `useLayoutEffect` — no entrance to fire |
+
+After this list is exhausted, `lib/sectionPin.ts` has no callers and is deleted, along with its tests if any exist and the `HOMEPAGE_PINNING_ENABLED` reference in `docs/explainers/animations.md`.
+
+**Absolute-to-flex conversion.** When converting an absolute-positioned content element to normal flow, the equivalent pattern is: wrap the section in a flex column, set the standard padding on the section, place the content elements as flex children in the order they appear top-to-bottom in the design. If two elements must appear side-by-side (like a headline on the left and a CTA on the right), they are children of a flex row. Vertically centered content uses `justify-content: center` on the flex column. Bottom-anchored content uses `margin-top: auto` on the bottom child or `justify-content: flex-end` on the column.
 
 **Sections with full-bleed backgrounds.** A video or image that covers the whole section is a `position: absolute; inset: 0` media fill behind the content. The content sits above it in the stacking order. This pattern is already correct in the rules (`§ Layout Must Scale — No Fragile Positioning`, point 1).
 
-**Replacing `createSectionPin` calls.** Each section component that currently calls `createSectionPin` replaces that single call with a direct `ScrollTrigger.create` using `trigger: section`, `start: 'top 80%'` (or `'top top-=2%'` for the hero's deferred-until-scroll behaviour), `once: true`, and an `onEnter` callback that invokes the same entrance logic as before. The `fireOnScroll` behaviour already present in `createSectionPin`'s no-pin path is the model — replicate it directly rather than going through the deleted helper.
+**Decorative scattered overlays.** Two sections have decorative elements that are intentionally positioned at per-element percentages of the section bounds: Social Proof's six floating thumbnails, and Every Channel's seven scattered channel pills. These remain absolute overlays and keep their per-element positioning. They are explicitly excepted from the "no readable content uses absolute positioning" rule because they are decorative-overlay elements, not in-flow content.
 
 ---
 
@@ -174,49 +245,63 @@ These are guidelines for the implementer, not requirements.
 
 ### Token and infrastructure
 
-- [ ] A `--section-padding-y` CSS custom property is defined in `styles/base.css` using fluid sizing
-- [ ] Every affected section's top and bottom padding references `--section-padding-y`
-- [ ] No affected section defines its own independent top or bottom padding value outside the token
-- [ ] The `100svh` unit is used wherever `100vh` or `h-screen` previously appeared on section containers across all affected sections
+- [ ] A `--section-padding-y` CSS custom property is defined in `styles/base.css` using a `clamp()` expression with desktop and mobile bounds derived from Figma per the Token Value rule
+- [ ] Every affected section's top and bottom padding references `--section-padding-y`, except for the named exceptions in "The site-wide vertical-padding token" section above
+- [ ] `min-height: 100svh` is used wherever `height: 100vh` or `h-screen` previously appeared on section containers across all affected sections
+- [ ] No remaining `height: 100vh` or `h-screen` appears in any section component or section CSS file
 
 ### Visual fidelity at the reference viewport
 
-- [ ] At 1440 × 1024 px (desktop reference), every section looks identical to its pre-refactor appearance
-- [ ] At 393 × 852 px (mobile reference), every mobile section looks identical to its pre-refactor appearance
+- [ ] At 1440 × 1024 px (desktop reference), every desktop section is visually indistinguishable from its pre-refactor appearance — no element has shifted position relative to the section bounds
+- [ ] At 393 × 852 px (mobile reference), every mobile section is visually indistinguishable from its pre-refactor appearance
+
+### Content alignment within sections
+
+- [ ] Hero (desktop) headline + CTA group sit at the bottom of the section with the standard breathing room from the bottom edge; the video runs to the top of the section with no padding above the video
+- [ ] Hero (mobile) video band fills the top portion of the section; mark + headline + subheadline + CTA sit below the video in normal flow
+- [ ] Work Showcase (desktop) headline is at the top with the standard breathing room; carousel fills the middle; category bar is at the bottom with the standard breathing room
+- [ ] Every Channel (desktop and mobile) headline sits in normal flow, vertically centered (desktop) or top-aligned (mobile); channel pills retain their per-pill scattered positions as a decorative overlay
+- [ ] Product Screens (desktop) section padding equals the Figma's card inset on all four sides; pill nav, mark, copy, and screenshot are arranged in flex/grid relationships
+- [ ] Product Screens (mobile) pills are at the top with the standard breathing room; mark + label + copy + screenshot follow in normal flow
+- [ ] Value Props (desktop) header row is at the top with the standard breathing room; cards row sits below; standard breathing room separates cards from section bottom
+- [ ] Value Props (mobile) headline is at the top; carousel below
+- [ ] Social Proof (desktop and mobile) headline is vertically centered using flex alignment; the thumbnails remain absolute overlays at their per-thumbnail positions
+- [ ] Pricing (desktop and mobile) content is vertically centered with the standard breathing room above the first item and below the last
 
 ### Short-window behaviour
 
-- [ ] At 1440 × 700 px, no desktop section clips its content below the visible area
+- [ ] At 1440 × 700 px (short desktop), no desktop section clips its content below the visible area; sections grow past the viewport as needed
 - [ ] At 1440 × 700 px, content within each section remains readable and no two elements overlap
-- [ ] At 375 × 568 px (small phone), no mobile section clips its content below the visible area
+- [ ] At 375 × 568 px (small or short phone), no mobile section clips its content below the visible area; sections grow past the viewport as needed
 
 ### Tall-window behaviour
 
-- [ ] At 1440 × 1400 px, every desktop section still appears to fill the window with no large empty zones (i.e. the content expands or the standard padding absorbs the space intentionally)
+- [ ] At 1440 × 1400 px (tall desktop), every desktop section is exactly the visible window height (`min-height: 100svh`) and content is positioned per the Content alignment criteria above — no large empty zones above or below centered content, no awkward floating between top and bottom anchors
 
 ### Consistent vertical rhythm
 
-- [ ] The breathing room above the first content element and below the last content element is visually consistent across all desktop sections
-- [ ] The breathing room above the first content element and below the last content element is visually consistent across all mobile sections
-- [ ] No section has noticeably more or less top/bottom space than its neighbours
+- [ ] The breathing room above the first content element and below the last content element is visually consistent across all desktop sections that use the standard token
+- [ ] The breathing room above the first content element and below the last content element is visually consistent across all mobile sections that use the standard token
+- [ ] Sections with named exceptions (Hero desktop, Every Channel, Product Screens desktop, footers) are visually distinguishable as intentional outliers — not random per-section drift
 
 ### Normal-flow content
 
-- [ ] No readable content element (headline, body copy, CTA, pill nav, interactive control) uses `position: absolute` or `position: fixed` for its placement within a section
-- [ ] Full-bleed media fills (background videos, gradient overlays) and intentional floating decorative layers (Social Proof thumbnails) remain as absolute overlays
-- [ ] GSAP transient animation states (`opacity`, `transform`, `y`) remain as they are — this rule applies to resting layout only
+- [ ] No readable content element (headline, body copy, CTA, in-flow navigation, interactive control) uses `position: absolute` or `position: fixed` for its placement within a section
+- [ ] The decorative-overlay exceptions are limited to: Social Proof thumbnails (desktop and mobile), Every Channel scattered channel pills (desktop and mobile), and full-bleed media fills (background videos, gradient overlays)
+- [ ] GSAP transient animation states (`opacity`, `transform`, `y`) are not affected by this rule — they remain as they are
 
 ### Mobile browser chrome
 
 - [ ] On an iPhone with Safari's address bar visible, no section's bottom content is hidden behind the browser chrome
 - [ ] On an Android phone with Chrome's address bar visible, no section's bottom content is hidden behind the browser chrome
+- [ ] As the visitor scrolls and the address bar collapses, no section's height jumps or thrashes — sections retain their `100svh` minimum and the gap below fills with the next section's background
 
 ### Pin system retirement
 
 - [ ] `lib/sectionPin.ts` is deleted
 - [ ] `HOMEPAGE_PINNING_ENABLED` no longer exists anywhere in the codebase
 - [ ] No call to `createSectionPin` remains in any component
-- [ ] Every section that previously called `createSectionPin` now registers a direct `ScrollTrigger` for its entrance animation
+- [ ] Every section that previously called `createSectionPin` either registers a direct `ScrollTrigger` for its entrance animation, or has had its `useLayoutEffect` removed entirely if it had no entrance to fire (per the table in Technical guidance)
 - [ ] The page scrolls freely from hero to footer with no snap, hold, or forced advancement at any section boundary
 
 ### Animations and scroll behaviour
@@ -224,9 +309,29 @@ These are guidelines for the implementer, not requirements.
 - [ ] Every section's entrance animation plays once when the section first enters the viewport — no visible regression in timing, motion, or final resting state compared to the pre-refactor free-scroll behaviour
 - [ ] The hero entrance animation does not play on page load — it waits until the visitor has scrolled forward, matching the pre-refactor behaviour
 - [ ] `ScrollSmoother` remains active and the page continues to scroll with the same smooth kinetics as before
+- [ ] The pill handoff from Every Channel to Product Screens still produces a "pills flying in from above" effect, with the same visible looseness as the current `HOMEPAGE_PINNING_ENABLED = false` mode — no new visual regression
+- [ ] The Product Screens "card rise" entrance plays without the card extending beyond the visible viewport on any tested viewport between 1280 × 700 px and 2560 × 1400 px
+
+### Reduced motion
+
+- [ ] With `prefers-reduced-motion: reduce` set, every section displays its final state immediately on mount with no entrance animation
+- [ ] With reduced motion on, the visitor scrolls freely through the page; no section pauses, holds, or animates
+
+### Modal scroll lock cleanup
+
+- [ ] `SocialProofSection.tsx` no longer references `ScrollTrigger.getById('social-proof-pin')` for its modal scroll lock
+- [ ] The Social Proof modal uses `lockScroll()` from `lib/scrollLock.ts` (which returns an unlock callback)
+- [ ] No other section retains pin-dependent scroll-lock code
+
+### Documentation
+
+- [ ] `docs/explainers/animations.md` no longer references `HOMEPAGE_PINNING_ENABLED` or the pinning toggle
+- [ ] `docs/explainers/responsive.md` is updated where it references homepage section heights to reflect that they now use `min-height: 100svh` rather than `h-screen`
+- [ ] Spec 011 and Spec 025 are not edited; their retirement is recorded only via the `Supersedes:` header of this spec, per the immutability rule
 
 ### Regression
 
 - [ ] `npx tsc --noEmit` passes with zero errors
 - [ ] `npm run lint` passes with zero errors or warnings
-- [ ] The footer (OversizedFooter, MobileFooter), Lead Capture modal, blog, and all inner pages are visually unchanged
+- [ ] The footers (OversizedFooter, MobileFooter), Lead Capture modal, blog, and all inner pages are visually unchanged
+- [ ] MobileWorkShowcase is visually unchanged (it was already content-driven height and not pinned)
