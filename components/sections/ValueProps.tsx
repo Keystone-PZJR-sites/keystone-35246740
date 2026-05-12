@@ -61,10 +61,14 @@ export interface ValuePropsProps {
 /**
  * Value Props section — desktop layout (≥768px).
  *
- * Spec 026 retired the pin: the section now sizes to its content, with a
- * `min-height: 100svh` floor so it still fills the visible viewport on tall
- * windows. The header row sits at the top, the cards row centers below it,
- * and standard breathing room separates each from the section edges.
+ * Opts into a `min-height: 100svh` floor (the site-wide default is
+ * content-driven; see `docs/explainers/responsive.md` § Section Heights).
+ * The cards' interior (video panel, copy panel) is absolutely positioned
+ * at percentages of card height, so the cards collapse to their min-height
+ * (~400 px) without a definite section height — that's a meaningful
+ * visual regression vs. the Figma intent. The header row sits at the
+ * top, the cards row centers below it, and standard breathing room
+ * separates each from the section edges.
  *
  * Hidden below 768px — MobileValueProps takes over there.
  */
@@ -245,9 +249,12 @@ export interface MobileValuePropsProps {
 /**
  * Value Props section — mobile carousel layout (<768px).
  *
- * Spec 026: not pinned. Section is at least one viewport tall (min-height:
- * 100svh) but grows if the carousel needs more room. Headline at the top
- * with the standard breathing room; the carousel viewport fills below.
+ * Opts into `min-height: 100svh` (site-wide default is content-driven;
+ * see `docs/explainers/responsive.md` § Section Heights). The carousel
+ * viewport uses `flex: 1` to absorb the remaining space under the
+ * header; without a definite section height that flex child resolves to
+ * 0 and the carousel renders as a blank strip. Headline at the top with
+ * the standard breathing room; the carousel viewport fills below.
  *
  * Hidden at 768px and above — the desktop ValueProps component takes over.
  */

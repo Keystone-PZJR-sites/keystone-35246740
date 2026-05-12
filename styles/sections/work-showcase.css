@@ -1,12 +1,16 @@
 /* ==================== WORK SHOWCASE ==================== */
 
-/* Section shell — spec 026: min-height: 100svh + flex column. Headline,
-   carousel, and category bar are in normal flow with the standard
-   --section-padding-y above the headline and below the category bar.
-   Pre-spec-026 used `h-screen` + absolute positioning for all three zones. */
+/* Section shell — sizes to its content (no `min-height: 100svh` floor; see
+   `docs/explainers/responsive.md` § Section Heights for the policy).
+   Headline, carousel, and category bar stack in normal flow. Outer
+   --section-padding-y separates the headline from the section top and
+   the category bar from the section bottom; an equal flex gap separates
+   the three children from each other so the rhythm is consistent inside
+   and outside the section. Card heights come from ScaledMockCard, so
+   the carousel zone's height is intrinsic. */
 .work-showcase-section {
-  min-height: 100svh;
   padding: var(--section-padding-y) 0;
+  gap: var(--section-padding-y);
 }
 
 /* ── Proportionally scaled mock card ───────────────────────────────────────

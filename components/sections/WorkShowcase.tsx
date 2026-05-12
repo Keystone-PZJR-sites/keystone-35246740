@@ -3291,9 +3291,12 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
       // over with a per-industry strip layout. The desktop section here
       // assumes ScrollSmoother + Embla + GSAP entrance, none of which suit
       // a touch device.
-      // Spec 026: min-height: 100svh + flex column. Headline anchors to the
-      // top with --section-padding-y above, category bar to the bottom with
-      // --section-padding-y below, carousel is the flex-grow region between.
+      // Section sizing: content-driven (see styles/sections/work-showcase.css
+      // and docs/explainers/responsive.md § Section Heights). Headline,
+      // carousel, and category bar stack in normal flow with --section-
+      // padding-y outside the group and an equal flex gap between each
+      // pair, so the inter-element rhythm matches the section's outer
+      // breathing room.
       className="work-showcase-section hidden md:flex relative w-full overflow-hidden flex-col"
       style={{ backgroundColor: '#f0eee6' }}
     >
@@ -3323,8 +3326,11 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
         </p>
       </div>
 
-      {/* Carousel — flex-1 fills the space between headline and category bar
-          and centres the card strip vertically inside that space. */}
+      {/* Carousel — sits in normal flow between the headline and the
+          category bar; the section's flex gap separates it from each.
+          flex-1 is now a no-op (the section is content-driven) but is
+          left in place so a future floor opt-in would keep the existing
+          centring behaviour without churn. */}
       <div
         className="flex-1 flex items-center w-full"
         onMouseEnter={handleCarouselMouseEnter}

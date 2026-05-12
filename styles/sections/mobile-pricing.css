@@ -1,9 +1,8 @@
 /* ==========================================================================
    Mobile Pricing Section (Spec 021, refactored under Spec 026)
    Reference canvas: 393 × 852 px (iPhone 14 Pro)
-   Spec 026: content sits in a single centred flex column instead of
-   percentage-of-viewport-height absolute positions, so the layout adapts to
-   the actual content height and never clips on a short window.
+   Sizes to its content (no `min-height: 100svh` floor — see
+   `docs/explainers/responsive.md` § Section Heights for the policy).
    ========================================================================== */
 
 /* ── Section shell ────────────────────────────────────────────────────────── */
@@ -11,7 +10,6 @@
 .mprice-section {
   position: relative;
   width: 100%;
-  min-height: 100svh;
   background-color: #0a1f1e;
   display: flex;
   overflow: hidden;
@@ -23,15 +21,15 @@
   }
 }
 
-/* Centered inner column. flex: 1 + justify-content: center vertically
-   centers content when the viewport has spare room; the column grows
-   beyond the section's min-height when content needs more space. */
+/* Centered inner column — children stack top-to-bottom in normal flow,
+   horizontally centred. The column's height is its content + padding;
+   no vertical justify-content is needed because there is no spare
+   vertical space to distribute. */
 .mprice-inner {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   padding: var(--section-padding-y) 24px;
   width: 100%;

@@ -7,11 +7,11 @@
  * section is hidden and this component takes over: five vertically-stacked
  * industry strips, each with its own horizontally-swipeable Embla carousel.
  *
- * This is the only mobile section whose intentional content height exceeds
- * one viewport (five stacked industry strips). Every other mobile section
- * has a `min-height: 100svh` floor and grows only when its own content
- * requires it (see Spec 026 for the section-height model). See Spec 015
- * (Mobile Experience Model) and Spec 023 for the rationale specific to
+ * Section sizing: this section's content (five stacked industry strips)
+ * naturally exceeds one viewport, so it neither needs nor opts into a
+ * `min-height: 100svh` floor. See `docs/explainers/responsive.md`
+ * § Section Heights for the site-wide policy, and Spec 015 (Mobile
+ * Experience Model) + Spec 023 for the layout rationale specific to
  * this section.
  *
  * Each strip is its own component instance with its own Embla via

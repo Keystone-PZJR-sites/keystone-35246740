@@ -1,9 +1,12 @@
 /* ==================== SOCIAL PROOF SECTION ==================== */
 
 /* --- Section container ---
-   Spec 026: min-height: 100svh + flex centring replaces height: 100vh +
-   absolute headline at top: calc(50% − 10.254%). The thumbnails layer stays
-   absolute (decoratively scattered overlay — named spec 026 exception). --- */
+   Opts into the `min-height: 100svh` floor (site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section Heights).
+   The six floating thumbnails are absolutely positioned at percentages
+   of section bounds (decoratively scattered overlay); without a definite
+   section height the percentages collapse and the headline alone sets
+   the section size, which would crowd the thumbnails on top of it. --- */
 .sp-section {
   position: relative;
   width: 100%;

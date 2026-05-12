@@ -1,21 +1,20 @@
 /* ==================== MOBILE EVERY CHANNEL ==================== */
 /* Shown below 768px only (md:hidden on the component wrapper).  */
 
-/* --- Section: at least one viewport tall, content-driven beyond that.
+/* --- Section: opts into `min-height: 100svh` (site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section
+   Heights).
 
    Layout model: this section is a designed collage. Pills, text, and the
    video band all have intentional positions tied to section bounds at the
    393 × 852 mobile reference (Figma node 1362:421). The text deliberately
    overlaps the top edge of the video band — that overlap is the design.
    Forcing the text and video into normal flow loses both the Figma-faithful
-   spacing and the overlap, so this section uses the same "decoratively
-   scattered overlay" exception that spec 026 already grants the pills:
-   text + video + pills are all absolutely positioned at percentages of
-   section height, which equals 100svh whenever children don't grow it.
-
-   Spec 026 changes that DO apply here: the pin is gone, the section is
-   `min-height: 100svh` (not `height: 100vh`), and the entrance animation
-   fires once via a direct ScrollTrigger.                              --- */
+   spacing and the overlap, so all three layers (text + video + pills) are
+   absolutely positioned at percentages of section height. Without the
+   floor those percentages resolve to a near-zero section and the layout
+   collapses. The pin is gone (a spec 026 change that does apply here)
+   and the entrance animation fires once via a direct ScrollTrigger. --- */
 .mec-section {
   position: relative;
   width: 100%;

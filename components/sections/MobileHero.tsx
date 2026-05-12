@@ -19,10 +19,11 @@ export interface MobileHeroProps {
 /**
  * Mobile-only hero section (below 768px).
  *
- * Spec 026 retired the pin: the section now sizes to its content with a
- * `min-height: 100svh` floor so it still fills the visible viewport on tall
- * windows. The video zone occupies the top 40svh; the content zone fills
- * whatever remains, so the layout never overflows the section.
+ * Sizes to its content — no `min-height: 100svh` floor (see
+ * `docs/explainers/responsive.md` § Section Heights for the policy).
+ * The video zone is a fixed 40svh band at the top; the content zone
+ * (mark + headline + subheadline + CTA) sits below it at its intrinsic
+ * height. The section's overall height is the sum of those two.
  *
  * Shown via `md:hidden` — the desktop HeroAnimatic uses `hidden md:block`.
  */
@@ -61,7 +62,7 @@ export function MobileHero({
 
   return (
     <section
-      className="md:hidden relative min-h-[100svh] overflow-hidden flex flex-col bg-[var(--color-hero-surface)]"
+      className="md:hidden relative overflow-hidden flex flex-col bg-[var(--color-hero-surface)]"
       aria-label="Hero"
     >
       {/* ── Video zone — top 40 svh ────────────────────────────────────────── */}
@@ -79,10 +80,10 @@ export function MobileHero({
         </video>
       </div>
 
-      {/* ── Content zone — remainder of viewport ──────────────────────────── */}
-      {/* flex-1 fills whatever space the video zone leaves. overflow-hidden   */}
-      {/* ensures nothing escapes the section on very small screens.           */}
-      <div className="flex-1 overflow-hidden px-6 pt-10 pb-6">
+      {/* ── Content zone — sits below the video band at its intrinsic height. */}
+      {/* overflow-hidden is a guard against the headline's clamp pushing the  */}
+      {/* layout past its expected bounds on extremely narrow viewports.       */}
+      <div className="overflow-hidden px-6 pt-10 pb-6">
         <KeystoneMark
           color={markColor}
           width={36}

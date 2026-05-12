@@ -24,13 +24,15 @@ export interface HeroAnimaticProps {
 /**
  * Hero — desktop layout (≥768 px).
  *
- * Spec 026 retired the pin: section is `min-height: 100svh` (no fixed-
- * viewport hold), bottom-anchored content is in normal flow at the
- * section bottom with the standard `--section-padding-y` breathing room,
- * and the entrance timeline (headline slides off-screen, bottom row fades
- * in) plays once via a direct `ScrollTrigger` that fires only after the
- * visitor has scrolled past the section top — matching the original
- * fireOnScroll behaviour.
+ * Opts into `min-height: 100svh` (the site-wide default is content-driven;
+ * see `docs/explainers/responsive.md` § Section Heights). The hero is the
+ * entry hook for the page and is designed to fill the visible viewport on
+ * first load — sizing it to content would feel anti-climactic on a tall
+ * window. Bottom-anchored content sits in normal flow at the section
+ * bottom with the standard `--section-padding-y` breathing room, and the
+ * entrance timeline (headline slides off-screen, bottom row fades in) plays
+ * once via a direct `ScrollTrigger` that fires only after the visitor has
+ * scrolled past the section top.
  */
 export function HeroAnimatic({
   headlineLine1,

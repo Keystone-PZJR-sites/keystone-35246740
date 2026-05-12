@@ -15,7 +15,7 @@ export interface MobileEveryChannelPillData {
   dotColor?: string;
   /** Left position as a CSS percentage of the section width. */
   left: string;
-  /** Top position as a CSS percentage of the section height (min-height: 100svh per spec 026). */
+  /** Top position as a CSS percentage of the section height (this section opts into `min-height: 100svh`). */
   top: string;
   beatIndex: number;
 }
@@ -69,15 +69,15 @@ const CHAR_SECOND: React.CSSProperties = {
  *  - Pills are smaller and at mobile-specific percentage positions.
  *
  * Layout: this is a designed collage. Pills, text, and the video band are
- * all absolutely positioned at percentages of section height — the same
- * "decoratively scattered overlay" pattern spec 026 grants the pills,
- * extended here because the text and video positions are intrinsic to the
- * design (text overlapping the top of the video cannot be expressed in
- * normal flow). The section uses `min-height: 100svh` so the percentages
- * resolve against the visible viewport height by default.
+ * all absolutely positioned at percentages of section height because the
+ * text and video positions are intrinsic to the design (text overlapping
+ * the top of the video cannot be expressed in normal flow). The section
+ * opts into `min-height: 100svh` (the site-wide default is content-driven;
+ * see `docs/explainers/responsive.md` § Section Heights) so those
+ * percentages resolve against the visible viewport height by default.
  *
- * Spec 026 retired the pin: the masterTl (slot-machine reveal + spring
- * pill pop) plays once on viewport entry via a direct ScrollTrigger.
+ * The masterTl (slot-machine reveal + spring pill pop) plays once on
+ * viewport entry via a direct ScrollTrigger.
  *
  * Shown via `md:hidden` — the desktop EveryChannel uses `hidden md:block`.
  */

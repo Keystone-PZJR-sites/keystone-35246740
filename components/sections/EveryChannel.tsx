@@ -255,10 +255,12 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
     <div ref={wrapperRef} className="relative hidden md:block">
       <section
         ref={sectionRef}
-        // Spec 026: min-height: 100svh + flex centering replaces h-screen +
-        // absolute -50/-50 transform. The video stays absolute inset:0 as a
-        // full-bleed background fill (named exception); pills stay absolute
-        // as decoratively-scattered overlays (named exception).
+        // Opts into `min-height: 100svh` (site-wide default is content-
+        // driven, see docs/explainers/responsive.md § Section Heights).
+        // The video is absolute inset:0 as a full-bleed background fill
+        // and the pills are scattered absolutely-positioned overlays at
+        // percentages of section bounds — both depend on a definite
+        // section height to resolve correctly.
         className="relative min-h-[100svh] w-full overflow-hidden bg-[#042019] flex items-center justify-center"
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >

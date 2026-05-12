@@ -110,8 +110,11 @@
   --mps-screenshot-radius: 13px;
 }
 
-/* --- Section: at least one viewport tall, content-driven beyond that.
-   Flex column so children stack and the deco can flex-grow.
+/* --- Section: opts into `min-height: 100svh` (site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section
+   Heights). The deco panel uses `flex: 1` to absorb remaining vertical
+   space; without a definite section height that flex child resolves to
+   its own content height and the screenshot zone collapses.
    No horizontal padding on the section — the pill nav handles its own
    horizontal padding, and the deco/screenshot use their own margins
    and viewport-relative widths to position relative to the viewport

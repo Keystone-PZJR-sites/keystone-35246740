@@ -4,8 +4,12 @@
 /* ── Desktop ─────────────────────────────────────────────────────────────── */
 
 /* --- Section container ---
-   Spec 026: not pinned. min-height: 100svh keeps the section at least one
-   visible viewport tall but lets it grow when content needs more space. --- */
+   Opts into the `min-height: 100svh` floor (the site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section Heights).
+   The cards' interior (video panel, copy panel) is absolutely positioned
+   at percentages of card height; without a definite section height the
+   cards collapse to their min-height (~400 px) and the video panel
+   shrinks to ~211 px, well below the Figma intent. --- */
 .vp-section {
   position: relative;
   width: 100%;
@@ -230,9 +234,14 @@
 /* ── Mobile carousel ─────────────────────────────────────────────────────── */
 
 /* --- Section container ---
-   Spec 026: not pinned. min-height: 100svh keeps the section at least the
-   visible viewport tall; the carousel viewport flexes to fill the remainder.
-   Flex column: header is fixed-size, carousel grows to fill the rest.  --- */
+   Opts into the `min-height: 100svh` floor (site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section Heights).
+   The carousel viewport uses `flex: 1` to absorb the remaining space
+   under the header; without a definite section height that flex child
+   resolves to 0, the slide chain (with its 558 px slide container)
+   would overflow into a clipped 0-height box, and the carousel would
+   render as a blank strip. Flex column: header is fixed-size, carousel
+   grows to fill the rest. --- */
 .mvp-section {
   min-height: 100svh;
   display: flex;
@@ -317,15 +326,14 @@
 }
 
 /* --- Embla slide container: horizontal flex row ---
-   height: 558px — natural Figma card height. Spec 026: section is sized via
-   `min-height: 100svh`, which is not a definite height; combined with
-   `flex: 1` on the viewport, percentage heights down the slide chain
-   (slide-item, slide, slide-video-wrap) resolve to 0 in Chrome/Safari (the
-   slide-wrap was 0 px tall, breaking <Image fill> and collapsing the cards
-   to just the panel's text content). A definite pixel height here gives
-   the entire slide chain a concrete reference. On short viewports the
-   section grows past 100svh to keep the cards visible — that is the spec's
-   stated content-driven-height behaviour.
+   height: 558px — natural Figma card height. The section's
+   `min-height: 100svh` is not a definite height; combined with `flex: 1`
+   on the viewport, percentage heights down the slide chain (slide-item,
+   slide, slide-video-wrap) resolve to 0 in Chrome/Safari (the slide-wrap
+   was 0 px tall, breaking <Image fill> and collapsing the cards to just
+   the panel's text content). A definite pixel height here gives the
+   entire slide chain a concrete reference. On short viewports the section
+   grows past 100svh to keep the cards visible.
    padding-left = 24px for the left edge inset. Right edge uses margin-right
    on the last slide instead of padding-right — CSS drops padding-right on
    overflowing flex containers in most browsers.                           --- */

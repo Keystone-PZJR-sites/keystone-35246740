@@ -5,24 +5,27 @@
  * `hidden md:block` on the wrapper. Reference viewport: 1440 × 1024
  * (Figma node 1087:2360).
  *
- * Spec 026 changes:
- *   - Section is `min-height: 100svh` (was `height: 100vh`).
- *   - Dark card is an in-flow flex child of the section instead of an
- *     absolutely-positioned `top/left/right/bottom: var(--ps-card-inset)`
- *     box. Section padding equal to the Figma card inset produces the
- *     cream frame around the card — `--ps-card-inset` is the spec-026
- *     named exception that takes the place of `--section-padding-y` here.
+ * Section sizing: opts into `min-height: 100svh` (the site-wide default
+ * is content-driven; see `docs/explainers/responsive.md` § Section
+ * Heights). The dark card is an in-flow flex child with `flex: 1`, so
+ * it absorbs the section's vertical space; without the floor that flex
+ * child resolves to its own content height, which then collapses the
+ * card-internal percentage anchors to nothing.
  *
- * Card-internal positioning preserved: pill nav, left zone, and
- * screenshot stack remain absolutely positioned at Figma percentages of
- * card dimensions. The screenshot stack is intentionally wider than the
- * card and the card's overflow:hidden does the clipping; expressing this
- * via flex/grid would either lose the overflow or shrink the screenshot
- * because grid columns can't easily exceed their container. The card
- * itself never grows past one viewport in practice (its content fits in
- * 100svh − 2*--ps-card-inset), so the percent-of-card-height anchors are
- * stable and don't suffer the spec-026 problem `min-height: 100svh` was
- * introduced to fix.
+ * Card-internal positioning: pill nav, left zone, and screenshot stack
+ * are absolutely positioned at Figma percentages of card dimensions.
+ * The screenshot stack is intentionally wider than the card and the
+ * card's overflow:hidden does the clipping; expressing this via flex/
+ * grid would either lose the overflow or shrink the screenshot because
+ * grid columns can't easily exceed their container. The card itself
+ * never grows past one viewport in practice (its content fits in
+ * 100svh − 2*--ps-card-inset), so the percent-of-card-height anchors
+ * are stable.
+ *
+ * Section padding equal to the Figma card inset produces the cream
+ * frame around the card — `--ps-card-inset` takes the place of the
+ * global `--section-padding-y` here because the inset matches the
+ * Figma card geometry.
  *
  * Reference math in the comments cites Figma's raw pixels at the 1440 ×
  * 1024 canvas. The card at reference is 1392 × 976 (24 px inset on all
@@ -89,12 +92,12 @@
   --ps-stack-peek: clamp(4px, 0.42vw, 8px);
 }
 
-/* --- Section: at least one viewport tall, dark card colour fills the
-   entire section. The cream "outer frame" comes from the surrounding
-   page background (sibling sections, ScrollSmoother bg). overflow:
-   visible lets the card-rise animation paint above the section top
-   during entrance. position:relative anchors the in-flow card body
-   plus any GSAP-transformed content. --- */
+/* --- Section: opts into `min-height: 100svh` so the inner ps-card has a
+   definite height for its `flex: 1` to absorb. The cream "outer frame"
+   comes from the section's own padding showing through around the inner
+   card. overflow: visible lets the card-rise animation paint above the
+   section top during entrance. position:relative anchors the in-flow
+   card body plus any GSAP-transformed content. --- */
 .ps-section {
   position: relative;
   width: 100%;

@@ -1,13 +1,13 @@
 /* ==================== PRICING SECTION ==================== */
 
 /* --- Outer section ---
-   Spec 026: min-height: 100svh ensures the section is at least as tall as
-   the visible viewport (svh accounts for mobile browser chrome) but grows
-   if the inner content needs more room on a short window. --- */
+   Sizes to its content (no `min-height: 100svh` floor — see
+   `docs/explainers/responsive.md` § Section Heights for the policy). The
+   inner column's intrinsic height + this section's vertical padding is
+   the section's height; the section never reserves a viewport slot. --- */
 .pricing-section {
   background-color: var(--color-pricing-bg);
   width: 100%;
-  min-height: 100svh;
   display: flex;
 }
 
@@ -20,16 +20,16 @@
   }
 }
 
-/* --- Centered inner container — flex column, all children horizontally centered.
-   Vertical padding uses the site-wide --section-padding-y token; horizontal
-   stays at 24 px gutter. flex: 1 fills the section so justify-content: center
-   centers content inside the available space when content is shorter than
-   the viewport, and lets it grow naturally when it isn't. --- */
+/* --- Centered inner container — flex column, all children horizontally
+   centered. Vertical padding uses the site-wide --section-padding-y
+   token; horizontal stays at 24 px gutter. The column's height is its
+   content; flex: 1 against the section's flex row stretches it to the
+   full section width but is a no-op vertically because the section has
+   no definite height. --- */
 .pricing-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   flex: 1;
   padding: var(--section-padding-y) 24px;
