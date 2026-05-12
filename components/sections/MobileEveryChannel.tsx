@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
@@ -24,7 +24,7 @@ export interface MobileEveryChannelProps {
   line1: string;
   line2: string;
   line3: string;
-  videoSrc: string;
+  videoSrcs: string[];
   pills: MobileEveryChannelPillData[];
   /** Section background color. Defaults to #063126. */
   bgColor?: string;
@@ -75,7 +75,7 @@ export function MobileEveryChannel({
   line1,
   line2,
   line3,
-  videoSrc,
+  videoSrcs,
   pills,
   bgColor = '#063126',
 }: MobileEveryChannelProps) {
@@ -85,7 +85,28 @@ export function MobileEveryChannel({
   const line2Ref   = useRef<HTMLParagraphElement>(null);
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
+  const videoRef   = useRef<HTMLVideoElement>(null);
+  const indexRef   = useRef(0);
   const { setMobileRects } = usePillHandoff();
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || videoSrcs.length === 0) return;
+
+    const advance = () => {
+      indexRef.current = (indexRef.current + 1) % videoSrcs.length;
+      video.src = videoSrcs[indexRef.current];
+      video.load();
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener('ended', advance);
+    video.addEventListener('error', advance);
+    return () => {
+      video.removeEventListener('ended', advance);
+      video.removeEventListener('error', advance);
+    };
+  }, [videoSrcs]);
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
@@ -239,18 +260,19 @@ export function MobileEveryChannel({
         style={{ backgroundColor: bgColor }}
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
-        {/* Video — lower portion, inset from sides with rounded corners */}
+        {/* Video — lower portion, inset from sides with rounded corners.
+            No loop — the ended event advances through the clip array instead. */}
         <div className="mec-video-container">
           <video
+            ref={videoRef}
             autoPlay
             muted
-            loop
             playsInline
             preload="auto"
             className="mec-video"
             aria-hidden="true"
           >
-            <source src={videoSrc} type="video/mp4" />
+            <source src={videoSrcs[0]} type="video/mp4" />
           </video>
         </div>
 

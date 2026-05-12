@@ -136,14 +136,24 @@ export default async function HomePage() {
               line1="Every CHANNEL."
               line2="Every INTERACTION."
               line3="done-for-you."
-              videoSrc="/every-channel/every-channel-bg.mp4"
+              videoSrcs={[
+                '/every-channel/everychannel-01.mp4',
+                '/every-channel/everychannel-02.mp4',
+                '/every-channel/everychannel-03.mp4',
+                '/every-channel/everychannel-04.mp4',
+              ]}
               pills={EVERY_CHANNEL_PILLS}
             />
             <MobileEveryChannel
               line1="Every CHANNEL."
               line2="Every INTERACTION."
               line3="done-for-you."
-              videoSrc="/every-channel/every-channel-bg.mp4"
+              videoSrcs={[
+                '/every-channel/everychannel-01.mp4',
+                '/every-channel/everychannel-02.mp4',
+                '/every-channel/everychannel-03.mp4',
+                '/every-channel/everychannel-04.mp4',
+              ]}
               pills={MOBILE_EVERY_CHANNEL_PILLS}
             />
             <ProductScreens tools={PRODUCT_SCREENS_TOOLS} />
