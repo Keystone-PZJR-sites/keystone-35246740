@@ -257,7 +257,7 @@
 /* --- Quote text --- */
 .sp-card-quote {
   font-family: 'FK Roman Standard', serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 40px;
   line-height: 1.04;
   letter-spacing: -1.2px;
@@ -269,6 +269,7 @@
 
 /* Oblique spans for emphasized quote portions */
 .sp-card-quote-em {
+  font-weight: 300;
   font-style: oblique;
 }
 
@@ -296,7 +297,7 @@
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: -0.36px;
-  padding: 8px 12px;
+  padding: 9px 12px 8px;
   border-radius: 9999px;
   white-space: nowrap;
   display: inline-block;
