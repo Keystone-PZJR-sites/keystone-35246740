@@ -3,18 +3,13 @@ import type { ProductScreensTool } from '@/components/sections';
 /*
  * Product Screens — per-tool content.
  *
- * Desktop values verified against Figma node `1087:2360` (file `XRbD11WIevI5szRFiRrguZ`),
- * one variant per tool. Mobile values verified against node `1255:1117` (the Leads
- * mobile variant). Per spec 024, the other six tools share the mobile layout with
- * per-tool data overrides; values not present in Figma for those tools are derived
- * from each tool's `cardBg` using the same darker-shade relationship Figma uses
- * for Leads (RGB scaled to ~70 % luminance, paired with opacity 0.8).
+ * Desktop values verified against Figma node `1087:2360` (file `XRbD11WIevI5szRFiRrguZ`).
+ * Mobile values verified against node `1255:1117` (the Leads mobile variant).
+ * Per spec 024, the other six tools share the mobile layout with per-tool data overrides.
  *
- * Screenshot layers are ordered front-to-back: index 0 is the visible primary,
- * later indices sit behind it. The deepest layer for every tool is the universal
- * "Contacts" UI (`screen-stack-base.png`), which Figma reuses across all variants.
- * Three tools (Social, Sales, Reviews) share the same back-1 calendar UI
- * (`screen-stack-calendar.png`).
+ * Each tool now has a single screenshot layer — the Figma design was updated to
+ * remove all back-layer compositing. screenshotLayers is kept as an array for
+ * forward compatibility but always contains exactly one entry.
  */
 export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
   {
@@ -28,11 +23,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'A fast, conversion-optimized site built to your brand and kept current without you lifting a finger.',
     markColor: '#267D54',
-    screenshotLayers: [
-      '/product-screens/screen-web.png',
-      '/product-screens/screen-web-back-1.png',
-      '/product-screens/screen-stack-base.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-web.jpg'],
     mobileDecoColor: '#031611',
     mobileDecoOpacity: 0.8,
   },
@@ -47,10 +38,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'Every inbound lead gets a reply in minutes — 24/7 — so warm interest never goes cold.',
     markColor: '#E0A733',
-    screenshotLayers: [
-      '/product-screens/screen-leads.png',
-      '/product-screens/screen-stack-base.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-leads.jpg'],
     mobileCopyText:
       'A team of experts running your marketing while you run your business.',
     mobileInactiveBorder: '#513b2a',
@@ -68,10 +56,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'Meta campaigns that target the right customers, in your market, with the right offer at the right moment.',
     markColor: '#9F3722',
-    screenshotLayers: [
-      '/product-screens/screen-ads.png',
-      '/product-screens/screen-ads-back-1.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-ads.jpg'],
     mobileDecoColor: '#2a0f11',
     mobileDecoOpacity: 0.8,
   },
@@ -86,11 +71,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#6E3CA7',
-    screenshotLayers: [
-      '/product-screens/screen-social.png',
-      '/product-screens/screen-stack-calendar.png',
-      '/product-screens/screen-stack-base.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-social.jpg'],
     mobileDecoColor: '#21092c',
     mobileDecoOpacity: 0.8,
   },
@@ -105,11 +86,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#397DFF',
-    screenshotLayers: [
-      '/product-screens/screen-sales.png',
-      '/product-screens/screen-stack-calendar.png',
-      '/product-screens/screen-stack-base.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-sales.jpg'],
     mobileDecoColor: '#0a182b',
     mobileDecoOpacity: 0.8,
   },
@@ -124,11 +101,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#399587',
-    screenshotLayers: [
-      '/product-screens/screen-reviews.png',
-      '/product-screens/screen-stack-calendar.png',
-      '/product-screens/screen-stack-base.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-reviews.jpg'],
     mobileDecoColor: '#091d1c',
     mobileDecoOpacity: 0.8,
   },
@@ -142,10 +115,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#f38bb0',
     copyText: 'Continuous, search-optimized content that builds your visibility over time.',
     markColor: '#DD6F96',
-    screenshotLayers: [
-      '/product-screens/screen-content.png',
-      '/product-screens/screen-stack-base.png',
-    ],
+    screenshotLayers: ['/product-screens/screen-content.jpg'],
     mobileDecoColor: '#2b0d19',
     mobileDecoOpacity: 0.8,
   },
