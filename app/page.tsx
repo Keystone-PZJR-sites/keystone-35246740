@@ -228,11 +228,11 @@ export default async function HomePage() {
             keystoneMarkColor="#F57E56"
             ctaArrowSrc="/footer/footer-cta-arrow.svg"
             keystoneWordmarkSrc="/footer/footer-wordmark.svg"
-            videoA="/footer/footer-video-businesswoman.mp4"
-            videoB="/footer/footer-video-storefront.mp4"
-            videoC="/footer/footer-video-barbershop.mp4"
-            videoD="/footer/footer-video-phone-call.mp4"
-            videoE="/footer/footer-video-ceramics.mp4"
+            videoA="/footer/footer-video-pet.mp4"
+            videoB="/footer/footer-video-truck.mp4"
+            videoC="/footer/footer-video-cafe.mp4"
+            videoD="/footer/footer-video-phonecall.mp4"
+            videoE="/footer/footer-video-barber.mp4"
           />
           <MobileFooter
             line1="FOR BUSINESSES"
@@ -254,11 +254,11 @@ export default async function HomePage() {
             keystoneMarkColor="#F57E56"
             ctaArrowSrc="/footer/footer-cta-arrow.svg"
             keystoneWordmarkSrc="/footer/footer-wordmark.svg"
-            videoA="/footer/footer-video-businesswoman.mp4"
-            videoB="/footer/footer-video-storefront.mp4"
-            videoC="/footer/footer-video-barbershop.mp4"
-            videoD="/footer/footer-video-phone-call.mp4"
-            videoE="/footer/footer-video-ceramics.mp4"
+            videoA="/footer/footer-video-pet.mp4"
+            videoB="/footer/footer-video-truck.mp4"
+            videoC="/footer/footer-video-cafe.mp4"
+            videoD="/footer/footer-video-phonecall.mp4"
+            videoE="/footer/footer-video-barber.mp4"
           />
         </SmoothScrollProvider>
       </PillHandoffProvider>

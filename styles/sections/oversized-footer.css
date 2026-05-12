@@ -11,7 +11,7 @@
 
    The layout is fully self-consistent at any viewport width:
 
-     collage height  = viewport × (812/1440)       [from aspect-ratio]
+     collage height  = viewport × (771/1440)       [from aspect-ratio]
      top padding     = viewport × 0.02639           [clamp → 38px max]
      row gap         = viewport × 0.01528           [clamp → 22px max]
      row height      = (height − pad − 3×gap) / 4
@@ -33,7 +33,7 @@
    ---------------------------------------------------------------- */
 .footer-collage-outer {
   width: 100%;
-  aspect-ratio: 1440 / 812;
+  aspect-ratio: 1440 / 771;
   overflow: hidden;
   display: flex;
   flex-direction: column;
