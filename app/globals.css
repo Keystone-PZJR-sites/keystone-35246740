@@ -30,6 +30,33 @@
   background-color: #f0eee6;
 }
 
+/* Clip horizontal overflow at every level that could otherwise expose it.
+
+   Why every level: on touch devices ScrollSmoother deliberately skips the
+   `position: fixed; overflow: hidden` setup it uses on desktop, because
+   that breaks native touch scrolling. Sections that intentionally overflow
+   horizontally (Product Screens deco at 127vw and screenshot at 158.5vw on
+   mobile) then escape past the viewport. `overflow-x: clip` on
+   `#smooth-wrapper` alone is not enough: the wrapper's child #smooth-content
+   establishes its own block formatting context whose scrollable overflow
+   can still propagate to the body on iOS Safari, leaving the page
+   drag-scrollable to the right. Applying the rule at html, body, and the
+   wrapper closes every path the overflow could escape through.
+
+   `overflow-x: clip` (not `hidden`) is deliberate everywhere it appears:
+   when one axis is `clip` and the other is `visible`, the visible axis
+   stays visible (per CSS overflow spec). `hidden` would force overflow-y
+   to `auto`, which would break the vertical pill convergence animation
+   (Every Channel → Product Screens) that paints pills above the
+   destination section, and would also turn html/body into scroll
+   containers in a way that breaks `position: sticky` on iOS Safari. */
+html,
+body,
+#smooth-wrapper,
+#smooth-content {
+  overflow-x: clip;
+}
+
 #smooth-content section {
   will-change: transform;
   backface-visibility: hidden;

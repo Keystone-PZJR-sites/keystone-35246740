@@ -27,7 +27,9 @@ export interface MobileProductScreensProps {
  *    inside a rounded panel that sits below the pill nav.
  *  - Product screenshot starts at the left edge of the deco and extends
  *    past the deco's right edge and the viewport right edge — clipped by
- *    the ScrollSmoother wrapper's overflow:hidden.
+ *    `#smooth-wrapper { overflow-x: clip }` in app/globals.css. (On desktop
+ *    ScrollSmoother adds its own overflow:hidden at runtime; on touch
+ *    devices it skips that, which is why the always-on rule is needed.)
  *
  * Spec 026 retired the pin: the layout is entirely in normal flow with
  * no absolute positioning. The section is a flex column where the deco
@@ -295,10 +297,11 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
 
           {/* Product screenshot — flex-grows to fill remaining height inside
               the deco. Wider than the deco (158.5vw) so it extends past the
-              deco's right edge and the viewport's right edge; the
-              ScrollSmoother wrapper's overflow:hidden clips at the viewport
-              edge. The image inside uses object-fit:cover so it scales to
-              the zone's actual dimensions at any viewport height. */}
+              deco's right edge and the viewport's right edge; clipped at
+              the viewport edge by #smooth-wrapper's overflow-x: clip
+              (app/globals.css). The image inside uses object-fit:cover so
+              it scales to the zone's actual dimensions at any viewport
+              height. */}
           <div ref={screenshotRef} className="mps-mobile-screenshot-zone">
             <Image
               src={mobileScreenshot}

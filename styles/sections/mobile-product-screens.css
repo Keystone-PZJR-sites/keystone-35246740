@@ -28,7 +28,10 @@
  * absorbs any extra vertical space the section has (or shrinks if the
  * section is short). Width stays at --mps-screenshot-w (158.5vw) so the
  * screenshot extends past the deco's right edge and past the viewport
- * right edge — clipped by the ScrollSmoother wrapper's overflow:hidden.
+ * right edge — clipped by #smooth-wrapper's `overflow-x: clip` rule in
+ * `app/globals.css`. On desktop ScrollSmoother adds its own overflow:hidden
+ * at runtime; on touch devices it deliberately skips that, which is why the
+ * always-on `overflow-x: clip` is necessary.
  *
  * No absolute positioning anywhere — every element sits in normal flow
  * inside its parent's flex column. Section overflow:visible lets the
@@ -200,9 +203,10 @@
 
 /* --- Deco container: in normal flow as a flex column that fills the
    remaining vertical space below the pill nav. Wider than the section
-   (127vw vs 100vw) so it extends past the viewport right edge — the
-   #smooth-wrapper overflow:hidden clips it. min-width:0 / min-height:0
-   let the flex box shrink below content size on very short viewports. --- */
+   (127vw vs 100vw) so it extends past the viewport right edge — clipped
+   by #smooth-wrapper's `overflow-x: clip` (see app/globals.css).
+   min-width:0 / min-height:0 let the flex box shrink below content size
+   on very short viewports. --- */
 .mps-mobile-deco {
   position: relative;
   flex: 1;
@@ -257,11 +261,12 @@
 /* --- Screenshot zone: flex:1 absorbs all remaining vertical space inside
    the deco. Width is fixed in vw and is intentionally wider than the
    deco's content area so the screenshot extends past the deco's right
-   edge — the #smooth-wrapper overflow:hidden clips at the viewport
-   right edge. min-height:0 lets the flex box shrink below the image's
-   intrinsic aspect on very short viewports rather than overflowing.
-   overflow:hidden + relative positioning establishes the containing
-   block for the absolutely-positioned <Image fill> child. --- */
+   edge — clipped at the viewport right edge by #smooth-wrapper's
+   `overflow-x: clip` (see app/globals.css). min-height:0 lets the flex
+   box shrink below the image's intrinsic aspect on very short viewports
+   rather than overflowing. overflow:hidden + relative positioning
+   establishes the containing block for the absolutely-positioned
+   <Image fill> child. --- */
 .mps-mobile-screenshot-zone {
   position: relative;
   flex: 1;
