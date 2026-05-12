@@ -182,7 +182,7 @@ const foodListingsContent = {
 const foodAdsContent = {
   variant: 'food' as const,
   heroSrc: '/work-showcase/food-ads-photo.jpg',
-  caption: 'Baked in-house and brewed to order at alma.',
+  caption: 'Baked in-house and brewed\nto order at alma.',
   ctaLabel: 'Learn More',
   avatarSrc: '/work-showcase/food-web-logo-mark.svg',
   threeDotsIconSrc: '/work-showcase/ads-icon-three-dots.svg',

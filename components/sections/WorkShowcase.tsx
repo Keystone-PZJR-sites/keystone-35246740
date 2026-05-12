@@ -889,8 +889,8 @@ function AdsCardFood({
           style={{ top: '282px', padding: '8px', backgroundColor: '#ddcec2' }}
         >
           <span
-            className="font-semibold text-center leading-normal"
-            style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', color: '#8a7050', whiteSpace: 'nowrap' }}
+            className="font-semibold leading-normal"
+            style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '12px', color: '#8a7050', whiteSpace: 'pre' }}
           >
             {content.caption}
           </span>
@@ -1812,19 +1812,19 @@ function WebCardHome({
             </div>
 
             {/* Left: headline + stats + CTAs */}
-            <div className="flex flex-1 flex-col justify-between min-w-0" style={{ height: '333px' }}>
+            <div className="flex flex-col justify-between" style={{ flex: '1 0 0', height: '333px' }}>
               <div className="flex flex-col" style={{ gap: '50.929px' }}>
                 {/* Headline */}
                 <div>
                   <p
                     className="work-home-web-headline"
-                    style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '50px', fontWeight: 600, lineHeight: '1.1', letterSpacing: '-1px', marginBottom: 0 }}
+                    style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '44px', fontWeight: 600, lineHeight: '1.1', letterSpacing: '-1px', marginBottom: 0 }}
                   >
                     Expert tree care,
                   </p>
                   <p
-                    className="work-home-web-headline-italic"
-                    style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '50px', fontWeight: 600, lineHeight: '1.1', fontStyle: 'italic', letterSpacing: '-1px', marginBottom: 0 }}
+                    className="work-home-web-headline-italic whitespace-nowrap"
+                    style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '44px', fontWeight: 600, lineHeight: '1.1', fontStyle: 'italic', letterSpacing: '-1px', marginBottom: 0 }}
                   >
                     from root to crown.
                   </p>
@@ -1886,10 +1886,11 @@ function WebCardHome({
               <Image
                 src={content.heroSrc}
                 alt=""
-                fill
-                className="work-card-img object-cover"
-                style={{ objectPosition: '-24% 0%' }}
+                width={499}
+                height={333}
                 unoptimized
+                className="absolute max-w-none"
+                style={{ height: '99.97%', width: '177.7%', top: '0.02%', left: '-24.43%' }}
               />
             </div>
           </div>
