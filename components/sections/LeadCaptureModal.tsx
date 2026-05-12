@@ -534,6 +534,29 @@ function Modal({
     cardRef.current?.focus({ preventScroll: true });
   }, []);
 
+  // Size the overlay to the visual viewport so the soft keyboard can't
+  // bury the submit button or the message field on mobile. The overlay is
+  // position:fixed and the layout viewport doesn't shrink when the keyboard
+  // appears (especially on iOS Safari), so without this, position:fixed +
+  // inset:0 covers the area behind the keyboard. visualViewport.height
+  // reflects the actual visible area; we mirror it onto the overlay and
+  // re-sync on resize (keyboard up/down, device rotation). Fallback to
+  // 100dvh in CSS covers the SSR-to-first-paint window and the no-API case.
+  useLayoutEffect(() => {
+    const vv = window.visualViewport;
+    const overlay = overlayRef.current;
+    if (!vv || !overlay) return;
+    const sync = () => {
+      overlay.style.height = `${vv.height}px`;
+    };
+    sync();
+    vv.addEventListener('resize', sync);
+    return () => {
+      vv.removeEventListener('resize', sync);
+      overlay.style.height = '';
+    };
+  }, [overlayRef]);
+
   // Auto-close after success
   useEffect(() => {
     if (submitState !== 'success') return;

@@ -2,12 +2,28 @@
 
 /* Full-screen overlay — sits above everything via portal.
    Portaled into <body>, so it lives outside ScrollSmoother's transformed
-   #smooth-content. --z-portal is the highest scale token for that reason. */
+   #smooth-content. --z-portal is the highest scale token for that reason.
+
+   Height is set via top/left/right + explicit `height` (not `inset: 0`) so
+   the JS in LeadCaptureModal.tsx can shrink the overlay to the visual
+   viewport when the soft keyboard appears. With `inset: 0`, the overlay
+   covers the area behind the keyboard on iOS Safari — burying the submit
+   button and any field near the bottom of the form. `100dvh` is the SSR /
+   no-keyboard fallback; the Visual Viewport sync overrides at runtime.
+
+   overscroll-behavior: contain stops scroll chaining into the page beneath.
+   scroll-padding-block-end gives the browser's auto scroll-into-view a
+   margin below focused inputs so they don't kiss the keyboard's top edge. */
 .lc-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100dvh;
   z-index: var(--z-portal);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block-end: 24px;
 }
 
 /* Fixed dark green backdrop with blur */
