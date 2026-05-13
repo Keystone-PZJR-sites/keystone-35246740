@@ -8,43 +8,55 @@ import { config } from '@/config';
 // Google Fonts — loaded and self-hosted by Next.js at build time.
 // Importing them registers the @font-face rules globally so the work-showcase
 // card mocks can reference these fonts by name in inline styles.
+//
+// All six use display:'optional' — this prevents next/font from emitting
+// <link rel="preload"> hints for any of them. Without preload hints the ~100
+// font subset files no longer compete with JS bundles for bandwidth on initial
+// load. The fonts are discovered lazily from CSS at lower priority, and are
+// cached for every visit after the first.
+//
+// Weights are trimmed to only what WorkShowcase actually uses:
+//   Inter         400, 500  (body/label text in card mocks)
+//   Bangers       400       (display headline in one card)
+//   Dongle        400, 700  (nav + button text in one card)
+//   Fraunces      600       (serif headlines in one card)
+//   Josefin Slab  600, 700  (wordmark + nav + menu in one card)
+//   DM Mono       300, 400  (nav + monospace text in one card; 500 unused)
 // ---------------------------------------------------------------------------
-
-// Inter is above-the-fold (work showcase cards in section 2) — block so it
-// arrives before the loading overlay fades rather than swapping in after.
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  display: 'block',
+  weight: ['400', '500'],
+  display: 'optional',
   variable: '--font-inter',
 });
 const bangers = Bangers({
   subsets: ['latin'],
   weight: '400',
-  display: 'swap',
+  display: 'optional',
   variable: '--font-bangers',
 });
 const dongle = Dongle({
   subsets: ['latin'],
   weight: ['400', '700'],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-dongle',
 });
 const fraunces = Fraunces({
   subsets: ['latin'],
-  display: 'swap',
+  weight: '600',
+  display: 'optional',
   variable: '--font-fraunces',
 });
 const josefinSlab = Josefin_Slab({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  display: 'swap',
+  weight: ['600', '700'],
+  display: 'optional',
   variable: '--font-josefin-slab',
 });
 const dmMono = DM_Mono({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  display: 'swap',
+  weight: ['300', '400'],
+  display: 'optional',
   variable: '--font-dm-mono',
 });
 

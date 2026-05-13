@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lockScroll } from '@/lib/scrollLock';
 import { log } from '@/lib/logger';
+import { useNearViewport } from '@/lib/useNearViewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -206,6 +207,7 @@ export function SocialProofSection({
   const cardPositionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const floatTimelinesRef = useRef<gsap.core.Timeline[]>([]);
   const modalVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const thumbVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const modalVideoTransitionWrapRefs = useRef<(HTMLDivElement | null)[]>([]);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const emblaViewportRef = useRef<HTMLDivElement | null>(null);
@@ -213,6 +215,20 @@ export function SocialProofSection({
   const expandTweenRef = useRef<gsap.core.Animation | null>(null);
   const currentSlideRef = useRef(0);
   const isClosingRef = useRef(false);
+
+  // Defer thumbnail video loading until the section is within 1000px of the
+  // viewport — prevents 6 autoplay videos (~19 MB) from competing with hero
+  // and JS bundle bandwidth on initial page load.
+  const isNear = useNearViewport(sectionRef, '1000px');
+
+  useEffect(() => {
+    if (!isNear) return;
+    thumbVideoRefs.current.forEach(v => {
+      if (!v) return;
+      v.preload = 'auto';
+      v.play().catch(() => {});
+    });
+  }, [isNear]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [openAtSlide, setOpenAtSlide] = useState(0);
@@ -678,10 +694,11 @@ export function SocialProofSection({
                 aria-label={`Play customer testimonial ${i + 1}`}
               >
                 <video
-                  autoPlay
+                  ref={el => { thumbVideoRefs.current[i] = el; }}
                   muted
                   loop
                   playsInline
+                  preload="none"
                   aria-hidden="true"
                   className="sp-thumb-video"
                 >
