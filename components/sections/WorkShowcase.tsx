@@ -3088,7 +3088,10 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
       const nextCardIndex = nextIndustry * CARDS_PER_INDUSTRY;
       isAutoScrollingRef.current = true;
       emblaApi.scrollTo(nextCardIndex);
-      setFocusedCardIndex(nextCardIndex);
+      // focusedCardIndex is intentionally NOT updated here — updating state while
+      // Embla is mid-scroll fires CSS transitions (filter + transform) on all 25+
+      // cards concurrently with the scroll animation, causing GPU stutter.
+      // Instead, focus state is applied in onSettle once the animation finishes.
     }, 5000);
   }, [emblaApi, industries.length, industryForCard, stopAutoScroll]);
 
@@ -3109,6 +3112,8 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
 
     const onSettle = () => {
       if (isAutoScrollingRef.current) {
+        const index = emblaApi.selectedScrollSnap();
+        setFocusedCardIndex(index);
         isAutoScrollingRef.current = false;
         scheduleNextScroll();
       }
