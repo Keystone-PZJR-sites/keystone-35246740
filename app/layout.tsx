@@ -21,7 +21,7 @@ import { config } from '@/config';
 //   Dongle        400, 700  (nav + button text in one card)
 //   Fraunces      600       (serif headlines in one card)
 //   Josefin Slab  600, 700  (wordmark + nav + menu in one card)
-//   DM Mono       300, 400  (nav + monospace text in one card; 500 unused)
+//   DM Mono       300         (Light — all DM Mono usages are fontWeight:300; 400/500 unused)
 // ---------------------------------------------------------------------------
 const inter = Inter({
   subsets: ['latin'],
@@ -55,7 +55,7 @@ const josefinSlab = Josefin_Slab({
 });
 const dmMono = DM_Mono({
   subsets: ['latin'],
-  weight: ['300', '400'],
+  weight: '300',
   display: 'optional',
   variable: '--font-dm-mono',
 });
