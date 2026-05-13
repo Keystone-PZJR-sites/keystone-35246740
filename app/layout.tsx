@@ -48,14 +48,20 @@ const dmMono = DM_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const websitePhotos = await getWebsitePhotos();
-  const faviconUrl = websitePhotos?.favicon?.url;
   const previewImageUrl = websitePhotos?.preview_image?.url;
   return {
     title: "Keystone | Sales & Marketing for Local Businesses",
     description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
-    ...(faviconUrl && {
-      icons: { icon: faviconUrl, shortcut: faviconUrl },
-    }),
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+        { url: '/icon.svg', type: 'image/svg+xml' },
+        { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
+      ],
+      apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
+      shortcut: '/favicon.ico',
+    },
+    manifest: '/site.webmanifest',
     ...(previewImageUrl && {
       openGraph: { images: [{ url: previewImageUrl }] },
       twitter: { card: 'summary_large_image', images: [previewImageUrl] },
