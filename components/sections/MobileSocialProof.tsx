@@ -10,7 +10,7 @@ import type { SocialProofSlide, QuoteSegment } from './SocialProofSection';
 // ============================================================
 
 export interface MobileSocialProofThumbnail {
-  videoSrc: string;
+  video: { webm: string; mp4: string };
   /** Width in px at 393px Figma canvas */
   width: number;
   /** Height in px at 852px Figma canvas */
@@ -74,14 +74,16 @@ function TestimonialSlide({ slide, videoRef }: TestimonialSlideProps) {
         <video
           ref={videoRef}
           className="msp-slide-video"
-          src={slide.videoSrc}
           autoPlay
           muted
           loop
           playsInline
           controlsList="nodownload"
           aria-hidden="true"
-        />
+        >
+          <source src={slide.video.webm} type="video/webm" />
+          <source src={slide.video.mp4} type="video/mp4" />
+        </video>
       </div>
 
       {/* Notch panel */}
@@ -204,14 +206,16 @@ export function MobileSocialProof({
         >
           <video
             className="msp-thumbnail-video"
-            src={thumb.videoSrc}
             autoPlay
             muted
             loop
             playsInline
             controlsList="nodownload"
             aria-hidden="true"
-          />
+          >
+            <source src={thumb.video.webm} type="video/webm" />
+            <source src={thumb.video.mp4} type="video/mp4" />
+          </video>
           <Image
             src={thumb.markerSrc}
             alt=""

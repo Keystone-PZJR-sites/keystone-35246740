@@ -21,7 +21,7 @@ export interface QuoteSegment {
 }
 
 export interface SocialProofSlide {
-  videoSrc: string;
+  video: { webm: string; mp4: string };
   /** Card background hex color */
   cardBgColor: string;
   /** Quote text color */
@@ -37,7 +37,7 @@ export interface SocialProofSlide {
 }
 
 export interface SocialProofThumbnail {
-  videoSrc: string;
+  video: { webm: string; mp4: string };
   /** Width in px at 1440px Figma canvas */
   width: number;
   /** Height in px at 1024px Figma canvas */
@@ -685,7 +685,8 @@ export function SocialProofSection({
                   aria-hidden="true"
                   className="sp-thumb-video"
                 >
-                  <source src={thumb.videoSrc} type="video/mp4" />
+                  <source src={thumb.video.webm} type="video/webm" />
+                  <source src={thumb.video.mp4} type="video/mp4" />
                 </video>
               </button>
               <Image
@@ -789,7 +790,8 @@ export function SocialProofSection({
                         loop={false}
                         aria-label={`Testimonial video ${i + 1}`}
                       >
-                        <source src={slide.videoSrc} type="video/mp4" />
+                        <source src={slide.video.webm} type="video/webm" />
+                        <source src={slide.video.mp4} type="video/mp4" />
                       </video>
                     </div>
                   </div>
