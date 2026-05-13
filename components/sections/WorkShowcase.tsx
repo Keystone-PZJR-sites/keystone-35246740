@@ -2196,7 +2196,7 @@ function WebCardFoodMenu({
               <div key={i} className="flex flex-col" style={{ gap: '12px' }}>
                 <div className="flex items-center justify-between" style={{ lineHeight: 1 }}>
                   <span style={{ fontFamily: josefin, fontWeight: 600, fontSize: '14px', letterSpacing: '-0.14px', color: '#8a7050' }}>{item.name}</span>
-                  <span style={{ fontFamily: josefin, fontWeight: 500, fontSize: '14px', letterSpacing: '-0.14px', color: '#8a7050' }}>{item.price}</span>
+                  <span style={{ fontFamily: josefin, fontWeight: 600, fontSize: '14px', letterSpacing: '-0.14px', color: '#8a7050' }}>{item.price}</span>
                 </div>
                 <p style={{ fontFamily: josefin, fontWeight: 600, fontSize: '12px', letterSpacing: '-0.12px', color: '#b4a38e', lineHeight: 1.2, margin: 0 }}>
                   {item.description}
