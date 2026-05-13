@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useVideoCarousel } from '@/lib/useVideoCarousel';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
@@ -20,8 +21,9 @@ export interface EveryChannelProps {
   line1: string;
   line2: string;
   line3: string;
-  /** Ordered array of clips. WebM is served to browsers that support it; MP4 is the fallback. */
-  videoSrcs: { webm: string; mp4: string }[];
+  /** Ordered array of clips. WebM is served to browsers that support it; MP4 is the fallback.
+   *  `poster` is the base path for the responsive WebP still. */
+  videoSrcs: { webm: string; mp4: string; poster?: string }[];
   pills: PillData[];
 }
 
@@ -71,31 +73,8 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
   const line2Ref   = useRef<HTMLParagraphElement>(null);
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
-  const videoRef   = useRef<HTMLVideoElement>(null);
-  const indexRef   = useRef(0);
   const { setDesktopRects } = usePillHandoff();
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || videoSrcs.length === 0) return;
-
-    const advance = () => {
-      indexRef.current = (indexRef.current + 1) % videoSrcs.length;
-      const clip = videoSrcs[indexRef.current];
-      const sources = video.querySelectorAll('source');
-      sources[0].src = clip.webm;
-      sources[1].src = clip.mp4;
-      video.load();
-      video.play().catch(() => {});
-    };
-
-    video.addEventListener('ended', advance);
-    video.addEventListener('error', advance);
-    return () => {
-      video.removeEventListener('ended', advance);
-      video.removeEventListener('error', advance);
-    };
-  }, [videoSrcs]);
+  const videoRefs = useVideoCarousel(videoSrcs);
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
@@ -268,21 +247,39 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
         className="relative min-h-[100svh] w-full overflow-hidden bg-[#042019] flex items-center justify-center"
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
-        {/* preload="auto" tells the browser to buffer the video while the section
-            is still off-screen so it is ready the moment it enters the viewport.
-            No loop — the ended event advances through the clip array instead. */}
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-          aria-hidden="true"
-        >
-          <source src={videoSrcs[0].webm} type="video/webm" />
-          <source src={videoSrcs[0].mp4}  type="video/mp4" />
-        </video>
+        {/* Poster — visible immediately, covered once the first video plays. */}
+        {videoSrcs[0]?.poster && (
+          <picture className="absolute inset-0" aria-hidden="true">
+            <source
+              srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
+              type="image/webp"
+              sizes="100vw"
+            />
+            <img
+              src={`${videoSrcs[0].poster}-1500w.webp`}
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
+        )}
+        {/* All clips rendered simultaneously with preload="auto" — each is
+            buffered before it becomes active, enabling gapless crossfades. */}
+        {videoSrcs.map((clip, i) => (
+          <video
+            key={i}
+            ref={el => { videoRefs.current[i] = el; }}
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden="true"
+          >
+            <source src={clip.webm} type="video/webm" />
+            <source src={clip.mp4} type="video/mp4" />
+          </video>
+        ))}
 
         {/* Display text — in normal flow, centred via the section's flex
             alignment. slot-machine character reveal. */}

@@ -47,12 +47,12 @@ import {
 } from '@/data';
 
 const HERO_VIDEOS = [
-  { webm: '/videos/hero-autoloop-clips/hero-01.webm', mp4: '/videos/hero-autoloop-clips/hero-01.mp4' },
-  { webm: '/videos/hero-autoloop-clips/hero-02.webm', mp4: '/videos/hero-autoloop-clips/hero-02.mp4' },
-  { webm: '/videos/hero-autoloop-clips/hero-03.webm', mp4: '/videos/hero-autoloop-clips/hero-03.mp4' },
-  { webm: '/videos/hero-autoloop-clips/hero-04.webm', mp4: '/videos/hero-autoloop-clips/hero-04.mp4' },
-  { webm: '/videos/hero-autoloop-clips/hero-05.webm', mp4: '/videos/hero-autoloop-clips/hero-05.mp4' },
-  { webm: '/videos/hero-autoloop-clips/hero-06.webm', mp4: '/videos/hero-autoloop-clips/hero-06.mp4' },
+  { webm: '/videos/hero-autoloop-clips/hero-01.webm', mp4: '/videos/hero-autoloop-clips/hero-01.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-01' },
+  { webm: '/videos/hero-autoloop-clips/hero-02.webm', mp4: '/videos/hero-autoloop-clips/hero-02.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-02' },
+  { webm: '/videos/hero-autoloop-clips/hero-03.webm', mp4: '/videos/hero-autoloop-clips/hero-03.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-03' },
+  { webm: '/videos/hero-autoloop-clips/hero-04.webm', mp4: '/videos/hero-autoloop-clips/hero-04.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-04' },
+  { webm: '/videos/hero-autoloop-clips/hero-05.webm', mp4: '/videos/hero-autoloop-clips/hero-05.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-05' },
+  { webm: '/videos/hero-autoloop-clips/hero-06.webm', mp4: '/videos/hero-autoloop-clips/hero-06.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-06' },
 ];
 
 const PRICING_CHIPS = [
@@ -137,10 +137,10 @@ export default async function HomePage() {
               line2="Every INTERACTION."
               line3="done-for-you."
               videoSrcs={[
-                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4' },
-                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4' },
-                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4' },
-                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4' },
+                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4', poster: '/every-channel/posters/everychannel-01' },
+                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4', poster: '/every-channel/posters/everychannel-02' },
+                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4', poster: '/every-channel/posters/everychannel-03' },
+                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4', poster: '/every-channel/posters/everychannel-04' },
               ]}
               pills={EVERY_CHANNEL_PILLS}
             />
@@ -149,10 +149,10 @@ export default async function HomePage() {
               line2="Every INTERACTION."
               line3="done-for-you."
               videoSrcs={[
-                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4' },
-                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4' },
-                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4' },
-                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4' },
+                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4', poster: '/every-channel/posters/everychannel-01' },
+                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4', poster: '/every-channel/posters/everychannel-02' },
+                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4', poster: '/every-channel/posters/everychannel-03' },
+                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4', poster: '/every-channel/posters/everychannel-04' },
               ]}
               pills={MOBILE_EVERY_CHANNEL_PILLS}
             />

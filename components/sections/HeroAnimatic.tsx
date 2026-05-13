@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { useLeadCapture } from './LeadCaptureModal';
 import { log } from '@/lib/logger';
+import { useVideoCarousel } from '@/lib/useVideoCarousel';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,8 +18,10 @@ export interface HeroAnimaticProps {
   cta1Label: string;
   cta2Label: string;
   /** Ordered array of clips; must have at least one entry. WebM is served to
-   *  browsers that support it; MP4 is the fallback. */
-  videoSrcs: { webm: string; mp4: string }[];
+   *  browsers that support it; MP4 is the fallback. `poster` is the base path
+   *  for the responsive WebP still (e.g. `/videos/.../posters/hero-01`);
+   *  the component appends `-{w}w.webp` for each breakpoint. */
+  videoSrcs: { webm: string; mp4: string; poster?: string }[];
   markColor: string;
 }
 
@@ -47,32 +50,8 @@ export function HeroAnimatic({
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const indexRef = useRef(0);
   const { openModal } = useLeadCapture();
-
-  // Advance to the next clip on ended or error; skip silently on error.
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || videoSrcs.length === 0) return;
-
-    const advance = () => {
-      indexRef.current = (indexRef.current + 1) % videoSrcs.length;
-      const clip = videoSrcs[indexRef.current];
-      const sources = video.querySelectorAll('source');
-      sources[0].src = clip.webm;
-      sources[1].src = clip.mp4;
-      video.load();
-      video.play().catch(() => {});
-    };
-
-    video.addEventListener('ended', advance);
-    video.addEventListener('error', advance);
-    return () => {
-      video.removeEventListener('ended', advance);
-      video.removeEventListener('error', advance);
-    };
-  }, [videoSrcs]);
+  const videoRefs = useVideoCarousel(videoSrcs);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -152,18 +131,41 @@ export function HeroAnimatic({
       className="hidden md:block relative min-h-[100svh] w-full overflow-hidden bg-[#042019]"
     >
       {/* Video frame — inset 24 px (rounded bottom corners) — full-bleed
-          background fill behind in-flow content. */}
+          background fill behind in-flow content. All clips are rendered
+          simultaneously with preload="auto" so each is buffered before
+          it becomes active, enabling gapless crossfade transitions. */}
       <div className="absolute inset-x-6 top-0 bottom-6 rounded-b-2xl overflow-hidden z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          className="absolute h-full w-full object-cover"
-        >
-          <source src={videoSrcs[0].webm} type="video/webm" />
-          <source src={videoSrcs[0].mp4}  type="video/mp4" />
-        </video>
+        {/* Poster — visible immediately, covered once the first video plays.
+            Uses a responsive <picture> so the browser fetches the right size. */}
+        {videoSrcs[0]?.poster && (
+          <picture className="absolute inset-0">
+            <source
+              srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
+              type="image/webp"
+              sizes="100vw"
+            />
+            <img
+              src={`${videoSrcs[0].poster}-1500w.webp`}
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+              className="absolute h-full w-full object-cover"
+            />
+          </picture>
+        )}
+        {videoSrcs.map((clip, i) => (
+          <video
+            key={i}
+            ref={el => { videoRefs.current[i] = el; }}
+            muted
+            playsInline
+            preload="auto"
+            className="absolute h-full w-full object-cover"
+          >
+            <source src={clip.webm} type="video/webm" />
+            <source src={clip.mp4} type="video/mp4" />
+          </video>
+        ))}
       </div>
 
       {/* Bottom-anchored content column — pushes children to the section

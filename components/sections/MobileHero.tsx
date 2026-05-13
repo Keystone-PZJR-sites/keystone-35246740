@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
+import { useVideoCarousel } from '@/lib/useVideoCarousel';
 
 export interface MobileHeroProps {
   headlineLine1: string;
@@ -12,8 +13,9 @@ export interface MobileHeroProps {
   cta1Label: string;
   cta2Label: string;
   /** Ordered array of clips — same six-clip autoloop sequence as desktop.
-   *  WebM is served to browsers that support it; MP4 is the fallback. */
-  videoSrcs: { webm: string; mp4: string }[];
+   *  WebM is served to browsers that support it; MP4 is the fallback.
+   *  `poster` is the base path for the responsive WebP still. */
+  videoSrcs: { webm: string; mp4: string; poster?: string }[];
   markColor: string;
 }
 
@@ -37,32 +39,8 @@ export function MobileHero({
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
-  const videoRef   = useRef<HTMLVideoElement>(null);
-  const indexRef   = useRef(0);
   const { openModal } = useLeadCapture();
-
-  // Advance to the next clip on ended or error.
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || videoSrcs.length === 0) return;
-
-    const advance = () => {
-      indexRef.current = (indexRef.current + 1) % videoSrcs.length;
-      const clip = videoSrcs[indexRef.current];
-      const sources = video.querySelectorAll('source');
-      sources[0].src = clip.webm;
-      sources[1].src = clip.mp4;
-      video.load();
-      video.play().catch(() => {});
-    };
-
-    video.addEventListener('ended', advance);
-    video.addEventListener('error', advance);
-    return () => {
-      video.removeEventListener('ended', advance);
-      video.removeEventListener('error', advance);
-    };
-  }, [videoSrcs]);
+  const videoRefs = useVideoCarousel(videoSrcs);
 
   return (
     <section
@@ -73,16 +51,35 @@ export function MobileHero({
       {/* Full-bleed, no side insets. The fixed HeroNav overlays the top via   */}
       {/* its own z-50 fixed positioning.                                      */}
       <div className="relative w-full flex-none h-[40svh] overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          className="absolute h-full w-full object-cover"
-        >
-          <source src={videoSrcs[0].webm} type="video/webm" />
-          <source src={videoSrcs[0].mp4}  type="video/mp4" />
-        </video>
+        {videoSrcs[0]?.poster && (
+          <picture className="absolute inset-0">
+            <source
+              srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
+              type="image/webp"
+              sizes="100vw"
+            />
+            <img
+              src={`${videoSrcs[0].poster}-1500w.webp`}
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+              className="absolute h-full w-full object-cover"
+            />
+          </picture>
+        )}
+        {videoSrcs.map((clip, i) => (
+          <video
+            key={i}
+            ref={el => { videoRefs.current[i] = el; }}
+            muted
+            playsInline
+            preload="auto"
+            className="absolute h-full w-full object-cover"
+          >
+            <source src={clip.webm} type="video/webm" />
+            <source src={clip.mp4} type="video/mp4" />
+          </video>
+        ))}
       </div>
 
       {/* ── Content zone — sits below the video band at its intrinsic height. */}
