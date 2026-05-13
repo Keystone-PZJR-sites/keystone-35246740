@@ -24,7 +24,8 @@ export interface MobileEveryChannelProps {
   line1: string;
   line2: string;
   line3: string;
-  videoSrcs: string[];
+  /** Ordered array of clips. WebM is served to browsers that support it; MP4 is the fallback. */
+  videoSrcs: { webm: string; mp4: string }[];
   pills: MobileEveryChannelPillData[];
   /** Section background color. Defaults to #063126. */
   bgColor?: string;
@@ -105,7 +106,10 @@ export function MobileEveryChannel({
 
     const advance = () => {
       indexRef.current = (indexRef.current + 1) % videoSrcs.length;
-      video.src = videoSrcs[indexRef.current];
+      const clip = videoSrcs[indexRef.current];
+      const sources = video.querySelectorAll('source');
+      sources[0].src = clip.webm;
+      sources[1].src = clip.mp4;
       video.load();
       video.play().catch(() => {});
     };
@@ -285,7 +289,8 @@ export function MobileEveryChannel({
             className="mec-video"
             aria-hidden="true"
           >
-            <source src={videoSrcs[0]} type="video/mp4" />
+            <source src={videoSrcs[0].webm} type="video/webm" />
+            <source src={videoSrcs[0].mp4}  type="video/mp4" />
           </video>
         </div>
 

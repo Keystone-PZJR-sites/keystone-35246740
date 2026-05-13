@@ -137,10 +137,10 @@ export default async function HomePage() {
               line2="Every INTERACTION."
               line3="done-for-you."
               videoSrcs={[
-                '/every-channel/everychannel-01.mp4',
-                '/every-channel/everychannel-02.mp4',
-                '/every-channel/everychannel-03.mp4',
-                '/every-channel/everychannel-04.mp4',
+                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4' },
+                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4' },
+                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4' },
+                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4' },
               ]}
               pills={EVERY_CHANNEL_PILLS}
             />
@@ -149,10 +149,10 @@ export default async function HomePage() {
               line2="Every INTERACTION."
               line3="done-for-you."
               videoSrcs={[
-                '/every-channel/everychannel-01.mp4',
-                '/every-channel/everychannel-02.mp4',
-                '/every-channel/everychannel-03.mp4',
-                '/every-channel/everychannel-04.mp4',
+                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4' },
+                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4' },
+                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4' },
+                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4' },
               ]}
               pills={MOBILE_EVERY_CHANNEL_PILLS}
             />

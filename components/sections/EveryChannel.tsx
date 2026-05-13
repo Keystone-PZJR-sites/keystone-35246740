@@ -20,7 +20,8 @@ export interface EveryChannelProps {
   line1: string;
   line2: string;
   line3: string;
-  videoSrcs: string[];
+  /** Ordered array of clips. WebM is served to browsers that support it; MP4 is the fallback. */
+  videoSrcs: { webm: string; mp4: string }[];
   pills: PillData[];
 }
 
@@ -80,7 +81,10 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
 
     const advance = () => {
       indexRef.current = (indexRef.current + 1) % videoSrcs.length;
-      video.src = videoSrcs[indexRef.current];
+      const clip = videoSrcs[indexRef.current];
+      const sources = video.querySelectorAll('source');
+      sources[0].src = clip.webm;
+      sources[1].src = clip.mp4;
       video.load();
       video.play().catch(() => {});
     };
@@ -276,7 +280,8 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         >
-          <source src={videoSrcs[0]} type="video/mp4" />
+          <source src={videoSrcs[0].webm} type="video/webm" />
+          <source src={videoSrcs[0].mp4}  type="video/mp4" />
         </video>
 
         {/* Display text — in normal flow, centred via the section's flex
