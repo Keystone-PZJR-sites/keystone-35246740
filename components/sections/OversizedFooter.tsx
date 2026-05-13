@@ -35,16 +35,16 @@ export interface OversizedFooterProps {
   ctaArrowSrc: string;
   /** Path to the full-width Keystone logotype SVG */
   keystoneWordmarkSrc: string;
-  /** Path to video clip A — businesswoman */
-  videoA: string;
-  /** Path to video clip B — storefront */
-  videoB: string;
-  /** Path to video clip C — barbershop */
-  videoC: string;
-  /** Path to video clip D — phone call */
-  videoD: string;
-  /** Path to video clip E — ceramics */
-  videoE: string;
+  /** Video clip A — businesswoman */
+  videoA: { webm: string; mp4: string; poster?: string };
+  /** Video clip B — storefront */
+  videoB: { webm: string; mp4: string; poster?: string };
+  /** Video clip C — barbershop */
+  videoC: { webm: string; mp4: string; poster?: string };
+  /** Video clip D — phone call */
+  videoD: { webm: string; mp4: string; poster?: string };
+  /** Video clip E — ceramics */
+  videoE: { webm: string; mp4: string; poster?: string };
   /** href for the first CTA button — links to the blog */
   cta1Href: string;
   /** Spotify podcast URL */
@@ -66,15 +66,28 @@ export interface OversizedFooterProps {
 // ---------------------------------------------------------------------------
 
 interface VideoClipProps {
-  src: string;
+  video: { webm: string; mp4: string; poster?: string };
   clipClass: string;
 }
 
-function VideoClip({ src, clipClass }: VideoClipProps) {
+const POSTER_WIDTHS = [300, 500, 800, 1024, 1280];
+
+function VideoClip({ video, clipClass }: VideoClipProps) {
   return (
     <div className={`footer-video-clip ${clipClass}`}>
+      {video.poster && (
+        <picture className="absolute inset-0" aria-hidden="true">
+          <source
+            srcSet={POSTER_WIDTHS.map(w => `${video.poster}-${w}w.webp ${w}w`).join(', ')}
+            type="image/webp"
+            sizes="(min-width: 768px) 30vw, 45vw"
+          />
+          <img src={`${video.poster}-1024w.webp`} alt="" decoding="async" className="h-full w-full object-cover" />
+        </picture>
+      )}
       <video autoPlay loop muted playsInline>
-        <source src={src} />
+        <source src={video.webm} type="video/webm" />
+        <source src={video.mp4} type="video/mp4" />
       </video>
     </div>
   );
@@ -166,23 +179,23 @@ export function OversizedFooter({
         {/* Row 1: "FOR BUSINESSES" | Video A fills right */}
         <div className="footer-collage-row">
           <p className="footer-headline">{line1}</p>
-          <VideoClip src={videoA} clipClass="footer-video-a" />
+          <VideoClip video={videoA} clipClass="footer-video-a" />
         </div>
         {/* Row 2: Video B (left-indented via margin) | "THAT ARE" | Video C → flush right */}
         <div className="footer-collage-row">
-          <VideoClip src={videoB} clipClass="footer-video-b" />
+          <VideoClip video={videoB} clipClass="footer-video-b" />
           <p className="footer-headline">{line2}</p>
-          <VideoClip src={videoC} clipClass="footer-video-c" />
+          <VideoClip video={videoC} clipClass="footer-video-c" />
         </div>
         {/* Row 3: Video D (left-indented via margin, fills left) | " DONE FIGURING" → flush right */}
         <div className="footer-collage-row">
-          <VideoClip src={videoD} clipClass="footer-video-d" />
+          <VideoClip video={videoD} clipClass="footer-video-d" />
           <p className="footer-headline">{line3}</p>
         </div>
         {/* Row 4: "IT OUT THEMSELVES" | Video E fills right */}
         <div className="footer-collage-row">
           <p className="footer-headline">{line4}</p>
-          <VideoClip src={videoE} clipClass="footer-video-e" />
+          <VideoClip video={videoE} clipClass="footer-video-e" />
         </div>
       </div>
 

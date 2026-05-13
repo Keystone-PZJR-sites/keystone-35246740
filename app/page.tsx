@@ -238,11 +238,11 @@ export default async function HomePage() {
             keystoneMarkColor="#F57E56"
             ctaArrowSrc="/footer/footer-cta-arrow.svg"
             keystoneWordmarkSrc="/footer/footer-wordmark.svg"
-            videoA="/footer/footer-video-pet.mp4"
-            videoB="/footer/footer-video-truck.mp4"
-            videoC="/footer/footer-video-cafe.mp4"
-            videoD="/footer/footer-video-phonecall.mp4"
-            videoE="/footer/footer-video-barber.mp4"
+            videoA={{ webm: '/footer/footer-video-pet.webm',       mp4: '/footer/footer-video-pet.mp4',       poster: '/footer/posters/footer-pet' }}
+            videoB={{ webm: '/footer/footer-video-truck.webm',     mp4: '/footer/footer-video-truck.mp4',     poster: '/footer/posters/footer-truck' }}
+            videoC={{ webm: '/footer/footer-video-cafe.webm',      mp4: '/footer/footer-video-cafe.mp4',      poster: '/footer/posters/footer-cafe' }}
+            videoD={{ webm: '/footer/footer-video-phonecall.webm', mp4: '/footer/footer-video-phonecall.mp4', poster: '/footer/posters/footer-phonecall' }}
+            videoE={{ webm: '/footer/footer-video-barber.webm',    mp4: '/footer/footer-video-barber.mp4',    poster: '/footer/posters/footer-barber' }}
           />
           <MobileFooter
             line1="FOR BUSINESSES"
@@ -264,11 +264,11 @@ export default async function HomePage() {
             keystoneMarkColor="#F57E56"
             ctaArrowSrc="/footer/footer-cta-arrow.svg"
             keystoneWordmarkSrc="/footer/footer-wordmark.svg"
-            videoA="/footer/footer-video-pet.mp4"
-            videoB="/footer/footer-video-truck.mp4"
-            videoC="/footer/footer-video-cafe.mp4"
-            videoD="/footer/footer-video-phonecall.mp4"
-            videoE="/footer/footer-video-barber.mp4"
+            videoA={{ webm: '/footer/footer-video-pet.webm',       mp4: '/footer/footer-video-pet.mp4',       poster: '/footer/posters/footer-pet' }}
+            videoB={{ webm: '/footer/footer-video-truck.webm',     mp4: '/footer/footer-video-truck.mp4',     poster: '/footer/posters/footer-truck' }}
+            videoC={{ webm: '/footer/footer-video-cafe.webm',      mp4: '/footer/footer-video-cafe.mp4',      poster: '/footer/posters/footer-cafe' }}
+            videoD={{ webm: '/footer/footer-video-phonecall.webm', mp4: '/footer/footer-video-phonecall.mp4', poster: '/footer/posters/footer-phonecall' }}
+            videoE={{ webm: '/footer/footer-video-barber.webm',    mp4: '/footer/footer-video-barber.mp4',    poster: '/footer/posters/footer-barber' }}
           />
         </SmoothScrollProvider>
       </PillHandoffProvider>
