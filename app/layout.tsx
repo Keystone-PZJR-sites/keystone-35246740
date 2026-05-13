@@ -16,7 +16,7 @@ import { config } from '@/config';
 // cached for every visit after the first.
 //
 // Weights are trimmed to only what WorkShowcase actually uses:
-//   Inter         400       (only weight in use; 300/200 fallback to 400 automatically)
+//   Inter         300, 400, 600  (Light: content headline; Regular: body; SemiBold: ads/social/listings via font-semibold)
 //   Bangers       400       (display headline in one card)
 //   Dongle        400, 700  (nav + button text in one card)
 //   Fraunces      600       (serif headlines in one card)
@@ -25,7 +25,7 @@ import { config } from '@/config';
 // ---------------------------------------------------------------------------
 const inter = Inter({
   subsets: ['latin'],
-  weight: '400',
+  weight: ['300', '400', '600'],
   display: 'optional',
   variable: '--font-inter',
 });
