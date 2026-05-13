@@ -16,8 +16,9 @@ export interface HeroAnimaticProps {
   subheadline: string;
   cta1Label: string;
   cta2Label: string;
-  /** Ordered array of clip URLs; must have at least one entry. */
-  videoSrcs: string[];
+  /** Ordered array of clips; must have at least one entry. WebM is served to
+   *  browsers that support it; MP4 is the fallback. */
+  videoSrcs: { webm: string; mp4: string }[];
   markColor: string;
 }
 
@@ -57,7 +58,10 @@ export function HeroAnimatic({
 
     const advance = () => {
       indexRef.current = (indexRef.current + 1) % videoSrcs.length;
-      video.src = videoSrcs[indexRef.current];
+      const clip = videoSrcs[indexRef.current];
+      const sources = video.querySelectorAll('source');
+      sources[0].src = clip.webm;
+      sources[1].src = clip.mp4;
       video.load();
       video.play().catch(() => {});
     };
@@ -157,7 +161,8 @@ export function HeroAnimatic({
           playsInline
           className="absolute h-full w-full object-cover"
         >
-          <source src={videoSrcs[0]} type="video/mp4" />
+          <source src={videoSrcs[0].webm} type="video/webm" />
+          <source src={videoSrcs[0].mp4}  type="video/mp4" />
         </video>
       </div>
 
