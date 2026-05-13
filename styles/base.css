@@ -36,7 +36,7 @@
   src: url('/fonts/FKGroteskMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: block;
+  font-display: optional;
 }
 
 @font-face {
@@ -44,7 +44,7 @@
   src: url('/fonts/FKRomanStandard-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
-  font-display: block;
+  font-display: optional;
 }
 
 @font-face {
@@ -52,7 +52,7 @@
   src: url('/fonts/FKRomanStandard-LightOblique.woff2') format('woff2');
   font-weight: 300;
   font-style: oblique;
-  font-display: block;
+  font-display: optional;
 }
 
 @font-face {
@@ -68,7 +68,7 @@
   src: url('/fonts/FKRomanStandard-Oblique.woff2') format('woff2');
   font-weight: 400;
   font-style: oblique;
-  font-display: block;
+  font-display: optional;
 }
 
 /* ==================== DESIGN TOKENS ==================== */
@@ -139,7 +139,10 @@
 /* ==================== SITE-SPECIFIC OVERRIDES ==================== */
 
 body {
-  background-color: rgb(249, 250, 251);
+  /* Matches the hero/page background — belt-and-suspenders alongside the
+     inline <style> in layout.tsx. Ensures no white flash even if the inline
+     style were somehow missing. */
+  background-color: #042019;
 }
 
 /* Loading overlay sits above ScrollSmoother content while it bootstraps —

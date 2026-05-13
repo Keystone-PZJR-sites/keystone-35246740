@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
+import { useNearViewport } from '@/lib/useNearViewport';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
@@ -74,7 +75,12 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { setDesktopRects } = usePillHandoff();
-  const videoRefs = useVideoCarousel(videoSrcs);
+
+  // Defer video preloading until the section is within 1000px of the viewport.
+  // Prevents the 4 Every Channel clips (~10 MB WebM) from competing with the
+  // hero video on initial page load.
+  const isNear = useNearViewport(sectionRef, '1000px');
+  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear });
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
@@ -264,15 +270,16 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
             />
           </picture>
         )}
-        {/* All clips rendered simultaneously with preload="auto" — each is
-            buffered before it becomes active, enabling gapless crossfades. */}
+        {/* All clips render with preload="none"; useVideoCarousel unlocks them
+            via the N+1 strategy once isNear fires — no bandwidth consumed
+            until the section is approaching the viewport. */}
         {videoSrcs.map((clip, i) => (
           <video
             key={i}
             ref={el => { videoRefs.current[i] = el; }}
             muted
             playsInline
-            preload="auto"
+            preload="none"
             className="absolute inset-0 h-full w-full object-cover"
             aria-hidden="true"
           >

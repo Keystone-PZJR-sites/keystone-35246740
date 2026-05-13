@@ -131,9 +131,10 @@ export function HeroAnimatic({
       className="hidden md:block relative min-h-[100svh] w-full overflow-hidden bg-[#042019]"
     >
       {/* Video frame — inset 24 px (rounded bottom corners) — full-bleed
-          background fill behind in-flow content. All clips are rendered
-          simultaneously with preload="auto" so each is buffered before
-          it becomes active, enabling gapless crossfade transitions. */}
+          background fill behind in-flow content. All clips render with
+          preload="none"; useVideoCarousel unlocks them one at a time using
+          the N+1 strategy so only the active clip and the next one ever
+          consume bandwidth simultaneously. */}
       <div className="absolute inset-x-6 top-0 bottom-6 rounded-b-2xl overflow-hidden z-0">
         {/* Poster — visible immediately, covered once the first video plays.
             Uses a responsive <picture> so the browser fetches the right size. */}
@@ -159,7 +160,7 @@ export function HeroAnimatic({
             ref={el => { videoRefs.current[i] = el; }}
             muted
             playsInline
-            preload="auto"
+            preload="none"
             className="absolute h-full w-full object-cover"
           >
             <source src={clip.webm} type="video/webm" />

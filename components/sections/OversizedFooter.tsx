@@ -2,9 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import { KeystoneMark, SocialIcon } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
+import { useNearViewport } from '@/lib/useNearViewport';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -68,11 +70,24 @@ export interface OversizedFooterProps {
 interface VideoClipProps {
   video: { webm: string; mp4: string; poster?: string };
   clipClass: string;
+  /** When true, preloads and begins playing. Controlled by useNearViewport on
+   *  the parent section so the 5 footer clips don't load until the footer is
+   *  approaching the viewport. */
+  ready: boolean;
 }
 
 const POSTER_WIDTHS = [300, 500, 800, 1024, 1280];
 
-function VideoClip({ video, clipClass }: VideoClipProps) {
+function VideoClip({ video, clipClass, ready }: VideoClipProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !ready) return;
+    v.preload = 'auto';
+    v.play().catch(() => {});
+  }, [ready]);
+
   return (
     <div className={`footer-video-clip ${clipClass}`}>
       {video.poster && (
@@ -85,7 +100,7 @@ function VideoClip({ video, clipClass }: VideoClipProps) {
           <img src={`${video.poster}-1024w.webp`} alt="" decoding="async" className="h-full w-full object-cover" />
         </picture>
       )}
-      <video autoPlay loop muted playsInline>
+      <video ref={videoRef} loop muted playsInline preload="none">
         <source src={video.webm} type="video/webm" />
         <source src={video.mp4} type="video/mp4" />
       </video>
@@ -166,8 +181,15 @@ export function OversizedFooter({
 }: OversizedFooterProps) {
   const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
+
+  // Defer the 5 footer video clips until the section is within 1200px of the
+  // viewport. The footer is always the last element on the page — no reason to
+  // consume bandwidth on it until the user is nearly there.
+  const sectionRef = useRef<HTMLElement>(null);
+  const videosReady = useNearViewport(sectionRef, '1200px');
+
   return (
-    <section className="footer-section hidden md:block" data-theme="custom">
+    <section ref={sectionRef} className="footer-section hidden md:block" data-theme="custom">
 
       {/* ================================================================
           UPPER ZONE — collage (tablet + desktop ≥768px)
@@ -179,23 +201,23 @@ export function OversizedFooter({
         {/* Row 1: "FOR BUSINESSES" | Video A fills right */}
         <div className="footer-collage-row">
           <p className="footer-headline">{line1}</p>
-          <VideoClip video={videoA} clipClass="footer-video-a" />
+          <VideoClip video={videoA} clipClass="footer-video-a" ready={videosReady} />
         </div>
         {/* Row 2: Video B (left-indented via margin) | "THAT ARE" | Video C → flush right */}
         <div className="footer-collage-row">
-          <VideoClip video={videoB} clipClass="footer-video-b" />
+          <VideoClip video={videoB} clipClass="footer-video-b" ready={videosReady} />
           <p className="footer-headline">{line2}</p>
-          <VideoClip video={videoC} clipClass="footer-video-c" />
+          <VideoClip video={videoC} clipClass="footer-video-c" ready={videosReady} />
         </div>
         {/* Row 3: Video D (left-indented via margin, fills left) | " DONE FIGURING" → flush right */}
         <div className="footer-collage-row">
-          <VideoClip video={videoD} clipClass="footer-video-d" />
+          <VideoClip video={videoD} clipClass="footer-video-d" ready={videosReady} />
           <p className="footer-headline">{line3}</p>
         </div>
         {/* Row 4: "IT OUT THEMSELVES" | Video E fills right */}
         <div className="footer-collage-row">
           <p className="footer-headline">{line4}</p>
-          <VideoClip video={videoE} clipClass="footer-video-e" />
+          <VideoClip video={videoE} clipClass="footer-video-e" ready={videosReady} />
         </div>
       </div>
 

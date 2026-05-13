@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Bangers, Dongle, Fraunces, Josefin_Slab, DM_Mono } from 'next/font/google';
 import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
-import { getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
 import { config } from '@/config';
 
 // ---------------------------------------------------------------------------
@@ -10,10 +9,13 @@ import { config } from '@/config';
 // Importing them registers the @font-face rules globally so the work-showcase
 // card mocks can reference these fonts by name in inline styles.
 // ---------------------------------------------------------------------------
+
+// Inter is above-the-fold (work showcase cards in section 2) — block so it
+// arrives before the loading overlay fades rather than swapping in after.
 const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  display: 'swap',
+  display: 'block',
   variable: '--font-inter',
 });
 const bangers = Bangers({
@@ -46,30 +48,29 @@ const dmMono = DM_Mono({
   variable: '--font-dm-mono',
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const websitePhotos = await getWebsitePhotos();
-  const previewImageUrl = websitePhotos?.preview_image?.url;
-  return {
-    title: "Keystone | Sales & Marketing for Local Businesses",
-    description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
-    icons: {
-      icon: [
-        { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
-        { url: '/icon.svg', type: 'image/svg+xml' },
-        { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
-      ],
-      apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
-      shortcut: '/favicon.ico',
-    },
-    manifest: '/site.webmanifest',
-    ...(previewImageUrl && {
-      openGraph: { images: [{ url: previewImageUrl }] },
-      twitter: { card: 'summary_large_image', images: [previewImageUrl] },
-    }),
-  };
-}
+// ---------------------------------------------------------------------------
+// Metadata — static so generateMetadata never blocks HTML delivery.
+// The OG image is a static asset at /public/og-image.png — update the file
+// to change what appears in social share previews.
+// ---------------------------------------------------------------------------
+export const metadata: Metadata = {
+  title: "Keystone | Sales & Marketing for Local Businesses",
+  description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/favicon.ico',
+  },
+  manifest: '/site.webmanifest',
+  openGraph: { images: [{ url: '/og-image.png' }] },
+  twitter: { card: 'summary_large_image', images: ['/og-image.png'] },
+};
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   // Apply font CSS-variable classes to a wrapper so Next.js self-hosts the
   // font files and injects the @font-face rules globally. The variables are
   // available throughout the tree and the fonts can be referenced by name
@@ -84,9 +85,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   ].join(' ');
 
   return (
-    <KeystoneRootLayout
-      config={config}
-    >
+    <KeystoneRootLayout config={config}>
+      {/*
+       * Critical inline CSS — embedded in the raw HTML so the dark background
+       * is guaranteed from byte 1, before any external stylesheet is fetched.
+       * Prevents the white flash on cold load regardless of CSS delivery speed.
+       */}
+      <style>{`html,body{background-color:#042019}`}</style>
+
+      {/*
+       * Preload hints for above-the-fold FK fonts. The browser discovers
+       * @font-face rules late (only after parsing the CSS file), so without
+       * these hints font fetches start hundreds of milliseconds too late.
+       * These tell the browser to fetch in parallel with the HTML itself.
+       * Covers sections 1 and 2; all other FK variants are font-display:optional
+       * and load silently in the background.
+       */}
+      <link rel="preload" href="/fonts/FKScreamer-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/fonts/FKGroteskNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/fonts/FKGroteskNeue-Italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/fonts/FKRomanStandard-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
       <div className={fontClasses} style={{ display: 'contents' }}>
         {children}
       </div>
