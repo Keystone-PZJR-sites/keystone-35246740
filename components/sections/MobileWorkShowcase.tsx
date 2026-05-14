@@ -142,7 +142,11 @@ function IndustryStrip({
         <ul className="mws-rail-container">
           {cards.map((card, i) => (
             <li key={i} className="mws-rail-slide">
-              {renderWorkCard(card, [industry], i)}
+              {renderWorkCard(card, [industry], i, {
+                focused: true,
+                load: true,
+                loading: 'lazy',
+              })}
             </li>
           ))}
         </ul>

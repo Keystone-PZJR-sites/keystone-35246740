@@ -91,7 +91,7 @@ function VideoClip({ video, clipClass, ready }: VideoClipProps) {
   return (
     <div className={`footer-video-clip ${clipClass}`}>
       {video.poster && (
-        <picture className="absolute inset-0" aria-hidden="true">
+        <picture className="absolute inset-0">
           <source
             srcSet={POSTER_WIDTHS.map(w => `${video.poster}-${w}w.webp ${w}w`).join(', ')}
             type="image/webp"

@@ -194,11 +194,10 @@ export function ValueProps({
                   />
                 ) : (
                   <video
-                    autoPlay
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="none"
                     aria-hidden="true"
                     className="vp-card-video"
                     style={card.videoLeft ? {
@@ -310,11 +309,10 @@ export function MobileValueProps({
                   />
                 ) : (
                   <video
-                    autoPlay
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="none"
                     aria-hidden="true"
                     className="mvp-slide-video"
                     style={card.videoLeft ? {

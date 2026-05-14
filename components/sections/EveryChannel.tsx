@@ -76,10 +76,10 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { setDesktopRects } = usePillHandoff();
 
-  // Defer video preloading until the section is within 1000px of the viewport.
+  // Defer video preloading until the section is approaching the viewport.
   // Prevents the 4 Every Channel clips (~10 MB WebM) from competing with the
   // hero video on initial page load.
-  const isNear = useNearViewport(sectionRef, '1000px');
+  const isNear = useNearViewport(sectionRef, '600px');
   const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear });
 
   const sortedPills = useMemo(
@@ -255,7 +255,7 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
       >
         {/* Poster — visible immediately, covered once the first video plays. */}
         {videoSrcs[0]?.poster && (
-          <picture className="absolute inset-0" aria-hidden="true">
+          <picture className="absolute inset-0">
             <source
               srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
               type="image/webp"

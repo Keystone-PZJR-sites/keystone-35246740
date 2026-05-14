@@ -31,11 +31,15 @@ import useEmblaCarousel from 'embla-carousel-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { log } from '@/lib/logger';
+import { useNearViewport } from '@/lib/useNearViewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Cards per industry tab — used to map card index ↔ industry index.
 const CARDS_PER_INDUSTRY = 5;
+const CARD_CASCADE_DELAY_MS = 350;
+const LEGACY_TRANSPARENT_PIXEL =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -284,13 +288,29 @@ export interface ListingsCardContent {
   mapFlipped?: boolean;
 }
 
-export type WorkCardData =
-  | { type: 'sales'; industryId: string; chipLabel: string; content: SalesCardContent }
-  | { type: 'ads'; industryId: string; chipLabel: string; content: AdsCardContent }
-  | { type: 'social'; industryId: string; chipLabel: string; content: SocialCardContent }
-  | { type: 'web'; industryId: string; chipLabel: string; content: WebCardContent }
-  | { type: 'content'; industryId: string; chipLabel: string; content: ContentCardContent }
-  | { type: 'listings'; industryId: string; chipLabel: string; content: ListingsCardContent };
+export interface WorkCardVisual {
+  defaultSrc: string;
+  focusedSrc: string;
+  /** Intrinsic 2x export width in pixels. Rendered at 50% CSS size. */
+  width: number;
+  /** Intrinsic 2x export height in pixels. Rendered at 50% CSS size. */
+  height: number;
+}
+
+type WorkCardBase = {
+  industryId: string;
+  chipLabel: string;
+  /**
+   * Rasterized card states for the production WorkShowcase.
+   */
+  visual?: WorkCardVisual;
+};
+
+export type WorkCardType = 'sales' | 'ads' | 'social' | 'web' | 'content' | 'listings';
+
+export type WorkCardData = WorkCardBase & {
+  type: WorkCardType;
+};
 
 export interface WorkShowcaseProps {
   headlineParts: HeadlinePart[];
@@ -371,10 +391,83 @@ function ScaledMockCard({
   );
 }
 
+export interface RenderWorkCardOptions {
+  focused?: boolean;
+  load?: boolean;
+  loading?: 'eager' | 'lazy';
+  fetchPriority?: 'high' | 'low' | 'auto';
+}
+
+function WorkShowcaseAssetCard({
+  card,
+  chipBg,
+  chipText,
+  focused = false,
+  load = true,
+  loading = 'lazy',
+  fetchPriority = 'low',
+}: {
+  card: WorkCardData;
+  chipBg: string;
+  chipText: string;
+} & RenderWorkCardOptions) {
+  const visual = card.visual;
+  if (!visual) return null;
+
+  const renderedWidth = visual.width / 2;
+  const renderedHeight = visual.height / 2;
+
+  return (
+    <div className="work-card-wrapper work-asset-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
+      <div
+        className="ws-scale-root work-asset-card-shell"
+        style={{
+          '--ws-natural-w': `${renderedWidth}px`,
+          '--ws-natural-h': `${renderedHeight}px`,
+        } as React.CSSProperties}
+      >
+        {load ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={visual.defaultSrc}
+              alt=""
+              width={visual.width}
+              height={visual.height}
+              loading={loading}
+              decoding="async"
+              fetchPriority={fetchPriority}
+              className="work-asset-card-img work-asset-card-img-default"
+              aria-hidden="true"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={visual.focusedSrc}
+              alt=""
+              width={visual.width}
+              height={visual.height}
+              loading={loading}
+              decoding="async"
+              fetchPriority={fetchPriority}
+              className="work-asset-card-img work-asset-card-img-focused"
+              data-visible={focused ? 'true' : 'false'}
+              aria-hidden="true"
+            />
+          </>
+        ) : (
+          <div className="work-asset-card-placeholder" aria-hidden="true" />
+        )}
+      </div>
+      <Chip label={card.chipLabel} bg={chipBg} color={chipText} />
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Sales card — iPhone chat UI (302 × 638, rounded-[56px])
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SalesCard({
   content,
   chipLabel,
@@ -1020,7 +1113,7 @@ function AdsCardRetail({
           </div>
           <div className="absolute" style={{ right: '0', top: '6px', width: '22px', height: '22px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.threeDotsIconSrc} className="absolute inset-0 w-full h-full block" />
+            <img alt="" src={content.threeDotsIconSrc} loading="lazy" className="absolute inset-0 w-full h-full block" />
           </div>
         </div>
 
@@ -1030,7 +1123,7 @@ function AdsCardRetail({
           style={{ height: '312px', left: '16px', top: '105px', width: '208px' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={content.photo1Src} className="absolute inset-0 w-full h-full object-cover block" />
+          <img alt="" src={content.photo1Src} loading="lazy" className="absolute inset-0 w-full h-full object-cover block" />
         </div>
 
         {/* Photo 2 — smaller, overlapping on top-right */}
@@ -1039,7 +1132,7 @@ function AdsCardRetail({
           style={{ height: '182px', left: '153px', top: '171px', width: '121px' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={content.photo2Src} className="absolute inset-0 w-full h-full object-cover block" />
+          <img alt="" src={content.photo2Src} loading="lazy" className="absolute inset-0 w-full h-full object-cover block" />
         </div>
 
         {/* Chevron icon above CTA (expand_less / chevron-up) */}
@@ -1109,7 +1202,7 @@ function AdsCardCare({
         >
           <div className="relative flex-shrink-0 overflow-hidden rounded-full" style={{ width: '36px', height: '36px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.avatarSrc} className="absolute inset-0 w-full h-full block" />
+            <img alt="" src={content.avatarSrc} loading="lazy" className="absolute inset-0 w-full h-full block" />
           </div>
           <div className="flex flex-col" style={{ gap: '4px', flex: '1 0 0' }}>
             <span
@@ -1127,7 +1220,7 @@ function AdsCardCare({
           </div>
           <div className="absolute" style={{ right: '0', top: '6px', width: '22px', height: '22px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.threeDotsIconSrc} className="absolute inset-0 w-full h-full block" />
+            <img alt="" src={content.threeDotsIconSrc} loading="lazy" className="absolute inset-0 w-full h-full block" />
           </div>
         </div>
 
@@ -1137,7 +1230,7 @@ function AdsCardCare({
           style={{ height: '126px', left: '16.5px', top: '100px', width: '120px', borderRadius: '11.314px' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={content.photo1Src} className="absolute inset-0 w-full h-full object-cover block" />
+          <img alt="" src={content.photo1Src} loading="lazy" className="absolute inset-0 w-full h-full object-cover block" />
         </div>
 
         {/* Photo 2 — right column, middle */}
@@ -1146,7 +1239,7 @@ function AdsCardCare({
           style={{ height: '126px', left: '150.5px', top: '163px', width: '120px', borderRadius: '11.314px' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={content.photo2Src} className="absolute inset-0 w-full h-full object-cover block" />
+          <img alt="" src={content.photo2Src} loading="lazy" className="absolute inset-0 w-full h-full object-cover block" />
         </div>
 
         {/* Photo 3 — left column, bottom */}
@@ -1155,7 +1248,7 @@ function AdsCardCare({
           style={{ height: '126px', left: '16.5px', top: '240px', width: '120px', borderRadius: '11.314px' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={content.photo3Src} className="absolute inset-0 w-full h-full object-cover block" />
+          <img alt="" src={content.photo3Src} loading="lazy" className="absolute inset-0 w-full h-full object-cover block" />
         </div>
 
         {/* Caption text */}
@@ -1179,7 +1272,7 @@ function AdsCardCare({
         >
           <div className="relative flex-shrink-0" style={{ width: '16px', height: '16px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.linkIconSrc} className="absolute inset-0 w-full h-full block" />
+            <img alt="" src={content.linkIconSrc} loading="lazy" className="absolute inset-0 w-full h-full block" />
           </div>
           <span
             className="font-semibold text-center whitespace-nowrap"
@@ -1199,6 +1292,7 @@ function AdsCardCare({
 // Ads card dispatcher
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function AdsCard({
   content,
   chipLabel,
@@ -1229,6 +1323,7 @@ function AdsCard({
 // Social card — Instagram post format (292 × 424, rounded-[8px])
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SocialCard({
   content,
   chipLabel,
@@ -1561,7 +1656,7 @@ function WebCardCare({
           {content.logoSrc && (
             <div className="absolute" style={{ left: '47px', top: '30px', width: '24px', height: '27px' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="" src={content.logoSrc} className="absolute inset-0 w-full h-full block" />
+              <img alt="" src={content.logoSrc} loading="lazy" className="absolute inset-0 w-full h-full block" />
             </div>
           )}
 
@@ -1601,15 +1696,15 @@ function WebCardCare({
           {/* Social icons: Facebook, Instagram, Yelp — exact Figma positions */}
           <div className="absolute" style={{ left: '622px', top: '34px', width: '20px', height: '20px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src="/work-showcase/care-web-icon-facebook.svg" className="absolute inset-0 w-full h-full" />
+            <img alt="" src={LEGACY_TRANSPARENT_PIXEL} loading="lazy" className="absolute inset-0 w-full h-full" />
           </div>
           <div className="absolute" style={{ left: '654px', top: '34px', width: '20px', height: '20px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src="/work-showcase/care-web-icon-instagram.svg" className="absolute inset-0 w-full h-full" />
+            <img alt="" src={LEGACY_TRANSPARENT_PIXEL} loading="lazy" className="absolute inset-0 w-full h-full" />
           </div>
           <div className="absolute" style={{ left: '686px', top: '34px', width: '20px', height: '20px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src="/work-showcase/care-web-icon-yelp.svg" className="absolute inset-0 w-full h-full" />
+            <img alt="" src={LEGACY_TRANSPARENT_PIXEL} loading="lazy" className="absolute inset-0 w-full h-full" />
           </div>
 
           {/* Book Now button — Dongle Regular 20px, purple bg */}
@@ -1740,7 +1835,7 @@ function WebCardHome({
             {/* Logo: leaf + wordmark */}
             <div className="flex items-center gap-[7.073px]">
               <div className="relative flex-shrink-0" style={{ width: '19.806px', height: '19.806px' }}>
-                <Image src="/work-showcase/home-leaf-logo.svg" alt="" fill className="work-home-web-leaf" unoptimized />
+                <Image src={LEGACY_TRANSPARENT_PIXEL} alt="" fill className="work-home-web-leaf" unoptimized />
               </div>
               <span
                 className="work-home-web-brand whitespace-nowrap"
@@ -2247,7 +2342,7 @@ function WebCardRetail({
             style={{ left: '-21px', top: '-14px', width: '894px', height: '593px' }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.heroSrc} className="absolute inset-0 w-full h-full object-cover block" />
+            <img alt="" src={content.heroSrc} loading="lazy" className="absolute inset-0 w-full h-full object-cover block" />
           </div>
 
           {/* Brand wordmark — centered. Figma uses proprietary "Umbira Regular" (non-italic).
@@ -2328,6 +2423,7 @@ function WebCardRetail({
 // Web card dispatcher
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function WebCard({
   content,
   chipLabel,
@@ -2395,7 +2491,7 @@ function ContentCardRetail({
           {/* List/hamburger icon — top-left */}
           <div className="absolute" style={{ left: '12px', top: '14px', width: '20px', height: '20px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.listIconSrc} className="absolute inset-0 w-full h-full block" />
+            <img alt="" src={content.listIconSrc} loading="lazy" className="absolute inset-0 w-full h-full block" />
           </div>
 
           {/* Brand wordmark "mEriDIAn" — centered. Figma uses proprietary "Umbira Regular" (non-italic).
@@ -2521,7 +2617,7 @@ function ContentCardRetail({
             style={{ height: '196px', left: '12px', top: '498px', width: '280px' }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" src={content.photo2Src} className="work-card-img absolute inset-0 w-full h-full object-cover block" />
+            <img alt="" src={content.photo2Src} loading="lazy" className="work-card-img absolute inset-0 w-full h-full object-cover block" />
           </div>
         </div>
       </ScaledMockCard>
@@ -2535,6 +2631,7 @@ function ContentCardRetail({
 // Content card — standard blog article format (316 × 583, rounded-[16px])
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ContentCard({
   content,
   chipLabel,
@@ -2677,6 +2774,7 @@ function ContentCard({
 // ListingsCard
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ListingsCard({
   content,
   chipLabel,
@@ -2829,49 +2927,49 @@ function ListingsCard({
               {/* imgVector32 — roads base layer */}
               <div className="absolute" style={{ height: '419.172px', left: '-2.75px', top: 0, width: '536.342px' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-roads-base.svg" />
+                <img alt="" loading="lazy" className="absolute inset-0 w-full h-full block" src={LEGACY_TRANSPARENT_PIXEL} />
               </div>
               {/* imgYellow — yellow highlighted road */}
               <div className="absolute" style={{ height: '400.194px', left: '100.67px', top: '14.03px', width: '272.297px' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-roads-yellow.svg" />
+                <img alt="" loading="lazy" className="absolute inset-0 w-full h-full block" src={LEGACY_TRANSPARENT_PIXEL} />
               </div>
               {/* imgGreen — green park areas */}
               <div className="absolute" style={{ height: '275.322px', left: '31.08px', top: '139.45px', width: '428.799px' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-parks-green.svg" />
+                <img alt="" loading="lazy" className="absolute inset-0 w-full h-full block" src={LEGACY_TRANSPARENT_PIXEL} />
               </div>
               {/* imgFrame7 — frame overlay */}
               <div className="absolute" style={{ height: '415.321px', left: '0.55px', top: '0.28px', width: '487.934px' }}>
                 <div className="absolute" style={{ inset: '0 0 0 -0.15%' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="" className="block w-full h-full" src="/work-showcase/map-frame.svg" />
+                  <img alt="" loading="lazy" className="block w-full h-full" src={LEGACY_TRANSPARENT_PIXEL} />
                 </div>
               </div>
               {/* imgVector30 — west street layer */}
               <div className="absolute" style={{ height: '417.522px', left: '0.27px', top: '-1.93px', width: '399.094px' }}>
                 <div className="absolute" style={{ inset: '0 -0.14% 0 0' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-west.svg" />
+                  <img alt="" loading="lazy" className="block w-full h-full" src={LEGACY_TRANSPARENT_PIXEL} />
                 </div>
               </div>
               {/* imgVector33 — east street layer */}
               <div className="absolute" style={{ height: '416.972px', left: '267.07px', top: '-0.55px', width: '267.896px' }}>
                 <div className="absolute" style={{ inset: '0 -0.82% -1.06% -0.82%' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-east.svg" />
+                  <img alt="" loading="lazy" className="block w-full h-full" src={LEGACY_TRANSPARENT_PIXEL} />
                 </div>
               </div>
               {/* imgVector35 + imgVector29 + RIVER NORTH label */}
               <div className="absolute" style={{ height: '415.046px', left: '0.82px', top: '0.28px', width: '490.134px' }}>
                 <div className="absolute" style={{ height: '415.046px', left: 0, top: 0, width: '490.134px' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="" className="absolute inset-0 w-full h-full block" src="/work-showcase/map-streets-overlay.svg" />
+                  <img alt="" loading="lazy" className="absolute inset-0 w-full h-full block" src={LEGACY_TRANSPARENT_PIXEL} />
                 </div>
                 <div className="absolute" style={{ height: '415.046px', left: 0, top: 0, width: '490.134px' }}>
                   <div className="absolute" style={{ inset: '-0.13% -0.62% 0 0' }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img alt="" className="block w-full h-full" src="/work-showcase/map-streets-overlay.svg" />
+                    <img alt="" loading="lazy" className="block w-full h-full" src={LEGACY_TRANSPARENT_PIXEL} />
                   </div>
                 </div>
                 <p
@@ -2886,7 +2984,7 @@ function ListingsCard({
             <div className="absolute" style={{ height: '33px', left: '111px', top: '49px', width: '28px' }}>
               <div className="absolute" style={{ inset: '-27.27% -67.86% -57.58% -32.14%' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" className="block w-full h-full" src="/work-showcase/map-pin.svg" />
+                <img alt="" loading="lazy" className="block w-full h-full" src={LEGACY_TRANSPARENT_PIXEL} />
               </div>
             </div>
           </div>
@@ -2968,73 +3066,32 @@ export function renderWorkCard(
   card: WorkCardData,
   industries: WorkIndustry[],
   key: string | number,
+  options: RenderWorkCardOptions = {},
 ): React.ReactElement {
   const industry = industries.find((ind) => ind.id === card.industryId);
   const chipBg = industry?.chipBg ?? '#cbc5b4';
   const chipText = industry?.chipText ?? '#4f4d4a';
 
-  switch (card.type) {
-    case 'sales':
-      return (
-        <SalesCard
-          key={key}
-          content={card.content}
-          chipLabel={card.chipLabel}
-          chipBg={chipBg}
-          chipText={chipText}
-        />
-      );
-    case 'ads':
-      return (
-        <AdsCard
-          key={key}
-          content={card.content}
-          chipLabel={card.chipLabel}
-          chipBg={chipBg}
-          chipText={chipText}
-        />
-      );
-    case 'social':
-      return (
-        <SocialCard
-          key={key}
-          content={card.content}
-          chipLabel={card.chipLabel}
-          chipBg={chipBg}
-          chipText={chipText}
-        />
-      );
-    case 'web':
-      return (
-        <WebCard
-          key={key}
-          content={card.content}
-          chipLabel={card.chipLabel}
-          chipBg={chipBg}
-          chipText={chipText}
-        />
-      );
-    case 'content':
-      return (
-        <ContentCard
-          key={key}
-          content={card.content}
-          chipLabel={card.chipLabel}
-          chipBg={chipBg}
-          chipText={chipText}
-        />
-      );
-    case 'listings':
-      return (
-        <ListingsCard
-          key={key}
-          content={card.content}
-          chipLabel={card.chipLabel}
-          chipBg={chipBg}
-          chipText={chipText}
-        />
-      );
+  if (!card.visual) {
+    return (
+      <div key={key} className="work-card-wrapper work-asset-card-wrapper flex flex-col items-center gap-[16px] pt-[24px]">
+        <div className="work-card-missing-visual">
+          Missing WorkShowcase visual
+        </div>
+        <Chip label={card.chipLabel} bg={chipBg} color={chipText} />
+      </div>
+    );
   }
+
+  return (
+    <WorkShowcaseAssetCard
+      key={key}
+      card={card}
+      chipBg={chipBg}
+      chipText={chipText}
+      {...options}
+    />
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -3053,10 +3110,13 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
 
   const [activeIndustryIndex, setActiveIndustryIndex] = useState(0);
   // Which card has the persistent "in-focus" (lifted + saturated) visual state.
-  // Starts at 0 — Embla centers this card on first render with align: 'center'.
+  // Starts at 0 — Embla centers this card on first render.
   const [focusedCardIndex, setFocusedCardIndex] = useState(0);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
+  const [loadedCardIndexes, setLoadedCardIndexes] = useState<Set<number>>(() => new Set());
   const autoScrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isAutoScrollingRef = useRef(false);
+  const prefetchedSrcsRef = useRef<Set<string>>(new Set());
 
   // Refs for the 5 original cards of the first industry — used by the GSAP entrance animation.
   // Explicit refs avoid selecting Embla's prepended loop-clones which share the same class name.
@@ -3069,6 +3129,81 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
     (cardIndex: number) => Math.floor(cardIndex / CARDS_PER_INDUSTRY),
     [],
   );
+
+  // WorkShowcase asset policy: the live HTML headline/tabs render immediately,
+  // but rasterized card states stay as measured placeholders until the section
+  // approaches the viewport. This removes the initial Google-font burst without
+  // replacing it with a 50-image burst that can compete with the hero video.
+  const isNear = useNearViewport(sectionRef, '-25% 0px');
+
+  const markCardLoaded = useCallback((cardIndex: number) => {
+    setLoadedCardIndexes((prev) => {
+      if (prev.has(cardIndex)) return prev;
+      const next = new Set(prev);
+      next.add(cardIndex);
+      return next;
+    });
+  }, []);
+
+  const cardIndexesForCenteredLoopWindow = useCallback((industryIndex: number) => {
+    const totalCards = cards.length;
+    const firstCardIndex = industryIndex * CARDS_PER_INDUSTRY;
+    const visualStartIndex = (firstCardIndex - 3 + totalCards) % totalCards;
+
+    return Array.from({ length: CARDS_PER_INDUSTRY * 3 }, (_, offset) => (
+      (visualStartIndex + offset) % totalCards
+    ));
+  }, [cards.length]);
+
+  const cascadeLoadIndustryWindow = useCallback((industryIndex: number) => {
+    if (!isNear) return () => {};
+
+    const timers = cardIndexesForCenteredLoopWindow(industryIndex).map((cardIndex, order) => (
+      globalThis.setTimeout(() => markCardLoaded(cardIndex), order * CARD_CASCADE_DELAY_MS)
+    ));
+
+    return () => timers.forEach((timer) => globalThis.clearTimeout(timer));
+  }, [cardIndexesForCenteredLoopWindow, isNear, markCardLoaded]);
+
+  const prefetchCardVisual = useCallback((visual: WorkCardVisual | undefined) => {
+    if (!visual || typeof window === 'undefined') return;
+
+    [visual.defaultSrc, visual.focusedSrc].forEach((src) => {
+      if (prefetchedSrcsRef.current.has(src)) return;
+      prefetchedSrcsRef.current.add(src);
+      const img = new window.Image();
+      img.decoding = 'async';
+      img.src = src;
+    });
+  }, []);
+
+  const shouldLoadCard = useCallback((cardIndex: number) => (
+    isNear && loadedCardIndexes.has(cardIndex)
+  ), [isNear, loadedCardIndexes]);
+
+  useEffect(() => {
+    return cascadeLoadIndustryWindow(activeIndustryIndex);
+  }, [activeIndustryIndex, cascadeLoadIndustryWindow]);
+
+  useEffect(() => {
+    if (!isNear) return;
+
+    const prefetchLoadedIndustries = () => {
+      cards.forEach((card, index) => {
+        if (shouldLoadCard(index)) {
+          prefetchCardVisual(card.visual);
+        }
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(prefetchLoadedIndustries, { timeout: 1500 });
+      return () => window.cancelIdleCallback(id);
+    }
+
+    const id = globalThis.setTimeout(prefetchLoadedIndustries, 250);
+    return () => globalThis.clearTimeout(id);
+  }, [cards, isNear, prefetchCardVisual, shouldLoadCard]);
 
   const stopAutoScroll = useCallback(() => {
     if (autoScrollTimerRef.current !== null) {
@@ -3087,11 +3222,9 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
       const nextIndustry = (currentIndustry + 1) % industries.length;
       const nextCardIndex = nextIndustry * CARDS_PER_INDUSTRY;
       isAutoScrollingRef.current = true;
+      setActiveIndustryIndex(nextIndustry);
+      setFocusedCardIndex(nextCardIndex);
       emblaApi.scrollTo(nextCardIndex);
-      // focusedCardIndex is intentionally NOT updated here — updating state while
-      // Embla is mid-scroll fires CSS transitions (filter + transform) on all 25+
-      // cards concurrently with the scroll animation, causing GPU stutter.
-      // Instead, focus state is applied in onSettle once the animation finishes.
     }, 5000);
   }, [emblaApi, industries.length, industryForCard, stopAutoScroll]);
 
@@ -3253,8 +3386,11 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
 
   const activeIndustry = industries[activeIndustryIndex];
 
-  const renderCard = (card: WorkCardData, index: number) =>
-    renderWorkCard(card, industries, index);
+  const renderCard = (
+    card: WorkCardData,
+    index: number,
+    options: RenderWorkCardOptions = {},
+  ) => renderWorkCard(card, industries, index, options);
 
   // ── Static preview mode (no GSAP, no Embla) ─────────────────────────────
   if (staticPreview) {
@@ -3278,7 +3414,10 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', alignItems: 'flex-start' }}>
                 {industryCards.map((card, i) => (
                   <div key={i} style={{ flexShrink: 0 }}>
-                    {renderCard(card, industryIdx * CARDS_PER_INDUSTRY + i)}
+                    {renderCard(card, industryIdx * CARDS_PER_INDUSTRY + i, {
+                      focused: true,
+                      load: true,
+                    })}
                   </div>
                 ))}
               </div>
@@ -3350,19 +3489,31 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
             className="flex items-start"
             style={{ paddingRight: '24px' }}
           >
-            {cards.map((card, i) => (
+            {cards.map((card, i) => {
+              const isVisualFocused = focusedCardIndex === i || hoveredCardIndex === i;
+              const shouldLoad = shouldLoadCard(i);
+              return (
               <button
                 key={i}
                 type="button"
                 className="work-card-item shrink-0"
+                data-focused={isVisualFocused ? 'true' : 'false'}
                 ref={i < 5 ? (el) => { initialCardRefs.current[i] = el; } : undefined}
                 onClick={() => handleCardClick(i)}
+                onMouseEnter={() => setHoveredCardIndex(i)}
+                onMouseLeave={() => setHoveredCardIndex(null)}
+                onFocus={() => setHoveredCardIndex(i)}
+                onBlur={() => setHoveredCardIndex(null)}
                 aria-label={`Show case study ${i + 1} of ${cards.length}`}
                 aria-current={i === focusedCardIndex ? 'true' : undefined}
               >
-                {renderCard(card, i)}
+                {renderCard(card, i, {
+                  focused: isVisualFocused,
+                  load: shouldLoad,
+                })}
               </button>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

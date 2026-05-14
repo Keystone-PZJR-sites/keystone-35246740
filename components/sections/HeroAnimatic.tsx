@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -51,7 +51,16 @@ export function HeroAnimatic({
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const { openModal } = useLeadCapture();
-  const videoRefs = useVideoCarousel(videoSrcs);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isDesktop });
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 768px)');
+    const update = () => setIsDesktop(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {

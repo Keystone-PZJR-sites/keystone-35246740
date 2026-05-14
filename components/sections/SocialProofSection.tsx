@@ -805,6 +805,7 @@ export function SocialProofSection({
                         className="sp-slide-video"
                         playsInline
                         loop={false}
+                        preload="none"
                         aria-label={`Testimonial video ${i + 1}`}
                       >
                         <source src={slide.video.webm} type="video/webm" />

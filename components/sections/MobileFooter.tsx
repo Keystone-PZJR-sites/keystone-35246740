@@ -2,9 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import { KeystoneMark, SocialIcon } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
+import { useNearViewport } from '@/lib/useNearViewport';
 import type { OversizedFooterProps } from './OversizedFooter';
 
 // ---------------------------------------------------------------------------
@@ -12,6 +14,42 @@ import type { OversizedFooterProps } from './OversizedFooter';
 // ---------------------------------------------------------------------------
 
 export type MobileFooterProps = OversizedFooterProps;
+
+function MobileFooterClip({
+  video,
+  ready,
+}: {
+  video: { webm: string; mp4: string; poster?: string };
+  ready: boolean;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || !ready) return;
+    el.preload = 'auto';
+    el.play().catch(() => {});
+  }, [ready]);
+
+  return (
+    <>
+      {video.poster && (
+        <picture className="absolute inset-0">
+          <source
+            srcSet={[300, 500, 800, 1024, 1280].map(w => `${video.poster}-${w}w.webp ${w}w`).join(', ')}
+            type="image/webp"
+            sizes="45vw"
+          />
+          <img src={`${video.poster}-800w.webp`} alt="" decoding="async" loading="lazy" className="h-full w-full object-cover" />
+        </picture>
+      )}
+      <video ref={videoRef} loop muted playsInline preload="none">
+        <source src={video.webm} type="video/webm" />
+        <source src={video.mp4} type="video/mp4" />
+      </video>
+    </>
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Main component
@@ -36,11 +74,13 @@ export function MobileFooter({
   videoD,
   videoE,
 }: MobileFooterProps) {
+  const footerRef = useRef<HTMLElement>(null);
+  const isNear = useNearViewport(footerRef, '500px');
   const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
 
   return (
-    <footer className="mfooter-section md:hidden" data-theme="custom">
+    <footer ref={footerRef} className="mfooter-section md:hidden" data-theme="custom">
       {/*
        * ── COLLAGE ZONE ─────────────────────────────────────────────────────
        *
@@ -67,20 +107,7 @@ export function MobileFooter({
         {/* Row 2 — [video fills left] + "THAT ARE" */}
         <div className="mfooter-collage-row">
           <div className="mfooter-collage-clip">
-            {videoC.poster && (
-              <picture className="absolute inset-0" aria-hidden="true">
-                <source
-                  srcSet={[300, 500, 800, 1024, 1280].map(w => `${videoC.poster}-${w}w.webp ${w}w`).join(', ')}
-                  type="image/webp"
-                  sizes="45vw"
-                />
-                <img src={`${videoC.poster}-800w.webp`} alt="" decoding="async" className="h-full w-full object-cover" />
-              </picture>
-            )}
-            <video autoPlay loop muted playsInline>
-              <source src={videoC.webm} type="video/webm" />
-              <source src={videoC.mp4} type="video/mp4" />
-            </video>
+            <MobileFooterClip video={videoC} ready={isNear} />
           </div>
           <p className="mfooter-col-headline">THAT ARE</p>
         </div>
@@ -96,40 +123,14 @@ export function MobileFooter({
         <div className="mfooter-collage-row">
           <p className="mfooter-col-headline">IT OUT</p>
           <div className="mfooter-collage-clip">
-            {videoE.poster && (
-              <picture className="absolute inset-0" aria-hidden="true">
-                <source
-                  srcSet={[300, 500, 800, 1024, 1280].map(w => `${videoE.poster}-${w}w.webp ${w}w`).join(', ')}
-                  type="image/webp"
-                  sizes="45vw"
-                />
-                <img src={`${videoE.poster}-800w.webp`} alt="" decoding="async" className="h-full w-full object-cover" />
-              </picture>
-            )}
-            <video autoPlay loop muted playsInline>
-              <source src={videoE.webm} type="video/webm" />
-              <source src={videoE.mp4} type="video/mp4" />
-            </video>
+            <MobileFooterClip video={videoE} ready={isNear} />
           </div>
         </div>
 
         {/* Row 5 — [video fills left] + "THEMSELVES" */}
         <div className="mfooter-collage-row">
           <div className="mfooter-collage-clip">
-            {videoD.poster && (
-              <picture className="absolute inset-0" aria-hidden="true">
-                <source
-                  srcSet={[300, 500, 800, 1024, 1280].map(w => `${videoD.poster}-${w}w.webp ${w}w`).join(', ')}
-                  type="image/webp"
-                  sizes="45vw"
-                />
-                <img src={`${videoD.poster}-800w.webp`} alt="" decoding="async" className="h-full w-full object-cover" />
-              </picture>
-            )}
-            <video autoPlay loop muted playsInline>
-              <source src={videoD.webm} type="video/webm" />
-              <source src={videoD.mp4} type="video/mp4" />
-            </video>
+            <MobileFooterClip video={videoD} ready={isNear} />
           </div>
           <p className="mfooter-col-headline">THEMSELVES</p>
         </div>

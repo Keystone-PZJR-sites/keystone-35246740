@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
+import { useNearViewport } from '@/lib/useNearViewport';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePillHandoff } from '@/components/PillHandoffProvider';
@@ -99,7 +100,11 @@ export function MobileEveryChannel({
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { setMobileRects } = usePillHandoff();
-  const videoRefs = useVideoCarousel(videoSrcs);
+  // Defer video preloading until the section is near the viewport — matches the
+  // desktop EveryChannel pattern. Without this gate all 4 clips fire at T≈908ms
+  // alongside the hero, competing for H3 bandwidth.
+  const isNear = useNearViewport(sectionRef, '600px');
+  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear });
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
@@ -256,11 +261,12 @@ export function MobileEveryChannel({
         style={{ backgroundColor: bgColor }}
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
-        {/* All clips rendered simultaneously with preload="auto" — each is
-            buffered before it becomes active, enabling gapless crossfades. */}
+        {/* All clips render with preload="none"; useVideoCarousel unlocks them
+            one at a time using the N+1 strategy once the section is near the
+            viewport (gated by useNearViewport above). */}
         <div className="mec-video-container">
           {videoSrcs[0]?.poster && (
-            <picture aria-hidden="true">
+            <picture>
               <source
                 srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
                 type="image/webp"
@@ -281,7 +287,7 @@ export function MobileEveryChannel({
               ref={el => { videoRefs.current[i] = el; }}
               muted
               playsInline
-              preload="auto"
+              preload="none"
               className="mec-video"
               aria-hidden="true"
             >

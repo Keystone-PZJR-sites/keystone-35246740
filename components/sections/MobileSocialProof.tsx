@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import type { SocialProofSlide, QuoteSegment } from './SocialProofSection';
+import { useNearViewport } from '@/lib/useNearViewport';
 
 // ============================================================
 // Types
@@ -74,10 +75,10 @@ function TestimonialSlide({ slide, videoRef }: TestimonialSlideProps) {
         <video
           ref={videoRef}
           className="msp-slide-video"
-          autoPlay
           muted
           loop
           playsInline
+          preload="none"
           controlsList="nodownload"
           aria-hidden="true"
         >
@@ -130,8 +131,11 @@ export function MobileSocialProof({
   slides,
   closeButtonSrc,
 }: MobileSocialProofProps) {
+  const sectionRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const thumbnailVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const slideVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const isNear = useNearViewport(sectionRef, '500px');
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -171,6 +175,32 @@ export function MobileSocialProof({
     }
   }, [activeIndex]);
 
+  useEffect(() => {
+    thumbnailVideoRefs.current.forEach((video) => {
+      if (!video) return;
+      if (isNear) {
+        video.preload = 'auto';
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+        video.preload = 'none';
+      }
+    });
+  }, [isNear]);
+
+  useEffect(() => {
+    slideVideoRefs.current.forEach((video, i) => {
+      if (!video) return;
+      if (activeIndex === i) {
+        video.preload = 'auto';
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+        video.preload = 'none';
+      }
+    });
+  }, [activeIndex]);
+
   // ── Keyboard navigation ───────────────────────────────────────────────────
 
   useEffect(() => {
@@ -186,6 +216,7 @@ export function MobileSocialProof({
 
   return (
     <section
+      ref={sectionRef}
       className="msp-section md:hidden"
       aria-label={`${headlineLine1.trim()} ${headlineLine2}`}
     >
@@ -205,11 +236,14 @@ export function MobileSocialProof({
           }}
         >
           <video
+            ref={(el) => {
+              thumbnailVideoRefs.current[i] = el;
+            }}
             className="msp-thumbnail-video"
-            autoPlay
             muted
             loop
             playsInline
+            preload="none"
             controlsList="nodownload"
             aria-hidden="true"
           >

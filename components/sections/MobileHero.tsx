@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
@@ -40,7 +40,16 @@ export function MobileHero({
   markColor,
 }: MobileHeroProps) {
   const { openModal } = useLeadCapture();
-  const videoRefs = useVideoCarousel(videoSrcs);
+  const [isMobile, setIsMobile] = useState(false);
+  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isMobile });
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 767px)');
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   return (
     <section
@@ -73,7 +82,7 @@ export function MobileHero({
             ref={el => { videoRefs.current[i] = el; }}
             muted
             playsInline
-            preload="auto"
+            preload="none"
             className="absolute h-full w-full object-cover"
           >
             <source src={clip.webm} type="video/webm" />

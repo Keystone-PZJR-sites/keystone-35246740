@@ -1,64 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Bangers, Dongle, Fraunces, Josefin_Slab, DM_Mono } from 'next/font/google';
 import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
 import { config } from '@/config';
-
-// ---------------------------------------------------------------------------
-// Google Fonts — loaded and self-hosted by Next.js at build time.
-// Importing them registers the @font-face rules globally so the work-showcase
-// card mocks can reference these fonts by name in inline styles.
-//
-// All six use display:'optional' — this prevents next/font from emitting
-// <link rel="preload"> hints for any of them. Without preload hints the ~100
-// font subset files no longer compete with JS bundles for bandwidth on initial
-// load. The fonts are discovered lazily from CSS at lower priority, and are
-// cached for every visit after the first.
-//
-// Weights are trimmed to only what WorkShowcase actually uses:
-//   Inter         200, 300, 400, 600  (ExtraLight: listings score; Light: content headline; Regular: body; SemiBold: ads/social/listings via font-semibold)
-//   Bangers       400       (display headline in one card)
-//   Dongle        400, 700  (nav + button text in one card)
-//   Fraunces      600       (serif headlines in one card)
-//   Josefin Slab  600, 700  (wordmark + nav + menu in one card)
-//   DM Mono       300         (Light — all DM Mono usages are fontWeight:300; 400/500 unused)
-// ---------------------------------------------------------------------------
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['200', '300', '400', '600'],
-  display: 'optional',
-  variable: '--font-inter',
-});
-const bangers = Bangers({
-  subsets: ['latin'],
-  weight: '400',
-  display: 'optional',
-  variable: '--font-bangers',
-});
-const dongle = Dongle({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'optional',
-  variable: '--font-dongle',
-});
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  weight: '600',
-  display: 'optional',
-  variable: '--font-fraunces',
-});
-const josefinSlab = Josefin_Slab({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  display: 'optional',
-  variable: '--font-josefin-slab',
-});
-const dmMono = DM_Mono({
-  subsets: ['latin'],
-  weight: '300',
-  display: 'optional',
-  variable: '--font-dm-mono',
-});
 
 // ---------------------------------------------------------------------------
 // Metadata — static so generateMetadata never blocks HTML delivery.
@@ -83,19 +26,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Apply font CSS-variable classes to a wrapper so Next.js self-hosts the
-  // font files and injects the @font-face rules globally. The variables are
-  // available throughout the tree and the fonts can be referenced by name
-  // in inline styles (e.g. fontFamily: "'Inter', system-ui, sans-serif").
-  const fontClasses = [
-    inter.variable,
-    bangers.variable,
-    dongle.variable,
-    fraunces.variable,
-    josefinSlab.variable,
-    dmMono.variable,
-  ].join(' ');
-
   return (
     <KeystoneRootLayout config={config}>
       {/*
@@ -104,6 +34,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
        * Prevents the white flash on cold load regardless of CSS delivery speed.
        */}
       <style>{`html,body{background-color:#042019}`}</style>
+
+      {/*
+       * Only the first hero clip gets initial video priority. All other videos
+       * render preload="none" and are unlocked by proximity/interaction gates.
+       */}
+      <link
+        rel="preload"
+        href="/videos/hero-autoloop-clips/hero-01.webm"
+        as="video"
+        type="video/webm"
+        // @ts-expect-error — fetchpriority is valid but not yet in React's types
+        fetchpriority="high"
+        crossOrigin="anonymous"
+      />
 
       {/*
        * Preload hints for above-the-fold FK fonts. The browser discovers
@@ -118,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="preload" href="/fonts/FKGroteskNeue-Italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" href="/fonts/FKRomanStandard-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
-      <div className={fontClasses} style={{ display: 'contents' }}>
+      <div style={{ display: 'contents' }}>
         {children}
       </div>
     </KeystoneRootLayout>
