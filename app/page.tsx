@@ -64,6 +64,20 @@ const HERO_VIDEOS_MOBILE = [
   { webm: '/videos/hero-autoloop-clips/hero-06-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-06-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-06' },
 ];
 
+const EVERY_CHANNEL_VIDEOS_DESKTOP = [
+  { webm: '/every-channel/everychannel-01-desktop.webm', mp4: '/every-channel/everychannel-01-desktop.mp4', poster: '/every-channel/posters/everychannel-01' },
+  { webm: '/every-channel/everychannel-02-desktop.webm', mp4: '/every-channel/everychannel-02-desktop.mp4', poster: '/every-channel/posters/everychannel-02' },
+  { webm: '/every-channel/everychannel-03-desktop.webm', mp4: '/every-channel/everychannel-03-desktop.mp4', poster: '/every-channel/posters/everychannel-03' },
+  { webm: '/every-channel/everychannel-04-desktop.webm', mp4: '/every-channel/everychannel-04-desktop.mp4', poster: '/every-channel/posters/everychannel-04' },
+];
+
+const EVERY_CHANNEL_VIDEOS_MOBILE = [
+  { webm: '/every-channel/everychannel-01-mobile.webm', mp4: '/every-channel/everychannel-01-mobile.mp4', poster: '/every-channel/posters/everychannel-01' },
+  { webm: '/every-channel/everychannel-02-mobile.webm', mp4: '/every-channel/everychannel-02-mobile.mp4', poster: '/every-channel/posters/everychannel-02' },
+  { webm: '/every-channel/everychannel-03-mobile.webm', mp4: '/every-channel/everychannel-03-mobile.mp4', poster: '/every-channel/posters/everychannel-03' },
+  { webm: '/every-channel/everychannel-04-mobile.webm', mp4: '/every-channel/everychannel-04-mobile.mp4', poster: '/every-channel/posters/everychannel-04' },
+];
+
 const PRICING_CHIPS = [
   { label: 'Your Website',    iconColor: '#FF6F5C' },
   { label: 'Your CRM',        iconColor: '#F297B7' },
@@ -145,24 +159,14 @@ export default async function HomePage() {
               line1="Every CHANNEL."
               line2="Every INTERACTION."
               line3="done-for-you."
-              videoSrcs={[
-                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4', poster: '/every-channel/posters/everychannel-01' },
-                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4', poster: '/every-channel/posters/everychannel-02' },
-                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4', poster: '/every-channel/posters/everychannel-03' },
-                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4', poster: '/every-channel/posters/everychannel-04' },
-              ]}
+              videoSrcs={EVERY_CHANNEL_VIDEOS_DESKTOP}
               pills={EVERY_CHANNEL_PILLS}
             />
             <MobileEveryChannel
               line1="Every CHANNEL."
               line2="Every INTERACTION."
               line3="done-for-you."
-              videoSrcs={[
-                { webm: '/every-channel/everychannel-01.webm', mp4: '/every-channel/everychannel-01.mp4', poster: '/every-channel/posters/everychannel-01' },
-                { webm: '/every-channel/everychannel-02.webm', mp4: '/every-channel/everychannel-02.mp4', poster: '/every-channel/posters/everychannel-02' },
-                { webm: '/every-channel/everychannel-03.webm', mp4: '/every-channel/everychannel-03.mp4', poster: '/every-channel/posters/everychannel-03' },
-                { webm: '/every-channel/everychannel-04.webm', mp4: '/every-channel/everychannel-04.mp4', poster: '/every-channel/posters/everychannel-04' },
-              ]}
+              videoSrcs={EVERY_CHANNEL_VIDEOS_MOBILE}
               pills={MOBILE_EVERY_CHANNEL_PILLS}
             />
             <ProductScreens tools={PRODUCT_SCREENS_TOOLS} />
