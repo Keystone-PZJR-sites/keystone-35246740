@@ -12,12 +12,6 @@ export type {
   WorkIndustry,
   WorkCardData,
   HeadlinePart,
-  SalesCardContent,
-  AdsCardContent,
-  SocialCardContent,
-  WebCardContent,
-  ContentCardContent,
-  SalesMessage,
 } from './WorkShowcase';
 export { MobileWorkShowcase } from './MobileWorkShowcase';
 export type { MobileWorkShowcaseProps } from './MobileWorkShowcase';

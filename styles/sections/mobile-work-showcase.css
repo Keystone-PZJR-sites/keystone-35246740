@@ -127,8 +127,7 @@
    `align-items: flex-end` is a safety net only: every slide is now sized
    to --mws-card-h (see `.mws-section .ws-scale-root`), so all cards share
    the same height and no cross-axis alignment is actually visible. If a
-   card variant ever falls outside ScaledMockCard again or its natural
-   height drifts, flex-end keeps its bottom edge on the rail's baseline
+   card asset height ever drifts, flex-end keeps its bottom edge on the rail's baseline
    instead of leaving it floating mid-rail.                             */
 .mws-rail-container {
   display: flex;
@@ -149,23 +148,8 @@
 }
 
 /* ── Card visual overrides scoped to the mobile section ──────────────────
-   The desktop `WorkShowcase` cards have two visual states (see
-   work-showcase.css):
-     • DEFAULT  — desaturated, label chip hidden, sub-elements in their
-       "muted" state (e.g. focused avatars at opacity 0, default avatars at
-       opacity 1). The plain `.work-card-wrapper`, `.work-chip`, `.work-ads-
-       overlay`, `.work-ads-avatar-default`, etc. rules drive this.
-     • FOCUSED  — full color, label chip visible, sub-elements in their
-       "bright" state. Gated to `@media (min-width: 768px)` and triggered
-       by `.work-card-item:is(:hover, [data-focused="true"])`.
-
-   Mobile (per Spec 023) requires the FOCUSED state at all times, minus the
-   lift transform and minus the label chip. Since the desktop focused-state
-   rules sit inside a `min-width: 768px` media query, none of them fire on
-   mobile — we have to replicate them here with `.mws-section .work-card-
-   wrapper` as the ancestor selector. The duplication is intentional:
-   keeping desktop hover chrome and mobile static chrome in separate files
-   means each component's CSS reflects its own state model.            */
+   Mobile uses the same raster card assets as desktop, but strips desktop-only
+   hover affordances: no lift, no visible chip, no extra top padding. */
 
 .mws-section .work-card-wrapper {
   filter: none;
@@ -180,229 +164,10 @@
   display: none;
 }
 
-/* Ads / Social / Web sub-element swaps — show the "focused" half of each
-   pair, hide the "default" half. Mirrors the @media-gated focused-state
-   block in work-showcase.css. */
-.mws-section .work-card-wrapper .work-ads-overlay,
-.mws-section .work-card-wrapper .work-ads-link-focused,
-.mws-section .work-card-wrapper .work-ads-avatar-focused,
-.mws-section .work-card-wrapper .work-social-avatar-focused,
-.mws-section .work-card-wrapper .work-social-heart-focused,
-.mws-section .work-card-wrapper .work-social-photo-img {
-  opacity: 1;
-}
-
-.mws-section .work-card-wrapper .work-ads-avatar-default,
-.mws-section .work-card-wrapper .work-social-avatar-default,
-.mws-section .work-card-wrapper .work-social-heart-default {
-  opacity: 0;
-}
-
-.mws-section .work-card-wrapper .ads-icon-bright {
-  filter: brightness(100);
-}
-
-.mws-section .work-card-wrapper .work-web-book-btn::after {
-  opacity: 1;
-}
-
-/* Sales card — restore brand colors over the muted defaults. */
-.mws-section .work-card-wrapper .work-sales-outer {
-  background-color: #fcfbf8;
-}
-.mws-section .work-card-wrapper .work-sales-island {
-  background-color: #242323;
-}
-.mws-section .work-card-wrapper .work-sales-studio-bubble {
-  background-color: #ece2f3;
-}
-.mws-section .work-card-wrapper .work-sales-studio-text {
-  color: #422457;
-}
-.mws-section .work-card-wrapper .work-sales-customer-bubble {
-  background-color: #d9e7f7;
-}
-.mws-section .work-card-wrapper .work-sales-customer-text {
-  color: #153b65;
-}
-.mws-section .work-card-wrapper .work-sales-indicator {
-  background-color: #242323;
-}
-
-/* Ads card. */
-.mws-section .work-card-wrapper .work-ads-profile-text,
-.mws-section .work-card-wrapper .work-ads-caption {
-  color: white;
-}
-.mws-section .work-card-wrapper .work-ads-cta-bg {
-  background-color: white;
-}
-.mws-section .work-card-wrapper .work-ads-cta-text {
-  color: #242323;
-}
-
-/* Social card. */
-.mws-section .work-card-wrapper .work-social-outer {
-  background-color: #fcfbf8;
-}
-.mws-section .work-card-wrapper .work-social-profile-name,
-.mws-section .work-card-wrapper .work-social-caption {
-  color: #242323;
-}
-
-/* Web card (standard). */
-.mws-section .work-card-wrapper .work-web-outer {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.mws-section .work-card-wrapper .work-web-inner {
-  background-color: white;
-}
-.mws-section .work-card-wrapper .work-web-nav-link {
-  color: #ff83af;
-}
-.mws-section .work-card-wrapper .work-web-buy-btn-bg {
-  background-color: #ede9e4;
-}
-.mws-section .work-card-wrapper .work-web-buy-btn-text,
-.mws-section .work-card-wrapper .work-web-cta-text,
-.mws-section .work-card-wrapper .work-web-heading {
-  color: #242323;
-}
-.mws-section .work-card-wrapper .work-web-cta-bg {
-  background-color: white;
-}
-
-/* Listings. */
-.mws-section .work-card-wrapper .work-listings-outer {
-  background-color: #fcfbf8;
-}
-.mws-section .work-card-wrapper .work-listings-business-name {
-  color: #242323;
-}
-.mws-section .work-card-wrapper .work-listings-meta-text,
-.mws-section .work-card-wrapper .work-listings-star,
-.mws-section .work-card-wrapper .work-listings-score-num,
-.mws-section .work-card-wrapper .work-listings-pill-text {
-  color: #4f4d4a;
-}
-.mws-section .work-card-wrapper .work-listings-score-bg {
-  background-color: #f0eee6;
-}
-.mws-section .work-card-wrapper .work-listings-description {
-  color: #847f71;
-}
-.mws-section .work-card-wrapper .work-listings-pill-bg {
-  background-color: #f8f7f2;
-}
-
-/* Home & Property web. */
-.mws-section .work-card-wrapper .work-home-web-inner {
-  background-color: #f8f7f2;
-}
-.mws-section .work-card-wrapper .work-home-web-utility {
-  background-color: #122319;
-}
-.mws-section .work-card-wrapper .work-home-web-utility-text {
-  color: rgba(245, 240, 230, 0.8);
-}
-.mws-section .work-card-wrapper .work-home-web-header {
-  background-color: rgba(245, 240, 230, 0.75);
-  border-color: rgba(217, 209, 189, 0.6);
-}
-.mws-section .work-card-wrapper .work-home-web-brand,
-.mws-section .work-card-wrapper .work-home-web-headline,
-.mws-section .work-card-wrapper .work-home-web-stat-num {
-  color: #1a1f17;
-}
-.mws-section .work-card-wrapper .work-home-web-nav {
-  color: #3b443a;
-}
-.mws-section .work-card-wrapper .work-home-web-leaf {
-  filter: saturate(1);
-}
-.mws-section .work-card-wrapper .work-home-web-cta-btn,
-.mws-section .work-card-wrapper .work-home-web-cta-primary {
-  background-color: #1f3a2c;
-}
-.mws-section .work-card-wrapper .work-home-web-cta-btn span,
-.mws-section .work-card-wrapper .work-home-web-cta-primary span {
-  color: #f5f0e6;
-}
-.mws-section .work-card-wrapper .work-home-web-headline-italic {
-  color: #1f3a2c;
-}
-.mws-section .work-card-wrapper .work-home-web-stats-border,
-.mws-section .work-card-wrapper .work-home-web-below {
-  border-color: #d9d1bd;
-}
-.mws-section .work-card-wrapper .work-home-web-stat-label {
-  color: #6c7468;
-}
-.mws-section .work-card-wrapper .work-home-web-cta-secondary {
-  border-color: rgba(26, 31, 23, 0.15);
-}
-.mws-section .work-card-wrapper .work-home-web-cta-secondary span {
-  color: #1a1f17;
-}
-.mws-section .work-card-wrapper .work-home-web-below {
-  background-color: rgba(235, 227, 211, 0.6);
-}
-
-/* Care & Maintenance web. */
-.mws-section .work-card-wrapper .work-care-web-brand {
-  color: #6d46e2;
-}
-.mws-section .work-card-wrapper .work-care-web-book-btn {
-  background-color: #6d46e2;
-}
-.mws-section .work-card-wrapper .work-care-web-book-text {
-  color: white;
-}
-.mws-section .work-card-wrapper .work-care-web-service-title {
-  color: #242323;
-}
-
-/* Content card. */
-.mws-section .work-card-wrapper .work-content-outer {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.mws-section .work-card-wrapper .work-content-inner {
-  background-color: white;
-}
-.mws-section .work-card-wrapper .work-content-tag-bg {
-  background-color: #fcd8e5;
-}
-.mws-section .work-card-wrapper .work-content-tag-text {
-  color: #ff3d81;
-}
-.mws-section .work-card-wrapper .work-content-headline {
-  color: #242323;
-}
-.mws-section .work-card-wrapper .work-content-body {
-  color: #3a3836;
-}
-
-/* Mobile card scale (height-targeted). Every card variant — sales, ads,
-   social, web, content, listings — renders at the same uniform height
-   (--mws-card-h). The scale factor is derived per card from its natural
-   height (the inline --ws-natural-h that ScaledMockCard sets on each
-   .ws-scale-root), so width follows aspect from the card's natural
-   dimensions and the rail's vertical extent stays constant across all
-   slides. Overrides the viewport-based `min(1, …)` scale that
-   `.ws-scale-root` applies for desktop fluidity.
-
-   Why this replaced the previous flat 0.72: Figma renders the per-
-   industry rails at ~72 % of each card's natural width (Figma node
-   1305:453), which gave each card a different rendered height because
-   their natural heights differ. On top of that, the listings card was
-   not wrapped in ScaledMockCard at all, so the 0.72 mobile override
-   never reached it and its rail-tallest unscaled height (~540 px) drove
-   every Retail / Care / Food / Home rail to use that as the rail height
-   under `align-items: flex-end`. Visible shorter cards (web, social,
-   etc.) sat at the bottom with empty space above them — the gap the
-   user reported. Wrapping listings (now done in WorkShowcase.tsx) and
-   driving the scale from a target height instead of natural width
-   removes both sources of variance. */
+/* Mobile card scale (height-targeted). Every raster card renders at the same
+   uniform height (--mws-card-h). The scale factor is derived from each card's
+   inline --ws-natural-h so width follows the asset aspect ratio while the rail's
+   vertical extent stays constant across all slides. */
 .mws-section .ws-scale-root {
   --ws-card-scale: calc(var(--mws-card-h) / var(--ws-natural-h));
 }
