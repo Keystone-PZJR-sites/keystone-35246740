@@ -61,9 +61,9 @@ export function useVideoCarousel(
 
     let activeIndex = 0;
 
-    // Ensure all clips are deferred — the hook owns preload scheduling
-    // regardless of what the HTML attribute says.
-    videos.forEach(v => { v.preload = 'none'; });
+    // Keep clip 0 eager so cold loads can start from HTML media behavior;
+    // only defer clips 1..N until sequencing unlocks them.
+    videos.forEach((v, i) => { v.preload = i === 0 ? 'auto' : 'none'; });
 
     // Initial visual state: first clip visible, rest hidden.
     videos.forEach((v, i) => {

@@ -630,6 +630,8 @@ export function SocialProofSection({
                     sizes={thumb.thumbnail.sizes}
                     alt=""
                     aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                     className="sp-thumb-img"
                     draggable={false}
                   />

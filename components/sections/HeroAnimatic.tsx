@@ -169,13 +169,15 @@ export function HeroAnimatic({
           <video
             key={i}
             ref={el => { videoRefs.current[i] = el; }}
+            autoPlay={i === 0}
             muted
             playsInline
-            preload="none"
+            preload={i === 0 ? 'auto' : 'none'}
             className="absolute h-full w-full object-cover"
+            style={{ opacity: i === 0 ? 1 : 0 }}
           >
-            <source src={clip.webm} type="video/webm" />
-            <source src={clip.mp4} type="video/mp4" />
+            <source src={clip.webm} type="video/webm" media="(min-width: 768px)" />
+            <source src={clip.mp4} type="video/mp4" media="(min-width: 768px)" />
           </video>
         ))}
       </div>

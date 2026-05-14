@@ -97,7 +97,7 @@ function VideoClip({ video, clipClass, ready }: VideoClipProps) {
             type="image/webp"
             sizes="(min-width: 768px) 30vw, 45vw"
           />
-          <img src={`${video.poster}-1024w.webp`} alt="" decoding="async" className="h-full w-full object-cover" />
+          <img src={`${video.poster}-1024w.webp`} alt="" decoding="async" loading="lazy" className="h-full w-full object-cover" />
         </picture>
       )}
       <video ref={videoRef} loop muted playsInline preload="none">

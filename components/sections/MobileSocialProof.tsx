@@ -226,6 +226,8 @@ export function MobileSocialProof({
             sizes={thumb.thumbnail.sizes}
             alt=""
             aria-hidden="true"
+            loading="lazy"
+            decoding="async"
             className="msp-thumbnail-img"
             draggable={false}
           />
