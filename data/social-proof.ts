@@ -76,7 +76,7 @@ export const MOBILE_SOCIAL_THUMBNAILS: MobileSocialProofThumbnail[] = [
   { thumbnail: { src: `${T}/socialproof-thumb-03-mobile-336w.webp`,  srcSet: `${T}/socialproof-thumb-03-mobile-250w.webp 250w, ${T}/socialproof-thumb-03-mobile-336w.webp 336w`,  sizes: '43vw' }, width: 168, height: 87,  left: 16,  top: 271, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 2 },
   { thumbnail: { src: `${T}/socialproof-thumb-04-mobile-224w.webp`,  srcSet: `${T}/socialproof-thumb-04-mobile-224w.webp 224w`,                                                    sizes: '29vw' }, width: 112, height: 64,  left: 265, top: 544, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 3 },
   { thumbnail: { src: `${T}/socialproof-thumb-05-mobile-228w.webp`,  srcSet: `${T}/socialproof-thumb-05-mobile-228w.webp 228w`,                                                    sizes: '29vw' }, width: 114, height: 64,  left: 16,  top: 615, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 4 },
-  { thumbnail: { src: `${T}/socialproof-thumb-06-mobile-432w.webp`,  srcSet: `${T}/socialproof-thumb-06-mobile-250w.webp 250w, ${T}/socialproof-thumb-06-mobile-432w.webp 432w`,  sizes: '55vw' }, width: 216, height: 152, left: 147, top: 668, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 5 },
+  { thumbnail: { src: `${T}/socialproof-thumb-06-mobile-432w.webp`,  srcSet: `${T}/socialproof-thumb-06-mobile-250w.webp 250w, ${T}/socialproof-thumb-06-mobile-432w.webp 432w`,  sizes: '47vw' }, width: 184, height: 129, left: 177, top: 668, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 5 },
 ];
 
 // Quote shared by slides 1, 2, 4, 6
