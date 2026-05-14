@@ -72,63 +72,6 @@ export interface SocialProofSectionProps {
 const CANVAS_W = 1440;
 const CANVAS_H = 1024;
 
-/**
- * Organic floating paths — 5 waypoints per thumbnail (4 drift + return to origin).
- * The final waypoint smoothly returns to 0,0 so the loop restart has no snap.
- * Durations are short enough to feel lively but long enough to feel organic.
- */
-const FLOAT_PATHS: Array<Array<{ x: number; y: number; scale: number; duration: number }>> = [
-  // thumbnail 1 — large, slow drift
-  [
-    { x:  8.1, y: -11.3, scale: 1.03, duration: 2.5 },
-    { x: 16.2, y:   3.2, scale: 0.98, duration: 2.8 },
-    { x:  4.9, y:  13,  scale: 1.02, duration: 2.5 },
-    { x: -6.5, y:  -3.2, scale: 0.97, duration: 2.2 },
-    { x:  0,   y:   0,  scale: 1.00, duration: 2.5 },
-  ],
-  // thumbnail 2 — medium, offset phase
-  [
-    { x: -14.6, y:  8.1, scale: 0.97, duration: 3.2 },
-    { x:  -4.9, y: 17.8, scale: 1.02, duration: 2.5 },
-    { x:  11.3, y:  6.5, scale: 1.03, duration: 2.8 },
-    { x:   3.2, y:  -6.5, scale: 0.99, duration: 2.5 },
-    { x:   0,  y:   0,  scale: 1.00, duration: 2.8 },
-  ],
-  // thumbnail 3 — small, nimble
-  [
-    { x:  8.1, y:  13,  scale: 1.02, duration: 2.2 },
-    { x: -9.7, y:  16.2, scale: 0.98, duration: 2.5 },
-    { x: -14.6, y:  3.2, scale: 1.02, duration: 2.2 },
-    { x:   0,  y:  -8.1, scale: 1.00, duration: 2.5 },
-    { x:   0,  y:   0,  scale: 1.00, duration: 2.2 },
-  ],
-  // thumbnail 4 — medium-large, opposite phase
-  [
-    { x: -11.3, y: -14.6, scale: 0.96, duration: 3.0 },
-    { x:   4.9, y: -17.8, scale: 1.03, duration: 3.2 },
-    { x:  14.6, y:  -4.9, scale: 0.97, duration: 2.8 },
-    { x:   6.5, y:   8.1, scale: 1.02, duration: 2.7 },
-    { x:   0,  y:   0,  scale: 1.00, duration: 2.8 },
-  ],
-  // thumbnail 5 — largest, laziest
-  [
-    { x:  16.2, y:  -8.1, scale: 1.03, duration: 3.5 },
-    { x:   8.1, y: -16.2, scale: 0.98, duration: 3.2 },
-    { x:  -6.5, y:  -9.7, scale: 1.02, duration: 3.2 },
-    { x: -14.6, y:   3.2, scale: 0.97, duration: 3.5 },
-    { x:   0,  y:   0,  scale: 1.00, duration: 3.0 },
-  ],
-  // thumbnail 6 — small, fast
-  [
-    { x:  -8.1, y:  14.6, scale: 1.02, duration: 2.5 },
-    { x:   6.5, y:  16.2, scale: 0.98, duration: 2.2 },
-    { x:  13,  y:  -3.2, scale: 1.03, duration: 2.5 },
-    { x:  -3.2, y: -13,  scale: 0.97, duration: 2.2 },
-    { x:   0,  y:   0,  scale: 1.00, duration: 2.5 },
-  ],
-];
-
-const FLOAT_DELAYS = [0, 1.2, 2.8, 1.8, 3.6, 0.6];
 
 // ============================================================
 // Pure helpers
@@ -208,7 +151,6 @@ export function SocialProofSection({
   const modalRef = useRef<HTMLDivElement>(null);
   const wrapperRefs = useRef<(HTMLLIElement | null)[]>([]);
   const cardPositionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const floatTimelinesRef = useRef<gsap.core.Timeline[]>([]);
   const modalVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const modalVideoTransitionWrapRefs = useRef<(HTMLDivElement | null)[]>([]);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -583,12 +525,11 @@ export function SocialProofSection({
     }
   }, [modalOpen]);
 
-  // ── Floating animation ───────────────────────────────────────────────────
+  // ── Thumbnail entrance animation ─────────────────────────────────────────
   //
-  // Spec 026 retired the section pin. The thumbnail floating animation now
-  // starts the first time the section enters the viewport via a direct
-  // ScrollTrigger; this matches the pre-spec-026 behaviour where the pin's
-  // onEnter started the floating timelines.
+  // Each thumbnail wrapper fades up from 40px below its final position when
+  // the section enters the viewport, staggered 100ms apart. Desktop only;
+  // respects prefers-reduced-motion.
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -600,18 +541,10 @@ export function SocialProofSection({
           const section = sectionRef.current;
           if (!section) return;
 
-          const startFloating = () => {
-            if (floatTimelinesRef.current.length > 0) return;
-            floatTimelinesRef.current = wrapperRefs.current.map((ref, i) => {
-              const path = FLOAT_PATHS[i] ?? FLOAT_PATHS[0];
-              const delay = FLOAT_DELAYS[i] ?? 0;
-              const tl = gsap.timeline({ repeat: -1, delay });
-              path.forEach(({ x, y, scale, duration }) => {
-                tl.to(ref, { x, y, scale, duration, ease: 'sine.inOut' });
-              });
-              return tl;
-            });
-          };
+          const els = wrapperRefs.current.filter((el): el is HTMLLIElement => el !== null);
+          if (!els.length) return;
+
+          gsap.set(els, { y: 40, opacity: 0 });
 
           ScrollTrigger.create({
             id: 'social-proof-entrance',
@@ -620,7 +553,17 @@ export function SocialProofSection({
             once: true,
             onEnter: () => {
               log('social-proof-entrance', 'ANIM_START');
-              // startFloating(); // TEST: disabled to preview static layout
+              gsap.to(els, {
+                y: 0,
+                opacity: 1,
+                duration: 0.7,
+                ease: 'power2.out',
+                stagger: 0.1,
+                onComplete: () => {
+                  gsap.set(els, { clearProps: 'y,opacity,transform' });
+                  log('social-proof-entrance', 'ANIM_COMPLETE');
+                },
+              });
             },
           });
         },
@@ -631,23 +574,12 @@ export function SocialProofSection({
     return () => ctx.revert();
   }, []);
 
-  // ── Pause/resume floating + lock scroll when modal is open/closed ───────
-  //
-  // Spec 026 cleanup: the previous implementation hand-rolled a scroll lock
-  // that depended on the section pin's scroll-state machine. With the pin
-  // retired, use the project's standard lockScroll() helper from
-  // lib/scrollLock.ts (the single approved approach per the rules). It
-  // returns an unlock callback that handles both the ScrollSmoother and
-  // the no-smoother fallback scenarios.
+  // ── Lock scroll when modal opens ─────────────────────────────────────────
 
   useEffect(() => {
     if (!modalOpen) return;
-    floatTimelinesRef.current.forEach((t) => t.pause());
     const unlock = lockScroll();
-    return () => {
-      floatTimelinesRef.current.forEach((t) => t.resume());
-      unlock();
-    };
+    return () => unlock();
   }, [modalOpen]);
 
   // ──────────────────────────────────────────────────────────────────────────
