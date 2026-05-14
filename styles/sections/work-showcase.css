@@ -33,7 +33,8 @@
       declarations also reset the default button chrome. --- */
 .work-card-item {
   padding-bottom: 24px;
-  margin-right: 32px;
+  margin-left: 20px;
+  margin-right: 20px;
   background: transparent;
   border: 0;
   font: inherit;
