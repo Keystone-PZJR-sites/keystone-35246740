@@ -92,9 +92,10 @@ const QUOTE_MARKETING: SocialProofSlide['quoteSegments'] = [
   { text: ' is I think about marketing less than I did before I had a marketing team.' },
 ];
 
+const V = '/social-proof/videos';
 export const SOCIAL_SLIDES: SocialProofSlide[] = [
   {
-    video:          { webm: '/social-proof/social-proof-video-1.webm', mp4: '/social-proof/social-proof-video-1.mp4' },
+    video:          { desktop: { webm: `${V}/socialproof-01-desktop.webm`, mp4: `${V}/socialproof-01-desktop.mp4` }, mobile: { webm: `${V}/socialproof-01-mobile.webm`, mp4: `${V}/socialproof-01-mobile.mp4` } },
     cardBgColor:    '#56A6FF',
     textColor:      '#0F223D',
     quoteSegments:  QUOTE_CANVA,
@@ -104,7 +105,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#9DCBFF', locationPillText: '#0F223D',
   },
   {
-    video:          { webm: '/social-proof/social-proof-video-2.webm', mp4: '/social-proof/social-proof-video-2.mp4' },
+    video:          { desktop: { webm: `${V}/socialproof-02-desktop.webm`, mp4: `${V}/socialproof-02-desktop.mp4` }, mobile: { webm: `${V}/socialproof-02-mobile.webm`, mp4: `${V}/socialproof-02-mobile.mp4` } },
     cardBgColor:    '#D8C2FF',
     textColor:      '#2F0D3F',
     quoteSegments:  QUOTE_CANVA,
@@ -114,7 +115,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#9C65EE', locationPillText: '#F0E8FF',
   },
   {
-    video:          { webm: '/social-proof/social-proof-video-3.webm', mp4: '/social-proof/social-proof-video-3.mp4' },
+    video:          { desktop: { webm: `${V}/socialproof-03-desktop.webm`, mp4: `${V}/socialproof-03-desktop.mp4` }, mobile: { webm: `${V}/socialproof-03-mobile.webm`, mp4: `${V}/socialproof-03-mobile.mp4` } },
     cardBgColor:    '#F38BB0',
     textColor:      '#3D1324',
     quoteSegments:  QUOTE_MARKETING,
@@ -124,7 +125,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#FEAAC8', locationPillText: '#3D1324',
   },
   {
-    video:          { webm: '/social-proof/social-proof-video-4.webm', mp4: '/social-proof/social-proof-video-4.mp4' },
+    video:          { desktop: { webm: `${V}/socialproof-04-desktop.webm`, mp4: `${V}/socialproof-04-desktop.mp4` }, mobile: { webm: `${V}/socialproof-04-mobile.webm`, mp4: `${V}/socialproof-04-mobile.mp4` } },
     cardBgColor:    '#F2BA46',
     textColor:      '#3A2A0E',
     quoteSegments:  QUOTE_CANVA,
@@ -134,7 +135,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#F2D474', locationPillText: '#3A2A0E',
   },
   {
-    video:          { webm: '/social-proof/social-proof-video-5.webm', mp4: '/social-proof/social-proof-video-5.mp4' },
+    video:          { desktop: { webm: `${V}/socialproof-05-desktop.webm`, mp4: `${V}/socialproof-05-desktop.mp4` }, mobile: { webm: `${V}/socialproof-05-mobile.webm`, mp4: `${V}/socialproof-05-mobile.mp4` } },
     cardBgColor:    '#6ECC8B',
     textColor:      '#063126',
     quoteSegments:  QUOTE_MARKETING,
@@ -144,7 +145,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#DCFBD9', locationPillText: '#063126',
   },
   {
-    video:          { webm: '/social-proof/social-proof-video-6.webm', mp4: '/social-proof/social-proof-video-6.mp4' },
+    video:          { desktop: { webm: `${V}/socialproof-06-desktop.webm`, mp4: `${V}/socialproof-06-desktop.mp4` }, mobile: { webm: `${V}/socialproof-06-mobile.webm`, mp4: `${V}/socialproof-06-mobile.mp4` } },
     cardBgColor:    '#F57E56',
     textColor:      '#3C1618',
     quoteSegments:  QUOTE_CANVA,
