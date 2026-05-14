@@ -51,7 +51,9 @@ export function HeroAnimatic({
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const { openModal } = useLeadCapture();
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
+  ));
   const videoRefs = useVideoCarousel(videoSrcs, { enabled: isDesktop });
 
   useEffect(() => {

@@ -265,7 +265,7 @@ export function MobileEveryChannel({
             one at a time using the N+1 strategy once the section is near the
             viewport (gated by useNearViewport above). */}
         <div className="mec-video-container">
-          {videoSrcs[0]?.poster && (
+          {isNear && videoSrcs[0]?.poster && (
             <picture>
               <source
                 srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
@@ -275,7 +275,8 @@ export function MobileEveryChannel({
               <img
                 src={`${videoSrcs[0].poster}-1500w.webp`}
                 alt=""
-                fetchPriority="high"
+                loading="lazy"
+                fetchPriority="low"
                 decoding="async"
                 className="mec-video"
               />

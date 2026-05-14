@@ -253,8 +253,9 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
         className="relative min-h-[100svh] w-full overflow-hidden bg-[#042019] flex items-center justify-center"
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
-        {/* Poster — visible immediately, covered once the first video plays. */}
-        {videoSrcs[0]?.poster && (
+        {/* Poster loads only once the section is near the viewport so below-fold
+            images do not compete with hero resources in the initial wave. */}
+        {isNear && videoSrcs[0]?.poster && (
           <picture className="absolute inset-0">
             <source
               srcSet={[300, 500, 1000, 1500, 2500].map(w => `${videoSrcs[0].poster}-${w}w.webp ${w}w`).join(', ')}
@@ -264,7 +265,8 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
             <img
               src={`${videoSrcs[0].poster}-1500w.webp`}
               alt=""
-              fetchPriority="high"
+              loading="lazy"
+              fetchPriority="low"
               decoding="async"
               className="absolute inset-0 h-full w-full object-cover"
             />

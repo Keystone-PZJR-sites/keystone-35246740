@@ -71,21 +71,35 @@ export function useVideoCarousel(
       v.style.opacity = i === 0 ? '1' : '0';
     });
 
-    // Unlock and play clip 0. Immediately queue clip 1 so it buffers
-    // during the full duration of clip 0.
+    const unlockNextClip = () => {
+      if (count > 1) videos[(activeIndex + 1) % count].preload = 'auto';
+    };
+
+    const unlockNextOnPlaying = (video: HTMLVideoElement) => {
+      if (count <= 1) return;
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        unlockNextClip();
+        return;
+      }
+      const onPlaying = () => {
+        unlockNextClip();
+      };
+      video.addEventListener('playing', onPlaying, { once: true });
+    };
+
+    // Unlock and play clip 0. Queue clip 1 only after clip 0 has
+    // started playing so the initial wave is clip 0 only.
     videos[0].preload = 'auto';
     videos[0].play().catch(() => {});
-    if (count > 1) videos[1].preload = 'auto';
+    unlockNextOnPlaying(videos[0]);
 
     function advance() {
       const outgoing = videos[activeIndex];
       activeIndex = (activeIndex + 1) % count;
       const incoming = videos[activeIndex];
 
-      // Unlock the clip two steps ahead so it buffers during the incoming clip's runtime.
-      videos[(activeIndex + 1) % count].preload = 'auto';
-
       incoming.play().catch(() => {});
+      unlockNextOnPlaying(incoming);
 
       outgoing.style.transition = `opacity ${FADE_MS}ms ease-in-out`;
       outgoing.style.opacity = '0';

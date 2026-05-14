@@ -40,7 +40,9 @@ export function MobileHero({
   markColor,
 }: MobileHeroProps) {
   const { openModal } = useLeadCapture();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+  ));
   const videoRefs = useVideoCarousel(videoSrcs, { enabled: isMobile });
 
   useEffect(() => {
