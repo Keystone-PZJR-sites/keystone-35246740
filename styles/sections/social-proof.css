@@ -41,7 +41,7 @@
 .sp-headline {
   font-family: 'FK Screamer', sans-serif;
   font-weight: 700;
-  font-size: clamp(32px, 8.889vw, 128px);
+  font-size: clamp(38px, 10.417vw, 150px);
   line-height: 0.82;
   text-transform: uppercase;
   color: var(--color-hero-text);
@@ -51,7 +51,7 @@
   margin: 0;
 }
 
-/* --- Thumbnail layer — covers the full section --- */
+/* --- Thumbnail layer — covers the full section, sits above the headline --- */
 .sp-thumbs {
   position: absolute;
   inset: 0;
@@ -59,6 +59,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  z-index: 2;
 }
 
 /* --- Wrapper for each thumbnail + its badge.
@@ -71,6 +72,14 @@
   height: var(--sp-height);
   will-change: transform;
   /* Allow badge to visually overflow the thumbnail bounds */
+  overflow: visible;
+}
+
+/* --- Inner wrapper: GSAP hover-scale target. Contains both the button and the
+       badge so they scale together. Fills the outer wrapper exactly.          --- */
+.sp-thumb-inner {
+  position: absolute;
+  inset: 0;
   overflow: visible;
 }
 
@@ -90,7 +99,7 @@
   height: 100%;
 }
 
-.sp-thumb-video {
+.sp-thumb-img {
   position: absolute;
   inset: 0;
   width: 100%;

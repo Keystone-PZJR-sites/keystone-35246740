@@ -8,7 +8,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lockScroll } from '@/lib/scrollLock';
 import { log } from '@/lib/logger';
-import { useNearViewport } from '@/lib/useNearViewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +37,8 @@ export interface SocialProofSlide {
 }
 
 export interface SocialProofThumbnail {
-  video: { webm: string; mp4: string };
+  /** Static thumbnail image — src is the largest size, srcSet covers all available widths */
+  thumbnail: { src: string; srcSet: string; sizes: string };
   /** Width in px at 1440px Figma canvas */
   width: number;
   /** Height in px at 1024px Figma canvas */
@@ -77,51 +77,51 @@ const CANVAS_H = 1024;
 const FLOAT_PATHS: Array<Array<{ x: number; y: number; scale: number; duration: number }>> = [
   // thumbnail 1 — large, slow drift
   [
-    { x: 10,  y: -14, scale: 1.03, duration: 2.5 },
-    { x: 20,  y:   4, scale: 0.98, duration: 2.8 },
-    { x:  6,  y:  16, scale: 1.02, duration: 2.5 },
-    { x: -8,  y:  -4, scale: 0.97, duration: 2.2 },
-    { x:  0,  y:   0, scale: 1.00, duration: 2.5 },
+    { x:  8.1, y: -11.3, scale: 1.03, duration: 2.5 },
+    { x: 16.2, y:   3.2, scale: 0.98, duration: 2.8 },
+    { x:  4.9, y:  13,  scale: 1.02, duration: 2.5 },
+    { x: -6.5, y:  -3.2, scale: 0.97, duration: 2.2 },
+    { x:  0,   y:   0,  scale: 1.00, duration: 2.5 },
   ],
   // thumbnail 2 — medium, offset phase
   [
-    { x: -18, y:  10, scale: 0.97, duration: 3.2 },
-    { x:  -6, y:  22, scale: 1.02, duration: 2.5 },
-    { x:  14, y:   8, scale: 1.03, duration: 2.8 },
-    { x:   4, y:  -8, scale: 0.99, duration: 2.5 },
-    { x:   0, y:   0, scale: 1.00, duration: 2.8 },
+    { x: -14.6, y:  8.1, scale: 0.97, duration: 3.2 },
+    { x:  -4.9, y: 17.8, scale: 1.02, duration: 2.5 },
+    { x:  11.3, y:  6.5, scale: 1.03, duration: 2.8 },
+    { x:   3.2, y:  -6.5, scale: 0.99, duration: 2.5 },
+    { x:   0,  y:   0,  scale: 1.00, duration: 2.8 },
   ],
   // thumbnail 3 — small, nimble
   [
-    { x:  10, y:  16, scale: 1.02, duration: 2.2 },
-    { x: -12, y:  20, scale: 0.98, duration: 2.5 },
-    { x: -18, y:   4, scale: 1.02, duration: 2.2 },
-    { x:   0, y: -10, scale: 1.00, duration: 2.5 },
-    { x:   0, y:   0, scale: 1.00, duration: 2.2 },
+    { x:  8.1, y:  13,  scale: 1.02, duration: 2.2 },
+    { x: -9.7, y:  16.2, scale: 0.98, duration: 2.5 },
+    { x: -14.6, y:  3.2, scale: 1.02, duration: 2.2 },
+    { x:   0,  y:  -8.1, scale: 1.00, duration: 2.5 },
+    { x:   0,  y:   0,  scale: 1.00, duration: 2.2 },
   ],
   // thumbnail 4 — medium-large, opposite phase
   [
-    { x: -14, y: -18, scale: 0.96, duration: 3.0 },
-    { x:   6, y: -22, scale: 1.03, duration: 3.2 },
-    { x:  18, y:  -6, scale: 0.97, duration: 2.8 },
-    { x:   8, y:  10, scale: 1.02, duration: 2.7 },
-    { x:   0, y:   0, scale: 1.00, duration: 2.8 },
+    { x: -11.3, y: -14.6, scale: 0.96, duration: 3.0 },
+    { x:   4.9, y: -17.8, scale: 1.03, duration: 3.2 },
+    { x:  14.6, y:  -4.9, scale: 0.97, duration: 2.8 },
+    { x:   6.5, y:   8.1, scale: 1.02, duration: 2.7 },
+    { x:   0,  y:   0,  scale: 1.00, duration: 2.8 },
   ],
   // thumbnail 5 — largest, laziest
   [
-    { x:  20, y: -10, scale: 1.03, duration: 3.5 },
-    { x:  10, y: -20, scale: 0.98, duration: 3.2 },
-    { x:  -8, y: -12, scale: 1.02, duration: 3.2 },
-    { x: -18, y:   4, scale: 0.97, duration: 3.5 },
-    { x:   0, y:   0, scale: 1.00, duration: 3.0 },
+    { x:  16.2, y:  -8.1, scale: 1.03, duration: 3.5 },
+    { x:   8.1, y: -16.2, scale: 0.98, duration: 3.2 },
+    { x:  -6.5, y:  -9.7, scale: 1.02, duration: 3.2 },
+    { x: -14.6, y:   3.2, scale: 0.97, duration: 3.5 },
+    { x:   0,  y:   0,  scale: 1.00, duration: 3.0 },
   ],
   // thumbnail 6 — small, fast
   [
-    { x: -10, y:  18, scale: 1.02, duration: 2.5 },
-    { x:   8, y:  20, scale: 0.98, duration: 2.2 },
-    { x:  16, y:  -4, scale: 1.03, duration: 2.5 },
-    { x:  -4, y: -16, scale: 0.97, duration: 2.2 },
-    { x:   0, y:   0, scale: 1.00, duration: 2.5 },
+    { x:  -8.1, y:  14.6, scale: 1.02, duration: 2.5 },
+    { x:   6.5, y:  16.2, scale: 0.98, duration: 2.2 },
+    { x:  13,  y:  -3.2, scale: 1.03, duration: 2.5 },
+    { x:  -3.2, y: -13,  scale: 0.97, duration: 2.2 },
+    { x:   0,  y:   0,  scale: 1.00, duration: 2.5 },
   ],
 ];
 
@@ -207,7 +207,6 @@ export function SocialProofSection({
   const cardPositionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const floatTimelinesRef = useRef<gsap.core.Timeline[]>([]);
   const modalVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const thumbVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const modalVideoTransitionWrapRefs = useRef<(HTMLDivElement | null)[]>([]);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const emblaViewportRef = useRef<HTMLDivElement | null>(null);
@@ -215,20 +214,6 @@ export function SocialProofSection({
   const expandTweenRef = useRef<gsap.core.Animation | null>(null);
   const currentSlideRef = useRef(0);
   const isClosingRef = useRef(false);
-
-  // Defer thumbnail video loading until the section is within 1000px of the
-  // viewport — prevents 6 autoplay videos (~19 MB) from competing with hero
-  // and JS bundle bandwidth on initial page load.
-  const isNear = useNearViewport(sectionRef, '1000px');
-
-  useEffect(() => {
-    if (!isNear) return;
-    thumbVideoRefs.current.forEach(v => {
-      if (!v) return;
-      v.preload = 'auto';
-      v.play().catch(() => {});
-    });
-  }, [isNear]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [openAtSlide, setOpenAtSlide] = useState(0);
@@ -632,7 +617,7 @@ export function SocialProofSection({
             once: true,
             onEnter: () => {
               log('social-proof-entrance', 'ANIM_START');
-              startFloating();
+              // startFloating(); // TEST: disabled to preview static layout
             },
           });
         },
@@ -687,38 +672,47 @@ export function SocialProofSection({
                 } as React.CSSProperties
               }
             >
-              <button
-                type="button"
-                className="sp-thumb"
-                onClick={() => openModal(i)}
-                aria-label={`Play customer testimonial ${i + 1}`}
-              >
-                <video
-                  ref={el => { thumbVideoRefs.current[i] = el; }}
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  aria-hidden="true"
-                  className="sp-thumb-video"
+              {/*
+               * .sp-thumb-inner: GSAP hover-scale target.
+               * Wraps both the button and the badge so the badge scales and
+               * translates together with the thumbnail on hover. The outer
+               * .sp-thumb-wrap is the GSAP float target — separate elements,
+               * no transform conflict.
+               */}
+              <div className="sp-thumb-inner">
+                <button
+                  type="button"
+                  className="sp-thumb"
+                  onClick={() => openModal(i)}
+                  onMouseEnter={(e) => gsap.to(e.currentTarget.parentElement, { scale: 1.05, duration: 0.2, ease: 'power2.out' })}
+                  onMouseLeave={(e) => gsap.to(e.currentTarget.parentElement, { scale: 1, duration: 0.2, ease: 'power2.out' })}
+                  aria-label={`Play customer testimonial ${i + 1}`}
                 >
-                  <source src={thumb.video.webm} type="video/webm" />
-                  <source src={thumb.video.mp4} type="video/mp4" />
-                </video>
-              </button>
-              <Image
-                className="sp-thumb-badge"
-                src={thumb.markerSrc}
-                alt=""
-                aria-hidden="true"
-                width={15}
-                height={15}
-                style={
-                  thumb.markerRotation
-                    ? { transform: `rotate(${thumb.markerRotation}deg)` }
-                    : undefined
-                }
-              />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={thumb.thumbnail.src}
+                    srcSet={thumb.thumbnail.srcSet}
+                    sizes={thumb.thumbnail.sizes}
+                    alt=""
+                    aria-hidden="true"
+                    className="sp-thumb-img"
+                    draggable={false}
+                  />
+                </button>
+                <Image
+                  className="sp-thumb-badge"
+                  src={thumb.markerSrc}
+                  alt=""
+                  aria-hidden="true"
+                  width={15}
+                  height={15}
+                  style={
+                    thumb.markerRotation
+                      ? { transform: `rotate(${thumb.markerRotation}deg)` }
+                      : undefined
+                  }
+                />
+              </div>
             </li>
           ))}
         </ul>

@@ -4,14 +4,13 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import type { SocialProofSlide, QuoteSegment } from './SocialProofSection';
-import { useNearViewport } from '@/lib/useNearViewport';
-
 // ============================================================
 // Types
 // ============================================================
 
 export interface MobileSocialProofThumbnail {
-  video: { webm: string; mp4: string };
+  /** Static thumbnail image — src is the largest size, srcSet covers all available widths */
+  thumbnail: { src: string; srcSet: string; sizes: string };
   /** Width in px at 393px Figma canvas */
   width: number;
   /** Height in px at 852px Figma canvas */
@@ -133,9 +132,7 @@ export function MobileSocialProof({
 }: MobileSocialProofProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const thumbnailVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const slideVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const isNear = useNearViewport(sectionRef, '500px');
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -174,19 +171,6 @@ export function MobileSocialProof({
       closeButtonRef.current.focus({ preventScroll: true });
     }
   }, [activeIndex]);
-
-  useEffect(() => {
-    thumbnailVideoRefs.current.forEach((video) => {
-      if (!video) return;
-      if (isNear) {
-        video.preload = 'auto';
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-        video.preload = 'none';
-      }
-    });
-  }, [isNear]);
 
   useEffect(() => {
     slideVideoRefs.current.forEach((video, i) => {
@@ -235,21 +219,16 @@ export function MobileSocialProof({
             height: `${(thumb.height / CANVAS_H) * 100}%`,
           }}
         >
-          <video
-            ref={(el) => {
-              thumbnailVideoRefs.current[i] = el;
-            }}
-            className="msp-thumbnail-video"
-            muted
-            loop
-            playsInline
-            preload="none"
-            controlsList="nodownload"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={thumb.thumbnail.src}
+            srcSet={thumb.thumbnail.srcSet}
+            sizes={thumb.thumbnail.sizes}
+            alt=""
             aria-hidden="true"
-          >
-            <source src={thumb.video.webm} type="video/webm" />
-            <source src={thumb.video.mp4} type="video/mp4" />
-          </video>
+            className="msp-thumbnail-img"
+            draggable={false}
+          />
           <Image
             src={thumb.markerSrc}
             alt=""
