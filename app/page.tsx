@@ -46,13 +46,22 @@ import {
   SOCIAL_SLIDES,
 } from '@/data';
 
-const HERO_VIDEOS = [
-  { webm: '/videos/hero-autoloop-clips/hero-01.webm', mp4: '/videos/hero-autoloop-clips/hero-01.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-01' },
-  { webm: '/videos/hero-autoloop-clips/hero-02.webm', mp4: '/videos/hero-autoloop-clips/hero-02.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-02' },
-  { webm: '/videos/hero-autoloop-clips/hero-03.webm', mp4: '/videos/hero-autoloop-clips/hero-03.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-03' },
-  { webm: '/videos/hero-autoloop-clips/hero-04.webm', mp4: '/videos/hero-autoloop-clips/hero-04.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-04' },
-  { webm: '/videos/hero-autoloop-clips/hero-05.webm', mp4: '/videos/hero-autoloop-clips/hero-05.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-05' },
-  { webm: '/videos/hero-autoloop-clips/hero-06.webm', mp4: '/videos/hero-autoloop-clips/hero-06.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-06' },
+const HERO_VIDEOS_DESKTOP = [
+  { webm: '/videos/hero-autoloop-clips/hero-01-desktop.webm', mp4: '/videos/hero-autoloop-clips/hero-01-desktop.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-01' },
+  { webm: '/videos/hero-autoloop-clips/hero-02-desktop.webm', mp4: '/videos/hero-autoloop-clips/hero-02-desktop.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-02' },
+  { webm: '/videos/hero-autoloop-clips/hero-03-desktop.webm', mp4: '/videos/hero-autoloop-clips/hero-03-desktop.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-03' },
+  { webm: '/videos/hero-autoloop-clips/hero-04-desktop.webm', mp4: '/videos/hero-autoloop-clips/hero-04-desktop.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-04' },
+  { webm: '/videos/hero-autoloop-clips/hero-05-desktop.webm', mp4: '/videos/hero-autoloop-clips/hero-05-desktop.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-05' },
+  { webm: '/videos/hero-autoloop-clips/hero-06-desktop.webm', mp4: '/videos/hero-autoloop-clips/hero-06-desktop.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-06' },
+];
+
+const HERO_VIDEOS_MOBILE = [
+  { webm: '/videos/hero-autoloop-clips/hero-01-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-01-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-01' },
+  { webm: '/videos/hero-autoloop-clips/hero-02-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-02-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-02' },
+  { webm: '/videos/hero-autoloop-clips/hero-03-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-03-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-03' },
+  { webm: '/videos/hero-autoloop-clips/hero-04-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-04-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-04' },
+  { webm: '/videos/hero-autoloop-clips/hero-05-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-05-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-05' },
+  { webm: '/videos/hero-autoloop-clips/hero-06-mobile.webm', mp4: '/videos/hero-autoloop-clips/hero-06-mobile.mp4', poster: '/videos/hero-autoloop-clips/posters/hero-06' },
 ];
 
 const PRICING_CHIPS = [
@@ -109,7 +118,7 @@ export default async function HomePage() {
               subheadline="A team of experts running your marketing while you run your business."
               cta1Label="Learn more"
               cta2Label="Get started"
-              videoSrcs={HERO_VIDEOS}
+              videoSrcs={HERO_VIDEOS_MOBILE}
               markColor="#6ECC8B"
             />
             {/* Desktop/tablet hero — hidden below 768 px (HeroAnimatic is hidden md:block) */}
@@ -119,7 +128,7 @@ export default async function HomePage() {
               subheadline="A team of experts running your marketing while you run your business."
               cta1Label="Learn more"
               cta2Label="Get started"
-              videoSrcs={HERO_VIDEOS}
+              videoSrcs={HERO_VIDEOS_DESKTOP}
               markColor="#6ECC8B"
             />
             <WorkShowcase

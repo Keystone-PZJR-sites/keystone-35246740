@@ -36,14 +36,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <style>{`html,body{background-color:#042019}`}</style>
 
       {/*
-       * Only the first hero clip gets initial video priority. All other videos
-       * render preload="none" and are unlocked by proximity/interaction gates.
+       * Only the first hero clip gets initial video priority. Desktop/mobile
+       * variants preload independently so each viewport fetches only its own
+       * clip-01 file. All other videos render preload="none" and are unlocked
+       * by proximity/interaction gates.
        */}
       <link
         rel="preload"
-        href="/videos/hero-autoloop-clips/hero-01.webm"
+        href="/videos/hero-autoloop-clips/hero-01-desktop.webm"
         as="video"
         type="video/webm"
+        media="(min-width: 768px)"
+        // @ts-expect-error — fetchpriority is valid but not yet in React's types
+        fetchpriority="high"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/videos/hero-autoloop-clips/hero-01-mobile.webm"
+        as="video"
+        type="video/webm"
+        media="(max-width: 767px)"
         // @ts-expect-error — fetchpriority is valid but not yet in React's types
         fetchpriority="high"
         crossOrigin="anonymous"
