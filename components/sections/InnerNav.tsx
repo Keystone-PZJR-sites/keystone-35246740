@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
+import { KeystoneWordmark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 
 // ---------------------------------------------------------------------------
@@ -9,8 +9,8 @@ import { useLeadCapture } from './LeadCaptureModal';
 // ---------------------------------------------------------------------------
 
 export interface InnerNavProps {
-  /** Path to the Keystone wordmark SVG */
-  wordmarkSrc: string;
+  /** Color for the Keystone wordmark SVG */
+  wordmarkColor?: string;
   /** Label for the CTA button that opens the lead capture modal */
   ctaLabel: string;
 }
@@ -19,7 +19,7 @@ export interface InnerNavProps {
 // Component
 // ---------------------------------------------------------------------------
 
-export function InnerNav({ wordmarkSrc, ctaLabel }: InnerNavProps) {
+export function InnerNav({ wordmarkColor = '#6ECC8B', ctaLabel }: InnerNavProps) {
   const { openModal } = useLeadCapture();
 
   return (
@@ -30,13 +30,12 @@ export function InnerNav({ wordmarkSrc, ctaLabel }: InnerNavProps) {
     >
       <div className="inner-nav-bar max-w-container mx-auto">
         <Link href="/" aria-label="Keystone — return to home page">
-          <Image
-            src={wordmarkSrc}
+          <KeystoneWordmark
+            color={wordmarkColor}
             alt="Keystone"
             width={154}
             height={30}
             className="inner-nav-wordmark"
-            priority
           />
         </Link>
 

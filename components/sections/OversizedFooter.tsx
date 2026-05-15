@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import { KeystoneMark, SocialIcon } from '@/components/elements';
+import { KeystoneMark, KeystoneWordmark, SocialIcon } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
@@ -36,7 +36,7 @@ export interface OversizedFooterProps {
   /** Path to the right-arrow icon used in CTA and Sign Up buttons */
   ctaArrowSrc: string;
   /** Path to the full-width Keystone logotype SVG */
-  keystoneWordmarkSrc: string;
+  keystoneWordmarkColor: string;
   /** Video clip A — businesswoman */
   videoA: { webm: string; mp4: string; poster?: string };
   /** Video clip B — storefront */
@@ -165,7 +165,7 @@ export function OversizedFooter({
   signUpLabel,
   keystoneMarkColor,
   ctaArrowSrc,
-  keystoneWordmarkSrc,
+  keystoneWordmarkColor,
   videoA,
   videoB,
   videoC,
@@ -320,8 +320,8 @@ export function OversizedFooter({
             The legal row is absolutely positioned so its bottom edge aligns
             with the bottom of the wordmark's descender (the "y" tail). */}
         <div className="footer-wordmark-container mt-[60px]">
-          <Image
-            src={keystoneWordmarkSrc}
+          <KeystoneWordmark
+            color={keystoneWordmarkColor}
             alt="keystone"
             className="footer-wordmark-img"
             width={1390}

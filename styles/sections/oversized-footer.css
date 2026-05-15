@@ -174,14 +174,13 @@
 }
 
 /* --- Wordmark SVG.
-   The Figma export has preserveAspectRatio="none" which causes distortion
-   at non-intrinsic sizes. Enforce the correct ratio (from the SVG viewBox
-   "0 0 1389.5 268.297") so letterforms never stretch. --- */
+   Keep the inline wordmark locked to its source viewBox ratio so letterforms
+   never stretch at responsive widths. --- */
 .footer-wordmark-img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1389.5 / 268.297;
+  aspect-ratio: 104 / 20;
 }
 
 /* Container makes the wordmark+legal stack a positioning context so the

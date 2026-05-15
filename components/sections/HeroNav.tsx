@@ -1,10 +1,10 @@
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
-import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
+import { KeystoneWordmark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,10 +15,10 @@ gsap.registerPlugin(ScrollTrigger);
 const VEL_THRESHOLD = 80;
 
 export interface HeroNavProps {
-  wordmarkSrc: string;
+  wordmarkColor?: string;
 }
 
-export function HeroNav({ wordmarkSrc }: HeroNavProps) {
+export function HeroNav({ wordmarkColor = '#6ECC8B' }: HeroNavProps) {
   const navRef = useRef<HTMLElement>(null);
   const { openModal } = useLeadCapture();
 
@@ -66,13 +66,12 @@ export function HeroNav({ wordmarkSrc }: HeroNavProps) {
       aria-label="Main navigation"
     >
       <div className="flex w-full items-center justify-between rounded-full bg-[var(--color-hero-bg)] pl-4 pr-2 py-[7px] md:px-10 md:py-4">
-        <Image
-          src={wordmarkSrc}
+        <KeystoneWordmark
+          color={wordmarkColor}
           alt="Keystone"
           width={154}
           height={30}
           className="h-[18px] w-auto md:h-5"
-          priority
         />
         <div className="flex items-center">
           <button

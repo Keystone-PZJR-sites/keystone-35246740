@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import { KeystoneMark, SocialIcon } from '@/components/elements';
+import { KeystoneMark, KeystoneWordmark, SocialIcon } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
@@ -69,7 +69,7 @@ export function MobileFooter({
   applePodcastsUrl,
   keystoneMarkColor,
   ctaArrowSrc,
-  keystoneWordmarkSrc,
+  keystoneWordmarkColor,
   videoC,
   videoD,
   videoE,
@@ -220,8 +220,8 @@ export function MobileFooter({
           only); CSS in mobile-footer.css sizes the rendered img and pins
           the SVG's viewBox aspect so letterforms never stretch. */}
       <div className="mfooter-wordmark">
-        <Image
-          src={keystoneWordmarkSrc}
+        <KeystoneWordmark
+          color={keystoneWordmarkColor}
           width={345}
           height={67}
           alt="keystone"

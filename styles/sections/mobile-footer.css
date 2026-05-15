@@ -336,18 +336,12 @@
   width: 100%;
 }
 
-/* The exported SVG (public/footer/footer-wordmark.svg) carries
-   preserveAspectRatio="none" + width/height=100%, so it advertises no
-   usable intrinsic aspect ratio. Without an explicit aspect-ratio here,
-   `height: auto` resolves inconsistently with the Image component's
-   width/height props and Next.js logs a "width or height modified, but
-   not the other" warning. Pin the aspect from the SVG's viewBox
-   ("0 0 1389.5 268.297") so letterforms never stretch and the warning
-   never fires — same fix as OversizedFooter (see oversized-footer.css). */
-.mfooter-wordmark img {
+/* Keep the inline wordmark locked to the source viewBox aspect so letters
+   never stretch as the container scales across mobile widths. */
+.mfooter-wordmark :is(img, svg) {
   width: 100%;
   height: auto;
-  aspect-ratio: 1389.5 / 268.297;
+  aspect-ratio: 104 / 20;
   display: block;
 }
 

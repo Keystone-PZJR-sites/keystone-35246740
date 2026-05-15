@@ -19,7 +19,7 @@ import remarkGfm from 'remark-gfm';
 import gsap from 'gsap';
 import { useFormDefinitions } from 'keystone-design-bootstrap/next/contexts/form-definitions';
 import type { FormFieldDefinition, FormFieldItem } from 'keystone-design-bootstrap/types';
-import { KeystoneMark } from '@/components/elements';
+import { KeystoneMark, KeystoneWordmark } from '@/components/elements';
 import { lockScroll } from '@/lib/scrollLock';
 import { classifyField } from '@/lib/leadFormFields';
 import { useLeadSubmit } from '@/lib/useLeadSubmit';
@@ -76,7 +76,7 @@ export function useLeadCapture(): LeadCaptureContextValue {
 
 export interface LeadCaptureProviderProps {
   children: React.ReactNode;
-  wordmarkSrc: string;
+  wordmarkColor: string;
   markColor: string;
   ctaArrowSrc: string;
   submitLabel: string;
@@ -481,7 +481,7 @@ function FormRow({ item, baseIndex, register, caretDownSrc, companyName, termsHr
 interface ModalProps {
   closeModal: () => void;
   overlayRef: React.RefObject<HTMLDivElement | null>;
-  wordmarkSrc: string;
+  wordmarkColor: string;
   markColor: string;
   ctaArrowSrc: string;
   submitLabel: string;
@@ -493,7 +493,7 @@ interface ModalProps {
 function Modal({
   closeModal,
   overlayRef,
-  wordmarkSrc,
+  wordmarkColor,
   markColor,
   ctaArrowSrc,
   submitLabel,
@@ -614,8 +614,8 @@ function Modal({
           <div className="lc-card-inner">
             {submitState === 'success' ? (
               <div className="lc-success">
-                <Image
-                  src={wordmarkSrc}
+                <KeystoneWordmark
+                  color={wordmarkColor}
                   alt="keystone"
                   width={154}
                   height={30}
@@ -629,8 +629,8 @@ function Modal({
               <form onSubmit={handleSubmit(submit)} noValidate>
                 {/* Form header: wordmark + subheadline */}
                 <div className="lc-form-header">
-                  <Image
-                    src={wordmarkSrc}
+                  <KeystoneWordmark
+                    color={wordmarkColor}
                     alt="keystone"
                     width={154}
                     height={30}
@@ -720,7 +720,7 @@ function Modal({
 
 export function LeadCaptureProvider({
   children,
-  wordmarkSrc,
+  wordmarkColor,
   markColor,
   ctaArrowSrc,
   submitLabel,
@@ -798,7 +798,7 @@ export function LeadCaptureProvider({
     <Modal
       closeModal={closeModal}
       overlayRef={overlayRef}
-      wordmarkSrc={wordmarkSrc}
+      wordmarkColor={wordmarkColor}
       markColor={markColor}
       ctaArrowSrc={ctaArrowSrc}
       submitLabel={submitLabel}

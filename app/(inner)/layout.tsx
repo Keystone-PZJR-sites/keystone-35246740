@@ -20,7 +20,7 @@ export default async function InnerLayout({
 
   return (
     <LeadCaptureProvider
-      wordmarkSrc="/images/keystone-wordmark.svg"
+      wordmarkColor="#6ECC8B"
       markColor="#6ECC8B"
       ctaArrowSrc="/lead-capture/lead-capture-cta-arrow.svg"
       submitLabel="Learn More"
@@ -29,7 +29,7 @@ export default async function InnerLayout({
       privacyHref="/privacy-policy"
     >
       <div data-theme="custom">
-        <InnerNav wordmarkSrc="/images/keystone-wordmark.svg" ctaLabel="Get started" />
+        <InnerNav wordmarkColor="#6ECC8B" ctaLabel="Get started" />
         {children}
         <OversizedFooter
           line1="FOR BUSINESSES"
@@ -49,7 +49,7 @@ export default async function InnerLayout({
           linkedinUrl={companyInfo?.linkedin_url}
           keystoneMarkColor="#F57E56"
           ctaArrowSrc="/footer/footer-cta-arrow.svg"
-          keystoneWordmarkSrc="/footer/footer-wordmark.svg"
+          keystoneWordmarkColor="#F57E56"
           videoA={{ webm: '/footer/footer-video-pet-desktop.webm',       mp4: '/footer/footer-video-pet-desktop.mp4',       poster: '/footer/posters/footer-pet' }}
           videoB={{ webm: '/footer/footer-video-truck-desktop.webm',     mp4: '/footer/footer-video-truck-desktop.mp4',     poster: '/footer/posters/footer-truck' }}
           videoC={{ webm: '/footer/footer-video-cafe-desktop.webm',      mp4: '/footer/footer-video-cafe-desktop.mp4',      poster: '/footer/posters/footer-cafe' }}
