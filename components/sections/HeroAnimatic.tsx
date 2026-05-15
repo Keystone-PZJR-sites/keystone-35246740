@@ -244,7 +244,7 @@ export function HeroAnimatic({
       id="hero-animatic"
       ref={sectionRef}
       // hidden md:block — the MobileHero component renders in its place below 768px.
-      className="hidden md:block relative min-h-[100svh] w-full overflow-hidden bg-[#042019]"
+      className="hidden md:block relative min-h-[calc(100svh+2px)] w-full overflow-hidden bg-[#042019]"
     >
       {/* Video frame — inset 24 px (rounded bottom corners) — full-bleed
           background fill behind in-flow content. All clips render with
@@ -293,7 +293,7 @@ export function HeroAnimatic({
       {/* Foreground content layer. Headline is pinned to the video's lower edge;
           lower row is in a dedicated 48px/contents/48px band whose measured
           height determines the video frame bottom inset above. */}
-      <div className="relative z-10 min-h-[100svh]">
+      <div className="relative z-10 min-h-[calc(100svh+2px)]">
         <div
           ref={headlineRef}
           className="pointer-events-none absolute inset-x-0 z-10 px-6"

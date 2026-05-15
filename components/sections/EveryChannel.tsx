@@ -261,7 +261,7 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
         // and the pills are scattered absolutely-positioned overlays at
         // percentages of section bounds — both depend on a definite
         // section height to resolve correctly.
-        className="relative min-h-[100svh] w-full overflow-hidden bg-[#042019] flex items-center justify-center"
+        className="relative min-h-[calc(100svh+2px)] w-full overflow-hidden bg-[#042019] flex items-center justify-center"
         aria-label="Every Channel — Every Interaction. Done-for-you."
       >
         {/* Poster loads only once the section is near the viewport so below-fold
