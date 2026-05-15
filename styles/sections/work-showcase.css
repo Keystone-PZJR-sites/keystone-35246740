@@ -153,13 +153,6 @@
                 filter 800ms 0ms;
   }
 
-  /* Chip */
-  .work-card-item:is(:hover, [data-focused="true"]) .work-card-wrapper .work-chip {
-    opacity: 1;
-    transition-duration: var(--work-card-pill-fade-in-duration);
-  }
-
-
 }
 
 /* Reduced motion: suppress lift, preserve color transitions */
@@ -169,9 +162,6 @@
   }
   .work-card-item[data-focused="true"] .work-card-wrapper {
     transform: none;
-  }
-  .work-chip {
-    transition: none;
   }
 }
 

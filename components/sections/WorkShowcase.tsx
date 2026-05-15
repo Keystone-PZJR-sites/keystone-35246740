@@ -103,6 +103,7 @@ function Chip({ label, bg, color }: { label: string; bg: string; color: string }
 
 export interface RenderWorkCardOptions {
   focused?: boolean;
+  showChip?: boolean;
   load?: boolean;
   loading?: 'eager' | 'lazy';
   fetchPriority?: 'high' | 'low' | 'auto';
@@ -113,6 +114,7 @@ function WorkShowcaseAssetCard({
   chipBg,
   chipText,
   focused = false,
+  showChip = false,
   load = true,
   loading = 'lazy',
   fetchPriority = 'low',
@@ -167,7 +169,7 @@ function WorkShowcaseAssetCard({
           <div className="work-asset-card-placeholder" aria-hidden="true" />
         )}
       </div>
-      <Chip label={card.chipLabel} bg={chipBg} color={chipText} />
+      {showChip ? <Chip label={card.chipLabel} bg={chipBg} color={chipText} /> : null}
     </div>
   );
 }
@@ -522,6 +524,7 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
                   <div key={i} style={{ flexShrink: 0 }}>
                     {renderCard(card, industryIdx * CARDS_PER_INDUSTRY + i, {
                       focused: true,
+                      showChip: true,
                       load: true,
                     })}
                   </div>
@@ -615,6 +618,7 @@ export function WorkShowcase({ headlineParts, industries, cards, staticPreview }
               >
                 {renderCard(card, i, {
                   focused: isVisualFocused,
+                  showChip: isVisualFocused,
                   load: shouldLoad,
                 })}
               </button>
