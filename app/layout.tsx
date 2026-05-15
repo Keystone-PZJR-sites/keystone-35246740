@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
 import { config } from '@/config';
 
@@ -9,9 +9,9 @@ import { config } from '@/config';
 // to change what appears in social share previews.
 // ---------------------------------------------------------------------------
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
   title: "Keystone | Sales & Marketing for Local Businesses",
   description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
-  themeColor: "#042019",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   openGraph: { images: [{ url: '/og-image.png' }] },
   twitter: { card: 'summary_large_image', images: ['/og-image.png'] },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#042019',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
