@@ -55,7 +55,7 @@ export function MobileHero({
 
   return (
     <section
-      className="md:hidden relative overflow-hidden flex flex-col bg-[var(--color-hero-surface)]"
+      className="md:hidden relative overflow-hidden flex flex-col bg-[#042019]"
       aria-label="Hero"
     >
       {/* ── Video zone — top 40 svh ────────────────────────────────────────── */}
@@ -128,12 +128,13 @@ export function MobileHero({
           {subheadline}
         </p>
 
-        {/* CTA pill */}
-        <div className="mt-7 flex w-fit items-center gap-2 rounded-full bg-[var(--color-hero-bg)] p-2 opacity-80">
+        {/* CTA rectangle + pill pair */}
+        <div className="mt-7 flex w-fit items-center gap-4">
           <button
             type="button"
             onClick={(e) => openModal(e.currentTarget)}
-            className="hero-pill-btn bg-[var(--color-hero-surface)] py-3 px-3 text-sm text-[var(--color-hero-accent)] tracking-[-0.01em]"
+            className="hero-pill-btn bg-[#063126] px-3 py-3 text-sm text-[var(--color-hero-accent)] tracking-[-0.01em]"
+            style={{ borderRadius: 0 }}
           >
             {cta1Label}
           </button>

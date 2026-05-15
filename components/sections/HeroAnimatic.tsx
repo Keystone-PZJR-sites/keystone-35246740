@@ -34,8 +34,9 @@ export interface HeroAnimaticProps {
  * first load — sizing it to content would feel anti-climactic on a tall
  * window. Bottom-anchored content sits in normal flow at the section
  * bottom with the standard `--section-padding-y` breathing room, and the
- * entrance timeline (headline slides off-screen, bottom row fades in) plays
- * once via a direct `ScrollTrigger` that fires only after the visitor has
+ * entrance timeline (headline + lower content gently fade/slide in) plays
+ * once the first hero video starts, while the headline slide-off still plays once via a direct
+ * `ScrollTrigger` that fires only after the visitor has
  * scrolled past the section top.
  */
 export function HeroAnimatic({
@@ -50,7 +51,11 @@ export function HeroAnimatic({
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
+  const bottomBandRef = useRef<HTMLDivElement>(null);
   const { openModal } = useLeadCapture();
+  const [bottomBandHeight, setBottomBandHeight] = useState(184);
+  const [isLearnMoreHovered, setIsLearnMoreHovered] = useState(false);
+  const [isGetStartedHovered, setIsGetStartedHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(() => (
     typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
   ));
@@ -65,16 +70,38 @@ export function HeroAnimatic({
   }, []);
 
   useLayoutEffect(() => {
+    const bottomBand = bottomBandRef.current;
+    if (!bottomBand) return;
+
+    const updateBottomBandHeight = () => {
+      setBottomBandHeight(bottomBand.offsetHeight);
+    };
+
+    updateBottomBandHeight();
+
+    const observer = new ResizeObserver(updateBottomBandHeight);
+    observer.observe(bottomBand);
+    window.addEventListener('resize', updateBottomBandHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateBottomBandHeight);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Tablet and desktop with motion: scene-style triggered animation
+      // Tablet and desktop with motion: gentle on-load reveal +
+      // scroll-triggered headline slide-off.
       mm.add(
         '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
         () => {
           const section = sectionRef.current;
           const headline = headlineRef.current;
-          if (!section || !headline) return;
+          const bottomContent = bottomContentRef.current;
+          if (!section || !headline || !bottomContent) return;
 
           // Spec 026: `'-110vh'` was a viewport-fraction string. Capture the
           // visible viewport height once at setup and use it as a concrete
@@ -82,7 +109,53 @@ export function HeroAnimatic({
           // distance up regardless of the section's actual height.
           const offscreen = -window.innerHeight * 1.1;
 
-          // Animation plays at its own pace once triggered — not scrubbed by scroll.
+          let introPlayed = false;
+          let introFallback: number | undefined;
+
+          const playIntro = () => {
+            if (introPlayed) return;
+            introPlayed = true;
+            if (typeof introFallback !== 'undefined') {
+              window.clearTimeout(introFallback);
+            }
+
+            const introTimeline = gsap.timeline();
+            introTimeline.to(headline, {
+              opacity: 1,
+              y: 0,
+              duration: 0.4,
+              ease: 'power2.out',
+              clearProps: 'transform',
+            });
+            introTimeline.to(bottomContent, {
+              opacity: 1,
+              y: 0,
+              duration: 0.4,
+              ease: 'power2.out',
+              clearProps: 'transform',
+            }, 0.5);
+          };
+
+          // Keep intro hidden until the first clip starts playback.
+          gsap.set([headline, bottomContent], { opacity: 0, y: 8 });
+
+          const firstVideo = videoRefs.current[0];
+          const onVideoPlaying = () => playIntro();
+
+          if (firstVideo) {
+            if (!firstVideo.paused && firstVideo.currentTime > 0) {
+              playIntro();
+            } else {
+              firstVideo.addEventListener('play', onVideoPlaying);
+              firstVideo.addEventListener('playing', onVideoPlaying);
+              // Fallback to avoid permanently hidden UI if autoplay is blocked.
+              introFallback = window.setTimeout(playIntro, 700);
+            }
+          } else {
+            introFallback = window.setTimeout(playIntro, 700);
+          }
+
+          // Headline exit plays at its own pace once triggered — not scrubbed by scroll.
           const tl = gsap.timeline({ paused: true });
 
           tl.to(headline, {
@@ -90,13 +163,6 @@ export function HeroAnimatic({
             ease: 'power2.inOut',
             duration: 0.9,
           });
-
-          tl.fromTo(
-            bottomContentRef.current,
-            { opacity: 0 },
-            { opacity: 1, ease: 'power2.out', duration: 0.5 },
-            0.4,
-          );
 
           let played = false;
 
@@ -118,6 +184,16 @@ export function HeroAnimatic({
               });
             },
           });
+
+          return () => {
+            if (typeof introFallback !== 'undefined') {
+              window.clearTimeout(introFallback);
+            }
+            if (firstVideo) {
+              firstVideo.removeEventListener('play', onVideoPlaying);
+              firstVideo.removeEventListener('playing', onVideoPlaying);
+            }
+          };
         },
       );
 
@@ -125,14 +201,43 @@ export function HeroAnimatic({
       mm.add(
         '(min-width: 768px) and (prefers-reduced-motion: reduce)',
         () => {
-          gsap.set(headlineRef.current, { opacity: 0 });
-          gsap.set(bottomContentRef.current, { opacity: 1 });
+          const section = sectionRef.current;
+          const headline = headlineRef.current;
+          if (!section || !headline) return;
+
+          gsap.set([headline, bottomContentRef.current], {
+            opacity: 1,
+            y: 0,
+            clearProps: 'transform',
+          });
+
+          const offscreen = -window.innerHeight * 1.1;
+          let played = false;
+
+          const tl = gsap.timeline({ paused: true });
+          tl.to(headline, {
+            y: offscreen,
+            ease: 'power2.inOut',
+            duration: 0.9,
+          });
+
+          ScrollTrigger.create({
+            id: 'hero-entrance',
+            trigger: section,
+            start: 'top top-=2%',
+            once: true,
+            onEnter: () => {
+              if (played) return;
+              played = true;
+              tl.play(0);
+            },
+          });
         },
       );
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [videoRefs]);
 
   return (
     <section
@@ -146,7 +251,10 @@ export function HeroAnimatic({
           preload="none"; useVideoCarousel unlocks them one at a time using
           the N+1 strategy so only the active clip and the next one ever
           consume bandwidth simultaneously. */}
-      <div className="absolute inset-x-6 top-0 bottom-6 rounded-b-2xl overflow-hidden z-0">
+      <div
+        className="absolute inset-x-6 top-0 rounded-b-2xl overflow-hidden z-0"
+        style={{ bottom: `${bottomBandHeight}px` }}
+      >
         {/* Poster — visible immediately, covered once the first video plays.
             Uses a responsive <picture> so the browser fetches the right size. */}
         {videoSrcs[0]?.poster && (
@@ -182,25 +290,14 @@ export function HeroAnimatic({
         ))}
       </div>
 
-      {/* Bottom-anchored content column — pushes children to the section
-          bottom via min-h-[100svh] + flex-end. padding-bottom uses the
-          standard --section-padding-y token. No top padding (video runs
-          to the top of the section per spec 026 hero exception).
-
-          DOM order matters with justify-end on a flex column: children
-          stack in DOM order, all anchored to the bottom edge. The headline
-          comes first so the bottom content row sits at the very bottom
-          edge (with --section-padding-y breathing room) per Figma node
-          1276:7813. The headline sits directly above and animates up
-          off-screen during the entrance. */}
-      <div className="relative z-10 flex min-h-[100svh] flex-col justify-end pb-[var(--section-padding-y)]">
-        {/* Headline — in normal flow above the bottom content row.
-            GSAP slides this up off-screen during the entrance.
-            pointer-events:none lets clicks pass through to the video region. */}
+      {/* Foreground content layer. Headline is pinned to the video's lower edge;
+          lower row is in a dedicated 48px/contents/48px band whose measured
+          height determines the video frame bottom inset above. */}
+      <div className="relative z-10 min-h-[100svh]">
         <div
           ref={headlineRef}
-          className="px-6 z-10 pointer-events-none"
-          style={{ willChange: 'transform' }}
+          className="pointer-events-none absolute inset-x-0 z-10 px-6"
+          style={{ bottom: `${bottomBandHeight + 24}px`, willChange: 'transform' }}
         >
           {/* "Always ON" — left-anchored 24 px from video left edge */}
           <p
@@ -209,54 +306,89 @@ export function HeroAnimatic({
           >
             {headlineLine1}
           </p>
-          {/* "SALES & MARKETING" — right-anchored 24 px from video right edge */}
-          <p
-            className="leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-right pr-6"
-            style={{ fontSize: 'clamp(3rem, 15vw, 20rem)' }}
-          >
-            {headlineLine2}
-          </p>
-        </div>
-
-        {/* Bottom content row — last in DOM so it sits at the very bottom
-            edge of the section with --section-padding-y breathing room.
-            Asymmetric horizontal padding preserves the Figma anchor:
-            96 px from the left, clamp(24px, 7.64vw, 110px) from the right. */}
-        <div
-          ref={bottomContentRef}
-          className="hero-bottom-content items-end justify-between"
-        >
-          {/* Left: Keystone mark + subheadline */}
-          <div className="flex flex-col items-start gap-3 max-w-[520px]">
+          {/* Second row: K mark and headline share the same bottom edge so the
+              mark stays baseline-aligned with "SALES & MARKETING". */}
+          <div className="flex items-end pl-6 pr-6">
             <KeystoneMark
               color={markColor}
               width={37}
               height={41}
-              className="h-10 w-auto"
+              className="h-10 w-auto shrink-0 translate-x-[2px] -translate-y-[5px]"
               alt="Keystone mark"
             />
-            <p className="font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-2xl leading-[1.2] tracking-[-0.03em]">
-              {subheadline}
+            <p
+              className="flex-1 leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[#f0eee6] uppercase text-right"
+              style={{ fontSize: 'clamp(3rem, 15vw, 20rem)' }}
+            >
+              {headlineLine2}
             </p>
           </div>
+        </div>
 
-          {/* Right: CTA pill with two buttons */}
-          <div className="flex items-center gap-3 rounded-full bg-[var(--color-hero-bg)] p-3">
-            <button
-              type="button"
-              onClick={(e) => openModal(e.currentTarget)}
-              className="hero-pill-btn h-12 bg-[var(--color-hero-surface)] px-4 text-[var(--color-hero-accent)] text-lg tracking-[-0.01em]"
-            >
-              {cta1Label}
-            </button>
-            <button
-              type="button"
-              onClick={(e) => openModal(e.currentTarget)}
-              className="hero-pill-btn h-12 gap-2 bg-[var(--color-hero-accent)] pl-4 pr-3 text-[var(--color-hero-bg)] text-lg tracking-[-0.01em]"
-            >
-              {cta2Label}
-              <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
-            </button>
+        {/* Lower legibility band: 48px top and bottom, with content centered
+            vertically in the available space under the video. */}
+        <div
+          ref={bottomBandRef}
+          className="absolute inset-x-0 bottom-0 px-12 py-12"
+        >
+          <div
+            ref={bottomContentRef}
+            className="hero-bottom-content items-center justify-between"
+          >
+            {/* Left: subheadline */}
+            <p className="max-w-[490px] font-['FK_Grotesk_Neue',sans-serif] text-[#6ecc8b] text-2xl leading-[1.2] tracking-[-0.03em]">
+              {subheadline}
+            </p>
+
+            {/* Right: CTA rectangle + pill pair */}
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onMouseEnter={() => setIsLearnMoreHovered(true)}
+                onMouseLeave={() => setIsLearnMoreHovered(false)}
+                onClick={(e) => openModal(e.currentTarget)}
+                className="inline-flex h-12 cursor-pointer items-center whitespace-nowrap bg-[#063126] px-4 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-accent)]"
+                style={{
+                  borderRadius: isLearnMoreHovered ? '24px' : '0px',
+                  transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
+                }}
+              >
+                {cta1Label}
+              </button>
+              <button
+                type="button"
+                onMouseEnter={() => setIsGetStartedHovered(true)}
+                onMouseLeave={() => setIsGetStartedHovered(false)}
+                onClick={(e) => openModal(e.currentTarget)}
+                className="inline-flex h-12 cursor-pointer items-center gap-2 whitespace-nowrap bg-[var(--color-hero-accent)] pl-4 pr-3 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-bg)]"
+                style={{
+                  borderRadius: isGetStartedHovered ? '0px' : '24px',
+                  transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
+                }}
+              >
+                {cta2Label}
+                <span className="relative inline-flex size-4 overflow-hidden" aria-hidden="true">
+                  <span
+                    className="absolute inset-0"
+                    style={{
+                      transform: isGetStartedHovered ? 'translateX(100%)' : 'translateX(0%)',
+                      transition: 'transform .16s ease-in-out',
+                    }}
+                  >
+                    <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
+                  </span>
+                  <span
+                    className="absolute inset-0"
+                    style={{
+                      transform: isGetStartedHovered ? 'translateX(0%)' : 'translateX(-100%)',
+                      transition: 'transform .16s ease-in-out',
+                    }}
+                  >
+                    <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
+                  </span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

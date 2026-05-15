@@ -11,6 +11,7 @@ import { config } from '@/config';
 export const metadata: Metadata = {
   title: "Keystone | Sales & Marketing for Local Businesses",
   description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
+  themeColor: "#042019",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
