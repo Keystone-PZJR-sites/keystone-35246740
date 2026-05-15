@@ -18,16 +18,8 @@
      inside the rail's own overflow-hidden box.                       */
   overflow-x: clip;
 
-  /* Uniform mobile work-card height. Every slide in every industry rail
-     renders at this exact pixel height so the rail's vertical extent is
-     constant and no slide looks "short" relative to its neighbours.
-     460 px is chosen to match the previous natural-tallest scaled card
-     (sales: 638 × 0.72 ≈ 459 px) so the sales card barely changes scale;
-     web / ads / content upscale modestly (within ~10 %), the social card
-     upscales most (~9 %, since it's the shortest natural card), and
-     listings shrinks from its previous unscaled ~540 px down to 460 px.
-     See `.mws-section .ws-scale-root` below for the per-card scale calc. */
-  --mws-card-h: 460px;
+  /* Uniform mobile work-card height for all rails. */
+  --mws-card-h: 420px;
 }
 
 /* ── Section headline ────────────────────────────────────────────────────

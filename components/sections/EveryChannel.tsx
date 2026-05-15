@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
 import { useNearViewport } from '@/lib/useNearViewport';
 import gsap from 'gsap';
@@ -75,17 +75,28 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { setDesktopRects } = usePillHandoff();
+  const [isDesktop, setIsDesktop] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
+  ));
 
   // Defer video preloading until the section is approaching the viewport.
   // Prevents the 4 Every Channel clips (~10 MB WebM) from competing with the
   // hero video on initial page load.
   const isNear = useNearViewport(sectionRef, '600px');
-  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear });
+  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear && isDesktop });
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
     [pills],
   );
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 768px)');
+    const update = () => setIsDesktop(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -285,8 +296,8 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
             className="absolute inset-0 h-full w-full object-cover"
             aria-hidden="true"
           >
-            <source src={clip.webm} type="video/webm" />
-            <source src={clip.mp4} type="video/mp4" />
+            <source src={clip.webm} type="video/webm" media="(min-width: 768px)" />
+            <source src={clip.mp4} type="video/mp4" media="(min-width: 768px)" />
           </video>
         ))}
 

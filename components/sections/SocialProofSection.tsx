@@ -739,8 +739,8 @@ export function SocialProofSection({
                         preload="none"
                         aria-label={`Testimonial video ${i + 1}`}
                       >
-                        <source src={slide.video.desktop.webm} type="video/webm" />
-                        <source src={slide.video.desktop.mp4} type="video/mp4" />
+                        <source src={slide.video.desktop.webm} type="video/webm" media="(min-width: 768px)" />
+                        <source src={slide.video.desktop.mp4} type="video/mp4" media="(min-width: 768px)" />
                       </video>
                     </div>
                   </div>

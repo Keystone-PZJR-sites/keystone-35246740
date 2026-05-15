@@ -16,6 +16,27 @@ export interface MobileProductScreensProps {
   tools: ProductScreensTool[];
 }
 
+function withAlpha(color: string, alpha: number): string {
+  const normalizedAlpha = Math.max(0, Math.min(1, alpha));
+  const hex = color.trim().replace('#', '');
+
+  if (hex.length === 3) {
+    const r = parseInt(hex[0] + hex[0], 16);
+    const g = parseInt(hex[1] + hex[1], 16);
+    const b = parseInt(hex[2] + hex[2], 16);
+    return `rgba(${r}, ${g}, ${b}, ${normalizedAlpha})`;
+  }
+
+  if (hex.length === 6) {
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${normalizedAlpha})`;
+  }
+
+  return color;
+}
+
 /**
  * Mobile-only Product Screens section (below 768px).
  *
@@ -201,6 +222,10 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
     currentTool.mobileScreenshotSrc ?? currentTool.screenshotLayers[0];
   const mobileCopy = currentTool.mobileCopyText ?? currentTool.copyText;
   const mobileBorder = currentTool.mobileInactiveBorder ?? currentTool.inactiveBorder;
+  const mobileDecoBackground = withAlpha(
+    currentTool.mobileDecoColor,
+    currentTool.mobileDecoOpacity,
+  );
 
   return (
     <div className="mps-mobile-container md:hidden">
@@ -267,8 +292,7 @@ export function MobileProductScreens({ tools }: MobileProductScreensProps) {
         <div
           className="mps-mobile-deco"
           style={{
-            backgroundColor: currentTool.mobileDecoColor,
-            opacity: currentTool.mobileDecoOpacity,
+            backgroundColor: mobileDecoBackground,
           }}
         >
           {/* Mark + tool label + value copy — fixed distance from deco top

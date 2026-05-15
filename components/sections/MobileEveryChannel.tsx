@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
 import { useNearViewport } from '@/lib/useNearViewport';
 import gsap from 'gsap';
@@ -100,16 +100,27 @@ export function MobileEveryChannel({
   const line3Ref   = useRef<HTMLParagraphElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { setMobileRects } = usePillHandoff();
+  const [isMobile, setIsMobile] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+  ));
   // Defer video preloading until the section is near the viewport — matches the
   // desktop EveryChannel pattern. Without this gate all 4 clips fire at T≈908ms
   // alongside the hero, competing for H3 bandwidth.
   const isNear = useNearViewport(sectionRef, '600px');
-  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear });
+  const videoRefs = useVideoCarousel(videoSrcs, { enabled: isNear && isMobile });
 
   const sortedPills = useMemo(
     () => [...pills].sort((a, b) => a.beatIndex - b.beatIndex),
     [pills],
   );
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 767px)');
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -292,8 +303,8 @@ export function MobileEveryChannel({
               className="mec-video"
               aria-hidden="true"
             >
-              <source src={clip.webm} type="video/webm" />
-              <source src={clip.mp4} type="video/mp4" />
+              <source src={clip.webm} type="video/webm" media="(max-width: 767px)" />
+              <source src={clip.mp4} type="video/mp4" media="(max-width: 767px)" />
             </video>
           ))}
         </div>

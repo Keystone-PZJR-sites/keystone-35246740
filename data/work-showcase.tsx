@@ -83,11 +83,11 @@ export const WORK_CARDS: WorkCardData[] = [
   { type: 'web', industryId: 'food', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/food-web-mobile-card-default.webp', focusedSrc: '/work-showcase/cards/food-web-mobile-card-focused.webp', width: 613, height: 1131 } },
 
   // Home & Property — CanopyWorks
-  { type: 'web', industryId: 'home', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/home-web-card-default.webp', focusedSrc: '/work-showcase/cards/home-web-card-focused.webp', width: 1684, height: 1180 } },
-  { type: 'listings', industryId: 'home', chipLabel: 'LISTINGS', visual: { defaultSrc: '/work-showcase/cards/home-listings-card-default.webp', focusedSrc: '/work-showcase/cards/home-listings-card-focused.webp', width: 567, height: 1100 } },
-  { type: 'ads', industryId: 'home', chipLabel: 'ADS', visual: { defaultSrc: '/work-showcase/cards/home-ads-card-default.webp', focusedSrc: '/work-showcase/cards/home-ads-card-focused.webp', width: 555, height: 1199 } },
-  { type: 'social', industryId: 'home', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/home-social-card-default.webp', focusedSrc: '/work-showcase/cards/home-social-card-focused.webp', width: 567, height: 869 } },
-  { type: 'sales', industryId: 'home', chipLabel: 'SALES', visual: { defaultSrc: '/work-showcase/cards/home-sales-card-default.webp', focusedSrc: '/work-showcase/cards/home-sales-card-focused.webp', width: 586, height: 1286 } },
+  { type: 'web', industryId: 'home', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/home-web-card-default.webp', focusedSrc: '/work-showcase/cards/home-web-card-focused.webp', width: 1684, height: 1133 } },
+  { type: 'listings', industryId: 'home', chipLabel: 'LISTINGS', visual: { defaultSrc: '/work-showcase/cards/home-listings-card-default.webp', focusedSrc: '/work-showcase/cards/home-listings-card-focused.webp', width: 567, height: 1054 } },
+  { type: 'ads', industryId: 'home', chipLabel: 'ADS', visual: { defaultSrc: '/work-showcase/cards/home-ads-card-default.webp', focusedSrc: '/work-showcase/cards/home-ads-card-focused.webp', width: 555, height: 1153 } },
+  { type: 'social', industryId: 'home', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/home-social-card-default.webp', focusedSrc: '/work-showcase/cards/home-social-card-focused.webp', width: 567, height: 823 } },
+  { type: 'sales', industryId: 'home', chipLabel: 'SALES', visual: { defaultSrc: '/work-showcase/cards/home-sales-card-default.webp', focusedSrc: '/work-showcase/cards/home-sales-card-focused.webp', width: 586, height: 1239 } },
 
   // Retail & Services — Meridian
   { type: 'web', industryId: 'retail', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/retail-web-card-default.webp', focusedSrc: '/work-showcase/cards/retail-web-card-focused.webp', width: 1684, height: 1133 } },

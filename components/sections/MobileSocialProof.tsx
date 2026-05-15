@@ -81,8 +81,8 @@ function TestimonialSlide({ slide, videoRef }: TestimonialSlideProps) {
           controlsList="nodownload"
           aria-hidden="true"
         >
-          <source src={slide.video.mobile.webm} type="video/webm" />
-          <source src={slide.video.mobile.mp4} type="video/mp4" />
+          <source src={slide.video.mobile.webm} type="video/webm" media="(max-width: 767px)" />
+          <source src={slide.video.mobile.mp4} type="video/mp4" media="(max-width: 767px)" />
         </video>
       </div>
 
