@@ -1,9 +1,10 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowNarrowRight } from '@untitledui/icons';
 import { log } from '@/lib/logger';
 import { useEmblaWithIndex } from '@/lib/useEmblaWithIndex';
 import { useLeadCapture } from './LeadCaptureModal';
@@ -83,6 +84,8 @@ export function ValueProps({
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { openModal } = useLeadCapture();
+  const [isLearnMoreHovered, setIsLearnMoreHovered] = useState(false);
+  const [isGetStartedHovered, setIsGetStartedHovered] = useState(false);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -147,29 +150,49 @@ export function ValueProps({
             {headlineSuffix}
           </p>
           <div className="vp-cta-bubble" aria-label="Page actions">
-            <button type="button" className="vp-cta-learn-more"
+            <button
+              type="button"
+              className="vp-cta-learn-more"
+              onMouseEnter={() => setIsLearnMoreHovered(true)}
+              onMouseLeave={() => setIsLearnMoreHovered(false)}
               onClick={(e) => openModal(e.currentTarget)}
+              style={{
+                borderRadius: isLearnMoreHovered ? '24px' : '0px',
+                transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
+              }}
             >
               {learnMoreLabel}
             </button>
-            <button type="button" className="vp-cta-get-started"
+            <button
+              type="button"
+              className="vp-cta-get-started"
+              onMouseEnter={() => setIsGetStartedHovered(true)}
+              onMouseLeave={() => setIsGetStartedHovered(false)}
               onClick={(e) => openModal(e.currentTarget)}
+              style={{
+                borderRadius: isGetStartedHovered ? '0px' : '24px',
+                transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
+              }}
             >
               {getStartedLabel}
-              {/* Right-arrow icon — 16×16, inline SVG */}
-              <svg
-                width={16}
-                height={16}
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-                className="vp-cta-arrow"
-              >
-                <path
-                  d="M13.854 8.354l-4.5 4.5a.5.5 0 01-.708-.708L12.293 8.5H2.5a.5.5 0 010-1h9.793L8.646 3.854a.5.5 0 11.708-.708l4.5 4.5a.5.5 0 010 .708z"
-                  fill="currentColor"
-                />
-              </svg>
+              <span className="vp-cta-arrow" aria-hidden="true">
+                <span
+                  className="vp-cta-arrow-slide vp-cta-arrow-slide-current"
+                  style={{
+                    transform: isGetStartedHovered ? 'translateX(100%)' : 'translateX(0%)',
+                  }}
+                >
+                  <ArrowNarrowRight size={16} color="#f0eee6" />
+                </span>
+                <span
+                  className="vp-cta-arrow-slide vp-cta-arrow-slide-next"
+                  style={{
+                    transform: isGetStartedHovered ? 'translateX(0%)' : 'translateX(-100%)',
+                  }}
+                >
+                  <ArrowNarrowRight size={16} color="#f0eee6" />
+                </span>
+              </span>
             </button>
           </div>
         </div>
