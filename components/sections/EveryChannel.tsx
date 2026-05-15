@@ -178,7 +178,7 @@ export function EveryChannel({ line1, line2, line3, videoSrcs, pills }: EveryCha
         ScrollTrigger.create({
           id: 'every-channel-entrance',
           trigger: section,
-          start: 'top 80%',
+          start: 'top 50%',
           once: true,
           onEnter: () => {
             if (played) return;

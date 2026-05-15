@@ -200,7 +200,7 @@ export function MobileEveryChannel({
         ScrollTrigger.create({
           id: 'mobile-every-channel-entrance',
           trigger: section,
-          start: 'top 80%',
+          start: 'top 50%',
           once: true,
           onEnter: () => {
             if (played) return;
