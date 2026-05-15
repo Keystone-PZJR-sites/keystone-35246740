@@ -3,13 +3,18 @@ import type { Metadata, Viewport } from "next";
 import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
 import { config } from '@/config';
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ??
+  (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://keystone.app');
+
 // ---------------------------------------------------------------------------
 // Metadata — static so generateMetadata never blocks HTML delivery.
 // The OG image is a static asset at /public/og-image.png — update the file
 // to change what appears in social share previews.
 // ---------------------------------------------------------------------------
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(siteUrl),
   title: "Keystone | Sales & Marketing for Local Businesses",
   description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
   icons: {
