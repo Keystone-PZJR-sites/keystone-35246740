@@ -9,54 +9,30 @@ import {
   useMemo,
   useRef,
   useState,
+  type MouseEvent as ReactMouseEvent,
+  type ReactNode,
+  type RefObject,
 } from 'react';
 import { createPortal } from 'react-dom';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import type { UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import type { FieldErrors, RegisterOptions, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
 import gsap from 'gsap';
+import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { useFormDefinitions } from 'keystone-design-bootstrap/next/contexts/form-definitions';
 import type { FormFieldDefinition, FormFieldItem } from 'keystone-design-bootstrap/types';
 import { KeystoneMark, KeystoneWordmark } from '@/components/elements';
 import { lockScroll } from '@/lib/scrollLock';
 import { classifyField } from '@/lib/leadFormFields';
 import { useLeadSubmit } from '@/lib/useLeadSubmit';
-
-// ─── Phone / country utilities from keystone-design-bootstrap ──────────────
-// countries is imported via a types/keystone-design-bootstrap.d.ts declaration
-// because the package's wildcard export ("./utils/*") is not resolvable by
-// TypeScript's compiler — the bundler resolves it correctly at runtime.
-import countries from 'keystone-design-bootstrap/utils/countries';
-
-type Country = typeof countries[0];
-
-/** Strip the country-code prefix from a full phoneMask to get the national format. */
-function getNationalMask(country: Country | undefined): string {
-  if (!country?.phoneMask) return '';
-  const code = country.phoneCode.startsWith('+') ? country.phoneCode : `+${country.phoneCode}`;
-  const escaped = code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return country.phoneMask.replace(new RegExp(`^\\s*${escaped}[\\s-]*`), '').trim();
-}
-
-/** Format a raw digit string into a mask pattern where '#' is one digit. */
-function formatDigitsToMask(digits: string, mask: string): string {
-  if (digits.length === 0) return '';
-  let i = 0;
-  let out = '';
-  for (const c of mask) {
-    if (c === '#') {
-      if (i < digits.length) out += digits[i++];
-      else break;
-    } else if (i < digits.length) {
-      out += c;
-    }
-  }
-  return out;
-}
-
-// ─── Context ────────────────────────────────────────────────────────────────
+import {
+  CloseButton,
+  CtaDefault,
+  CtaSecondary,
+  MobileNumberInput,
+  Textfield,
+  TextInput,
+} from '@/components/ui';
 
 interface LeadCaptureContextValue {
   openModal: (triggerElement?: HTMLElement) => void;
@@ -72,10 +48,8 @@ export function useLeadCapture(): LeadCaptureContextValue {
   return ctx;
 }
 
-// ─── Provider props ─────────────────────────────────────────────────────────
-
 export interface LeadCaptureProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
   wordmarkColor: string;
   markColor: string;
   ctaArrowSrc: string;
@@ -85,377 +59,132 @@ export interface LeadCaptureProviderProps {
   privacyHref: string;
 }
 
-// ─── Internal: Floating label input ─────────────────────────────────────────
-
-interface FloatingLabelInputProps {
-  id: string;
-  type?: string;
-  placeholder: string;
-  registerProps: UseFormRegisterReturn;
+function fieldError(errors: FieldErrors<Record<string, string>>, fieldName: string): string | undefined {
+  const raw = errors[fieldName]?.message;
+  if (!raw) return undefined;
+  return String(raw);
 }
-
-function FloatingLabelInput({
-  id,
-  type = 'text',
-  placeholder,
-  registerProps,
-}: FloatingLabelInputProps) {
-  // Focused / has-value styling is driven entirely from CSS via :focus-within
-  // and :placeholder-shown — no React state involved. The space placeholder is
-  // what makes :placeholder-shown work as an inverse of hasValue; users never
-  // see it because the input is opacity:0 until active.
-  return (
-    <label htmlFor={id} className="lc-field-wrapper">
-      <span className="lc-field-label">{placeholder}</span>
-      <input
-        id={id}
-        {...registerProps}
-        type={type}
-        placeholder=" "
-        className="lc-field-input"
-        autoComplete={type === 'email' ? 'email' : 'on'}
-      />
-    </label>
-  );
-}
-
-// ─── Internal: Phone input with country code dropdown ──────────────────────
-
-interface PhoneInputProps {
-  id: string;
-  placeholder: string;
-  registerProps: UseFormRegisterReturn;
-  caretDownSrc: string;
-}
-
-function PhoneInput({ id, placeholder, registerProps, caretDownSrc }: PhoneInputProps) {
-  // Focus visual lives in CSS (:focus-within). Country and display value still
-  // need React state because they affect the masked rendering and the value
-  // dispatched into RHF — those are not derivable from the DOM.
-  const [selectedCountryCode, setSelectedCountryCode] = useState('US');
-  const [displayValue, setDisplayValue] = useState('');
-
-  const { ref, name, onChange: rhfOnChange, onBlur: rhfOnBlur } = registerProps;
-
-  const selectedCountry = countries.find((c) => c.code === selectedCountryCode);
-  const nationalMask = getNationalMask(selectedCountry);
-  const phoneCode = selectedCountry
-    ? selectedCountry.phoneCode.startsWith('+')
-      ? selectedCountry.phoneCode
-      : `+${selectedCountry.phoneCode}`
-    : '+1';
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const digits = e.target.value.replace(/\D/g, '');
-    const formatted = nationalMask ? formatDigitsToMask(digits, nationalMask) : digits;
-    setDisplayValue(formatted);
-    const fullValue = formatted ? `${phoneCode} ${formatted}` : '';
-    rhfOnChange({ target: { name, value: fullValue } });
-  };
-
-  const handleCountryChange = (newCode: string) => {
-    setSelectedCountryCode(newCode);
-    setDisplayValue('');
-    rhfOnChange({ target: { name, value: '' } });
-  };
-
-  const maskPlaceholder = nationalMask ? nationalMask.replace(/#/g, '0') : '';
-
-  return (
-    <div className="lc-phone-wrapper">
-      {/* Country code pill — native <select> overlaid invisibly so clicking the pill opens it */}
-      <div className="lc-country-dropdown">
-        <Image src={caretDownSrc} width={16} height={16} alt="" aria-hidden="true" />
-        <span className="lc-country-code">{phoneCode}</span>
-        <select
-          className="lc-country-select"
-          value={selectedCountryCode}
-          aria-label="Country code"
-          onChange={(e) => handleCountryChange(e.target.value)}
-        >
-          {countries.map((c) => {
-            const code = c.phoneCode.startsWith('+') ? c.phoneCode : `+${c.phoneCode}`;
-            return (
-              <option key={c.code} value={c.code}>
-                {c.name} ({code})
-              </option>
-            );
-          })}
-        </select>
-      </div>
-
-      {/* Phone number input — plain, no floating label */}
-      <label htmlFor={id} className="lc-phone-input-wrapper">
-        <input
-          id={id}
-          ref={ref}
-          name={name}
-          type="tel"
-          value={displayValue}
-          className="lc-field-input"
-          placeholder={maskPlaceholder || placeholder}
-          autoComplete="tel-national"
-          onBlur={rhfOnBlur}
-          onChange={handlePhoneChange}
-        />
-      </label>
-    </div>
-  );
-}
-
-// ─── Field classification, identity field lookup, and submit logic all live
-// ─── in `lib/leadFormFields.ts` and `lib/useLeadSubmit.ts`.
-
-// ─── Internal: Checkbox field (single consent checkbox) ─────────────────────
-
-interface CheckboxFieldProps {
-  field: FormFieldDefinition;
-  fieldIndex: number;
-  register: UseFormRegister<Record<string, string>>;
-  companyName: string;
-  termsHref: string;
-  privacyHref: string;
-}
-
-function CheckboxField({
-  field,
-  fieldIndex,
-  register,
-  companyName,
-  termsHref,
-  privacyHref,
-}: CheckboxFieldProps) {
-  const inputId = `lc-field-${fieldIndex}-${field.name}`;
-  const { ref, name, onChange, onBlur } = register(field.name, {
-    required: field.required ?? false,
-  });
-
-  // Replace {{company_name}} with the actual company name
-  const companyNameClean = companyName.replace(/\*\*/g, '').trim();
-  let labelText = companyNameClean
-    ? (field.label ?? '').replace(/\{\{company_name\}\}/gi, companyNameClean)
-    : (field.label ?? '');
-
-  // Inject ToS / Privacy links for the consent field
-  if (field.name === 'tos_privacy_consent' && termsHref && privacyHref) {
-    labelText = labelText
-      .replace(/\*\*Terms of Service\*\*/gi, `**[Terms of Service](${termsHref})**`)
-      .replace(/\*\*Privacy Policy\*\*/gi, `**[Privacy Policy](${privacyHref})**`);
-  }
-
-  return (
-    <div className="lc-checkbox-row">
-      <div className="lc-checkbox-control">
-        <input
-          id={inputId}
-          ref={ref}
-          name={name}
-          type="checkbox"
-          className="lc-checkbox-input"
-          onChange={onChange}
-          onBlur={onBlur}
-          aria-describedby={`${inputId}-label`}
-        />
-        <div className="lc-checkbox-visual" aria-hidden="true" />
-      </div>
-      <label
-        htmlFor={inputId}
-        id={`${inputId}-label`}
-        className="lc-checkbox-label"
-      >
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            p: ({ children }) => <span>{children}</span>,
-            strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-            a: ({ href, children }) => (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="lc-checkbox-link"
-              >
-                {children}
-              </a>
-            ),
-          }}
-        >
-          {labelText}
-        </ReactMarkdown>
-      </label>
-    </div>
-  );
-}
-
-// ─── Internal: Checkbox group field (multiple selectable options) ──────────
-
-interface CheckboxGroupFieldProps {
-  field: FormFieldDefinition;
-  fieldIndex: number;
-  companyName: string;
-}
-
-function CheckboxGroupField({ field, fieldIndex, companyName }: CheckboxGroupFieldProps) {
-  const [selected, setSelected] = useState<string[]>([]);
-  const options = field.options ?? [];
-  const companyNameClean = companyName.replace(/\*\*/g, '').trim();
-  const legendText = companyNameClean
-    ? (field.label ?? '').replace(/\{\{company_name\}\}/gi, companyNameClean)
-    : (field.label ?? '');
-
-  const toggle = (value: string) => {
-    setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
-    );
-  };
-
-  return (
-    <fieldset className="lc-checkbox-group-fieldset">
-      {legendText && (
-        <legend className="lc-checkbox-group-legend">{legendText}</legend>
-      )}
-      {/* Hidden input carries the comma-separated selection on submit */}
-      <input type="hidden" name={field.name} value={selected.join(',')} />
-      <div className="lc-checkbox-group-options">
-        {options.map((opt, i) => {
-          const optId = `lc-field-${fieldIndex}-${field.name}-${i}`;
-          const checked = selected.includes(opt.value);
-          return (
-            <div key={opt.value} className="lc-checkbox-row">
-              <div className="lc-checkbox-control">
-                <input
-                  id={optId}
-                  type="checkbox"
-                  className="lc-checkbox-input"
-                  checked={checked}
-                  onChange={() => toggle(opt.value)}
-                />
-                <div className="lc-checkbox-visual" aria-hidden="true" />
-              </div>
-              <label htmlFor={optId} className="lc-checkbox-label">
-                {opt.label}
-              </label>
-            </div>
-          );
-        })}
-      </div>
-    </fieldset>
-  );
-}
-
-// ─── Internal: Render a single form field ──────────────────────────────────
 
 interface FormFieldProps {
   field: FormFieldDefinition;
   fieldIndex: number;
   register: UseFormRegister<Record<string, string>>;
-  caretDownSrc: string;
-  companyName: string;
-  termsHref: string;
-  privacyHref: string;
+  errors: FieldErrors<Record<string, string>>;
 }
 
-function FormField({ field, fieldIndex, register, caretDownSrc, companyName, termsHref, privacyHref }: FormFieldProps) {
+function FormField({
+  field,
+  fieldIndex,
+  register,
+  errors,
+}: FormFieldProps) {
   const inputId = `lc-field-${fieldIndex}-${field.name}`;
   const placeholder = field.placeholder || field.label || '';
-  const registerProps = register(field.name, { required: field.required ?? false });
   const classification = classifyField(field);
+  const messageLabel = field.label || placeholder || 'This field';
+  const errorEntry = errors[field.name];
+  const error = errorEntry ? (fieldError(errors, field.name) ?? `${messageLabel} is required`) : undefined;
 
   switch (classification.kind) {
     case 'hidden':
-      return (
-        <input
-          type="hidden"
-          value={field.value ?? ''}
-          {...register(field.name)}
-        />
-      );
+      return <input type="hidden" value={field.value ?? ''} {...register(field.name)} />;
 
     case 'checkbox':
-      return (
-        <CheckboxField
-          field={field}
-          fieldIndex={fieldIndex}
-          register={register}
-          companyName={companyName}
-          termsHref={termsHref}
-          privacyHref={privacyHref}
-        />
-      );
+      return null;
 
     case 'checkbox_group':
-      return (
-        <CheckboxGroupField
-          field={field}
-          fieldIndex={fieldIndex}
-          companyName={companyName}
-        />
-      );
+      return null;
 
-    case 'textarea':
+    case 'textarea': {
+      const registerOptions: RegisterOptions<Record<string, string>, string> = {
+        required: field.required ? `${messageLabel} is required` : false,
+      };
+      const registerProps = register(field.name, registerOptions);
       return (
-        <div className="lc-textarea-wrapper">
-          <label htmlFor={inputId} className="sr-only">
-            {field.label}
-          </label>
-          <textarea
-            id={inputId}
-            className="lc-textarea"
-            placeholder={placeholder}
-            {...registerProps}
-          />
-        </div>
-      );
-
-    case 'phone':
-      return (
-        <PhoneInput
+        <Textfield
           id={inputId}
-          placeholder={placeholder}
-          registerProps={registerProps}
-          caretDownSrc={caretDownSrc}
+          value={placeholder}
+          registerProps={registerProps as UseFormRegisterReturn}
+          error={Boolean(error)}
+          errorMessage={error}
+          state="default"
         />
       );
+    }
+
+    case 'phone': {
+      const phoneLabel = 'MOBILE PHONE';
+      const registerOptions: RegisterOptions<Record<string, string>, string> = {
+        required: field.required ? `${messageLabel} is required` : false,
+      };
+      const registerProps = register(field.name, registerOptions);
+      return (
+        <MobileNumberInput
+          id={inputId}
+          registerProps={registerProps as UseFormRegisterReturn}
+          error={Boolean(error)}
+          errorMessage={error}
+          label={phoneLabel || 'MOBILE PHONE'}
+          state="default"
+        />
+      );
+    }
 
     case 'email':
-    case 'text':
+    case 'text': {
+      const registerOptions: RegisterOptions<Record<string, string>, string> = {
+        required: field.required ? `${messageLabel} is required` : false,
+      };
+      if (classification.kind === 'email') {
+        registerOptions.pattern = {
+          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          message: 'Please enter a valid email address.',
+        };
+      }
+      const registerProps = register(field.name, registerOptions);
       return (
-        <FloatingLabelInput
+        <TextInput
           id={inputId}
           type={classification.kind === 'email' ? 'email' : 'text'}
-          placeholder={placeholder}
-          registerProps={registerProps}
+          registerProps={registerProps as UseFormRegisterReturn}
+          error={Boolean(error)}
+          errorMessage={error}
+          label={classification.kind === 'email' ? 'EMAIL' : placeholder}
+          property1="default"
         />
       );
+    }
   }
 }
-
-// ─── Internal: Render a form row (one or more fields side-by-side) ─────────
 
 interface FormRowProps {
   item: FormFieldItem;
   baseIndex: number;
   register: UseFormRegister<Record<string, string>>;
-  caretDownSrc: string;
-  companyName: string;
-  termsHref: string;
-  privacyHref: string;
+  errors: FieldErrors<Record<string, string>>;
 }
 
-function FormRow({ item, baseIndex, register, caretDownSrc, companyName, termsHref, privacyHref }: FormRowProps) {
+function FormRow({
+  item,
+  baseIndex,
+  register,
+  errors,
+}: FormRowProps) {
   if (Array.isArray(item)) {
+    const visibleFields = item.filter((field) => {
+      const kind = classifyField(field).kind;
+      return kind !== 'checkbox' && kind !== 'checkbox_group';
+    });
+    if (visibleFields.length === 0) return null;
     return (
-      <div className="lc-field-row">
-        {item.map((field, i) => (
+      <div className="lc-field-row lc-reveal-row">
+        {visibleFields.map((field, i) => (
           <div key={field.name} className="lc-field-row-item">
             <FormField
               field={field}
               fieldIndex={baseIndex + i}
               register={register}
-              caretDownSrc={caretDownSrc}
-              companyName={companyName}
-              termsHref={termsHref}
-              privacyHref={privacyHref}
+              errors={errors}
             />
           </div>
         ))}
@@ -464,250 +193,366 @@ function FormRow({ item, baseIndex, register, caretDownSrc, companyName, termsHr
   }
 
   return (
-    <FormField
-      field={item}
-      fieldIndex={baseIndex}
-      register={register}
-      caretDownSrc={caretDownSrc}
-      companyName={companyName}
-      termsHref={termsHref}
-      privacyHref={privacyHref}
-    />
+    <div className="lc-reveal-row">
+      <FormField
+        field={item}
+        fieldIndex={baseIndex}
+        register={register}
+        errors={errors}
+      />
+    </div>
   );
 }
 
-// ─── Internal: Modal ────────────────────────────────────────────────────────
-
 interface ModalProps {
   closeModal: () => void;
-  overlayRef: React.RefObject<HTMLDivElement | null>;
-  wordmarkColor: string;
+  overlayRef: RefObject<HTMLDivElement | null>;
   markColor: string;
   ctaArrowSrc: string;
   submitLabel: string;
   subheadline: string;
   termsHref: string;
   privacyHref: string;
+  mode?: 'modal' | 'standalone';
 }
 
 function Modal({
   closeModal,
   overlayRef,
-  wordmarkColor,
   markColor,
   ctaArrowSrc,
   submitLabel,
   subheadline,
   termsHref,
   privacyHref,
+  mode = 'modal',
 }: ModalProps) {
+  void subheadline;
+  const isStandalone = mode === 'standalone';
+
   const { leadFormDefinition } = useFormDefinitions();
-  const { register, handleSubmit, reset } = useForm<Record<string, string>>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Record<string, string>>();
   const cardRef = useRef<HTMLDivElement>(null);
+  const formShellRef = useRef<HTMLDivElement>(null);
+  const successShellRef = useRef<HTMLDivElement>(null);
+  const subheadlineDesktopRef = useRef<HTMLParagraphElement>(null);
+  const subheadlineMobileRef = useRef<HTMLParagraphElement>(null);
+  const formTitleRef = useRef<HTMLHeadingElement>(null);
+  const [showSuccessContent, setShowSuccessContent] = useState(false);
+  const isStandaloneClosingRef = useRef(false);
 
   const fields = leadFormDefinition?.fields ?? [];
-
   const { state: submitState, errorMessage, submit } = useLeadSubmit({
     fields,
     formId: leadFormDefinition?.id,
     onSuccess: reset,
   });
+  const isProcessing = submitState === 'submitting' || submitState === 'success';
 
-  // Escape key handler
+  const requestClose = useCallback(() => {
+    if (!isStandalone || typeof window === 'undefined' || window.innerWidth >= 640) {
+      closeModal();
+      return;
+    }
+    if (isStandaloneClosingRef.current) return;
+    const overlay = overlayRef.current;
+    const card = cardRef.current;
+    if (!overlay || !card) {
+      closeModal();
+      return;
+    }
+
+    isStandaloneClosingRef.current = true;
+    gsap
+      .timeline({
+        onComplete: () => {
+          closeModal();
+        },
+      })
+      .to(card, { y: 36, duration: 0.24, ease: 'power3.in' }, 0)
+      .to(overlay, { opacity: 0, duration: 0.2, ease: 'power1.in' }, 0);
+  }, [closeModal, isStandalone, overlayRef]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') requestClose();
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [closeModal]);
+  }, [requestClose]);
 
-  // Move focus into the modal — but to the dialog container, not any field.
-  // Focusing First Name (Spec 008's original behaviour) triggered 1Password
-  // and similar extensions to surface their autofill dropdown the instant the
-  // modal opened. Focusing the card keeps keyboard users inside the modal
-  // (Escape works, Tab walks fields in order) without activating an input.
-  // See Spec 028 and `docs/rules/rules.md` § Focus management. preventScroll
-  // keeps the viewport anchored — focusing inside a freshly-portaled modal
-  // could otherwise trigger the browser's "scroll into view" behaviour.
   useLayoutEffect(() => {
+    if (window.innerWidth < 640) return;
     cardRef.current?.focus({ preventScroll: true });
-  }, []);
+  }, [overlayRef]);
 
-  // Size the overlay to the visual viewport so the soft keyboard can't
-  // bury the submit button or the message field on mobile. The overlay is
-  // position:fixed and the layout viewport doesn't shrink when the keyboard
-  // appears (especially on iOS Safari), so without this, position:fixed +
-  // inset:0 covers the area behind the keyboard. visualViewport.height
-  // reflects the actual visible area; we mirror it onto the overlay and
-  // re-sync on resize (keyboard up/down, device rotation). Fallback to
-  // 100dvh in CSS covers the SSR-to-first-paint window and the no-API case.
   useLayoutEffect(() => {
-    const vv = window.visualViewport;
+    const card = cardRef.current;
     const overlay = overlayRef.current;
-    if (!vv || !overlay) return;
-    const sync = () => {
-      overlay.style.height = `${vv.height}px`;
+    if (!card) return;
+    const vv = window.visualViewport;
+    let hasFocusedEditable = false;
+
+    const isEditable = (element: Element | null): element is HTMLElement =>
+      Boolean(
+        element instanceof HTMLElement &&
+          element.matches('input, textarea, select, [contenteditable=""], [contenteditable="true"]')
+      );
+
+    const applyKeyboardPadding = () => {
+      if (window.innerWidth >= 640 || !hasFocusedEditable) {
+        card.style.setProperty('--lc-keyboard-pad', '0px');
+        overlay?.style.setProperty('--lc-keyboard-pad', '0px');
+        return;
+      }
+      const keyboardHeight = vv ? Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop)) : 0;
+      const value = `${keyboardHeight}px`;
+      card.style.setProperty('--lc-keyboard-pad', value);
+      overlay?.style.setProperty('--lc-keyboard-pad', value);
     };
-    sync();
-    vv.addEventListener('resize', sync);
+
+    const onFocusIn = (event: FocusEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      if (!isEditable(target)) return;
+      hasFocusedEditable = true;
+      applyKeyboardPadding();
+      window.setTimeout(() => {
+        target.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }, 120);
+    };
+
+    const onFocusOut = () => {
+      window.setTimeout(() => {
+        const active = document.activeElement;
+        hasFocusedEditable = isEditable(active) && card.contains(active);
+        applyKeyboardPadding();
+      }, 50);
+    };
+
+    card.addEventListener('focusin', onFocusIn);
+    card.addEventListener('focusout', onFocusOut);
+    vv?.addEventListener('resize', applyKeyboardPadding);
+    window.addEventListener('orientationchange', applyKeyboardPadding);
+
     return () => {
-      vv.removeEventListener('resize', sync);
-      overlay.style.height = '';
+      card.removeEventListener('focusin', onFocusIn);
+      card.removeEventListener('focusout', onFocusOut);
+      vv?.removeEventListener('resize', applyKeyboardPadding);
+      window.removeEventListener('orientationchange', applyKeyboardPadding);
+      card.style.setProperty('--lc-keyboard-pad', '0px');
+      overlay?.style.setProperty('--lc-keyboard-pad', '0px');
     };
   }, [overlayRef]);
 
-  // Auto-close after success
+  useLayoutEffect(() => {
+    if (!isStandalone || typeof window === 'undefined' || window.innerWidth >= 640) return;
+    const overlay = overlayRef.current;
+    const card = cardRef.current;
+    if (!overlay || !card) return;
+    isStandaloneClosingRef.current = false;
+    gsap.set(overlay, { opacity: 0 });
+    gsap.set(card, { y: 40 });
+    const tl = gsap
+      .timeline()
+      .to(overlay, { opacity: 1, duration: 0.2, ease: 'power1.out' }, 0)
+      .to(card, { y: 0, duration: 0.28, ease: 'power3.out' }, 0);
+    return () => {
+      tl.kill();
+    };
+  }, [isStandalone, overlayRef]);
+
   useEffect(() => {
     if (submitState !== 'success') return;
+    if (isStandalone && typeof window !== 'undefined' && window.innerWidth < 640) {
+      window.sessionStorage.setItem('lc-mobile-success-overlay', '1');
+      requestClose();
+      return;
+    }
     const timer = setTimeout(() => {
-      closeModal();
-    }, 3000);
+      requestClose();
+    }, 3500);
     return () => clearTimeout(timer);
-  }, [submitState, closeModal]);
+  }, [submitState, requestClose, isStandalone]);
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) closeModal();
+  useLayoutEffect(() => {
+    if (submitState !== 'success' || !cardRef.current || !formShellRef.current) return;
+    const card = cardRef.current;
+    const formShell = formShellRef.current;
+    const subheadlineDesktop = subheadlineDesktopRef.current;
+    const subheadlineMobile = subheadlineMobileRef.current;
+    const formTitle = formTitleRef.current;
+    const successHeight = window.innerWidth < 640 ? 122 : 226;
+    const cardRect = card.getBoundingClientRect();
+    const collapseDelta = Math.max(0, cardRect.height - successHeight);
+    card.scrollTop = 0;
+    const fadeTargets = [formShell, subheadlineDesktop, subheadlineMobile, formTitle].filter(
+      Boolean
+    ) as HTMLElement[];
+
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const tl = gsap.timeline();
+      tl.to(fadeTargets, { opacity: 0, y: -6, duration: 0.2, ease: 'power1.inOut' }, 0);
+      tl.call(() => setShowSuccessContent(true), [], 0.2);
+      tl.to(
+        card,
+        {
+          height: successHeight,
+          y: collapseDelta,
+          duration: 0.36,
+          ease: 'power2.in',
+        },
+        0.2
+      );
+    });
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      setShowSuccessContent(true);
+    });
+    return () => mm.revert();
+  }, [submitState]);
+
+  useLayoutEffect(() => {
+    if (!showSuccessContent || !successShellRef.current) return;
+    const successShell = successShellRef.current;
+    gsap.fromTo(
+      successShell,
+      { opacity: 0, y: 6 },
+      { opacity: 1, y: 0, duration: 0.4, ease: 'power1.inOut' }
+    );
+  }, [showSuccessContent]);
+
+  const handleBackdropClick = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (isStandalone) return;
+    if (e.target === e.currentTarget) requestClose();
   };
-
-  const companyName = leadFormDefinition?.company_name ?? '';
 
   return (
     <div
       ref={overlayRef}
-      className="lc-overlay"
+      className={clsx('lc-overlay', isStandalone && 'lc-overlay--standalone')}
       role="dialog"
       aria-modal="true"
       aria-label="Get in touch with Keystone"
-      onClick={handleBackdropClick}
+      onClick={isStandalone ? undefined : handleBackdropClick}
     >
-      {/* Fixed backdrop — covers full viewport even when overlay is scrolled */}
-      <div className="lc-backdrop" aria-hidden="true" />
-
-      {/* Scrollable content area */}
-      <div className="lc-content-area" aria-hidden="false" onClick={handleBackdropClick}>
-        {/* Keystone K mark floating above card */}
-        <div className="lc-kmark-wrapper" aria-hidden="true">
-          <KeystoneMark color={markColor} width={38} height={43} />
-        </div>
-
-        {/* Form card. tabIndex={-1} so it can receive programmatic focus on
-            modal open without entering the natural Tab order (Spec 028). */}
+      {!isStandalone && <div className="lc-backdrop" aria-hidden="true" />}
+      <div className="lc-content-area" onClick={isStandalone ? undefined : handleBackdropClick}>
+        {isStandalone && (
+          <button type="button" className="lc-standalone-nav" onClick={requestClose}>
+            <KeystoneWordmark color="#F8F7F2" width={104} height={20} className="lc-standalone-nav-wordmark" />
+          </button>
+        )}
         <div
           ref={cardRef}
-          className="lc-card"
+          className={clsx(
+            'lc-card',
+            submitState === 'success' && 'lc-card--success',
+            isStandalone && 'lc-card--standalone'
+          )}
           role="document"
           tabIndex={-1}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Card background SVG (folded top-right corner) */}
-          <Image
-            src="/lead-capture/lead-capture-card-bg.svg"
-            className="lc-card-bg"
-            alt=""
-            aria-hidden="true"
-            width={480}
-            height={599}
-          />
-
-          {/* Card content */}
           <div className="lc-card-inner">
-            {submitState === 'success' ? (
-              <div className="lc-success">
-                <KeystoneWordmark
-                  color={wordmarkColor}
-                  alt="keystone"
-                  width={154}
-                  height={30}
-                  className="lc-wordmark"
-                />
-                <p className="lc-success-message">
-                  Thanks for reaching out! Our team will be in touch shortly.
+            <div className="lc-header-row lc-reveal-row">
+              <KeystoneMark color={markColor} width={31} height={34} />
+              {!showSuccessContent && (
+                <p ref={subheadlineMobileRef} className="lc-subheadline lc-subheadline-mobile">
+                  <span>Keystone is the </span>
+                  <span className="lc-subheadline-emphasis">modern sales and marketing team</span>
+                  <span> for local businesses.</span>
                 </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit(submit)} noValidate>
-                {/* Form header: wordmark + subheadline */}
-                <div className="lc-form-header">
-                  <KeystoneWordmark
-                    color={wordmarkColor}
-                    alt="keystone"
-                    width={154}
-                    height={30}
-                    className="lc-wordmark"
-                  />
-                  <p className="lc-subheadline">{subheadline}</p>
-                </div>
+              )}
+              <CloseButton className="lc-desktop-close" onClick={requestClose} />
+            </div>
 
-                {/* Form fields — compute start indices ahead of render */}
-                <div className="lc-form-stack">
-                  {(() => {
-                    let counter = 0;
-                    return fields.map((item) => {
-                      const startIndex = counter;
-                      counter += Array.isArray(item) ? item.length : 1;
-                      return (
-                        <FormRow
-                          key={Array.isArray(item) ? item.map((f) => f.name).join('-') : item.name}
-                          item={item}
-                          baseIndex={startIndex}
-                          register={register}
-                          caretDownSrc="/lead-capture/lead-capture-caret-down.svg"
-                          companyName={companyName}
-                          termsHref={termsHref}
-                          privacyHref={privacyHref}
-                        />
-                      );
-                    });
-                  })()}
+            {!showSuccessContent && (
+              <>
+                <p ref={subheadlineDesktopRef} className="lc-subheadline lc-subheadline-desktop lc-reveal-row">
+                  <span>Keystone is the </span>
+                  <span className="lc-subheadline-emphasis">modern sales and marketing team</span>
+                  <span> for local businesses.</span>
+                </p>
+                <h2 ref={formTitleRef} className="lc-form-title lc-reveal-row">
+                  TELL US ABOUT <span>YOUR BUSINESS</span>
+                </h2>
+              </>
+            )}
 
-                  {/* Error message */}
-                  {submitState === 'error' && errorMessage && (
-                    <p className="lc-error-message" role="alert">
-                      {errorMessage}
-                    </p>
-                  )}
-                </div>
-
-                {/* Bottom row: Terms/Privacy links + Submit button */}
-                <div className="lc-bottom-row">
-                  <div className="lc-legal-links">
-                    <a
-                      href={termsHref}
-                      className="lc-legal-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Terms
-                    </a>
-                    <a
-                      href={privacyHref}
-                      className="lc-legal-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Privacy
-                    </a>
+            {!showSuccessContent && (
+              <div ref={formShellRef} className="lc-form-shell">
+                <form onSubmit={handleSubmit(submit)} noValidate>
+                  <div className="lc-form-stack">
+                    {(() => {
+                      let counter = 0;
+                      return fields.map((item) => {
+                        const startIndex = counter;
+                        counter += Array.isArray(item) ? item.length : 1;
+                        return (
+                          <FormRow
+                            key={Array.isArray(item) ? item.map((f) => f.name).join('-') : item.name}
+                            item={item}
+                            baseIndex={startIndex}
+                            register={register}
+                            errors={errors}
+                          />
+                        );
+                      });
+                    })()}
+                    {submitState === 'error' && errorMessage && (
+                      <p className="lc-error-message" role="alert">
+                        {errorMessage}
+                      </p>
+                    )}
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={submitState === 'submitting'}
-                    className="lc-submit-btn"
-                    aria-label={submitLabel}
-                  >
-                    <span>{submitLabel}</span>
-                    <Image
-                      src={ctaArrowSrc}
-                      width={20}
-                      height={20}
-                      alt=""
-                      aria-hidden="true"
-                      className="lc-submit-arrow"
-                    />
-                  </button>
-                </div>
-              </form>
+                  <div className={clsx('lc-bottom-row lc-reveal-row', isProcessing && 'lc-bottom-row--submitting')}>
+                    <p className="lc-terms-copy">
+                      By submitting you agree to our{' '}
+                      <a href={termsHref} target="_blank" rel="noopener noreferrer">
+                        Terms
+                      </a>{' '}
+                      &{' '}
+                      <a href={privacyHref} target="_blank" rel="noopener noreferrer">
+                        Privacy
+                      </a>
+                      .
+                    </p>
+                    <div className={clsx('lc-cta-row', isProcessing && 'lc-cta-row--submitting')}>
+                      <CtaSecondary
+                        onClick={requestClose}
+                        className={clsx('lc-cta-secondary-desktop', isProcessing && 'lc-cta-secondary--submitting')}
+                      />
+                      <CtaSecondary
+                        onClick={requestClose}
+                        className={clsx('lc-cta-secondary-mobile', isProcessing && 'lc-cta-secondary--submitting')}
+                        mobileIconOnly
+                      />
+                      <CtaDefault
+                        type="submit"
+                        disabled={isProcessing}
+                        isLoading={isProcessing}
+                        label={submitLabel}
+                        arrowSrc={ctaArrowSrc}
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {showSuccessContent && (
+              <div ref={successShellRef} className="lc-success-shell">
+                <h3 className="lc-success-title">
+                  THANK YOU <span>WE&apos;LL BE IN TOUCH</span>
+                </h3>
+              </div>
             )}
           </div>
         </div>
@@ -716,7 +561,41 @@ function Modal({
   );
 }
 
-// ─── Provider ──────────────────────────────────────────────────────────────
+export interface LeadCaptureStandaloneProps {
+  markColor: string;
+  ctaArrowSrc: string;
+  submitLabel: string;
+  subheadline: string;
+  termsHref: string;
+  privacyHref: string;
+  onClose: () => void;
+}
+
+export function LeadCaptureStandalone({
+  markColor,
+  ctaArrowSrc,
+  submitLabel,
+  subheadline,
+  termsHref,
+  privacyHref,
+  onClose,
+}: LeadCaptureStandaloneProps) {
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+
+  return (
+    <Modal
+      closeModal={onClose}
+      overlayRef={overlayRef}
+      markColor={markColor}
+      ctaArrowSrc={ctaArrowSrc}
+      submitLabel={submitLabel}
+      subheadline={subheadline}
+      termsHref={termsHref}
+      privacyHref={privacyHref}
+      mode="standalone"
+    />
+  );
+}
 
 export function LeadCaptureProvider({
   children,
@@ -730,14 +609,22 @@ export function LeadCaptureProvider({
 }: LeadCaptureProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [displayModal, setDisplayModal] = useState(false);
+  const [mobileSuccessVisible, setMobileSuccessVisible] = useState(false);
+  const mobileSuccessRef = useRef<HTMLDivElement | null>(null);
   const triggerElementRef = useRef<HTMLElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   const openModal = useCallback((triggerElement?: HTMLElement) => {
+    if (window.innerWidth < 640) {
+      router.push('/get-in-touch');
+      return;
+    }
+    setMobileSuccessVisible(false);
     if (triggerElement) triggerElementRef.current = triggerElement;
     setIsOpen(true);
     setDisplayModal(true);
-  }, []);
+  }, [router]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
@@ -748,57 +635,100 @@ export function LeadCaptureProvider({
     [openModal, closeModal, isOpen]
   );
 
-  // Prevent body scroll when modal is open. `lockScroll()` returns the unlock
-  // function so cleanup can never accidentally lock when it should unlock.
-  // Branches to ScrollSmoother.paused() on the homepage; otherwise pins the
-  // body via position:fixed (iOS-Safari-safe). See `lib/scrollLock.ts`.
   useEffect(() => {
     if (!displayModal) return;
+    if (window.innerWidth < 640) return;
     return lockScroll();
   }, [displayModal]);
 
-  // Animate in when modal becomes visible
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth >= 640) return;
+    if (displayModal) return;
+    const shouldShowSuccess = window.sessionStorage.getItem('lc-mobile-success-overlay') === '1';
+    if (!shouldShowSuccess) return;
+    window.sessionStorage.removeItem('lc-mobile-success-overlay');
+    queueMicrotask(() => {
+      setMobileSuccessVisible(true);
+    });
+  }, [displayModal]);
+
+  useEffect(() => {
+    if (!mobileSuccessVisible || !mobileSuccessRef.current) return;
+    const el = mobileSuccessRef.current;
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' }
+    );
+    const timer = window.setTimeout(() => setMobileSuccessVisible(false), 3500);
+    return () => window.clearTimeout(timer);
+  }, [mobileSuccessVisible]);
+
   useLayoutEffect(() => {
     if (!displayModal || !overlayRef.current) return;
+    const overlay = overlayRef.current;
+    const card = overlay.querySelector('.lc-card');
+    const revealRows = overlay.querySelectorAll('.lc-reveal-row');
+    if (!card) return;
+
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      gsap.set(revealRows, { opacity: 0, y: 8 });
+      const tl = gsap.timeline();
+      tl.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.out' }, 0);
+      tl.fromTo(
+        card,
+        isDesktop ? { xPercent: 110 } : { yPercent: 110 },
+        { xPercent: 0, yPercent: 0, duration: 0.3, ease: 'power3.out' },
+        0
+      );
+      tl.to(revealRows, { opacity: 1, y: 0, duration: 0.2, stagger: 0.04, ease: 'power1.out' }, 0.3);
     });
     mm.add('(prefers-reduced-motion: reduce)', () => {
-      gsap.set(overlayRef.current, { opacity: 1 });
+      gsap.set(overlay, { opacity: 1 });
+      gsap.set(card, { xPercent: 0, yPercent: 0 });
+      gsap.set(revealRows, { opacity: 1, y: 0 });
     });
     return () => mm.revert();
   }, [displayModal]);
 
-  // Animate out when isOpen flips to false
   useEffect(() => {
     if (isOpen || !displayModal) return;
-    const mm = gsap.matchMedia();
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.to(overlayRef.current, {
-        opacity: 0,
-        duration: 0.2,
-        ease: 'power2.in',
-        onComplete: () => {
-          setDisplayModal(false);
-          triggerElementRef.current?.focus({ preventScroll: true });
-          triggerElementRef.current = null;
-        },
-      });
-    });
-    mm.add('(prefers-reduced-motion: reduce)', () => {
+    const overlay = overlayRef.current;
+    const card = overlay?.querySelector('.lc-card');
+    if (!overlay || !card) return;
+
+    const completeClose = () => {
       setDisplayModal(false);
       triggerElementRef.current?.focus({ preventScroll: true });
       triggerElementRef.current = null;
+    };
+
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      const tl = gsap.timeline({ onComplete: completeClose });
+      tl.to(
+        card,
+        isDesktop ? { xPercent: 110, duration: 0.25, ease: 'power4.in' } : { yPercent: 110, duration: 0.25, ease: 'power4.in' },
+        0
+      );
+      tl.to(overlay, { opacity: 0, duration: 0.2, ease: 'power1.in' }, 0);
+    });
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      completeClose();
     });
     return () => mm.revert();
   }, [isOpen, displayModal]);
+
+  void wordmarkColor;
 
   const modal = displayModal ? (
     <Modal
       closeModal={closeModal}
       overlayRef={overlayRef}
-      wordmarkColor={wordmarkColor}
       markColor={markColor}
       ctaArrowSrc={ctaArrowSrc}
       submitLabel={submitLabel}
@@ -812,6 +742,32 @@ export function LeadCaptureProvider({
     <LeadCaptureContext.Provider value={contextValue}>
       {children}
       {typeof window !== 'undefined' && displayModal && createPortal(modal, document.body)}
+      {typeof window !== 'undefined' && mobileSuccessVisible && createPortal(
+        <div className="lc-mobile-success-overlay" role="status" aria-live="polite">
+          <div ref={mobileSuccessRef} className="lc-mobile-success-card">
+            <h3 className="lc-mobile-success-text">
+              THANK YOU <span>WE&apos;LL BE IN TOUCH</span>
+            </h3>
+            <button
+              type="button"
+              className="lc-mobile-success-close"
+              aria-label="Close success message"
+              onClick={() => setMobileSuccessVisible(false)}
+            >
+              <svg
+                className="lc-mobile-success-close-icon"
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </LeadCaptureContext.Provider>
   );
 }
+

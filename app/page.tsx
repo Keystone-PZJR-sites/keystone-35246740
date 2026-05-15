@@ -110,7 +110,7 @@ export default async function HomePage() {
       wordmarkColor="#6ECC8B"
       markColor="#6ECC8B"
       ctaArrowSrc="/lead-capture/lead-capture-cta-arrow.svg"
-      submitLabel="Learn More"
+      submitLabel="Get in touch"
       subheadline="The modern sales and marketing team for local businesses. Reach out below to connect with our team."
       termsHref="/terms-of-service"
       privacyHref="/privacy-policy"

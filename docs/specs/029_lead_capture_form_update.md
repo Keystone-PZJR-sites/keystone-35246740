@@ -67,7 +67,7 @@ The overlay covers the full viewport edge to edge including the navigation bar, 
 
 The card is **708px wide** and occupies the right half of the screen. It is pinned to the right edge of the viewport with a **24px margin** on the right and top. The bottom of the card stops 24px from the bottom of the viewport. The card does not extend behind the navigation bar — the 24px top margin clears it.
 
-The Keystone K mark and wordmark that appeared floating above the card in Spec 008 do not appear in this layout. The wordmark and K mark are part of the card header instead (see Card header below).
+The Keystone K mark that appeared floating above the card in Spec 008 does not appear in this layout. The K mark is part of the card header instead (see Card header below). The wordmark is not in the card header.
 
 ### Card shape
 

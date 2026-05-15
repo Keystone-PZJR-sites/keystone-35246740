@@ -90,17 +90,20 @@ export function useLeadSubmit({
           return;
         }
 
-        // Hash and store identity for Meta advanced matching, then fire Lead.
-        // captureEvent is a silent no-op when PostHog is not configured.
-        await setPixelUserData({
-          email: identity.emailFieldName ? values[identity.emailFieldName] : undefined,
-          phone: identity.phoneFieldName ? values[identity.phoneFieldName] : undefined,
-        });
-        firePixelEvent('Lead', undefined, result.eventId);
-        captureEvent('form_submitted', {
-          form_type: 'lead',
-          ...(result.eventId && { event_id: result.eventId }),
-        });
+        // Tracking should never downgrade a successful backend submit to UI error.
+        try {
+          await setPixelUserData({
+            email: identity.emailFieldName ? values[identity.emailFieldName] : undefined,
+            phone: identity.phoneFieldName ? values[identity.phoneFieldName] : undefined,
+          });
+          firePixelEvent('Lead', undefined, result.eventId);
+          captureEvent('form_submitted', {
+            form_type: 'lead',
+            ...(result.eventId && { event_id: result.eventId }),
+          });
+        } catch {
+          // no-op: backend submit already succeeded
+        }
 
         setState('success');
         onSuccess?.();

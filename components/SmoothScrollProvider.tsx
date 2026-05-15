@@ -29,33 +29,42 @@ export function SmoothScrollProvider({ children, fixedChildren }: SmoothScrollPr
     // run on mobile so the overlay serves no purpose there.
     if (overlayRef.current && window.innerWidth < 768) {
       overlayRef.current.style.display = 'none';
+      return;
     }
-
-    const smoother = ScrollSmoother.create({
-      wrapper: '#smooth-wrapper',
-      content: '#smooth-content',
-      smooth: 1.5,
-      effects: true,
-    });
-
-    // Fade out the loading overlay once ScrollSmoother + all child
-    // ScrollTriggers are initialised. The overlay blocks scroll input and
-    // hides the font-swap flash during the brief setup window.
-    if (overlayRef.current) {
-      gsap.to(overlayRef.current, {
-        opacity: 0,
-        duration: 0.4,
-        delay: 0.1,
-        ease: 'power1.in',
-        onComplete: () => {
-          if (overlayRef.current) {
-            overlayRef.current.style.display = 'none';
-          }
-        },
+    let smoother: ScrollSmoother | null = null;
+    try {
+      smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 1.5,
+        effects: true,
       });
+
+      // Fade out the loading overlay once ScrollSmoother + all child
+      // ScrollTriggers are initialised. The overlay blocks scroll input and
+      // hides the font-swap flash during the brief setup window.
+      if (overlayRef.current) {
+        gsap.to(overlayRef.current, {
+          opacity: 0,
+          duration: 0.4,
+          delay: 0.1,
+          ease: 'power1.in',
+          onComplete: () => {
+            if (overlayRef.current) {
+              overlayRef.current.style.display = 'none';
+            }
+          },
+        });
+      }
+    } catch {
+      // Failsafe: never leave the loading overlay covering the app.
+      if (overlayRef.current) {
+        overlayRef.current.style.display = 'none';
+        overlayRef.current.style.opacity = '0';
+      }
     }
 
-    return () => smoother.kill();
+    return () => smoother?.kill();
   }, []);
 
   return (
