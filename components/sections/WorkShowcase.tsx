@@ -169,7 +169,13 @@ function WorkShowcaseAssetCard({
           <div className="work-asset-card-placeholder" aria-hidden="true" />
         )}
       </div>
-      {showChip ? <Chip label={card.chipLabel} bg={chipBg} color={chipText} /> : null}
+      <div
+        className="work-chip-slot"
+        data-visible={showChip ? 'true' : 'false'}
+        aria-hidden={showChip ? undefined : 'true'}
+      >
+        <Chip label={card.chipLabel} bg={chipBg} color={chipText} />
+      </div>
     </div>
   );
 }

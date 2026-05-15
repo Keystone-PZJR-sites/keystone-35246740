@@ -113,6 +113,21 @@
   background: transparent;
 }
 
+.work-chip-slot {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--work-card-pill-fade-out-duration) var(--work-card-state-fade-ease),
+              visibility 0s linear var(--work-card-pill-fade-out-duration);
+}
+
+.work-chip-slot[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition-duration: var(--work-card-pill-fade-in-duration), 0s;
+  transition-delay: 0ms, 0ms;
+}
+
 @keyframes work-card-asset-enter {
   from {
     opacity: 0;
