@@ -33,11 +33,14 @@ export interface HeroAnimaticProps {
  * entry hook for the page and is designed to fill the visible viewport on
  * first load — sizing it to content would feel anti-climactic on a tall
  * window. Bottom-anchored content sits in normal flow at the section
- * bottom with the standard `--section-padding-y` breathing room, and the
- * entrance timeline (headline + lower content gently fade/slide in) plays
- * once the first hero video starts, while the headline slide-off still plays once via a direct
- * `ScrollTrigger` that fires only after the visitor has
- * scrolled past the section top.
+ * bottom with the standard `--section-padding-y` breathing room.
+ *
+ * Entrance choreography (Spec 031): a three-phase GSAP timeline fires
+ * immediately on hydration — headline first, then video frame, then the
+ * bottom row (subheadline + CTAs). This is no longer gated on the first
+ * video's `play` event. The headline slide-off still plays once via a
+ * `ScrollTrigger` that fires only after the visitor has scrolled past
+ * the section top.
  */
 export function HeroAnimatic({
   headlineLine1,
@@ -52,6 +55,7 @@ export function HeroAnimatic({
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const bottomBandRef = useRef<HTMLDivElement>(null);
+  const videoFrameRef = useRef<HTMLDivElement>(null);
   const { openModal } = useLeadCapture();
   const [bottomBandHeight, setBottomBandHeight] = useState(184);
   const [isLearnMoreHovered, setIsLearnMoreHovered] = useState(false);
@@ -93,72 +97,54 @@ export function HeroAnimatic({
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Tablet and desktop with motion: gentle on-load reveal +
-      // scroll-triggered headline slide-off.
+      // Tablet and desktop with motion: three-phase entrance choreography
+      // (Spec 031) + scroll-triggered headline slide-off.
       mm.add(
         '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
         () => {
           const section = sectionRef.current;
           const headline = headlineRef.current;
           const bottomContent = bottomContentRef.current;
-          if (!section || !headline || !bottomContent) return;
+          const videoFrame = videoFrameRef.current;
+          if (!section || !headline || !bottomContent || !videoFrame) return;
 
-          // Spec 026: `'-110vh'` was a viewport-fraction string. Capture the
-          // visible viewport height once at setup and use it as a concrete
-          // pixel offset so the headline still slides the same visible
-          // distance up regardless of the section's actual height.
           const offscreen = -window.innerHeight * 1.1;
 
-          let introPlayed = false;
-          let introFallback: number | undefined;
+          // Spec 031 — set initial hidden state, then play immediately.
+          gsap.set([headline, bottomContent], { opacity: 0, y: 24 });
+          gsap.set(videoFrame, { opacity: 0 });
 
-          const playIntro = () => {
-            if (introPlayed) return;
-            introPlayed = true;
-            if (typeof introFallback !== 'undefined') {
-              window.clearTimeout(introFallback);
-            }
+          const introTimeline = gsap.timeline();
 
-            const introTimeline = gsap.timeline();
-            introTimeline.to(headline, {
-              opacity: 1,
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.out',
-              clearProps: 'transform',
-            });
-            introTimeline.to(bottomContent, {
-              opacity: 1,
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.out',
-              clearProps: 'transform',
-            }, 0.5);
-          };
+          // Phase 1: headline
+          introTimeline.to(headline, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            clearProps: 'transform',
+          });
 
-          // Keep intro hidden until the first clip starts playback.
-          gsap.set([headline, bottomContent], { opacity: 0, y: 8 });
+          // Phase 2: video/poster frame (starts 200 ms after Phase 1)
+          introTimeline.to(videoFrame, {
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+          }, 0.2);
 
-          const firstVideo = videoRefs.current[0];
-          const onVideoPlaying = () => playIntro();
-
-          if (firstVideo) {
-            if (!firstVideo.paused && firstVideo.currentTime > 0) {
-              playIntro();
-            } else {
-              firstVideo.addEventListener('play', onVideoPlaying);
-              firstVideo.addEventListener('playing', onVideoPlaying);
-              // Fallback to avoid permanently hidden UI if autoplay is blocked.
-              introFallback = window.setTimeout(playIntro, 700);
-            }
-          } else {
-            introFallback = window.setTimeout(playIntro, 700);
-          }
+          // Phase 3: bottom row (starts 300 ms after Phase 1)
+          introTimeline.to(bottomContent, {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+            clearProps: 'transform',
+          }, 0.3);
 
           // Headline exit plays at its own pace once triggered — not scrubbed by scroll.
-          const tl = gsap.timeline({ paused: true });
+          const exitTl = gsap.timeline({ paused: true });
 
-          tl.to(headline, {
+          exitTl.to(headline, {
             y: offscreen,
             ease: 'power2.inOut',
             duration: 0.9,
@@ -169,40 +155,27 @@ export function HeroAnimatic({
           ScrollTrigger.create({
             id: 'hero-entrance',
             trigger: section,
-            // `top top-=2%` fires once the section's top has scrolled 2 % past
-            // the viewport top — i.e. the visitor must have started scrolling.
-            // This replaces the old `fireOnScroll: true` behaviour and prevents
-            // the entrance from playing on initial page load.
             start: 'top top-=2%',
             once: true,
             onEnter: () => {
               if (played) return;
               played = true;
               log('hero-entrance', 'ANIM_START');
-              tl.play(0).then(() => {
+              exitTl.play(0).then(() => {
                 log('hero-entrance', 'ANIM_COMPLETE');
               });
             },
           });
-
-          return () => {
-            if (typeof introFallback !== 'undefined') {
-              window.clearTimeout(introFallback);
-            }
-            if (firstVideo) {
-              firstVideo.removeEventListener('play', onVideoPlaying);
-              firstVideo.removeEventListener('playing', onVideoPlaying);
-            }
-          };
         },
       );
 
-      // Reduced motion: skip animation entirely, show end state immediately
+      // Reduced motion: show end state immediately, no entrance animation.
       mm.add(
         '(min-width: 768px) and (prefers-reduced-motion: reduce)',
         () => {
           const section = sectionRef.current;
           const headline = headlineRef.current;
+          const videoFrame = videoFrameRef.current;
           if (!section || !headline) return;
 
           gsap.set([headline, bottomContentRef.current], {
@@ -210,12 +183,13 @@ export function HeroAnimatic({
             y: 0,
             clearProps: 'transform',
           });
+          if (videoFrame) gsap.set(videoFrame, { opacity: 1 });
 
           const offscreen = -window.innerHeight * 1.1;
           let played = false;
 
-          const tl = gsap.timeline({ paused: true });
-          tl.to(headline, {
+          const exitTl = gsap.timeline({ paused: true });
+          exitTl.to(headline, {
             y: offscreen,
             ease: 'power2.inOut',
             duration: 0.9,
@@ -229,7 +203,7 @@ export function HeroAnimatic({
             onEnter: () => {
               if (played) return;
               played = true;
-              tl.play(0);
+              exitTl.play(0);
             },
           });
         },
@@ -252,6 +226,7 @@ export function HeroAnimatic({
           the N+1 strategy so only the active clip and the next one ever
           consume bandwidth simultaneously. */}
       <div
+        ref={videoFrameRef}
         className="absolute inset-x-6 top-0 rounded-b-2xl overflow-hidden z-0"
         style={{ bottom: `${bottomBandHeight}px` }}
       >

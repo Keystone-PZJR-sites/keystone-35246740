@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/components/elements';
 import { useLeadCapture } from './LeadCaptureModal';
@@ -28,6 +29,10 @@ export interface MobileHeroProps {
  * (mark + headline + subheadline + CTA) sits below it at its intrinsic
  * height. The section's overall height is the sum of those two.
  *
+ * Entrance choreography (Spec 031): same three-phase sequence as desktop
+ * — video frame, then content (mark + headline), then bottom row
+ * (subheadline + CTAs). Fires immediately on hydration.
+ *
  * Shown via `md:hidden` — the desktop HeroAnimatic uses `hidden md:block`.
  */
 export function MobileHero({
@@ -40,6 +45,10 @@ export function MobileHero({
   markColor,
 }: MobileHeroProps) {
   const { openModal } = useLeadCapture();
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoZoneRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(() => (
     typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
   ));
@@ -53,15 +62,67 @@ export function MobileHero({
     return () => query.removeEventListener('change', update);
   }, []);
 
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
+        const videoZone = videoZoneRef.current;
+        const headline = headlineRef.current;
+        const bottom = bottomRef.current;
+        if (!videoZone || !headline || !bottom) return;
+
+        gsap.set(videoZone, { opacity: 0 });
+        gsap.set(headline, { opacity: 0, y: 24 });
+        gsap.set(bottom, { opacity: 0, y: 24 });
+
+        const intro = gsap.timeline();
+
+        intro.to(videoZone, {
+          opacity: 1,
+          duration: 0.6,
+          ease: 'power2.out',
+        });
+
+        intro.to(headline, {
+          opacity: 1, y: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+          clearProps: 'transform',
+        }, 0.15);
+
+        intro.to(bottom, {
+          opacity: 1, y: 0,
+          duration: 0.4,
+          ease: 'power2.out',
+          clearProps: 'transform',
+        }, 0.35);
+      });
+
+      mm.add('(max-width: 767px) and (prefers-reduced-motion: reduce)', () => {
+        const videoZone = videoZoneRef.current;
+        const headline = headlineRef.current;
+        const bottom = bottomRef.current;
+        if (!videoZone || !headline || !bottom) return;
+
+        gsap.set(videoZone, { opacity: 1 });
+        gsap.set([headline, bottom], { opacity: 1, y: 0, clearProps: 'transform' });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="md:hidden relative overflow-hidden flex flex-col bg-[#042019]"
       aria-label="Hero"
     >
       {/* ── Video zone — top 40 svh ────────────────────────────────────────── */}
       {/* Full-bleed, no side insets. The fixed HeroNav overlays the top via   */}
       {/* its own z-50 fixed positioning.                                      */}
-      <div className="relative w-full flex-none h-[40svh] overflow-hidden">
+      <div ref={videoZoneRef} className="relative w-full flex-none h-[40svh] overflow-hidden">
         {videoSrcs[0]?.poster && (
           <picture className="absolute inset-0">
             <source
@@ -99,53 +160,53 @@ export function MobileHero({
       {/* overflow-hidden is a guard against the headline's clamp pushing the  */}
       {/* layout past its expected bounds on extremely narrow viewports.       */}
       <div className="overflow-hidden px-6 pt-10 pb-6">
-        <KeystoneMark
-          color={markColor}
-          width={36}
-          height={41}
-          alt="Keystone mark"
-        />
+        <div ref={headlineRef}>
+          <KeystoneMark
+            color={markColor}
+            width={36}
+            height={41}
+            alt="Keystone mark"
+          />
 
-        {/* Headline — 28 px gap below mark. Two lines rendered as two        */}
-        {/* paragraphs; natural wrapping produces the Figma layout.            */}
-        <div className="mt-7">
-          <p
-            className="font-['FK_Screamer',sans-serif] font-bold not-italic uppercase leading-[0.82] text-[var(--color-hero-text)]"
-            style={{ fontSize: 'clamp(3.5rem, 23vw, 5.625rem)' }}
-          >
-            {headlineLine1}
-          </p>
-          <p
-            className="font-['FK_Screamer',sans-serif] font-bold not-italic uppercase leading-[0.82] text-[var(--color-hero-text)]"
-            style={{ fontSize: 'clamp(3.5rem, 23vw, 5.625rem)' }}
-          >
-            {headlineLine2}
-          </p>
+          <div className="mt-7">
+            <p
+              className="font-['FK_Screamer',sans-serif] font-bold not-italic uppercase leading-[0.82] text-[var(--color-hero-text)]"
+              style={{ fontSize: 'clamp(3.5rem, 23vw, 5.625rem)' }}
+            >
+              {headlineLine1}
+            </p>
+            <p
+              className="font-['FK_Screamer',sans-serif] font-bold not-italic uppercase leading-[0.82] text-[var(--color-hero-text)]"
+              style={{ fontSize: 'clamp(3.5rem, 23vw, 5.625rem)' }}
+            >
+              {headlineLine2}
+            </p>
+          </div>
         </div>
 
-        {/* Subheadline */}
-        <p className="mt-5 font-['FK_Grotesk_Neue',sans-serif] text-base leading-[1.2] tracking-[-0.03em] text-[var(--color-hero-accent)]">
-          {subheadline}
-        </p>
+        <div ref={bottomRef}>
+          <p className="mt-5 font-['FK_Grotesk_Neue',sans-serif] text-base leading-[1.2] tracking-[-0.03em] text-[var(--color-hero-accent)]">
+            {subheadline}
+          </p>
 
-        {/* CTA rectangle + pill pair */}
-        <div className="mt-7 flex w-fit items-center gap-4">
-          <button
-            type="button"
-            onClick={(e) => openModal(e.currentTarget)}
-            className="hero-pill-btn bg-[#063126] px-3 py-3 text-sm text-[var(--color-hero-accent)] tracking-[-0.01em]"
-            style={{ borderRadius: 0 }}
-          >
-            {cta1Label}
-          </button>
-          <button
-            type="button"
-            onClick={(e) => openModal(e.currentTarget)}
-            className="hero-pill-btn gap-2 bg-[var(--color-hero-accent)] py-3 pl-3 pr-[10px] text-sm text-[var(--color-hero-bg)] tracking-[-0.01em]"
-          >
-            {cta2Label}
-            <ArrowNarrowRight size={12} color="var(--color-hero-bg)" />
-          </button>
+          <div className="mt-7 flex w-fit items-center gap-4">
+            <button
+              type="button"
+              onClick={(e) => openModal(e.currentTarget)}
+              className="hero-pill-btn bg-[#063126] px-3 py-3 text-sm text-[var(--color-hero-accent)] tracking-[-0.01em]"
+              style={{ borderRadius: 0 }}
+            >
+              {cta1Label}
+            </button>
+            <button
+              type="button"
+              onClick={(e) => openModal(e.currentTarget)}
+              className="hero-pill-btn gap-2 bg-[var(--color-hero-accent)] py-3 pl-3 pr-[10px] text-sm text-[var(--color-hero-bg)] tracking-[-0.01em]"
+            >
+              {cta2Label}
+              <ArrowNarrowRight size={12} color="var(--color-hero-bg)" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
