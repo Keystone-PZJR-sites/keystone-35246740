@@ -9,31 +9,40 @@ the initial network wave unless it is needed for the hero.
 
 Allowed during initial load:
 
-- HTML document and critical CSS.
-- Critical above-the-fold FK font preloads.
-- Hero poster image.
-- Exactly one video preload: `/videos/hero-autoloop-clips/hero-01.webm`.
+- HTML document and critical CSS (inline `html,body{background-color:#042019}`).
+- Critical above-the-fold FK font preloads (Screamer Bold, GroteskNeue Regular +
+  Italic, RomanStandard Regular).
+- Hero poster image (responsive `<picture>`, `fetchPriority="high"`).
+- Hero video preload — media-gated so each viewport fetches only its own clip:
+  - `hero-01-desktop.webm` at `(min-width: 768px)`
+  - `hero-01-mobile.webm` at `(max-width: 767px)`
 - Core JavaScript required for hydration and above-the-fold interaction.
 
 Not allowed during initial load:
 
 - Google font declarations for decorative mock cards.
-- Non-first hero clips.
+- Non-first hero clips (`hero-02` through `hero-06`).
 - WorkShowcase card images.
 - EveryChannel videos.
-- SocialProof thumbnail or modal videos.
+- SocialProof thumbnail images or modal videos.
 - Footer videos.
 - Media from a CSS-hidden desktop/mobile counterpart.
 
 ## Hero
 
-The first hero video is the only video with document-level preload priority.
-The actual hero `<video>` elements still render with `preload="none"` so the
-carousel hook owns sequencing. The hook may unlock clip 0 immediately for the
-active viewport variant, then one clip ahead after playback starts.
+The first hero clip is the only video with document-level `<link rel="preload">`
+priority (`fetchpriority="high"`). Desktop and mobile each have their own
+preload tag gated by a `media` attribute so only one fires per viewport.
 
-Desktop and mobile hero variants must be media-query gated in JavaScript. A
-CSS-hidden hero must not unlock its carousel after hydration.
+In JSX, clip 0 renders with `preload="auto"` and `autoPlay` so it can start
+immediately. Clips 1–N render `preload="none"`. The `useVideoCarousel` hook owns
+sequencing from that point: it unlocks exactly one clip ahead (N+1 strategy) so
+at most two clips consume bandwidth simultaneously.
+
+Desktop and mobile hero variants are media-query gated in JavaScript via
+`useVideoCarousel(..., { enabled: isDesktop | isMobile })`. A CSS-hidden hero
+must not unlock its carousel after hydration. The `enabled` flag prevents the
+hook from flipping `preload` or calling `play()` for the inactive breakpoint.
 
 ## WorkShowcase
 
@@ -51,23 +60,35 @@ decorative type. Rasterized card text is not SEO content.
 
 ## Below-Fold Videos
 
-EveryChannel videos render `preload="none"` and start only when the section is
-near the viewport.
+All below-fold sections share the `useNearViewport` hook, which wraps
+`IntersectionObserver` with a configurable `rootMargin`. A 1 500 ms startup
+delay prevents GSAP ScrollSmoother's mount-time transforms from causing false
+intersections that would fire all sections' observers simultaneously and compete
+with the hero.
 
-SocialProof thumbnail videos render `preload="none"` and start only when the
-section is near the viewport. Full testimonial/modal videos render
-`preload="none"` and load only when the modal opens.
+**EveryChannel** — videos render `preload="none"`. `useNearViewport` with a
+600 px margin gates `useVideoCarousel({ enabled: isNear })`. Playback and N+1
+preload begin only after the section crosses the proximity threshold.
 
-Footer videos render `preload="none"` and start only when the footer is near the
-viewport. Footer media should never compete with the hero.
+**SocialProof** — thumbnails are static WebP images (`loading="lazy"`), not
+videos. Modal/testimonial videos render `preload="none"` and remain inert until
+the user opens the modal. On open, the active slide upgrades to `preload="auto"`
++ `load()` + `play()`; adjacent slides (±1, wrapping) get `preload="metadata"`;
+distant slides stay `"none"`. On close, all videos reset to `preload="none"`.
+
+**Footer** — videos render `preload="none"`. `useNearViewport` with a 1 200 px
+(desktop) / 500 px (mobile) margin flips a `ready` flag; an effect then sets
+`preload="auto"` and calls `play()`. Footer media should never compete with the
+hero.
 
 ## Validation Checklist
 
 Use a HAR after major loading changes. A healthy trace should show:
 
 - No Google font burst from WorkShowcase.
-- `hero-01.webm` starts in the first wave.
-- `hero-02.webm` through `hero-06.webm` do not all start together.
+- `hero-01-desktop.webm` / `hero-01-mobile.webm` starts in the first wave.
+- `hero-02` through `hero-06` clips do not all start together.
 - WorkShowcase card images wait until section proximity.
-- EveryChannel, SocialProof, and Footer videos wait for proximity or interaction.
+- EveryChannel and Footer videos wait for proximity (1 500 ms + rootMargin).
+- SocialProof modal videos show zero requests until the modal opens.
 - Hidden mobile/desktop variants do not emit eager media requests.
