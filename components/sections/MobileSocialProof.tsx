@@ -78,7 +78,7 @@ function TestimonialSlide({ slide, videoRef }: TestimonialSlideProps) {
           loop
           playsInline
           preload="none"
-          poster={slide.video.mobilePoster}
+          data-poster={slide.video.mobilePoster}
           controlsList="nodownload"
           aria-hidden="true"
         >
@@ -189,6 +189,9 @@ export function MobileSocialProof({
     slideVideoRefs.current.forEach((video, i) => {
       if (!video) return;
       if (activeIndex === i) {
+        if (!video.poster && video.dataset.poster) {
+          video.poster = video.dataset.poster;
+        }
         video.preload = 'auto';
         video.load();
         video.play().catch(() => {});
@@ -196,6 +199,9 @@ export function MobileSocialProof({
         video.pause();
         const isAdjacent =
           activeIndex !== null && Math.abs(i - activeIndex) === 1;
+        if (isAdjacent && !video.poster && video.dataset.poster) {
+          video.poster = video.dataset.poster;
+        }
         video.preload = isAdjacent ? 'metadata' : 'none';
       }
     });

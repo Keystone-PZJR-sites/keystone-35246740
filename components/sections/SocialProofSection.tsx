@@ -472,6 +472,9 @@ export function SocialProofSection({
     if (!modalOpen) return;
     modalVideoRefs.current.forEach((video, i) => {
       if (!video) return;
+      if (!video.poster && video.dataset.poster) {
+        video.poster = video.dataset.poster;
+      }
       if (i === currentSlide) {
         video.preload = 'auto';
         video.load();
@@ -752,7 +755,7 @@ export function SocialProofSection({
                         playsInline
                         loop={false}
                         preload="none"
-                        poster={slide.video.desktopPoster}
+                        data-poster={slide.video.desktopPoster}
                         aria-label={`Testimonial video ${i + 1}`}
                       >
                         <source src={slide.video.desktop.webm} type="video/webm" media="(min-width: 768px)" />
