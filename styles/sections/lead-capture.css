@@ -1094,7 +1094,10 @@
   align-items: center;
   gap: 16px;
   margin-left: auto;
-  transition: all 0.2s ease-in-out;
+}
+
+.lc-cta-row--submitting {
+  transition: opacity 0.2s ease-in-out;
 }
 
 @media (max-width: 639px) {
