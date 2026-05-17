@@ -221,12 +221,12 @@ Slides 1–3 use designs from the Figma. Slides 4–6 use color lockups from els
 
 | Slide | Card background | Text color | Quote | Oblique portion | Attribution |
 |-------|----------------|-----------|-------|-----------------|-------------|
-| 1 (purple) | `#d8c2ff` | `#2f0d3f` | "I used to spend Sunday nights writing social captions. I haven't opened Canva in *four months*." | "four months" | Kristen Lovely / Lean & Lovely Medspa / Boulder, CO |
+| 1 (purple) | `#d8c2ff` | `#2f0d3f` | "*The weird part* is I think about my marketing less than I did before I had Keystone as my marketing team." | "The weird part" | Dexter H. / Fremont, CA |
 | 2 (orange) | `#f57e56` | `#3e181a` | Same quote | "four months" | Same person |
-| 3 (green) | `#6ecc8b` | `#063126` | "*The weird part* is I think about marketing less than I did before I had a marketing team." | "The weird part" | Same person |
-| 4 (yellow) | `#F2D474` | `#835F20` | Same quote as slides 1–2 | "four months" | Same person |
-| 5 (teal) | `#AAE0D2` | `#318175` | Same quote as slide 3 | "The weird part" | Same person |
-| 6 (blue) | `#9DCBFF` | `#055CFF` | Same quote as slides 1–2 | "four months" | Same person |
+| 3 (green) | `#6ecc8b` | `#063126` | "I know my cost per lead, my best-performing channel, and my close rate. I learned all of it *after I stopped doing it myself*." | "after I stopped doing it myself" | Estefany C. / Bordentown, NJ |
+| 4 (yellow) | `#F2D474` | `#835F20` | "We always did good work. *Now people can tell* before we show up." | "Now people can tell" | Bruce B. / New London, CT |
+| 5 (teal) | `#AAE0D2` | `#318175` | "Handing off the follow-up was hard at first. Like, these are my customers. They still are, *I just don\u2019t lose them anymore*." | "I just don\u2019t lose them anymore" | Kelly L. / Palm Coast, FL |
+| 6 (blue) | `#9DCBFF` | `#055CFF` | "I had five logins, three vendors, and zero answers. Now I have *one conversation*." | "one conversation" | Jessica R. / Portland, CT |
 
 These quotes and attributions are placeholder defaults. In production each slide will have unique content.
 

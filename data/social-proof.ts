@@ -79,17 +79,45 @@ export const MOBILE_SOCIAL_THUMBNAILS: MobileSocialProofThumbnail[] = [
   { thumbnail: { src: `${T}/socialproof-thumb-06-mobile-432w.webp`,  srcSet: `${T}/socialproof-thumb-06-mobile-250w.webp 250w, ${T}/socialproof-thumb-06-mobile-432w.webp 432w`,  sizes: '47vw' }, width: 184, height: 129, left: 177, top: 668, markerSrc: '/social-proof/social-proof-marker-cross.svg', slideIndex: 5 },
 ];
 
-// Quote shared by slides 1, 2, 4, 6
+// Quote for slide 1
+const QUOTE_WEIRDPART: SocialProofSlide['quoteSegments'] = [
+  { text: 'The weird part', oblique: true },
+  { text: ' is I think about my marketing less than I did before I had Keystone as my marketing team.' },
+];
+
+// Quote for slide 2
 const QUOTE_CANVA: SocialProofSlide['quoteSegments'] = [
   { text: "I used to spend Sunday nights writing social captions. I haven’t opened Canva in " },
   { text: 'four months', oblique: true },
   { text: '.' },
 ];
 
-// Quote shared by slides 3, 5
-const QUOTE_MARKETING: SocialProofSlide['quoteSegments'] = [
-  { text: 'The weird part', oblique: true },
-  { text: ' is I think about marketing less than I did before I had a marketing team.' },
+// Quote for slide 3
+const QUOTE_COSTPERLEAD: SocialProofSlide['quoteSegments'] = [
+  { text: 'I know my cost per lead, my best-performing channel, and my close rate. I learned all of it ' },
+  { text: 'after I stopped doing it myself', oblique: true },
+  { text: '.' },
+];
+
+// Quote for slide 4
+const QUOTE_GOODWORK: SocialProofSlide['quoteSegments'] = [
+  { text: 'We always did good work. ' },
+  { text: 'Now people can tell', oblique: true },
+  { text: ' before we show up.' },
+];
+
+// Quote for slide 5
+const QUOTE_FOLLOWUP: SocialProofSlide['quoteSegments'] = [
+  { text: "Handing off the follow-up was hard at first. Like, these are my customers. They still are, " },
+  { text: "I just don\u2019t lose them anymore", oblique: true },
+  { text: '.' },
+];
+
+// Quote for slide 6
+const QUOTE_LOGINS: SocialProofSlide['quoteSegments'] = [
+  { text: 'I had five logins, three vendors, and zero answers. Now I have ' },
+  { text: 'one conversation', oblique: true },
+  { text: '.' },
 ];
 
 const V = '/social-proof/videos';
@@ -98,9 +126,9 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     video:          { desktop: { webm: `${V}/socialproof-01-desktop.webm`, mp4: `${V}/socialproof-01-desktop.mp4` }, mobile: { webm: `${V}/socialproof-01-mobile.webm`, mp4: `${V}/socialproof-01-mobile.mp4` } },
     cardBgColor:    '#56A6FF',
     textColor:      '#0F223D',
-    quoteSegments:  QUOTE_CANVA,
-    personName:     'Kristen Lovely',
-    location:       'Boulder, CO',
+    quoteSegments:  QUOTE_WEIRDPART,
+    personName:     'Dexter H.',
+    location:       'Fremont, CA',
     namePillBg:     '#0F223D', namePillText:     '#DBF1FF',
     locationPillBg: '#9DCBFF', locationPillText: '#0F223D',
   },
@@ -109,7 +137,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     cardBgColor:    '#D8C2FF',
     textColor:      '#2F0D3F',
     quoteSegments:  QUOTE_CANVA,
-    personName:     'Kristen Lovely',
+    personName:     'Kristen L.',
     location:       'Boulder, CO',
     namePillBg:     '#F0E8FF', namePillText:     '#2F0D3F',
     locationPillBg: '#9C65EE', locationPillText: '#F0E8FF',
@@ -118,9 +146,9 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     video:          { desktop: { webm: `${V}/socialproof-03-desktop.webm`, mp4: `${V}/socialproof-03-desktop.mp4` }, mobile: { webm: `${V}/socialproof-03-mobile.webm`, mp4: `${V}/socialproof-03-mobile.mp4` } },
     cardBgColor:    '#F38BB0',
     textColor:      '#3D1324',
-    quoteSegments:  QUOTE_MARKETING,
-    personName:     'Kristen Lovely',
-    location:       'Boulder, CO',
+    quoteSegments:  QUOTE_COSTPERLEAD,
+    personName:     'Estefany C.',
+    location:       'Bordentown, NJ',
     namePillBg:     '#3D1324', namePillText:     '#F9DCE4',
     locationPillBg: '#FEAAC8', locationPillText: '#3D1324',
   },
@@ -128,9 +156,9 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     video:          { desktop: { webm: `${V}/socialproof-04-desktop.webm`, mp4: `${V}/socialproof-04-desktop.mp4` }, mobile: { webm: `${V}/socialproof-04-mobile.webm`, mp4: `${V}/socialproof-04-mobile.mp4` } },
     cardBgColor:    '#F2BA46',
     textColor:      '#3A2A0E',
-    quoteSegments:  QUOTE_CANVA,
-    personName:     'Kristen Lovely',
-    location:       'Boulder, CO',
+    quoteSegments:  QUOTE_GOODWORK,
+    personName:     'Bruce B.',
+    location:       'New London, CT',
     namePillBg:     '#3A2A0E', namePillText:     '#FAEEC8',
     locationPillBg: '#F2D474', locationPillText: '#3A2A0E',
   },
@@ -138,9 +166,9 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     video:          { desktop: { webm: `${V}/socialproof-05-desktop.webm`, mp4: `${V}/socialproof-05-desktop.mp4` }, mobile: { webm: `${V}/socialproof-05-mobile.webm`, mp4: `${V}/socialproof-05-mobile.mp4` } },
     cardBgColor:    '#6ECC8B',
     textColor:      '#063126',
-    quoteSegments:  QUOTE_MARKETING,
-    personName:     'Kristen Lovely',
-    location:       'Boulder, CO',
+    quoteSegments:  QUOTE_FOLLOWUP,
+    personName:     'Kelly L.',
+    location:       'Palm Coast, FL',
     namePillBg:     '#063126', namePillText:     '#DCFBD9',
     locationPillBg: '#DCFBD9', locationPillText: '#063126',
   },
@@ -148,9 +176,9 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     video:          { desktop: { webm: `${V}/socialproof-06-desktop.webm`, mp4: `${V}/socialproof-06-desktop.mp4` }, mobile: { webm: `${V}/socialproof-06-mobile.webm`, mp4: `${V}/socialproof-06-mobile.mp4` } },
     cardBgColor:    '#F57E56',
     textColor:      '#3C1618',
-    quoteSegments:  QUOTE_CANVA,
-    personName:     'Kristen Lovely',
-    location:       'Boulder, CO',
+    quoteSegments:  QUOTE_LOGINS,
+    personName:     'Jessica R.',
+    location:       'Portland, CT',
     namePillBg:     '#FFEBD9', namePillText:     '#3C1618',
     locationPillBg: '#9F3722', locationPillText: '#FFEBD9',
   },

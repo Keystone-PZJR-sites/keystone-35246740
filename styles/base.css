@@ -44,7 +44,7 @@
   src: url('/fonts/FKRomanStandard-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -52,7 +52,7 @@
   src: url('/fonts/FKRomanStandard-LightOblique.woff2') format('woff2');
   font-weight: 300;
   font-style: oblique;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
