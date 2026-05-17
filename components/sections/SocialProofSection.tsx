@@ -484,10 +484,12 @@ export function SocialProofSection({
         video.pause();
         video.currentTime = 0;
         video.muted = true;
-        video.preload = 'metadata';
+        const isAdjacent = Math.abs(i - currentSlide) <= 1 ||
+          Math.abs(i - currentSlide) === slides.length - 1;
+        video.preload = isAdjacent ? 'metadata' : 'none';
       }
     });
-  }, [modalOpen, currentSlide]);
+  }, [modalOpen, currentSlide, slides.length]);
 
   // ── Pause all modal videos when modal closes ──────────────────────────────
 
@@ -497,6 +499,7 @@ export function SocialProofSection({
         if (!v) return;
         v.pause();
         v.currentTime = 0;
+        v.preload = 'none';
       });
     }
   }, [modalOpen]);
@@ -748,7 +751,7 @@ export function SocialProofSection({
                         className="sp-slide-video"
                         playsInline
                         loop={false}
-                        preload="metadata"
+                        preload="none"
                         poster={slide.video.desktopPoster}
                         aria-label={`Testimonial video ${i + 1}`}
                       >
