@@ -112,19 +112,23 @@
 }
 
 /* ── Close button ──
-   Figma: left=337, top=182 on 393px canvas → right: 24px, top: 182px. */
+   Centered on the top-right corner of the focused (centered) slide.
+   top  = carousel viewport top = calc(50% - 26.76%)
+   right = distance from viewport edge to the centered slide's right edge
+         = calc(50% - min(329px, calc(100vw - 64px)) / 2)
+   translate(50%, -50%) shifts the button so its center sits on the corner. */
 
 .msp-close-btn {
   position: absolute;
-  right: 24px;
-  top: 182px;
+  top: calc(50% - 26.76%);
+  right: calc(50% - min(329px, calc(100vw - 64px)) / 2);
+  transform: translate(50%, -50%);
   width: 32px;
   height: 32px;
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
-  /* +1 above the overlay backdrop (--z-raised) so the close button paints on top */
   z-index: calc(var(--z-raised) + 1);
 }
 
@@ -136,7 +140,7 @@
    228/852 = 26.76%  →  card group starts at calc(50% - 26.76%)
    455/852 = 53.40%  →  card strip height
    258/455 = 56.70%  →  video region as % of card
-   247/455 = 54.29%  →  panel overlap point as % of card            */
+   212/455 = 46.59%  →  panel overlap point as % of card (sized for 5-line quotes) */
 
 .msp-embla-viewport {
   position: absolute;
@@ -150,7 +154,6 @@
 .msp-embla-container {
   display: flex;
   height: 100%;
-  gap: 16px;
 }
 
 /* ── Testimonial card ──
@@ -161,6 +164,8 @@
   flex: 0 0 min(329px, calc(100vw - 64px));
   position: relative;
   height: 100%;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 /* Video zone — proportional share of each card */
@@ -186,13 +191,14 @@
 
 /* Notch panel — overlaps video; top expressed as % of card height.
    Background set via --msp-panel-bg CSS custom property.
-   clip-path creates the 10px diagonal notch at the top-left corner. */
+   clip-path creates the 10px diagonal notch at the top-left corner.
+   Panel sized to fit 5-line quotes at 26px/1.04 + pills + 24px padding. */
 
 .msp-slide-panel {
   position: absolute;
   left: 0;
   right: 0;
-  top: 54.29%;
+  top: 46.59%;
   bottom: 0;
   background-color: var(--msp-panel-bg, #dcfbd9);
   clip-path: polygon(10px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 10px);
@@ -210,17 +216,19 @@
   flex-direction: column;
   gap: 24px;
   justify-content: space-between;
-  overflow: hidden;
 }
 
 /* Quote text */
 
 .msp-slide-quote {
-  font-size: 26px;
-  line-height: 1.04;
-  letter-spacing: -0.78px;
+  font-size: 24px;
+  line-height: 1.2em;
+  letter-spacing: -0.03em;
   margin: 0;
   font-style: normal;
+  overflow: hidden;
+  min-height: 0;
+  flex: 1 1 0;
 }
 
 .msp-slide-quote-oblique {
@@ -256,4 +264,8 @@
   letter-spacing: -0.36px;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.msp-slide-pill--location {
+  border-radius: 0;
 }

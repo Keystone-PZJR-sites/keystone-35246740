@@ -123,7 +123,7 @@ const QUOTE_LOGINS: SocialProofSlide['quoteSegments'] = [
 const V = '/social-proof/videos';
 export const SOCIAL_SLIDES: SocialProofSlide[] = [
   {
-    video:          { desktop: { webm: `${V}/socialproof-01-desktop.webm`, mp4: `${V}/socialproof-01-desktop.mp4` }, mobile: { webm: `${V}/socialproof-01-mobile.webm`, mp4: `${V}/socialproof-01-mobile.mp4` } },
+    video:          { desktop: { webm: `${V}/socialproof-01-desktop.webm`, mp4: `${V}/socialproof-01-desktop.mp4` }, mobile: { webm: `${V}/socialproof-01-mobile.webm`, mp4: `${V}/socialproof-01-mobile.mp4` }, mobilePoster: `${V}/socialproof-01-mobile-poster.jpg`, desktopPoster: `${V}/socialproof-01-desktop-poster.jpg` },
     cardBgColor:    '#56A6FF',
     textColor:      '#0F223D',
     quoteSegments:  QUOTE_WEIRDPART,
@@ -133,7 +133,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#9DCBFF', locationPillText: '#0F223D',
   },
   {
-    video:          { desktop: { webm: `${V}/socialproof-02-desktop.webm`, mp4: `${V}/socialproof-02-desktop.mp4` }, mobile: { webm: `${V}/socialproof-02-mobile.webm`, mp4: `${V}/socialproof-02-mobile.mp4` } },
+    video:          { desktop: { webm: `${V}/socialproof-02-desktop.webm`, mp4: `${V}/socialproof-02-desktop.mp4` }, mobile: { webm: `${V}/socialproof-02-mobile.webm`, mp4: `${V}/socialproof-02-mobile.mp4` }, mobilePoster: `${V}/socialproof-02-mobile-poster.jpg`, desktopPoster: `${V}/socialproof-02-desktop-poster.jpg` },
     cardBgColor:    '#D8C2FF',
     textColor:      '#2F0D3F',
     quoteSegments:  QUOTE_CANVA,
@@ -143,7 +143,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#9C65EE', locationPillText: '#F0E8FF',
   },
   {
-    video:          { desktop: { webm: `${V}/socialproof-03-desktop.webm`, mp4: `${V}/socialproof-03-desktop.mp4` }, mobile: { webm: `${V}/socialproof-03-mobile.webm`, mp4: `${V}/socialproof-03-mobile.mp4` } },
+    video:          { desktop: { webm: `${V}/socialproof-03-desktop.webm`, mp4: `${V}/socialproof-03-desktop.mp4` }, mobile: { webm: `${V}/socialproof-03-mobile.webm`, mp4: `${V}/socialproof-03-mobile.mp4` }, mobilePoster: `${V}/socialproof-03-mobile-poster.jpg`, desktopPoster: `${V}/socialproof-03-desktop-poster.jpg` },
     cardBgColor:    '#F38BB0',
     textColor:      '#3D1324',
     quoteSegments:  QUOTE_COSTPERLEAD,
@@ -153,7 +153,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#FEAAC8', locationPillText: '#3D1324',
   },
   {
-    video:          { desktop: { webm: `${V}/socialproof-04-desktop.webm`, mp4: `${V}/socialproof-04-desktop.mp4` }, mobile: { webm: `${V}/socialproof-04-mobile.webm`, mp4: `${V}/socialproof-04-mobile.mp4` } },
+    video:          { desktop: { webm: `${V}/socialproof-04-desktop.webm`, mp4: `${V}/socialproof-04-desktop.mp4` }, mobile: { webm: `${V}/socialproof-04-mobile.webm`, mp4: `${V}/socialproof-04-mobile.mp4` }, mobilePoster: `${V}/socialproof-04-mobile-poster.jpg`, desktopPoster: `${V}/socialproof-04-desktop-poster.jpg` },
     cardBgColor:    '#F2BA46',
     textColor:      '#3A2A0E',
     quoteSegments:  QUOTE_GOODWORK,
@@ -163,7 +163,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#F2D474', locationPillText: '#3A2A0E',
   },
   {
-    video:          { desktop: { webm: `${V}/socialproof-05-desktop.webm`, mp4: `${V}/socialproof-05-desktop.mp4` }, mobile: { webm: `${V}/socialproof-05-mobile.webm`, mp4: `${V}/socialproof-05-mobile.mp4` } },
+    video:          { desktop: { webm: `${V}/socialproof-05-desktop.webm`, mp4: `${V}/socialproof-05-desktop.mp4` }, mobile: { webm: `${V}/socialproof-05-mobile.webm`, mp4: `${V}/socialproof-05-mobile.mp4` }, mobilePoster: `${V}/socialproof-05-mobile-poster.jpg`, desktopPoster: `${V}/socialproof-05-desktop-poster.jpg` },
     cardBgColor:    '#6ECC8B',
     textColor:      '#063126',
     quoteSegments:  QUOTE_FOLLOWUP,
@@ -173,7 +173,7 @@ export const SOCIAL_SLIDES: SocialProofSlide[] = [
     locationPillBg: '#DCFBD9', locationPillText: '#063126',
   },
   {
-    video:          { desktop: { webm: `${V}/socialproof-06-desktop.webm`, mp4: `${V}/socialproof-06-desktop.mp4` }, mobile: { webm: `${V}/socialproof-06-mobile.webm`, mp4: `${V}/socialproof-06-mobile.mp4` } },
+    video:          { desktop: { webm: `${V}/socialproof-06-desktop.webm`, mp4: `${V}/socialproof-06-desktop.mp4` }, mobile: { webm: `${V}/socialproof-06-mobile.webm`, mp4: `${V}/socialproof-06-mobile.mp4` }, mobilePoster: `${V}/socialproof-06-mobile-poster.jpg`, desktopPoster: `${V}/socialproof-06-desktop-poster.jpg` },
     cardBgColor:    '#F57E56',
     textColor:      '#3C1618',
     quoteSegments:  QUOTE_LOGINS,

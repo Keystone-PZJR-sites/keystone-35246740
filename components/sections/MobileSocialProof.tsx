@@ -78,6 +78,7 @@ function TestimonialSlide({ slide, videoRef }: TestimonialSlideProps) {
           loop
           playsInline
           preload="none"
+          poster={slide.video.mobilePoster}
           controlsList="nodownload"
           aria-hidden="true"
         >
@@ -104,7 +105,7 @@ function TestimonialSlide({ slide, videoRef }: TestimonialSlideProps) {
               {slide.personName}
             </span>
             <span
-              className="msp-slide-pill"
+              className="msp-slide-pill msp-slide-pill--location"
               style={{
                 backgroundColor: slide.locationPillBg,
                 color: slide.locationPillText,
@@ -139,7 +140,7 @@ export function MobileSocialProof({
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'center',
     containScroll: false,
-    loop: false,
+    loop: true,
   });
 
   // ── Open overlay ─────────────────────────────────────────────────────────
@@ -164,6 +165,18 @@ export function MobileSocialProof({
     emblaApi.scrollTo(activeIndex, true);
   }, [activeIndex, emblaApi]);
 
+  // ── Update activeIndex when user swipes to a new slide ──────────────────
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      if (activeIndex === null) return;
+      setActiveIndex(emblaApi.selectedScrollSnap());
+    };
+    emblaApi.on('select', onSelect);
+    return () => { emblaApi.off('select', onSelect); };
+  }, [emblaApi, activeIndex]);
+
   // ── Focus close button when overlay opens ────────────────────────────────
 
   useEffect(() => {
@@ -177,10 +190,13 @@ export function MobileSocialProof({
       if (!video) return;
       if (activeIndex === i) {
         video.preload = 'auto';
+        video.load();
         video.play().catch(() => {});
       } else {
         video.pause();
-        video.preload = 'none';
+        const isAdjacent =
+          activeIndex !== null && Math.abs(i - activeIndex) === 1;
+        video.preload = isAdjacent ? 'metadata' : 'none';
       }
     });
   }, [activeIndex]);

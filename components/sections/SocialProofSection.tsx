@@ -24,6 +24,8 @@ export interface SocialProofSlide {
   video: {
     desktop: { webm: string; mp4: string };
     mobile:  { webm: string; mp4: string };
+    mobilePoster?: string;
+    desktopPoster?: string;
   };
   /** Card background hex color */
   cardBgColor: string;
@@ -98,10 +100,9 @@ function SectionHeadline({ line1, line2 }: { line1: string; line2: string }) {
 
 interface TestimonialCardProps {
   slide: SocialProofSlide;
-  dimmed: boolean;
 }
 
-function TestimonialCard({ slide, dimmed }: TestimonialCardProps) {
+function TestimonialCard({ slide }: TestimonialCardProps) {
   return (
     <div className="sp-card-filter-wrap">
       <div className="sp-card" style={{ backgroundColor: slide.cardBgColor }}>
@@ -124,13 +125,12 @@ function TestimonialCard({ slide, dimmed }: TestimonialCardProps) {
             {slide.personName}
           </span>
           <span
-            className="sp-card-pill"
+            className="sp-card-pill sp-card-pill--location"
             style={{ backgroundColor: slide.locationPillBg, color: slide.locationPillText }}
           >
             {slide.location}
           </span>
         </div>
-        {dimmed && <div className="sp-card-dim" aria-hidden="true" />}
       </div>
     </div>
   );
@@ -187,9 +187,9 @@ export function SocialProofSection({
     setPortalTarget(document.body);
   }, []);
 
-  // align: 'start' so slides are left-aligned — CSS positions are viewport-relative
-  // when the active slide's left edge is at x=0.
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
+  // align: 'center' so Embla positions loop clones on both sides, giving the
+  // active slide a "previous" peek on the left (e.g. slide 6 beside slide 1).
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center', containScroll: false });
 
   // ── Modal close ───────────────────────────────────────────────────────────
 
@@ -241,10 +241,17 @@ export function SocialProofSection({
         isClosingRef.current = false;
         thumbBtn?.focus({ preventScroll: true });
         setModalOpen(false);
-        // Clear all GSAP inline styles after the modal is invisible so the
-        // next openModal() call starts from a clean DOM state.
+        // Clear all GSAP inline styles on every element after the modal is
+        // invisible so the next openModal() call starts from a clean DOM.
         requestAnimationFrame(() => {
-          gsap.set(transitionWrap, { clearProps: 'x,y,scaleX,scaleY,transformOrigin' });
+          gsap.set(
+            [
+              ...modalVideoTransitionWrapRefs.current,
+              ...cardPositionRefs.current,
+              closeButtonRef.current,
+            ],
+            { clearProps: 'x,y,scaleX,scaleY,transformOrigin,opacity' },
+          );
           if (modalRef.current) gsap.set(modalRef.current, { clearProps: 'opacity' });
         });
       },
@@ -347,27 +354,9 @@ export function SocialProofSection({
     [emblaRef],
   );
 
-  // ── Override Embla's overflow:hidden so adjacent slides peek ──
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    const viewport = emblaViewportRef.current;
-    if (!viewport) return;
-
-    viewport.style.overflow = 'visible';
-
-    // Prime Embla's loop state: visit the last slide then jump back to first.
-    // Without this, Embla places loop clones at the far-end "wrap position"
-    // on init and only repositions them to the adjacent slot after the user
-    // first crosses the loop boundary — meaning slide 0 would show no left
-    // peek on the very first open. Two synchronous jumps in the hidden modal
-    // force Embla to compute the correct clone placement immediately.
-    const snapCount = emblaApi.scrollSnapList().length;
-    if (snapCount > 1) {
-      emblaApi.scrollTo(snapCount - 1, true);
-      emblaApi.scrollTo(0, true);
-    }
-  }, [emblaApi]);
+  // With align:'center' and 85.14vw slides, adjacent slides naturally peek
+  // on both sides (~7.43vw each). No overflow override needed — Embla's
+  // default overflow:hidden is fine and lets the loop work correctly.
 
   // ── Track active slide index (state + ref) ────────────────────────────────
 
@@ -409,10 +398,18 @@ export function SocialProofSection({
     const transitionWrap = modalVideoTransitionWrapRefs.current[openAtSlide];
     if (!transitionWrap) return;
 
-    const otherWraps = modalVideoTransitionWrapRefs.current.filter(
-      (_, i) => i !== openAtSlide,
-    );
-    const otherCards = cardPositionRefs.current.filter((_, i) => i !== openAtSlide);
+    const slideCount = modalVideoTransitionWrapRefs.current.length;
+    // Order adjacent slides by proximity so the immediate neighbors fade in
+    // first (e.g. slides 6 and 2 when slide 1 is active), not by DOM index.
+    const proximityOrder: number[] = [];
+    for (let d = 1; d < slideCount; d++) {
+      const next = (openAtSlide + d) % slideCount;
+      const prev = (openAtSlide - d + slideCount) % slideCount;
+      if (!proximityOrder.includes(next)) proximityOrder.push(next);
+      if (!proximityOrder.includes(prev)) proximityOrder.push(prev);
+    }
+    const otherWraps = proximityOrder.map((i) => modalVideoTransitionWrapRefs.current[i]);
+    const otherCards = proximityOrder.map((i) => cardPositionRefs.current[i]);
     const activeCard = cardPositionRefs.current[openAtSlide];
 
     const openTl = gsap.timeline({
@@ -447,15 +444,27 @@ export function SocialProofSection({
       0.45,
     );
 
-    // t=0.50: fade in adjacent videos, their cards, and the close button
+    // t=0.50: fade in adjacent videos and the close button
     openTl.to(
-      [...otherWraps, ...otherCards, closeButtonRef.current],
+      [...otherWraps, closeButtonRef.current],
       { opacity: 1, duration: 0.3, stagger: 0.04, clearProps: 'opacity' },
       0.5,
     );
 
     expandTweenRef.current = openTl;
   }, [modalOpen, openAtSlide]);
+
+  // ── Show/hide card when active slide changes ─────────────────────────────
+
+  useEffect(() => {
+    if (!modalOpen) return;
+    cardPositionRefs.current.forEach((card, i) => {
+      if (!card) return;
+      if (i === currentSlide) {
+        gsap.set(card, { clearProps: 'opacity' });
+      }
+    });
+  }, [modalOpen, currentSlide]);
 
   // ── Play active video; pause and reset inactive videos ───────────────────
 
@@ -464,6 +473,8 @@ export function SocialProofSection({
     modalVideoRefs.current.forEach((video, i) => {
       if (!video) return;
       if (i === currentSlide) {
+        video.preload = 'auto';
+        video.load();
         video.muted = false;
         video.play().catch(() => {
           video.muted = true;
@@ -473,6 +484,7 @@ export function SocialProofSection({
         video.pause();
         video.currentTime = 0;
         video.muted = true;
+        video.preload = 'metadata';
       }
     });
   }, [modalOpen, currentSlide]);
@@ -736,12 +748,17 @@ export function SocialProofSection({
                         className="sp-slide-video"
                         playsInline
                         loop={false}
-                        preload="none"
+                        preload="metadata"
+                        poster={slide.video.desktopPoster}
                         aria-label={`Testimonial video ${i + 1}`}
                       >
                         <source src={slide.video.desktop.webm} type="video/webm" media="(min-width: 768px)" />
                         <source src={slide.video.desktop.mp4} type="video/mp4" media="(min-width: 768px)" />
                       </video>
+                      <div
+                        className={`sp-video-dim${i === currentSlide ? ' sp-video-dim--hidden' : ''}`}
+                        aria-hidden="true"
+                      />
                     </div>
                   </div>
 
@@ -750,8 +767,9 @@ export function SocialProofSection({
                       cardPositionRefs.current[i] = el;
                     }}
                     className="sp-card-position"
+                    style={{ visibility: i === currentSlide ? 'visible' : 'hidden' }}
                   >
-                    <TestimonialCard slide={slide} dimmed={i !== currentSlide} />
+                    <TestimonialCard slide={slide} />
                   </div>
                 </div>
               ))}

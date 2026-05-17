@@ -152,11 +152,10 @@
        Video top-right corner:
          right = 100vw − (8.67vw + 82.9vw) = 8.43vw from modal right
          top   = 50vh − 23.435vw  (from .sp-slide-transition-wrap)
-       Button is 46px × 46px; offset by a full button-width (46px) on the
-       right axis so the centre lands exactly on the corner. */
+       Button is 46px × 46px; offset by half (23px) so center lands on corner. */
 .sp-close-btn {
   position: absolute;
-  right: calc(8.43vw - 40px);
+  right: calc(8.43vw - 30px);
   top: calc(50vh - 23.435vw - 23px);
   display: flex;
   align-items: center;
@@ -206,13 +205,14 @@
 }
 
 /* --- Transition wrapper: GSAP expand/shrink target on open/close.
-       left: 8.67vw  ≡  7.14vw + 22px  at 1440px reference width.
+       With align:'center', the 85.14vw slide is offset 7.43vw from the left.
+       Video viewport-left stays at 8.67vw → within-slide left = 8.67 − 7.43 = 1.24vw.
        top = 50vh − 23.435vw  →  video center = 50vh  (exact).
        Inactive slides add translateY(24px) via .sp-slide-video-wrap,
        placing their center at 50vh + 12px (just below center).        --- */
 .sp-slide-transition-wrap {
   position: absolute;
-  left: 8.67vw;
+  left: 1.24vw;
   top: calc(50vh - 23.435vw);
   width: 82.9vw;
   /* Height determined by .sp-slide-video-wrap's aspect-ratio */
@@ -243,15 +243,31 @@
   display: block;
 }
 
-/* --- Testimonial card — positioned independently of the transition wrapper.
-       top = video_top + 63.3% of video_height
-           = (50vh − 23.435vw) + 29.67vw
-           = 50vh + 6.235vw.
-       left: 54.51vw  ≡  50vw + 65px  at 1440px reference width.       --- */
+/* --- Dim overlay on inactive slide videos — transitions smoothly --- */
+.sp-video-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+
+.sp-video-dim--hidden {
+  opacity: 0;
+}
+
+/* --- Testimonial card — flush right with the video, bottom hangs 32px past video.
+       Containing block = .sp-slide (85.14vw wide, position: relative).
+       Video right from slide left = 1.24vw + 82.9vw = 84.14vw → 1vw inside slide.
+       Card right = 1vw to align with video right edge.
+       Video bottom at 50vh + 23.435vw → from viewport bottom: 50vh − 23.435vw.
+       Card bottom hangs 32px past → bottom: 50vh − 23.435vw − 32px.            --- */
 .sp-card-position {
   position: absolute;
-  top: calc(50vh + 6.235vw);
-  left: 54.51vw;
+  bottom: calc(50vh - 23.435vw - 32px);
+  right: 1vw;
   width: min(534px, 37.1vw);
   height: auto;
 }
@@ -282,9 +298,9 @@
 .sp-card-quote {
   font-family: 'FK Roman Standard', serif;
   font-weight: 300;
-  font-size: 40px;
-  line-height: 1.04;
-  letter-spacing: -1.2px;
+  font-size: 32px;
+  line-height: 1.2em;
+  letter-spacing: -0.03em;
   margin: 0;
   flex: 1;
   min-height: 0;
@@ -325,6 +341,10 @@
   border-radius: 9999px;
   white-space: nowrap;
   display: inline-block;
+}
+
+.sp-card-pill--location {
+  border-radius: 0;
 }
 
 /* --- Dim overlay for adjacent (inactive) slides --- */
