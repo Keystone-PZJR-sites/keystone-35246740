@@ -1052,6 +1052,9 @@
   gap: 12px;
   align-items: end;
   justify-content: space-between;
+}
+
+.lc-bottom-row--submitting {
   transition: opacity 0.2s ease-in-out;
 }
 
