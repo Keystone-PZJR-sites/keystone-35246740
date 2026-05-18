@@ -150,20 +150,19 @@ export function HeroAnimatic({
             duration: 0.9,
           });
 
-          let played = false;
-
           ScrollTrigger.create({
             id: 'hero-entrance',
             trigger: section,
             start: 'top top-=2%',
-            once: true,
             onEnter: () => {
-              if (played) return;
-              played = true;
               log('hero-entrance', 'ANIM_START');
               exitTl.play(0).then(() => {
                 log('hero-entrance', 'ANIM_COMPLETE');
               });
+            },
+            onLeaveBack: () => {
+              log('hero-entrance', 'ANIM_REVERSE');
+              exitTl.reverse();
             },
           });
         },
@@ -186,8 +185,6 @@ export function HeroAnimatic({
           if (videoFrame) gsap.set(videoFrame, { opacity: 1 });
 
           const offscreen = -window.innerHeight * 1.1;
-          let played = false;
-
           const exitTl = gsap.timeline({ paused: true });
           exitTl.to(headline, {
             y: offscreen,
@@ -199,11 +196,11 @@ export function HeroAnimatic({
             id: 'hero-entrance',
             trigger: section,
             start: 'top top-=2%',
-            once: true,
             onEnter: () => {
-              if (played) return;
-              played = true;
               exitTl.play(0);
+            },
+            onLeaveBack: () => {
+              exitTl.reverse();
             },
           });
         },
