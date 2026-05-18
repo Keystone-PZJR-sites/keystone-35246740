@@ -300,7 +300,6 @@ export function MobileValueProps({
           <span className="mvp-headline-line1">{headlineLine1}</span>
           <em className="mvp-headline-line2">{headlineLine2}</em>
         </p>
-        <div className="mvp-divider" aria-hidden="true" />
       </div>
 
       {/* Embla carousel — active card is lifted via data-focused CSS.

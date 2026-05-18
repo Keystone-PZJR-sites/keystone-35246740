@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: var(--section-padding-y) 24px;
+  padding: 4vh 48px;
   gap: clamp(40px, 5vh, 96px);
 }
 
@@ -207,7 +207,7 @@
   /* Flex column: headline top-anchored, copy bottom-anchored */
   display: flex;
   flex-direction: column;
-  padding: 47px 8px 32px 48px;
+  padding: 48px 32px 32px 32px;
 }
 
 /* --- Card headline ---
@@ -269,7 +269,7 @@
    Top padding uses the site-wide section padding token; horizontal padding
    stays at the design 24px gutter. --- */
 .mvp-header {
-  padding: var(--section-padding-y) 24px 0;
+  padding: var(--section-padding-y) 24px 24px;
   flex-shrink: 0;
 }
 
@@ -298,15 +298,7 @@
   font-style: oblique;
 }
 
-/* --- Horizontal rule below the headline ---
-   min() caps at design value and prevents overflow on narrow phones.  --- */
-.mvp-divider {
-  width: min(113px, 28.75vw);
-  height: 2px;
-  background-color: #cbc5b4;
-  margin-top: 16px;
-  margin-bottom: 24px;
-}
+
 
 /* --- Embla viewport ---
    flex: 1 / min-height: 0 so the viewport grows to fill whatever space the
@@ -385,8 +377,6 @@
   color: inherit;
   text-align: inherit;
   cursor: pointer;
-  will-change: transform;
-  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
 }
 
 .mvp-slide:focus-visible {
@@ -399,8 +389,6 @@
    a no-op. delay=0 so the lift responds immediately on selection. */
 .mvp-slide[data-focused="true"] {
   cursor: default;
-  transform: translateY(-24px);
-  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 0ms;
 }
 
 /* --- Mobile video panel ---
@@ -408,12 +396,17 @@
    Rounded top corners only.                                             --- */
 .mvp-slide-video-wrap {
   position: absolute;
-  top: 0;
+  top: 24px;
   left: 0;
   right: 0;
-  height: 58.42%;
+  height: 326px;
   border-radius: 7px 7px 0 0;
   overflow: hidden;
+  transition: top 250ms ease-in-out;
+}
+
+.mvp-slide[data-focused="true"] .mvp-slide-video-wrap {
+  top: 0;
 }
 
 .mvp-slide-video {
@@ -434,12 +427,17 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 53.41%;
-  bottom: 0;
+  height: 260px;
+  bottom: 24px;
   clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 12px);
   display: flex;
   flex-direction: column;
-  padding: 32px 12px 24px 32px;
+  padding: 32px 24px 24px 24px;
+  transition: bottom 250ms ease-in-out;
+}
+
+.mvp-slide[data-focused="true"] .mvp-slide-panel {
+  bottom: 0;
 }
 
 /* --- Mobile headline ---
@@ -473,7 +471,8 @@
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .mvp-slide {
+  .mvp-slide-video-wrap,
+  .mvp-slide-panel {
     transition: none;
   }
 }
