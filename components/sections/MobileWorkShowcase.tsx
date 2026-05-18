@@ -24,7 +24,7 @@
  * desaturated default state).
  */
 
-import { Fragment, useCallback, type KeyboardEvent } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useEmblaWithIndex } from '@/lib/useEmblaWithIndex';
 import { renderWorkCard } from './WorkShowcase';
 import type {
@@ -79,6 +79,27 @@ export function MobileWorkShowcase({
   );
 }
 
+function useNearViewport(margin = '200px') {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: margin },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [margin]);
+  return { ref, visible };
+}
+
 function IndustryStrip({
   industry,
   cards,
@@ -87,6 +108,7 @@ function IndustryStrip({
   cards: WorkCardData[];
 }) {
   const tallestH = Math.max(...cards.map((c) => c.visual.height / 2));
+  const { ref: stripRef, visible: stripVisible } = useNearViewport();
   const { emblaRef, activeIndex, scrollTo } = useEmblaWithIndex({
     align: 'start',
     containScroll: 'trimSnaps',
@@ -111,6 +133,7 @@ function IndustryStrip({
 
   return (
     <section
+      ref={stripRef}
       className="mws-strip"
       aria-label={`${industry.label.toLowerCase()} work`}
     >
@@ -149,8 +172,8 @@ function IndustryStrip({
               <li key={i} className="mws-rail-slide">
                 {renderWorkCard(card, [industry], i, {
                   focused: true,
-                  load: true,
-                  loading: 'lazy',
+                  load: stripVisible,
+                  loading: 'eager',
                 })}
               </li>
             ))}
