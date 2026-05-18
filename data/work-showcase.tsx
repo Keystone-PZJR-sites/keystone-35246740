@@ -83,23 +83,23 @@ export const WORK_CARDS: WorkCardData[] = [
   { type: 'web', industryId: 'food', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/food-web-mobile-card-default.webp', focusedSrc: '/work-showcase/cards/food-web-mobile-card-focused.webp', width: 613, height: 1131 } },
 
   // Home & Property — CanopyWorks
-  { type: 'web', industryId: 'home', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/home-web-card-default.webp', focusedSrc: '/work-showcase/cards/home-web-card-focused.webp', width: 1684, height: 1133 } },
   { type: 'listings', industryId: 'home', chipLabel: 'LISTINGS', visual: { defaultSrc: '/work-showcase/cards/home-listings-card-default.webp', focusedSrc: '/work-showcase/cards/home-listings-card-focused.webp', width: 567, height: 1054 } },
+  { type: 'web', industryId: 'home', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/home-web-card-default.webp', focusedSrc: '/work-showcase/cards/home-web-card-focused.webp', width: 1684, height: 1133 } },
   { type: 'ads', industryId: 'home', chipLabel: 'ADS', visual: { defaultSrc: '/work-showcase/cards/home-ads-card-default.webp', focusedSrc: '/work-showcase/cards/home-ads-card-focused.webp', width: 555, height: 1153 } },
   { type: 'social', industryId: 'home', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/home-social-card-default.webp', focusedSrc: '/work-showcase/cards/home-social-card-focused.webp', width: 567, height: 823 } },
   { type: 'sales', industryId: 'home', chipLabel: 'SALES', visual: { defaultSrc: '/work-showcase/cards/home-sales-card-default.webp', focusedSrc: '/work-showcase/cards/home-sales-card-focused.webp', width: 586, height: 1239 } },
 
   // Retail & Services — Meridian
+  { type: 'content', industryId: 'retail', chipLabel: 'CONTENT', visual: { defaultSrc: '/work-showcase/cards/retail-content-card-default.webp', focusedSrc: '/work-showcase/cards/retail-content-card-focused.webp', width: 613, height: 1131 } },
   { type: 'web', industryId: 'retail', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/retail-web-card-default.webp', focusedSrc: '/work-showcase/cards/retail-web-card-focused.webp', width: 1684, height: 1133 } },
   { type: 'listings', industryId: 'retail', chipLabel: 'LISTINGS', visual: { defaultSrc: '/work-showcase/cards/retail-listings-card-default.webp', focusedSrc: '/work-showcase/cards/retail-listings-card-focused.webp', width: 567, height: 1054 } },
   { type: 'ads', industryId: 'retail', chipLabel: 'ADS', visual: { defaultSrc: '/work-showcase/cards/retail-ads-card-default.webp', focusedSrc: '/work-showcase/cards/retail-ads-card-focused.webp', width: 555, height: 1153 } },
   { type: 'social', industryId: 'retail', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/retail-social-card-default.webp', focusedSrc: '/work-showcase/cards/retail-social-card-focused.webp', width: 567, height: 823 } },
-  { type: 'content', industryId: 'retail', chipLabel: 'CONTENT', visual: { defaultSrc: '/work-showcase/cards/retail-content-card-default.webp', focusedSrc: '/work-showcase/cards/retail-content-card-focused.webp', width: 613, height: 1131 } },
 
   // Care & Maintenance — Good Dog Grooming
-  { type: 'web', industryId: 'care', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/care-web-card-default.webp', focusedSrc: '/work-showcase/cards/care-web-card-focused.webp', width: 1684, height: 1133 } },
+  { type: 'social', industryId: 'care', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/care-social-card-default.webp', focusedSrc: '/work-showcase/cards/care-social-card-focused.webp', width: 567, height: 823 } },
   { type: 'sales', industryId: 'care', chipLabel: 'SALES', visual: { defaultSrc: '/work-showcase/cards/care-sales-card-default.webp', focusedSrc: '/work-showcase/cards/care-sales-card-focused.webp', width: 586, height: 1239 } },
+  { type: 'web', industryId: 'care', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/care-web-card-default.webp', focusedSrc: '/work-showcase/cards/care-web-card-focused.webp', width: 1684, height: 1133 } },
   { type: 'ads', industryId: 'care', chipLabel: 'ADS', visual: { defaultSrc: '/work-showcase/cards/care-ads-card-default.webp', focusedSrc: '/work-showcase/cards/care-ads-card-focused.webp', width: 555, height: 1153 } },
   { type: 'listings', industryId: 'care', chipLabel: 'LISTINGS', visual: { defaultSrc: '/work-showcase/cards/care-listings-card-default.webp', focusedSrc: '/work-showcase/cards/care-listings-card-focused.webp', width: 567, height: 1054 } },
-  { type: 'social', industryId: 'care', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/care-social-card-default.webp', focusedSrc: '/work-showcase/cards/care-social-card-focused.webp', width: 567, height: 823 } },
 ];
