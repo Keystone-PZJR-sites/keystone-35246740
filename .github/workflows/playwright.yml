@@ -25,6 +25,9 @@ jobs:
       run: npx playwright install --with-deps chromium
     - name: Run Playwright tests
       run: npx playwright test
+      env:
+        API_URL: ${{ secrets.API_URL }}
+        API_KEY: ${{ secrets.API_KEY }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
