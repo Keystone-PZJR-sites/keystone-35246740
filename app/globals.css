@@ -30,6 +30,12 @@
   background-color: #f0eee6;
 }
 
+/* Toggled by ScrollTrigger in MobileFooter / OversizedFooter so the
+   overscroll strip behind the iOS Safari bottom bar matches the footer. */
+body.footer-visible {
+  background-color: #3d1719 !important;
+}
+
 /* Clip horizontal overflow at every level that could otherwise expose it.
 
    Why every level: on touch devices ScrollSmoother deliberately skips the

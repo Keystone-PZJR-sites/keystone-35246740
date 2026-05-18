@@ -8,6 +8,7 @@ import { ArrowNarrowRight } from '@untitledui/icons';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -189,6 +190,16 @@ export function OversizedFooter({
   // consume bandwidth on it until the user is nearly there.
   const sectionRef = useRef<HTMLElement>(null);
   const videosReady = useNearViewport(sectionRef, '1200px');
+
+  useEffect(() => {
+    const st = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top bottom',
+      onEnter: () => document.body.classList.add('footer-visible'),
+      onLeaveBack: () => document.body.classList.remove('footer-visible'),
+    });
+    return () => st.kill();
+  }, []);
 
   return (
     <section ref={sectionRef} className="footer-section hidden md:block" data-theme="custom">

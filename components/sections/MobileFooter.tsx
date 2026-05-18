@@ -8,6 +8,7 @@ import { ArrowNarrowRight } from '@untitledui/icons';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { OversizedFooterProps } from './OversizedFooter';
 
 // ---------------------------------------------------------------------------
@@ -80,6 +81,16 @@ export function MobileFooter({
   const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
   const [isCtaHovered, setIsCtaHovered] = useState(false);
+
+  useEffect(() => {
+    const st = ScrollTrigger.create({
+      trigger: footerRef.current,
+      start: 'top bottom',
+      onEnter: () => document.body.classList.add('footer-visible'),
+      onLeaveBack: () => document.body.classList.remove('footer-visible'),
+    });
+    return () => st.kill();
+  }, []);
 
   return (
     <footer ref={footerRef} className="mfooter-section md:hidden" data-theme="custom">
