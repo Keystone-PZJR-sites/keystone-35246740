@@ -69,8 +69,8 @@ export const WORK_HEADLINE_PARTS: HeadlinePart[] = [
 
 export const WORK_CARDS: WorkCardData[] = [
   // Health & Body — X2O Studio
-  { type: 'sales', industryId: 'health', chipLabel: 'SALES', visual: { defaultSrc: '/work-showcase/cards/health-sales-card-default.webp', focusedSrc: '/work-showcase/cards/health-sales-card-focused.webp', width: 586, height: 1239 } },
   { type: 'web', industryId: 'health', chipLabel: 'WEB', visual: { defaultSrc: '/work-showcase/cards/health-web-card-default.webp', focusedSrc: '/work-showcase/cards/health-web-card-focused.webp', width: 1684, height: 1133 } },
+  { type: 'sales', industryId: 'health', chipLabel: 'SALES', visual: { defaultSrc: '/work-showcase/cards/health-sales-card-default.webp', focusedSrc: '/work-showcase/cards/health-sales-card-focused.webp', width: 586, height: 1239 } },
   { type: 'ads', industryId: 'health', chipLabel: 'ADS', visual: { defaultSrc: '/work-showcase/cards/health-ads-card-default.webp', focusedSrc: '/work-showcase/cards/health-ads-card-focused.webp', width: 555, height: 1153 } },
   { type: 'social', industryId: 'health', chipLabel: 'SOCIAL', visual: { defaultSrc: '/work-showcase/cards/health-social-card-default.webp', focusedSrc: '/work-showcase/cards/health-social-card-focused.webp', width: 567, height: 823 } },
   { type: 'content', industryId: 'health', chipLabel: 'CONTENT', visual: { defaultSrc: '/work-showcase/cards/health-content-card-default.webp', focusedSrc: '/work-showcase/cards/health-content-card-focused.webp', width: 613, height: 1131 } },
