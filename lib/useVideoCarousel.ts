@@ -5,6 +5,27 @@ import { useEffect, useRef } from 'react';
 /** Duration of the opacity crossfade between clips, in milliseconds. */
 const FADE_MS = 400;
 
+/** Max retries when play() is rejected (e.g. browser hasn't buffered yet). */
+const PLAY_RETRIES = 3;
+const PLAY_RETRY_MS = 250;
+
+/**
+ * Attempt to play a video, retrying on failure. Browsers can reject play()
+ * if the element isn't ready yet or if a prior play promise is still pending.
+ */
+function playWithRetry(
+  video: HTMLVideoElement,
+  retriesLeft = PLAY_RETRIES,
+): Promise<void> {
+  return video.play().catch(() => {
+    if (retriesLeft > 0) {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(playWithRetry(video, retriesLeft - 1)), PLAY_RETRY_MS);
+      });
+    }
+  });
+}
+
 export interface UseVideoCarouselOptions {
   /**
    * When false, playback is deferred until the value flips to true.
@@ -90,7 +111,7 @@ export function useVideoCarousel(
     // Unlock and play clip 0. Queue clip 1 only after clip 0 has
     // started playing so the initial wave is clip 0 only.
     videos[0].preload = 'auto';
-    videos[0].play().catch(() => {});
+    playWithRetry(videos[0]);
     unlockNextOnPlaying(videos[0]);
 
     function advance() {
@@ -98,7 +119,7 @@ export function useVideoCarousel(
       activeIndex = (activeIndex + 1) % count;
       const incoming = videos[activeIndex];
 
-      incoming.play().catch(() => {});
+      playWithRetry(incoming);
       unlockNextOnPlaying(incoming);
 
       outgoing.style.transition = `opacity ${FADE_MS}ms ease-in-out`;
