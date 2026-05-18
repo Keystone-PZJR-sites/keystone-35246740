@@ -28,7 +28,7 @@
  * Figma card geometry.
  *
  * Reference math in the comments cites Figma's raw pixels at the 1440 ×
- * 1024 canvas. The card at reference is 1392 × 976 (24 px inset on all
+ * 1024 canvas. The card at reference is 1344 × 928 (48 px inset on all
  * sides).
  */
 
@@ -38,10 +38,10 @@
 
   /* === Per-section design tokens (Figma node 1087:2360 @ 1440×1024) === */
 
-  /* Card inset (= section padding). 1.67vw → 24 px @ 1440. Spec 026 named
+  /* Card inset (= section padding). 3.33vw → 48 px @ 1440. Spec 026 named
      exception — this section uses --ps-card-inset instead of the global
      --section-padding-y because the inset matches the Figma card geometry. */
-  --ps-card-inset: clamp(16px, 1.67vw, 32px);
+  --ps-card-inset: clamp(32px, 3.33vw, 64px);
   /* Figma var `radius-3xl`. */
   --ps-card-radius: 20px;
 
@@ -64,13 +64,13 @@
   --ps-pill-label-inactive-color: #f8f7f2;
 
   /* Left content zone (mark + copy).
-     Mark at (48, 663) inside 1392×976 card → x = 3.45 %, y = 67.93 %.
+     Bottom-aligned inside card, offset from left edge.
      Copy width 412 px → 29.6 % of card width at reference. */
   --ps-left-zone-x: 3.45%;
-  --ps-left-zone-y: 67.93%;
-  --ps-left-zone-w: 29.6%;
+  --ps-left-zone-bottom: 5%;
+  --ps-left-zone-w: 25%;
   --ps-mark-w: clamp(28px, 2.57vw, 48px);
-  --ps-copy-size: clamp(20px, 2.22vw, 38px);
+  --ps-copy-size: clamp(16px, 1.67vw, 28px);
   --ps-copy-line: 1.2;
   --ps-copy-tracking: -0.03em;
   /* Gap from mark bottom to copy top: Figma 760 - (663 + 41) = 56 px →
@@ -83,9 +83,9 @@
      (all of card). The 92.5 % width intentionally overflows the card's
      right edge; card overflow:hidden does the clipping. */
   --ps-screenshot-x: 36.5%;
-  --ps-screenshot-y: 16.6%;
-  --ps-screenshot-w: 92.5%;
-  --ps-screenshot-h: 85.7%;
+  --ps-screenshot-y: 20%;
+  --ps-screenshot-w: 79.1%;
+  --ps-screenshot-h: 83%;
   --ps-screenshot-radius: 20px;
   /* Each back layer in the stack peeks `--ps-stack-peek` past the layer
      in front of it (spec 024 § Visual design — desktop). */
@@ -101,7 +101,7 @@
 .ps-section {
   position: relative;
   width: 100%;
-  min-height: 100svh;
+  min-height: 95svh;
   overflow: visible;
   background-color: var(--color-hero-text, #f0eee6);
   display: flex;
@@ -192,7 +192,7 @@
 .ps-left-zone {
   position: absolute;
   left: var(--ps-left-zone-x);
-  top: var(--ps-left-zone-y);
+  bottom: var(--ps-left-zone-bottom);
   width: var(--ps-left-zone-w);
   z-index: var(--z-raised);
 }
@@ -233,7 +233,7 @@
 .ps-screenshot-layer {
   position: absolute;
   inset: 0;
-  border-radius: var(--ps-screenshot-radius);
+  border-radius: var(--ps-screenshot-radius) var(--ps-screenshot-radius) 0 0;
   overflow: hidden;
 }
 
