@@ -159,7 +159,7 @@
   gap: 8px;
   background-color: #ffbb8a;
   color: #3d1719;
-  border-radius: 9999px;
+  border-radius: 24px;
   padding: 12px 10px 12px 12px;
   border: none;
   cursor: pointer;
@@ -170,10 +170,6 @@
   letter-spacing: -0.14px;
   white-space: nowrap;
   flex-shrink: 0;
-}
-
-.mfooter-cta-btn:hover {
-  opacity: 0.9;
 }
 
 /* ── Row 2: Blog/Podcast text, then social icons below ──────────────────── */
@@ -205,6 +201,11 @@
   text-decoration-color: currentColor;
   text-decoration-thickness: 5.5%;
   text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.mfooter-underline-link:hover {
+  text-decoration-color: transparent;
 }
 
 .mfooter-social-icons {
@@ -225,10 +226,18 @@
   display: block;
   flex-shrink: 0;
   text-decoration: none;
+  background-color: var(--color-work-accent, #f57e56);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: border-radius 0.16s ease-in-out;
 }
 
 .mfooter-social-btn:hover {
-  opacity: 0.9;
+  border-radius: 0;
+}
+
+.mfooter-social-btn svg > circle {
+  fill: transparent;
 }
 
 /* ── Row 3: Email signup ─────────────────────────────────────────────────── */
@@ -369,6 +378,11 @@
   text-decoration: underline;
   text-decoration-color: #b24934;
   text-decoration-thickness: 7.5%;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.mfooter-legal-link:hover {
+  text-decoration-color: transparent;
 }
 
 .mfooter-legal-text {

@@ -121,6 +121,11 @@
 .footer-tagline-link {
   text-decoration: underline;
   text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.footer-tagline-link:hover {
+  text-decoration-color: transparent;
 }
 
 .footer-btn-text {
@@ -245,11 +250,18 @@
 .footer-social-link {
   color: var(--color-work-accent);
   display: block;
-  transition: opacity 0.15s ease;
+  background-color: var(--color-work-accent);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: border-radius 0.16s ease-in-out;
 }
 
 .footer-social-link:hover {
-  opacity: 0.7;
+  border-radius: 0;
+}
+
+.footer-social-link svg > circle {
+  fill: transparent;
 }
 
 /* No reduced-motion overrides needed — there are no CSS animations or
@@ -278,5 +290,10 @@
   text-decoration: underline;
   text-decoration-color: #B24934;
   text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  text-decoration-color: transparent;
 }
 

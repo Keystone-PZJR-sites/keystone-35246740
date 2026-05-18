@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { KeystoneMark, KeystoneWordmark, SocialIcon } from '@/components/elements';
+import { ArrowNarrowRight } from '@untitledui/icons';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
@@ -78,6 +79,7 @@ export function MobileFooter({
   const isNear = useNearViewport(footerRef, '500px');
   const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
+  const [isCtaHovered, setIsCtaHovered] = useState(false);
 
   return (
     <footer ref={footerRef} className="mfooter-section md:hidden" data-theme="custom">
@@ -149,11 +151,38 @@ export function MobileFooter({
       {/* Row 1: Tagline + Get Started CTA */}
       <div className="mfooter-row-tagline">
         <p className="mfooter-tagline">{leftTagline}</p>
-        <button type="button" className="mfooter-cta-btn" onClick={() => openModal()}>
+        <button
+          type="button"
+          className="mfooter-cta-btn"
+          onMouseEnter={() => setIsCtaHovered(true)}
+          onMouseLeave={() => setIsCtaHovered(false)}
+          onClick={() => openModal()}
+          style={{
+            borderRadius: isCtaHovered ? '0px' : '24px',
+            transition: 'border-radius .16s ease-in-out',
+          }}
+        >
           {cta2Label}
-          {ctaArrowSrc && (
-            <Image src={ctaArrowSrc} width={12} height={12} alt="" aria-hidden />
-          )}
+          <span className="relative inline-flex size-3 overflow-hidden" aria-hidden="true">
+            <span
+              className="absolute inset-0"
+              style={{
+                transform: isCtaHovered ? 'translateX(100%)' : 'translateX(0%)',
+                transition: 'transform .16s ease-in-out',
+              }}
+            >
+              <ArrowNarrowRight size={12} color="#3d1719" />
+            </span>
+            <span
+              className="absolute inset-0"
+              style={{
+                transform: isCtaHovered ? 'translateX(0%)' : 'translateX(-100%)',
+                transition: 'transform .16s ease-in-out',
+              }}
+            >
+              <ArrowNarrowRight size={12} color="#3d1719" />
+            </span>
+          </span>
         </button>
       </div>
 

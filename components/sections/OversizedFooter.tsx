@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { KeystoneMark, KeystoneWordmark, SocialIcon } from '@/components/elements';
+import { ArrowNarrowRight } from '@untitledui/icons';
 import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
@@ -181,6 +182,7 @@ export function OversizedFooter({
 }: OversizedFooterProps) {
   const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
+  const [isCtaHovered, setIsCtaHovered] = useState(false);
 
   // Defer the 5 footer video clips until the section is within 1200px of the
   // viewport. The footer is always the last element on the page — no reason to
@@ -257,13 +259,36 @@ export function OversizedFooter({
           <div className="footer-lower-act1">
             <button
               type="button"
+              onMouseEnter={() => setIsCtaHovered(true)}
+              onMouseLeave={() => setIsCtaHovered(false)}
               onClick={(e) => openModal(e.currentTarget)}
-              className="footer-btn-text flex h-12 shrink-0 items-center rounded-full px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
+              className="footer-btn-text flex h-12 shrink-0 cursor-pointer items-center px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
+              style={{
+                borderRadius: isCtaHovered ? '0px' : '24px',
+                transition: 'border-radius .16s ease-in-out',
+              }}
             >
               <span>{cta2Label}</span>
-              {ctaArrowSrc && (
-                <Image src={ctaArrowSrc} width={16} height={16} alt="" aria-hidden="true" />
-              )}
+              <span className="relative inline-flex size-4 overflow-hidden" aria-hidden="true">
+                <span
+                  className="absolute inset-0"
+                  style={{
+                    transform: isCtaHovered ? 'translateX(100%)' : 'translateX(0%)',
+                    transition: 'transform .16s ease-in-out',
+                  }}
+                >
+                  <ArrowNarrowRight size={16} color="var(--color-footer-bg)" />
+                </span>
+                <span
+                  className="absolute inset-0"
+                  style={{
+                    transform: isCtaHovered ? 'translateX(0%)' : 'translateX(-100%)',
+                    transition: 'transform .16s ease-in-out',
+                  }}
+                >
+                  <ArrowNarrowRight size={16} color="var(--color-footer-bg)" />
+                </span>
+              </span>
             </button>
           </div>
 
