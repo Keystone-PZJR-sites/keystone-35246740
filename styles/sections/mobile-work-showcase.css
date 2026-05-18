@@ -13,13 +13,12 @@
 .mws-section {
   background-color: #f0eee6;
   padding: 24px 0 40px;
+  --mws-rail-max-h: 460px;
   /* The section itself must not horizontally overflow. Each card rail's
      viewport is intentionally narrower than its contents — Embla clips
      inside the rail's own overflow-hidden box.                       */
   overflow-x: clip;
 
-  /* Uniform mobile work-card height for all rails. */
-  --mws-card-h: 420px;
 }
 
 /* ── Section headline ────────────────────────────────────────────────────
@@ -103,8 +102,12 @@
 /* ── Card rail (Embla viewport) ──────────────────────────────────────────
    The viewport clips horizontally; Embla translates the inner container.
    Focus outline appears when the rail itself receives keyboard focus.  */
-.mws-rail-viewport {
+.mws-rail-clip {
   overflow: hidden;
+}
+
+.mws-rail-viewport {
+  margin-left: 24px;
 }
 
 .mws-rail-viewport:focus-visible {
@@ -116,19 +119,12 @@
 /* Embla container — horizontal flex with all this industry's cards.
    24px left padding aligns the first card with the section's left gutter;
    the rail intentionally extends past the right edge of the viewport.
-   `align-items: flex-end` is a safety net only: every slide is now sized
-   to --mws-card-h (see `.mws-section .ws-scale-root`), so all cards share
-   the same height and no cross-axis alignment is actually visible. If a
-   card asset height ever drifts, flex-end keeps its bottom edge on the rail's baseline
-   instead of leaving it floating mid-rail.                             */
+   Cards have varying natural heights per the Figma; `align-items: flex-start`
+   top-aligns them so shorter cards sit at the rail top with space below. */
 .mws-rail-container {
   display: flex;
-  align-items: flex-end;
-  gap: 23px;
-  padding-left: 24px;
-  /* trailing margin on the last slide gives the visitor a hint of
-     breathing room when the rail is swiped to the far right.          */
-  padding-right: 24px;
+  align-items: flex-start;
+  gap: 24px;
   list-style: none;
   margin: 0;
 }
@@ -136,7 +132,11 @@
 .mws-rail-slide {
   flex: 0 0 auto;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
+}
+
+.mws-rail-slide:last-child {
+  margin-right: 24px;
 }
 
 /* ── Card visual overrides scoped to the mobile section ──────────────────
@@ -156,10 +156,10 @@
   display: none;
 }
 
-/* Mobile card scale (height-targeted). Every raster card renders at the same
-   uniform height (--mws-card-h). The scale factor is derived from each card's
-   inline --ws-natural-h so width follows the asset aspect ratio while the rail's
-   vertical extent stays constant across all slides. */
+/* Mobile card scale: proportionally fit all cards in the rail within a
+   uniform max height (--mws-rail-max-h). The component passes --mws-tallest-h
+   (the tallest 1x card height in the rail) on the container; the scale
+   factor is capped at 1 so cards never upscale past their natural size. */
 .mws-section .ws-scale-root {
-  --ws-card-scale: calc(var(--mws-card-h) / var(--ws-natural-h));
+  --ws-card-scale: min(1, calc(var(--mws-rail-max-h) / var(--mws-tallest-h)));
 }

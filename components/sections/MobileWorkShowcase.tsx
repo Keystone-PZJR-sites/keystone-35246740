@@ -86,6 +86,7 @@ function IndustryStrip({
   industry: WorkIndustry;
   cards: WorkCardData[];
 }) {
+  const tallestH = Math.max(...cards.map((c) => c.visual.height / 2));
   const { emblaRef, activeIndex, scrollTo } = useEmblaWithIndex({
     align: 'start',
     containScroll: 'trimSnaps',
@@ -131,25 +132,30 @@ function IndustryStrip({
           </Fragment>
         ))}
       </div>
-      <div
-        ref={emblaRef}
-        className="mws-rail-viewport"
-        role="region"
-        aria-label={`${industry.label.toLowerCase()} carousel`}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-      >
-        <ul className="mws-rail-container">
-          {cards.map((card, i) => (
-            <li key={i} className="mws-rail-slide">
-              {renderWorkCard(card, [industry], i, {
-                focused: true,
-                load: true,
-                loading: 'lazy',
-              })}
-            </li>
-          ))}
-        </ul>
+      <div className="mws-rail-clip">
+        <div
+          ref={emblaRef}
+          className="mws-rail-viewport"
+          role="region"
+          aria-label={`${industry.label.toLowerCase()} carousel`}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
+          <ul
+            className="mws-rail-container"
+            style={{ '--mws-tallest-h': `${tallestH}px` } as React.CSSProperties}
+          >
+            {cards.map((card, i) => (
+              <li key={i} className="mws-rail-slide">
+                {renderWorkCard(card, [industry], i, {
+                  focused: true,
+                  load: true,
+                  loading: 'lazy',
+                })}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
