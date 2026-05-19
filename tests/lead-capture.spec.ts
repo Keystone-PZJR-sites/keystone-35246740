@@ -98,19 +98,111 @@ test.describe('Lead capture modal — desktop', () => {
     await modal.locator('.lc-desktop-close').click();
     await expect(modal).not.toBeVisible({ timeout: 3000 });
   });
+
+  test('requires mobile number before submitting', async ({ page }) => {
+    let submitCount = 0;
+    await page.route('**/api/form', async (route) => {
+      submitCount += 1;
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true, eventId: 'pw-test-required-mobile' }),
+      });
+    });
+
+    await page.goto('/');
+    await page.getByRole('button', { name: /get started/i }).first().click();
+
+    const modal = page.getByRole('dialog', { name: /get in touch/i });
+    await expect(modal).toBeVisible();
+
+    const inputs = modal.locator('input[type="text"], input[type="email"], input[type="tel"]');
+    const inputCount = await inputs.count();
+    for (let i = 0; i < inputCount; i++) {
+      const input = inputs.nth(i);
+      const type = await input.getAttribute('type');
+      const name = await input.getAttribute('name');
+      if (type === 'tel' || name?.toLowerCase().includes('phone') || name?.toLowerCase().includes('mobile')) {
+        continue;
+      }
+      if (type === 'email' || name?.toLowerCase().includes('email')) {
+        await input.fill('required-check@example.com');
+      } else if (name?.toLowerCase().includes('first')) {
+        await input.fill('Required');
+      } else if (name?.toLowerCase().includes('last')) {
+        await input.fill('Check');
+      } else {
+        await input.fill('Filled value');
+      }
+    }
+
+    const textarea = modal.locator('textarea');
+    if (await textarea.count() > 0) {
+      await textarea.first().fill('Message is filled for required-field validation.');
+    }
+
+    const submitBtn = modal.getByRole('button', { name: /get in touch/i });
+    await submitBtn.click();
+
+    await expect(modal.locator('.lc-phone-wrapper')).toHaveClass(/lc-phone-wrapper--error/);
+    await expect(modal.locator('.lc-field-error')).toContainText(/required/i);
+    await expect(modal.locator('text=THANK YOU')).toHaveCount(0);
+    expect(submitCount).toBe(0);
+  });
 });
 
 test.describe('Lead capture — mobile redirect', () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
-  test('CTA navigates to /get-in-touch instead of opening modal', async ({ page }) => {
-    await page.goto('/');
+  test('dismissing standalone form does not show success toast', async ({ page }) => {
+    await page.goto('/get-in-touch');
+    await page.locator('.lc-standalone-nav').click();
+    await page.waitForURL('**/', { timeout: 10000 });
+    await expect(page.locator('.lc-mobile-success-overlay')).toHaveCount(0);
+    await expect(page.getByText(/THANK YOU/i)).toHaveCount(0);
+  });
 
-    const cta = page.locator('button:visible', { hasText: /get started/i }).first();
-    await expect(cta).toBeVisible();
-    await cta.click();
+  test('successful mobile submit returns home and shows success toast', async ({ page }) => {
+    await page.route('**/api/form', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true, eventId: 'pw-test-mobile-001' }),
+      });
+    });
 
-    await page.waitForURL('**/get-in-touch**', { timeout: 10000 });
-    expect(page.url()).toContain('/get-in-touch');
+    await page.goto('/get-in-touch');
+    const modal = page.getByRole('dialog', { name: /get in touch/i });
+    await expect(modal).toBeVisible();
+
+    const inputs = modal.locator('input[type="text"], input[type="email"], input[type="tel"]');
+    const inputCount = await inputs.count();
+    for (let i = 0; i < inputCount; i++) {
+      const input = inputs.nth(i);
+      const type = await input.getAttribute('type');
+      const name = await input.getAttribute('name');
+      if (type === 'email' || name?.toLowerCase().includes('email')) {
+        await input.fill('mobile@example.com');
+      } else if (type === 'tel' || name?.toLowerCase().includes('phone') || name?.toLowerCase().includes('mobile')) {
+        await input.pressSequentially('0412345678', { delay: 20 });
+      } else if (name?.toLowerCase().includes('first')) {
+        await input.fill('Mobile');
+      } else if (name?.toLowerCase().includes('last')) {
+        await input.fill('Tester');
+      } else {
+        await input.fill('Test value');
+      }
+    }
+
+    const textarea = modal.locator('textarea');
+    if (await textarea.count() > 0) {
+      await textarea.first().fill('Mobile success path test.');
+    }
+
+    const submitBtn = modal.getByRole('button', { name: /get in touch/i });
+    await submitBtn.click();
+
+    await page.waitForURL('**/', { timeout: 10000 });
+    await page.locator('.lc-mobile-success-overlay').waitFor({ state: 'attached', timeout: 5000 });
   });
 });

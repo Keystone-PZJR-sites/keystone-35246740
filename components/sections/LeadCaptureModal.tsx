@@ -59,6 +59,8 @@ export interface LeadCaptureProviderProps {
   privacyHref: string;
 }
 
+export type LeadCaptureCloseReason = 'dismiss' | 'success';
+
 function fieldError(errors: FieldErrors<Record<string, string>>, fieldName: string): string | undefined {
   const raw = errors[fieldName]?.message;
   if (!raw) return undefined;
@@ -82,8 +84,9 @@ function FormField({
   const placeholder = field.placeholder || field.label || '';
   const classification = classifyField(field);
   const messageLabel = field.label || placeholder || 'This field';
+  const requiredMessage = `${messageLabel} is required`;
   const errorEntry = errors[field.name];
-  const error = errorEntry ? (fieldError(errors, field.name) ?? `${messageLabel} is required`) : undefined;
+  const error = errorEntry ? (fieldError(errors, field.name) ?? requiredMessage) : undefined;
 
   switch (classification.kind) {
     case 'hidden':
@@ -97,7 +100,7 @@ function FormField({
 
     case 'textarea': {
       const registerOptions: RegisterOptions<Record<string, string>, string> = {
-        required: field.required ? `${messageLabel} is required` : false,
+        required: requiredMessage,
       };
       const registerProps = register(field.name, registerOptions);
       return (
@@ -115,7 +118,7 @@ function FormField({
     case 'phone': {
       const phoneLabel = 'MOBILE PHONE';
       const registerOptions: RegisterOptions<Record<string, string>, string> = {
-        required: field.required ? `${messageLabel} is required` : false,
+        required: requiredMessage,
       };
       const registerProps = register(field.name, registerOptions);
       return (
@@ -133,7 +136,7 @@ function FormField({
     case 'email':
     case 'text': {
       const registerOptions: RegisterOptions<Record<string, string>, string> = {
-        required: field.required ? `${messageLabel} is required` : false,
+        required: requiredMessage,
       };
       if (classification.kind === 'email') {
         registerOptions.pattern = {
@@ -205,7 +208,7 @@ function FormRow({
 }
 
 interface ModalProps {
-  closeModal: () => void;
+  closeModal: (reason?: LeadCaptureCloseReason) => void;
   overlayRef: RefObject<HTMLDivElement | null>;
   markColor: string;
   ctaArrowSrc: string;
@@ -254,16 +257,20 @@ function Modal({
   });
   const isProcessing = submitState === 'submitting' || submitState === 'success';
 
-  const requestClose = useCallback(() => {
+  const requestClose = useCallback((reason: LeadCaptureCloseReason = 'dismiss') => {
     if (!isStandalone || typeof window === 'undefined' || window.innerWidth >= 640) {
-      closeModal();
+      closeModal(reason);
+      return;
+    }
+    if (reason === 'success') {
+      closeModal('success');
       return;
     }
     if (isStandaloneClosingRef.current) return;
     const overlay = overlayRef.current;
     const card = cardRef.current;
     if (!overlay || !card) {
-      closeModal();
+      closeModal(reason);
       return;
     }
 
@@ -271,7 +278,7 @@ function Modal({
     gsap
       .timeline({
         onComplete: () => {
-          closeModal();
+          closeModal(reason);
         },
       })
       .to(card, { y: 36, duration: 0.24, ease: 'power3.in' }, 0)
@@ -370,12 +377,11 @@ function Modal({
   useEffect(() => {
     if (submitState !== 'success') return;
     if (isStandalone && typeof window !== 'undefined' && window.innerWidth < 640) {
-      window.sessionStorage.setItem('lc-mobile-success-overlay', '1');
-      requestClose();
+      requestClose('success');
       return;
     }
     const timer = setTimeout(() => {
-      requestClose();
+      requestClose('success');
     }, 3500);
     return () => clearTimeout(timer);
   }, [submitState, requestClose, isStandalone]);
@@ -444,7 +450,7 @@ function Modal({
       {!isStandalone && <div className="lc-backdrop" aria-hidden="true" />}
       <div className="lc-content-area" onClick={isStandalone ? undefined : handleBackdropClick}>
         {isStandalone && (
-          <button type="button" className="lc-standalone-nav" onClick={requestClose}>
+          <button type="button" className="lc-standalone-nav" onClick={() => requestClose()}>
             <KeystoneWordmark color="#F8F7F2" width={104} height={20} className="lc-standalone-nav-wordmark" />
           </button>
         )}
@@ -568,7 +574,7 @@ export interface LeadCaptureStandaloneProps {
   subheadline: string;
   termsHref: string;
   privacyHref: string;
-  onClose: () => void;
+  onClose: (reason?: LeadCaptureCloseReason) => void;
 }
 
 export function LeadCaptureStandalone({
@@ -616,11 +622,11 @@ export function LeadCaptureProvider({
   const router = useRouter();
 
   const openModal = useCallback((triggerElement?: HTMLElement) => {
+    setMobileSuccessVisible(false);
     if (window.innerWidth < 640) {
       router.push('/get-in-touch');
       return;
     }
-    setMobileSuccessVisible(false);
     if (triggerElement) triggerElementRef.current = triggerElement;
     setIsOpen(true);
     setDisplayModal(true);
@@ -645,9 +651,15 @@ export function LeadCaptureProvider({
     if (typeof window === 'undefined') return;
     if (window.innerWidth >= 640) return;
     if (displayModal) return;
-    const shouldShowSuccess = window.sessionStorage.getItem('lc-mobile-success-overlay') === '1';
+    const url = new URL(window.location.href);
+    const shouldShowSuccess = url.searchParams.get('lc') === 'success';
     if (!shouldShowSuccess) return;
-    window.sessionStorage.removeItem('lc-mobile-success-overlay');
+
+    url.searchParams.delete('lc');
+    const nextSearch = url.searchParams.toString();
+    const nextUrl = `${url.pathname}${nextSearch ? `?${nextSearch}` : ''}${url.hash}`;
+    window.history.replaceState(window.history.state, '', nextUrl);
+
     queueMicrotask(() => {
       setMobileSuccessVisible(true);
     });

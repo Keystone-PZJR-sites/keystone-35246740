@@ -3,11 +3,16 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { LeadCaptureStandalone } from '@/components/sections';
+import type { LeadCaptureCloseReason } from '@/components/sections';
 
 export default function GetInTouchPage() {
   const router = useRouter();
 
-  const handleClose = useCallback(() => {
+  const handleClose = useCallback((reason?: LeadCaptureCloseReason) => {
+    if (reason === 'success') {
+      router.replace('/?lc=success');
+      return;
+    }
     if (window.history.length > 1) {
       router.back();
       return;

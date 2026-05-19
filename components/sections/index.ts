@@ -48,4 +48,8 @@ export type { MobilePricingSectionProps } from './MobilePricingSection';
 export { MobileFooter } from './MobileFooter';
 export type { MobileFooterProps } from './MobileFooter';
 export { LeadCaptureProvider, LeadCaptureStandalone, useLeadCapture } from './LeadCaptureModal';
-export type { LeadCaptureProviderProps, LeadCaptureStandaloneProps } from './LeadCaptureModal';
+export type {
+  LeadCaptureCloseReason,
+  LeadCaptureProviderProps,
+  LeadCaptureStandaloneProps,
+} from './LeadCaptureModal';
