@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { KeystoneMark, KeystoneWordmark, SocialIcon } from '@/components/elements';
 import { ArrowNarrowRight } from '@untitledui/icons';
-import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -78,7 +77,6 @@ export function MobileFooter({
 }: MobileFooterProps) {
   const footerRef = useRef<HTMLElement>(null);
   const isNear = useNearViewport(footerRef, '500px');
-  const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
   const [isCtaHovered, setIsCtaHovered] = useState(false);
 
@@ -162,12 +160,11 @@ export function MobileFooter({
       {/* Row 1: Tagline + Get Started CTA */}
       <div className="mfooter-row-tagline">
         <p className="mfooter-tagline">{leftTagline}</p>
-        <button
-          type="button"
+        <Link
+          href="/portal"
           className="mfooter-cta-btn"
           onMouseEnter={() => setIsCtaHovered(true)}
           onMouseLeave={() => setIsCtaHovered(false)}
-          onClick={() => openModal()}
           style={{
             borderRadius: isCtaHovered ? '0px' : '24px',
             transition: 'border-radius .16s ease-in-out',
@@ -194,7 +191,7 @@ export function MobileFooter({
               <ArrowNarrowRight size={12} color="#3d1719" />
             </span>
           </span>
-        </button>
+        </Link>
       </div>
 
       {/* Row 2: Blog/Podcast text + Social icons (2-col × 3-row grid) */}

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ArrowNarrowRight } from '@untitledui/icons';
@@ -44,6 +45,7 @@ export function MobileHero({
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
+  const router = useRouter();
   const { openModal } = useLeadCapture();
   const sectionRef = useRef<HTMLElement>(null);
   const videoZoneRef = useRef<HTMLDivElement>(null);
@@ -199,7 +201,7 @@ export function MobileHero({
             </button>
             <button
               type="button"
-              onClick={(e) => openModal(e.currentTarget)}
+              onClick={() => router.push('/portal')}
               className="hero-pill-btn gap-2 bg-[var(--color-hero-accent)] py-3 pl-3 pr-[10px] text-sm text-[var(--color-hero-bg)] tracking-[-0.01em]"
             >
               {cta2Label}

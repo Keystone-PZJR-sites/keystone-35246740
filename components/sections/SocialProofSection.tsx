@@ -409,7 +409,6 @@ export function SocialProofSection({
       if (!proximityOrder.includes(prev)) proximityOrder.push(prev);
     }
     const otherWraps = proximityOrder.map((i) => modalVideoTransitionWrapRefs.current[i]);
-    const otherCards = proximityOrder.map((i) => cardPositionRefs.current[i]);
     const activeCard = cardPositionRefs.current[openAtSlide];
 
     const openTl = gsap.timeline({

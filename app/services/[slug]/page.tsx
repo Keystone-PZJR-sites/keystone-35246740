@@ -1,6 +1,5 @@
 import { ServiceDetailHero, FAQHome, TestimonialsHome, ContactSection } from 'keystone-design-bootstrap/sections';
-import { getService, getFAQs, getTestimonials, getWebsitePhotos, getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api';
-import { resolveCtaUrls, isExternalCtaUrl } from 'keystone-design-bootstrap';
+import { getService, getFAQs, getTestimonials, getWebsitePhotos } from 'keystone-design-bootstrap/lib/server-api';
 import { notFound } from 'next/navigation';
 import { Button, MarkdownRenderer, PhotoWithFallback } from 'keystone-design-bootstrap/elements';
 import { config } from '@/config';
@@ -12,15 +11,12 @@ interface ServiceDetailPageProps {
 export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
   const { slug } = await params;
 
-  const [service, faqs, testimonials, websitePhotos, companyInformation] = await Promise.all([
+  const [service, faqs, testimonials, websitePhotos] = await Promise.all([
     getService(slug),
     getFAQs(),
     getTestimonials(),
     getWebsitePhotos(),
-    getCompanyInformation(),
   ]);
-
-  const ctaUrls = resolveCtaUrls(companyInformation);
 
   if (!service) {
     notFound();
@@ -54,11 +50,9 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             <Button
               size="xl"
               color="primary"
-              href={ctaUrls.primaryHref}
-              target={isExternalCtaUrl(ctaUrls.primaryHref) ? '_blank' : undefined}
-              rel={isExternalCtaUrl(ctaUrls.primaryHref) ? 'noopener noreferrer' : undefined}
+              href="/portal"
             >
-              Get started
+              Services and pricing
             </Button>
           </div>
 

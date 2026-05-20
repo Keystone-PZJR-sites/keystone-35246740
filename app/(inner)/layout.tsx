@@ -29,7 +29,7 @@ export default async function InnerLayout({
       privacyHref="/privacy-policy"
     >
       <div data-theme="custom">
-        <InnerNav wordmarkColor="#6ECC8B" ctaLabel="Get started" />
+        <InnerNav wordmarkColor="#6ECC8B" ctaLabel="Schedule demo" />
         {children}
         <OversizedFooter
           line1="FOR BUSINESSES"
@@ -39,7 +39,7 @@ export default async function InnerLayout({
           leftTagline="The modern growth team for local business."
           rightTagline="Stay informed about our latest features and product releases"
           cta1Href="/blog"
-          cta2Label="Get started"
+          cta2Label="Services and pricing"
           emailPlaceholder="Email Address"
           signUpLabel="Sign Up"
           podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"

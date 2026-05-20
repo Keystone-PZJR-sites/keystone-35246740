@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
@@ -51,6 +52,7 @@ export function HeroAnimatic({
   videoSrcs,
   markColor,
 }: HeroAnimaticProps) {
+  const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
@@ -330,7 +332,7 @@ export function HeroAnimatic({
                 type="button"
                 onMouseEnter={() => setIsGetStartedHovered(true)}
                 onMouseLeave={() => setIsGetStartedHovered(false)}
-                onClick={(e) => openModal(e.currentTarget)}
+                onClick={() => router.push('/portal')}
                 className="inline-flex h-12 cursor-pointer items-center gap-2 whitespace-nowrap bg-[var(--color-hero-accent)] pl-4 pr-3 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-bg)]"
                 style={{
                   borderRadius: isGetStartedHovered ? '0px' : '24px',

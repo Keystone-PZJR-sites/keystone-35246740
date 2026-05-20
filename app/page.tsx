@@ -130,8 +130,8 @@ export default async function HomePage() {
               headlineLine1="Always ON "
               headlineLine2="SALES & MARKETING"
               subheadline="A team of experts running your marketing while you run your business."
-              cta1Label="Learn more"
-              cta2Label="Get started"
+              cta1Label="Get in touch"
+              cta2Label="Services and pricing"
               videoSrcs={HERO_VIDEOS_MOBILE}
               markColor="#6ECC8B"
             />
@@ -140,8 +140,8 @@ export default async function HomePage() {
               headlineLine1="Always ON "
               headlineLine2="SALES & MARKETING"
               subheadline="A team of experts running your marketing while you run your business."
-              cta1Label="Learn more"
-              cta2Label="Get started"
+              cta1Label="Get in touch"
+              cta2Label="Services and pricing"
               videoSrcs={HERO_VIDEOS_DESKTOP}
               markColor="#6ECC8B"
             />
@@ -174,8 +174,8 @@ export default async function HomePage() {
             <ValueProps
               headlinePreamble="Not an agency. Not software. Something "
               headlineItalic="better"
-              learnMoreLabel="Learn more"
-              getStartedLabel="Get started"
+              learnMoreLabel="Get in touch"
+              getStartedLabel="Services and pricing"
               cards={VALUE_PROP_CARDS}
             />
             <MobileValueProps
@@ -239,7 +239,7 @@ export default async function HomePage() {
             leftTagline="The modern growth team for local business."
             rightTagline="Stay informed about our latest features and product releases"
             cta1Href="/blog"
-            cta2Label="Get started"
+            cta2Label="Services and pricing"
             emailPlaceholder="Email Address"
             signUpLabel="Sign Up"
             podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
@@ -265,7 +265,7 @@ export default async function HomePage() {
             leftTagline="The modern growth team for local business."
             rightTagline="Stay informed about our latest features and product releases"
             cta1Href="/blog"
-            cta2Label="Get started"
+            cta2Label="Services and pricing"
             emailPlaceholder="Email Address"
             signUpLabel="Sign Up"
             podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"

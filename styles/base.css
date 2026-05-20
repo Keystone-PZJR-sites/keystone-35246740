@@ -105,6 +105,69 @@
   }
 }
 
+/*
+ * Tailwind semantic token bridge for KDS primitives (portal, forms, etc.).
+ * This custom site does not import the stock KDS theme bundle, so we define
+ * just the semantic tokens needed by shared KDS utility classes here.
+ */
+@theme {
+  --font-body: "FK Grotesk Neue", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "FK Screamer", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --radius-component: 0.75rem;
+  --radius-interactive: 9999px;
+  --radius-input: 0.5rem;
+  --radius-badge: 9999px;
+
+  --color-bg-primary: #f0eee6;
+  --color-bg-secondary: #e8e2d4;
+  --color-bg-tertiary: #ddd5c4;
+  --color-bg-quaternary: #cfc4b0;
+  --color-bg-primary_hover: #e6dfcf;
+  --color-bg-secondary_hover: #ddd5c4;
+  --color-bg-brand-solid: #f57e56;
+  --color-bg-brand-solid_hover: #d75b42;
+  --color-bg-error-primary: #fff1ef;
+
+  --color-text-primary: #042019;
+  --color-text-secondary: #1f3a33;
+  --color-text-tertiary: #4f4d4a;
+  --color-text-quaternary: #7d776b;
+  --color-text-placeholder: #8f897d;
+  --color-text-brand-secondary: #9f3722;
+  --color-text-error-primary: #9f3722;
+
+  --color-border-primary: #c7beac;
+  --color-border-secondary: #d8cfbe;
+  --color-border-tertiary: #e5dccb;
+  --color-border-brand: #f57e56;
+  --color-border-error: #d75b42;
+
+  --background-color-primary: var(--color-bg-primary);
+  --background-color-secondary: var(--color-bg-secondary);
+  --background-color-tertiary: var(--color-bg-tertiary);
+  --background-color-quaternary: var(--color-bg-quaternary);
+  --background-color-primary_hover: var(--color-bg-primary_hover);
+  --background-color-secondary_hover: var(--color-bg-secondary_hover);
+  --background-color-brand-solid: var(--color-bg-brand-solid);
+  --background-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
+  --background-color-error-primary: var(--color-bg-error-primary);
+
+  --text-color-primary: var(--color-text-primary);
+  --text-color-secondary: var(--color-text-secondary);
+  --text-color-tertiary: var(--color-text-tertiary);
+  --text-color-quaternary: var(--color-text-quaternary);
+  --text-color-placeholder: var(--color-text-placeholder);
+  --text-color-brand-secondary: var(--color-text-brand-secondary);
+  --text-color-error-primary: var(--color-text-error-primary);
+
+  --border-color-primary: var(--color-border-primary);
+  --border-color-secondary: var(--color-border-secondary);
+  --border-color-tertiary: var(--color-border-tertiary);
+  --border-color-brand: var(--color-border-brand);
+  --border-color-error: var(--color-border-error);
+}
+
 [data-theme="custom"] {
   /* Hero */
   --color-hero-bg: #042019;
@@ -134,6 +197,16 @@
   --color-pricing-chip-border: #19524e;
   --color-pricing-chip-label: #f8f7f2;
   --color-pricing-addon-chip-bg: #0d2a28;
+}
+
+/* Keep Keystone portal compact so supporting sections appear sooner. */
+.custom-portal-shell .custom-portal-frame > .min-h-screen {
+  min-height: clamp(540px, 76vh, 780px) !important;
+}
+
+/* Messages tab thread area override (KDS default inline height is 70vh). */
+.custom-portal-shell .custom-portal-frame [style*='height: 70vh'] {
+  height: min(52vh, 520px) !important;
 }
 
 /* ==================== SITE-SPECIFIC OVERRIDES ==================== */

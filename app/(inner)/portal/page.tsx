@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PortalPage } from 'keystone-design-bootstrap/portal';
 import {
   WorkShowcase,
   MobileWorkShowcase,
@@ -45,37 +46,30 @@ const PAYMENTS_ADDON = {
 };
 
 export const metadata: Metadata = {
-  title: 'Booking | Keystone',
-  description: 'Schedule a booking with the Keystone team.',
+  title: 'Portal | Keystone',
+  description: 'Access Keystone booking, services, and messages.',
 };
 
-export default function BookingPage() {
+export default async function Page({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   return (
-    <div className="inner-page" data-theme="custom">
+    <div className="inner-page custom-portal-shell" data-theme="custom">
       <header className="inner-page-header">
         <div className="inner-page-header-inner">
-          <h1 className="inner-page-title">Booking</h1>
+          <h1 className="inner-page-title">View Services &amp; Book Demo</h1>
           <p className="inner-page-subtitle">
-            Choose a time that works for you and book directly on our calendar.
+            Great businesses deserve to be found. Review the services we offer, chat with us, or find time to book a demo.
           </p>
         </div>
       </header>
 
       <main>
-        <div className="blog-content">
-          <section className="blog-featured-card p-4 md:p-6">
-            {/* Google Calendar Appointment Scheduling begin */}
-            <iframe
-              src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3_T8lGlmKlvc3lxmKivlJJ-8Thwhm2HDCZU2-Eb35alHYlXSZED_UGvoL3K2W_wxomjs3rE3UL?gv=true"
-              title="Keystone booking calendar"
-              style={{ border: 0 }}
-              width="100%"
-              height="600"
-              frameBorder="0"
-            />
-            {/* end Google Calendar Appointment Scheduling */}
-          </section>
-
+        <div className="custom-portal-frame">
+          <PortalPage
+            searchParams={searchParams}
+            enabledTabs={['services', 'book', 'messages']}
+            bookingLabel="Book Demo"
+            tabLabels={{ services: 'Services & Pricing', messages: 'Chat with Us' }}
+          />
         </div>
 
         <SocialProofSection

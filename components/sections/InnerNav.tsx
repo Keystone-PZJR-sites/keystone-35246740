@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneWordmark } from '@/components/elements';
-import { useLeadCapture } from './LeadCaptureModal';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -11,7 +11,7 @@ import { useLeadCapture } from './LeadCaptureModal';
 export interface InnerNavProps {
   /** Color for the Keystone wordmark SVG */
   wordmarkColor?: string;
-  /** Label for the CTA button that opens the lead capture modal */
+  /** Label for the CTA button that links to portal */
   ctaLabel: string;
 }
 
@@ -20,8 +20,6 @@ export interface InnerNavProps {
 // ---------------------------------------------------------------------------
 
 export function InnerNav({ wordmarkColor = '#6ECC8B', ctaLabel }: InnerNavProps) {
-  const { openModal } = useLeadCapture();
-
   return (
     <nav
       className="inner-nav"
@@ -39,13 +37,10 @@ export function InnerNav({ wordmarkColor = '#6ECC8B', ctaLabel }: InnerNavProps)
           />
         </Link>
 
-        <button
-          type="button"
-          onClick={(e) => openModal(e.currentTarget)}
-          className="inner-nav-cta"
-        >
+        <Link href="/portal" className="inner-nav-cta">
           {ctaLabel}
-        </button>
+          <ArrowNarrowRight size={14} />
+        </Link>
       </div>
     </nav>
   );

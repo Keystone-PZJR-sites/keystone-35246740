@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
@@ -81,6 +82,7 @@ export function ValueProps({
   getStartedLabel,
   cards,
 }: ValuePropsProps) {
+  const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const { openModal } = useLeadCapture();
@@ -168,7 +170,7 @@ export function ValueProps({
               className="vp-cta-get-started"
               onMouseEnter={() => setIsGetStartedHovered(true)}
               onMouseLeave={() => setIsGetStartedHovered(false)}
-              onClick={(e) => openModal(e.currentTarget)}
+              onClick={() => router.push('/portal')}
               style={{
                 borderRadius: isGetStartedHovered ? '0px' : '24px',
                 transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',

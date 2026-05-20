@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { KeystoneMark, KeystoneWordmark, SocialIcon } from '@/components/elements';
 import { ArrowNarrowRight } from '@untitledui/icons';
-import { useLeadCapture } from './LeadCaptureModal';
 import { useEmailSignup } from '@/lib/useEmailSignup';
 import { useNearViewport } from '@/lib/useNearViewport';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -181,7 +180,6 @@ export function OversizedFooter({
   linkedinUrl,
   applePodcastsUrl,
 }: OversizedFooterProps) {
-  const { openModal } = useLeadCapture();
   const { state: signUpState, errorMessage: signUpError, handleSubmit: handleSignUp } = useEmailSignup();
   const [isCtaHovered, setIsCtaHovered] = useState(false);
 
@@ -268,11 +266,10 @@ export function OversizedFooter({
           </p>
           {/* ── Row 2, col 1: CTA — standalone "Get started" (no border wrapper, no Blog link) ── */}
           <div className="footer-lower-act1">
-            <button
-              type="button"
+            <Link
+              href="/portal"
               onMouseEnter={() => setIsCtaHovered(true)}
               onMouseLeave={() => setIsCtaHovered(false)}
-              onClick={(e) => openModal(e.currentTarget)}
               className="footer-btn-text flex h-12 shrink-0 cursor-pointer items-center px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
               style={{
                 borderRadius: isCtaHovered ? '0px' : '24px',
@@ -300,7 +297,7 @@ export function OversizedFooter({
                   <ArrowNarrowRight size={16} color="var(--color-footer-bg)" />
                 </span>
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* ── Row 2, col 2: email signup ── */}

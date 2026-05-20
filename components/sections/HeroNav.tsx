@@ -1,11 +1,11 @@
 'use client';
 
+import Link from 'next/link';
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneWordmark } from '@/components/elements';
-import { useLeadCapture } from './LeadCaptureModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,7 +20,6 @@ export interface HeroNavProps {
 
 export function HeroNav({ wordmarkColor = '#6ECC8B' }: HeroNavProps) {
   const navRef = useRef<HTMLElement>(null);
-  const { openModal } = useLeadCapture();
 
   useLayoutEffect(() => {
     const nav = navRef.current;
@@ -74,21 +73,19 @@ export function HeroNav({ wordmarkColor = '#6ECC8B' }: HeroNavProps) {
           className="h-[18px] w-auto md:h-5"
         />
         <div className="flex items-center">
-          <button
-            type="button"
-            onClick={(e) => openModal(e.currentTarget)}
+          <Link
+            href="/portal"
             className="flex items-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-hero-accent)] py-[7px] pl-3 pr-[10px] font-['FK_Grotesk_Neue',sans-serif] text-sm leading-none tracking-[-0.01em] text-[var(--color-hero-bg)] md:hidden"
           >
-            Get Started
+            Schedule demo
             <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
-          </button>
+          </Link>
 
-          <button
-            type="button"
-            onClick={(e) => openModal(e.currentTarget)}
+          <Link
+            href="/portal"
             className="group hidden cursor-pointer items-center gap-2 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-text)] md:inline-flex"
           >
-            Get started
+            Schedule demo
             <span className="relative inline-flex size-4 overflow-hidden" aria-hidden="true">
               <span className="absolute inset-0 transition-transform duration-200 ease-out group-hover:translate-x-full">
                 <ArrowNarrowRight size={16} color="var(--color-hero-text)" />
@@ -97,7 +94,7 @@ export function HeroNav({ wordmarkColor = '#6ECC8B' }: HeroNavProps) {
                 <ArrowNarrowRight size={16} color="var(--color-hero-text)" />
               </span>
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
