@@ -139,8 +139,8 @@ export const HOW_IT_WORKS_HERO_HEADLINE =
 export const HOW_IT_WORKS_HERO_SUPPORTING_COPY =
   'Keystone builds, maintains, optimizes and converts your website, ads, social, reviews, content, email, and leads.';
 
-export const HOW_IT_WORKS_PRIMARY_CTA_LABEL = 'View portal & pricing';
-export const HOW_IT_WORKS_SECONDARY_CTA_LABEL = 'Get in touch';
+export const HOW_IT_WORKS_PRIMARY_CTA_LABEL = 'Get in touch';
+export const HOW_IT_WORKS_SECONDARY_CTA_LABEL = 'View portal & pricing';
 
 export function buildHowItWorksModules(
   cards: WorkCardData[],

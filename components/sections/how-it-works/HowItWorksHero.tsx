@@ -45,15 +45,15 @@ export function HowItWorksHero({
           <p className="hiw-hero-supporting-copy">{supportingCopy}</p>
 
           <div className="hiw-hero-cta-row">
-            <a href="/portal" className="hiw-hero-cta-primary">
-              {primaryCtaLabel}
-              <ArrowNarrowRight size={16} />
-            </a>
             <a
               href={getInTouchHref}
               onClick={onGetInTouchClick}
-              className="hiw-hero-cta-secondary"
+              className="hiw-hero-cta-primary"
             >
+              {primaryCtaLabel}
+              <ArrowNarrowRight size={16} />
+            </a>
+            <a href="/portal" className="hiw-hero-cta-secondary">
               {secondaryCtaLabel}
             </a>
           </div>
