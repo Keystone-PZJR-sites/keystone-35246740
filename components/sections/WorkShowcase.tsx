@@ -212,7 +212,12 @@ export function renderWorkCard(
 // Main component
 // ---------------------------------------------------------------------------
 
-export function WorkShowcase({ headlineParts, industries, cards, staticPreview }: WorkShowcaseProps) {
+export function WorkShowcase({
+  headlineParts,
+  industries,
+  cards,
+  staticPreview,
+}: WorkShowcaseProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,

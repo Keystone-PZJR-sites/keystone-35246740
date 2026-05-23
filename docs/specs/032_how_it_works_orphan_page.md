@@ -1,6 +1,6 @@
 # Spec 032 — How It Works Landing Page
 
-**Status:** Draft  
+**Status:** Published (superseded by Spec 033)  
 **Depends on:** Spec 002 (Work Showcase + revisions), Spec 005 (Pricing), Spec 023 (Mobile Work Showcase), Spec 024 (Product Screens Refresh), Spec 026 (Section Layout Refactor), Spec 027 (Section Height Floor Opt-in)  
 **Figma file:** `XRbD11WIevI5szRFiRrguZ`  
 **Context nodes (inspiration only):**
@@ -269,42 +269,42 @@ Current prepared files:
 
 ### Route and isolation
 
-- [ ] `/how-it-works` exists as a standalone page route
-- [ ] Existing `/services` route remains unchanged
-- [ ] `/how-it-works` is not linked in site navigation
+- [x] `/how-it-works` exists as a standalone page route
+- [x] Existing `/services` route remains unchanged
+- [x] `/how-it-works` is not linked in site navigation
 
 ### Hero
 
-- [ ] Hero presents a clear, utilitarian value proposition aligned to ad intent
-- [ ] Hero includes two CTAs: demo and learn more
-- [ ] Hero right column includes service pills and a single-focus carousel
-- [ ] Service pills include: Web, Ads, Social, Content, Reviews, Leads, Sales
+- [x] Hero presents a clear, utilitarian value proposition aligned to ad intent
+- [x] Hero includes two CTAs: demo and learn more
+- [x] Hero right column includes service pills and a single-focus carousel
+- [x] Service pills include: Web, Ads, Social, Content, Reviews, Leads, Sales
 
 ### Reuse sections
 
 - [ ] Work Showcase section is reused as section two
 - [ ] Pricing section is reused as final section
-- [ ] Reused sections match existing site style and behavior
+- [x] Reused sections match existing site style and behavior
 
 ### Module section
 
-- [ ] Seven module rows exist in the specified order
-- [ ] Each row includes explanatory copy, matching pill, and relevant media carousel
-- [ ] Desktop/tablet rows alternate copy/media alignment
-- [ ] Mobile rows stack cleanly without overflow
+- [x] Seven module rows exist in the specified order
+- [x] Each row includes explanatory copy, matching pill, and relevant media carousel
+- [x] Desktop/tablet rows alternate copy/media alignment
+- [x] Mobile rows stack cleanly without overflow
 - [ ] Module carousels use the exact source mapping defined in this spec
-- [ ] Reviews row is sourced from existing `listings` examples (including `/work-showcase/cards/home-listings-card-focused`)
-- [ ] Leads row is sourced from `/product-screens/screen-leads`
-- [ ] Sales row is sourced from existing `sales` examples (including `/work-showcase/cards/home-sales-card-focused`)
+- [x] Reviews row is sourced from existing `listings` examples (including `/work-showcase/cards/home-listings-card-focused`)
+- [x] Leads row is sourced from `/product-screens/screen-leads`
+- [x] Sales row is sourced from existing `sales` examples (including `/work-showcase/cards/home-sales-card-focused`)
 
 ### Shell and responsiveness
 
-- [ ] Standard inner-page header/footer shell appears automatically
-- [ ] No horizontal overflow at mobile, tablet, or desktop breakpoints
-- [ ] CTA controls and carousel controls are usable on keyboard and touch
+- [x] Standard inner-page header/footer shell appears automatically
+- [x] No horizontal overflow at mobile, tablet, or desktop breakpoints
+- [x] CTA controls and carousel controls are usable on keyboard and touch
 
 ### Motion and accessibility
 
-- [ ] Reduced-motion users receive stable, non-animated equivalents
-- [ ] Focus states are visible on all interactive controls
-- [ ] Active/inactive module states are visually clear
+- [x] Reduced-motion users receive stable, non-animated equivalents
+- [x] Focus states are visible on all interactive controls
+- [x] Active/inactive module states are visually clear

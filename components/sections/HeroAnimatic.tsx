@@ -6,9 +6,9 @@ import gsap from 'gsap';
 import { KeystoneMark } from '@/components/elements';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
-import { useLeadCapture } from './LeadCaptureModal';
 import { log } from '@/lib/logger';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
+import { useGetInTouchCta } from './useGetInTouchCta';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +18,7 @@ export interface HeroAnimaticProps {
   subheadline: string;
   cta1Label: string;
   cta2Label: string;
+  cta2Href?: string;
   /** Ordered array of clips; must have at least one entry. WebM is served to
    *  browsers that support it; MP4 is the fallback. `poster` is the base path
    *  for the responsive WebP still (e.g. `/videos/.../posters/hero-01`);
@@ -49,6 +50,7 @@ export function HeroAnimatic({
   subheadline,
   cta1Label,
   cta2Label,
+  cta2Href = '/portal',
   videoSrcs,
   markColor,
 }: HeroAnimaticProps) {
@@ -58,7 +60,7 @@ export function HeroAnimatic({
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const bottomBandRef = useRef<HTMLDivElement>(null);
   const videoFrameRef = useRef<HTMLDivElement>(null);
-  const { openModal } = useLeadCapture();
+  const { onGetInTouchClick } = useGetInTouchCta();
   const [bottomBandHeight, setBottomBandHeight] = useState(184);
   const [isLearnMoreHovered, setIsLearnMoreHovered] = useState(false);
   const [isGetStartedHovered, setIsGetStartedHovered] = useState(false);
@@ -319,7 +321,7 @@ export function HeroAnimatic({
                 type="button"
                 onMouseEnter={() => setIsLearnMoreHovered(true)}
                 onMouseLeave={() => setIsLearnMoreHovered(false)}
-                onClick={(e) => openModal(e.currentTarget)}
+                onClick={onGetInTouchClick}
                 className="inline-flex h-12 cursor-pointer items-center whitespace-nowrap bg-[#063126] px-4 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-accent)]"
                 style={{
                   borderRadius: isLearnMoreHovered ? '24px' : '0px',
@@ -332,7 +334,7 @@ export function HeroAnimatic({
                 type="button"
                 onMouseEnter={() => setIsGetStartedHovered(true)}
                 onMouseLeave={() => setIsGetStartedHovered(false)}
-                onClick={() => router.push('/portal')}
+                onClick={() => router.push(cta2Href)}
                 className="inline-flex h-12 cursor-pointer items-center gap-2 whitespace-nowrap bg-[var(--color-hero-accent)] pl-4 pr-3 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-bg)]"
                 style={{
                   borderRadius: isGetStartedHovered ? '0px' : '24px',

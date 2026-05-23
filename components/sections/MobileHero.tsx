@@ -5,8 +5,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/components/elements';
-import { useLeadCapture } from './LeadCaptureModal';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
+import { useGetInTouchCta } from './useGetInTouchCta';
 
 export interface MobileHeroProps {
   headlineLine1: string;
@@ -14,6 +14,7 @@ export interface MobileHeroProps {
   subheadline: string;
   cta1Label: string;
   cta2Label: string;
+  cta2Href?: string;
   /** Ordered array of clips — same six-clip autoloop sequence as desktop.
    *  WebM is served to browsers that support it; MP4 is the fallback.
    *  `poster` is the base path for the responsive WebP still. */
@@ -42,11 +43,12 @@ export function MobileHero({
   subheadline,
   cta1Label,
   cta2Label,
+  cta2Href = '/portal',
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
   const router = useRouter();
-  const { openModal } = useLeadCapture();
+  const { onGetInTouchClick } = useGetInTouchCta();
   const sectionRef = useRef<HTMLElement>(null);
   const videoZoneRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -193,7 +195,7 @@ export function MobileHero({
           <div className="mt-7 flex w-fit items-center gap-4">
             <button
               type="button"
-              onClick={(e) => openModal(e.currentTarget)}
+              onClick={onGetInTouchClick}
               className="hero-pill-btn bg-[#063126] px-3 py-3 text-sm text-[var(--color-hero-accent)] tracking-[-0.01em]"
               style={{ borderRadius: 0 }}
             >
@@ -201,7 +203,7 @@ export function MobileHero({
             </button>
             <button
               type="button"
-              onClick={() => router.push('/portal')}
+              onClick={() => router.push(cta2Href)}
               className="hero-pill-btn gap-2 bg-[var(--color-hero-accent)] py-3 pl-3 pr-[10px] text-sm text-[var(--color-hero-bg)] tracking-[-0.01em]"
             >
               {cta2Label}

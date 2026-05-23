@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { log } from '@/lib/logger';
 import { useEmblaWithIndex } from '@/lib/useEmblaWithIndex';
-import { useLeadCapture } from './LeadCaptureModal';
+import { useGetInTouchCta } from './useGetInTouchCta';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,6 +55,7 @@ export interface ValuePropsProps {
   headlineSuffix?: string;
   learnMoreLabel: string;
   getStartedLabel: string;
+  getStartedHref?: string;
   cards: ValuePropCard[];
 }
 
@@ -80,12 +81,13 @@ export function ValueProps({
   headlineSuffix = '.',
   learnMoreLabel,
   getStartedLabel,
+  getStartedHref = '/portal',
   cards,
 }: ValuePropsProps) {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs   = useRef<(HTMLDivElement | null)[]>([]);
-  const { openModal } = useLeadCapture();
+  const { onGetInTouchClick } = useGetInTouchCta();
   const [isLearnMoreHovered, setIsLearnMoreHovered] = useState(false);
   const [isGetStartedHovered, setIsGetStartedHovered] = useState(false);
 
@@ -157,7 +159,7 @@ export function ValueProps({
               className="vp-cta-learn-more"
               onMouseEnter={() => setIsLearnMoreHovered(true)}
               onMouseLeave={() => setIsLearnMoreHovered(false)}
-              onClick={(e) => openModal(e.currentTarget)}
+              onClick={onGetInTouchClick}
               style={{
                 borderRadius: isLearnMoreHovered ? '24px' : '0px',
                 transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
@@ -170,7 +172,7 @@ export function ValueProps({
               className="vp-cta-get-started"
               onMouseEnter={() => setIsGetStartedHovered(true)}
               onMouseLeave={() => setIsGetStartedHovered(false)}
-              onClick={() => router.push('/portal')}
+              onClick={() => router.push(getStartedHref)}
               style={{
                 borderRadius: isGetStartedHovered ? '0px' : '24px',
                 transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',

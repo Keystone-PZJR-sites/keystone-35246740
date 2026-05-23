@@ -3,12 +3,12 @@
 // Applies to all non-home pages: /blog, /blog/[slug], and all future
 // inner pages (about, FAQ, contact, etc.). Provides:
 //   1. Sticky top navigation bar (InnerNav)
-//   2. Shared footer (OversizedFooter — identical to home page)
+//   2. Shared footer (OversizedFooter on desktop, MobileFooter on mobile)
 //   3. Lead capture modal available site-wide via LeadCaptureProvider
 //
 // Server Component — fetches company social URLs for the footer.
 
-import { LeadCaptureProvider, InnerNav, OversizedFooter } from '@/components/sections';
+import { LeadCaptureProvider, InnerNav, MobileFooter, OversizedFooter } from '@/components/sections';
 import { getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api';
 
 export default async function InnerLayout({
@@ -43,6 +43,7 @@ export default async function InnerLayout({
           emailPlaceholder="Email Address"
           signUpLabel="Sign Up"
           podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+          applePodcastsUrl="https://podcasts.apple.com/us/podcast/made-locally/id1895736090"
           youtubeUrl={companyInfo?.youtube_url}
           instagramUrl={companyInfo?.instagram_url}
           facebookUrl={companyInfo?.facebook_url}
@@ -55,6 +56,32 @@ export default async function InnerLayout({
           videoC={{ webm: '/footer/footer-video-cafe-desktop.webm',      mp4: '/footer/footer-video-cafe-desktop.mp4',      poster: '/footer/posters/footer-cafe' }}
           videoD={{ webm: '/footer/footer-video-phonecall-desktop.webm', mp4: '/footer/footer-video-phonecall-desktop.mp4', poster: '/footer/posters/footer-phonecall' }}
           videoE={{ webm: '/footer/footer-video-barber-desktop.webm',    mp4: '/footer/footer-video-barber-desktop.mp4',    poster: '/footer/posters/footer-barber' }}
+        />
+        <MobileFooter
+          line1="FOR BUSINESSES"
+          line2="THAT ARE"
+          line3=" DONE FIGURING"
+          line4="IT OUT THEMSELVES"
+          leftTagline="The modern growth team for local business."
+          rightTagline="Stay informed about our latest features and product releases"
+          cta1Href="/blog"
+          cta2Label="Services and pricing"
+          emailPlaceholder="Email Address"
+          signUpLabel="Sign Up"
+          podcastUrl="https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94"
+          applePodcastsUrl="https://podcasts.apple.com/us/podcast/made-locally/id1895736090"
+          youtubeUrl={companyInfo?.youtube_url}
+          instagramUrl={companyInfo?.instagram_url}
+          facebookUrl={companyInfo?.facebook_url}
+          linkedinUrl={companyInfo?.linkedin_url}
+          keystoneMarkColor="#F57E56"
+          ctaArrowSrc="/footer/footer-cta-arrow.svg"
+          keystoneWordmarkColor="#F57E56"
+          videoA={{ webm: '/footer/footer-video-pet-mobile.webm',       mp4: '/footer/footer-video-pet-mobile.mp4',       poster: '/footer/posters/footer-pet' }}
+          videoB={{ webm: '/footer/footer-video-truck-mobile.webm',     mp4: '/footer/footer-video-truck-mobile.mp4',     poster: '/footer/posters/footer-truck' }}
+          videoC={{ webm: '/footer/footer-video-cafe-mobile.webm',      mp4: '/footer/footer-video-cafe-mobile.mp4',      poster: '/footer/posters/footer-cafe' }}
+          videoD={{ webm: '/footer/footer-video-phonecall-mobile.webm', mp4: '/footer/footer-video-phonecall-mobile.mp4', poster: '/footer/posters/footer-phonecall' }}
+          videoE={{ webm: '/footer/footer-video-barber-mobile.webm',    mp4: '/footer/footer-video-barber-mobile.mp4',    poster: '/footer/posters/footer-barber' }}
         />
       </div>
     </LeadCaptureProvider>
