@@ -173,7 +173,7 @@ export function MobileHero({
           <div className="mt-7">
             <p
               className="font-['FK_Screamer',sans-serif] font-bold not-italic uppercase leading-[0.82] text-[var(--color-hero-text)]"
-              style={{ fontSize: 'clamp(3.5rem, 23vw, 5.625rem)' }}
+              style={{ fontSize: 'clamp(2.25rem, 15vw, 3.75rem)' }}
             >
               {headline}
             </p>
