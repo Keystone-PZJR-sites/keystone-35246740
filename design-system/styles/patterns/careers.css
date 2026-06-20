@@ -1,0 +1,21 @@
+/* ============================================================
+   Careers — hero team collage (spec 041)
+   ============================================================
+   A decorative grid of gradient tiles beside the hero copy. The
+   tiles are SpotlightCards (CardGrid + SpotlightCard); these rules
+   only size the role glyph. Hidden from assistive tech.
+   ============================================================ */
+
+.ks-careers-collage {
+  width: 100%;
+}
+
+.ks-careers-collage__glyph {
+  display: inline-flex;
+  opacity: 0.92;
+}
+
+.ks-careers-collage__glyph svg {
+  width: 28px;
+  height: 28px;
+}

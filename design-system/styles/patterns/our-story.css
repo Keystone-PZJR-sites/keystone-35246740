@@ -1,0 +1,78 @@
+/* ============================================================
+   Our Story page (spec 043)
+   ============================================================
+   Page-specific layout for /about: the mission band's two-column
+   heading + copy and its photo strip, the origin / careers split
+   blocks, and the placeholder photo-strip tile sizing. Built on
+   ContentSection + CardGrid + SpotlightCard + Marquee; these rules
+   only handle composition. Colors/spacing reference tokens only.
+   ============================================================ */
+
+/* ---- Mission band (two-column copy + photo strip) ---- */
+.ks-story-mission-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 64px);
+}
+
+.ks-story-mission {
+  display: grid;
+  gap: clamp(18px, 3vw, 32px);
+}
+
+.ks-story-mission__heading {
+  margin: 0;
+}
+
+.ks-story-mission__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- Origin / careers split blocks ---- */
+.ks-story-split {
+  display: grid;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+
+.ks-story-split__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 54ch;
+}
+
+.ks-story-split__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ---- Placeholder photo-strip tile ---- */
+.ks-story-strip-tile {
+  width: clamp(150px, 18vw, 210px);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-story-mission {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: clamp(40px, 6vw, 96px);
+  }
+
+  .ks-story-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 80px);
+  }
+
+  /* Media on the left: pull it before the copy. */
+  .ks-story-split--media-start .ks-story-split__copy {
+    order: 2;
+  }
+  .ks-story-split--media-start .ks-story-split__media {
+    order: 1;
+  }
+}

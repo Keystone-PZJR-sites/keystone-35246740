@@ -1,0 +1,180 @@
+/* ============================================================
+   Process Steps (spec 040)
+   ============================================================
+   A numbered "how it works" narrative: a connecting rail of big
+   numbered nodes, copy + service chips, and a framed media panel.
+   Sits inside a ContentSection. Colors/radii/spacing reference
+   tokens only.
+   ============================================================ */
+
+.ks-process {
+  --ks-process-gap: clamp(40px, 6vw, 80px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ks-process-gap);
+}
+
+/* ---- Step row ---- */
+.ks-process__step {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 3vw, 28px);
+  align-items: start;
+}
+
+/* ---- Rail + numbered node ---- */
+.ks-process__rail {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ks-process__node {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-brand-solid);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ---- Copy ---- */
+.ks-process__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 540px;
+}
+
+.ks-process__title {
+  margin: 0;
+}
+
+.ks-process__copy {
+  margin: 0;
+}
+
+/* ---- Service chips (link to the relevant /services pages) ---- */
+.ks-process__services {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ks-process__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--radius-interactive);
+  border: 1px solid var(--color-border-primary);
+  background-color: var(--color-surface-card);
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ks-process__chip:hover,
+.ks-process__chip:focus-visible {
+  border-color: var(--color-text-brand-secondary);
+  color: var(--color-text-brand-secondary);
+  background-color: var(--color-bg-primary);
+}
+
+.ks-process__chip:focus-visible {
+  outline: 2px solid var(--color-hero-accent, #6ecc8b);
+  outline-offset: 2px;
+}
+
+.ks-process__chip-arrow {
+  width: 15px;
+  height: 15px;
+  color: var(--color-text-quaternary);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.ks-process__chip:hover .ks-process__chip-arrow,
+.ks-process__chip:focus-visible .ks-process__chip-arrow {
+  color: var(--color-text-brand-secondary);
+  transform: translate(1px, -1px);
+}
+
+/* ---- Framed media panel ---- */
+.ks-process__media {
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.ks-process__media--panel-cream {
+  background-color: var(--color-bg-secondary);
+  padding: clamp(20px, 3vw, 40px);
+}
+
+.ks-process__media--panel-cream-strong {
+  background-color: var(--color-bg-tertiary);
+  padding: clamp(20px, 3vw, 40px);
+}
+
+.ks-process__media > * {
+  width: 100%;
+}
+
+/* ============================================================
+   Desktop: three columns (rail · copy · media) with a continuous
+   rail line linking the numbered nodes, and the media held at a
+   comfortable width on the right.
+   ============================================================ */
+@media (width >= theme(--breakpoint-md)) {
+  .ks-process__step {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(0, clamp(380px, 40vw, 480px));
+    column-gap: clamp(24px, 3vw, 48px);
+    align-items: center;
+  }
+
+  /* Node pinned to the top of the row so the rail reads as a spine. */
+  .ks-process__rail {
+    align-self: stretch;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  /* The connecting line: from this node's centre down to the next node. */
+  .ks-process__rail::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    width: 2px;
+    height: calc(100% - 22px + var(--ks-process-gap));
+    transform: translateX(-50%);
+    background-color: var(--color-border-secondary);
+  }
+
+  .ks-process__step:last-child .ks-process__rail::before {
+    display: none;
+  }
+}

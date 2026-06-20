@@ -1,0 +1,89 @@
+/* ============================================================
+   PriceSummary (spec 039)
+   ============================================================
+   The shared price card. Two tones:
+
+   - `ink`   — the dark homepage treatment. Renders as a layout
+               passthrough (display: contents) so the price/chip
+               blocks stay direct flex children of .pricing-inner
+               and the homepage PricingSection is unchanged. Colors
+               and sizes come from the .pricing-* rules in
+               pricing.css.
+   - `light` — the cream /pricing-page card. A centered surface that
+               recolors and resizes the same .pricing-* blocks for a
+               light background.
+   ============================================================ */
+
+/* Passthrough: the wrapper box disappears, children lay out in the parent. */
+.ks-price-summary--ink {
+  display: contents;
+}
+
+/* ---- Light card ---- */
+.ks-price-summary--light {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px);
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+}
+
+/* Recolor + resize the shared .pricing-* blocks for the cream card. */
+.ks-price-summary--light .pricing-tagline {
+  font-size: clamp(16px, 2.4vw, 22px);
+  letter-spacing: -0.02em;
+  color: var(--color-text-tertiary);
+}
+
+.ks-price-summary--light .pricing-price {
+  margin-top: clamp(16px, 3vw, 28px);
+  font-size: clamp(52px, 9vw, 92px);
+  line-height: 0.86;
+}
+.ks-price-summary--light .pricing-price-amount {
+  color: var(--color-text-primary);
+}
+.ks-price-summary--light .pricing-price-period {
+  color: var(--color-pricing-price-secondary);
+}
+
+.ks-price-summary--light .pricing-sub-copy {
+  margin-top: 20px;
+  color: var(--color-text-secondary);
+}
+
+.ks-price-summary--light .pricing-chips {
+  gap: 8px;
+  margin-top: clamp(24px, 3.5vw, 36px);
+  max-width: 100%;
+}
+.ks-price-summary--light .pricing-chip {
+  height: 40px;
+  gap: 8px;
+  padding: 0 14px;
+  border-color: var(--color-border-secondary);
+}
+.ks-price-summary--light .pricing-chip-icon {
+  width: 18px;
+  height: 18px;
+}
+.ks-price-summary--light .pricing-chip-label {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+/* ---- /pricing page: the light card + its action, centered ---- */
+.pricing-page-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vw, 28px);
+}

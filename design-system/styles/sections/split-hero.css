@@ -1,0 +1,63 @@
+/* ============================================================
+   Split Hero (spec 037)
+   ============================================================
+   A two-column page opener: eyebrow / headline / supporting line /
+   actions beside a single media card. Used by service and landing
+   pages. Colors/radii/spacing reference tokens only.
+   ============================================================ */
+
+.ks-split-hero {
+  background-color: var(--color-bg-primary);
+}
+
+.ks-split-hero__inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding: calc(var(--site-nav-clearance) + 8px) 24px clamp(40px, 7vh, 72px);
+  display: grid;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-split-hero__inner {
+    padding-inline: 48px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+  /* Media on the left: pull it before the copy in the grid. */
+  .ks-split-hero--media-start .ks-split-hero__copy { order: 2; }
+  .ks-split-hero--media-start .ks-split-hero__media { order: 1; }
+}
+
+.ks-split-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 600px;
+}
+
+.ks-split-hero__title {
+  margin: 0;
+}
+
+.ks-split-hero__subtitle {
+  max-width: 46ch;
+}
+
+.ks-split-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* ---- Media card ---- */
+.ks-split-hero__media {
+  width: 100%;
+}
+
+/* The media card fills its column width; the card's own aspect ratio gives it
+   height. */
+.ks-split-hero__media > * {
+  width: 100%;
+}

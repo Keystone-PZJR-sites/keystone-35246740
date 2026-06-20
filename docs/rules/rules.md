@@ -10,7 +10,7 @@ Rules are grouped by theme and titled, not numbered for posterity — refer to t
 
 ## Specs Come First
 
-**Never write code before there is a spec.** The flow:
+**New sections, features, and rewrites never begin as code — there is a spec first** (surgical changes are the exception, see below). The flow:
 
 1. Designer writes a spec in `docs/specs/` describing what the section looks like and how it behaves. Numbered `001_…`, `002_…`, sequential and never reused.
 2. Spec is approved before any implementation begins.
@@ -20,14 +20,34 @@ Rules are grouped by theme and titled, not numbered for posterity — refer to t
 Specs are written for a non-technical Figma-literate reader, in design language only:
 
 - **Visual language, not engineering language.** Describe colors, sizes, spacing, and motion in plain words ("the site's dark green", "a quick fade"). No component names, libraries, CSS properties.
-- **Figma link for every visual state.** Start, end, and intermediate states — implementer reads exact values from Figma, not from the spec.
-- **No exact values.** No hex codes, pixel measurements, font sizes, or timings. These live in Figma. Project breakpoints (768 px, 1280 px) are the only allowed numeric values.
+- **A visual reference for every state.** Start, end, and intermediate states. For site sections this is a Figma link; for reusable components built from an external reference it is the attached screenshot (see "Reference-Driven Components"). The implementer reads exact values from the reference, never from the spec.
+- **No exact values.** No hex codes, pixel measurements, font sizes, or timings. These live in the Figma file, or — for reference-driven components — are chosen at implementation against our tokens. Project breakpoints (985 px, 1280 px) are the only allowed numeric values.
 - **Every visual state described.** Pre-interaction, during, and complete. Anything missing will be guessed.
 - **Scroll/animation as observable outcomes.** "The headline slides off the top of the screen" — what the visitor sees, not what code achieves it. Cover trigger, what moves, direction, distance, scroll- or time-based, reversibility.
 - **Responsive behaviour explicit.** What is hidden, scales, or repositions at mobile / tablet / desktop. Engineers must not infer it.
 - **Edge cases noted.** At minimum: mobile and `prefers-reduced-motion`.
 - **Acceptance criteria observable.** "The headline slides fully off-screen" — verifiable in a browser by a non-engineer. Never code-shaped.
 - **No code snippets.** Ever.
+
+---
+
+## What Needs a Spec
+
+Specs gate **new work** — a new section, a new feature, or a rewrite of existing design. Anything that gives a non-technical reader a new picture of what a section looks like or how it behaves starts with a spec.
+
+**Surgical changes to already-built, already-specced work do not need a spec.** A breakpoint tweak, a type-weight or spacing adjustment, a copy fix, a new token, or a bug fix traces back to the existing spec's intent. Capture it in the code and the affected explainer — see "Docs Stay in Sync With Code" — instead of writing a new spec.
+
+The test: if describing the change would require a new Figma frame, write a spec. If a reader could see the whole change by diffing the implementation, skip it.
+
+---
+
+## Reference-Driven Components
+
+Reusable components shared across pages are often built to match an external reference instead of a Figma frame — a screenshot of the pattern from a well-designed site, paired with a battle-tested code example (such as UntitledUI) as a structural starting point.
+
+These still get a spec, numbered in sequence like any other. It stays value-free and design-language, but it is anchored to the attached reference screenshot rather than a Figma link, and it names — in plain design language — every new color, size, weight, or style the component needs that the system does not already have, so those additions are approved alongside it.
+
+The reference code is an input to the implementer: never pasted into the spec, never shipped verbatim. The component is rebuilt from our primitives and tokens so it reads as ours. Build one component at a time; `docs/explainers/components.md` carries the build steps. Numbering, immutability, and the approval gate are unchanged.
 
 ---
 
@@ -49,6 +69,8 @@ In both cases the prior spec is left unedited.
 ---
 
 ## Figma Links Are Read Through the MCP
+
+This rule governs Figma-sourced work. A reusable component built from a reference screenshot (see "Reference-Driven Components") has no Figma node, so the "stop if the MCP is unreachable" requirement below does not gate it — but the moment a spec, comment, or asset does cite a Figma URL, everything here is in force.
 
 Every Figma node URL in a spec, comment, or chat message exists to be opened through the Figma MCP. This applies to spec authoring, implementation, asset refreshes, and revisions — every workflow that touches the design.
 
@@ -147,13 +169,18 @@ User-facing strings use literal Unicode characters. Apostrophe is `'`, ampersand
 
 ---
 
-## Magic Numbers Get Names
+## Values Are Defined Centrally, Never Hardcoded Inline
 
-Any number that means something gets a constant. Animation timings, beat positions, character durations, stagger amounts — they read as opaque magic until they have names.
+Any value that *means* something is defined once, in a central place, and referenced by name — never inlined as a bare literal. **This holds even when there is only one reference today.** A named definition documents intent, gives the value a single home to edit, and survives the day a second reference appears — and it always does. Numbers, durations, easing curves, breakpoints, z-index layers, color roles, and the media-query strings JavaScript hands to `matchMedia` all qualify.
 
-The reference pattern for animated components is a small block of named constants at the top of the file (`LINE_STAGGER`, `BEAT_DURATION`, `BEAT_STARTS`, …) that the timeline references by name. A designer can read the constants block, change a value, and know exactly what they changed.
+Where the central definition lives, by kind:
 
-The same applies in CSS: a delay or duration repeated across rules belongs in a custom property; a repeated `cubic-bezier(...)` becomes a named easing token referenced everywhere.
+- **Design values** — color, spacing, radius, z-index, motion → a token in `design-system/tokens/tokens.css`. See "Hex values are tokens" and "The Z-Index Scale".
+- **Per-component magic numbers** — animation timings, beat positions, character durations, stagger amounts → a named-constants block at the top of the component file that the timeline references (`LINE_STAGGER`, `BEAT_DURATION`, `BEAT_STARTS`, …). A designer reads the block, changes a value, and knows exactly what they changed.
+- **Cross-cutting numeric concepts** — the mobile↔desktop breakpoint → a theme token read by CSS through `theme(...)` plus a mirrored JS constant module (`design-system/tokens/breakpoints.ts`). CSS and JS cannot share a literal, so the value is declared in exactly those two places and nowhere else. See "Responsive-Native".
+- **Repeated CSS values** — a delay reused across rules, a shared `cubic-bezier(...)` → a custom property or named easing token referenced everywhere.
+
+The carve-out is meaning, not count. A value genuinely incidental to one spot that names no shared concept — a one-off prose `max-width`, a single decorative offset inside a `ScaledMockCard` — may stay inline, with a comment when its origin isn't obvious. The test: if another file could ever need to agree on the value, or a reader would ask "why this number?", it gets a central name.
 
 ---
 
@@ -183,9 +210,31 @@ Never put `'use client'` on page-level files (`app/*/page.tsx`). Push interactiv
 
 ---
 
+## The Design System Is Central
+
+All brand UI lives under `design-system/` at the repo root and is consumed through it. The layers build strictly upward — **tokens → primitives → components → sections** — and a layer may use the layers above it, never below.
+
+- **Tokens** (`design-system/tokens/`) are the only place colors, fonts, radii, spacing, z-index, elevation, and motion are defined.
+- **Primitives** (`design-system/primitives/`) are the lowest-level building blocks (`Text`, `Heading`, `Button`, `Card`, `Link`, `Pill`, …). Build everything from these; never hand-roll a styled `<button>` or `<h2>` in a page.
+- **Components** (`design-system/components/`) are composite site chrome (navs, footer, lead-capture modal, `InnerPageShell`).
+- **Sections** (`design-system/sections/`) are full-width page sections, including the reusable inner-page set (`PageHero`, `ContentSection`, `FeatureGrid`, `CtaBand`, and the typed data sections).
+- **Patterns** (`design-system/patterns/`) are page-specific groups (`blog/`, `legal/`), imported by path, not from the top barrel.
+
+Import from the top barrel (`@/design-system`) for tokens → sections; import patterns by their own path. Every change to a primitive or token updates the `/styles` catalog in the same commit. Full architecture: `docs/explainers/design-system.md`.
+
+---
+
 ## Component Organization
 
-All components under `components/`. Section components (one per Figma section) in `components/sections/`. Reusable elements in `components/elements/`. Each subfolder has an `index.ts` barrel. One component per file. Named exports only.
+All components under `design-system/`. Section components (one per Figma section) in `design-system/sections/`. Composite chrome in `design-system/components/`. Each subfolder has an `index.ts` barrel; the top-level `design-system/index.ts` re-exports tokens → primitives → components → sections. One component per file. Named exports only.
+
+---
+
+## Pages Compose From the Design System
+
+A page file mounts design-system pieces and feeds them data — nothing more. Every non-home page wraps its body in `<InnerPageShell>` (sticky nav + footer + lead-capture modal in one place), opens with `<PageHero>`, stacks `<ContentSection>` bodies, and closes with `<CtaBand>`. A page never defines its own nav, footer, hero chrome, or colors.
+
+Data fetched from `keystone-design-bootstrap/lib/server-api` is typed at the page boundary against the package's entity types (`Service`, `Testimonial`, `TeamMember`, `FaqQuestion`, `Location`, `SocialPost`, `JobPosting`, …) before being passed into a typed section. Several API helpers return `unknown`; cast to the documented entity type at the fetch site, then render only fields you have verified are strings (the API occasionally returns objects where a string is typed — see `asText` in `design-system/lib/text.ts`).
 
 ---
 
@@ -193,7 +242,7 @@ All components under `components/`. Section components (one per Figma section) i
 
 A component file past ~500 lines is a missing folder. Long files hide structure, make every diff noisy, and let unrelated concerns drift together. The split pattern:
 
-1. Create `components/sections/<section>/` with an `index.ts` barrel.
+1. Create `design-system/sections/<section>/` with an `index.ts` barrel.
 2. Move the top-level section to `<section>/<Section>.tsx`.
 3. Move each visually distinct sub-component (each card variant, each modal, each shape primitive) to its own file.
 4. Section-private types go in a colocated `types.ts` re-exported through the index.
@@ -336,9 +385,9 @@ Don't roll custom animation logic with `requestAnimationFrame` or `setInterval`.
 ## Styling: Tailwind, Tokens, Custom CSS
 
 - **Tailwind for layout and spacing** — flex, grid, padding, margin, width, height, display. Don't write custom CSS for what Tailwind handles in one class.
-- **Design tokens for colors, fonts, radius** — reference CSS custom properties from `[data-theme="custom"]` in `styles/custom-overrides.css`. Never hardcoded hex values in class names.
+- **Design tokens for colors, fonts, radius** — reference CSS custom properties from `design-system/tokens/tokens.css` (global `@theme`/`:root` tokens, and the `[data-theme="custom"]` palette roles). Never hardcoded hex values in class names.
 - **Arbitrary Tailwind values only for one-off exceptions.** Repeated `[value]` is a missing token.
-- **All custom CSS in `styles/custom-overrides.css`.** No CSS modules, styled-components, emotion, `<style>` tags.
+- **All custom CSS lives under `design-system/styles/`**, split by layer and assembled by `design-system/styles/index.css`. Edit the file for the layer you are working on; never add rules to the index. No CSS modules, styled-components, emotion, `<style>` tags.
 
 ### Inline `style={{}}` is allowed only for
 
@@ -350,7 +399,7 @@ If a value never changes per instance, it belongs in a class. The same `fontFami
 
 ### Hex values are tokens
 
-Every hex color used by more than one element exists as a CSS custom property in `[data-theme="custom"]`. The token name describes the role (`--color-pricing-tagline`), not the hue (`--color-mint-green`). One-off truly singular values may stay raw, with a comment explaining why no token applies.
+Every hex color used by more than one element exists as a CSS custom property in `design-system/tokens/tokens.css` (the `[data-theme="custom"]` palette roles, or a global `@theme` token). The token name describes the role (`--color-pricing-tagline`), not the hue (`--color-mint-green`). One-off truly singular values may stay raw, with a comment explaining why no token applies.
 
 Hardcoded hex inside component files is forbidden. A component asks for a color via prop; the page or token system supplies it. Every chip color, photo overlay, and gradient stop comes through as a string from page-level data — components never reach for `'#4f4d4a'` directly.
 
@@ -371,9 +420,9 @@ The exception is per-instance values inside a `ScaledMockCard` (see the ScaledMo
 The FK font family (FK Screamer, FK Grotesk Neue Trial, FK Grotesk Mono Trial, FK Roman Standard Trial, FK Screamer Legacy Trial) is licensed and **not** on Google Fonts or Fontsource.
 
 - Don't `@import` FK fonts from a CDN or public URL.
-- Font files live in `public/fonts/` and load via `@font-face` in `custom-overrides.css`.
+- Font files live in `public/media/fonts/` and load via `@font-face` in `design-system/tokens/fonts.css`.
 - Until files are provided, use system-font fallbacks in development — never ship without the real fonts.
-- Read `styles/custom-overrides.css` for exact font names and weights.
+- Read `design-system/tokens/fonts.css` for exact font names and weights.
 
 ---
 
@@ -392,7 +441,7 @@ If you receive an Exclude-style SVG from Figma, ask for a flattened re-export.
 | Use | Where it lives |
 |-----|----------------|
 | Used once, decorative, ≤ ~20 lines of markup | inline in the component |
-| Used twice or more, anywhere on site | extract to `components/elements/` with `color`/`size` props; variant differences become a `variant` prop |
+| Used twice or more, anywhere on site | extract to a `design-system/primitives/` brand mark with `color`/`size` props; variant differences become a `variant` prop |
 | Complex multi-layer artwork | SVG file in `public/`, loaded via `next/image` or `<img>` |
 
 A repeated icon collapses into one inline definition (a `CheckmarkIcon` defined once near the top of a section, referenced N times). A duplicated icon across two section files collapses into a shared element. Either way, the SVG markup appears in source exactly once.
@@ -436,7 +485,7 @@ The reference implementation lives in the WorkShowcase section.
 
 ## The Z-Index Scale
 
-Stop inventing z-index numbers. Tokens defined once in `styles/base.css`:
+Stop inventing z-index numbers. Tokens defined once in `design-system/tokens/tokens.css`:
 
 | Layer | Token | Used for |
 |-------|-------|----------|
@@ -453,15 +502,17 @@ Define once. Reference everywhere. No raw numbers above `3` in component files. 
 
 ---
 
-## Public Asset Naming
+## Public Asset Naming & The Media Registry
 
-All static assets live in `/public/`. Section assets go in a section subfolder (`/public/work-showcase/`).
+Static media lives under `/public/media/`, organized by **function** (what the asset _is_), not by the page that uses it — so the same file can be referenced from anywhere without duplication. Folders are subject-based for content (`/public/media/product-screens/`, `/public/media/social-proof/`, `/public/media/showcase-cards/`, `/public/media/hero/`, `/public/media/channels/`, `/public/media/value-props/`) and component-named for chrome (`/public/media/footer/`, `/public/media/lead-capture/`, `/public/media/pricing/`). Brand marks live in `/public/media/brand/`, fonts in `/public/media/fonts/`. Only site metadata kept at the public root for tooling conventions is exempt: favicons, `og-image.png`, and `site.webmanifest`.
+
+`data/media.ts` is the **central media registry** — the single source of truth that maps every asset to its path with a typed descriptor. Code never hardcodes an asset path; it references a registry entry (e.g. `MEDIA.productScreens.web.src`, `MEDIA.heroClips.desktop`). To move or rename an asset, change it in one place. The only literal paths allowed are the two contexts that cannot import TS: `@font-face` rules in `fonts.css`, and favicon/og/manifest references in app metadata.
 
 Before naming a new asset, scan the existing files in the target folder and match the naming pattern — separators, prefixes, ordering, casing. If the folder has no pattern yet, use lowercase `kebab-case` with parts ordered most general to most specific (`health-ads-photo-1.png`, not `photo1-ads-health.png`).
 
 Every name must be identifiable without opening the file. `rect4.png`, `img1.png`, `icon.svg` are not acceptable.
 
-When an asset is replaced or made redundant, delete it. Dead assets confuse readers and increase build size.
+When an asset is replaced or made redundant, delete it (and its registry entry). Dead assets confuse readers and increase build size.
 
 ---
 
@@ -469,18 +520,20 @@ When an asset is replaced or made redundant, delete it. Dead assets confuse read
 
 ## Responsive-Native
 
-Three primary viewports must all work:
+One mobile↔desktop boundary, used app-wide:
 
 | Breakpoint | Width | Tailwind prefix |
 |------------|-------|-----------------|
-| Mobile | < 768 px | (base) |
-| Tablet | 768 – 1279 px | `md:` |
-| Desktop | ≥ 1280 px | `lg:` |
+| Mobile | < 985 px | (base) |
+| Desktop | ≥ 985 px | `md:` (redefined from 768 px in `tokens.css`) |
+
+The whole site hands off at **985 px** — sections, JS `matchMedia` gates, `<source media>` video swaps, and `@media` queries all switch there together. Tablets / iPad portrait fall in the mobile range; there is no tablet-specific layout. A secondary **1280 px** tier (hand-written `@media`, no utility prefix) only refines proportions toward the 1440 px Figma; it never swaps layouts. The lead-capture modal is the sole exception (640 / 1024 px, from its Figma spec). Full detail in `docs/explainers/responsive.md`.
 
 - Design from the **desktop** (Figma is 1440 px wide), then adapt down.
-- Test every section at all three breakpoints before considering it done.
+- Test every section below **and** above 985 px (and at the 1280 px refinement) before considering it done.
 - Never use fixed pixel widths that overflow on mobile.
 - Text scales gracefully — 216 px headlines need deliberate reductions on tablet/mobile.
+- Don't introduce a new cutoff for a single component — reach for the 985 px boundary.
 - Touch targets are at least 44 × 44 px on mobile.
 - No hover-only interactions; every state must work on touch.
 
@@ -518,7 +571,7 @@ Everything else uses normal flow (flex, grid, block) so the layout responds to a
 4. Video clips `flex: 1; min-width: 0` fill all unused space proportionally.
 5. Invisible `flex: 1` spacer between two text blocks holds proportional space without a video.
 
-The math is documented in the comment block at the top of `styles/sections/oversized-footer.css` and `styles/sections/mobile-footer.css`. Read those before building any new collage.
+The math is documented in the comment block at the top of `design-system/styles/sections/oversized-footer.css` and `design-system/styles/sections/mobile-footer.css`. Read those before building any new collage.
 
 ### Mobile section pattern
 
@@ -691,10 +744,10 @@ This rule does not block refactoring of internal code: utility modules, helper f
 
 ---
 
-## Phase 1 Scope
+## Site Scope
 
-Phase 1 is a single-page site based on the Figma (node `915:2616`). The existing pages under `app/` are intentional orphans — don't delete them, don't link to them, don't touch them.
+The site has grown from the single-page splash (Figma node `915:2616`) into a full multi-page marketing site driven by the central design system. The homepage plus the nav-linked inner pages — about (and team, careers), services, contact, faq, testimonials, social-media, locations, blog, how-it-works — are **live** and built on the design system.
 
-Phase 2 expands this into a full multi-page marketing site. Build Phase 1 so Phase 2 is easy: clean component boundaries, prop-driven everything, no content hardcoded.
+Pages under `app/` that nothing links to are still intentional orphans (landing pages, external links, SEO). Don't delete them, don't link to them, and don't re-skin them unless asked — but they may be brought onto the design system when their turn comes.
 
-See [`docs/specs/001_splash_page_alpha.md`](../specs/001_splash_page_alpha.md) for the exact scope, section breakdown, and acceptance criteria.
+See [`docs/specs/001_splash_page_alpha.md`](../specs/001_splash_page_alpha.md) for the original splash scope and [`docs/explainers/design-system.md`](../explainers/design-system.md) for the current architecture.

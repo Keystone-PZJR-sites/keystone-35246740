@@ -1,0 +1,242 @@
+/* ==================== CONTENT CARDS (spec 036) ==================== */
+/* SpotlightCard — one flexible card (photo / video / gradient / solid
+   background, optional scrim, eyebrow / stat / title / caption, a nested
+   block, and one play / arrow / link affordance). CardGrid composes cards
+   into responsive rows, columns, and bento layouts. See SpotlightCard.tsx
+   and CardGrid.tsx. */
+
+/* ── SpotlightCard ────────────────────────────────────────────────────────── */
+/* The shell is a Card primitive (.ks-card .ks-card--none .ks-card--panel
+   .ks-card--flush), so the radius, transparent surface, zero padding, and hover
+   lift come from there. These rules add only the spotlight-specific structure:
+   a positioned, clipped stacking context for the background / scrim layers. */
+.ks-spot {
+  /* One inset shared by the content padding and the corner affordances so they
+     line up against the same edge. */
+  --ks-spot-pad: clamp(20px, 3vw, 32px);
+  position: relative;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+}
+
+.ks-spot--light { color: var(--color-hero-text); }
+.ks-spot--dark { color: var(--color-text-primary); }
+
+/* Background layer fills the whole card behind the content. */
+.ks-spot__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.ks-spot__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  max-width: none;
+}
+
+/* Brand tones are flat fills, not gradients — our palette reads flat, never
+   shiny. The `gradient` background kind is kept for the API but paints a single
+   solid color. */
+.ks-spot__bg--g-brand { background: var(--color-bg-brand-solid); }
+.ks-spot__bg--g-mint { background: var(--color-bg-mint-solid); }
+.ks-spot__bg--g-ink { background: var(--color-hero-bg); }
+
+.ks-spot__bg--s-cream { background: var(--color-bg-secondary); }
+.ks-spot__bg--s-cream-strong { background: var(--color-bg-tertiary); }
+.ks-spot__bg--s-ink { background: var(--color-hero-bg); }
+.ks-spot__bg--s-brand { background: var(--color-bg-brand-solid); }
+
+/* Bottom-anchored darken so overlaid text holds contrast over media. */
+.ks-spot__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--gradient-scrim);
+  pointer-events: none;
+}
+
+/* Content sits above the background; relative flow so the card sizes to it
+   when no explicit height / aspect is given. */
+.ks-spot__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--ks-spot-pad);
+  gap: var(--space-4);
+}
+
+.ks-spot--align-bottom .ks-spot__content { justify-content: flex-end; }
+.ks-spot--align-top .ks-spot__content { justify-content: flex-start; }
+/* A nested block or a top action splits the column: that element rides the top
+   and the text anchors to the bottom. Doubled class so these win over the
+   `.ks-spot--align-* .ks-spot__content` align rules (equal specificity, later
+   in source) regardless of the `align` prop. */
+.ks-spot__content.ks-spot__content--has-slot,
+.ks-spot__content.ks-spot__content--has-action {
+  justify-content: space-between;
+}
+
+.ks-spot__slot { width: 100%; }
+
+.ks-spot__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Oversized stat (inherits the card's tone color). */
+.ks-spot__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+}
+
+.ks-spot__stat-value {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+}
+
+.ks-spot__stat-label {
+  font-family: var(--font-body);
+  font-size: var(--type-lead);
+  line-height: 1.2;
+}
+
+/* Heading's body face is semibold (renders Regular on FK Grotesk Neue); card
+   titles are bold by design (spec 036). Compact tiles can opt into a quieter
+   regular weight where the copy reads as a label rather than a headline. */
+.ks-spot__title--bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.ks-spot__title--regular {
+  font-weight: var(--font-weight-regular);
+}
+
+/* ── Affordances ──────────────────────────────────────────────────────────── */
+/* Both affordances anchor to the top-right corner so they never sit on top of
+   the bottom-anchored text. */
+.ks-spot__play {
+  position: absolute;
+  z-index: 3;
+  top: var(--ks-spot-pad);
+  right: var(--ks-spot-pad);
+  width: 56px;
+  height: 56px;
+  padding: 0 0 0 2px; /* optical centering of the triangle */
+  border: 0;
+  border-radius: var(--radius-interactive);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-standard),
+              background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ks-spot__play:hover {
+  transform: scale(1.06);
+  background: var(--color-surface-card);
+}
+
+.ks-spot__play:focus-visible {
+  outline: 2px solid var(--color-surface-card);
+  outline-offset: 3px;
+}
+
+.ks-spot__arrow {
+  position: absolute;
+  z-index: 3;
+  top: var(--ks-spot-pad);
+  right: var(--ks-spot-pad);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-interactive);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
+  display: grid;
+  place-items: center;
+  transition: transform var(--duration-base) var(--ease-emphasized);
+}
+
+/* A caller-supplied action (e.g. a Button) flows as a row at the top of the
+   content, aligned to the right (the `--has-action` rule above anchors it
+   opposite the text block; the content `gap` keeps a minimum breathing room
+   between the two rows when the card is short on height). */
+.ks-spot__action {
+  align-self: flex-end;
+}
+
+/* ── Interactive (link) cards ─────────────────────────────────────────────── */
+/* The lift + transition come from the shared Card primitive
+   (.ks-card--interactive). These add the spotlight-only hover shadow (Card only
+   shadows its cream tone), the arrow nudge, and the focus ring. */
+a.ks-spot.ks-card--interactive:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+a.ks-spot.ks-card--interactive:hover .ks-spot__arrow {
+  transform: translateX(4px);
+}
+
+.ks-spot.ks-card--interactive:focus-visible {
+  outline: 2px solid var(--color-border-brand);
+  outline-offset: 3px;
+}
+
+/* ── CardGrid ─────────────────────────────────────────────────────────────── */
+.ks-card-grid {
+  display: grid;
+  gap: clamp(12px, 1.5vw, 24px);
+  grid-template-columns: 1fr; /* mobile: one full-width column */
+  /* Honor each card's own aspect / content height rather than stretching every
+     card in a row to the tallest — a row of equal-aspect cards lines up, and
+     differing-aspect tiles keep their proportions for bento layouts. */
+  align-items: start;
+}
+
+.ks-card-grid > * { min-width: 0; }
+.ks-card-grid__item { min-width: 0; }
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-card-grid {
+    grid-template-columns: repeat(var(--cg-cols, 3), minmax(0, 1fr));
+  }
+  /* Spans are honored only at desktop; on mobile every item is one column. */
+  .ks-card-grid__item {
+    grid-column: span var(--cg-col-span, 1);
+    grid-row: span var(--cg-row-span, 1);
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ks-spot.ks-card--interactive,
+  .ks-spot__play,
+  .ks-spot__arrow {
+    transition: none;
+  }
+  .ks-spot.ks-card--interactive:hover {
+    transform: none;
+  }
+  .ks-spot__play:hover {
+    transform: none;
+  }
+  a.ks-spot.ks-card--interactive:hover .ks-spot__arrow {
+    transform: none;
+  }
+}

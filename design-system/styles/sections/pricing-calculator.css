@@ -1,0 +1,144 @@
+/* ============================================================
+   PricingCalculator (spec 039)
+   ============================================================
+   The "only pay for what you use" estimator card. A base plan line,
+   a divided list of extra-work rows (each with a unit price and a
+   quantity stepper), and a footer with reset, the live total, and a
+   primary action. Colors/radii/spacing reference tokens only.
+   ============================================================ */
+
+.ks-calc {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 880px;
+  margin-inline: auto;
+  padding: clamp(20px, 3.5vw, 36px);
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- Base plan line ---- */
+.ks-calc__base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: clamp(16px, 2.5vw, 24px);
+}
+
+.ks-calc__base-name {
+  margin: 0 0 2px;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+}
+
+.ks-calc__base-price {
+  margin: 0;
+  flex: none;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 32px);
+  line-height: 1;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ---- Extra-work rows ---- */
+.ks-calc__rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ks-calc__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 16px 24px;
+  padding-block: clamp(16px, 2.5vw, 22px);
+  border-top: 1px solid var(--color-border-tertiary);
+}
+
+.ks-calc__row-label {
+  margin: 0 0 2px;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.ks-calc__row-price {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+.ks-calc__unit {
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-quaternary);
+}
+
+/* ---- Footer: centered live total, then the action on its own row ---- */
+.ks-calc__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 24px);
+  margin-top: clamp(8px, 1.5vw, 12px);
+  padding-top: clamp(20px, 3vw, 28px);
+  border-top: 2px solid var(--color-border-secondary);
+}
+
+.ks-calc__total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.ks-calc__total-value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 48px);
+  line-height: 1;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.ks-calc__period {
+  margin-left: 0.15em;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: 0.875rem;
+  color: var(--color-text-quaternary);
+}
+
+.ks-calc__note {
+  margin-top: 16px;
+  text-align: center;
+}
+
+/* ---- Mobile (< 985px): rows stack; total leads the footer ---- */
+@media (width < theme(--breakpoint-md)) {
+  .ks-calc__row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "text text"
+      "price stepper";
+    gap: 12px 16px;
+  }
+  .ks-calc__row-text { grid-area: text; }
+  .ks-calc__row-price { grid-area: price; align-self: center; }
+  .ks-calc__row-stepper { grid-area: stepper; justify-self: end; }
+
+  .ks-calc__footer {
+    align-items: stretch;
+  }
+  .ks-calc__action { width: 100%; }
+}

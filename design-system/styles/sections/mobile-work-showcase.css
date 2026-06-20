@@ -1,0 +1,166 @@
+/* ==================== MOBILE WORK SHOWCASE ==================== */
+/* Shown below 985px only; hidden via md:hidden on the component wrapper.
+   This is the only mobile section whose intentional content height exceeds
+   one viewport — five stacked industry strips. It is NOT pinned (see the
+   block comment at the top of MobileWorkShowcase.tsx).                  */
+
+/* ── Section container ───────────────────────────────────────────────────
+   Vertical rhythm (Figma 393×3354):
+     24px top  → headline starts at y=24
+     headline (max-width 293) wraps to 2 lines
+     104px to first industry header
+     40px tail below last carousel (= section padding-bottom)        */
+.mws-section {
+  background-color: var(--color-bg-primary);
+  padding: 24px 0 40px;
+  --mws-rail-max-h: 460px;
+  /* The section itself must not horizontally overflow. Each card rail's
+     viewport is intentionally narrower than its contents — Embla clips
+     inside the rail's own overflow-hidden box.                       */
+  overflow-x: clip;
+
+}
+
+/* ── Section headline ────────────────────────────────────────────────────
+   FK Roman Standard 24/1.2 with -0.72px tracking. Mobile keeps the original
+   headline sizing/order while the desktop version owns the strict two-line
+   max-width treatment.                                                */
+.mws-headline {
+  margin: 0 0 104px;
+  padding: 0 24px;
+  font-family: 'FK Roman Standard', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.72px;
+  color: var(--color-text-tertiary);
+  max-width: calc(293px + 48px);
+}
+
+.mws-headline-oblique {
+  font-style: oblique;
+}
+
+/* ── Divider between industry strips ─────────────────────────────────────
+   Sits in the section flow as an `<hr>` between consecutive industries.
+   32px above (the previous rail's natural breathing room), 40px below
+   (gap to next industry header), matching the Figma rhythm.           */
+.mws-divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-work-muted, #cbc5b4);
+  border: 0;
+  margin: 32px 0 40px;
+}
+
+/* ── Industry strip ──────────────────────────────────────────────────── */
+.mws-strip {
+  display: block;
+}
+
+/* Industry name in the site's display font, in the industry's accent
+   color (provided as inline style). 40px Bold per Figma (smaller than the
+   50px desktop category bar — different scale, same face).             */
+.mws-strip-name {
+  margin: 0 0 16px;
+  padding: 0 24px;
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 0.82;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  /* Long names ("RETAIL & SERVICES", "CARE & MAINTENANCE") must wrap
+     cleanly on narrow viewports. Allow the line to wrap; never truncate. */
+  overflow-wrap: anywhere;
+}
+
+/* Sub-category row. flex-wrap drops labels onto a second line whenever the
+   row would exceed the section's content width — matching the Figma
+   layout where Health/Food/Home/Retail wrap to two lines and Care fits on
+   one. Color is provided inline per industry.                          */
+.mws-sublabels {
+  margin: 0 0 32px;
+  padding: 0 24px;
+  font-family: 'FK Grotesk Mono', monospace;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.mws-bullet {
+  font-size: 10px;
+  letter-spacing: -0.2px;
+}
+
+/* ── Card rail (Embla viewport) ──────────────────────────────────────────
+   The viewport clips horizontally; Embla translates the inner container.
+   Focus outline appears when the rail itself receives keyboard focus.  */
+.mws-rail-clip {
+  overflow: hidden;
+}
+
+.mws-rail-viewport {
+  margin-left: 24px;
+}
+
+.mws-rail-viewport:focus-visible {
+  outline: 2px solid var(--color-work-accent, #f57e56);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Embla container — horizontal flex with all this industry's cards.
+   24px left padding aligns the first card with the section's left gutter;
+   the rail intentionally extends past the right edge of the viewport.
+   Cards have varying natural heights per the Figma; `align-items: flex-start`
+   top-aligns them so shorter cards sit at the rail top with space below. */
+.mws-rail-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+}
+
+.mws-rail-slide {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.mws-rail-slide:last-child {
+  margin-right: 24px;
+}
+
+/* ── Card visual overrides scoped to the mobile section ──────────────────
+   Mobile uses the same raster card assets as desktop, but strips desktop-only
+   hover affordances: no lift, no visible chip, no extra top padding. */
+
+.mws-section .work-card-wrapper {
+  filter: none;
+  transform: none;
+  transition: none;
+  will-change: auto;
+  padding-top: 0;
+  gap: 0;
+}
+
+.mws-section .work-chip {
+  display: none;
+}
+
+/* Mobile card scale: proportionally fit all cards in the rail within a
+   uniform max height (--mws-rail-max-h). The component passes --mws-tallest-h
+   (the tallest 1x card height in the rail) on the container; the scale
+   factor is capped at 1 so cards never upscale past their natural size. */
+.mws-section .ws-scale-root {
+  --ws-card-scale: min(1, calc(var(--mws-rail-max-h) / var(--mws-tallest-h)));
+}

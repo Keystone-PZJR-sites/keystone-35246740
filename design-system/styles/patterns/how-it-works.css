@@ -1,0 +1,371 @@
+/* ============================================================
+   How It Works — step mocks (spec 040)
+   ============================================================
+   Decorative, token-built product mocks framed inside a
+   ProcessSteps media panel. No real data, no imagery; hidden
+   from assistive tech. Colors/radii/spacing reference tokens.
+   ============================================================ */
+
+.ks-hiw-mock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  min-height: 264px;
+  padding: clamp(18px, 2.4vw, 24px);
+  border-radius: var(--radius-component);
+  border: 1px solid var(--color-border-secondary);
+  background-color: var(--color-surface-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- Shared atoms ---- */
+.ks-hiw-mock__line {
+  display: block;
+  height: 9px;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-bg-tertiary);
+}
+.ks-hiw-mock__line--title {
+  width: 62%;
+  height: 11px;
+  background-color: var(--color-border-primary);
+}
+.ks-hiw-mock__line--short {
+  width: 42%;
+}
+
+.ks-hiw-mock__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ks-hiw-mock__head-lines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 7px;
+}
+.ks-hiw-mock__avatar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-brand-secondary);
+}
+.ks-hiw-mock__avatar--accent {
+  color: var(--color-hero-accent);
+}
+.ks-hiw-mock__avatar > svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ks-hiw-mock__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.ks-hiw-mock__chip-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-brand-secondary);
+}
+.ks-hiw-mock__chip--solid {
+  background-color: var(--color-bg-brand-solid);
+  color: var(--color-text-primary);
+}
+.ks-hiw-mock__chip--solid .ks-hiw-mock__chip-icon {
+  color: var(--color-text-primary);
+}
+
+.ks-hiw-mock__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ks-hiw-mock__stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--color-bg-brand-solid);
+}
+.ks-hiw-mock__star {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ---- Discover ---- */
+.ks-hiw-mock__checks {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.ks-hiw-mock__check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+.ks-hiw-mock__check-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--color-hero-accent);
+}
+
+/* ---- Presence (website frame) ---- */
+.ks-hiw-mock__browser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.ks-hiw-mock__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-border-primary);
+}
+.ks-hiw-mock__url {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 5px 10px;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+}
+.ks-hiw-mock__url-icon {
+  width: 14px;
+  height: 14px;
+}
+.ks-hiw-mock__hero {
+  height: 96px;
+  border-radius: var(--radius-input);
+  background-image: linear-gradient(
+    135deg,
+    var(--color-hero-surface, #063126),
+    var(--color-text-brand-secondary)
+  );
+}
+
+/* ---- Leads (analytics) ---- */
+.ks-hiw-mock__stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ks-hiw-mock__stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ks-hiw-mock__stat-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+}
+.ks-hiw-mock__stat-value {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+.ks-hiw-mock__badge {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: var(--radius-interactive);
+}
+.ks-hiw-mock__badge--up {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-hero-accent);
+}
+.ks-hiw-mock__badge > svg {
+  width: 18px;
+  height: 18px;
+}
+.ks-hiw-mock__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 84px;
+}
+.ks-hiw-mock__bar {
+  flex: 1;
+  border-radius: var(--radius-input) var(--radius-input) 0 0;
+  background-color: var(--color-bg-tertiary);
+}
+.ks-hiw-mock__bar:nth-child(1) { height: 36%; }
+.ks-hiw-mock__bar:nth-child(2) { height: 54%; }
+.ks-hiw-mock__bar:nth-child(3) { height: 46%; }
+.ks-hiw-mock__bar:nth-child(4) { height: 70%; }
+.ks-hiw-mock__bar:nth-child(5) {
+  height: 84%;
+  background-color: var(--color-bg-brand-solid);
+}
+.ks-hiw-mock__bar:nth-child(6) {
+  height: 100%;
+  background-color: var(--color-bg-brand-solid);
+}
+
+/* ---- Convert (chat) ---- */
+.ks-hiw-mock--convert {
+  justify-content: space-between;
+}
+.ks-hiw-mock__convo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ks-hiw-mock__bubble {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: var(--radius-component);
+}
+.ks-hiw-mock__bubble--in {
+  width: 72%;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-brand-secondary);
+}
+.ks-hiw-mock__bubble--out {
+  width: 56%;
+  align-self: flex-end;
+  background-color: var(--color-bg-brand-solid);
+}
+.ks-hiw-mock__bubble--sm {
+  width: 48%;
+  height: 30px;
+}
+.ks-hiw-mock__bubble-icon {
+  width: 18px;
+  height: 18px;
+}
+.ks-hiw-mock__success {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 13px;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.ks-hiw-mock__success-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-hero-accent);
+}
+
+/* ---- Loyalty (rewards) ---- */
+.ks-hiw-mock__progress {
+  height: 12px;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-bg-secondary);
+  overflow: hidden;
+}
+.ks-hiw-mock__progress-fill {
+  display: block;
+  height: 100%;
+  width: 64%;
+  border-radius: var(--radius-badge);
+  background-color: var(--color-bg-brand-solid);
+}
+.ks-hiw-mock__pts {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-brand-secondary);
+}
+
+/* ---- Engine (always-on) ---- */
+.ks-hiw-mock--engine {
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  text-align: center;
+}
+.ks-hiw-mock__orbit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+}
+.ks-hiw-mock__orbit::before,
+.ks-hiw-mock__orbit::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-secondary);
+}
+.ks-hiw-mock__orbit::before {
+  inset: 0;
+}
+.ks-hiw-mock__orbit::after {
+  inset: 15px;
+  border-color: var(--color-bg-secondary);
+}
+.ks-hiw-mock__orbit-core {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-brand-solid);
+  color: var(--color-text-primary);
+}
+.ks-hiw-mock__orbit-core > svg {
+  width: 26px;
+  height: 26px;
+}
+.ks-hiw-mock__engine-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.ks-hiw-mock__engine-metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-tertiary);
+}
+.ks-hiw-mock__engine-metric-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-hero-accent);
+}

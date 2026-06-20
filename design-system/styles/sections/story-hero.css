@@ -1,0 +1,59 @@
+/* ============================================================
+   StoryHero (spec 043)
+   ============================================================
+   A narrative page opener: a large headline with a supporting lede
+   beside it, over a single wide media card. Sits on the cream page
+   under the floating site nav (top padding clears the bar). Stacks
+   below 985px. Colors/spacing reference tokens only.
+   ============================================================ */
+
+.ks-story-hero {
+  background-color: var(--color-bg-primary);
+}
+
+.ks-story-hero__inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding: calc(var(--site-nav-clearance) + 8px) 24px clamp(40px, 7vh, 72px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 48px);
+}
+
+.ks-story-hero__head {
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+}
+
+.ks-story-hero__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ks-story-hero__title {
+  margin: 0;
+}
+
+.ks-story-hero__lede {
+  margin: 0;
+  max-width: 46ch;
+}
+
+.ks-story-hero__media {
+  width: 100%;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-story-hero__inner {
+    padding-inline: 48px;
+  }
+  .ks-story-hero__head {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    align-items: end;
+    gap: clamp(32px, 5vw, 80px);
+  }
+  .ks-story-hero__lede {
+    padding-bottom: 6px;
+  }
+}

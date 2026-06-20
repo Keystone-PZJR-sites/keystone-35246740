@@ -1,4 +1,5 @@
-import type { ProductScreensTool } from '@/components/sections';
+import type { ProductScreensTool } from '@/design-system';
+import { MEDIA } from './media';
 
 /*
  * Product Screens — per-tool content.
@@ -23,7 +24,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'A fast, conversion-optimized site built to your brand and kept current without you lifting a finger.',
     markColor: '#267D54',
-    screenshotLayers: ['/product-screens/screen-web.jpg'],
+    screenshotLayers: [MEDIA.productScreens.web.src],
     mobileDecoColor: '#031611',
     mobileDecoOpacity: 0.8,
   },
@@ -38,7 +39,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'Every inbound lead gets a reply in minutes — 24/7 — so warm interest never goes cold.',
     markColor: '#E0A733',
-    screenshotLayers: ['/product-screens/screen-leads.jpg'],
+    screenshotLayers: [MEDIA.productScreens.leads.src],
     mobileCopyText:
       'A team of experts running your marketing while you run your business.',
     mobileInactiveBorder: '#513b2a',
@@ -56,7 +57,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'Meta campaigns that target the right customers, in your market, with the right offer at the right moment.',
     markColor: '#9F3722',
-    screenshotLayers: ['/product-screens/screen-ads.jpg'],
+    screenshotLayers: [MEDIA.productScreens.ads.src],
     mobileDecoColor: '#2a0f11',
     mobileDecoOpacity: 0.8,
   },
@@ -71,7 +72,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#6E3CA7',
-    screenshotLayers: ['/product-screens/screen-social.jpg'],
+    screenshotLayers: [MEDIA.productScreens.social.src],
     mobileDecoColor: '#21092c',
     mobileDecoOpacity: 0.8,
   },
@@ -86,7 +87,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#397DFF',
-    screenshotLayers: ['/product-screens/screen-sales.jpg'],
+    screenshotLayers: [MEDIA.productScreens.sales.src],
     mobileDecoColor: '#0a182b',
     mobileDecoOpacity: 0.8,
   },
@@ -101,7 +102,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     copyText:
       'On-brand, consistent posting across your channels — without you writing a single caption.',
     markColor: '#399587',
-    screenshotLayers: ['/product-screens/screen-reviews.jpg'],
+    screenshotLayers: [MEDIA.productScreens.reviews.src],
     mobileDecoColor: '#091d1c',
     mobileDecoOpacity: 0.8,
   },
@@ -115,7 +116,7 @@ export const PRODUCT_SCREENS_TOOLS: ProductScreensTool[] = [
     squareColor: '#f38bb0',
     copyText: 'Continuous, search-optimized content that builds your visibility over time.',
     markColor: '#DD6F96',
-    screenshotLayers: ['/product-screens/screen-content.jpg'],
+    screenshotLayers: [MEDIA.productScreens.content.src],
     mobileDecoColor: '#2b0d19',
     mobileDecoOpacity: 0.8,
   },

@@ -1,0 +1,93 @@
+/* ============================================================
+   Keystone Design System — Font faces
+   ============================================================
+   The FK family is licensed (see § Fonts Are Licensed in the
+   site rules). Files live in /public/media/fonts and load here only.
+   Never @import these from a CDN.
+   ============================================================ */
+
+@font-face {
+  font-family: 'FK Screamer';
+  src: url('/media/fonts/FKScreamer-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+/* FK Grotesk Neue ships Regular and Bold only (each in normal + italic). There
+   is no Medium or Semibold cut, and the browser does NOT synthesize a heavier
+   weight for this webfont — so the Regular face claims the 400–600 range. That
+   makes Medium (500) and Semibold (600) requests fall back to Regular instead
+   of jumping to full Bold; only a true 700 request uses the Bold cut. When a
+   Medium/Semibold file is licensed, add it here and tighten this range. */
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/media/fonts/FKGroteskNeue-Regular.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/media/fonts/FKGroteskNeue-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/media/fonts/FKGroteskNeue-Italic.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Neue';
+  src: url('/media/fonts/FKGroteskNeue-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Grotesk Mono';
+  src: url('/media/fonts/FKGroteskMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/media/fonts/FKRomanStandard-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/media/fonts/FKRomanStandard-LightOblique.woff2') format('woff2');
+  font-weight: 300;
+  font-style: oblique;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/media/fonts/FKRomanStandard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'FK Roman Standard';
+  src: url('/media/fonts/FKRomanStandard-Oblique.woff2') format('woff2');
+  font-weight: 400;
+  font-style: oblique;
+  font-display: optional;
+}

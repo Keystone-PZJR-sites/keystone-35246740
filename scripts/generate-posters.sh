@@ -15,13 +15,13 @@ FOOTER_WIDTHS=(300 500 800 1024 1280)
 QUALITY=82   # WebP quality — good visual fidelity at reasonable file size
 
 HERO_SRC="/Users/ak.m4/Dropbox/01-work/00-projects/01-keystone/03-website/01-splash-page/01-assets/01-hero/export/r2/image-fallbacks/source"
-HERO_OUT="/Users/ak.m4/repos/keystone-35246740/public/videos/hero-autoloop-clips/posters"
+HERO_OUT="/Users/ak.m4/repos/keystone-35246740/public/media/hero/posters"
 
 EC_SRC="/Users/ak.m4/Dropbox/01-work/00-projects/01-keystone/03-website/01-splash-page/01-assets/03-everychannel/export/r2/image-fallbacks/source"
-EC_OUT="/Users/ak.m4/repos/keystone-35246740/public/every-channel/posters"
+EC_OUT="/Users/ak.m4/repos/keystone-35246740/public/media/channels/posters"
 
 FOOTER_SRC="/Users/ak.m4/Dropbox/01-work/00-projects/01-keystone/03-website/01-splash-page/01-assets/07-footer/export/r2/fallback-images/source"
-FOOTER_OUT="/Users/ak.m4/repos/keystone-35246740/public/footer/posters"
+FOOTER_OUT="/Users/ak.m4/repos/keystone-35246740/public/media/footer/posters"
 
 convert_set() {
   local src_dir="$1"

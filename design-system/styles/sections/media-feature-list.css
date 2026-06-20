@@ -1,0 +1,86 @@
+/* ============================================================
+   Media + Feature List (spec 037)
+   ============================================================
+   A product visual in a soft tinted panel beside a vertical list
+   of icon-badge + title + copy rows. Sits inside a ContentSection.
+   Colors/radii/spacing reference tokens only.
+   ============================================================ */
+
+.ks-mfl {
+  display: grid;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-mfl {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .ks-mfl--media-end .ks-mfl__media { order: 2; }
+  .ks-mfl--media-end .ks-mfl__list { order: 1; }
+}
+
+/* ---- Soft tinted media panel ---- */
+.ks-mfl__media {
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.ks-mfl__media--panel-cream {
+  background-color: var(--color-bg-secondary);
+  padding: clamp(20px, 3vw, 40px);
+}
+.ks-mfl__media--panel-cream-strong {
+  background-color: var(--color-bg-tertiary);
+  padding: clamp(20px, 3vw, 40px);
+}
+
+.ks-mfl__media > * {
+  width: 100%;
+}
+
+/* ---- Feature list ---- */
+.ks-mfl__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 36px);
+  max-width: 520px;
+}
+
+.ks-mfl__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+/* Round bordered icon badge. */
+.ks-mfl__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-interactive);
+  border: 1px solid var(--color-border-primary);
+  background-color: var(--color-surface-card);
+  color: var(--color-text-brand-secondary);
+}
+
+.ks-mfl__icon > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ks-mfl__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ks-mfl__title {
+  margin: 0;
+}

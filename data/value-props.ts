@@ -1,9 +1,10 @@
-import type { ValuePropCard } from '@/components/sections';
+import type { ValuePropCard } from '@/design-system';
+import { MEDIA } from './media';
 
 export const VALUE_PROP_CARDS: ValuePropCard[] = [
   {
     id: 'sales-marketing',
-    imageSrc: '/value-props/01-expertise.png',
+    imageSrc: MEDIA.valueProps.expertise.src,
     cardBg: '#4FAFA0',
     textColor: '#0d2a28',
     headline: 'SALES & MARKETING EXPERTISE',
@@ -11,7 +12,7 @@ export const VALUE_PROP_CARDS: ValuePropCard[] = [
   },
   {
     id: 'quality-focused',
-    imageSrc: '/value-props/02-quality.png',
+    imageSrc: MEDIA.valueProps.quality.src,
     cardBg: '#E0A733',
     textColor: '#3a2a0e',
     headline: 'QUALITY\nFOCUSED',
@@ -19,7 +20,7 @@ export const VALUE_PROP_CARDS: ValuePropCard[] = [
   },
   {
     id: 'local-experience',
-    imageSrc: '/value-props/03-experience.png',
+    imageSrc: MEDIA.valueProps.experience.src,
     cardBg: '#DD6F96',
     textColor: '#3d1324',
     headline: 'LOCAL BUSINESS\nEXPERIENCE',

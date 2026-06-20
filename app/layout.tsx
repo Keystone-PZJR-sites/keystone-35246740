@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
 import { config } from '@/config';
+import { DESKTOP_MEDIA, MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -42,6 +43,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
        * Critical inline CSS — embedded in the raw HTML so the dark background
        * is guaranteed from byte 1, before any external stylesheet is fetched.
        * Prevents the white flash on cold load regardless of CSS delivery speed.
+       * The literal is the ink / --color-hero-bg palette value; a token var
+       * cannot be used here because the token stylesheet has not loaded yet.
        */}
       <style>{`html,body{background-color:#042019}`}</style>
 
@@ -53,20 +56,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
        */}
       <link
         rel="preload"
-        href="/videos/hero-autoloop-clips/hero-01-desktop.webm"
+        href="/media/hero/hero-01-desktop.webm"
         as="video"
         type="video/webm"
-        media="(min-width: 768px)"
+        media={DESKTOP_MEDIA}
         // @ts-expect-error — fetchpriority is valid but not yet in React's types
         fetchpriority="high"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
-        href="/videos/hero-autoloop-clips/hero-01-mobile.webm"
+        href="/media/hero/hero-01-mobile.webm"
         as="video"
         type="video/webm"
-        media="(max-width: 767px)"
+        media={MOBILE_MEDIA}
         // @ts-expect-error — fetchpriority is valid but not yet in React's types
         fetchpriority="high"
         crossOrigin="anonymous"
@@ -80,10 +83,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
        * Covers sections 1 and 2; all other FK variants are font-display:optional
        * and load silently in the background.
        */}
-      <link rel="preload" href="/fonts/FKScreamer-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/fonts/FKGroteskNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/fonts/FKGroteskNeue-Italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/fonts/FKRomanStandard-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/media/fonts/FKScreamer-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/media/fonts/FKGroteskNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/media/fonts/FKGroteskNeue-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/media/fonts/FKGroteskNeue-Italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/media/fonts/FKRomanStandard-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
       <div style={{ display: 'contents' }}>
         {children}

@@ -1,0 +1,79 @@
+/* ============================================================
+   People walls — Quote wall + Backer grid (spec 041, 042)
+   ============================================================
+   Two sections used on the careers and leadership pages: a quote
+   wall (CardGrid + SpotlightCard) and the investor gallery (a tight
+   auto-fill grid of square portrait tiles). These rules tune the
+   quote tiles, the portrait avatars, and the monogram fallback.
+   Colors/spacing reference tokens only.
+   ============================================================ */
+
+/* ---- Quote wall (culture / investor quotes) ----
+   A tight CSS-columns masonry: tiles flow into balanced columns, packing the
+   full width with no empty cells (unlike a fixed row grid). Photo tiles carry a
+   min height so portraits read; text tiles size to their copy — the height
+   variation gives the wall its masonry rhythm. */
+.ks-quote-wall {
+  column-count: 1;
+  column-gap: clamp(12px, 1.2vw, 18px);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-quote-wall {
+    column-count: 3;
+  }
+}
+
+.ks-quote-wall__item {
+  break-inside: avoid;
+  margin-bottom: clamp(12px, 1.2vw, 18px);
+}
+
+/* Flex column so the content fills the min height and the quote anchors to the
+   bottom (align-bottom only pays off once the content has a height to push
+   against; a bare min-height leaves it at the top). */
+.ks-quote--photo {
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(280px, 30vw, 360px);
+}
+
+.ks-quote--photo .ks-spot__content {
+  flex: 1;
+}
+
+/* ---- Investor gallery (in good company / backed by) ----
+   A tight, square-tiled portrait grid. auto-fill keeps the tiles a fixed
+   visual size and packs as many per row as fit — ~8 across on a wide page,
+   ~3 on a phone — so the wall stays dense without a media query. */
+.ks-investors {
+  display: grid;
+  gap: clamp(8px, 1vw, 14px);
+  grid-template-columns: repeat(auto-fill, minmax(clamp(108px, 13vw, 148px), 1fr));
+}
+
+.ks-investor {
+  height: 100%;
+}
+
+/* Monogram fallback (no portrait) — centered on a flat tile. */
+.ks-investor--fallback .ks-spot__slot {
+  display: flex;
+  justify-content: center;
+}
+
+.ks-backer__monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-badge);
+  overflow: hidden;
+  background-color: var(--color-bg-brand-solid);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

@@ -2,8 +2,8 @@
 
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { LeadCaptureStandalone } from '@/components/sections';
-import type { LeadCaptureCloseReason } from '@/components/sections';
+import { LeadCaptureStandalone, LEAD_CAPTURE_COPY } from '@/design-system';
+import type { LeadCaptureCloseReason } from '@/design-system';
 
 export default function GetInTouchPage() {
   const router = useRouter();
@@ -21,14 +21,6 @@ export default function GetInTouchPage() {
   }, [router]);
 
   return (
-    <LeadCaptureStandalone
-      markColor="#6ECC8B"
-      ctaArrowSrc="/lead-capture/lead-capture-cta-arrow.svg"
-      submitLabel="Get in touch"
-      subheadline="The modern sales and marketing team for local businesses. Reach out below to connect with our team."
-      termsHref="/terms-of-service"
-      privacyHref="/privacy-policy"
-      onClose={handleClose}
-    />
+    <LeadCaptureStandalone {...LEAD_CAPTURE_COPY} onClose={handleClose} />
   );
 }

@@ -1,0 +1,108 @@
+/* ============================================================
+   Legal document pages (spec 044)
+   ============================================================
+   Two-column layout for /privacy and /terms: a sticky left
+   sidebar listing the site's legal documents (active entry
+   marked with a brand dot) beside a single long-form column
+   that renders the document markdown via the shared blog prose.
+   Sits on the light inner-page surface; colors/spacing tokens.
+   ============================================================ */
+
+.ks-legal {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding: calc(var(--site-nav-clearance) + clamp(8px, 2vw, 24px)) 24px clamp(56px, 9vh, 104px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 48px);
+}
+
+/* ---- Sidebar nav ---- */
+.ks-legal__nav-heading {
+  margin: 0 0 14px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-quaternary);
+}
+
+.ks-legal__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ks-legal__nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.ks-legal__nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+.ks-legal__nav-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background-color: transparent;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ks-legal__nav-link--active {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.ks-legal__nav-link--active .ks-legal__nav-dot {
+  background-color: var(--color-bg-brand-solid);
+}
+
+/* ---- Document column ---- */
+.ks-legal__head {
+  margin-bottom: clamp(24px, 4vw, 40px);
+  padding-bottom: clamp(18px, 3vw, 28px);
+  border-bottom: 1px solid var(--color-border-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ks-legal__title {
+  margin: 0;
+}
+
+.ks-legal__updated {
+  margin: 0;
+}
+
+.ks-legal__prose {
+  max-width: 72ch;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-legal {
+    padding-inline: 48px;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 96px);
+    align-items: start;
+  }
+
+  .ks-legal__sidebar {
+    position: sticky;
+    top: calc(var(--site-nav-clearance) + 16px);
+  }
+}

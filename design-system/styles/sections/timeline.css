@@ -1,0 +1,74 @@
+/* ============================================================
+   Timeline (spec 043)
+   ============================================================
+   A forward-looking milestone narrative: a connecting rail of
+   nodes, each a phase label, headline, copy, and optional footnote.
+   The structural sibling of ProcessSteps; no media, no numbers.
+   Colors/spacing reference tokens only.
+   ============================================================ */
+
+.ks-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ks-timeline__item {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 28px);
+}
+
+.ks-timeline__rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* The connecting line runs from each node down to the next; the last item
+   has no trailing line. */
+.ks-timeline__rail::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: var(--color-border-secondary);
+}
+
+.ks-timeline__item:last-child .ks-timeline__rail::before {
+  display: none;
+}
+
+.ks-timeline__node {
+  position: relative;
+  z-index: 1;
+  margin-top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-border-brand);
+  /* Cream ring so the rail line reads as passing cleanly behind the node. */
+  box-shadow: 0 0 0 4px var(--color-bg-primary);
+}
+
+.ks-timeline__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: clamp(28px, 5vw, 52px);
+}
+
+.ks-timeline__item:last-child .ks-timeline__body {
+  padding-bottom: 0;
+}
+
+.ks-timeline__title {
+  margin: 0;
+}
+
+.ks-timeline__copy {
+  max-width: 60ch;
+}

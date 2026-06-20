@@ -1,0 +1,113 @@
+/* ==================== MOBILE EVERY CHANNEL ==================== */
+/* Shown below 985px only (md:hidden on the component wrapper).  */
+
+/* --- Section: opts into `min-height: 100svh` (site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section
+   Heights).
+
+   Layout model: this section is a designed collage. Pills, text, and the
+   video band all have intentional positions tied to section bounds at the
+   393 × 852 mobile reference (Figma node 1362:421). The text deliberately
+   overlaps the top edge of the video band — that overlap is the design.
+   Forcing the text and video into normal flow loses both the Figma-faithful
+   spacing and the overlap, so all three layers (text + video + pills) are
+   absolutely positioned at percentages of section height. Without the
+   floor those percentages resolve to a near-zero section and the layout
+   collapses. The pin is gone (a spec 026 change that does apply here)
+   and the entrance animation fires once via a direct ScrollTrigger. --- */
+.mec-section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  /* background-color set via inline style from props (hero-surface default) */
+}
+
+/* Custom CSS is unlayered and so beats Tailwind's `md:hidden` utility.
+   The component wrapper carries `md:hidden`; restate that intent here. */
+@media (width >= theme(--breakpoint-md)) {
+  .mec-section {
+    display: none;
+  }
+}
+
+/* --- Video container: lower band, inset 24px each side, rounded corners.
+   Figma reference (393 × 852): left=24, right=24, top=345, height=459.
+   Expressed as percentages of the section so the band tracks section
+   height — when min-height: 100svh is the actual height, the percentages
+   resolve to the same Figma pixel positions.                          --- */
+.mec-video-container {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 40.5%;     /* 345 / 852 */
+  height: 53.8%;  /* 459 / 852 */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* --- Video fills the container using native mobile framing.
+   Mobile assets are exported at 690×918 (same aspect ratio as the
+   mobile band), so no manual zoom/offset is needed. --- */
+.mec-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Text block: upper portion, left-aligned.
+   Figma: top=213 (25% of 852), left=24px to align with the video inset.
+   Sits above the video in z-order so the slight overlap with the top of
+   the video band reads as the headline punching into the video.       --- */
+.mec-text-block {
+  position: absolute;
+  left: 24px;
+  top: 25%;       /* 213 / 852 */
+  pointer-events: none;
+}
+
+/* --- Individual text line --- */
+.mec-line {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  line-height: 0.82;
+  color: var(--color-hero-text, #f0eee6);
+  /* Font size: 59px on a 393px Figma canvas = 15vw.
+     Clamped so it doesn't grow beyond 60px or shrink below 40px. */
+  font-size: clamp(2.5rem, 15vw, 3.75rem);
+  white-space: pre;
+}
+
+/* --- Pill: absolutely positioned, small variant ---
+   Figma: px=10px py=5px gap=8px, font=12px, dot=6px --- */
+.mec-pill {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 9999px;
+  /* background-color set via inline style */
+}
+
+.mec-pill-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  /* background-color set via inline style */
+}
+
+.mec-pill-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.12px;
+  white-space: nowrap;
+  color: var(--color-hero-text, #f0eee6);
+}

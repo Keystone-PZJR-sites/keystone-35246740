@@ -9,7 +9,7 @@ import {
   MobileValueProps,
   SocialProofSection,
   MobileSocialProof,
-} from '@/components/sections';
+} from '@/design-system';
 import {
   VALUE_PROP_CARDS,
   SHARED_WORK_SHOWCASE_PROPS,
@@ -19,6 +19,7 @@ import {
   SOCIAL_THUMBNAILS,
   MOBILE_SOCIAL_THUMBNAILS,
   SOCIAL_SLIDES,
+  MEDIA,
 } from '@/data';
 
 export const metadata: Metadata = {
@@ -53,14 +54,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<Rec
           headlineLine2="deserve to be found."
           thumbnails={SOCIAL_THUMBNAILS}
           slides={SOCIAL_SLIDES}
-          closeButtonSrc="/social-proof/social-proof-modal-button.svg"
+          closeButtonSrc={MEDIA.socialProof.modalButton.src}
         />
         <MobileSocialProof
           headlineLine1="Great BUSINESSES "
           headlineLine2="deserve to be found."
           thumbnails={MOBILE_SOCIAL_THUMBNAILS}
           slides={SOCIAL_SLIDES}
-          closeButtonSrc="/social-proof/social-proof-modal-button.svg"
+          closeButtonSrc={MEDIA.socialProof.modalButton.src}
         />
 
         <WorkShowcase {...SHARED_WORK_SHOWCASE_PROPS} />

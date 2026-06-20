@@ -1,0 +1,471 @@
+/* ============================================================
+   Inner-page sections
+   ============================================================
+   Layout for the reusable inner-page building blocks composed by
+   non-home pages: PageHero (maroon header continuous with the
+   nav), ContentSection (vertical rhythm + heading block),
+   FeatureGrid (responsive cards), and CtaBand (closing CTA).
+   Colors/radii/spacing reference tokens only.
+   ============================================================ */
+
+/* ---- Inner page header chrome ----
+   Shared by PageHero, blog, legal, portal, booking, and every future
+   inner page. The dark maroon header reads as one continuous block
+   behind the site nav, which floats over its top edge as a fixed
+   overlay (the same HeroNav used on the homepage). The top padding uses
+   --site-nav-clearance (defined in base.css) so the title clears the
+   floating bar. */
+
+.inner-page {
+  background-color: var(--color-bg-primary);
+}
+
+.inner-page-header {
+  background-color: var(--color-hero-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.inner-page-header-inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding: var(--site-nav-clearance) 24px 52px;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .inner-page-header-inner {
+    padding: var(--site-nav-clearance) 48px 60px;
+  }
+}
+
+@media (width >= theme(--breakpoint-xl)) {
+  .inner-page-header-inner {
+    padding: var(--site-nav-clearance) 0 60px;
+  }
+}
+
+.inner-page-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-hero-accent);
+  margin-bottom: 14px;
+}
+
+.inner-page-title {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-work-accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.inner-page-subtitle {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-work-muted);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .inner-page-subtitle {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ---- Section rhythm + container ---- */
+.ks-section {
+  background-color: var(--color-bg-primary);
+  padding-block: clamp(48px, 9vh, 96px);
+}
+.ks-section--ink {
+  background-color: var(--color-hero-bg);
+  color: var(--color-hero-text);
+}
+
+.ks-section-inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+@media (width >= theme(--breakpoint-md)) {
+  .ks-section-inner {
+    padding-inline: 48px;
+  }
+}
+
+/* ---- Section heading block ---- */
+.ks-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 720px;
+  margin-bottom: clamp(28px, 5vw, 48px);
+}
+.ks-section-head--center {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+}
+
+/* ---- Responsive feature / card grid ---- */
+.ks-feature-grid {
+  display: grid;
+  gap: clamp(16px, 2.5vw, 24px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.ks-feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+/* Icon tile above the heading. */
+.ks-feature-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-brand-secondary);
+}
+.ks-feature-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+/* Ink-tone tile: translucent light fill, accent glyph. */
+.ks-card--ink .ks-feature-card__icon {
+  background-color: rgba(240, 238, 230, 0.1);
+  color: var(--color-hero-accent);
+}
+
+/* Ghost arrow cue for linked cards, anchored top-right. */
+.ks-feature-card__arrow {
+  position: absolute;
+  top: clamp(18px, 2.4vw, 24px);
+  right: clamp(18px, 2.4vw, 24px);
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-quaternary);
+  transition: color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+.ks-feature-card.ks-link-card:hover .ks-feature-card__arrow {
+  color: var(--color-text-brand-secondary);
+  transform: translate(2px, -2px);
+}
+
+/* ---- Closing CTA band ---- */
+.ks-cta-band {
+  padding-block: clamp(48px, 8vh, 88px);
+  background-color: var(--color-bg-primary);
+}
+.ks-cta-band-inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cta-band-inner {
+    padding-inline: 48px;
+  }
+}
+.ks-cta-band-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: clamp(40px, 7vw, 72px) clamp(24px, 5vw, 64px);
+  border-radius: var(--radius-component);
+  color: var(--color-hero-text);
+}
+.ks-cta-band-panel--ink {
+  background-color: var(--color-hero-bg);
+}
+/* Deep brand-green band (spec 037) — green enough to read as the brand, dark
+   enough to carry a white headline + light button at AA. */
+.ks-cta-band-panel--accent {
+  background: var(--gradient-band-accent);
+}
+
+/* Full-bleed band: drop the gutter, the max-width, and the rounded panel so the
+   band spans edge to edge (spec 037 closing CTA). */
+.ks-cta-band--full {
+  padding-block: 0;
+}
+.ks-cta-band--full .ks-cta-band-inner {
+  max-width: none;
+  padding-inline: 0;
+}
+.ks-cta-band--full .ks-cta-band-panel {
+  border-radius: 0;
+  padding-block: clamp(56px, 10vh, 104px);
+}
+.ks-cta-band-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ---- Link cards (whole card is an anchor) ---- */
+.ks-link-card {
+  text-decoration: none;
+  color: inherit;
+}
+.ks-link-card__cue {
+  margin-top: auto;
+}
+.ks-link-card:hover .ks-link-card__cue {
+  text-decoration: underline;
+}
+
+/* ---- Testimonial / quote card ---- */
+.ks-quote-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ks-quote-card__body {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+.ks-stars {
+  color: var(--color-bg-brand-solid);
+  letter-spacing: 0.1em;
+  font-size: 0.95rem;
+}
+.ks-stars__empty {
+  color: var(--color-border-primary);
+}
+
+/* ---- Attribution (avatar + name) ---- */
+.ks-attribution {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+.ks-attribution__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.ks-attribution__name {
+  font-weight: 600;
+}
+
+/* ---- Avatars & portraits ---- */
+.ks-avatar,
+.ks-portrait__initials,
+.ks-avatar__initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ks-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex: none;
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.ks-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ks-person-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ks-portrait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-component);
+  overflow: hidden;
+  margin-bottom: 6px;
+  background-color: var(--color-bg-tertiary);
+}
+.ks-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ks-portrait__initials {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-text-quaternary);
+}
+
+/* ---- Photo tile (social) ---- */
+.ks-social-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.ks-photo-tile {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-input);
+  overflow: hidden;
+  background-color: var(--color-bg-tertiary);
+}
+.ks-photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Tag rows ---- */
+.ks-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---- Job list (stacked role rows) ---- */
+.ks-job-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.6vw, 16px);
+}
+.ks-job-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+.ks-job-row__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+.ks-job-row__title {
+  margin: 0;
+}
+.ks-job-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+/* ---- Stat strip ---- */
+.ks-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: clamp(20px, 4vw, 48px);
+  text-align: center;
+}
+.ks-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+/* ---- FAQ accordion ---- */
+.ks-faq {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-border-secondary);
+  max-width: 820px;
+}
+
+/* Center the accordion under a centered ContentSection heading. */
+.ks-faq-center {
+  display: flex;
+  justify-content: center;
+}
+.ks-faq-center .ks-faq {
+  width: 100%;
+  margin-inline: auto;
+}
+.ks-faq__item {
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.ks-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 4px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--color-text-primary);
+}
+.ks-faq__question::-webkit-details-marker {
+  display: none;
+}
+.ks-faq__icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.ks-faq__icon::before,
+.ks-faq__icon::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-text-brand-secondary);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+.ks-faq__icon::before {
+  top: 6px;
+  left: 0;
+  width: 14px;
+  height: 2px;
+}
+.ks-faq__icon::after {
+  top: 0;
+  left: 6px;
+  width: 2px;
+  height: 14px;
+}
+.ks-faq__item[open] .ks-faq__icon::after {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+.ks-faq__answer {
+  padding: 0 4px 22px;
+  max-width: 70ch;
+}
+.ks-faq__answer p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}

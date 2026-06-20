@@ -1,0 +1,294 @@
+/* ==================== MOBILE PRODUCT SCREENS ==================== */
+/*
+ * Spec 024 (refresh of Spec 018), refactored under Spec 026 to content-
+ * driven height with normal flow. Renders below 985 px via `md:hidden` on
+ * the wrapper. Reference viewport: 393 × 852 (Figma node 1255:1117).
+ *
+ * Layout (top → bottom, all in normal flow, no absolute positioning):
+ *
+ *   section.mps-mobile-section (flex column):
+ *     ├─ pill-nav  (intrinsic height; horizontal padding for centering)
+ *     └─ deco      (flex: 1; fills remaining height; flex column):
+ *          ├─ left-zone   (mark + label + copy; intrinsic height)
+ *          └─ screenshot  (flex: 1; absorbs all remaining vertical space)
+ *
+ * Distances that stay fixed regardless of viewport height (Figma derived):
+ *   - section padding-top           = --section-padding-y          (mobile token)
+ *   - section padding-bottom        = --mps-deco-bottom-inset      (deco bottom → viewport bottom)
+ *   - deco margin-top               = --mps-pill-to-deco-gap       (pill bottom → deco top)
+ *   - deco margin-left              = --mps-deco-left-inset        (viewport left → deco left)
+ *   - deco padding-top              = --mps-deco-pad-top           (deco top → mark top)
+ *   - deco padding-x                = --mps-deco-pad-x             (deco left → mark left)
+ *   - deco padding-bottom           = --mps-deco-pad-bottom        (screenshot bottom → deco bottom)
+ *   - mark → label                  = --mps-label-mark-gap         (mark bottom → label top)
+ *   - label → copy                  = --mps-copy-label-gap         (label bottom → copy top)
+ *   - copy → screenshot             = --mps-left-zone-to-screenshot-gap
+ *
+ * What changes with viewport height: the screenshot zone's height. It
+ * absorbs any extra vertical space the section has (or shrinks if the
+ * section is short). Width stays at --mps-screenshot-w (158.5vw) so the
+ * screenshot extends past the deco's right edge and past the viewport
+ * right edge — clipped by #smooth-wrapper's `overflow-x: clip` rule in
+ * `app/globals.css`. On desktop ScrollSmoother adds its own overflow:hidden
+ * at runtime; on touch devices it deliberately skips that, which is why the
+ * always-on `overflow-x: clip` is necessary.
+ *
+ * No absolute positioning anywhere — every element sits in normal flow
+ * inside its parent's flex column. Section overflow:visible lets the
+ * EC → PS pill convergence animation paint pills outside the section
+ * vertically and lets the deco/screenshot extend past the right edge.
+ */
+
+.mps-mobile-container {
+  position: relative;
+
+  /* === Per-section design tokens (Figma node 1255:1117 @ 393 × 852) === */
+
+  /* Standard mobile content gutter — 24 px for consistency with the rest
+     of the mobile layouts. Figma renders this section at ~36 px, but the
+     codebase convention (rules.md § Mobile section pattern) and visual
+     equivalence to other mobile sections take precedence. Used for the
+     pill nav's horizontal padding. */
+  --mps-gutter: 24px;
+
+  /* Pill nav. */
+  --mps-pill-gap: 6px;
+  --mps-pill-padding-x: 12px;
+  --mps-pill-padding-y: 8px;
+  --mps-pill-border-w: 1px;
+  --mps-pill-square-size: 6px;
+  --mps-pill-label-size: 14px;
+  --mps-pill-label-tracking: -0.01em;
+  /* Off-white text for inactive pill labels — same role as the desktop variant. */
+  --mps-pill-label-inactive-color: var(--color-pill-label-inactive);
+
+  /* Deco container — Figma at (13, 208, 500.76, 626.53) on a 393 × 852
+     section. Width is expressed in vw so the deco scales with viewport
+     width; vertical bounds are derived from the fixed margins/paddings
+     below so the deco's bottom always sits the same distance from the
+     section bottom and its top always sits the same distance below the
+     pill nav, regardless of how tall the viewport is. */
+  --mps-deco-w: 127vw;             /* 500.76 / 393 ≈ 127.4% */
+  --mps-deco-radius: 15px;
+  --mps-deco-left-inset: 13px;     /* viewport left → deco left (Figma 13) */
+  --mps-deco-bottom-inset: 17px;   /* deco bottom → viewport bottom (Figma 852 - 834.53) */
+
+  /* Fixed gap from pill nav bottom to deco top. Figma: 208 - 128 = 80 px. */
+  --mps-pill-to-deco-gap: 80px;
+
+  /* Deco internal padding (deco top → mark top, deco left → mark left,
+     screenshot bottom → deco bottom). Figma: 26.74 / 24.68 / 25 px. */
+  --mps-deco-pad-top: 27px;
+  --mps-deco-pad-x: 25px;
+  --mps-deco-pad-bottom: 25px;
+
+  /* Left content zone. */
+  --mps-mark-w: 26px;
+  --mps-left-zone-w-max: 302px;     /* Copy max-width per Figma (302.07 px) */
+
+  /* Tool label (small caps in monospace).
+     Vertical gap from mark bottom to label top — Figma 50.44px. */
+  --mps-label-size: 10px;
+  --mps-label-tracking: -0.02em;
+  --mps-label-mark-gap: 50px;
+
+  /* Value copy.
+     Vertical gap from label bottom to copy top — Figma 18.7px. */
+  --mps-copy-size: 16px;
+  --mps-copy-line: 1.2;
+  --mps-copy-tracking: -0.03em;
+  --mps-copy-label-gap: 19px;
+
+  /* Gap from copy bottom to screenshot top. Figma: 22.68 px. */
+  --mps-left-zone-to-screenshot-gap: 22px;
+
+  /* Screenshot.
+     Width is expressed in vw so the figure is independent of the deco's
+     content area — at every mobile width the screenshot is 158.5 % of
+     the viewport, matching Figma. Wider than the deco's content area
+     so it intentionally extends past the deco's right edge (and past
+     the viewport right edge — clipped by #smooth-wrapper overflow). */
+  --mps-screenshot-w: 158.5vw;
+  --mps-screenshot-radius: 13px;
+}
+
+/* --- Section: opts into `min-height: 100svh` (site-wide default is
+   content-driven, see `docs/explainers/responsive.md` § Section
+   Heights). The deco panel uses `flex: 1` to absorb remaining vertical
+   space; without a definite section height that flex child resolves to
+   its own content height and the screenshot zone collapses.
+   No horizontal padding on the section — the pill nav handles its own
+   horizontal padding, and the deco/screenshot use their own margins
+   and viewport-relative widths to position relative to the viewport
+   edges (per the user's design intent: deco's left/bottom insets are
+   relative to the viewport, not a section content box).
+   overflow:visible lets pill offsets paint outside the section bounds
+   during the EC → PS pill convergence and lets the deco/screenshot
+   extend past the right edge. --- */
+.mps-mobile-section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--section-padding-y);
+  padding-bottom: var(--mps-deco-bottom-inset);
+  /* background-color set via inline style (tool.cardBg) */
+}
+
+/* Custom CSS is unlayered and so beats Tailwind's `md:hidden` utility.
+   The component wrapper carries `md:hidden`; restate that intent here. */
+@media (width >= theme(--breakpoint-md)) {
+  .mps-mobile-section {
+    display: none;
+  }
+}
+
+/* --- Pill nav: two-row flex, in normal flow at the top of the section.
+   Horizontal padding centers the pills within the section's content
+   gutter; the deco extends past this gutter on both sides. --- */
+.mps-mobile-pill-nav {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mps-pill-gap);
+  width: 100%;
+  padding: 0 var(--mps-gutter);
+  z-index: var(--z-sticky);
+  list-style: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.mps-mobile-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--mps-pill-gap);
+  padding: var(--mps-pill-padding-y) var(--mps-pill-padding-x);
+  border-radius: 9999px;            /* Figma var `radius-full` */
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  /* border + background controlled inline (active vs inactive). */
+}
+
+.mps-mobile-pill:focus-visible {
+  outline: 2px solid var(--color-hero-text, #f0eee6);
+  outline-offset: 2px;
+}
+
+.mps-mobile-pill-square {
+  width: var(--mps-pill-square-size);
+  height: var(--mps-pill-square-size);
+  flex-shrink: 0;
+  display: block;
+  /* background-color set via inline style. */
+}
+
+.mps-mobile-pill-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: var(--mps-pill-label-size);
+  line-height: 1;
+  letter-spacing: var(--mps-pill-label-tracking);
+  white-space: nowrap;
+  /* Default to the inactive (off-white) color; the active label color
+     (the tool's card background) is set via inline style on the active pill. */
+  color: var(--mps-pill-label-inactive-color);
+}
+
+/* --- Deco container: in normal flow as a flex column that fills the
+   remaining vertical space below the pill nav. Wider than the section
+   (127vw vs 100vw) so it extends past the viewport right edge — clipped
+   by #smooth-wrapper's `overflow-x: clip` (see app/globals.css).
+   min-width:0 / min-height:0 let the flex box shrink below content size
+   on very short viewports. --- */
+.mps-mobile-deco {
+  position: relative;
+  flex: 1;
+  margin-top: var(--mps-pill-to-deco-gap);
+  margin-left: var(--mps-deco-left-inset);
+  width: var(--mps-deco-w);
+  border-radius: var(--mps-deco-radius);
+  display: flex;
+  flex-direction: column;
+  padding: var(--mps-deco-pad-top) var(--mps-deco-pad-x) var(--mps-deco-pad-bottom);
+  min-width: 0;
+  min-height: 0;
+  /* background-color and opacity set via inline style (tool.mobileDecoColor /
+     tool.mobileDecoOpacity). */
+}
+
+/* --- Left zone: mark icon + tool label + value copy, in normal flow at
+   the top of the deco (deco's padding-top provides the fixed offset
+   from the deco's top edge). flex-shrink:0 keeps the zone at its
+   intrinsic height so the screenshot below is the only flex item that
+   absorbs slack. --- */
+.mps-mobile-left-zone {
+  position: relative;
+  width: 100%;
+  max-width: var(--mps-left-zone-w-max);
+  flex-shrink: 0;
+}
+
+/* --- Tool label (e.g. "LEADS"): FK Grotesk Mono. --- */
+.mps-mobile-tool-label {
+  display: block;
+  font-family: 'FK Grotesk Mono', monospace;
+  font-weight: 400;
+  font-size: var(--mps-label-size);
+  line-height: 1;
+  letter-spacing: var(--mps-label-tracking);
+  margin-top: var(--mps-label-mark-gap);
+  /* color set via inline style. */
+}
+
+/* --- Value copy text: FK Grotesk Neue Regular. --- */
+.mps-mobile-copy {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: var(--mps-copy-size);
+  line-height: var(--mps-copy-line);
+  letter-spacing: var(--mps-copy-tracking);
+  margin-top: var(--mps-copy-label-gap);
+  /* color set via inline style. */
+}
+
+/* --- Screenshot zone: flex:1 absorbs all remaining vertical space inside
+   the deco. Width is fixed in vw and is intentionally wider than the
+   deco's content area so the screenshot extends past the deco's right
+   edge — clipped at the viewport right edge by #smooth-wrapper's
+   `overflow-x: clip` (see app/globals.css). min-height:0 lets the flex
+   box shrink below the image's intrinsic aspect on very short viewports
+   rather than overflowing. overflow:hidden + relative positioning
+   establishes the containing block for the absolutely-positioned
+   <Image fill> child. --- */
+.mps-mobile-screenshot-zone {
+  position: relative;
+  flex: 1;
+  margin-top: var(--mps-left-zone-to-screenshot-gap);
+  width: var(--mps-screenshot-w);
+  border-radius: var(--mps-screenshot-radius);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.mps-mobile-screenshot-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  max-width: none;
+  display: block;
+  pointer-events: none;
+}
+
+/* ==================== MOBILE PRODUCT SCREENS — REDUCED MOTION ==================== */
+/* No transition properties are defined on .mps-mobile-pill, so no override
+   needed. GSAP entrance animation gates on prefers-reduced-motion via
+   gsap.matchMedia inside MobileProductScreens.tsx. */

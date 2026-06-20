@@ -1,0 +1,218 @@
+/* ==========================================================================
+   Mobile Pricing Section (Spec 021, refactored under Spec 026)
+   Reference canvas: 393 × 852 px (iPhone 14 Pro)
+   Sizes to its content (no `min-height: 100svh` floor — see
+   `docs/explainers/responsive.md` § Section Heights for the policy).
+   ========================================================================== */
+
+/* ── Section shell ────────────────────────────────────────────────────────── */
+
+.mprice-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-pricing-bg);
+  display: flex;
+  overflow: hidden;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .mprice-section {
+    display: none;
+  }
+}
+
+/* Centered inner column — children stack top-to-bottom in normal flow,
+   horizontally centred. The column's height is its content + padding;
+   no vertical justify-content is needed because there is no spare
+   vertical space to distribute. */
+.mprice-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--section-padding-y) 24px;
+  width: 100%;
+}
+
+/* ── Tagline ──────────────────────────────────────────────────────────────── */
+
+.mprice-tagline {
+  width: min(189.52px, 100%);
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.72px;
+  color: var(--color-pricing-tagline);
+  margin: 0;
+}
+
+/* ── Price ────────────────────────────────────────────────────────────────── */
+
+.mprice-price {
+  margin-top: 32px;
+  line-height: 0.82;
+  white-space: nowrap;
+}
+
+.mprice-price-amount {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-size: 100px;
+  line-height: 0.82;
+  text-transform: uppercase;
+  color: var(--color-pricing-price-primary);
+}
+
+.mprice-price-period {
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-size: 100px;
+  line-height: 0.82;
+  text-transform: uppercase;
+  color: var(--color-pricing-price-secondary);
+}
+
+/* ── Sub-copy ─────────────────────────────────────────────────────────────── */
+
+.mprice-subcopy {
+  margin-top: 28px;
+  width: min(301.453px, 100%);
+  font-family: 'FK Grotesk Mono', monospace;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: -0.24px;
+  color: var(--color-pricing-accent);
+  white-space: pre-wrap;
+}
+
+.mprice-subcopy p {
+  display: block;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.mprice-subcopy p + p {
+  margin-top: 12px;
+}
+
+/* ── ADD ONS heading ──────────────────────────────────────────────────────── */
+
+.mprice-addons-heading {
+  margin-top: 36px;
+  font-family: 'FK Screamer', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 0.82;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-pricing-accent);
+  white-space: nowrap;
+}
+
+/* ── Credits ─────────────────────────────────────────────────────────────── */
+
+.mprice-credits {
+  margin-top: 16px;
+  width: min(308.945px, 100%);
+  font-family: 'FK Grotesk Mono', monospace;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: -0.24px;
+  color: var(--color-pricing-accent);
+  margin-bottom: 0;
+}
+
+/* ── Add-ons block ────────────────────────────────────────────────────────── */
+
+.mprice-addons-block {
+  margin-top: 32px;
+  width: min(345px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mprice-addon-pills-row {
+  display: flex;
+  gap: 9px;
+}
+
+.mprice-pill-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.mprice-addon-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9.189px;
+  background-color: var(--color-pricing-addon-chip-bg);
+  border-radius: 9999px;
+  padding: 9.189px 15.315px;
+  white-space: nowrap;
+}
+
+.mprice-addon-icon {
+  width: 18.378px;
+  height: 18.378px;
+  flex-shrink: 0;
+}
+
+.mprice-addon-label {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 16.186px;
+  line-height: 21.794px;
+  letter-spacing: -0.1619px;
+  color: var(--color-pricing-accent);
+  padding-right: 3.063px;
+}
+
+/* ── Description columns ──────────────────────────────────────────────────── */
+
+.mprice-desc-row {
+  display: flex;
+  gap: 9px;
+}
+
+.mprice-desc-col {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 8px;
+}
+
+.mprice-desc-text-wrap {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.mprice-desc-para {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15.315px;
+  letter-spacing: -0.24px;
+  color: var(--color-pricing-accent);
+  margin: 0 0 6.389px;
+}
+
+.mprice-coming-soon {
+  font-family: 'FK Grotesk Neue', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15.315px;
+  letter-spacing: -0.24px;
+  color: var(--color-surface-card);
+  margin: 0;
+}

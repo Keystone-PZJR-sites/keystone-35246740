@@ -1,0 +1,65 @@
+/* ============================================================
+   Marquee (spec 043)
+   ============================================================
+   A clipped, edge-faded viewport whose track scrolls a duplicated
+   set of items in a seamless infinite loop. The per-item gap is a
+   trailing margin (not a flex gap) so the two halves tile exactly
+   under translateX(-50%). Layout only; callers style the items.
+   Reused by LogoMarquee (spec 042) and the Our Story photo strip.
+   ============================================================ */
+
+.ks-marquee {
+  --ks-marquee-gap: clamp(32px, 5vw, 64px);
+  --ks-marquee-duration: 38s;
+  min-width: 0;
+}
+
+.ks-marquee__viewport {
+  position: relative;
+  overflow: hidden;
+  /* Soften both edges so items fade in/out rather than clip.
+     #000 here is a mask alpha stop (only opacity matters), not a design color — intentionally not tokenized. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.ks-marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: ks-marquee var(--ks-marquee-duration) linear infinite;
+}
+
+.ks-marquee--reverse .ks-marquee__track {
+  animation-direction: reverse;
+}
+
+.ks-marquee:hover .ks-marquee__track {
+  animation-play-state: paused;
+}
+
+.ks-marquee__item {
+  flex: none;
+  /* Gap-as-margin (incl. the last item) so the duplicated set tiles seamlessly
+     under translateX(-50%). */
+  margin-inline-end: var(--ks-marquee-gap);
+}
+
+@keyframes ks-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-marquee__track {
+    animation: none;
+  }
+  /* Static, manually scrollable row when motion is reduced. */
+  .ks-marquee__viewport {
+    overflow-x: auto;
+  }
+}

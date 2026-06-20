@@ -1,27 +1,43 @@
 // Blog gallery page — /blog
 // =========================
-// Server Component. Reads URL search params, fetches all published posts
-// server-side, then filters + paginates in memory. No client-side data
-// loading after the initial render.
+// Server Component. Fetches all published posts server-side, then renders one
+// of two modes: an editorial "index" (featured story, recent posts, top-topic
+// sections, and the full tag list) when no filter is active, or a focused
+// results grid when a search query or tag filter is present. No client-side
+// data loading after the initial render. See spec 038.
 
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { serverApi } from 'keystone-design-bootstrap/lib/server-api';
 import type { BlogPost } from 'keystone-design-bootstrap/types';
-import { BlogPostCard } from '@/components/blog';
-import { BlogFeaturedCard } from '@/components/blog';
-import { BlogFilterBar } from '@/components/blog';
-import { BlogPagination } from '@/components/blog';
-import { extractUniqueTags, filterPosts } from '@/components/blog';
+import { CtaBand } from '@/design-system/sections';
+import {
+  BlogGalleryHeader,
+  BlogFeatureHero,
+  BlogHighlightCard,
+  BlogRecentList,
+  BlogTopicBand,
+  BlogCategorySection,
+  BlogAllTopics,
+  BlogPostCard,
+  BlogFilterBar,
+  BlogPagination,
+  extractUniqueTags,
+  tagsWithCounts,
+  topTagsByCount,
+  postsForTag,
+  filterPosts,
+  byNewestFirst,
+} from '@/design-system/patterns/blog';
 
 // ---------------------------------------------------------------------------
 // SEO metadata
 // ---------------------------------------------------------------------------
 
 export const metadata: Metadata = {
-  title: 'Blog | Keystone',
+  title: 'Insights | Keystone',
   description:
-    'Insights, guides, and stories from the Keystone team on growing your local business.',
+    'Guides, playbooks, and stories from the Keystone team on growing your local business.',
 };
 
 // ---------------------------------------------------------------------------
@@ -29,6 +45,15 @@ export const metadata: Metadata = {
 // ---------------------------------------------------------------------------
 
 const POSTS_PER_PAGE = 12;
+const TOP_TOPIC_COUNT = 5;
+const HIGHLIGHT_COUNT = 3;
+const RECENT_COUNT = 5;
+
+const GALLERY_TITLE = 'Insights';
+const GALLERY_SUBTITLE =
+  'Guides, playbooks, and stories on growing your local business.';
+
+const CLOSING_TITLE = 'The easiest way to grow your business';
 
 // ---------------------------------------------------------------------------
 // Page
@@ -41,99 +66,55 @@ interface BlogPageProps {
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { q, tag, page: pageParam } = await searchParams;
 
-  // Fetch all published posts (used for filtering, tags, featured detection)
-  const allPosts =
-    (await serverApi.get<BlogPost[]>('/public/blog_posts')) ?? [];
+  const allPosts = (await serverApi.get<BlogPost[]>('/public/blog_posts')) ?? [];
 
-  // No posts at all → empty state
+  // ── Empty state — no posts at all ──────────────────────────────────────────
   if (allPosts.length === 0) {
     return (
       <div className="blog-page" data-theme="custom">
-        <header className="inner-page-header">
-          <div className="inner-page-header-inner">
-            <h1 className="inner-page-title blog-page-title">Blog</h1>
-            <p className="inner-page-subtitle">
-              Insights, guides, and stories from the Keystone team.
+        <BlogGalleryHeader title={GALLERY_TITLE} subtitle={GALLERY_SUBTITLE} />
+        <main className="blog-shell">
+          <div className="blog-empty-state">
+            <p className="blog-empty-title">Content coming soon.</p>
+            <p className="blog-empty-body">
+              Our team is working on it — check back soon.
             </p>
-          </div>
-        </header>
-        <main>
-          <div className="blog-content">
-            <div className="blog-empty-state">
-              <p className="blog-empty-title">Content coming soon.</p>
-              <p className="blog-empty-body">
-                Our team is working on it — check back soon.
-              </p>
-            </div>
           </div>
         </main>
       </div>
     );
   }
 
-  // All available tags (for filter bar)
-  const allTags = extractUniqueTags(allPosts);
-
-  // Active filters
   const isFiltered = !!(q || tag);
 
-  // Featured post — suppressed when any filter is active
-  const featuredPost = !isFiltered
-    ? (allPosts.find((p) => p.featured) ?? null)
-    : null;
+  // ══ Filtered mode — focused results grid ═══════════════════════════════════
+  if (isFiltered) {
+    const allTags = extractUniqueTags(allPosts);
+    const activeTag = tag ? allTags.find((t) => t.slug === tag) : null;
+    const filtered = filterPosts(allPosts, q, tag);
 
-  // Filter the full post list
-  const filteredPosts = filterPosts(allPosts, q, tag);
+    const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
+    const currentPage = Math.max(1, Math.min(Number(pageParam) || 1, totalPages));
+    const paginated = filtered.slice(
+      (currentPage - 1) * POSTS_PER_PAGE,
+      currentPage * POSTS_PER_PAGE,
+    );
 
-  // Remove the featured post from the grid to avoid duplication
-  const gridPosts = featuredPost
-    ? filteredPosts.filter((p) => p.id !== featuredPost.id)
-    : filteredPosts;
+    const resultsTitle = tag
+      ? `Posts tagged “${activeTag?.name ?? tag}”`
+      : `Results for “${q}”`;
+    const count = filtered.length;
+    const resultsSubtitle = `${count} article${count === 1 ? '' : 's'}`;
+    const noResults = filtered.length === 0;
 
-  // Pagination
-  const totalPages = Math.max(1, Math.ceil(gridPosts.length / POSTS_PER_PAGE));
-  const currentPage = Math.max(
-    1,
-    Math.min(Number(pageParam) || 1, totalPages),
-  );
-  const paginatedPosts = gridPosts.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE,
-  );
-
-  const noResults = isFiltered && filteredPosts.length === 0;
-
-  return (
-    <div className="blog-page" data-theme="custom">
-      {/* Page header — same maroon as InnerNav, reads as one block */}
-      <header className="inner-page-header">
-        <div className="inner-page-header-inner">
-          <h1 className="inner-page-title blog-page-title">Blog</h1>
-          <p className="inner-page-subtitle">
-            Insights, guides, and stories from the Keystone team.
-          </p>
-        </div>
-      </header>
-
-      <main>
-        <div className="blog-content">
-          {/* Search + filter — client component wrapped in Suspense */}
+    return (
+      <div className="blog-page" data-theme="custom">
+        <BlogGalleryHeader title={resultsTitle} subtitle={resultsSubtitle} />
+        <main className="blog-shell">
           <Suspense fallback={<div className="blog-filter-bar" />}>
-            <BlogFilterBar
-              tags={allTags}
-              currentQuery={q}
-              currentTag={tag}
-            />
+            <BlogFilterBar tags={allTags} currentQuery={q} currentTag={tag} />
           </Suspense>
 
-          {/* Featured post */}
-          {featuredPost && (
-            <section className="blog-featured-section" aria-label="Featured post">
-              <BlogFeaturedCard post={featuredPost} />
-            </section>
-          )}
-
-          {/* No results */}
           {noResults ? (
             <div className="blog-no-results">
               <p className="blog-no-results-title">No posts matched.</p>
@@ -143,17 +124,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </div>
           ) : (
             <>
-              {/* Post grid */}
               <section
                 className="blog-grid"
                 aria-label={`Posts${currentPage > 1 ? `, page ${currentPage}` : ''}`}
               >
-                {paginatedPosts.map((post) => (
+                {paginated.map((post) => (
                   <BlogPostCard key={post.id} post={post} />
                 ))}
               </section>
-
-              {/* Pagination */}
               <BlogPagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -161,8 +139,63 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               />
             </>
           )}
+        </main>
+        <CtaBand tone="accent" fullBleed title={CLOSING_TITLE} />
+      </div>
+    );
+  }
+
+  // ══ Index mode — editorial layout ══════════════════════════════════════════
+  const sorted = [...allPosts].sort(byNewestFirst);
+  const featured = allPosts.find((p) => p.featured) ?? sorted[0];
+
+  const used = new Set<number>([featured.id]);
+  const highlights = sorted.filter((p) => !used.has(p.id)).slice(0, HIGHLIGHT_COUNT);
+  highlights.forEach((p) => used.add(p.id));
+  const recent = sorted.filter((p) => !used.has(p.id)).slice(0, RECENT_COUNT);
+
+  const topTags = topTagsByCount(allPosts, TOP_TOPIC_COUNT);
+  const allTags = tagsWithCounts(allPosts);
+
+  return (
+    <div className="blog-page" data-theme="custom">
+      <BlogGalleryHeader
+        title={GALLERY_TITLE}
+        subtitle={GALLERY_SUBTITLE}
+        showSearch
+      />
+
+      <main>
+        <div className="blog-shell">
+          <BlogFeatureHero post={featured} />
+
+          {highlights.length > 0 && (
+            <section className="blog-highlight-row" aria-label="Latest posts">
+              {highlights.map((post) => (
+                <BlogHighlightCard key={post.id} post={post} />
+              ))}
+            </section>
+          )}
+
+          <BlogRecentList posts={recent} />
+        </div>
+
+        <BlogTopicBand tags={topTags} />
+
+        <div className="blog-shell">
+          {topTags.map((topTag) => (
+            <BlogCategorySection
+              key={topTag.id}
+              tag={topTag}
+              posts={postsForTag(allPosts, topTag.slug)}
+            />
+          ))}
+
+          {allTags.length > TOP_TOPIC_COUNT && <BlogAllTopics tags={allTags} />}
         </div>
       </main>
+
+      <CtaBand tone="accent" fullBleed title={CLOSING_TITLE} />
     </div>
   );
 }

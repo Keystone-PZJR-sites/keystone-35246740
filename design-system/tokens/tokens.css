@@ -1,0 +1,323 @@
+/* ============================================================
+   Keystone Design System — Design Tokens
+   ============================================================
+   The single source of truth for color, type, radius, spacing,
+   and stacking. Reference these custom properties everywhere;
+   never hardcode a hex, font family, or z-index in a component
+   or section stylesheet.
+
+   Three layers:
+   1. :root            — global tokens (z-scale, type scale, spacing,
+                         semantic status, section rhythm).
+   2. @theme           — Tailwind semantic bridge (utility-class tokens).
+   3. [data-theme]     — Keystone palette roles consumed by sections.
+   ============================================================ */
+
+/* ---- Stacking scale -------------------------------------------------------
+   Use these tokens for anything that stacks against the rest of the page.
+   Local stacking contexts inside a single component (e.g. layered photos in
+   one card) may use small relative values like z-index: 1/2/3 freely. */
+:root {
+  --z-base:    0;     /* default flow */
+  --z-raised:  10;    /* in-section overlays — section nav, close buttons */
+  --z-sticky:  20;    /* in-section pinned UI on top of cards */
+  --z-nav:     50;    /* site-wide navigation, ScrollSmoother-aware */
+  --z-modal:  100;    /* full-viewport modal, in-flow */
+  --z-portal: 9999;   /* portaled content above everything (escapes ScrollSmoother transform) */
+
+  /* Site-wide section vertical padding (spec 026).
+     One value used for the breathing room above the first content element
+     and below the last, in every affected homepage section. The clamp upper
+     bound at each breakpoint is the Figma-derived intent; the lower bound
+     guards against collapse on very short windows. Mobile default; desktop
+     widened via the (width >= theme(--breakpoint-md)) override below.
+     Approved exceptions live with the per-section CSS that overrides this:
+     Hero (no top padding — video to top edge), Every Channel (full-bleed
+     video; padding applies to the inner layout), Product Screens (section
+     padding equals --ps-card-inset, which differs from this token), and
+     the footers (proportional collages with no vertical padding token). */
+  --section-padding-y: clamp(24px, 7vh, 56px);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  :root {
+    --section-padding-y: clamp(32px, 8vh, 80px);
+  }
+}
+
+/* ---- Elevation, surface & motion ------------------------------------------
+   Component-level tokens shared by the primitive layer. Globally available
+   (not theme-scoped) so primitives render correctly anywhere. */
+:root {
+  /* Raised surfaces (cards, panels) */
+  --color-surface-card: #ffffff;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgba(4, 32, 25, 0.04), 0 8px 24px rgba(4, 32, 25, 0.06);
+  --shadow-card-hover: 0 4px 10px rgba(4, 32, 25, 0.07), 0 18px 44px rgba(4, 32, 25, 0.11);
+
+  /* Motion — one ramp + a few durations the whole system shares. */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.16s;
+  --duration-base: 0.24s;
+  --duration-slow: 0.4s;
+
+  /* Gradients — shared, named fills. The scrim is the one bottom-anchored
+     darken used behind text over photos / video so every media card reads the
+     same; the brand / mint / ink gradients back gradient-filled cards. Literal
+     ink (#042019) and brand/mint hexes mirror the palette roles below; keep them
+     in sync if the palette changes. */
+  --gradient-scrim: linear-gradient(
+    to top,
+    rgba(4, 32, 25, 0.88) 0%,
+    rgba(4, 32, 25, 0.45) 32%,
+    rgba(4, 32, 25, 0) 68%
+  );
+  --gradient-brand: linear-gradient(155deg, #f57e56 0%, #d75b42 100%);
+  --gradient-mint: linear-gradient(165deg, #6ecc8b 0%, #0d2a28 135%);
+  --gradient-ink: linear-gradient(160deg, #063126 0%, #042019 100%);
+  /* Closing CTA band — a deep brand green that stays green (not near-black ink)
+     while carrying a large white headline and a light button at AA. Used by the
+     CtaBand `accent` tone (spec 037). */
+  --gradient-band-accent: linear-gradient(150deg, #1d6b50 0%, #0d3a2c 100%);
+}
+
+/* ---- Type scale -----------------------------------------------------------
+   Discrete font-size + line-height steps the type system is built from. The
+   display steps render in FK Screamer (the Heading primitive); the text steps
+   render in FK Grotesk Neue (the Text primitive). Headings ship as fluid
+   clamps that resolve to these maximums at desktop width. */
+:root {
+  /* Display steps (FK Screamer) */
+  --type-display: 6rem;     --leading-display: 1;       /* 96px */
+  --type-xl: 3.75rem;       --leading-xl: 1.02;         /* 60px */
+  --type-lg: 2.5rem;        --leading-lg: 1.05;         /* 40px */
+  --type-md: 1.75rem;       --leading-md: 1.1;          /* 28px */
+  --type-sm: 1.25rem;       --leading-sm: 1.15;         /* 20px */
+
+  /* Text steps (FK Grotesk Neue) */
+  --type-lead: 1.25rem;     --leading-lead: 1.6;        /* 20px */
+  --type-body-lg: 1.0625rem; --leading-body-lg: 1.5;    /* 17px — large body / pull quotes */
+  --type-body: 1rem;        --leading-body: 1.65;       /* 16px */
+  --type-small: 0.875rem;   --leading-small: 1.55;      /* 14px */
+  --type-caption: 0.75rem;  --leading-caption: 1.5;     /* 12px */
+  --type-eyebrow: 0.8125rem; --leading-eyebrow: 1;      /* 13px */
+
+  /* Tracking */
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+
+  /* Weight scale — the numeric font weights the type system uses. FK Grotesk
+     Neue ships Regular (400) and Bold (700); it has no Medium or Semibold cut
+     and the browser does NOT synthesize a heavier weight for it, so 500/600
+     gracefully fall back to Regular (see the 400–600 range in fonts.css). Add
+     a real Medium/Semibold cut later to make those tokens distinct. */
+  --font-weight-light: 300;     /* FK Roman Standard — real */
+  --font-weight-regular: 400;   /* FK Grotesk Neue / Mono / Roman — real */
+  --font-weight-medium: 500;    /* no cut — falls back to Regular on FK Grotesk Neue */
+  --font-weight-semibold: 600;  /* no cut — falls back to Regular on FK Grotesk Neue */
+  --font-weight-bold: 700;      /* FK Grotesk Neue Bold + FK Screamer — real */
+}
+
+/* ---- Spacing scale --------------------------------------------------------
+   A 4px base grid. Use these for gaps, padding, and margins instead of raw
+   pixel values. (Tailwind layout utilities cover most cases; these tokens are
+   the named reference and back any custom CSS that needs explicit spacing.) */
+:root {
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px  */
+  --space-2: 0.5rem;    /* 8px  */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+}
+
+/* ---- Semantic status colors ----------------------------------------------
+   Success / warning / error / info, each with a tint background, a border, a
+   readable text color, and a solid fill. Globally available (not theme-scoped)
+   so badges, banners, and form validation read the same role everywhere. */
+:root {
+  --color-success-bg: #e3f3e8;
+  --color-success-border: #b7ddc6;
+  --color-success-text: #1f6b46;
+  --color-success-solid: #2e9b63;
+
+  --color-warning-bg: #fdf2e3;
+  --color-warning-border: #f0d8ab;
+  --color-warning-text: #8a5a17;
+  --color-warning-solid: #d68a2e;
+
+  --color-error-bg: #fff1ef;
+  --color-error-border: #f0b3a6;
+  --color-error-text: #9f3722;
+  --color-error-solid: #d75b42;
+
+  --color-info-bg: #e7eef0;
+  --color-info-border: #c5d4d6;
+  --color-info-text: #1f3a33;
+  --color-info-solid: #3f6b62;
+}
+
+/* ---- Form controls & warm neutrals ----------------------------------------
+   The lead-capture form and the value-props filter controls share a warm
+   neutral control sub-palette beyond the core bg/text scales, plus the
+   form-state colors. Globally available (not theme-scoped) because the
+   lead-capture modal portals to <body>, outside any [data-theme] subtree, and
+   must resolve these wherever it mounts. Role-named, never hue-named. */
+:root {
+  --color-field-bg: #fcfbf8;            /* resting input fill (lightest off-white) */
+  --color-field-border: #e9e7dd;        /* resting input border / quiet fill */
+  --color-control-strong: #cbc5b4;      /* hover / active / filled control border */
+  --color-control-muted: #e0ddd1;       /* neutral focus ring + quiet control fill */
+  --color-control-border: #beb8a7;      /* checkbox + textarea-focus border */
+  --color-control-underline: #d6d2c2;   /* quiet link underline */
+  --color-text-muted-warm: #989281;     /* quiet body copy (subheadline, terms) */
+  --color-text-label: #847f71;          /* field labels, placeholders */
+  --color-text-quiet: #5d5a56;          /* quiet control labels */
+  --color-text-strong: #3a3836;         /* entered input text */
+  --color-pill-label-inactive: #f8f7f2; /* inactive product-screen pill label */
+  --color-form-accent: #66cc86;         /* lead-capture green: CTA fill, highlight */
+  --color-form-accent-text: #0f2e18;    /* copy on the green CTA */
+  --color-form-error: #f6523c;          /* error border / text / icon */
+  --color-form-error-ring: #fba093;     /* error focus ring */
+  --color-form-error-border: #c27b5a;   /* textarea error border */
+  --color-form-error-text: #c0392b;     /* form-level error message */
+}
+
+/*
+ * Tailwind semantic token bridge for KDS primitives (portal, forms, etc.).
+ * This custom site does not import the stock KDS theme bundle, so we define
+ * just the semantic tokens needed by shared KDS utility classes here.
+ */
+@theme {
+  /* ── Breakpoint ───────────────────────────────────────────────────────────
+     One mobile↔desktop boundary for the whole app: below 985px every section
+     renders its mobile layout; at 985px and up the desktop layout takes over.
+     985 is the width at which the desktop nav bar stops fitting, so the entire
+     site (sections, JS matchMedia gates, <source media> video swaps, and the
+     hand-written `@media (width >= theme(--breakpoint-md))` queries) hands off there in
+     lockstep with the nav — no per-component cutoffs. This redefines Tailwind's
+     `md:` to 985 (its built-in default is 768) so the utility prefix and the
+     CSS media queries share a single source of truth. Stylesheets read this
+     value via `theme(--breakpoint-md)` (and the 1280px refinement tier via
+     `theme(--breakpoint-xl)`); the JS/JSX side reads the mirrored constant in
+     `design-system/tokens/breakpoints.ts`. Edit the value in those two places
+     only. `sm:`/`lg:`/`xl:` keep Tailwind's defaults and are only used for grid
+     column counts on the internal /styles catalog. The lead-capture modal is
+     the one deliberate exception — it keeps its own 640/1024 cutoffs from its
+     Figma spec. */
+  --breakpoint-md: 985px;
+
+  --font-body: "FK Grotesk Neue", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "FK Screamer", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "FK Grotesk Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: "FK Roman Standard", Georgia, "Times New Roman", serif;
+
+  --radius-component: 0.75rem;
+  --radius-interactive: 9999px;
+  --radius-input: 0.5rem;
+  --radius-badge: 9999px;
+  /* Large feature panels (the Tabbed Showcase panel, future hero/feature
+     surfaces) need a corner radius well beyond the 12px component radius.
+     One shared value so every oversized panel rounds the same. */
+  --radius-panel: 2rem;
+
+  --color-bg-primary: #f0eee6;
+  --color-bg-secondary: #e8e2d4;
+  --color-bg-tertiary: #ddd5c4;
+  --color-bg-quaternary: #cfc4b0;
+  --color-bg-primary_hover: #e6dfcf;
+  --color-bg-secondary_hover: #ddd5c4;
+  --color-bg-brand-solid: #f57e56;
+  --color-bg-brand-solid_hover: #d75b42;
+  --color-bg-error-primary: #fff1ef;
+
+  --color-text-primary: #042019;
+  --color-text-secondary: #1f3a33;
+  --color-text-tertiary: #4f4d4a;
+  --color-text-quaternary: #7d776b;
+  --color-text-placeholder: #8f897d;
+  --color-text-brand-secondary: #9f3722;
+  --color-text-error-primary: #9f3722;
+
+  --color-border-primary: #c7beac;
+  --color-border-secondary: #d8cfbe;
+  --color-border-tertiary: #e5dccb;
+  --color-border-brand: #f57e56;
+  --color-border-error: #d75b42;
+
+  --background-color-primary: var(--color-bg-primary);
+  --background-color-secondary: var(--color-bg-secondary);
+  --background-color-tertiary: var(--color-bg-tertiary);
+  --background-color-quaternary: var(--color-bg-quaternary);
+  --background-color-primary_hover: var(--color-bg-primary_hover);
+  --background-color-secondary_hover: var(--color-bg-secondary_hover);
+  --background-color-brand-solid: var(--color-bg-brand-solid);
+  --background-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
+  --background-color-error-primary: var(--color-bg-error-primary);
+
+  --text-color-primary: var(--color-text-primary);
+  --text-color-secondary: var(--color-text-secondary);
+  --text-color-tertiary: var(--color-text-tertiary);
+  --text-color-quaternary: var(--color-text-quaternary);
+  --text-color-placeholder: var(--color-text-placeholder);
+  --text-color-brand-secondary: var(--color-text-brand-secondary);
+  --text-color-error-primary: var(--color-text-error-primary);
+
+  --border-color-primary: var(--color-border-primary);
+  --border-color-secondary: var(--color-border-secondary);
+  --border-color-tertiary: var(--color-border-tertiary);
+  --border-color-brand: var(--color-border-brand);
+  --border-color-error: var(--color-border-error);
+}
+
+/* ---- Keystone palette roles ----------------------------------------------
+   Role-named tokens (not hue-named) consumed by section + component CSS.
+   A token name describes where the color is used, never the color itself. */
+[data-theme="custom"] {
+  /* Hero */
+  --color-hero-bg: #042019;
+  --color-hero-surface: #063126;
+  --color-hero-accent: #6ecc8b;
+  --color-hero-accent-hover: #5bb978;
+  --color-hero-text: #f0eee6;
+
+  /* Flat brand-green card fill (the "mint" SpotlightCard tone) — a single,
+     non-shiny green that holds white text. */
+  --color-bg-mint-solid: #2f8f63;
+
+  /* Work Showcase */
+  --color-work-accent: #f57e56;
+  --color-work-chip-bg: #ffbb8a;
+  --color-work-muted: #cbc5b4;
+  --color-work-muted-hover: #b1aa9a;
+  --color-work-text: #4f4d4a;
+
+  /* Oversized Footer */
+  --color-footer-bg: #3d1719;
+  --color-footer-legal: #b24934;
+  --color-footer-error: #e05252;
+
+  /* Social Proof */
+  --color-social-proof-bg: #0d2a28;
+
+  /* Pricing */
+  --color-pricing-bg: #0a1f1e;
+  --color-pricing-tagline: #4fafa0;
+  --color-pricing-price-primary: #9febd7;
+  --color-pricing-price-secondary: #399587;
+  --color-pricing-accent: #5bc3b3;
+  --color-pricing-chip-border: #19524e;
+  --color-pricing-chip-label: #f8f7f2;
+  --color-pricing-addon-chip-bg: #0d2a28;
+}

@@ -1,0 +1,54 @@
+/* ============================================================
+   Keystone Design System — Global base styles
+   ============================================================
+   Element-level globals that are not tokens and not scoped to a
+   single primitive, component, or section. Loads after tokens so
+   it can reference them, before primitives so they can override.
+   ============================================================ */
+
+/* Keep Keystone portal compact so supporting sections appear sooner. */
+.custom-portal-shell .custom-portal-frame > .min-h-screen {
+  min-height: clamp(540px, 76vh, 780px) !important;
+}
+
+/* Messages tab thread area override (KDS default inline height is 70vh). */
+.custom-portal-shell .custom-portal-frame [style*='height: 70vh'] {
+  height: min(52vh, 520px) !important;
+}
+
+body {
+  /* Matches the hero/page background — belt-and-suspenders alongside the
+     inline <style> in layout.tsx. Ensures no white flash even if the inline
+     style were somehow missing. */
+  background-color: var(--color-hero-bg, #042019);
+}
+
+/* Reserved top space for the fixed site nav (HeroNav). On inner pages the
+   nav floats over the dark page header as a fixed overlay (as it does over
+   the homepage hero), so each inner header pads its top by this much to keep
+   the title clear of the bar. One value, consumed by every inner header
+   (inner-page, blog post); grows with the nav's top inset + bar height. */
+:root {
+  --site-nav-clearance: 88px;
+}
+@media (min-width: 768px) {
+  :root {
+    --site-nav-clearance: 96px;
+  }
+}
+@media (width >= theme(--breakpoint-md)) {
+  :root {
+    --site-nav-clearance: 104px;
+  }
+}
+
+/* Loading overlay sits above ScrollSmoother content while it bootstraps —
+   matches hero background so the fade-out is invisible. GSAP fades opacity
+   to 0 in `SmoothScrollProvider` once the smoother is ready. */
+.smooth-scroll-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-portal);
+  background-color: var(--color-hero-bg, #042019);
+  pointer-events: auto;
+}

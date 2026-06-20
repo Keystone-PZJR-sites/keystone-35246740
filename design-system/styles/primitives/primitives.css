@@ -1,0 +1,338 @@
+/* ============================================================
+   Keystone Design System — Primitive styles
+   ============================================================
+   Styles for the lowest-level building blocks that pages and
+   components compose from. Each primitive owns one class
+   namespace prefixed `ks-` (Keystone). Colors, radii, and fonts
+   reference tokens only — never a raw hex or font family.
+
+   Scoped palette tokens (--color-hero-*) carry a literal fallback
+   so primitives also render outside a [data-theme="custom"] tree.
+   ============================================================ */
+
+/* ===================== Text ===================== */
+
+.ks-text {
+  font-family: var(--font-body);
+  margin: 0;
+}
+
+.ks-text--lead    { font-size: 1.25rem;   line-height: 1.6; }
+.ks-text--bodyLg  { font-size: var(--type-body-lg); line-height: var(--leading-body-lg); }
+.ks-text--body    { font-size: 1rem;      line-height: 1.65; }
+.ks-text--small   { font-size: 0.875rem;  line-height: 1.55; }
+.ks-text--caption { font-size: 0.75rem;   line-height: 1.5; letter-spacing: 0.01em; }
+.ks-text--mono    { font-family: var(--font-mono, 'FK Grotesk Mono', monospace); font-size: 0.875rem; line-height: 1.5; }
+
+.ks-text--primary       { color: var(--color-text-primary); }
+.ks-text--secondary     { color: var(--color-text-secondary); }
+.ks-text--tertiary      { color: var(--color-text-tertiary); }
+.ks-text--quaternary    { color: var(--color-text-quaternary); }
+.ks-text--brand         { color: var(--color-text-brand-secondary); }
+.ks-text--inverse       { color: var(--color-hero-text, #f0eee6); }
+.ks-text--inverse-muted { color: rgba(240, 238, 230, 0.72); }
+
+/* ===================== Heading ===================== */
+
+.ks-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  /* The FK Screamer display face is always set in all caps (Spec: heading
+     titles are uppercase). Centralized here so every display Heading matches
+     the bespoke section headlines without per-usage text-transform. */
+  text-transform: uppercase;
+}
+
+.ks-heading--font-body {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  /* The body face (FK Grotesk Neue) is used for card / tile titles that read
+     as sentence-case copy, so it opts out of the display uppercase. */
+  text-transform: none;
+}
+
+.ks-heading--display { font-size: clamp(3rem, 8vw, 6rem); }
+.ks-heading--xl      { font-size: clamp(2.25rem, 5vw, 3.75rem); }
+.ks-heading--lg      { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
+.ks-heading--md      { font-size: clamp(1.375rem, 2.5vw, 1.75rem); }
+.ks-heading--sm      { font-size: clamp(1.125rem, 2vw, 1.25rem); }
+.ks-heading--xs      { font-size: clamp(1rem, 1.6vw, 1.125rem); }
+
+.ks-heading--primary   { color: var(--color-text-primary); }
+.ks-heading--secondary { color: var(--color-text-secondary); }
+.ks-heading--brand     { color: var(--color-work-accent, #f57e56); }
+.ks-heading--accent    { color: var(--color-hero-accent, #6ecc8b); }
+.ks-heading--inverse   { color: var(--color-hero-text, #f0eee6); }
+
+/* ===================== Eyebrow ===================== */
+
+.ks-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ks-eyebrow--brand         { color: var(--color-text-brand-secondary); }
+.ks-eyebrow--accent        { color: var(--color-hero-accent, #6ecc8b); }
+.ks-eyebrow--tertiary      { color: var(--color-text-tertiary); }
+.ks-eyebrow--inverse-muted { color: rgba(240, 238, 230, 0.66); }
+
+/* ===================== Card ===================== */
+
+.ks-card {
+  border-radius: var(--radius-component);
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--color-border-tertiary);
+}
+
+.ks-card--cream {
+  background-color: var(--color-surface-card);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-card);
+}
+
+.ks-card--ink {
+  background-color: var(--color-hero-surface, #063126);
+  color: var(--color-hero-text, #f0eee6);
+  border-color: rgba(240, 238, 230, 0.1);
+}
+
+/* Transparent shell — no fill, border, or shadow. The card's own children
+   paint the surface (e.g. SpotlightCard's media / gradient background). */
+.ks-card--none {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+/* Larger feature-card radius (the SpotlightCard panel scale). */
+.ks-card--panel {
+  border-radius: var(--radius-panel);
+}
+
+/* Drop the standard padding for cards whose children own their spacing. */
+.ks-card--flush {
+  padding: 0;
+}
+
+.ks-card--interactive {
+  transition: transform var(--duration-base) var(--ease-emphasized),
+    box-shadow var(--duration-base) var(--ease-emphasized);
+}
+.ks-card--interactive:hover {
+  transform: translateY(-3px);
+}
+.ks-card--cream.ks-card--interactive:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ===================== Button ===================== */
+
+.ks-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-interactive);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+.ks-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ks-btn--full { width: 100%; }
+.ks-btn:focus-visible {
+  outline: 2px solid var(--color-hero-accent, #6ecc8b);
+  outline-offset: 2px;
+}
+
+.ks-btn--sm { padding: 8px 16px;  font-size: 0.8125rem; }
+.ks-btn--md { padding: 12px 22px; font-size: 0.9375rem; }
+.ks-btn--lg { padding: 16px 28px; font-size: 1.0625rem; }
+
+.ks-btn__arrow {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+.ks-btn:hover .ks-btn__arrow { transform: translateX(3px); }
+
+/* default tone (on cream surfaces) */
+.ks-btn--primary.ks-btn--default {
+  background-color: var(--color-bg-brand-solid);
+  color: var(--color-text-primary);
+}
+.ks-btn--primary.ks-btn--default:hover { background-color: var(--color-bg-brand-solid_hover); }
+
+.ks-btn--secondary.ks-btn--default {
+  background-color: transparent;
+  border-color: var(--color-border-primary);
+  color: var(--color-text-primary);
+}
+.ks-btn--secondary.ks-btn--default:hover { background-color: var(--color-bg-secondary); }
+
+.ks-btn--ghost.ks-btn--default {
+  background-color: transparent;
+  color: var(--color-text-primary);
+}
+.ks-btn--ghost.ks-btn--default:hover { background-color: var(--color-bg-secondary); }
+
+/* inverse tone (on ink / dark surfaces) */
+.ks-btn--primary.ks-btn--inverse {
+  background-color: var(--color-hero-accent, #6ecc8b);
+  color: var(--color-hero-bg, #042019);
+}
+.ks-btn--primary.ks-btn--inverse:hover { background-color: var(--color-hero-accent-hover, #5bb978); }
+
+.ks-btn--secondary.ks-btn--inverse {
+  background-color: transparent;
+  border-color: rgba(240, 238, 230, 0.32);
+  color: var(--color-hero-text, #f0eee6);
+}
+.ks-btn--secondary.ks-btn--inverse:hover { background-color: rgba(240, 238, 230, 0.1); }
+
+.ks-btn--ghost.ks-btn--inverse {
+  background-color: transparent;
+  color: var(--color-hero-text, #f0eee6);
+}
+.ks-btn--ghost.ks-btn--inverse:hover { background-color: rgba(240, 238, 230, 0.1); }
+
+/* ===================== Link ===================== */
+
+.ks-link {
+  font-family: var(--font-body);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+.ks-link--default { color: var(--color-text-secondary); }
+.ks-link--default:hover { color: var(--color-text-primary); text-decoration: underline; }
+.ks-link--brand { color: var(--color-text-brand-secondary); }
+.ks-link--brand:hover { text-decoration: underline; }
+.ks-link--inverse { color: var(--color-hero-text, #f0eee6); }
+.ks-link--inverse:hover { color: var(--color-hero-accent, #6ecc8b); }
+.ks-link--underline { text-decoration: underline; }
+.ks-link:focus-visible { outline: 2px solid var(--color-hero-accent, #6ecc8b); outline-offset: 2px; border-radius: 2px; }
+
+/* ===================== Pill ===================== */
+
+.ks-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-interactive);
+  white-space: nowrap;
+}
+.ks-pill--sm { padding: 5px 12px; font-size: 0.75rem; }
+.ks-pill--md { padding: 8px 16px; font-size: 0.875rem; }
+
+.ks-pill--ink     { background-color: var(--color-hero-bg, #042019); color: var(--color-hero-text, #f0eee6); }
+.ks-pill--cream   { background-color: var(--color-bg-secondary); color: var(--color-text-primary); }
+.ks-pill--brand   { background-color: var(--color-bg-brand-solid); color: var(--color-text-primary); }
+.ks-pill--accent  { background-color: var(--color-hero-accent, #6ecc8b); color: var(--color-hero-bg, #042019); }
+.ks-pill--outline { background-color: transparent; border-color: var(--color-border-primary); color: var(--color-text-secondary); }
+
+.ks-pill--interactive {
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+.ks-pill--interactive:hover { filter: brightness(0.97); }
+.ks-pill--outline.ks-pill--interactive:hover { background-color: var(--color-bg-secondary); filter: none; }
+.ks-pill--interactive:focus-visible { outline: 2px solid var(--color-hero-accent, #6ecc8b); outline-offset: 2px; }
+.ks-pill--outline.ks-pill--active { background-color: var(--color-text-primary); color: var(--color-bg-primary); border-color: var(--color-text-primary); }
+
+/* ===================== Badge ===================== */
+
+.ks-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-badge);
+}
+.ks-badge--neutral { background-color: var(--color-bg-tertiary); color: var(--color-text-tertiary); }
+.ks-badge--brand   { background-color: rgba(245, 126, 86, 0.15); color: var(--color-text-brand-secondary); }
+.ks-badge--accent  { background-color: rgba(110, 204, 139, 0.2); color: var(--color-success-text); }
+.ks-badge--success { background-color: var(--color-success-bg); color: var(--color-success-text); }
+.ks-badge--warning { background-color: var(--color-warning-bg); color: var(--color-warning-text); }
+.ks-badge--error   { background-color: var(--color-error-bg); color: var(--color-error-text); }
+.ks-badge--info    { background-color: var(--color-info-bg); color: var(--color-info-text); }
+
+/* ===================== QuantityStepper ===================== */
+
+.ks-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-surface-card);
+}
+
+.ks-stepper__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border: 0;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+.ks-stepper__btn:hover { background-color: var(--color-bg-tertiary); }
+.ks-stepper__btn:focus-visible {
+  outline: 2px solid var(--color-border-brand);
+  outline-offset: 2px;
+}
+.ks-stepper__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ks-stepper__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.ks-stepper__value {
+  min-width: 2ch;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}

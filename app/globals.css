@@ -5,15 +5,18 @@
 @plugin "tailwindcss-animate";
 
 /*
- * No design-system CSS is imported here.
- * This is a fully custom site — all styles are defined in custom-overrides.css.
- * The @source directive ensures Tailwind scans the design-bootstrap source so
- * utility classes used by any data-layer components are not purged at build time.
+ * This is a fully custom site driven by a central design system.
+ * All tokens, primitives, components, and section styles live under
+ * `design-system/` and are imported through its master stylesheet index.
+ * The @source directive ensures Tailwind scans both the design-system
+ * source and the design-bootstrap source so utility classes used by any
+ * component are not purged at build time.
  */
+@source "../design-system/**/*.{ts,tsx}";
 @source "../node_modules/keystone-design-bootstrap/src/**/*.{ts,tsx}";
 
-/* All site CSS lives here */
-@import "../styles/custom-overrides.css";
+/* The entire design system, in cascade order. */
+@import "../design-system/styles/index.css";
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 

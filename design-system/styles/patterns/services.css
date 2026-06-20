@@ -1,0 +1,229 @@
+/* ============================================================
+   Service page pattern (spec 037)
+   ============================================================
+   Pattern-specific chrome for ServicePageTemplate: the framed
+   product screenshot, the decorative bento mocks, and the
+   centered FAQ. Reusable sections (SplitHero, MediaFeatureList,
+   TestimonialCarousel) carry their own stylesheets. Colors/radii/
+   spacing reference tokens only.
+   ============================================================ */
+
+/* ---- Hero statement card ----
+   The split-hero media card: a bold deliverables line (the card title) closed
+   by a brand-accent tagline (the caption) — e.g. "Social Media, Optimized." */
+.ks-svc-hero-card .ks-spot__caption {
+  color: var(--color-hero-accent);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--type-body-lg);
+}
+
+/* ---- Framed product screenshot (feature-list media) ---- */
+.ks-svc-media {
+  border-radius: var(--radius-component);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  background-color: var(--color-surface-card);
+}
+.ks-svc-media__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- System bento ----
+   Tiles in the same row match height so their bottoms line up (CardGrid is
+   top-aligned by default). The wide banner tile keeps its own aspect ratio, so
+   only the unspanned mock tiles are forced to fill the row. */
+.ks-svc-bento {
+  align-items: stretch;
+}
+.ks-svc-bento > div:not(.ks-card-grid__item) > .ks-spot {
+  height: 100%;
+}
+
+/* ---- Centered FAQ inside a centered ContentSection ---- */
+.ks-svc-faq {
+  display: flex;
+  justify-content: center;
+}
+.ks-svc-faq .ks-faq {
+  width: 100%;
+  max-width: 820px;
+  text-align: left;
+}
+
+/* ============================================================
+   Bento mocks — decorative product chrome framed inside tiles.
+   Built from tokens only; no real data, hidden from a11y.
+   ============================================================ */
+.ks-svc-mock {
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius-component);
+  padding: 14px;
+  box-shadow: var(--shadow-card);
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Skeleton bars (shared) */
+.ks-svc-mock__line {
+  display: block;
+  height: 8px;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-tertiary);
+  width: 100%;
+}
+.ks-svc-mock__line--title {
+  height: 10px;
+  width: 70%;
+  background-color: var(--color-bg-quaternary);
+}
+.ks-svc-mock__line--short {
+  width: 45%;
+}
+
+.ks-svc-mock__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- Search mock ---- */
+.ks-svc-mock__field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-interactive);
+  color: var(--color-text-placeholder);
+}
+.ks-svc-mock__field-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.ks-svc-mock__field-text {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+}
+.ks-svc-mock__result {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.ks-svc-mock__thumb {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-tertiary);
+}
+/* Round avatar for the review mock's reviewer. */
+.ks-svc-mock__thumb--round {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-interactive);
+}
+.ks-svc-mock__rating {
+  display: inline-flex;
+  gap: 1px;
+  color: var(--color-bg-brand-solid);
+}
+.ks-svc-mock__star {
+  width: 12px;
+  height: 12px;
+}
+
+/* ---- Product mock ---- */
+.ks-svc-mock__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-tertiary);
+}
+.ks-svc-mock__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ks-svc-mock__price {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--type-small);
+  color: var(--color-text-primary);
+  margin-top: 2px;
+}
+.ks-svc-mock__add {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-brand-solid);
+  /* Dark ink on brand, matching the primary button (.ks-btn--primary.ks-btn--default)
+     — the system's on-brand foreground, and AA-legible where white would not be. */
+  color: var(--color-text-primary);
+}
+.ks-svc-mock__add-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Message mock ---- */
+.ks-svc-mock--message {
+  gap: 8px;
+}
+.ks-svc-mock__bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  max-width: 80%;
+  border-radius: var(--radius-component);
+}
+.ks-svc-mock__bubble--in {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  background-color: var(--color-bg-secondary);
+}
+.ks-svc-mock__bubble--in .ks-svc-mock__line {
+  background-color: var(--color-bg-quaternary);
+}
+.ks-svc-mock__bubble--out {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  background-color: var(--color-bg-brand-solid);
+}
+.ks-svc-mock__bubble--out .ks-svc-mock__line {
+  background-color: var(--color-hero-text);
+}
+
+/* ---- Metric mock ---- */
+.ks-svc-mock__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 72px;
+}
+.ks-svc-mock__bar {
+  flex: 1;
+  border-radius: var(--radius-input) var(--radius-input) 0 0;
+  background-color: var(--color-bg-tertiary);
+}
+.ks-svc-mock__bar:nth-child(1) { height: 38%; }
+.ks-svc-mock__bar:nth-child(2) { height: 58%; }
+.ks-svc-mock__bar:nth-child(3) { height: 46%; }
+.ks-svc-mock__bar:nth-child(4) { height: 74%; }
+.ks-svc-mock__bar:nth-child(5) {
+  height: 100%;
+  background-color: var(--color-bg-brand-solid);
+}

@@ -1,72 +1,83 @@
 import type { Metadata } from 'next';
 import {
-  MobilePricingSection,
-  MobileWorkShowcase,
-  PricingSection,
-  WorkShowcase,
-} from '@/components/sections';
-import {
-  PRODUCT_SCREENS_TOOLS,
-  WORK_CARDS,
-  WORK_INDUSTRIES,
-  SHARED_WORK_SHOWCASE_PROPS,
-  SHARED_MOBILE_WORK_SHOWCASE_PROPS,
-  SHARED_PRICING_SECTION_PROPS,
-  SHARED_MOBILE_PRICING_SECTION_PROPS,
-} from '@/data';
-import {
-  buildHowItWorksHeroPills,
-  buildHowItWorksHeroSlides,
-  buildHowItWorksModules,
-  randomizeModuleMediaOrder,
-  HOW_IT_WORKS_HERO_HEADLINE,
-  HOW_IT_WORKS_HERO_SUPPORTING_COPY,
-  HOW_IT_WORKS_PRIMARY_CTA_LABEL,
-  HOW_IT_WORKS_SECONDARY_CTA_LABEL,
-} from '@/data/how-it-works';
-import {
-  HowItWorksHero,
-  HowItWorksModules,
-} from '@/components/sections/how-it-works';
-
-const MODULE_SECTION_ID = 'how-it-works-modules';
+  CenteredHero,
+  ContentSection,
+  ProcessSteps,
+  FeatureGrid,
+  TestimonialCarousel,
+  FaqAccordion,
+  CtaBand,
+} from '@/design-system';
+import { ProcessMock } from '@/design-system/patterns/how-it-works';
+import { HOW_IT_WORKS_PAGE } from '@/data';
 
 export const metadata: Metadata = {
-  title: 'How It Works | Keystone',
-  description:
-    'A practical module-by-module overview of how Keystone handles website, ads, social, content, reviews, leads, and sales execution for local businesses.',
+  title: HOW_IT_WORKS_PAGE.meta.title,
+  description: HOW_IT_WORKS_PAGE.meta.description,
 };
 
 export default function HowItWorksPage() {
-  const baseModules = buildHowItWorksModules(
-    WORK_CARDS,
-    WORK_INDUSTRIES,
-    PRODUCT_SCREENS_TOOLS,
-  );
-  const heroPills = buildHowItWorksHeroPills(baseModules);
-  const heroSlides = buildHowItWorksHeroSlides(baseModules);
-  const modules = randomizeModuleMediaOrder(baseModules);
+  const content = HOW_IT_WORKS_PAGE;
+
+  const steps = content.steps.items.map((step) => ({
+    id: step.id,
+    number: step.number,
+    eyebrow: step.eyebrow,
+    title: step.title,
+    description: step.description,
+    services: step.services,
+    media: <ProcessMock kind={step.mock} />,
+  }));
 
   return (
     <div className="inner-page" data-theme="custom">
+      <CenteredHero
+        eyebrow={content.header.eyebrow}
+        title={content.header.title}
+        subtitle={content.header.subtitle}
+      />
+
       <main>
-        <HowItWorksHero
-          headline={HOW_IT_WORKS_HERO_HEADLINE}
-          supportingCopy={HOW_IT_WORKS_HERO_SUPPORTING_COPY}
-          primaryCtaLabel={HOW_IT_WORKS_PRIMARY_CTA_LABEL}
-          secondaryCtaLabel={HOW_IT_WORKS_SECONDARY_CTA_LABEL}
-          pills={heroPills}
-          slides={heroSlides}
+        {/* The numbered six-step narrative — the heart of the page. */}
+        <ContentSection
+          eyebrow={content.steps.eyebrow}
+          title={content.steps.title}
+          description={content.steps.description}
+          centered
+          ariaLabel="How Keystone grows your business"
+        >
+          <ProcessSteps steps={steps} ariaLabel="The Keystone growth journey" />
+        </ContentSection>
+
+        {/* Why the system works as a whole. */}
+        <ContentSection
+          eyebrow={content.recap.eyebrow}
+          title={content.recap.title}
+          centered
+          ariaLabel="Why it works"
+        >
+          <FeatureGrid items={content.recap.items} />
+        </ContentSection>
+
+        {/* Social proof. */}
+        <TestimonialCarousel
+          title={content.testimonials.title}
+          cards={content.testimonials.cards}
+          ariaLabel="What our clients say"
         />
 
-        <HowItWorksModules id={MODULE_SECTION_ID} modules={modules} />
-
-        <PricingSection {...SHARED_PRICING_SECTION_PROPS} />
-        <MobilePricingSection {...SHARED_MOBILE_PRICING_SECTION_PROPS} />
-
-        <WorkShowcase {...SHARED_WORK_SHOWCASE_PROPS} />
-        <MobileWorkShowcase {...SHARED_MOBILE_WORK_SHOWCASE_PROPS} />
+        {/* Process FAQ. */}
+        <ContentSection eyebrow={content.faq.eyebrow} title={content.faq.title} centered>
+          <FaqAccordion items={content.faq.items} centered />
+        </ContentSection>
       </main>
+
+      <CtaBand
+        tone="accent"
+        fullBleed
+        title={content.closing.title}
+        primary={{ label: content.closing.actionLabel, href: content.closing.actionHref }}
+      />
     </div>
   );
 }

@@ -1,21 +1,34 @@
 // Blog post detail page — /blog/[slug]
 // =====================================
-// Server Component. All data is fetched before render; the article body
-// is rendered as static HTML via ReactMarkdown (no client hydration needed).
+// Server Component. All data is fetched before render; the article body is
+// rendered as static HTML (no client hydration for content). The layout is a
+// light editorial header, a full-width featured image, and a two-column body
+// (article + sticky sidebar), then the author bio and the closing CTA band.
+// See spec 038.
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { serverApi } from 'keystone-design-bootstrap/lib/server-api';
-import type { BlogPost } from 'keystone-design-bootstrap/types';
-import { BlogPostCard } from '@/components/blog';
 import {
+  serverApi,
+  getCompanyInformation,
+} from 'keystone-design-bootstrap/lib/server-api';
+import type { BlogPost } from 'keystone-design-bootstrap/types';
+import { MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
+import { CtaBand } from '@/design-system/sections';
+import {
+  ArticleBody,
+  BlogBreadcrumb,
+  BlogPostSidebar,
+  BlogAuthorBio,
   getFeaturedImage,
   formatDate,
   estimateReadingTime,
-} from '@/components/blog';
+  extractHeadings,
+} from '@/design-system/patterns/blog';
+import type { BreadcrumbItem, BlogSocialLinks } from '@/design-system/patterns/blog';
+
+const CLOSING_TITLE = 'The easiest way to grow your business';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -39,8 +52,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   const title = post.seo_title ?? post.title;
-  const description =
-    post.seo_description ?? post.excerpt_markdown ?? undefined;
+  const description = post.seo_description ?? post.excerpt_markdown ?? undefined;
   const featuredImage = getFeaturedImage(post);
 
   return {
@@ -74,7 +86,6 @@ export async function generateMetadata({
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
 
-  // Fetch the individual post by slug
   const post = await serverApi.get<BlogPost>(
     `/public/blog_posts/by_slug/${encodeURIComponent(slug)}`,
   );
@@ -83,125 +94,78 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // Fetch all posts to build related posts (excludes current)
-  const allPosts =
-    (await serverApi.get<BlogPost[]>('/public/blog_posts')) ?? [];
-
-  const relatedPosts = allPosts.filter((p) => p.id !== post.id).slice(0, 3);
+  // Company social URLs for the author bio (optional).
+  const companyInfo = await getCompanyInformation();
+  const social: BlogSocialLinks = {
+    youtubeUrl: companyInfo?.youtube_url,
+    instagramUrl: companyInfo?.instagram_url,
+    facebookUrl: companyInfo?.facebook_url,
+    linkedinUrl: companyInfo?.linkedin_url,
+  };
 
   // Derived values
   const featuredImage = getFeaturedImage(post);
-  const tags = post.blog_post_tags ?? [];
+  const leadingTag = post.blog_post_tags?.[0];
   const author = post.blog_post_authors?.[0];
-  const authorImage = author?.photo_attachments?.[0];
-  const authorAvatarUrl =
-    authorImage?.photo?.thumbnail_url ??
-    authorImage?.photo?.medium_url ??
-    null;
-  const authorInitial = author?.name?.[0]?.toUpperCase() ?? '';
   const publishDate = post.published_at ? formatDate(post.published_at) : null;
   const readingTime = estimateReadingTime(post.content_markdown);
+  const headings = extractHeadings(post.content_markdown);
+
+  const breadcrumb: BreadcrumbItem[] = [
+    { label: 'Blog', href: '/blog' },
+    ...(leadingTag
+      ? [{ label: leadingTag.name, href: `/blog?tag=${leadingTag.slug}` }]
+      : []),
+  ];
 
   return (
     <div className="blog-post-page" data-theme="custom">
-      {/* ── Post header (maroon — continuous block with InnerNav) ── */}
-      <header className="blog-post-header">
-        <div className="blog-post-header-inner">
-          {/* Tags */}
-          {tags.length > 0 && (
-            <div className="blog-post-tags" aria-label="Tags">
-              {tags.map((tag) => (
-                <span key={tag.id} className="blog-tag">
-                  {tag.name}
-                </span>
-              ))}
+      <div className="blog-post-shell">
+        <div className="blog-post-main">
+          {/* ── Header ── */}
+          <header className="blog-post-header">
+            <BlogBreadcrumb items={breadcrumb} />
+            <h1 className="blog-post-title">{post.title}</h1>
+            <div className="blog-post-meta">
+              <span>{readingTime} min read</span>
+              {publishDate && (
+                <>
+                  <span className="blog-post-meta__sep" aria-hidden="true">
+                    ·
+                  </span>
+                  <time dateTime={post.published_at}>{publishDate}</time>
+                </>
+              )}
+            </div>
+          </header>
+
+          {/* ── Featured image ── */}
+          {featuredImage && (
+            <div className="blog-post-featured">
+              <Image
+                src={featuredImage.url}
+                alt={featuredImage.alt || post.title}
+                fill
+                sizes={`${MOBILE_MEDIA} 100vw, 760px`}
+                className="blog-post-featured__img"
+                priority
+              />
             </div>
           )}
 
-          {/* Title */}
-          <h1 className="blog-post-title">{post.title}</h1>
+          {/* ── Article body ── */}
+          <ArticleBody markdown={post.content_markdown} />
 
-          {/* Metadata row */}
-          <div className="blog-post-meta">
-            {author && (
-              <>
-                {/* Author avatar */}
-                <div
-                  className="blog-post-author-avatar"
-                  aria-hidden="true"
-                >
-                  {authorAvatarUrl ? (
-                    <Image
-                      src={authorAvatarUrl}
-                      alt=""
-                      width={28}
-                      height={28}
-                      className="object-cover w-full h-full"
-                    />
-                  ) : (
-                    <span>{authorInitial}</span>
-                  )}
-                </div>
-                <span>{author.name}</span>
-              </>
-            )}
-            {author && publishDate && (
-              <span className="blog-post-meta-sep" aria-hidden="true">·</span>
-            )}
-            {publishDate && (
-              <time dateTime={post.published_at}>{publishDate}</time>
-            )}
-            {(author || publishDate) && (
-              <span className="blog-post-meta-sep" aria-hidden="true">·</span>
-            )}
-            <span>{readingTime} min read</span>
-          </div>
+          {/* ── Author bio ── */}
+          {author && <BlogAuthorBio author={author} social={social} />}
         </div>
-      </header>
 
-      {/* ── Featured image ── */}
-      {featuredImage && (
-        <div className="blog-post-featured-image">
-          <div className="blog-post-featured-image-inner">
-            <Image
-              src={featuredImage.url}
-              alt={featuredImage.alt || post.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 720px"
-              className="object-cover"
-              priority
-            />
-          </div>
-        </div>
-      )}
+        {/* ── Sticky sidebar ── */}
+        <BlogPostSidebar author={author} headings={headings} />
+      </div>
 
-      {/* ── Article body ── */}
-      <article className="blog-article">
-        {/*
-          prose prose-lg applies @tailwindcss/typography base styles.
-          blog-prose overrides fonts and colors to match the site's design system.
-          The content is rendered server-side — no client hydration required.
-        */}
-        <div className="prose prose-lg blog-prose max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content_markdown}
-          </ReactMarkdown>
-        </div>
-      </article>
-
-      {/* ── Related posts ── */}
-      {relatedPosts.length > 0 && (
-        <section className="blog-related" aria-label="More posts">
-          <div className="blog-related-wrapper">
-            <h2 className="blog-related-heading">More posts</h2>
-            <div className="blog-related-grid">
-              {relatedPosts.map((related) => (
-                <BlogPostCard key={related.id} post={related} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* ── Closing CTA ── */}
+      <CtaBand tone="accent" fullBleed title={CLOSING_TITLE} />
     </div>
   );
 }

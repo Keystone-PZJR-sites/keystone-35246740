@@ -1,0 +1,572 @@
+/* ============================================================
+   Hero Nav — full site navigation overlaid on the homepage hero
+   (Spec 034). One "Main navigation" landmark renders a desktop
+   pill bar with hover/focus dropdowns (>=985px) and a compact
+   mobile bar with an accordion menu (<985px). Styling reuses the
+   Keystone palette: dark green nav shell, cream dropdown surfaces,
+   green/orange promo tiles, FK Grotesk typography.
+   ============================================================ */
+
+.hero-nav {
+  /* Local tokens — one place to retune rhythm, color, and motion. */
+  --hero-nav-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --hero-nav-fade: 0.18s;
+  --hero-nav-accordion: 0.26s;
+  --hero-nav-link: rgba(240, 238, 230, 0.72); /* muted light inactive link */
+  --hero-nav-link-hover: var(--color-hero-text);
+  --hero-nav-pill-hover: rgba(240, 238, 230, 0.1); /* soft pill highlight */
+  --hero-nav-shell: var(--color-hero-bg);
+  --hero-nav-border: rgba(255, 255, 255, 0.08);
+  --hero-nav-bar-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  --hero-nav-surface: var(--color-bg-primary); /* cream dropdown */
+  --hero-nav-surface-shadow: 0 18px 50px rgba(4, 32, 25, 0.28);
+  --hero-nav-divider-line: rgba(4, 32, 25, 0.12);
+  --hero-nav-heading: var(--color-text-tertiary);
+  --hero-nav-leaf: var(--color-text-primary);
+  --hero-nav-promo-w: 240px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px 0;
+  /* The empty area around the bar must not eat hero clicks; only the bar and
+     its open panels are interactive. */
+  pointer-events: none;
+  font-family: 'FK Grotesk Neue', sans-serif;
+}
+
+/* Tablet (mobile-menu range, 768–985px): the bar stays full-width like phone
+   but takes more generous side and top padding, matching the desktop framing
+   rhythm as the viewport grows. */
+@media (min-width: 768px) {
+  .hero-nav {
+    padding: 16px 32px 0;
+  }
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .hero-nav {
+    padding: 24px 48px 0;
+  }
+}
+
+/* ===================== Desktop bar ===================== */
+
+.hero-nav-bar {
+  display: none;
+}
+
+/* Above the 985px cutoff the bar's chrome — wordmark, bar gaps/padding, and the
+   login/CTA controls — scales as one fluid unit on a shared 985px→1600px band
+   and vw slope, so the pill shrinks in concert toward the hand-off to the
+   mobile menu. The link type and inter-item spacing are held at fixed
+   Small-step values (see below) rather than scaling. */
+@media (width >= theme(--breakpoint-md)) {
+  .hero-nav-bar {
+    --hnav-link-size: var(--type-small);
+    /* Flat inter-item rhythm: the link type is a fixed Small step, so the
+       spacing stays constant instead of tightening on narrow web and
+       ballooning on wide. */
+    --hnav-link-pad-x: 0.6875rem;
+    --hnav-link-gap: 0.125rem;
+    --hnav-wordmark-h: clamp(1rem, 0.199rem + 1.301vw, 1.5rem);
+    --hnav-bar-gap: clamp(0.375rem, -0.626rem + 1.626vw, 1rem);
+    --hnav-bar-pad-y: clamp(0.5rem, 0.3rem + 0.325vw, 0.625rem);
+    --hnav-bar-pad-l: clamp(0.75rem, -0.451rem + 1.951vw, 1.5rem);
+    --hnav-control-size: clamp(0.875rem, 0.674rem + 0.325vw, 1rem);
+    --hnav-cta-pad-x: clamp(0.75rem, 0.35rem + 0.65vw, 1rem);
+    --hnav-cta-pad-y: clamp(0.5rem, 0.199rem + 0.488vw, 0.6875rem);
+    --hnav-actions-gap: clamp(0.5rem, 0.099rem + 0.65vw, 0.75rem);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--hnav-bar-gap);
+    width: 100%;
+    padding: var(--hnav-bar-pad-y) 12px var(--hnav-bar-pad-y) var(--hnav-bar-pad-l);
+    background-color: var(--hero-nav-shell);
+    border: 1px solid var(--hero-nav-border);
+    border-radius: 9999px;
+    box-shadow: var(--hero-nav-bar-shadow);
+    pointer-events: auto;
+  }
+}
+
+.hero-nav-wordmark-link {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.hero-nav-wordmark {
+  height: var(--hnav-wordmark-h, 20px);
+  width: auto;
+  display: block;
+}
+
+.hero-nav-links {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hnav-link-gap, 4px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-nav-dropdown {
+  /* Stays static so the panel positions against the bar, not the trigger. */
+  position: static;
+}
+
+.hero-nav-link,
+.hero-nav-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px var(--hnav-link-pad-x, 14px);
+  border: none;
+  background: transparent;
+  border-radius: 9999px;
+  /* Small body type with a heavier weight (Spec 034 refinement): FK Grotesk
+     Neue at the Small step, bold for presence. */
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--hnav-link-size, 0.875rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--hero-nav-link);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--hero-nav-fade) var(--hero-nav-ease),
+    background-color var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-link:hover,
+.hero-nav-trigger:hover {
+  color: var(--hero-nav-link-hover);
+}
+
+.hero-nav-link:focus-visible,
+.hero-nav-trigger:focus-visible,
+.hero-nav-login:focus-visible,
+.hero-nav-cta:focus-visible,
+.hero-nav-wordmark-link:focus-visible {
+  outline: 2px solid var(--color-hero-accent);
+  outline-offset: 2px;
+}
+
+/* Soft pill highlight on the open dropdown trigger. */
+.hero-nav-dropdown[data-open='true'] .hero-nav-trigger {
+  color: var(--hero-nav-link-hover);
+  background-color: var(--hero-nav-pill-hover);
+}
+
+.hero-nav-chevron {
+  transition: transform var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-dropdown[data-open='true'] .hero-nav-chevron {
+  transform: rotate(180deg);
+}
+
+.hero-nav-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--hnav-actions-gap, 12px);
+}
+
+.hero-nav-login {
+  font-size: var(--hnav-control-size, 1rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--hero-nav-link);
+  text-decoration: none;
+  transition: color var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-login:hover {
+  color: var(--hero-nav-link-hover);
+}
+
+.hero-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--hnav-cta-pad-y, 11px) var(--hnav-cta-pad-x, 16px);
+  border-radius: 9999px;
+  background-color: var(--color-hero-accent);
+  color: var(--color-hero-bg);
+  font-size: var(--hnav-control-size, 1rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-cta:hover {
+  opacity: 0.88;
+}
+
+/* ===================== Desktop dropdown panel ===================== */
+
+.hero-nav-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Transparent bridge so the pointer can cross from bar to card without
+     leaving the dropdown's hover region. */
+  padding-top: 12px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--hero-nav-fade) var(--hero-nav-ease),
+    visibility var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-dropdown[data-open='true'] .hero-nav-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hero-nav-card {
+  display: flex;
+  gap: 28px;
+  padding: 28px;
+  background-color: var(--hero-nav-surface);
+  border-radius: 22px;
+  box-shadow: var(--hero-nav-surface-shadow);
+  transform: translateY(6px);
+  transition: transform var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-dropdown[data-open='true'] .hero-nav-card {
+  transform: translateY(0);
+}
+
+.hero-nav-panel[data-variant='wide'] .hero-nav-card {
+  width: min(1080px, calc(100vw - 64px));
+}
+
+.hero-nav-panel[data-variant='compact'] .hero-nav-card {
+  width: min(540px, calc(100vw - 64px));
+}
+
+.hero-nav-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Services mega menu: four categories in a two-by-two grid. */
+.hero-nav-panel[data-variant='wide'] .hero-nav-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 36px;
+}
+
+.hero-nav-category-heading {
+  margin: 0 0 10px;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: var(--hero-nav-heading);
+}
+
+.hero-nav-category-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-nav-leaf {
+  display: block;
+  padding: 6px 8px;
+  margin-left: -8px;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--hero-nav-leaf);
+  text-decoration: none;
+  transition: background-color var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-leaf:hover {
+  background-color: rgba(4, 32, 25, 0.06);
+}
+
+.hero-nav-leaf:focus-visible {
+  outline: 2px solid var(--color-hero-accent);
+  outline-offset: 1px;
+}
+
+.hero-nav-divider {
+  flex: none;
+  width: 1px;
+  align-self: stretch;
+  background-color: var(--hero-nav-divider-line);
+}
+
+/* The promo rail lays out standard SpotlightCard tiles (see NavDropdown.tsx):
+   solid green / orange tiles with a secondary arrow Button in the top row and
+   the label copy anchored at the bottom. The tiles only retune the spotlight's
+   padding and give the tile a little min-height so the two rows breathe. */
+.hero-nav-promo-rail {
+  flex: none;
+  width: var(--hero-nav-promo-w);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-nav-promo-tile {
+  --ks-spot-pad: 16px;
+  min-height: 96px;
+}
+
+/* Shrink the arrow affordance and pin it to the far-right edge, vertically
+   centered (via auto margins so the shared hover translateX still works),
+   rather than the default large top-right corner button. */
+.hero-nav-promo-tile .ks-spot__arrow {
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 28px;
+  height: 28px;
+}
+
+.hero-nav-promo-tile .ks-spot__arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Reserve the right-hand column so the bottom-anchored copy clears the arrow. */
+.hero-nav-promo-tile .ks-spot__content {
+  padding-right: calc(var(--ks-spot-pad) + 28px + 8px);
+}
+
+/* ===================== Mobile bar + menu ===================== */
+
+.hero-nav-mobile {
+  display: block;
+  width: 100%;
+  pointer-events: auto;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .hero-nav-mobile {
+    display: none;
+  }
+}
+
+.hero-nav-mobile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 7px 7px 16px;
+  background-color: var(--hero-nav-shell);
+  border: 1px solid var(--hero-nav-border);
+  border-radius: 9999px;
+  box-shadow: var(--hero-nav-bar-shadow);
+}
+
+.hero-nav-mobile-wordmark-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-nav-mobile-wordmark {
+  height: 18px;
+  width: auto;
+  display: block;
+}
+
+.hero-nav-mobile-toggle {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 9999px;
+  background-color: var(--color-hero-accent);
+  color: var(--color-hero-bg);
+  cursor: pointer;
+}
+
+.hero-nav-mobile-toggle:focus-visible,
+.hero-nav-mobile-accordion-trigger:focus-visible,
+.hero-nav-mobile-link:focus-visible,
+.hero-nav-mobile-leaf:focus-visible,
+.hero-nav-mobile-login:focus-visible,
+.hero-nav-mobile-cta:focus-visible {
+  outline: 2px solid var(--color-hero-accent);
+  outline-offset: 2px;
+}
+
+.hero-nav-mobile-panel {
+  margin-top: 8px;
+  padding: 6px 8px 12px;
+  background-color: var(--hero-nav-surface);
+  border-radius: 20px;
+  box-shadow: var(--hero-nav-surface-shadow);
+  max-height: calc(100svh - 84px);
+  overflow-y: auto;
+}
+
+.hero-nav-mobile-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-nav-mobile-rows > li + li {
+  border-top: 1px solid var(--hero-nav-divider-line);
+}
+
+.hero-nav-mobile-link,
+.hero-nav-mobile-accordion-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hero-nav-mobile-accordion-chevron {
+  flex: none;
+  color: var(--color-text-tertiary);
+  transition: transform var(--hero-nav-fade) var(--hero-nav-ease);
+}
+
+.hero-nav-mobile-accordion-chevron[data-open='true'] {
+  transform: rotate(180deg);
+}
+
+.hero-nav-mobile-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--hero-nav-accordion) var(--hero-nav-ease);
+}
+
+.hero-nav-mobile-accordion-content[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+
+.hero-nav-mobile-accordion-inner {
+  overflow: hidden;
+}
+
+.hero-nav-mobile-category {
+  padding: 2px 12px 12px;
+}
+
+.hero-nav-mobile-category-heading {
+  margin: 6px 0 6px;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  color: var(--hero-nav-heading);
+}
+
+.hero-nav-mobile-category-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-nav-mobile-leaf {
+  display: block;
+  padding: 9px 10px;
+  margin-left: -10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.hero-nav-mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 4px 4px;
+}
+
+.hero-nav-mobile-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 9999px;
+  background-color: transparent;
+  border: 1px solid var(--color-border-primary);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.hero-nav-mobile-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 9999px;
+  background-color: var(--color-hero-accent);
+  color: var(--color-hero-bg);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+/* ===================== Reduced motion ===================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-nav-link,
+  .hero-nav-trigger,
+  .hero-nav-chevron,
+  .hero-nav-panel,
+  .hero-nav-card,
+  .hero-nav-leaf,
+  .hero-nav-cta,
+  .hero-nav-login,
+  .hero-nav-mobile-accordion-chevron,
+  .hero-nav-mobile-accordion-content {
+    transition: none;
+  }
+
+  .hero-nav-card {
+    transform: translateY(0);
+  }
+}

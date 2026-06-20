@@ -1,0 +1,312 @@
+/* ==================== TABBED SHOWCASE (spec 035) ==================== */
+/* Desktop tablist + crossfading panel (≥985px); mobile single-panel carousel
+   (<985px). Auto-advance is a pure-CSS progress animation — a scaleX keyframe
+   whose duration is the --tsw-interval custom property, remounted per tab from
+   the component and paused on hover / focus here. See TabbedShowcase.tsx. */
+
+/* ── Shared progress track + fill ─────────────────────────────────────────── */
+.tsw-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--radius-interactive);
+  background: var(--color-border-tertiary);
+  overflow: hidden;
+}
+
+.tsw-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-text-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: tsw-fill var(--tsw-interval, 5000ms) linear forwards;
+}
+
+@keyframes tsw-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── Shared panel body (eyebrow + headline + visual) ──────────────────────── */
+.tsw-panel-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tsw-panel-eyebrow {
+  margin-bottom: var(--space-1);
+}
+
+/* Heading's body face is semibold (no FK Grotesk Neue cut → renders Regular);
+   the showcase headline is bold by design (spec 035), so set the real weight. */
+.tsw-panel-headline {
+  font-weight: var(--font-weight-bold);
+}
+
+.tsw-panel-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* ── Desktop (≥985px) ─────────────────────────────────────────────────────── */
+/* Custom CSS is unlayered and beats Tailwind's `hidden` utility, so restate the
+   `hidden md:block` intent here for the actual show/hide at the breakpoint. */
+.tsw-section {
+  display: block;
+  width: 100%;
+  background-color: var(--color-bg-primary);
+  padding: var(--section-padding-y) 0;
+}
+
+@media (width < theme(--breakpoint-md)) {
+  .tsw-section { display: none; }
+}
+
+.tsw-inner {
+  width: 100%;
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  padding-inline: 48px;
+}
+
+.tsw-tabs {
+  display: flex;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.tsw-tab-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tsw-tab {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-snug);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-quaternary);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.tsw-tab[data-active="true"] {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.tsw-tab:hover {
+  color: var(--color-text-primary);
+}
+
+.tsw-tab:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.tsw-panel {
+  margin-top: clamp(24px, 3vw, 40px);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-panel);
+  padding: clamp(32px, 4vw, 64px);
+  overflow: hidden;
+}
+
+/* Single grid cell holding every layer — sizes to the tallest layer so the
+   panel never jumps between tabs, and gives a generous floor. */
+.tsw-panel-stack {
+  display: grid;
+  min-height: clamp(300px, 30vw, 440px);
+}
+
+.tsw-panel-layer {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+
+.tsw-panel-layer[data-active="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tsw-panel-layer .tsw-panel-text {
+  flex: 0 0 clamp(260px, 38%, 460px);
+}
+
+.tsw-panel-layer .tsw-panel-visual {
+  flex: 1 1 auto;
+  align-self: stretch;
+}
+
+/* ── Pause on hover / keyboard focus (both layouts) ───────────────────────── */
+.tsw-section:hover .tsw-fill,
+.tsw-section:focus-within .tsw-fill,
+.mtsw-section:hover .tsw-fill,
+.mtsw-section:focus-within .tsw-fill {
+  animation-play-state: paused;
+}
+
+/* ── Mobile / tablet (<985px) ─────────────────────────────────────────────── */
+.mtsw-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-bg-primary);
+  padding: var(--section-padding-y) 24px;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .mtsw-section { display: none; }
+}
+
+.mtsw-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.mtsw-active-name {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: clamp(1.125rem, 5vw, 1.375rem);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-text-primary);
+}
+
+.mtsw-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mtsw-container {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mtsw-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.mtsw-panel {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-panel);
+  padding: clamp(24px, 6vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.mtsw-panel .tsw-panel-visual {
+  width: 100%;
+}
+
+.mtsw-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.mtsw-dot {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.mtsw-dot-mark {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-interactive);
+  background: var(--color-border-primary);
+  transition: width var(--duration-base) var(--ease-standard),
+              background-color var(--duration-base) var(--ease-standard);
+}
+
+.mtsw-dot[data-active="true"] .mtsw-dot-mark {
+  width: 20px;
+  background: var(--color-text-primary);
+}
+
+.mtsw-dot:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-interactive);
+}
+
+.mtsw-arrows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.mtsw-arrow {
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-interactive);
+  border: 1px solid var(--color-border-primary);
+  background: transparent;
+  color: var(--color-text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.mtsw-arrow:hover {
+  background-color: var(--color-bg-primary_hover);
+}
+
+.mtsw-arrow:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* No animated fill — and because animationend never fires, no auto-advance.
+     The active tab shows a static full bar; content swaps instantly. */
+  .tsw-fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .tsw-panel-layer,
+  .mtsw-dot-mark,
+  .mtsw-arrow {
+    transition: none;
+  }
+}

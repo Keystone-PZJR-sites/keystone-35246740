@@ -1,6 +1,6 @@
 # Responsive Design Guide
 
-This site has three primary breakpoints. All sections must work correctly at all three.
+This site has **one** mobile↔desktop boundary, used everywhere: below 985px every section renders its mobile layout; at 985px and up the desktop layout takes over. A secondary 1280px tier adds proportional polish on a few content pages but never swaps layouts. All sections must work correctly across this range.
 
 ---
 
@@ -8,9 +8,29 @@ This site has three primary breakpoints. All sections must work correctly at all
 
 | Name | Range | Tailwind prefix | Target device |
 |------|-------|----------------|--------------|
-| Mobile | < 768px | (base) | iPhone 14 (390px), older phones (375px) |
-| Tablet | 768px – 1279px | `md:` | iPad (768px, 1024px), large phones landscape |
-| Desktop | ≥ 1280px | `lg:` | MacBook, desktop (design is at 1440px) |
+| Mobile | < 985px | (base) | phones (375–430px) **and** tablets / iPad portrait (768–984px) |
+| Desktop | ≥ 985px | `md:` | iPad landscape, laptops, desktop (design is at 1440px) |
+
+**985px is the single source of truth for the mobile↔desktop hand-off.** It is the width at which the desktop nav bar stops fitting, so the whole site switches there in lockstep — sections, JS `matchMedia` gates, `<source media>` video swaps, and every hand-written media query. Because the boundary lives in one place, `tokens.css` redefines Tailwind's `md:` prefix to `985px` (its built-in default is 768px), so the utility and the CSS media queries always agree. There is no tablet-specific layout — tablets get the mobile design.
+
+The number is **declared in exactly two places**, never inlined elsewhere:
+
+- **CSS** reads it from the Tailwind theme at build time: stylesheets write `@media (width >= theme(--breakpoint-md))` / `@media (width < theme(--breakpoint-md))` (and the 1280px tier as `@media (width >= theme(--breakpoint-xl))`), so the value comes straight from `--breakpoint-md` in `tokens.css`.
+- **JS / JSX** imports the mirrored constants from `design-system/tokens/breakpoints.ts` (`DESKTOP_MEDIA`, `MOBILE_MEDIA`, `DESKTOP_MIN_PX`) for `matchMedia` gates, GSAP `matchMedia`, `<source media>`, `<link media>`, `innerWidth` checks, and image `sizes`.
+
+CSS and JS can't share a literal without a build step, so `breakpoints.ts` mirrors `--breakpoint-md`. To move the boundary, edit just those two declarations.
+
+A secondary **1280px** refinement tier (hand-written `@media (min-width: 1280px)`, no utility prefix) nudges spacing and grid proportions toward the 1440px Figma on the blog, How It Works, and inner pages. It refines; it never swaps mobile↔desktop.
+
+`sm:` (640px) and `lg:` (1024px) keep Tailwind's defaults and appear only on the internal `/styles` catalog for grid column counts — they are not site layout breakpoints.
+
+### The one exception: the lead-capture modal
+
+The lead-capture modal (`LeadCaptureModal.tsx`, `styles/components/lead-capture.css`) keeps its own **640px / 1024px** cutoffs, taken directly from its Figma spec (008 / 029). It is a self-contained overlay, not part of the page flow, so it is allowed to carry its own breakpoints. Nothing else in the app should introduce a new cutoff — reach for the 985px boundary instead.
+
+### Navigation scaling within the desktop range
+
+Above 985px the nav bar's chrome — wordmark, gaps, padding, login, and CTA — scales fluidly on a shared 985px→1600px band, so the whole pill shrinks in concert. The link type and inter-item spacing are deliberately held at a fixed Small/bold step rather than scaling, so their rhythm stays even. In the upper part of the mobile range (768–985px) the mobile menu takes wider side and top padding to match the desktop framing. All of this lives in `design-system/styles/components/site-nav.css`.
 
 ---
 
@@ -32,10 +52,11 @@ FK Screamer headlines are massive on desktop (216px) and must scale down dramati
 
 Some homepage sections look structurally different on mobile — different element count, different hierarchy, different interactions. Those sections get a dedicated `Mobile*.tsx` file alongside the desktop component. Both files share the same content props. CSS handles which is shown.
 
-- The **desktop** component carries `hidden md:block` on its root element.
+- The **desktop** component carries `hidden md:block` on its root element (`md:` resolves to 985px — see Breakpoints above).
 - The **mobile** component carries `md:hidden` on its root element.
 - The switch is handled entirely by CSS — no JavaScript breakpoint detection, no flash of the wrong layout.
-- Where the custom CSS file sets `display: flex` (or any value other than `block` / `none`), restate the visibility rule in a media query in the CSS file — Tailwind utilities live in `@layer utilities` and unlayered custom CSS beats them.
+- Where the custom CSS file sets `display: flex` (or any value other than `block` / `none`), restate the visibility rule in a media query in the CSS file — Tailwind utilities live in `@layer utilities` and unlayered custom CSS beats them. Use `@media (min-width: 985px)` / `@media (max-width: 984px)`.
+- Sections that *additionally* gate an entrance animation or swap a `<source media>` video by width must use `(min-width: 985px)` / `(max-width: 984px)` in that JS/JSX too, so the behaviour agrees with the CSS visibility swap.
 
 ## Section Heights
 
@@ -63,8 +84,10 @@ The test for whether a section needs a separate mobile file: if describing the m
 Before marking a section complete:
 
 - [ ] 390px (iPhone 14) — no horizontal overflow, all text readable, no clipping
-- [ ] 768px (iPad portrait) — layout shifts gracefully
-- [ ] 1280px (desktop threshold) — matches Figma proportionally
+- [ ] 834px (iPad portrait) — shows the **mobile** layout (tablets are mobile now), no overflow, no clipping
+- [ ] 984px (just below the boundary) — still the mobile layout, nothing cramped
+- [ ] 985px (the mobile↔desktop boundary) — the desktop layout takes over cleanly, with no gap or dead zone in the swap
+- [ ] 1280px (large-desktop refinement tier) — proportions tighten toward Figma
 - [ ] 1440px (Figma design width) — pixel-close to Figma
 - [ ] All interactive elements have 44×44px minimum touch area on mobile
 - [ ] Videos don't prevent scrolling on touch

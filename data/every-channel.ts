@@ -1,4 +1,4 @@
-import type { PillData, MobileEveryChannelPillData } from '@/components/sections';
+import type { PillData, MobileEveryChannelPillData } from '@/design-system';
 
 // Pill positions are percentage of section width × section height (100vh).
 // Source: Figma node 1087:1973 (1440×1024 desktop canvas).

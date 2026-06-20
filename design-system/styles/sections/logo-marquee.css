@@ -1,0 +1,46 @@
+/* ============================================================
+   Logo marquee (spec 042)
+   ============================================================
+   A lead-in label beside a scrolling row of company wordmarks
+   (text, not images). The seamless-scroll mechanics live in the
+   shared Marquee (components/marquee.css); these rules only handle
+   the label / wordmark styling and the label↔track layout.
+   Colors/spacing reference tokens only.
+   ============================================================ */
+
+.ks-logo-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ks-logo-marquee__label {
+  margin: 0;
+  flex: none;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.ks-logo-marquee__marquee {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ks-logo-marquee__logo {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: var(--color-text-quaternary);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-logo-marquee {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(24px, 3vw, 48px);
+  }
+}
