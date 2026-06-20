@@ -36,48 +36,48 @@ export const LEADERSHIP_PAGE: LeadershipPageContent = {
     eyebrow: 'Leadership',
     title: 'Meet our leadership team',
     subtitle:
-      'We are a passionate team that has spent their career building category-defining technology companies, and helping local businesses start and grow.',
+      'We\'ve spent our careers building local businesses and category-defining technology companies.',
   },
 
   team: {
     eyebrow: 'The team',
     title: "A small, passionate group of builders.",
     description:
-      'We are a small, passionate group of builders who have spent our careers building category-defining technology companies, and helping local businesses start and grow.',
+      'We are a small, passionate group of builders that love what we do.',
   },
 
   quotes: {
     eyebrow: 'In their words',
     title: 'A bit about us',
-    description: 'Perspective from some of the people who have supported us from the very beginning.',
+    description: 'Perspective from some of the leaders on this journey with us.',
     items: [
       {
         id: 'q1',
         quote:
-          'Keystone is automating the real economy from the ground up — giving local businesses the software that used to be reserved for the biggest companies.',
+          'Keystone is automating the real economy from the ground up by giving local businesses the expertise and resources that used to be reserved for the biggest companies.',
         name: 'Adeyemi Ajao',
-        role: 'Co-founder & Managing Partner, Base10 Partners',
+        role: 'Managing Partner - Base10 Partners',
       },
       {
         id: 'q2',
         quote:
-          'The product and go-to-market discipline here is rare. Keystone makes getting a local business online feel effortless.',
-        name: 'Ilya Fushman',
-        role: 'Partner, Kleiner Perkins',
+          'Local is not for the faint of heart. The Keystone team is tenacious.',
+        name: 'John Gleeson',
+        role: 'Managing Partner - Success Venture Partners',
       },
       {
         id: 'q3',
         quote:
-          'Local businesses power our communities, and Keystone finally gives them technology built for how they actually work.',
-        name: 'Shoaib Makani',
-        role: 'Co-founder & CEO, Motive',
+          'This makes a ton of sense.',
+        name: 'Tanuj Thapliyal',
+        role: 'Founding CEO - Spot.ai & Kos.ai',
       },
       {
         id: 'q4',
         quote:
-          'I know what a world-class go-to-market team looks like. Keystone has one, and it is going to be a generational company.',
-        name: 'Sujay Jaswa',
-        role: 'Founder & Managing Partner, WndrCo',
+          'I wish we had Keystone when we started launching MedSpas.',
+        name: 'Praveen Ramineni',
+        role: 'Founding CEO - Portrait',
       },
     ],
   },

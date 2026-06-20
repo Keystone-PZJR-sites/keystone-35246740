@@ -161,7 +161,7 @@ export const CAREERS_PAGE: CareersPageContent = {
     eyebrow: 'What we believe',
     title: 'What motivates us to build the best growth engine for local businesses',
     description:
-      "These aren't posters on a wall — they decide who we bring on and how we work, together and with every client.",
+      "These aren't posters on a wall. They decide who we bring on and how we work, together and with every client.",
     items: [
       {
         title: 'Built for the underdog',
