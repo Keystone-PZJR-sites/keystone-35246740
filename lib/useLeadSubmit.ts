@@ -74,7 +74,11 @@ export function useLeadSubmit({
       setErrorMessage('');
 
       try {
-        const payload: Record<string, string | number> = { formType: 'lead', ...values };
+        const payload: Record<string, string | number | boolean> = {
+          formType: 'lead',
+          ...values,
+          tos_privacy_consent: true,
+        };
         if (formId !== undefined) payload.form_id = formId;
 
         const response = await fetch('/api/form', {
