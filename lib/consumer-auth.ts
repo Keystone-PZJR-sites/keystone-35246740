@@ -5,7 +5,10 @@
 import type { NextResponse } from 'next/server';
 
 import { CONSUMER_TOKEN_COOKIE } from './consumer-session';
-import { clientContextHeaders } from 'keystone-design-bootstrap/next/routes/proxy-headers';
+
+function clientContextHeaders(_request?: Request): Record<string, string> {
+  return {};
+}
 
 type NextResponseLike = { json: (body: unknown, init?: ResponseInit) => NextResponse };
 
