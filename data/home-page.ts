@@ -10,9 +10,10 @@ export interface HomePageContent {
   hero: {
     headline: string;
     subheadline: string;
-    cta1Label: string;
-    cta2Label: string;
-    cta2Href: string;
+    /** Placeholder for the Grader search field. */
+    searchPlaceholder: string;
+    /** Label/aria-label for the Grader search submit button. */
+    searchButtonLabel: string;
   };
   everyChannel: {
     line1: string;
@@ -38,9 +39,8 @@ export const HOME_PAGE: HomePageContent = {
   hero: {
     headline: 'The best growth system for local businesses.',
     subheadline: 'Keystone runs your sales and marketing while you run your business.',
-    cta1Label: 'Get in touch',
-    cta2Label: 'Services and pricing',
-    cta2Href: '/pricing',
+    searchPlaceholder: 'Find your business',
+    searchButtonLabel: 'Get my AI deepscan',
   },
   everyChannel: {
     line1: 'Ads to sales.',

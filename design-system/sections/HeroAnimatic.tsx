@@ -1,20 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/design-system/primitives';
-import { ArrowNarrowRight } from '@untitledui/icons';
+import { HeroBusinessSearch } from '@/design-system/components/HeroBusinessSearch';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
-import { useGetInTouchCta } from '@/design-system/hooks/useGetInTouchCta';
 import { DESKTOP_MEDIA } from '@/design-system/tokens/breakpoints';
 
 export interface HeroAnimaticProps {
   headline: string;
   subheadline: string;
-  cta1Label: string;
-  cta2Label: string;
-  cta2Href?: string;
+  /** Placeholder + button label for the Grader search field. */
+  searchPlaceholder: string;
+  searchButtonLabel: string;
   /** Ordered array of clips; must have at least one entry. WebM is served to
    *  browsers that support it; MP4 is the fallback. `poster` is the base path
    *  for the responsive WebP still (e.g. `/media/hero/posters/hero-01`);
@@ -41,21 +39,16 @@ export interface HeroAnimaticProps {
 export function HeroAnimatic({
   headline,
   subheadline,
-  cta1Label,
-  cta2Label,
-  cta2Href = '/portal',
+  searchPlaceholder,
+  searchButtonLabel,
   videoSrcs,
   markColor,
 }: HeroAnimaticProps) {
-  const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const bottomBandRef = useRef<HTMLDivElement>(null);
   const videoFrameRef = useRef<HTMLDivElement>(null);
-  const { onGetInTouchClick } = useGetInTouchCta();
   const [bottomBandHeight, setBottomBandHeight] = useState(184);
-  const [isLearnMoreHovered, setIsLearnMoreHovered] = useState(false);
-  const [isGetStartedHovered, setIsGetStartedHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(() => (
     typeof window !== 'undefined' && window.matchMedia(DESKTOP_MEDIA).matches
   ));
@@ -214,69 +207,28 @@ export function HeroAnimatic({
                 the mobile hero. Width is constrained (em-based, so the wrap
                 point tracks the font size) to keep it on two lines. */}
             <p
-              className="mt-7 max-w-[8em] leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[var(--color-hero-text,#f0eee6)] uppercase"
+              className="mt-7 max-w-[85%] leading-[0.82] font-['FK_Screamer',sans-serif] font-bold not-italic text-[var(--color-hero-text,#f0eee6)] uppercase"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.625rem)' }}
             >
               {headline}
             </p>
 
-            <div className="hero-bottom-content items-center justify-between gap-8 mt-8">
-              {/* Left: subheadline — stays on one line, wrapping only when the
-                  row runs out of room next to the CTAs. */}
-              <p className="font-['FK_Grotesk_Neue',sans-serif] text-[var(--color-hero-accent,#6ecc8b)] text-2xl leading-[1.2] tracking-[-0.03em]">
-                {subheadline}
-              </p>
+            {/* Subheadline — sits above the search field. Widened to ~80% of the
+                band so the removed-CTA right side doesn't read as empty. */}
+            <p className="mt-4 max-w-[85%] font-['FK_Grotesk_Neue',sans-serif] text-[var(--color-hero-accent,#6ecc8b)] text-2xl leading-[1.2] tracking-[-0.03em]">
+              {subheadline}
+            </p>
 
-              {/* Right: CTA rectangle + pill pair */}
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  onMouseEnter={() => setIsLearnMoreHovered(true)}
-                  onMouseLeave={() => setIsLearnMoreHovered(false)}
-                  onClick={onGetInTouchClick}
-                  className="inline-flex h-12 cursor-pointer items-center whitespace-nowrap bg-[var(--color-hero-surface,#063126)] px-4 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-accent)]"
-                  style={{
-                    borderRadius: isLearnMoreHovered ? '24px' : '0px',
-                    transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
-                  }}
-                >
-                  {cta1Label}
-                </button>
-                <button
-                  type="button"
-                  onMouseEnter={() => setIsGetStartedHovered(true)}
-                  onMouseLeave={() => setIsGetStartedHovered(false)}
-                  onClick={() => router.push(cta2Href)}
-                  className="inline-flex h-12 cursor-pointer items-center gap-2 whitespace-nowrap bg-[var(--color-hero-accent)] pl-4 pr-3 font-['FK_Grotesk_Neue',sans-serif] text-lg leading-none tracking-[-0.01em] text-[var(--color-hero-bg)]"
-                  style={{
-                    borderRadius: isGetStartedHovered ? '0px' : '24px',
-                    transition: 'color .16s ease-in-out, background-color .16s ease-in-out, border-radius .16s ease-in-out',
-                  }}
-                >
-                  {cta2Label}
-                  <span className="relative inline-flex size-4 overflow-hidden" aria-hidden="true">
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        transform: isGetStartedHovered ? 'translateX(100%)' : 'translateX(0%)',
-                        transition: 'transform .16s ease-in-out',
-                      }}
-                    >
-                      <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
-                    </span>
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        transform: isGetStartedHovered ? 'translateX(0%)' : 'translateX(-100%)',
-                        transition: 'transform .16s ease-in-out',
-                      }}
-                    >
-                      <ArrowNarrowRight size={16} color="var(--color-hero-bg)" />
-                    </span>
-                  </span>
-                </button>
-              </div>
-            </div>
+            {/* Grader entry: choosing a result opens the Grader in a new tab and
+                starts the scan. The menu opens upward (the band is bottom-anchored
+                and the section clips overflow). */}
+            <HeroBusinessSearch
+              variant="desktop"
+              menuPlacement="up"
+              placeholder={searchPlaceholder}
+              buttonLabel={searchButtonLabel}
+              className="mt-6"
+            />
           </div>
         </div>
       </div>

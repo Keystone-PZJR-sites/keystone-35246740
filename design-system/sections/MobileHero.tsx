@@ -1,20 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/design-system/primitives';
+import { HeroBusinessSearch } from '@/design-system/components/HeroBusinessSearch';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
-import { useGetInTouchCta } from '@/design-system/hooks/useGetInTouchCta';
 import { MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 
 export interface MobileHeroProps {
   headline: string;
   subheadline: string;
-  cta1Label: string;
-  cta2Label: string;
-  cta2Href?: string;
+  /** Placeholder + button label for the Grader search field. */
+  searchPlaceholder: string;
+  searchButtonLabel: string;
   /** Ordered array of clips — same six-clip autoloop sequence as desktop.
    *  WebM is served to browsers that support it; MP4 is the fallback.
    *  `poster` is the base path for the responsive WebP still. */
@@ -40,14 +38,11 @@ export interface MobileHeroProps {
 export function MobileHero({
   headline,
   subheadline,
-  cta1Label,
-  cta2Label,
-  cta2Href = '/portal',
+  searchPlaceholder,
+  searchButtonLabel,
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
-  const router = useRouter();
-  const { onGetInTouchClick } = useGetInTouchCta();
   const sectionRef = useRef<HTMLElement>(null);
   const videoZoneRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -160,7 +155,9 @@ export function MobileHero({
 
       {/* ── Content zone — sits below the video band at its intrinsic height. */}
       {/* overflow-hidden is a guard against the headline's clamp pushing the  */}
-      {/* layout past its expected bounds on extremely narrow viewports.       */}
+      {/* layout past its expected bounds on extremely narrow viewports; it    */}
+      {/* also clips the search results menu (which opens upward) so it can    */}
+      {/* never extend the section and trigger page-scroll jank.               */}
       <div className="overflow-hidden px-6 pt-10 pb-6">
         <div ref={headlineRef}>
           <KeystoneMark
@@ -185,24 +182,16 @@ export function MobileHero({
             {subheadline}
           </p>
 
-          <div className="mt-7 flex w-fit items-center gap-4">
-            <button
-              type="button"
-              onClick={onGetInTouchClick}
-              className="hero-pill-btn bg-[var(--color-hero-surface,#063126)] px-3 py-3 text-sm text-[var(--color-hero-accent)] tracking-[-0.01em]"
-              style={{ borderRadius: 0 }}
-            >
-              {cta1Label}
-            </button>
-            <button
-              type="button"
-              onClick={() => router.push(cta2Href)}
-              className="hero-pill-btn gap-2 bg-[var(--color-hero-accent)] py-3 pl-3 pr-[10px] text-sm text-[var(--color-hero-bg)] tracking-[-0.01em]"
-            >
-              {cta2Label}
-              <ArrowNarrowRight size={12} color="var(--color-hero-bg)" />
-            </button>
-          </div>
+          {/* Grader entry — opens the Grader in a new tab and starts the scan.
+              Menu opens upward over the subheadline/headline; the content zone
+              clips overflow so it never extends the section. */}
+          <HeroBusinessSearch
+            variant="mobile"
+            menuPlacement="up"
+            placeholder={searchPlaceholder}
+            buttonLabel={searchButtonLabel}
+            className="mt-6"
+          />
         </div>
       </div>
     </section>
