@@ -13,10 +13,6 @@ export interface HomePageContent {
     cta1Label: string;
     cta2Label: string;
     cta2Href: string;
-    /** Placeholder for the Grader search field. */
-    searchPlaceholder: string;
-    /** Label/aria-label for the Grader search submit button. */
-    searchButtonLabel: string;
   };
   everyChannel: {
     line1: string;
@@ -45,8 +41,6 @@ export const HOME_PAGE: HomePageContent = {
     cta1Label: 'Get in touch',
     cta2Label: 'Services and pricing',
     cta2Href: '/pricing',
-    searchPlaceholder: 'Find your business',
-    searchButtonLabel: 'Get my AI report',
   },
   everyChannel: {
     line1: 'Ads to sales.',

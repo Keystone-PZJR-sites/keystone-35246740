@@ -50,6 +50,3 @@ export { CardGrid, CardGridItem } from './CardGrid';
 export type { CardGridProps, CardGridItemProps } from './CardGrid';
 export { Marquee } from './Marquee';
 export type { MarqueeProps } from './Marquee';
-
-export { HeroBusinessSearch } from './HeroBusinessSearch';
-export type { HeroBusinessSearchProps } from './HeroBusinessSearch';
