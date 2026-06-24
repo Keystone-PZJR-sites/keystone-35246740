@@ -5,6 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { KeystoneMark } from '@/design-system/primitives';
+import { HeroBusinessSearch } from '@/design-system/components/HeroBusinessSearch';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
 import { useGetInTouchCta } from '@/design-system/hooks/useGetInTouchCta';
 import { MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
@@ -15,6 +16,9 @@ export interface MobileHeroProps {
   cta1Label: string;
   cta2Label: string;
   cta2Href?: string;
+  /** Placeholder + button label for the Grader search field. */
+  searchPlaceholder: string;
+  searchButtonLabel: string;
   /** Ordered array of clips — same six-clip autoloop sequence as desktop.
    *  WebM is served to browsers that support it; MP4 is the fallback.
    *  `poster` is the base path for the responsive WebP still. */
@@ -43,6 +47,8 @@ export function MobileHero({
   cta1Label,
   cta2Label,
   cta2Href = '/portal',
+  searchPlaceholder,
+  searchButtonLabel,
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
@@ -159,9 +165,10 @@ export function MobileHero({
       </div>
 
       {/* ── Content zone — sits below the video band at its intrinsic height. */}
-      {/* overflow-hidden is a guard against the headline's clamp pushing the  */}
-      {/* layout past its expected bounds on extremely narrow viewports.       */}
-      <div className="overflow-hidden px-6 pt-10 pb-6">
+      {/* overflow-x-hidden guards against the headline's clamp pushing the     */}
+      {/* layout past its bounds on narrow viewports; vertical overflow is left */}
+      {/* visible so the search results menu can open downward unclipped.       */}
+      <div className="overflow-x-hidden px-6 pt-10 pb-6">
         <div ref={headlineRef}>
           <KeystoneMark
             color={markColor}
@@ -181,6 +188,16 @@ export function MobileHero({
         </div>
 
         <div ref={bottomRef}>
+          {/* Grader entry — opens the Grader in a new tab and starts the scan.
+              Menu opens downward (room below) over the subheadline/CTA row. */}
+          <HeroBusinessSearch
+            variant="mobile"
+            menuPlacement="down"
+            placeholder={searchPlaceholder}
+            buttonLabel={searchButtonLabel}
+            className="mt-6"
+          />
+
           <p className="mt-5 font-['FK_Grotesk_Neue',sans-serif] text-base leading-[1.2] tracking-[-0.03em] text-[var(--color-hero-accent)]">
             {subheadline}
           </p>

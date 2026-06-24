@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { KeystoneMark } from '@/design-system/primitives';
+import { HeroBusinessSearch } from '@/design-system/components/HeroBusinessSearch';
 import { ArrowNarrowRight } from '@untitledui/icons';
 import { useVideoCarousel } from '@/lib/useVideoCarousel';
 import { useGetInTouchCta } from '@/design-system/hooks/useGetInTouchCta';
@@ -15,6 +16,9 @@ export interface HeroAnimaticProps {
   cta1Label: string;
   cta2Label: string;
   cta2Href?: string;
+  /** Placeholder + button label for the Grader search field. */
+  searchPlaceholder: string;
+  searchButtonLabel: string;
   /** Ordered array of clips; must have at least one entry. WebM is served to
    *  browsers that support it; MP4 is the fallback. `poster` is the base path
    *  for the responsive WebP still (e.g. `/media/hero/posters/hero-01`);
@@ -44,6 +48,8 @@ export function HeroAnimatic({
   cta1Label,
   cta2Label,
   cta2Href = '/portal',
+  searchPlaceholder,
+  searchButtonLabel,
   videoSrcs,
   markColor,
 }: HeroAnimaticProps) {
@@ -219,6 +225,16 @@ export function HeroAnimatic({
             >
               {headline}
             </p>
+
+            {/* Grader entry: choosing a result opens the Grader in a new tab and
+                starts the scan. The menu opens upward (the band is bottom-anchored
+                and the section clips overflow). */}
+            <HeroBusinessSearch
+              variant="desktop"
+              placeholder={searchPlaceholder}
+              buttonLabel={searchButtonLabel}
+              className="mt-8"
+            />
 
             <div className="hero-bottom-content items-center justify-between gap-8 mt-8">
               {/* Left: subheadline — stays on one line, wrapping only when the
