@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { CenteredHero } from '@/design-system';
+import { IndustryPageTemplate } from '@/design-system/patterns/industries';
 import { INDUSTRY_PAGES, getIndustryPage } from '@/data/industry-pages';
 
 interface IndustryPageProps {
@@ -21,9 +21,6 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
   };
 }
 
-// Scaffold only: renders the shared nav + footer (via the (inner) layout) with a
-// placeholder hero. The industry-specific positioning/messaging body is added
-// later (spec 050).
 export default async function IndustryPage({ params }: IndustryPageProps) {
   const { slug } = await params;
   const content = getIndustryPage(slug);
@@ -32,9 +29,5 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
     notFound();
   }
 
-  return (
-    <div className="inner-page" data-theme="custom">
-      <CenteredHero eyebrow={content.eyebrow} title={content.title} />
-    </div>
-  );
+  return <IndustryPageTemplate content={content} />;
 }
