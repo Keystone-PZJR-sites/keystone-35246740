@@ -77,8 +77,7 @@ export const HOW_IT_WORKS_PAGE: HowItWorksPageContent = {
         services: [
           { label: 'Website', href: '/services/websites' },
           { label: 'Social media', href: '/services/social-media' },
-          { label: 'Maps', href: '/services/maps' },
-          { label: 'Reviews', href: '/services/reviews' },
+          { label: 'Maps & reviews', href: '/services/reviews' },
         ],
       },
       {
@@ -104,9 +103,7 @@ export const HOW_IT_WORKS_PAGE: HowItWorksPageContent = {
           'Every lead gets followed up fast — by text, by call, and by a real sales team — so the people you attract actually become customers instead of missed messages.',
         mock: 'convert',
         services: [
-          { label: 'Sales team', href: '/services/sales-team' },
-          { label: 'Text-based sales', href: '/services/text-sales' },
-          { label: 'Call-based sales', href: '/services/call-sales' },
+          { label: 'Sales & lead follow-up', href: '/services/sales-team' },
         ],
       },
       {
@@ -119,7 +116,6 @@ export const HOW_IT_WORKS_PAGE: HowItWorksPageContent = {
         mock: 'loyalty',
         services: [
           { label: 'Email campaigns', href: '/services/email-campaigns' },
-          { label: 'Smart re-engagement', href: '/services/smart-re-engagement' },
           { label: 'Rebookings', href: '/services/rebookings' },
           { label: 'Loyalty & rewards', href: '/services/loyalty-rewards' },
         ],

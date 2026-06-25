@@ -7,12 +7,12 @@ import { SHARED_TESTIMONIALS_SECTION } from '@/data/shared-sections';
 
 export const REVIEWS: ServicePageContent = {
   slug: 'reviews',
-  metaTitle: 'Reviews | Keystone',
+  metaTitle: 'Maps & Reviews | Keystone',
   metaDescription:
-    'Keystone asks every happy customer for a review at the perfect moment and keeps your Google profile polished — so new customers choose you first.',
+    'Keystone keeps your Google profile polished and your listings accurate, and asks every happy customer for a review at the perfect moment — so new customers find you on the map and choose you first.',
 
   hero: {
-    eyebrow: 'Reviews',
+    eyebrow: 'Maps & Reviews',
     title: 'More 5-star reviews, earned automatically.',
     subtitle:
       'Keystone asks every happy customer for a review at the perfect moment and keeps your Google profile polished — so new customers choose you first.',

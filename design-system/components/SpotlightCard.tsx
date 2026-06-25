@@ -52,6 +52,8 @@ export interface SpotlightCardProps {
   aspect?: number;
   /** Make the whole card a link. Mutually exclusive with the play affordance. */
   href?: string;
+  /** When the card is a link, open it in a new tab (e.g. a cross-domain URL). */
+  external?: boolean;
   /**
    * A single affordance. `play` renders a real button (the card is not a link);
    * `arrow` renders a decorative forward arrow (pair it with `href`).
@@ -110,6 +112,7 @@ export function SpotlightCard({
   children,
   aspect,
   href,
+  external,
   affordance,
   affordanceLabel,
   onPlay,
@@ -133,6 +136,7 @@ export function SpotlightCard({
     <Card
       as={isLink ? 'a' : 'div'}
       href={isLink ? href : undefined}
+      {...(isLink && external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       tone="none"
       radius="panel"
       padded={false}

@@ -79,7 +79,11 @@ export function NavDropdown({
                 <ul className="hero-nav-category-links">
                   {category.links.map((leaf, i) => (
                     <li key={`${leaf.label}-${i}`}>
-                      <Link href={leaf.href} className="hero-nav-leaf">
+                      <Link
+                        href={leaf.href}
+                        className="hero-nav-leaf"
+                        {...(leaf.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
                         {leaf.label}
                       </Link>
                     </li>
@@ -104,6 +108,7 @@ export function NavDropdown({
                   titleWeight="regular"
                   className="hero-nav-promo-tile"
                   href={promo.href}
+                  external={promo.external}
                   affordance="arrow"
                 />
               );

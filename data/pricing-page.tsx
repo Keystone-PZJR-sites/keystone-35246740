@@ -172,7 +172,7 @@ export const PRICING_PAGE: PricingPageContent = {
         icon: <MessageChatCircle aria-hidden="true" />,
         title: '30 messages',
         description: 'Customer messages answered across your channels each month.',
-        href: '/services/text-sales',
+        href: '/services/sales-team',
       },
       {
         icon: <Target04 aria-hidden="true" />,

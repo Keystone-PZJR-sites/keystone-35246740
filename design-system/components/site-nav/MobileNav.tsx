@@ -158,7 +158,12 @@ function MobileRow({ item, isExpanded, onToggle, onPricingClick, onNavigate }: M
               <ul className="hero-nav-mobile-category-links">
                 {category.links.map((leaf, i) => (
                   <li key={`${leaf.label}-${i}`}>
-                    <Link href={leaf.href} className="hero-nav-mobile-leaf" onClick={onNavigate}>
+                    <Link
+                      href={leaf.href}
+                      className="hero-nav-mobile-leaf"
+                      onClick={onNavigate}
+                      {...(leaf.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
                       {leaf.label}
                     </Link>
                   </li>

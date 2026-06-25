@@ -6,12 +6,13 @@
 // pages (/services/<slug>, spec 037) where one exists, and otherwise fall back
 // to the services index.
 
+import { GRADER_URL } from '../../constants/grader';
 import type { NavItem } from './types';
 
 export const SITE_NAV_ITEMS: NavItem[] = [
   {
     type: 'dropdown',
-    label: 'Services',
+    label: 'Solutions',
     variant: 'wide',
     categories: [
       {
@@ -19,8 +20,7 @@ export const SITE_NAV_ITEMS: NavItem[] = [
         links: [
           { label: 'Website', href: '/services/websites' },
           { label: 'Instagram, Facebook & TikTok', href: '/services/social-media' },
-          { label: 'Maps', href: '/services/maps' },
-          { label: 'Reviews', href: '/services/reviews' },
+          { label: 'Maps & Reviews', href: '/services/reviews' },
         ],
       },
       {
@@ -34,19 +34,23 @@ export const SITE_NAV_ITEMS: NavItem[] = [
       {
         heading: 'Convert long-term customers',
         links: [
-          { label: 'Sales Team', href: '/services/sales-team' },
-          { label: 'Text-Based Sales', href: '/services/text-sales' },
-          { label: 'Call-Based Sales', href: '/services/call-sales' },
+          { label: 'Sales & lead follow-up', href: '/services/sales-team' },
         ],
       },
       {
         heading: 'Turn happy customers into evangelists',
         links: [
           { label: 'Email Campaigns', href: '/services/email-campaigns' },
-          { label: 'Smart Re-Engagement', href: '/services/smart-re-engagement' },
-          { label: 'Reviews', href: '/services/reviews' },
           { label: 'Rebookings', href: '/services/rebookings' },
           { label: 'Loyalty & Rewards', href: '/services/loyalty-rewards' },
+        ],
+      },
+      {
+        heading: 'By industry',
+        links: [
+          { label: 'Health & Wellness', href: '/industries/health-wellness' },
+          { label: 'Home Services', href: '/industries/home-services' },
+          { label: 'Small Business', href: '/industries/small-business' },
         ],
       },
     ],
@@ -86,9 +90,22 @@ export const SITE_NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    type: 'link',
-    label: 'Blog',
-    href: '/blog',
+    type: 'dropdown',
+    label: 'Resources',
+    variant: 'compact',
+    categories: [
+      {
+        heading: 'Resources',
+        links: [
+          { label: 'Blog', href: '/blog' },
+          { label: 'Grader', href: GRADER_URL, external: true },
+        ],
+      },
+    ],
+    promos: [
+      { copy: 'Read the latest on local growth', href: '/blog', tone: 'green' },
+      { copy: 'Grade your online presence in seconds', href: GRADER_URL, tone: 'orange', external: true },
+    ],
   },
 ];
 

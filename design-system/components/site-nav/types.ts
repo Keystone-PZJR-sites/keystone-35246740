@@ -5,6 +5,8 @@
 export interface NavLeafLink {
   label: string;
   href: string;
+  /** Opens in a new tab (e.g. the cross-domain Grader app). */
+  external?: boolean;
 }
 
 /** A titled group of leaf links inside a dropdown content zone. */
@@ -21,6 +23,8 @@ export interface NavPromoTile {
   copy: string;
   href: string;
   tone: NavPromoTone;
+  /** Opens in a new tab (e.g. the cross-domain Grader app). */
+  external?: boolean;
 }
 
 /**

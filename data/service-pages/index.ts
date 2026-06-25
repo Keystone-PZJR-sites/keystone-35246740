@@ -5,7 +5,6 @@
 import type { ServicePageContent } from '@/design-system/patterns/services';
 import { WEBSITES } from './websites';
 import { SOCIAL_MEDIA } from './social-media';
-import { MAPS } from './maps';
 import { REVIEWS } from './reviews';
 import { ADVERTISING } from './advertising';
 import { META_ADS } from './meta-ads';
@@ -13,19 +12,15 @@ import { GOOGLE_ADS } from './google-ads';
 import { CONTENT_MARKETING } from './content-marketing';
 import { SALES } from './sales';
 import { SALES_TEAM } from './sales-team';
-import { TEXT_SALES } from './text-sales';
-import { CALL_SALES } from './call-sales';
 import { RETENTION } from './retention';
 import { EMAIL_CAMPAIGNS } from './email-campaigns';
-import { SMART_RE_ENGAGEMENT } from './smart-re-engagement';
 import { REBOOKINGS } from './rebookings';
 import { LOYALTY_REWARDS } from './loyalty-rewards';
 
 const ALL: ServicePageContent[] = [
-  // Presence
+  // Presence — REVIEWS doubles as the combined "Maps & Reviews" page.
   WEBSITES,
   SOCIAL_MEDIA,
-  MAPS,
   REVIEWS,
   // Demand
   ADVERTISING,
@@ -35,12 +30,9 @@ const ALL: ServicePageContent[] = [
   // Conversion
   SALES,
   SALES_TEAM,
-  TEXT_SALES,
-  CALL_SALES,
   // Retention
   RETENTION,
   EMAIL_CAMPAIGNS,
-  SMART_RE_ENGAGEMENT,
   REBOOKINGS,
   LOYALTY_REWARDS,
 ];

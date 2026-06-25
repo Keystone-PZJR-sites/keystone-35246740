@@ -26,6 +26,10 @@ export type CardProps = CardOwnProps &
   Omit<ComponentPropsWithoutRef<'div'>, keyof CardOwnProps> & {
     /** Present when the card renders as an anchor (as="a"). */
     href?: string;
+    /** Anchor target (e.g. "_blank" for external links). */
+    target?: string;
+    /** Anchor rel — pair "noopener noreferrer" with target="_blank". */
+    rel?: string;
   };
 
 /**

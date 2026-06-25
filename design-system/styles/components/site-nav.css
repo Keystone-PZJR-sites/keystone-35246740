@@ -266,15 +266,28 @@
   min-width: 0;
 }
 
-/* Services mega menu: four categories in a two-by-two grid. */
+/* Solutions mega menu: services stack in column one (their four groupings),
+   industries form column two. The promo rail is the third zone (a flex sibling
+   of .hero-nav-content). Industries must be the LAST category in the data so
+   :last-child lands it in column two. */
 .hero-nav-panel[data-variant='wide'] .hero-nav-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: start;
   gap: 24px 36px;
 }
 
+.hero-nav-panel[data-variant='wide'] .hero-nav-category:not(:last-child) {
+  grid-column: 1;
+}
+
+.hero-nav-panel[data-variant='wide'] .hero-nav-category:last-child {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 .hero-nav-category-heading {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-size: 0.8125rem;
   line-height: 1.3;
   letter-spacing: 0.01em;
@@ -292,7 +305,7 @@
 
 .hero-nav-leaf {
   display: block;
-  padding: 6px 8px;
+  padding: 3px 8px;
   margin-left: -8px;
   border-radius: 8px;
   font-size: 1rem;
@@ -487,7 +500,7 @@
 }
 
 .hero-nav-mobile-category-heading {
-  margin: 6px 0 6px;
+  margin: 6px 0 4px;
   font-size: 0.8125rem;
   line-height: 1.3;
   color: var(--hero-nav-heading);
@@ -503,7 +516,7 @@
 
 .hero-nav-mobile-leaf {
   display: block;
-  padding: 9px 10px;
+  padding: 5px 10px;
   margin-left: -10px;
   border-radius: 8px;
   font-size: 1rem;
