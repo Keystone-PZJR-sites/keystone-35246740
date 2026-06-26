@@ -97,6 +97,7 @@ export const SITE_NAV_ITEMS: NavItem[] = [
       {
         heading: 'Resources',
         links: [
+          { label: 'Case Studies', href: '/case-studies' },
           { label: 'Blog', href: '/blog' },
           { label: 'Grader', href: GRADER_URL, external: true },
         ],

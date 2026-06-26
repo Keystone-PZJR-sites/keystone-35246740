@@ -1,0 +1,437 @@
+/* ============================================================
+   Case studies (spec 051) — gallery + detail.
+   ============================================================
+   Customer success stories on the shared cream surface under the
+   floating site nav: a gallery column of story cards and a detail
+   page (hero, before/after contrast, narrative, pull quote, other
+   stories). Colors, radii, spacing, and type reference design
+   tokens only — never a raw hex. No scroll-triggered animation;
+   hover / focus shifts only.
+   ============================================================ */
+
+.case-studies-page {
+  background-color: var(--color-bg-primary);
+}
+
+/* ── Shared KPI row ──────────────────────────────────────────
+   An oversized value over a small label, repeated across the
+   hero, before/after cards, pull quote, and story card. */
+
+.ks-cs-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0;
+}
+
+.ks-cs-stats--sm {
+  gap: var(--space-6);
+}
+
+.ks-cs-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ks-cs-stat__value {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-lg);
+  letter-spacing: var(--tracking-tight);
+}
+
+.ks-cs-stat__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: var(--leading-small);
+}
+
+.ks-cs-stats--lg .ks-cs-stat__value {
+  font-size: var(--type-lg);
+}
+
+.ks-cs-stats--sm .ks-cs-stat__value {
+  font-size: var(--type-md);
+  line-height: var(--leading-md);
+}
+
+.ks-cs-stats--dark .ks-cs-stat__value {
+  color: var(--color-success-text);
+}
+.ks-cs-stats--dark .ks-cs-stat__label {
+  color: var(--color-text-tertiary);
+}
+
+.ks-cs-stats--light .ks-cs-stat__value {
+  color: var(--color-hero-text);
+}
+.ks-cs-stats--light .ks-cs-stat__label {
+  color: color-mix(in srgb, var(--color-hero-text) 75%, transparent);
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+
+.ks-cs-gallery {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(8px, 3vw, 32px) 24px clamp(48px, 7vw, 80px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 32px);
+}
+
+/* ── Story card ──────────────────────────────────────────────
+   `row` = wide gallery card (photo beside copy). `tile` = stacked
+   (photo above copy) for the two-up other-stories grid. */
+
+.ks-cs-card {
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+.ks-cs-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.ks-cs-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ks-cs-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--color-bg-tertiary);
+}
+
+.ks-cs-card__img {
+  object-fit: cover;
+}
+
+.ks-cs-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.ks-cs-card__summary {
+  margin: 0;
+}
+
+.ks-cs-card__attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  margin-top: auto;
+}
+
+.ks-cs-card__person {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+}
+
+.ks-cs-card__sep {
+  opacity: 0.5;
+}
+
+/* Row layout at desktop: photo holds a fixed column beside the copy. */
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-card--row .ks-cs-card__link {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .ks-cs-card--row .ks-cs-card__media {
+    flex: none;
+    width: 40%;
+    aspect-ratio: auto;
+  }
+
+  .ks-cs-card--row .ks-cs-card__body {
+    flex: 1;
+    justify-content: center;
+    padding: clamp(28px, 3vw, 44px);
+  }
+}
+
+/* ============================================================
+   DETAIL — hero
+   ============================================================ */
+
+.ks-cs-hero {
+  padding: calc(var(--site-nav-clearance) + 8px) 24px clamp(32px, 5vw, 56px);
+}
+
+.ks-cs-hero__inner {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-5);
+}
+
+.ks-cs-hero__title {
+  margin: 0;
+}
+
+.ks-cs-hero__subtitle {
+  margin: 0;
+  max-width: 640px;
+}
+
+.ks-cs-hero__stats {
+  justify-content: center;
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+.ks-cs-hero__stats .ks-cs-stat {
+  align-items: center;
+}
+
+.ks-cs-hero__media {
+  max-width: var(--max-width-container, 1280px);
+  margin: clamp(24px, 4vw, 48px) auto 0;
+}
+
+/* ============================================================
+   DETAIL — before / after contrast
+   ============================================================ */
+
+.ks-cs-compare {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+/* Mobile leads with the "after" (the win), then the "before" (spec 051). */
+.ks-cs-compare__col--after {
+  order: -1;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-compare {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  /* Desktop restores the side-by-side reading order: before left, after right. */
+  .ks-cs-compare__col--after {
+    order: 0;
+  }
+}
+
+.ks-cs-compare__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: var(--radius-panel);
+}
+
+.ks-cs-compare__col--before {
+  background-color: var(--color-bg-secondary);
+}
+
+.ks-cs-compare__col--after {
+  background-color: var(--color-bg-mint-solid);
+}
+
+.ks-cs-compare__label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-weight: var(--font-weight-bold);
+}
+
+.ks-cs-compare__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ks-cs-compare__point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.ks-cs-compare__point-icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--color-hero-text);
+}
+
+.ks-cs-compare__point-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-text-quaternary);
+}
+
+/* ============================================================
+   DETAIL — narrative
+   ============================================================ */
+
+.ks-cs-narrative {
+  padding: var(--section-padding-y) 24px;
+}
+
+.ks-cs-narrative__inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 48px);
+}
+
+.ks-cs-narrative__prose {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 36px);
+}
+
+.ks-cs-narrative__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ks-cs-narrative__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background-color: var(--color-bg-tertiary);
+}
+
+.ks-cs-narrative__img {
+  object-fit: cover;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-narrative__inner {
+    grid-template-columns: 1fr minmax(360px, 480px);
+    align-items: start;
+  }
+
+  .ks-cs-narrative--media-start .ks-cs-narrative__inner {
+    grid-template-columns: minmax(360px, 480px) 1fr;
+  }
+
+  .ks-cs-narrative--media-start .ks-cs-narrative__prose {
+    order: 2;
+  }
+
+  .ks-cs-narrative__media {
+    position: sticky;
+    top: calc(var(--site-nav-clearance) + 24px);
+  }
+}
+
+/* ============================================================
+   DETAIL — pull quote
+   ============================================================ */
+
+.ks-cs-quote {
+  padding: var(--section-padding-y) 24px;
+}
+
+.ks-cs-quote__inner {
+  max-width: var(--max-width-container, 1280px);
+  margin: 0 auto;
+  background-color: var(--color-social-proof-bg);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.ks-cs-quote__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: clamp(28px, 4vw, 56px);
+}
+
+.ks-cs-quote__text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-md);
+  line-height: var(--leading-md);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-hero-text);
+}
+
+.ks-cs-quote__attribution {
+  margin: 0;
+}
+
+.ks-cs-quote__stats {
+  margin-top: var(--space-2);
+}
+
+.ks-cs-quote__media {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-bg-tertiary);
+}
+
+.ks-cs-quote__img {
+  object-fit: cover;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-quote__inner {
+    grid-template-columns: 1fr minmax(340px, 440px);
+    align-items: stretch;
+  }
+
+  .ks-cs-quote__media {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
+
+/* ============================================================
+   DETAIL — other success stories
+   ============================================================ */
+
+.ks-cs-others {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-others {
+    grid-template-columns: 1fr 1fr;
+  }
+}

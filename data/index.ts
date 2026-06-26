@@ -45,6 +45,12 @@ export type { OurStoryPageContent, StoryPhotoTile, StoryTileTone, StoryAction } 
 export { HOME_PAGE } from './home-page';
 export type { HomePageContent } from './home-page';
 export { LEGAL_DOCS } from './legal-pages';
+export {
+  CASE_STUDIES,
+  CASE_STUDIES_LIST,
+  getCaseStudy,
+  getOtherCaseStudies,
+} from './case-studies';
 export { MEDIA } from './media';
 export type {
   MediaImage,
