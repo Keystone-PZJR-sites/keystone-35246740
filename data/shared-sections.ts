@@ -74,71 +74,54 @@ export const SHARED_PRICING_SECTION_PROPS: PricingSectionProps = {
   addonIconSrc: SHARED_PRICING_ADDON_ICON_SRC,
 };
 
-// One reusable proof rail shared across every service page, the pricing page,
-// and the how-it-works page. The cards speak to Keystone's overall results
-// (not a single service) so the same set fits anywhere. Edit here once.
-export const SHARED_TESTIMONIAL_CARDS: TestimonialCard[] = [
+// The three real, in-depth customer case studies, summarized as proof cards
+// that link to the full story. Authored from production data and owner quotes
+// (see data/case-studies + docs/case-studies). Shared by the "Trusted by
+// owners" rail and the health & wellness industry page so the proof everywhere
+// points at real, verifiable results.
+export const CASE_STUDY_TESTIMONIAL_CARDS: TestimonialCard[] = [
   {
-    id: 'all-in-one',
-    statement: 'Everything an independent business needs to win online, in one place.',
-    image: MEDIA.socialProof.thumbsDesktop.t02.src,
-    alt: 'A business owner taking a call at her counter',
+    id: 'palm-coast-zivel',
+    statement:
+      'A Florida recovery studio turned 257 tracked leads into a booked-out calendar — with an AI front desk replying in under a minute.',
+    image: MEDIA.caseStudies.palmCoastZivel.studio1.src,
+    alt: 'Inside the Palm Coast Zivel recovery studio',
     results: [
-      { value: '+54%', label: 'Sales growth' },
-      { value: '11,000', label: 'App installs' },
+      { value: '257', label: 'Leads tracked' },
+      { value: '22', label: 'Consults booked' },
     ],
+    action: { label: 'Read the story', href: '/case-studies/palm-coast-zivel' },
   },
   {
-    id: 'recommended',
-    statement: 'A platform owners recommend — and the results back it up.',
-    image: MEDIA.socialProof.thumbsDesktop.t04.src,
-    alt: 'A chef working the oven at a local restaurant',
+    id: 'your-health-solutions',
+    statement:
+      'A brand-new med spa opened on the full Keystone stack and booked 320 leads at about $3.50 each.',
+    image: MEDIA.caseStudies.yourHealthSolutions.gbp1.src,
+    alt: 'Inside the Your Health Solutions med spa',
     results: [
-      { value: '+$104,500', label: 'Online sales' },
-      { value: '$31,000', label: 'Saved in fees' },
+      { value: '320', label: 'Leads tracked' },
+      { value: '$3.50', label: 'Per lead' },
     ],
+    action: { label: 'Read the story', href: '/case-studies/your-health-solutions' },
   },
   {
-    id: 'new-customers',
-    statement: 'New customers find you, choose you, and keep coming back.',
-    image: MEDIA.socialProof.thumbsDesktop.t06.src,
-    alt: 'A wellness studio session in progress',
+    id: 'bare-lux-studio',
+    statement:
+      'A Central Jersey med spa earned 94,493 ad impressions on a lean budget while an AI front desk caught every lead.',
+    image: MEDIA.caseStudies.bareLuxStudio.aesthetic2.src,
+    alt: 'Aesthetic treatment at Bare Lúx Studio',
     results: [
-      { value: '+38%', label: 'New customers' },
-      { value: '64%', label: 'Return rate' },
+      { value: '94,493', label: 'Ad impressions' },
+      { value: '5.0★', label: 'Average rating' },
     ],
-  },
-  {
-    id: 'fast-follow-up',
-    statement: 'Every lead gets a fast reply, so fewer slip away.',
-    image: MEDIA.socialProof.thumbsDesktop.t01.src,
-    alt: 'A shop owner at work',
-    results: [
-      { value: '< 2 min', label: 'Avg. response' },
-      { value: '+27%', label: 'Close rate' },
-    ],
-  },
-  {
-    id: 'one-platform',
-    statement: 'One login runs your website, marketing, and front desk.',
-    image: MEDIA.socialProof.thumbsDesktop.t03.src,
-    alt: 'A studio owner at work',
-    results: [
-      { value: '4.9★', label: 'Average rating' },
-      { value: '12 hrs', label: 'Saved / week' },
-    ],
-  },
-  {
-    id: 'fewer-tools',
-    statement: 'Replace a stack of tools — and the bills that come with them.',
-    image: MEDIA.socialProof.thumbsDesktop.t05.src,
-    alt: 'A business owner focused on her work',
-    results: [
-      { value: '-42%', label: 'Software costs' },
-      { value: '+180', label: 'New reviews' },
-    ],
+    action: { label: 'Read the story', href: '/case-studies/bare-lux-studio' },
   },
 ];
+
+// One reusable proof rail shared across every service page, the pricing page,
+// and the how-it-works page — now backed by the three real case studies, each
+// linking to its full write-up. Edit here once.
+export const SHARED_TESTIMONIAL_CARDS: TestimonialCard[] = CASE_STUDY_TESTIMONIAL_CARDS;
 
 export const SHARED_TESTIMONIALS_SECTION: { title: string; cards: TestimonialCard[] } = {
   title: 'Trusted by owners',

@@ -7,14 +7,14 @@ import type {
   CaseStudyContent,
   CaseStudyOtherStory,
 } from '@/design-system/patterns/case-studies';
-import { NORTH_LOOP_COFFEE } from './north-loop-coffee';
-import { CEDAR_AND_CO_BARBERSHOP } from './cedar-and-co-barbershop';
-import { BLOOM_AND_STEM_FLORIST } from './bloom-and-stem-florist';
+import { PALM_COAST_ZIVEL } from './palm-coast-zivel';
+import { YOUR_HEALTH_SOLUTIONS } from './your-health-solutions';
+import { BARE_LUX_STUDIO } from './bare-lux-studio';
 
 const ALL: CaseStudyContent[] = [
-  NORTH_LOOP_COFFEE,
-  CEDAR_AND_CO_BARBERSHOP,
-  BLOOM_AND_STEM_FLORIST,
+  PALM_COAST_ZIVEL,
+  YOUR_HEALTH_SOLUTIONS,
+  BARE_LUX_STUDIO,
 ];
 
 /** All authored case studies, in gallery order. */

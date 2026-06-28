@@ -211,6 +211,29 @@
   margin: clamp(24px, 4vw, 48px) auto 0;
 }
 
+/* Small meta chips under the headline (location · category · live since). */
+.ks-cs-hero__meta {
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.ks-cs-hero__meta-item {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: var(--leading-small);
+}
+
 /* ============================================================
    DETAIL — before / after contrast
    ============================================================ */
@@ -434,4 +457,429 @@
   .ks-cs-others {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ============================================================
+   DETAIL — long-form blocks (extended template)
+   ============================================================ */
+
+/* ── TL;DR card ──────────────────────────────────────────────
+   A raised summary card that opens the story: lede + a checklist
+   of takeaways + an optional KPI row. */
+
+.ks-cs-tldr {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 28px);
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.ks-cs-tldr__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ks-cs-tldr__summary {
+  margin: 0;
+}
+
+.ks-cs-tldr__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-tldr__list {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-6);
+  }
+}
+
+.ks-cs-tldr__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.ks-cs-tldr__icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--color-success-text);
+}
+
+.ks-cs-tldr__stats {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-tertiary);
+}
+
+/* ── Prose section ───────────────────────────────────────────
+   Reading section: a copy column, optionally beside a sticky photo. */
+
+.ks-cs-prose__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 48px);
+}
+
+.ks-cs-prose__copy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.ks-cs-prose__solo-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-prose__inner {
+    grid-template-columns: 1fr minmax(360px, 480px);
+    align-items: start;
+  }
+
+  .ks-cs-prose--media-start .ks-cs-prose__inner {
+    grid-template-columns: minmax(360px, 480px) 1fr;
+  }
+
+  .ks-cs-prose--media-start .ks-cs-prose__copy {
+    order: 2;
+  }
+
+  .ks-cs-prose__media {
+    position: sticky;
+    top: calc(var(--site-nav-clearance) + 24px);
+  }
+}
+
+.ks-cs-prose__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background-color: var(--color-bg-tertiary);
+}
+
+.ks-cs-prose__img {
+  object-fit: cover;
+}
+
+.ks-cs-prose__cap {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--gradient-scrim);
+  color: var(--color-hero-text);
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: var(--leading-small);
+}
+
+.ks-cs-prose__callout {
+  margin-top: var(--space-2);
+}
+
+/* ── Callout ─────────────────────────────────────────────────
+   A highlighted aside; tinted surface with an accent edge. */
+
+.ks-cs-callout-section .ks-cs-callout {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.ks-cs-callout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: var(--radius-panel);
+  border-left: 4px solid var(--color-success-text);
+  background-color: var(--color-bg-secondary);
+}
+
+.ks-cs-callout--insight {
+  background-color: var(--color-social-proof-bg);
+  border-left-color: var(--color-success-text);
+}
+
+.ks-cs-callout--tip {
+  background-color: var(--color-bg-secondary);
+  border-left-color: var(--color-text-quaternary);
+}
+
+.ks-cs-callout--metric {
+  background-color: var(--color-bg-mint-solid);
+  border-left-color: var(--color-hero-text);
+}
+
+/* Dark-surface variants (insight / metric / quote) need light body copy and
+   attribution for contrast — the default `primary` / `tertiary` tones are dark. */
+.ks-cs-callout--insight .ks-cs-callout__text,
+.ks-cs-callout--metric .ks-cs-callout__text {
+  color: var(--color-hero-text);
+}
+
+.ks-cs-callout--metric .ks-cs-callout__label {
+  color: var(--color-hero-text);
+}
+
+.ks-cs-callout--insight .ks-cs-callout__attr,
+.ks-cs-callout--quote .ks-cs-callout__attr,
+.ks-cs-callout--metric .ks-cs-callout__attr {
+  color: color-mix(in srgb, var(--color-hero-text) 78%, transparent);
+}
+
+.ks-cs-callout--quote {
+  background-color: var(--color-social-proof-bg);
+  border-left-color: var(--color-success-text);
+}
+
+.ks-cs-callout__label {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-success-text);
+}
+
+.ks-cs-callout--tip .ks-cs-callout__label {
+  color: var(--color-text-tertiary);
+}
+
+.ks-cs-callout__text {
+  margin: 0;
+}
+
+.ks-cs-callout__quote {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-md);
+  line-height: var(--leading-md);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-hero-text);
+}
+
+.ks-cs-callout__attr {
+  margin: 0;
+}
+
+/* ── Bar chart ───────────────────────────────────────────────
+   A token-driven horizontal bar chart, no client JS. */
+
+.ks-cs-chart-figure {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.ks-cs-chart {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vw, 24px);
+}
+
+.ks-cs-chart__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ks-cs-chart__row-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.ks-cs-chart__label {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: var(--leading-small);
+  color: var(--color-text-secondary);
+}
+
+.ks-cs-chart__value {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--type-md);
+  line-height: var(--leading-md);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-tertiary);
+}
+
+.ks-cs-chart__value--hl {
+  color: var(--color-success-text);
+}
+
+.ks-cs-chart__track {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-tertiary);
+  overflow: hidden;
+}
+
+.ks-cs-chart__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-text-quaternary);
+}
+
+.ks-cs-chart__fill--hl {
+  background-color: var(--color-bg-mint-solid);
+}
+
+.ks-cs-chart__footnote {
+  margin: var(--space-5) 0 0;
+}
+
+/* ── Stat band (ink) ─────────────────────────────────────────
+   Centered oversized KPIs on the dark surface. */
+
+.ks-cs-statband {
+  justify-content: center;
+  text-align: center;
+}
+
+.ks-cs-statband .ks-cs-stat {
+  align-items: center;
+}
+
+/* ── Photo gallery ───────────────────────────────────────────
+   A responsive grid of supporting photos. */
+
+.ks-cs-photogrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 2vw, 20px);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-photogrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ks-cs-photogrid[data-count='2'] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ks-cs-photogrid__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.ks-cs-photogrid__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background-color: var(--color-bg-tertiary);
+}
+
+.ks-cs-photogrid__img {
+  object-fit: cover;
+}
+
+.ks-cs-photogrid__cap {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: var(--leading-small);
+  color: var(--color-text-tertiary);
+}
+
+.ks-cs-photogrid__note {
+  margin: var(--space-5) 0 0;
+  text-align: center;
+}
+
+/* ── Timeline ────────────────────────────────────────────────
+   A vertical, dated rollout / results timeline. */
+
+.ks-cs-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-6);
+  max-width: 760px;
+  border-left: 2px solid var(--color-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 36px);
+}
+
+.ks-cs-timeline__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ks-cs-timeline__dot {
+  position: absolute;
+  left: calc(-1 * var(--space-6) - 6px);
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-bg-mint-solid);
+  box-shadow: 0 0 0 4px var(--color-bg-primary);
+}
+
+.ks-cs-timeline__date {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-success-text);
+}
+
+.ks-cs-timeline__title {
+  margin: 0;
+}
+
+.ks-cs-timeline__body {
+  margin: 0;
+}
+
+/* ── Tools grid ──────────────────────────────────────────────
+   Small cards naming each Keystone tool running for the customer. */
+
+.ks-cs-tools {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 2vw, 20px);
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-cs-tools {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ks-cs-tools__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.ks-cs-tools__name {
+  margin: 0;
 }

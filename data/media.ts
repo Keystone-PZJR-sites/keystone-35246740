@@ -74,6 +74,7 @@ const CAREERS = '/media/careers';
 const INVESTORS = '/media/investors';
 const BIZ = '/media/businesses';
 const SCN = '/media/scenes';
+const CS = '/media/case-studies';
 
 // ── Builders ─────────────────────────────────────────────────────────────────
 
@@ -346,6 +347,34 @@ export const MEDIA = {
     wordmark: { src: `${BRAND}/keystoneWordmark.svg` },
     wordmarkAlt: { src: `${BRAND}/keystone-wordmark.svg` },
   } satisfies Record<string, MediaImage>,
+
+  // Customer case-study photography, grouped by study slug. Sourced from each
+  // customer's own account (Google Business Profile, site, and social), curated
+  // per study. Alt text is supplied per usage in the study's data file.
+  caseStudies: {
+    palmCoastZivel: {
+      consult: { src: `${CS}/palm-coast-zivel/consult.png` },
+      interior: { src: `${CS}/palm-coast-zivel/interior.jpg` },
+      ownerKelly: { src: `${CS}/palm-coast-zivel/owner-kelly.png` },
+      storefront: { src: `${CS}/palm-coast-zivel/storefront.jpg` },
+      studio1: { src: `${CS}/palm-coast-zivel/studio-1.jpg` },
+      studio2: { src: `${CS}/palm-coast-zivel/studio-2.jpg` },
+      studio3: { src: `${CS}/palm-coast-zivel/studio-3.jpg` },
+      studio4: { src: `${CS}/palm-coast-zivel/studio-4.jpg` },
+    } satisfies Record<string, MediaImage>,
+    yourHealthSolutions: {
+      gbp1: { src: `${CS}/your-health-solutions/gbp-1.jpg` },
+      gbp4: { src: `${CS}/your-health-solutions/gbp-4.jpg` },
+      gbp5: { src: `${CS}/your-health-solutions/gbp-5.jpg` },
+    } satisfies Record<string, MediaImage>,
+    bareLuxStudio: {
+      aesthetic1: { src: `${CS}/bare-lux-studio/aesthetic-1.jpg` },
+      aesthetic2: { src: `${CS}/bare-lux-studio/aesthetic-2.jpg` },
+      microneedling: { src: `${CS}/bare-lux-studio/microneedling.jpg` },
+      photo2: { src: `${CS}/bare-lux-studio/photo-2.jpg` },
+      photo3: { src: `${CS}/bare-lux-studio/photo-3.jpg` },
+    } satisfies Record<string, MediaImage>,
+  },
 
   // Standalone UI chrome glyphs.
   ui: {

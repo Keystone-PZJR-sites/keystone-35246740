@@ -16,6 +16,7 @@ import {
 } from '@untitledui/icons';
 import type { IndustryPageContent, IndustryResource } from '@/design-system/patterns/industries';
 import { MEDIA } from '@/data/media';
+import { CASE_STUDY_TESTIMONIAL_CARDS } from '@/data/shared-sections';
 
 // Placeholder resources: a few live blog posts that apply across every industry.
 // Swap these for industry-specific articles / case studies once authored.
@@ -139,39 +140,8 @@ const HEALTH_WELLNESS: IndustryPageContent = {
   },
 
   testimonials: {
-    title: 'Why wellness owners choose Keystone',
-    cards: [
-      {
-        id: 'rebook',
-        statement: 'New clients find the studio, book online, and rebook before they leave.',
-        image: MEDIA.socialProof.thumbsDesktop.t06.src,
-        alt: 'A wellness studio session in progress',
-        results: [
-          { value: '+42%', label: 'New bookings' },
-          { value: '64%', label: 'Return rate' },
-        ],
-      },
-      {
-        id: 'fast-reply',
-        statement: 'Every inquiry gets a fast reply, so fewer prospects slip away.',
-        image: MEDIA.socialProof.thumbsDesktop.t02.src,
-        alt: 'A business owner on the phone at her laptop',
-        results: [
-          { value: '< 2 min', label: 'Avg. response' },
-          { value: '+27%', label: 'Close rate' },
-        ],
-      },
-      {
-        id: 'one-login',
-        statement: 'One login runs the site, reminders, and reviews — hours back every week.',
-        image: MEDIA.socialProof.thumbsDesktop.t05.src,
-        alt: 'A focused business owner at work',
-        results: [
-          { value: '4.9★', label: 'Average rating' },
-          { value: '12 hrs', label: 'Saved / week' },
-        ],
-      },
-    ],
+    title: 'Real wellness businesses, real results',
+    cards: CASE_STUDY_TESTIMONIAL_CARDS,
   },
 
   resources: {

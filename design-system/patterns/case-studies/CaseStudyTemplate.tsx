@@ -1,6 +1,7 @@
 import { ContentSection } from '@/design-system/sections/ContentSection';
 import { CtaBand } from '@/design-system/sections/CtaBand';
 import { CaseStudyHero } from './CaseStudyHero';
+import { CaseStudyBlocks } from './CaseStudyBlocks';
 import { CaseStudyComparison } from './CaseStudyComparison';
 import { CaseStudyNarrative } from './CaseStudyNarrative';
 import { CaseStudyQuote } from './CaseStudyQuote';
@@ -21,20 +22,30 @@ export interface CaseStudyTemplateProps {
 
 /**
  * The full body of a case-study detail page, composed from the case-studies
- * pattern and driven by one `CaseStudyContent` object: hero, before/after
- * contrast, narrative, pull quote, an other-stories row, and the green closing
- * band. Mount inside InnerPageShell. See spec 051.
+ * pattern and driven by one `CaseStudyContent` object. When the story supplies a
+ * `blocks` array it renders the long-form, block-driven layout (TL;DR, prose,
+ * charts, callouts, stat bands, before/after, pull quotes, galleries, timelines,
+ * tools); otherwise it falls back to the legacy comparison / narrative / quote
+ * sections. Closes with an other-stories row and the green CTA band. Mount inside
+ * InnerPageShell. See spec 051.
  */
 export function CaseStudyTemplate({ content, otherStories = [] }: CaseStudyTemplateProps) {
-  const { hero, comparison, narrative, quote, closing } = content;
+  const { hero, blocks, comparison, narrative, quote, closing } = content;
 
   return (
     <div className="case-studies-page" data-theme="custom">
       <main>
         <CaseStudyHero content={hero} />
-        <CaseStudyComparison content={comparison} />
-        <CaseStudyNarrative content={narrative} />
-        <CaseStudyQuote content={quote} />
+
+        {blocks && blocks.length > 0 ? (
+          <CaseStudyBlocks blocks={blocks} />
+        ) : (
+          <>
+            {comparison ? <CaseStudyComparison content={comparison} /> : null}
+            {narrative ? <CaseStudyNarrative content={narrative} /> : null}
+            {quote ? <CaseStudyQuote content={quote} /> : null}
+          </>
+        )}
 
         {otherStories.length > 0 && (
           <ContentSection

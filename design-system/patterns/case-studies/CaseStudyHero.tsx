@@ -15,7 +15,7 @@ export interface CaseStudyHeroProps {
  * card beneath. The floating site nav sits over the top edge. See spec 051.
  */
 export function CaseStudyHero({ content }: CaseStudyHeroProps) {
-  const { eyebrow, title, subtitle, stats, media } = content;
+  const { eyebrow, title, subtitle, meta, stats, media } = content;
   return (
     <header className="ks-cs-hero">
       <div className="ks-cs-hero__inner">
@@ -27,6 +27,15 @@ export function CaseStudyHero({ content }: CaseStudyHeroProps) {
           <Text variant="lead" tone="tertiary" className="ks-cs-hero__subtitle">
             {subtitle}
           </Text>
+        ) : null}
+        {meta && meta.length > 0 ? (
+          <ul className="ks-cs-hero__meta" aria-label="Business details">
+            {meta.map((item) => (
+              <li key={item} className="ks-cs-hero__meta-item">
+                {item}
+              </li>
+            ))}
+          </ul>
         ) : null}
         <CaseStudyStats stats={stats} size="lg" className="ks-cs-hero__stats" />
       </div>

@@ -21,6 +21,24 @@ export { CaseStudyNarrative } from './CaseStudyNarrative';
 export type { CaseStudyNarrativeProps } from './CaseStudyNarrative';
 export { CaseStudyQuote } from './CaseStudyQuote';
 export type { CaseStudyQuoteProps } from './CaseStudyQuote';
+export { CaseStudyTldr } from './CaseStudyTldr';
+export type { CaseStudyTldrProps } from './CaseStudyTldr';
+export { CaseStudyCallout } from './CaseStudyCallout';
+export type { CaseStudyCalloutProps } from './CaseStudyCallout';
+export { CaseStudyProseSection } from './CaseStudyProseSection';
+export type { CaseStudyProseSectionProps } from './CaseStudyProseSection';
+export { CaseStudyChart } from './CaseStudyChart';
+export type { CaseStudyChartProps } from './CaseStudyChart';
+export { CaseStudyStatBand } from './CaseStudyStatBand';
+export type { CaseStudyStatBandProps } from './CaseStudyStatBand';
+export { CaseStudyGallery } from './CaseStudyGallery';
+export type { CaseStudyGalleryProps } from './CaseStudyGallery';
+export { CaseStudyTimeline } from './CaseStudyTimeline';
+export type { CaseStudyTimelineProps } from './CaseStudyTimeline';
+export { CaseStudyTools } from './CaseStudyTools';
+export type { CaseStudyToolsProps } from './CaseStudyTools';
+export { CaseStudyBlocks } from './CaseStudyBlocks';
+export type { CaseStudyBlocksProps } from './CaseStudyBlocks';
 export { CaseStudyTemplate } from './CaseStudyTemplate';
 export type { CaseStudyTemplateProps, CaseStudyOtherStory } from './CaseStudyTemplate';
 export type {
@@ -36,4 +54,20 @@ export type {
   CaseStudyMedia,
   CaseStudyClosing,
   CaseStudyLink,
+  CaseStudyBlock,
+  CaseStudyTldrBlock,
+  CaseStudyProseBlock,
+  CaseStudyCalloutBlock,
+  CaseStudyInlineCallout,
+  CaseStudyCalloutVariant,
+  CaseStudyChartBlock,
+  CaseStudyChartBar,
+  CaseStudyStatBandBlock,
+  CaseStudyComparisonBlock,
+  CaseStudyQuoteBlock,
+  CaseStudyGalleryBlock,
+  CaseStudyTimelineBlock,
+  CaseStudyTimelineItem,
+  CaseStudyToolsBlock,
+  CaseStudyToolItem,
 } from './types';
