@@ -46,10 +46,11 @@ export const SITE_NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        heading: 'By industry',
+        heading: 'By business type',
         links: [
           { label: 'Health & Wellness', href: '/industries/health-wellness' },
           { label: 'Home Services', href: '/industries/home-services' },
+          { label: 'New Businesses', href: '/industries/new-businesses' },
           { label: 'Small Business', href: '/industries/small-business' },
         ],
       },

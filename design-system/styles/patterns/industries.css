@@ -1,0 +1,101 @@
+/* ============================================================
+   Industry (business-type) landing pages — pattern styles
+   ============================================================
+   The IndustryPageTemplate composes design-system sections, so it
+   needs no CSS of its own. These rules style the two bespoke blocks
+   the enriched template adds (spec 053): the "who it's for" tag row
+   and the "old way vs. Keystone" two-card contrast. Colors, radii,
+   spacing, and type reference design tokens only — never a raw hex.
+   ============================================================ */
+
+/* ── Who it's for — wrapped tag row ──────────────────────────── */
+
+.ks-ind-audiences {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+/* ── Old way vs. Keystone — two-card contrast ────────────────── */
+
+.ks-ind-compare {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+/* Mobile leads with the Keystone card (the win), then the old way. */
+.ks-ind-compare__col--after {
+  order: -1;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .ks-ind-compare {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  /* Desktop restores the reading order: old way left, Keystone right. */
+  .ks-ind-compare__col--after {
+    order: 0;
+  }
+}
+
+.ks-ind-compare__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: var(--radius-panel);
+}
+
+.ks-ind-compare__col--before {
+  background-color: var(--color-bg-secondary);
+}
+
+.ks-ind-compare__col--after {
+  background-color: var(--color-bg-mint-solid);
+}
+
+.ks-ind-compare__label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-weight: var(--font-weight-bold);
+}
+
+.ks-ind-compare__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ks-ind-compare__point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.ks-ind-compare__point-icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--color-hero-text);
+}
+
+.ks-ind-compare__point-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-text-quaternary);
+}

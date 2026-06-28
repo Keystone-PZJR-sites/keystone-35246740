@@ -35,6 +35,7 @@
 /* 5. Patterns */
 @import "./patterns/blog.css";
 @import "./patterns/case-studies.css";
+@import "./patterns/industries.css";
 @import "./patterns/services.css";
 @import "./patterns/how-it-works.css";
 @import "./patterns/careers.css";

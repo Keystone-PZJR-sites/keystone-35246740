@@ -8,14 +8,24 @@
 // ============================================================
 
 export { IndustryPageTemplate } from './IndustryPageTemplate';
+export { IndustryAudiences } from './IndustryAudiences';
+export type { IndustryAudiencesProps } from './IndustryAudiences';
+export { IndustryComparison } from './IndustryComparison';
+export type { IndustryComparisonProps } from './IndustryComparison';
 export type {
   IndustryPageTemplateProps,
   IndustryPageContent,
   IndustryHeroContent,
+  IndustryAudienceSection,
   IndustryBenefitsSection,
+  IndustryComparisonColumn,
+  IndustryComparisonSection,
   IndustryCapabilitiesSection,
+  IndustryJourneyStep,
+  IndustryJourneySection,
   IndustryStatsSection,
   IndustryTestimonialsSection,
+  IndustryIncludedSection,
   IndustryResource,
   IndustryResourcesSection,
   IndustryFaqSection,

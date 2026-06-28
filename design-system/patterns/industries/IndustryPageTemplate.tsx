@@ -8,6 +8,7 @@ import {
   type FeatureItem,
   StatStrip,
   type Stat,
+  ProcessSteps,
   TestimonialCarousel,
   type TestimonialCard,
   FaqAccordion,
@@ -19,6 +20,8 @@ import {
   CardGrid,
 } from '@/design-system/components';
 import { ServiceMedia } from '@/design-system/patterns/services';
+import { IndustryAudiences } from './IndustryAudiences';
+import { IndustryComparison } from './IndustryComparison';
 
 // ── Content model ─────────────────────────────────────────────────────────────
 // One industry landing page = one IndustryPageContent object. The template below
@@ -53,6 +56,56 @@ export interface IndustryBenefitsSection {
   eyebrow?: string;
   title: ReactNode;
   /** Benefit cards (icon + title + copy). */
+  items: FeatureItem[];
+}
+
+/** "Who it's for" — the specific business types inside this category, as tags. */
+export interface IndustryAudienceSection {
+  eyebrow?: string;
+  title: ReactNode;
+  description?: string;
+  /** Sub-vertical labels rendered as a wrapped row of rounded tags. */
+  items: string[];
+}
+
+/** One side of the "old way vs. Keystone" contrast. */
+export interface IndustryComparisonColumn {
+  label: string;
+  points: string[];
+}
+
+export interface IndustryComparisonSection {
+  eyebrow?: string;
+  title: ReactNode;
+  description?: string;
+  /** The status-quo card (quiet surface, plain points). */
+  before: IndustryComparisonColumn;
+  /** The Keystone card (brand green, checked points). */
+  after: IndustryComparisonColumn;
+}
+
+/** One step in the "how it works" numbered narrative. */
+export interface IndustryJourneyStep {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+}
+
+export interface IndustryJourneySection {
+  eyebrow?: string;
+  title: ReactNode;
+  description?: string;
+  steps: IndustryJourneyStep[];
+}
+
+/** "What's included" — a grid of capability cards covered by the one plan. */
+export interface IndustryIncludedSection {
+  eyebrow?: string;
+  title: ReactNode;
+  description?: string;
   items: FeatureItem[];
 }
 
@@ -115,11 +168,19 @@ export interface IndustryPageContent {
   metaTitle: string;
   metaDescription: string;
   hero: IndustryHeroContent;
+  /** "Who it's for" tag row, between hero and benefits. */
+  audience?: IndustryAudienceSection;
   benefits: IndustryBenefitsSection;
+  /** "Old way vs. Keystone" contrast, between benefits and capabilities. */
+  comparison?: IndustryComparisonSection;
   capabilities: IndustryCapabilitiesSection;
+  /** Numbered "how it works" narrative, between capabilities and results. */
+  journey?: IndustryJourneySection;
   stats: IndustryStatsSection;
   /** Case-study / proof rail. */
   testimonials: IndustryTestimonialsSection;
+  /** "What's included" grid, between proof and resources. */
+  included?: IndustryIncludedSection;
   resources: IndustryResourcesSection;
   faq: IndustryFaqSection;
   closing: IndustryClosing;
@@ -140,7 +201,20 @@ export interface IndustryPageTemplateProps {
  * capture). See spec 050.
  */
 export function IndustryPageTemplate({ content }: IndustryPageTemplateProps) {
-  const { hero, benefits, capabilities, stats, testimonials, resources, faq, closing } = content;
+  const {
+    hero,
+    audience,
+    benefits,
+    comparison,
+    capabilities,
+    journey,
+    stats,
+    testimonials,
+    included,
+    resources,
+    faq,
+    closing,
+  } = content;
 
   return (
     <main>
@@ -161,14 +235,18 @@ export function IndustryPageTemplate({ content }: IndustryPageTemplateProps) {
         }
       />
 
+      {audience ? <IndustryAudiences section={audience} /> : null}
+
       <ContentSection
         eyebrow={benefits.eyebrow}
         title={benefits.title}
         centered
-        ariaLabel="Why Keystone for your industry"
+        ariaLabel="Why Keystone for your business"
       >
         <FeatureGrid items={benefits.items} />
       </ContentSection>
+
+      {comparison ? <IndustryComparison section={comparison} /> : null}
 
       <ContentSection
         eyebrow={capabilities.eyebrow}
@@ -183,6 +261,27 @@ export function IndustryPageTemplate({ content }: IndustryPageTemplateProps) {
           features={capabilities.features}
         />
       </ContentSection>
+
+      {journey ? (
+        <ContentSection
+          eyebrow={journey.eyebrow}
+          title={journey.title}
+          description={journey.description}
+          centered
+          ariaLabel="How Keystone works for you"
+        >
+          <ProcessSteps
+            ariaLabel="How it works, step by step"
+            steps={journey.steps.map((step) => ({
+              id: step.id,
+              eyebrow: step.eyebrow,
+              title: step.title,
+              description: step.description,
+              media: <ServiceMedia image={step.image} alt={step.alt} />,
+            }))}
+          />
+        </ContentSection>
+      ) : null}
 
       <ContentSection
         tone="ink"
@@ -199,6 +298,18 @@ export function IndustryPageTemplate({ content }: IndustryPageTemplateProps) {
         cards={testimonials.cards}
         ariaLabel="Customer results"
       />
+
+      {included ? (
+        <ContentSection
+          eyebrow={included.eyebrow}
+          title={included.title}
+          description={included.description}
+          centered
+          ariaLabel="What's included"
+        >
+          <FeatureGrid items={included.items} />
+        </ContentSection>
+      ) : null}
 
       <ContentSection
         eyebrow={resources.eyebrow}
