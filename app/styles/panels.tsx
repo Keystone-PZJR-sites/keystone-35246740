@@ -1026,7 +1026,7 @@ export function MediaFeatureListPanel() {
       <PanelHeader title="Media + feature list" meta="spec 037 · MediaFeatureList" />
       <Group
         label="MediaFeatureList"
-        note="A product visual in a soft tinted panel beside a vertical list of icon-badge + title + copy rows. Drop it inside a ContentSection for the centered heading. Which side the media sits on is a prop; stacks below 985px."
+        note="A product visual beside a vertical list of glyph-badge + title + copy rows. By default the visual stands on its own (it carries its own rounding/shadow — e.g. ServiceMedia); pass panel='cream' to sit it in a soft tinted panel instead. Drop it inside a ContentSection for the centered heading. Which side the media sits on is a prop; stacks below 985px."
       >
         <PreviewFrame title="Media + feature list" surface="cream">
           <MediaFeatureList
@@ -1037,7 +1037,6 @@ export function MediaFeatureListPanel() {
                 aria-hidden="true"
               />
             }
-            panel="cream"
             mediaSide="start"
             features={FEATURE_ITEMS}
           />
@@ -1210,8 +1209,8 @@ export function PricingPanel() {
       </Group>
 
       <Group
-        label="FeatureGrid — icon + link"
-        note="The shared FeatureGrid section gains an optional icon tile above the heading and an optional href. A card with an href becomes a link to the relevant service page with a ghost ArrowUpRight cue (top-right) that warms to brand on hover. Cards without an href (e.g. the report tile) simply omit the arrow."
+        label="FeatureGrid — image / icon + link"
+        note="The shared FeatureGrid section takes an optional photo/screenshot thumbnail (preferred — see data/card-concepts.ts) OR a fallback icon tile above the heading, plus an optional href. A card with an href becomes a link to the relevant service page with a ghost ArrowUpRight cue (top-right) that warms to brand on hover. Cards without an href (e.g. the report tile) simply omit the arrow."
       >
         <PreviewFrame title="FeatureGrid icon + link" surface="cream">
           <FeatureGrid items={PRICING_PAGE.included.items} />

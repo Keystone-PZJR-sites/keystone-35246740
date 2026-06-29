@@ -1,16 +1,14 @@
 // Small Business business-type landing page (spec 050 + 053).
 
 import {
-  Star01,
   Globe01,
-  RefreshCcw05,
   Target04,
   BarChartSquare02,
   MessageChatCircle,
-  MessageSmileCircle,
 } from '@untitledui/icons';
 import type { IndustryPageContent } from '@/design-system/patterns/industries';
 import { MEDIA } from '@/data/media';
+import { CONCEPT } from '@/data/card-concepts';
 import { SHARED_RESOURCES, PRICING_FAQ_ANSWER } from './shared';
 
 export const SMALL_BUSINESS: IndustryPageContent = {
@@ -57,24 +55,24 @@ export const SMALL_BUSINESS: IndustryPageContent = {
     title: 'One team for everything that grows you',
     items: [
       {
-        icon: <Globe01 />,
+        image: CONCEPT.website,
         title: 'Look bigger than you are',
         description:
           'A beautiful website, active social, and polished profiles make every first impression count.',
       },
       {
-        icon: <Target04 />,
+        image: CONCEPT.ads,
         title: 'Bring in new customers',
         description: 'Local ads and search put your business in front of the right people nearby.',
       },
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: 'Turn interest into sales',
         description:
           'Every lead gets a fast reply and a nudge to buy or book — by text, call, and email.',
       },
       {
-        icon: <RefreshCcw05 />,
+        image: CONCEPT.retention,
         title: 'Keep them coming back',
         description:
           'Reviews, reminders, and re-engagement turn first-time customers into regulars.',
@@ -230,32 +228,32 @@ export const SMALL_BUSINESS: IndustryPageContent = {
     description: 'Every tool a growing business needs — no add-ons, no agency retainer.',
     items: [
       {
-        icon: <Globe01 />,
+        image: CONCEPT.website,
         title: 'Website & online presence',
         description: 'A fast site plus social, maps, and listings, all on-brand and in sync.',
       },
       {
-        icon: <Target04 />,
+        image: CONCEPT.ads,
         title: 'Ads & content marketing',
         description: 'Campaigns and posts built, launched, and optimized for you each month.',
       },
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.sales,
         title: 'Sales follow-up',
         description: 'Fast replies and persistent nudges by text, call, and email that close sales.',
       },
       {
-        icon: <RefreshCcw05 />,
+        image: CONCEPT.retention,
         title: 'Retention & rebooking',
         description: 'Reminders and re-engagement that turn one-time buyers into regulars.',
       },
       {
-        icon: <Star01 />,
+        image: CONCEPT.reviews,
         title: 'Reviews & reputation',
         description: 'More 5-star reviews and managed profiles across the web.',
       },
       {
-        icon: <BarChartSquare02 />,
+        image: CONCEPT.reporting,
         title: 'Reporting & insights',
         description: 'One dashboard showing what’s working and what each channel is worth.',
       },

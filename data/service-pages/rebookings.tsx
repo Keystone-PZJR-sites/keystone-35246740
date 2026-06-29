@@ -31,7 +31,6 @@ export const REBOOKINGS: ServicePageContent = {
     title: 'Customers mean to come back — they just need a nudge',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts view used to prompt repeat bookings' },
     mediaSide: 'end',
-    panel: 'cream',
     features: [
       {
         id: 'effortless',

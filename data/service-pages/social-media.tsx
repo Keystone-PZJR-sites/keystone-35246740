@@ -31,7 +31,6 @@ export const SOCIAL_MEDIA: ServicePageContent = {
     title: 'Posting consistently is the hard part',
     media: { image: MEDIA.productScreens.social.src, alt: 'Keystone social media composer and content calendar' },
     mediaSide: 'start',
-    panel: 'cream-strong',
     features: [
       {
         id: 'calendar',

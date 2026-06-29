@@ -49,7 +49,6 @@ export interface ServiceFeatureSection {
   title: ReactNode;
   media: { image: string; alt: string };
   mediaSide?: 'start' | 'end';
-  panel?: 'cream' | 'cream-strong' | 'none';
   features: MediaFeatureItem[];
 }
 
@@ -146,7 +145,6 @@ export function ServicePageTemplate({ content }: ServicePageTemplateProps) {
       >
         <MediaFeatureList
           media={<ServiceMedia image={featureSection.media.image} alt={featureSection.media.alt} />}
-          panel={featureSection.panel}
           mediaSide={featureSection.mediaSide}
           features={featureSection.features}
         />

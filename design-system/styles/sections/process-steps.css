@@ -123,20 +123,24 @@
   transform: translate(1px, -1px);
 }
 
-/* ---- Framed media panel ---- */
-.ks-process__media {
+/* ---- Media ----
+   With no panel the media (a photo/screenshot) stands on its own and keeps its
+   own rounding + shadow, so the wrapper stays transparent and must NOT clip.
+   The optional tinted panel — used by the token-built ProcessMock — adds the
+   rounded clip + padding around its decorative contents. */
+.ks-process__media--panel-cream,
+.ks-process__media--panel-cream-strong {
   border-radius: var(--radius-panel);
   overflow: hidden;
+  padding: clamp(20px, 3vw, 40px);
 }
 
 .ks-process__media--panel-cream {
   background-color: var(--color-bg-secondary);
-  padding: clamp(20px, 3vw, 40px);
 }
 
 .ks-process__media--panel-cream-strong {
   background-color: var(--color-bg-tertiary);
-  padding: clamp(20px, 3vw, 40px);
 }
 
 .ks-process__media > * {

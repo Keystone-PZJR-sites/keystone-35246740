@@ -31,7 +31,6 @@ export const GOOGLE_ADS: ServicePageContent = {
     title: 'Capture customers with high intent',
     media: { image: MEDIA.productScreens.ads.src, alt: 'Keystone ad manager showing campaign performance and cost per lead' },
     mediaSide: 'end',
-    panel: 'cream',
     features: [
       {
         id: 'show-up',

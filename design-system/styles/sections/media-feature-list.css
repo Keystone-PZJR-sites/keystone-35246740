@@ -20,19 +20,22 @@
   .ks-mfl--media-end .ks-mfl__list { order: 1; }
 }
 
-/* ---- Soft tinted media panel ---- */
-.ks-mfl__media {
+/* ---- Media ----
+   By default the visual stands on its own and keeps its own rounding/shadow,
+   so the wrapper stays transparent and must NOT clip (clipping would eat the
+   media's shadow). The optional tinted panel adds the rounded clip + padding. */
+.ks-mfl__media--panel-cream,
+.ks-mfl__media--panel-cream-strong {
   border-radius: var(--radius-panel);
   overflow: hidden;
+  padding: clamp(20px, 3vw, 40px);
 }
 
 .ks-mfl__media--panel-cream {
   background-color: var(--color-bg-secondary);
-  padding: clamp(20px, 3vw, 40px);
 }
 .ks-mfl__media--panel-cream-strong {
   background-color: var(--color-bg-tertiary);
-  padding: clamp(20px, 3vw, 40px);
 }
 
 .ks-mfl__media > * {
@@ -57,16 +60,16 @@
   align-items: start;
 }
 
-/* Round bordered icon badge. */
+/* Soft brand-tinted glyph tile — sits beside the big media, so it reads as a
+   quiet accent rather than a hard-bordered "icon library" chip. */
 .ks-mfl__icon {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   flex: none;
-  border-radius: var(--radius-interactive);
-  border: 1px solid var(--color-border-primary);
-  background-color: var(--color-surface-card);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-secondary);
   color: var(--color-text-brand-secondary);
 }
 

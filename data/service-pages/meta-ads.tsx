@@ -31,7 +31,6 @@ export const META_ADS: ServicePageContent = {
     title: 'Most social ads just burn budget',
     media: { image: MEDIA.productScreens.ads.src, alt: 'Keystone ad manager with a Facebook ad preview and cost per lead' },
     mediaSide: 'start',
-    panel: 'cream-strong',
     features: [
       {
         id: 'right-people',

@@ -31,7 +31,6 @@ export const SALES_TEAM: ServicePageContent = {
     title: 'Leads are only worth it if someone works them',
     media: { image: MEDIA.productScreens.sales.src, alt: 'Keystone sales workspace with lead scoring and a live conversation' },
     mediaSide: 'start',
-    panel: 'cream-strong',
     features: [
       {
         id: 'team',

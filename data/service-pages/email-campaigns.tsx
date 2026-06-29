@@ -31,7 +31,6 @@ export const EMAIL_CAMPAIGNS: ServicePageContent = {
     title: 'Your customer list is an asset you are not using',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts view with customers to re-engage' },
     mediaSide: 'end',
-    panel: 'cream',
     features: [
       {
         id: 'done-for-you',

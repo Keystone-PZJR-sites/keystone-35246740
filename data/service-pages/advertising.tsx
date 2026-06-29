@@ -31,7 +31,6 @@ export const ADVERTISING: ServicePageContent = {
     title: 'Stop guessing what your ads are doing',
     media: { image: MEDIA.productScreens.ads.src, alt: 'Keystone ad campaign manager with cost-per-lead and targeting' },
     mediaSide: 'end',
-    panel: 'cream',
     features: [
       {
         id: 'spend-pays',

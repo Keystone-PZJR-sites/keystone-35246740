@@ -5,15 +5,12 @@
 import {
   Star01,
   Globe01,
-  RefreshCcw05,
-  MarkerPin01,
   Target04,
-  BarChartSquare02,
   MessageChatCircle,
-  MessageSmileCircle,
 } from '@untitledui/icons';
 import type { IndustryPageContent } from '@/design-system/patterns/industries';
 import { MEDIA } from '@/data/media';
+import { CONCEPT } from '@/data/card-concepts';
 import { SHARED_RESOURCES, PRICING_FAQ_ANSWER } from './shared';
 
 export const NEW_BUSINESSES: IndustryPageContent = {
@@ -59,25 +56,25 @@ export const NEW_BUSINESSES: IndustryPageContent = {
     title: 'Everything a new business needs to open strong',
     items: [
       {
-        icon: <Globe01 />,
+        image: CONCEPT.website,
         title: 'Look established on day one',
         description:
           'A professional website, social, and Google profile that make a brand-new business look like a trusted local name.',
       },
       {
-        icon: <MarkerPin01 />,
+        image: CONCEPT.localSearch,
         title: 'Get found from the start',
         description:
           'Show up in local search and maps and run your first ads, so people nearby know you’re open.',
       },
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: 'Never miss your first leads',
         description:
           'A 24/7 front desk answers every call, text, and DM and books it — even before you’ve hired a soul.',
       },
       {
-        icon: <Star01 />,
+        image: CONCEPT.reviews,
         title: 'Earn your first reviews fast',
         description:
           'Turn early happy customers into the 5-star reviews that make the next ones trust you.',
@@ -236,32 +233,32 @@ export const NEW_BUSINESSES: IndustryPageContent = {
     description: 'Everything a new business needs to open strong — no add-ons, no agency.',
     items: [
       {
-        icon: <Globe01 />,
+        image: CONCEPT.website,
         title: 'Website & brand setup',
         description: 'A fast, professional site and on-brand social, built and launched for you.',
       },
       {
-        icon: <MarkerPin01 />,
+        image: CONCEPT.localSearch,
         title: 'Google profile & listings',
         description: 'A complete, accurate presence on maps and across the web from day one.',
       },
       {
-        icon: <Target04 />,
+        image: CONCEPT.ads,
         title: 'Starter ads & local search',
         description: 'Your first campaigns built and managed to bring in early customers.',
       },
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: '24/7 front desk',
         description: 'Calls, texts, and DMs answered and booked around the clock.',
       },
       {
-        icon: <Star01 />,
+        image: CONCEPT.reviews,
         title: 'First-reviews system',
         description: 'A simple way to turn early happy customers into 5-star reviews.',
       },
       {
-        icon: <BarChartSquare02 />,
+        image: CONCEPT.reporting,
         title: 'Simple reporting',
         description: 'One clear dashboard so you can see what’s working as you grow.',
       },

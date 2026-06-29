@@ -1,17 +1,14 @@
 // Health & Wellness business-type landing page (spec 050 + 053).
 
 import {
-  Star01,
-  Globe01,
-  RefreshCcw05,
   MarkerPin01,
   Target04,
-  BarChartSquare02,
   MessageChatCircle,
   MessageSmileCircle,
 } from '@untitledui/icons';
 import type { IndustryPageContent } from '@/design-system/patterns/industries';
 import { MEDIA } from '@/data/media';
+import { CONCEPT } from '@/data/card-concepts';
 import { CASE_STUDY_TESTIMONIAL_CARDS } from '@/data/shared-sections';
 import { SHARED_RESOURCES, PRICING_FAQ_ANSWER } from './shared';
 
@@ -60,25 +57,25 @@ export const HEALTH_WELLNESS: IndustryPageContent = {
     title: 'Everything your practice needs to grow',
     items: [
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: 'Fill your calendar',
         description:
           'New clients find you, book in a few taps, and get a fast reply to every inquiry — day or night.',
       },
       {
-        icon: <RefreshCcw05 />,
+        image: CONCEPT.retention,
         title: 'Keep clients coming back',
         description:
           'Automated reminders, rebookings, and re-engagement turn first visits into memberships and regulars.',
       },
       {
-        icon: <Star01 />,
+        image: CONCEPT.reviews,
         title: 'Build a five-star reputation',
         description:
           'Every happy client is asked for a review at the right moment, and your profiles stay polished everywhere.',
       },
       {
-        icon: <BarChartSquare02 />,
+        image: CONCEPT.reporting,
         title: 'See what’s working',
         description:
           'One clear dashboard shows where clients come from and what’s driving revenue this month.',
@@ -204,32 +201,32 @@ export const HEALTH_WELLNESS: IndustryPageContent = {
     description: 'No add-ons to price out. Every wellness business gets the whole system.',
     items: [
       {
-        icon: <Globe01 />,
+        image: CONCEPT.website,
         title: 'Website & online presence',
         description: 'A fast, booking-ready site plus maps and listings that stay polished everywhere.',
       },
       {
-        icon: <MessageSmileCircle />,
+        image: CONCEPT.social,
         title: 'Social media, done for you',
         description: 'On-brand posts that keep your studio top of mind and bring new clients in.',
       },
       {
-        icon: <Target04 />,
+        image: CONCEPT.ads,
         title: 'Local ads & search',
         description: 'Campaigns built, launched, and optimized to fill your calendar profitably.',
       },
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: '24/7 front desk',
         description: 'Calls, texts, and DMs answered and booked around the clock.',
       },
       {
-        icon: <Star01 />,
+        image: CONCEPT.reviews,
         title: 'Reviews & reputation',
         description: 'Five-star reviews requested at the right moment and managed for you.',
       },
       {
-        icon: <BarChartSquare02 />,
+        image: CONCEPT.reporting,
         title: 'Reporting that’s clear',
         description: 'One dashboard showing where clients come from and what’s driving revenue.',
       },

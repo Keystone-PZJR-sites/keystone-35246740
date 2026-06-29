@@ -31,7 +31,6 @@ export const SALES: ServicePageContent = {
     title: 'Most leads never get a second touch',
     media: { image: MEDIA.productScreens.sales.src, alt: 'Keystone sales conversation with lead scoring and follow-up' },
     mediaSide: 'start',
-    panel: 'cream-strong',
     features: [
       {
         id: 'reply-fast',

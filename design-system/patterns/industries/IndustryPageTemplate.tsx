@@ -114,7 +114,6 @@ export interface IndustryCapabilitiesSection {
   title: ReactNode;
   media: { image: string; alt: string };
   mediaSide?: 'start' | 'end';
-  panel?: 'cream' | 'cream-strong' | 'none';
   features: MediaFeatureItem[];
 }
 
@@ -256,7 +255,6 @@ export function IndustryPageTemplate({ content }: IndustryPageTemplateProps) {
       >
         <MediaFeatureList
           media={<ServiceMedia image={capabilities.media.image} alt={capabilities.media.alt} />}
-          panel={capabilities.panel}
           mediaSide={capabilities.mediaSide}
           features={capabilities.features}
         />
@@ -278,6 +276,7 @@ export function IndustryPageTemplate({ content }: IndustryPageTemplateProps) {
               title: step.title,
               description: step.description,
               media: <ServiceMedia image={step.image} alt={step.alt} />,
+              panel: 'none',
             }))}
           />
         </ContentSection>

@@ -31,7 +31,6 @@ export const CONTENT_MARKETING: ServicePageContent = {
     title: 'Showing up takes more than a website',
     media: { image: MEDIA.productScreens.content.src, alt: 'Keystone blog post generator and content scheduler' },
     mediaSide: 'start',
-    panel: 'cream-strong',
     features: [
       {
         id: 'for-search',

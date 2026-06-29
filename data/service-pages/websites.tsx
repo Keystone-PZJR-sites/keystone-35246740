@@ -32,7 +32,6 @@ export const WEBSITES: ServicePageContent = {
     title: 'Your website could be driving more sales',
     media: { image: MEDIA.productScreens.web.src, alt: 'Keystone website management dashboard' },
     mediaSide: 'start',
-    panel: 'cream',
     features: [
       {
         id: 'proven-design',

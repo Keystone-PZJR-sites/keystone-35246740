@@ -31,7 +31,6 @@ export const REVIEWS: ServicePageContent = {
     title: 'Reviews are how local customers decide',
     media: { image: MEDIA.productScreens.reviews.src, alt: 'Keystone listings and reviews dashboard with a Google Business Profile' },
     mediaSide: 'end',
-    panel: 'cream',
     features: [
       {
         id: 'right-moment',

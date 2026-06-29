@@ -127,6 +127,21 @@
   position: relative;
 }
 
+/* Photo / screenshot thumbnail banner above the heading (preferred over the
+   icon tile — gives the card real imagery instead of a flat glyph). */
+.ks-feature-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 6px;
+  border-radius: var(--radius-input);
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+}
+.ks-feature-card__img {
+  object-fit: cover;
+}
+
 /* Icon tile above the heading. */
 .ks-feature-card__icon {
   display: inline-flex;

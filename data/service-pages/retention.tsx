@@ -31,7 +31,6 @@ export const RETENTION: ServicePageContent = {
     title: 'Your next sale is a customer you already have',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts pipeline showing customers to re-engage' },
     mediaSide: 'end',
-    panel: 'cream',
     features: [
       {
         id: 'win-back',

@@ -17,11 +17,12 @@ export interface MediaFeatureItem {
 
 export interface MediaFeatureListProps {
   /**
-   * The product visual — an image or any block. The section frames it in a
-   * soft tinted panel; pass `panel="none"` to skip the panel.
+   * The product visual — an image or any block. By default it stands on its
+   * own (the visual carries its own rounding/shadow); pass `panel="cream"` to
+   * sit it inside a soft tinted panel.
    */
   media: ReactNode;
-  /** Tint of the soft panel behind the media. Defaults to a cream shade. */
+  /** Optional soft tinted panel behind the media. Defaults to none. */
   panel?: 'cream' | 'cream-strong' | 'none';
   /** Which side the media sits on at desktop. Defaults to start (left). */
   mediaSide?: 'start' | 'end';
@@ -37,7 +38,7 @@ export interface MediaFeatureListProps {
  */
 export function MediaFeatureList({
   media,
-  panel = 'cream',
+  panel = 'none',
   mediaSide = 'start',
   features,
 }: MediaFeatureListProps) {

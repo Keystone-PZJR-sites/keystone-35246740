@@ -2,16 +2,13 @@
 
 import {
   Star01,
-  Globe01,
-  RefreshCcw05,
   MarkerPin01,
-  Target04,
-  BarChartSquare02,
   MessageChatCircle,
   MessageSmileCircle,
 } from '@untitledui/icons';
 import type { IndustryPageContent } from '@/design-system/patterns/industries';
 import { MEDIA } from '@/data/media';
+import { CONCEPT } from '@/data/card-concepts';
 import { SHARED_RESOURCES, PRICING_FAQ_ANSWER } from './shared';
 
 export const HOME_SERVICES: IndustryPageContent = {
@@ -59,25 +56,25 @@ export const HOME_SERVICES: IndustryPageContent = {
     title: 'Built to keep your schedule full',
     items: [
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: 'Book more jobs',
         description:
           'Every call, text, and form gets answered and scheduled fast, so you win the jobs your competitors miss.',
       },
       {
-        icon: <Target04 />,
+        image: CONCEPT.ads,
         title: 'Keep the phone ringing',
         description:
           'Local ads and search put you in front of nearby homeowners exactly when they need you.',
       },
       {
-        icon: <RefreshCcw05 />,
+        image: CONCEPT.retention,
         title: 'Earn repeat & referral work',
         description:
           'Automated follow-up, maintenance reminders, and review requests turn one job into the next.',
       },
       {
-        icon: <BarChartSquare02 />,
+        image: CONCEPT.reporting,
         title: 'Know your numbers',
         description:
           'Track where jobs come from and what each channel is worth, all in one place.',
@@ -234,32 +231,32 @@ export const HOME_SERVICES: IndustryPageContent = {
     description: 'No à la carte pricing. Every trades business gets the whole system.',
     items: [
       {
-        icon: <Globe01 />,
+        image: CONCEPT.website,
         title: 'Website & online presence',
         description: 'A fast, trust-building site plus maps and listings that win the click.',
       },
       {
-        icon: <Target04 />,
+        image: CONCEPT.ads,
         title: 'Local ads & search',
         description: 'Campaigns that put you in front of homeowners ready to book.',
       },
       {
-        icon: <MessageChatCircle />,
+        image: CONCEPT.frontDesk,
         title: '24/7 lead response',
         description: 'Calls, texts, and forms answered and scheduled around the clock.',
       },
       {
-        icon: <MessageSmileCircle />,
+        image: CONCEPT.sales,
         title: 'Quotes & follow-up',
         description: 'Fast, professional quotes and persistent follow-up that close the job.',
       },
       {
-        icon: <Star01 />,
+        image: CONCEPT.reviews,
         title: 'Reviews & reputation',
         description: 'A steady stream of 5-star reviews and managed profiles.',
       },
       {
-        icon: <BarChartSquare02 />,
+        image: CONCEPT.reporting,
         title: 'Reporting that’s clear',
         description: 'See exactly where jobs come from and what each channel is worth.',
       },

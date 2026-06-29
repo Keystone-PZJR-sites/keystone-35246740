@@ -31,7 +31,6 @@ export const LOYALTY_REWARDS: ServicePageContent = {
     title: 'It costs less to keep a customer than to find one',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts view tracking loyal repeat customers' },
     mediaSide: 'start',
-    panel: 'cream-strong',
     features: [
       {
         id: 'rewards',
