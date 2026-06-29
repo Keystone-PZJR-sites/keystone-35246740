@@ -58,16 +58,28 @@ export function MobileNav({
           />
         </Link>
 
-        <button
-          type="button"
-          className="hero-nav-mobile-toggle"
-          aria-expanded={isOpen}
-          aria-controls={panelId}
-          aria-label={isOpen ? closeMenuLabel : openMenuLabel}
-          onClick={() => setIsOpen((open) => !open)}
-        >
-          {isOpen ? <XClose size={20} aria-hidden="true" /> : <Menu02 size={20} aria-hidden="true" />}
-        </button>
+        <div className="hero-nav-mobile-controls">
+          <Link
+            href={ctaHref}
+            className="hero-nav-mobile-top-cta"
+            onClick={(event) => {
+              closeMenu();
+              onGetInTouchClick(event);
+            }}
+          >
+            Get a Demo
+          </Link>
+          <button
+            type="button"
+            className="hero-nav-mobile-toggle"
+            aria-expanded={isOpen}
+            aria-controls={panelId}
+            aria-label={isOpen ? closeMenuLabel : openMenuLabel}
+            onClick={() => setIsOpen((open) => !open)}
+          >
+            {isOpen ? <XClose size={20} aria-hidden="true" /> : <Menu02 size={20} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
 
       {isOpen && (
