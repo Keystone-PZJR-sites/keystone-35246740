@@ -35,22 +35,6 @@ export const NEW_BUSINESSES: IndustryPageContent = {
     },
   },
 
-  audience: {
-    eyebrow: 'Who it’s for',
-    title: 'Built for the first chapter',
-    description: 'Wherever you are on the road to opening, Keystone meets you there.',
-    items: [
-      'Opening soon',
-      'First location',
-      'First few months',
-      'Solo founders',
-      'Side hustle going full-time',
-      'Franchise launches',
-      'New location of a growing brand',
-      'Rebrands & relaunches',
-    ],
-  },
-
   benefits: {
     eyebrow: 'Why Keystone',
     title: 'Everything a new business needs to open strong',

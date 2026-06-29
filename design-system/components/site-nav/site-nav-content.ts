@@ -51,7 +51,7 @@ export const SITE_NAV_ITEMS: NavItem[] = [
           { label: 'Health & Wellness', href: '/industries/health-wellness' },
           { label: 'Home Services', href: '/industries/home-services' },
           { label: 'New Businesses', href: '/industries/new-businesses' },
-          { label: 'Small Business', href: '/industries/small-business' },
+          { label: 'Small Businesses', href: '/industries/small-business' },
         ],
       },
     ],
