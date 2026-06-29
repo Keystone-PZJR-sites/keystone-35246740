@@ -9,53 +9,53 @@ export const CONTENT_MARKETING: ServicePageContent = {
   slug: 'content-marketing',
   metaTitle: 'Content Marketing | Keystone',
   metaDescription:
-    'Keystone plans, writes, and publishes the posts and articles that grow your search traffic and keep your business top of mind.',
+    'Keystone plans, writes, and publishes the articles that earn lasting Google traffic — so customers keep finding you long after each post goes live.',
 
   hero: {
     eyebrow: 'Content marketing',
-    title: 'Content that gets you found and remembered.',
+    title: 'Earn traffic that keeps paying you back.',
     subtitle:
-      'Keystone plans, writes, and publishes the posts and articles that grow your search traffic and keep your business top of mind.',
+      'We plan, write, and publish the articles that answer what your customers are searching for — and keep ranking long after they go live.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.espressoBar.src,
       alt: 'A barista pulling a shot of espresso',
-      statement: 'Posts and articles, planned and published. Written to rank. Keeping you top of mind.',
-      tagline: 'Content Marketing, Optimized.',
+      statement: 'Articles built around real search demand, published on schedule, ranking for years.',
+      tagline: 'Write once. Get found for years.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Showing up takes more than a website',
+    eyebrow: 'Beyond a website',
+    title: "A site alone won't get you found",
     media: { image: MEDIA.productScreens.content.src, alt: 'Keystone blog post generator and content scheduler' },
     mediaSide: 'start',
     features: [
       {
         id: 'for-search',
         icon: <SearchLg />,
-        title: 'Built for search',
-        description: 'Every piece targets what your customers are actually searching for.',
+        title: 'Aimed at real searches',
+        description: 'Every piece targets what your customers actually type into Google — not guesses.',
       },
       {
         id: 'drumbeat',
         icon: <RefreshCcw05 />,
-        title: 'A steady drumbeat',
-        description: 'Fresh posts publish on a consistent schedule — no blank months.',
+        title: 'Published like clockwork',
+        description: 'Fresh articles ship on a steady schedule, so your search footprint keeps growing.',
       },
       {
         id: 'your-voice',
         icon: <Award01 />,
-        title: 'In your voice',
-        description: 'Content sounds like you, reviewed by your team before it goes live.',
+        title: 'In your voice, on your terms',
+        description: 'Written to sound like you and approved by your team before anything publishes.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
-    title: 'Content that compounds over time',
+    eyebrow: 'The compounding',
+    title: 'Content that pays off for years',
     columns: 2,
     tiles: [
       {
@@ -67,7 +67,7 @@ export const CONTENT_MARKETING: ServicePageContent = {
         },
         aspect: 12 / 5,
         eyebrow: 'Evergreen',
-        title: 'Articles that keep earning traffic for years.',
+        title: 'Articles that keep pulling in traffic for years.',
         colSpan: 2,
       },
       {
@@ -75,15 +75,15 @@ export const CONTENT_MARKETING: ServicePageContent = {
         background: { kind: 'solid', tone: 'ink' },
         mock: 'metric',
         eyebrow: 'Always publishing',
-        title: 'A calendar that never goes quiet.',
-        caption: 'A planned, approved schedule keeps your business visible every week.',
+        title: 'A schedule that never goes dark.',
+        caption: 'A planned, approved calendar keeps you visible week after week.',
       },
       {
         id: 'real-demand',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'search',
         eyebrow: 'Search-led',
-        title: 'Topics chosen from real search demand.',
+        title: 'Topics pulled from real Google demand.',
       },
     ],
   },
@@ -114,7 +114,7 @@ export const CONTENT_MARKETING: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Start showing up where it counts',
+    title: 'Get found by customers already searching',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

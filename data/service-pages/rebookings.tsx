@@ -9,52 +9,52 @@ export const REBOOKINGS: ServicePageContent = {
   slug: 'rebookings',
   metaTitle: 'Rebookings | Keystone',
   metaDescription:
-    'Keystone reminds customers to come back and makes rebooking effortless — so your schedule stays full without the chasing.',
+    "Keystone reminds customers when it's time to come back and makes rebooking a single tap — so your calendar stays full without the chasing.",
 
   hero: {
     eyebrow: 'Rebookings',
-    title: 'Fill your calendar with repeat visits.',
+    title: 'A calendar that fills itself.',
     subtitle:
-      'Keystone reminds customers to come back and makes rebooking effortless — so your schedule stays full without the chasing.',
+      "We remind customers when it's time to return and make rebooking a single tap — so your schedule stays full without the chasing.",
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.bikeRepair.src,
       alt: 'A mechanic servicing a bicycle',
-      statement: 'Automatic reminders, right on schedule. One-tap rebooking. A calendar that fills itself.',
-      tagline: 'Rebookings, Optimized.',
+      statement: "Reminders timed to each customer's rhythm, rebooking down to one tap, fewer empty slots.",
+      tagline: 'Goodbye gaps. Hello regulars.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Customers mean to come back — they just need a nudge',
+    eyebrow: 'Just a nudge',
+    title: 'Customers mean to come back — they just forget',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts view used to prompt repeat bookings' },
     mediaSide: 'end',
     features: [
       {
         id: 'effortless',
         icon: <CalendarCheck01 />,
-        title: 'Effortless rebooking',
-        description: 'Customers get a simple prompt to book their next visit.',
+        title: 'Rebooking in one tap',
+        description: 'Customers get a simple prompt and book their next visit on the spot.',
       },
       {
         id: 'timed',
         icon: <Clock />,
-        title: 'Perfectly timed',
-        description: 'Reminders land right when they are due to come back.',
+        title: 'Timed to their rhythm',
+        description: 'Reminders land right when each customer is due to return.',
       },
       {
         id: 'rhythm',
         icon: <Repeat01 />,
-        title: 'A steady rhythm',
-        description: 'Turn one-time visits into a regular, predictable cadence.',
+        title: 'A steady cadence',
+        description: 'Turn one-off visits into a predictable, repeating habit.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
+    eyebrow: 'Always on',
     title: 'Keep your calendar full',
     columns: 2,
     tiles: [
@@ -96,7 +96,7 @@ export const REBOOKINGS: ServicePageContent = {
       {
         id: 'how',
         question: 'How do reminders go out?',
-        answer: 'By text and email, timed to each customer\u2019s visit cycle.',
+        answer: "By text and email, timed to each customer's visit cycle.",
       },
       {
         id: 'bug',
@@ -114,7 +114,7 @@ export const REBOOKINGS: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Keep your calendar full',
+    title: 'Keep every week booked solid',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

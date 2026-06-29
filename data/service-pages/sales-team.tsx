@@ -9,34 +9,34 @@ export const SALES_TEAM: ServicePageContent = {
   slug: 'sales-team',
   metaTitle: 'Sales Team | Keystone',
   metaDescription:
-    'Keystone gives you a trained team that works every lead — answering, following up, and booking — so your marketing actually turns into revenue.',
+    'Keystone gives you a trained team that works every lead — answering, following up, and booking — so your marketing turns into revenue.',
 
   hero: {
     eyebrow: 'Sales team',
-    title: 'A dedicated sales team, without the headcount.',
+    title: 'A full sales team, minus the payroll.',
     subtitle:
-      'Keystone gives you a trained team that works every lead — answering, following up, and booking — so your marketing actually turns into revenue.',
+      'We give you a trained team that works every lead — answering, following up, and booking — so your marketing turns into revenue.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.woodworking.src,
       alt: 'A craftsman cutting wood on a bench saw',
-      statement: 'A team working every lead end to end. Hottest leads first. More booked appointments.',
-      tagline: 'Sales Team, Optimized.',
+      statement: 'Real people working every lead end to end, hottest first, with the next appointment as the goal.',
+      tagline: 'Headcount results, without the headcount.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Leads are only worth it if someone works them',
+    eyebrow: 'Leads need working',
+    title: 'A lead nobody works is money left on the table',
     media: { image: MEDIA.productScreens.sales.src, alt: 'Keystone sales workspace with lead scoring and a live conversation' },
     mediaSide: 'start',
     features: [
       {
         id: 'team',
         icon: <Users01 />,
-        title: 'A team on every lead',
-        description: 'Trained people working your leads like they were their own.',
+        title: 'Real people on every lead',
+        description: 'Trained reps work your leads like the business is their own.',
       },
       {
         id: 'priorities',
@@ -54,7 +54,7 @@ export const SALES_TEAM: ServicePageContent = {
   },
 
   bento: {
-    eyebrow: 'The system',
+    eyebrow: 'Done for you',
     title: 'Turn leads into booked revenue',
     columns: 2,
     tiles: [
@@ -67,7 +67,7 @@ export const SALES_TEAM: ServicePageContent = {
         },
         aspect: 12 / 5,
         eyebrow: 'Done for you',
-        title: 'A sales team that runs every lead end to end.',
+        title: 'A team that runs every lead end to end.',
         colSpan: 2,
       },
       {
@@ -76,7 +76,7 @@ export const SALES_TEAM: ServicePageContent = {
         mock: 'metric',
         eyebrow: 'Priorities first',
         title: 'The hottest leads get worked first.',
-        caption: 'No more wondering who to call — the team already knows.',
+        caption: 'No more guessing who to call — the team already knows.',
       },
       {
         id: 'calendar-full',
@@ -114,7 +114,7 @@ export const SALES_TEAM: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Give every lead a sales team',
+    title: 'Give every lead a real sales team',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

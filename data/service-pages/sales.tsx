@@ -13,51 +13,51 @@ export const SALES: ServicePageContent = {
 
   hero: {
     eyebrow: 'Sales',
-    title: 'A sales team that never lets a lead go cold.',
+    title: 'Every lead worked in minutes, not someday.',
     subtitle:
-      'Keystone follows up with every lead by text and call within minutes — so the customers your marketing earns actually book.',
+      'We follow up with every lead by text and call within minutes — so the customers your marketing earns actually book.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.retailLaptop.src,
       alt: 'A retail owner working on a laptop at the counter',
-      statement: 'Every lead worked in minutes. Text and call follow-up. Nothing left to go cold.',
-      tagline: 'Sales, Optimized.',
+      statement: 'Every new lead contacted in minutes, the hottest worked first, none left to go cold.',
+      tagline: 'First to reply wins the customer.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Most leads never get a second touch',
+    eyebrow: 'Speed wins',
+    title: 'Most leads never hear back twice',
     media: { image: MEDIA.productScreens.sales.src, alt: 'Keystone sales conversation with lead scoring and follow-up' },
     mediaSide: 'start',
     features: [
       {
         id: 'reply-fast',
         icon: <Zap />,
-        title: 'Reply in minutes, every time',
+        title: 'A reply in minutes, every time',
         description:
-          'We respond to new leads instantly by text and call, while they are still paying attention.',
+          "We answer new leads instantly by text and call — while they're still paying attention.",
       },
       {
         id: 'who-is-ready',
         icon: <LineChartUp01 />,
-        title: 'Know who is ready to buy',
+        title: "Know who's ready to buy",
         description:
-          'Every lead is scored by intent, so the hottest prospects get a human touch first.',
+          'Every lead is scored by intent, so your hottest prospects get a human first.',
       },
       {
         id: 'no-lead-left',
         icon: <RefreshCcw05 />,
-        title: 'No lead left behind',
+        title: 'Nothing slips through',
         description:
-          'Automated, personal follow-up keeps nudging quiet leads until they book or opt out.',
+          'Personal, automated follow-up keeps nudging quiet leads until they book or opt out.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
+    eyebrow: 'The follow-through',
     title: 'Turn interest into booked customers',
     columns: 2,
     tiles: [
@@ -69,7 +69,7 @@ export const SALES: ServicePageContent = {
           alt: 'A focused business owner at work',
         },
         aspect: 12 / 5,
-        eyebrow: 'Text + call + chat',
+        eyebrow: 'Text • call • chat',
         title: 'Every conversation with a lead in one place.',
         colSpan: 2,
       },
@@ -79,14 +79,14 @@ export const SALES: ServicePageContent = {
         mock: 'metric',
         eyebrow: 'Lead scoring',
         title: 'Know exactly who to call first.',
-        caption: 'Intent signals flag the hottest leads so nothing high-value waits.',
+        caption: 'Intent signals flag your hottest leads so nothing high-value waits.',
       },
       {
         id: 'auto-followup',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'message',
         eyebrow: 'Always following up',
-        title: 'Follow-up that runs on its own.',
+        title: 'Follow-up that runs itself.',
         caption: 'Personal, well-timed nudges keep working long after the first reply.',
       },
     ],
@@ -118,7 +118,7 @@ export const SALES: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Never miss another lead',
+    title: 'Stop letting leads slip away',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

@@ -10,56 +10,56 @@ export const WEBSITES: ServicePageContent = {
   slug: 'websites',
   metaTitle: 'Websites | Keystone',
   metaDescription:
-    'Keystone builds your website to drive sales — proven design that grows your Google traffic, converts more visitors, and beats your competition.',
+    'Keystone designs, builds, and runs a website proven to rank on Google and turn visitors into booked customers — with improvements shipped for you.',
 
   hero: {
     eyebrow: 'Websites',
-    title: 'Websites built for sales first, style second.',
+    title: 'A website that books customers while you work.',
     subtitle:
-      'Keystone builds your site to drive sales. Our proven design grows your Google traffic, converts more visitors, and beats your competition.',
+      'We design, build, and run a site proven to climb Google and turn visitors into bookings and orders — then keep sharpening it for you.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.shopOwner.src,
       alt: 'A shop owner managing her business on a laptop',
-      statement: 'Built to sell, not just to look good. Growing your search traffic. Turning visitors into customers.',
-      tagline: 'Websites, Optimized.',
+      statement: 'Designed to convert, built to rank, and sharpened every week — without you lifting a finger.',
+      tagline: 'Built to book, not just to browse.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Your website could be driving more sales',
+    eyebrow: 'Why it converts',
+    title: 'Most local websites look fine and sell nothing',
     media: { image: MEDIA.productScreens.web.src, alt: 'Keystone website management dashboard' },
     mediaSide: 'start',
     features: [
       {
         id: 'proven-design',
         icon: <Award01 />,
-        title: 'Upgrade to our proven design',
+        title: "A design that's been proven to sell",
         description:
-          'Thousands of local businesses trust Keystone. We know exactly how to design sites that drive more bookings and orders.',
+          "We've tested what drives bookings across thousands of local businesses. Your site starts from what already works.",
       },
       {
         id: 'google-loves',
         icon: <SearchLg />,
-        title: 'Built so Google loves you',
+        title: 'Engineered to climb Google',
         description:
-          "We've analyzed the algorithm and build your site with world-class SEO that earns top rankings.",
+          'Real technical SEO is built into every page, so customers find you before they find your competitors.',
       },
       {
         id: 'always-better',
         icon: <RefreshCcw05 />,
-        title: 'A website that keeps getting better',
+        title: 'Gets sharper every month',
         description:
-          'We never stop studying what converts. When we learn something new, we add it to your site right away.',
+          'When we learn what converts, we ship it to your site — no rebuild, no change order, no extra invoice.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
-    title: "A website that's built to grow your business",
+    eyebrow: 'Under the hood',
+    title: 'A site that earns its keep',
     columns: 2,
     tiles: [
       {
@@ -70,24 +70,24 @@ export const WEBSITES: ServicePageContent = {
           alt: 'Owners reviewing work at a shop counter',
         },
         aspect: 12 / 5,
-        eyebrow: 'AI SEO',
-        title: 'We use AI to grow your SEO and Google traffic.',
+        eyebrow: 'Search-first',
+        title: 'We grow your Google traffic with AI-built SEO.',
         colSpan: 2,
       },
       {
         id: 'ordering',
         background: { kind: 'solid', tone: 'ink' },
         mock: 'product',
-        eyebrow: 'Online ordering built in',
-        title: 'A great ordering experience that grows online sales.',
+        eyebrow: 'Conversion built in',
+        title: 'Booking and ordering flows that turn clicks into customers.',
       },
       {
         id: 'best-practices',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'metric',
-        eyebrow: 'Never stops improving',
-        title: "You'll always get the latest best practices.",
-        caption: 'Every improvement we learn ships to your site automatically — no rebuilds, no extra cost.',
+        eyebrow: 'Always improving',
+        title: 'Your site never goes stale.',
+        caption: 'Every conversion win we find ships to your site automatically — no rebuilds, no extra cost.',
       },
     ],
   },
@@ -119,7 +119,7 @@ export const WEBSITES: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'The easiest way to grow your business online',
+    title: 'Turn your website into your best salesperson',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

@@ -9,53 +9,53 @@ export const GOOGLE_ADS: ServicePageContent = {
   slug: 'google-ads',
   metaTitle: 'Google Ads | Keystone',
   metaDescription:
-    'Keystone runs your Google Ads so your business shows up first when local customers search for exactly what you offer.',
+    'Keystone runs your Google Ads so you show up first when local customers search for what you do — with every dollar aimed at the clicks that book.',
 
   hero: {
     eyebrow: 'Google Ads',
-    title: 'Be there the moment they search.',
+    title: 'Show up first the second they search.',
     subtitle:
-      'Keystone runs your Google Ads so your business shows up first when local customers search for exactly what you offer.',
+      'We run your Google Ads so your business tops the results when local customers look for exactly what you offer.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.autoRepair.src,
       alt: 'A mechanic repairing a car',
-      statement: 'Top of search when they look. Budget aimed at what converts. Every click tied to a lead.',
-      tagline: 'Google Ads, Optimized.',
+      statement: 'Top of the results when intent is highest, budget aimed at the clicks that book, every dollar traced to a lead.',
+      tagline: 'Be the first thing they find.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Capture customers with high intent',
+    eyebrow: 'High intent',
+    title: 'The best leads are already looking for you',
     media: { image: MEDIA.productScreens.ads.src, alt: 'Keystone ad manager showing campaign performance and cost per lead' },
     mediaSide: 'end',
     features: [
       {
         id: 'show-up',
         icon: <SearchLg />,
-        title: 'Show up on the search',
-        description: 'Appear at the top of results when customers search for what you do.',
+        title: 'First in line',
+        description: 'Land at the top of results the moment someone searches for what you do.',
       },
       {
         id: 'intent',
         icon: <Target04 />,
-        title: 'Only pay for intent',
-        description: 'We target the searches most likely to become paying customers.',
+        title: 'Pay only for buyers',
+        description: 'We bid on the searches most likely to end in a booking — and skip the rest.',
       },
       {
         id: 'optimized',
         icon: <BarChartSquare02 />,
-        title: 'Optimized every day',
-        description: 'Bids and budget tuned continuously to lower your cost per lead.',
+        title: 'Tuned daily',
+        description: 'Bids and budget adjusted every day to drive your cost per lead down.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
-    title: 'Search ads that pay back',
+    eyebrow: 'Where it pays',
+    title: 'Search ads that pay for themselves',
     columns: 2,
     tiles: [
       {
@@ -67,22 +67,23 @@ export const GOOGLE_ADS: ServicePageContent = {
         },
         aspect: 12 / 5,
         eyebrow: 'High intent',
-        title: 'Catch customers at the moment of need.',        colSpan: 2,
+        title: 'Catch customers at the exact moment of need.',
+        colSpan: 2,
       },
       {
         id: 'efficient',
         background: { kind: 'solid', tone: 'ink' },
         mock: 'metric',
-        eyebrow: 'Efficient spend',
-        title: 'Budget aimed at what converts.',
-        caption: 'We cut the wasted clicks and feed what works.',
+        eyebrow: 'Lean spend',
+        title: 'Budget aimed only at what converts.',
+        caption: 'We cut the wasted clicks and feed the searches that book.',
       },
       {
         id: 'clear-roi',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'message',
         eyebrow: 'Clear ROI',
-        title: 'See the leads every click brings.',
+        title: 'See the leads behind every click.',
         caption: 'Each campaign ties straight to real bookings.',
       },
     ],
@@ -114,7 +115,7 @@ export const GOOGLE_ADS: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Win the search results',
+    title: 'Own the top of the search results',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

@@ -9,53 +9,53 @@ export const RETENTION: ServicePageContent = {
   slug: 'retention',
   metaTitle: 'Retention | Keystone',
   metaDescription:
-    'Keystone brings past customers back with timely email, texts, and offers — so your best growth comes from people who already love you.',
+    'Keystone brings past customers back with timely email, text, and offers — so your easiest growth comes from people who already love you.',
 
   hero: {
     eyebrow: 'Retention',
     title: 'Turn one-time customers into regulars.',
     subtitle:
-      'Keystone brings past customers back with timely email, texts, and offers — so your best growth comes from people who already love you.',
+      'We bring past customers back with timely email, text, and offers — so your easiest growth comes from people who already know you.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.pilatesStudio.src,
       alt: 'An instructor leading a pilates class',
-      statement: 'Email and text that bring people back. Offers timed just right. Loyalty that runs itself.',
-      tagline: 'Retention, Optimized.',
+      statement: 'Quiet customers spotted, the right offer sent at the right moment, loyalty that runs itself.',
+      tagline: 'Your next sale already knows your name.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Your next sale is a customer you already have',
+    eyebrow: 'Your next sale',
+    title: 'Your best customer is one you already have',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts pipeline showing customers to re-engage' },
     mediaSide: 'end',
     features: [
       {
         id: 'win-back',
         icon: <RefreshCcw05 />,
-        title: 'Win back quiet customers',
+        title: 'Win back the quiet ones',
         description:
-          'We spot customers who have gone quiet and bring them back with the right message.',
+          "We spot customers who've gone quiet and bring them back with the right message.",
       },
       {
         id: 'reward',
         icon: <Star01 />,
-        title: 'Reward loyalty',
-        description: 'Offers and rewards that give regulars a reason to keep choosing you.',
+        title: 'Give regulars a reason',
+        description: 'Offers and rewards that make choosing you again the easy call.',
       },
       {
         id: 'repeat-revenue',
         icon: <LineChartUp01 />,
         title: 'Grow repeat revenue',
-        description: 'Email and text campaigns that turn one visit into many.',
+        description: 'Email and text that turn a single visit into a habit.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
+    eyebrow: 'The flywheel',
     title: 'Keep customers coming back',
     columns: 2,
     tiles: [
@@ -76,7 +76,7 @@ export const RETENTION: ServicePageContent = {
         background: { kind: 'solid', tone: 'ink' },
         mock: 'message',
         eyebrow: 'Perfect timing',
-        title: 'Offers timed to the perfect moment.',
+        title: 'The right offer at the right moment.',
       },
       {
         id: 'loyalty',
@@ -115,7 +115,7 @@ export const RETENTION: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Bring your customers back for more',
+    title: 'Make regulars out of one-time customers',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

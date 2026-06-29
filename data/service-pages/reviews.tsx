@@ -9,33 +9,33 @@ export const REVIEWS: ServicePageContent = {
   slug: 'reviews',
   metaTitle: 'Maps & Reviews | Keystone',
   metaDescription:
-    'Keystone keeps your Google profile polished and your listings accurate, and asks every happy customer for a review at the perfect moment — so new customers find you on the map and choose you first.',
+    'Keystone asks every happy customer for a review at the right moment and keeps your Google profile sharp — so new customers find you on the map and pick you first.',
 
   hero: {
     eyebrow: 'Maps & Reviews',
-    title: 'More 5-star reviews, earned automatically.',
+    title: 'More 5-star reviews, on autopilot.',
     subtitle:
-      'Keystone asks every happy customer for a review at the perfect moment and keeps your Google profile polished — so new customers choose you first.',
+      'We ask every happy customer for a review at the right moment and keep your Google profile sharp — so new customers pick you first.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.dogGrooming.src,
       alt: 'A groomer washing a dog',
-      statement: 'Every happy customer asked. Your profile kept polished. More 5-star reviews, automatically.',
-      tagline: 'Reviews, Optimized.',
+      statement: 'Every happy customer asked at the right moment, your profile kept sharp, every review answered for you.',
+      tagline: 'Let your reputation do the selling.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Reviews are how local customers decide',
+    eyebrow: 'How customers decide',
+    title: 'Reviews are the first thing customers check',
     media: { image: MEDIA.productScreens.reviews.src, alt: 'Keystone listings and reviews dashboard with a Google Business Profile' },
     mediaSide: 'end',
     features: [
       {
         id: 'right-moment',
         icon: <Star01 />,
-        title: 'Ask at the right moment',
+        title: 'Asked at the perfect moment',
         description:
           'We request reviews right after a great experience, when customers are most likely to say yes.',
       },
@@ -44,20 +44,20 @@ export const REVIEWS: ServicePageContent = {
         icon: <Globe01 />,
         title: 'A profile that wins the click',
         description:
-          'Your Google Business Profile stays complete, current, and ahead of the competition.',
+          'Your Google Business Profile stays complete, current, and a step ahead of the competition.',
       },
       {
         id: 'respond-all',
         icon: <RefreshCcw05 />,
-        title: 'Respond to every review',
-        description: 'Thoughtful replies to every review — good or bad — handled for you.',
+        title: 'Every review answered',
+        description: 'Thoughtful replies to every review — glowing or not — handled for you.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
-    title: 'Build a reputation that sells for you',
+    eyebrow: 'Your reputation',
+    title: 'A reputation that sells while you sleep',
     columns: 2,
     tiles: [
       {
@@ -78,15 +78,15 @@ export const REVIEWS: ServicePageContent = {
         mock: 'search',
         eyebrow: 'Listings',
         title: 'Every location, one polished profile.',
-        caption: 'Hours, photos, and details stay accurate everywhere customers look.',
+        caption: 'Hours, photos, and details stay right everywhere customers look.',
       },
       {
         id: 'feedback',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'review',
         eyebrow: 'Always learning',
-        title: 'Turn feedback into your next improvement.',
-        caption: 'Patterns in your reviews surface exactly what to fix and double down on.',
+        title: 'Turn feedback into your next fix.',
+        caption: 'Patterns in your reviews show exactly what to improve and what to lean into.',
       },
     ],
   },
@@ -117,7 +117,7 @@ export const REVIEWS: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Become the top-rated choice in town',
+    title: 'Become the obvious choice in town',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

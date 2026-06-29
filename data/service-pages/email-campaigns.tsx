@@ -9,53 +9,53 @@ export const EMAIL_CAMPAIGNS: ServicePageContent = {
   slug: 'email-campaigns',
   metaTitle: 'Email Campaigns | Keystone',
   metaDescription:
-    'Keystone designs and sends the emails that keep your business top of mind — promotions, updates, and offers that drive repeat visits.',
+    'Keystone designs and sends the emails that keep your business top of mind — promotions, updates, and offers that drive repeat visits and real revenue.',
 
   hero: {
     eyebrow: 'Email campaigns',
-    title: 'Email that brings customers back.',
+    title: 'Turn your customer list into repeat revenue.',
     subtitle:
-      'Keystone designs and sends the emails that keep your business top of mind — promotions, updates, and offers that drive repeat visits.',
+      'We design, write, and send the campaigns that keep you top of mind — promotions, updates, and offers that drive customers back.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.furnitureMaker.src,
       alt: 'A woodworker crafting furniture by hand',
-      statement: 'Campaigns planned, designed, and sent. Offers timed to convert. Revenue you can measure.',
-      tagline: 'Email Campaigns, Optimized.',
+      statement: 'Campaigns designed and sent for you, offers timed to convert, revenue you can actually measure.',
+      tagline: 'Your list, finally working.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Your customer list is an asset you are not using',
+    eyebrow: 'An asset, unused',
+    title: 'Your customer list is your most valuable asset',
     media: { image: MEDIA.productScreens.leads.src, alt: 'Keystone contacts view with customers to re-engage' },
     mediaSide: 'end',
     features: [
       {
         id: 'done-for-you',
         icon: <Mail01 />,
-        title: 'Done-for-you sends',
-        description: 'We design, write, and schedule every campaign for you.',
+        title: 'Designed and sent for you',
+        description: 'We write, design, and schedule every campaign — you just approve.',
       },
       {
         id: 'right-message',
         icon: <Target04 />,
-        title: 'The right message',
-        description: 'Offers matched to the right customers at the right time.',
+        title: 'The right offer, the right time',
+        description: "Offers matched to the right customers at the moment they'll act.",
       },
       {
         id: 'drives-sales',
         icon: <BarChartSquare02 />,
         title: 'Built to drive sales',
-        description: 'Every send aims at bookings and repeat revenue, not just opens.',
+        description: 'Every send aims at bookings and repeat revenue — not just opens.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
-    title: 'Repeat business on autopilot',
+    eyebrow: 'How it runs',
+    title: 'Repeat business, on autopilot',
     columns: 2,
     tiles: [
       {
@@ -67,7 +67,8 @@ export const EMAIL_CAMPAIGNS: ServicePageContent = {
         },
         aspect: 12 / 5,
         eyebrow: 'Done for you',
-        title: 'Campaigns planned, designed, and sent.',        colSpan: 2,
+        title: 'Campaigns planned, designed, and sent.',
+        colSpan: 2,
       },
       {
         id: 'timing',
@@ -75,14 +76,14 @@ export const EMAIL_CAMPAIGNS: ServicePageContent = {
         mock: 'message',
         eyebrow: 'Right time',
         title: 'Offers timed to drive action.',
-        caption: 'We send when customers are most likely to act.',
+        caption: 'We send when customers are most ready to act.',
       },
       {
         id: 'measurable',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'metric',
         eyebrow: 'Measurable',
-        title: 'See the revenue each send brings.',
+        title: 'See the revenue behind every send.',
         caption: 'Every campaign ties back to real bookings and sales.',
       },
     ],
@@ -113,7 +114,7 @@ export const EMAIL_CAMPAIGNS: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Turn your list into revenue',
+    title: 'Turn your list into repeat revenue',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };

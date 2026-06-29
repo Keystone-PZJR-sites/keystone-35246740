@@ -9,53 +9,53 @@ export const SOCIAL_MEDIA: ServicePageContent = {
   slug: 'social-media',
   metaTitle: 'Social Media | Keystone',
   metaDescription:
-    'Keystone plans, creates, and posts to Instagram, Facebook, and TikTok — so your business stays top of mind without you touching your phone.',
+    'Keystone plans, creates, and posts to Instagram, Facebook, and TikTok in your voice — so your business stays in front of customers without you touching your phone.',
 
   hero: {
     eyebrow: 'Social media',
-    title: 'Show up everywhere your customers scroll.',
+    title: 'Always posting. Never you.',
     subtitle:
-      'Keystone plans, creates, and posts to Instagram, Facebook, and TikTok — so your business stays top of mind without you ever touching your phone.',
+      'We plan, create, and publish to Instagram, Facebook, and TikTok in your voice — so your business stays in front of customers all week long.',
     primary: { label: 'Get a free demo', href: '/get-in-touch' },
     secondary: { label: 'See how it works', href: '/how-it-works' },
     media: {
       image: MEDIA.businesses.artistStudio.src,
       alt: 'An artist painting in her studio',
-      statement: 'Daily posts. On-brand hashtags and mentions. Customized to your business.',
-      tagline: 'Social Media, Optimized.',
+      statement: 'A full content calendar, written in your voice, posted across every platform — handled end to end.',
+      tagline: 'Consistency, without the camera roll.',
     },
   },
 
   featureSection: {
-    eyebrow: 'Why it works',
-    title: 'Posting consistently is the hard part',
+    eyebrow: 'The hard part',
+    title: 'Consistency is what kills most accounts',
     media: { image: MEDIA.productScreens.social.src, alt: 'Keystone social media composer and content calendar' },
     mediaSide: 'start',
     features: [
       {
         id: 'calendar',
         icon: <Calendar />,
-        title: 'An always-on calendar',
-        description: 'A steady stream of posts scheduled across every platform — never a quiet week.',
+        title: 'A calendar that never goes quiet',
+        description: 'A steady stream of posts scheduled across every platform — no dry spells, no scrambling.',
       },
       {
         id: 'voice',
         icon: <MessageSmileCircle />,
-        title: 'Content in your voice',
-        description: 'Captions and creative that sound like you, approved before they go live.',
+        title: 'Sounds exactly like you',
+        description: 'Captions and creative in your voice, yours to approve before anything goes live.',
       },
       {
         id: 'grow',
         icon: <Users01 />,
-        title: 'Built to grow your following',
-        description: 'Posts designed to get seen, saved, and shared by your local audience.',
+        title: 'Made to get seen',
+        description: 'Posts built to be saved, shared, and discovered by customers in your area.',
       },
     ],
   },
 
   bento: {
-    eyebrow: 'The system',
-    title: 'Social that works while you work',
+    eyebrow: 'How it runs',
+    title: 'Social that runs while you work',
     columns: 2,
     tiles: [
       {
@@ -67,23 +67,24 @@ export const SOCIAL_MEDIA: ServicePageContent = {
         },
         aspect: 12 / 5,
         eyebrow: 'IG • FB • TikTok',
-        title: 'One calendar across every platform.',        colSpan: 2,
+        title: 'One calendar across every platform.',
+        colSpan: 2,
       },
       {
         id: 'done-for-you',
         background: { kind: 'solid', tone: 'ink' },
         mock: 'review',
         eyebrow: 'Done for you',
-        title: 'Posts created, scheduled, and published.',
-        caption: 'From idea to live post — handled end to end by your Keystone team.',
+        title: 'Created, scheduled, posted.',
+        caption: 'From first idea to live post — handled end to end by your Keystone team.',
       },
       {
         id: 'top-of-mind',
         background: { kind: 'solid', tone: 'cream-strong' },
         mock: 'metric',
-        eyebrow: 'Stay top of mind',
+        eyebrow: 'Top of mind',
         title: 'Show up every week, automatically.',
-        caption: 'Consistency keeps your business the first one customers think of.',
+        caption: 'Stay the first name customers think of — without the weekly scramble.',
       },
     ],
   },
@@ -113,7 +114,7 @@ export const SOCIAL_MEDIA: ServicePageContent = {
   testimonials: SHARED_TESTIMONIALS_SECTION,
 
   closing: {
-    title: 'Stay top of mind on social',
+    title: 'Be everywhere your customers scroll',
     action: { label: 'Get a free demo', href: '/get-in-touch' },
   },
 };
