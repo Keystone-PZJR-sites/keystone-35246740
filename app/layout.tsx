@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
 import { config } from '@/config';
+import { IndustryPageViewTracker } from '@/design-system/tracking/IndustryPageViewTracker';
 import { DESKTOP_MEDIA, MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 
 const siteUrl =
@@ -39,6 +40,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <KeystoneRootLayout config={config}>
+      <IndustryPageViewTracker />
       {/*
        * Critical inline CSS — embedded in the raw HTML so the dark background
        * is guaranteed from byte 1, before any external stylesheet is fetched.
