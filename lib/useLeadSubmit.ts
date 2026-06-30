@@ -7,7 +7,7 @@ import {
   captureEvent,
 } from 'keystone-design-bootstrap/tracking';
 import type { FormFieldItem } from 'keystone-design-bootstrap/types';
-import { findIdentityFieldNames } from './leadFormFields';
+import { findIdentityFieldNames, findImpliedConsentFieldNames } from './leadFormFields';
 
 export type LeadSubmitState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -67,6 +67,9 @@ export function useLeadSubmit({
   // Memoise so `submit`'s identity stays stable across renders unless the
   // form definition itself changes.
   const identity = useMemo(() => findIdentityFieldNames(fields), [fields]);
+  // Required consent checkboxes have no UI in the modal (the "By submitting you
+  // agree…" copy stands in for them), so submission itself is the consent.
+  const consentFieldNames = useMemo(() => findImpliedConsentFieldNames(fields), [fields]);
 
   const submit = useCallback(
     async (values: Record<string, string>) => {
@@ -80,15 +83,25 @@ export function useLeadSubmit({
           tos_privacy_consent: true,
         };
         if (formId !== undefined) payload.form_id = formId;
+        // Implied consent: the modal renders no checkbox, so send `true` for any
+        // required consent field the form omits (the backend coerces "true").
+        for (const name of consentFieldNames) {
+          if (!payload[name]) payload[name] = 'true';
+        }
 
         const response = await fetch('/api/form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-        const result = parseFormResponse(await response.json());
+        // Tolerate a non-JSON / empty error body (e.g. a gateway 5xx).
+        const raw = await response.json().catch(() => null);
+        const result = parseFormResponse(raw);
 
-        if (!result.success) {
+        // A non-2xx response must NEVER reach the success ("Thank you") state, even
+        // if the body omits `success: false`. Guard on the HTTP status as well as
+        // the parsed flag so a backend rejection always surfaces as an error.
+        if (!response.ok || !result.success) {
           setErrorMessage(result.error ?? DEFAULT_ERROR);
           setState('error');
           return;
@@ -116,7 +129,7 @@ export function useLeadSubmit({
         setState('error');
       }
     },
-    [formId, identity.emailFieldName, identity.phoneFieldName, onSuccess],
+    [formId, identity.emailFieldName, identity.phoneFieldName, consentFieldNames, onSuccess],
   );
 
   return { state, errorMessage, submit };
