@@ -12,6 +12,7 @@ type RouteRule = {
 type FbqFn = (method: string, ...args: unknown[]) => void;
 type PixelTrackerWindow = Window & {
   fbq?: FbqFn;
+  __ks_pixel_ids?: string[];
   __ks_pageview_fallback_fired?: Record<string, true>;
   __ks_viewcontent_fired?: Record<string, true>;
 };
