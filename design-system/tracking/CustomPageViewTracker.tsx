@@ -146,6 +146,23 @@ export function CustomPageViewTracker() {
         firePixelEvent('ViewContent', customRouteParams);
         state.__ks_viewcontent_fired[routeKey] = true;
       }
+
+      // Emit one delayed diagnostics heartbeat per route so each real landing
+      // generates at least one PostHog log after providers are initialized.
+      window.setTimeout(() => {
+        const latestState = getWindowState();
+        log(
+          'tracking-health',
+          'CLIENT_TRACKING_HEARTBEAT',
+          {
+            pathname,
+            routeKey,
+            fbqReady: typeof latestState?.fbq === 'function',
+            pixelIds: latestState?.__ks_pixel_ids?.length ?? 0,
+          },
+          { shipToPostHog: true }
+        );
+      }, 2000);
     }
 
     runTracking();
