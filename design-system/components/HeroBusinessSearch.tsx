@@ -148,7 +148,7 @@ export function HeroBusinessSearch({
   const isDesktop = variant === 'desktop';
 
   return (
-    <div className={clsx('relative w-full', isDesktop && 'max-w-xl', className)}>
+    <div className={clsx('relative w-full', isDesktop ? 'max-w-xl' : 'max-w-md', className)}>
       <div
         className={clsx(
           'flex items-center bg-[var(--color-surface-card)] transition-shadow',
@@ -196,14 +196,14 @@ export function HeroBusinessSearch({
           aria-label={buttonLabel}
           className={clsx(
             "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[var(--color-hero-accent)] font-['FK_Grotesk_Neue',sans-serif] tracking-[-0.01em] text-[var(--color-hero-bg)] transition-colors hover:bg-[var(--color-hero-accent-hover)]",
-            isDesktop ? 'h-12 px-5 text-base' : 'h-11 px-3.5 text-sm',
+            isDesktop ? 'h-12 px-5 text-base' : 'h-11 px-3.5 text-base',
           )}
         >
           {searching ? (
             <SearchingDots />
           ) : (
             <>
-              {isDesktop && <span>{buttonLabel}</span>}
+              <span>{buttonLabel}</span>
               <ArrowNarrowRight size={isDesktop ? 18 : 16} color="var(--color-hero-bg)" />
             </>
           )}

@@ -14,6 +14,10 @@ export interface HomePageContent {
     searchPlaceholder: string;
     /** Label/aria-label for the Grader search submit button. */
     searchButtonLabel: string;
+    /** Shorter mobile placeholder for the Grader search field. */
+    mobileSearchPlaceholder: string;
+    /** Shorter mobile label/aria-label for the Grader search submit button. */
+    mobileSearchButtonLabel: string;
   };
   everyChannel: {
     line1: string;
@@ -40,7 +44,9 @@ export const HOME_PAGE: HomePageContent = {
     headline: 'The best growth system for local businesses.',
     subheadline: 'Keystone runs your sales and marketing while you run your business.',
     searchPlaceholder: 'Find your business',
-    searchButtonLabel: 'Get my AI deepscan',
+    searchButtonLabel: 'Free custom marketing report',
+    mobileSearchPlaceholder: 'Find your business',
+    mobileSearchButtonLabel: 'Get report',
   },
   everyChannel: {
     line1: 'Ads to sales.',

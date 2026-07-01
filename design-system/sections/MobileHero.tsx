@@ -13,6 +13,8 @@ export interface MobileHeroProps {
   /** Placeholder + button label for the Grader search field. */
   searchPlaceholder: string;
   searchButtonLabel: string;
+  mobileSearchPlaceholder: string;
+  mobileSearchButtonLabel: string;
   /** Ordered array of clips — same six-clip autoloop sequence as desktop.
    *  WebM is served to browsers that support it; MP4 is the fallback.
    *  `poster` is the base path for the responsive WebP still. */
@@ -38,8 +40,8 @@ export interface MobileHeroProps {
 export function MobileHero({
   headline,
   subheadline,
-  searchPlaceholder,
-  searchButtonLabel,
+  mobileSearchPlaceholder,
+  mobileSearchButtonLabel,
   videoSrcs,
   markColor,
 }: MobileHeroProps) {
@@ -188,8 +190,8 @@ export function MobileHero({
           <HeroBusinessSearch
             variant="mobile"
             menuPlacement="up"
-            placeholder={searchPlaceholder}
-            buttonLabel={searchButtonLabel}
+            placeholder={mobileSearchPlaceholder}
+            buttonLabel={mobileSearchButtonLabel}
             className="mt-6"
           />
         </div>
