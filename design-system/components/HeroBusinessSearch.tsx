@@ -13,7 +13,8 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { SearchLg, ArrowNarrowRight } from '@untitledui/icons';
 import {
-  GRADER_API_URL,
+  GRADER_SEARCH_PATHS,
+  graderSearchApiUrl,
   graderScanUrl,
   type GraderSuggestion,
 } from '@/design-system/constants/grader';
@@ -44,6 +45,21 @@ const BLUR_CLOSE_MS = 120;
 const DOT_COUNT = 3;
 const DOT_STAGGER_S = 0.16;
 const DOT_DURATION_S = 0.8;
+
+async function fetchSuggestions(query: string): Promise<GraderSuggestion[]> {
+  for (const path of GRADER_SEARCH_PATHS) {
+    try {
+      const resp = await fetch(graderSearchApiUrl(query, path), {
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
+      if (!resp.ok) continue;
+      return (await resp.json()) as GraderSuggestion[];
+    } catch {
+      // Try the next configured endpoint.
+    }
+  }
+  return [];
+}
 
 /** Animated "…" shown in the submit button while a search is in flight. */
 function SearchingDots() {
@@ -87,12 +103,7 @@ export function HeroBusinessSearch({
         return;
       }
       try {
-        const resp = await fetch(
-          `${GRADER_API_URL}/search?q=${encodeURIComponent(q)}`,
-          { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) },
-        );
-        if (!resp.ok) throw new Error(String(resp.status));
-        const data = (await resp.json()) as GraderSuggestion[];
+        const data = await fetchSuggestions(q);
         if (live) setResults(data.slice(0, MAX_RESULTS));
       } catch {
         if (live) setResults([]);

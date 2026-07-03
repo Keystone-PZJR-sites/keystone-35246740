@@ -4,11 +4,36 @@
 // Kept here (plain constants, no 'use client') so both server and client modules
 // can import the same literals.
 
-/** Public Grader web app — the deep-link target opened in a new tab. */
-export const GRADER_URL = 'https://grader.keystone.app';
+function _trimTrailingSlash(value: string): string {
+  return value.endsWith('/') ? value.slice(0, -1) : value;
+}
 
-/** Grader API — backs the hero's Google Places autocomplete via `/search`. */
-export const GRADER_API_URL = 'https://keystone-grader-api-bae48132b46d.herokuapp.com';
+function _splitCsv(value: string): string[] {
+  return value
+    .split(',')
+    .map((v) => v.trim())
+    .filter(Boolean);
+}
+
+/** Public Grader web app — the deep-link target opened in a new tab. */
+export const GRADER_URL = _trimTrailingSlash(
+  process.env.NEXT_PUBLIC_GRADER_URL ?? 'https://grader.keystone.app',
+);
+
+/** Grader API base URL (Blue Ocean backend in production). */
+export const GRADER_API_BASE_URL = _trimTrailingSlash(
+  process.env.NEXT_PUBLIC_GRADER_API_URL ??
+    'https://keystone-blue-ocean-api-f52e6c3a71af.herokuapp.com',
+);
+
+/**
+ * Search endpoint fallbacks in priority order.
+ * - New API router: /grader/search
+ * - Legacy router: /search
+ */
+export const GRADER_SEARCH_PATHS = _splitCsv(
+  process.env.NEXT_PUBLIC_GRADER_SEARCH_PATHS ?? '/grader/search,/search',
+);
 
 /** A Google Places result as returned by the Grader API `/search` endpoint. */
 export interface GraderSuggestion {
@@ -29,4 +54,9 @@ export function graderScanUrl(business: GraderSuggestion): string {
   params.set('name', business.name);
   if (business.address) params.set('address', business.address);
   return `${GRADER_URL}/?${params.toString()}`;
+}
+
+/** Build a concrete API URL for one configured search path. */
+export function graderSearchApiUrl(query: string, path: string): string {
+  return `${GRADER_API_BASE_URL}${path}?q=${encodeURIComponent(query)}`;
 }

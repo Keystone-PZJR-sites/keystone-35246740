@@ -26,6 +26,9 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           API_KEY: ${{ secrets.API_KEY }}
+          NEXT_PUBLIC_GRADER_URL: ${{ secrets.NEXT_PUBLIC_GRADER_URL }}
+          NEXT_PUBLIC_GRADER_API_URL: ${{ secrets.NEXT_PUBLIC_GRADER_API_URL }}
+          NEXT_PUBLIC_GRADER_SEARCH_PATHS: ${{ secrets.NEXT_PUBLIC_GRADER_SEARCH_PATHS }}
       
       - name: Set Cloudflare Worker Secrets
         run: |
