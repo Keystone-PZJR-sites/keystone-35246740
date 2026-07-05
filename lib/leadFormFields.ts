@@ -63,3 +63,18 @@ export function findIdentityFieldNames(
 
   return { emailFieldName, phoneFieldName };
 }
+
+/**
+ * Names of required checkbox fields the lead modal treats as implied consent.
+ *
+ * The modal has no checkbox UI — consent checkboxes render as `null` and the
+ * "By submitting you agree to our Terms & Privacy" copy stands in for them.
+ * A required consent checkbox (e.g. `tos_privacy_consent`) is therefore never
+ * collected from the DOM, so the submit path must send it as `true` explicitly
+ * or the backend rejects the submission with "Field is required".
+ */
+export function findImpliedConsentFieldNames(items: FormFieldItem[]): string[] {
+  return flattenFields(items)
+    .filter((field) => classifyField(field).kind === 'checkbox' && field.required)
+    .map((field) => field.name);
+}
