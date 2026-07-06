@@ -1,8 +1,8 @@
 // Keystone Grader entry points. The hero search calls the Grader API for Google
-// Places typeahead, then deep-links into the Grader web app — which reads these
-// params on load and starts the scan immediately (skipping its own landing).
-// Kept here (plain constants, no 'use client') so both server and client modules
-// can import the same literals.
+// Places + website typeahead, then deep-links into the Grader web app — which
+// reads these params on load and starts the scan immediately (skipping its own
+// landing). Kept here (plain constants, no 'use client') so both server and
+// client modules can import the same literals.
 
 function _trimTrailingSlash(value: string): string {
   return value.endsWith('/') ? value.slice(0, -1) : value;
@@ -35,12 +35,35 @@ export const GRADER_SEARCH_PATHS = _splitCsv(
   process.env.NEXT_PUBLIC_GRADER_SEARCH_PATHS ?? '/grader/search,/search',
 );
 
-/** A Google Places result as returned by the Grader API `/search` endpoint. */
+/** A business suggestion from the Grader `/grader/search` endpoint. */
 export interface GraderSuggestion {
-  /** Google Places place_id; empty when scanning free text the visitor typed. */
+  /** Google Places place_id or synthetic `web:{domain}`; empty for free text. */
   id: string;
   name: string;
   address: string;
+  website?: string | null;
+}
+
+export type GraderSearchResponse = {
+  places: GraderSuggestion[];
+  web: GraderSuggestion[];
+};
+
+const EMPTY_SEARCH: GraderSearchResponse = { places: [], web: [] };
+
+/** Normalize grouped `{ places, web }` and legacy flat-array responses. */
+export function normalizeGraderSearchResponse(body: unknown): GraderSearchResponse {
+  if (Array.isArray(body)) {
+    return { places: body as GraderSuggestion[], web: [] };
+  }
+  if (body && typeof body === 'object') {
+    const record = body as Record<string, unknown>;
+    return {
+      places: Array.isArray(record.places) ? (record.places as GraderSuggestion[]) : [],
+      web: Array.isArray(record.web) ? (record.web as GraderSuggestion[]) : [],
+    };
+  }
+  return EMPTY_SEARCH;
 }
 
 /**
@@ -53,6 +76,7 @@ export function graderScanUrl(business: GraderSuggestion): string {
   if (business.id) params.set('placeId', business.id);
   params.set('name', business.name);
   if (business.address) params.set('address', business.address);
+  if (business.website) params.set('website', business.website);
   return `${GRADER_URL}/?${params.toString()}`;
 }
 
