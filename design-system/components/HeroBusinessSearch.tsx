@@ -249,7 +249,7 @@ export function HeroBusinessSearch({
   let rowIndex = 0;
 
   return (
-    <div className={clsx('relative w-full', isDesktop ? 'max-w-xl' : 'max-w-md', className)}>
+    <div className={clsx('relative w-full', isDesktop ? 'max-w-[47rem]' : 'max-w-[36.5rem]', className)}>
       <div
         className={clsx(
           'flex items-center bg-[var(--color-surface-card)] transition-shadow',
