@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: false,
       },
+      // Legacy blog posts link to /contact; the site now uses /get-in-touch.
+      {
+        source: '/contact',
+        destination: '/get-in-touch',
+        permanent: true,
+      },
     ];
   },
 };
