@@ -47,6 +47,12 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: false,
       },
+      // Legacy blog posts link to /contact; the site now uses /get-in-touch.
+      {
+        source: '/contact',
+        destination: '/get-in-touch',
+        permanent: true,
+      },
       // A past version of the blog rendered relative "blog/<slug>" hrefs
       // (missing leading slash), so crawlers indexed /blog/blog/<slug> and
       // /blog/<carrier>/blog/<slug>. The bug is long fixed; permanently fold

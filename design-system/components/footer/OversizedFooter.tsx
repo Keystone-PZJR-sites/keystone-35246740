@@ -29,6 +29,8 @@ export interface OversizedFooterProps {
   rightTagline: string;
   /** Label for the second CTA button ("Get started") */
   cta2Label: string;
+  /** href for the second CTA button — links to pricing */
+  cta2Href: string;
   /** Placeholder text for the email input */
   emailPlaceholder: string;
   /** Label for the email sign-up button */
@@ -163,6 +165,7 @@ export function OversizedFooter({
   leftTagline,
   rightTagline,
   cta2Label,
+  cta2Href,
   emailPlaceholder,
   signUpLabel,
   keystoneMarkColor,
@@ -268,7 +271,7 @@ export function OversizedFooter({
           {/* ── Row 2, col 1: CTA — standalone "Get started" (no border wrapper, no Blog link) ── */}
           <div className="footer-lower-act1">
             <Link
-              href="/portal"
+              href={cta2Href}
               onMouseEnter={() => setIsCtaHovered(true)}
               onMouseLeave={() => setIsCtaHovered(false)}
               className="footer-btn-text flex h-12 shrink-0 cursor-pointer items-center px-4 gap-2 bg-[var(--color-work-chip-bg)] text-[var(--color-footer-bg)]"
