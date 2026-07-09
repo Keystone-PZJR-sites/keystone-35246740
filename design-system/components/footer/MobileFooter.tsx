@@ -59,6 +59,7 @@ function MobileFooterClip({
 export function MobileFooter({
   leftTagline,
   cta2Label,
+  cta2Href,
   emailPlaceholder,
   signUpLabel,
   cta1Href,
@@ -161,7 +162,7 @@ export function MobileFooter({
       <div className="mfooter-row-tagline">
         <p className="mfooter-tagline">{leftTagline}</p>
         <Link
-          href="/portal"
+          href={cta2Href}
           className="mfooter-cta-btn"
           onMouseEnter={() => setIsCtaHovered(true)}
           onMouseLeave={() => setIsCtaHovered(false)}

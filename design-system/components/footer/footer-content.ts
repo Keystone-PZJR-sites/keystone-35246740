@@ -17,6 +17,7 @@ export const FOOTER_COPY = {
   leftTagline: 'The modern growth team for local business.',
   rightTagline: 'Stay informed about our latest features and product releases',
   cta1Href: '/blog',
+  cta2Href: '/pricing',
   cta2Label: 'Services and pricing',
   emailPlaceholder: 'Email Address',
   signUpLabel: 'Sign Up',
