@@ -23,7 +23,15 @@ const DEAD_BLOG_SLUG_REDIRECTS: Array<{ host: string; from: string; to: string }
   { host: '(www\\.)?keystone\\.app', from: 'the-rebooking-playbook-how-local-businesses-turn-one-visit-into-months-of-repeat-customers', to: 'the-rebooking-playbook-how-local-businesses-turn-one-visit-into-months-of-repeat-revenue' },
   { host: '(www\\.)?keystone\\.app', from: 'the-front-desk-playbook-how-to-turn-walk-ins-and-phone-enquiries-and-more-revenue', to: 'the-front-desk-playbook-how-to-turn-walk-ins-and-phone-enquiries-into-booked-appointments-and-more-revenue' },
   // ── www.oasismadeleine.com ──
-  { host: '(www\\.)?oasismadeleine\\.com', from: 'monthly-mini-treatments-a-practical-luxury-routine-to-keep-your-skin-glowing-between-in-office-sessions', to: 'monthly-mini-treatments-a-practical' },
+  // NOTE (2026-07-14): several oasismadeleine posts were re-slugged to full-title
+  // slugs after the 160-char slug limit shipped; the old (short) slugs are the
+  // dead URLs now, so these map old -> new. If posts get re-slugged again, this
+  // map must be updated (or, better: move slug-rename 301s into sor-service).
+  { host: '(www\\.)?oasismadeleine\\.com', from: 'monthly-mini-treatments-a-practical', to: 'monthly-mini-treatments-a-practical-luxury-routine-to-keep-your-skin-glowing-between-in-office-sessions' },
+  { host: '(www\\.)?oasismadeleine\\.com', from: 'how-often-should-you-get', to: 'how-often-should-you-get-professional-facials-peels-and-microneedling-a-luxe-frequency-guide-for-busy-lives' },
+  { host: '(www\\.)?oasismadeleine\\.com', from: 'the-10minute-quarterly-medspa-checkin', to: 'the-10-minute-quarterly-medspa-check-in-how-a-short-consultation-protects-your-results-saves-you-time-and-keeps-your-skin-luxe' },
+  // ── blog.navigofamilyhealthnppllc.com ──
+  { host: '(blog\\.)?navigofamilyhealthnppllc\\.com', from: 'how-to-get-the-most-from-semaglutide-tirzepatide', to: 'how-to-get-the-most-from-semaglutide-tirzepatide-a-clinically-supervised-plan' },
   // ── www.leanandlovelyaesthetics.com ──
   { host: '(www\\.)?leanandlovelyaesthetics\\.com', from: 'keeping-your-face-balanced-on-glp-1-weight-loss-medications-a-nurse-practitioners-guide-to-preventing-and-treating-facial-volume-loss', to: 'keeping-your-face-balanced-on-glp-1-weight-loss-medications-a-nurse-practitioner-s-guide-to-preventing-and-treating-facial-volume-loss' },
   // ── your-health-solutions (workers.dev) ──
