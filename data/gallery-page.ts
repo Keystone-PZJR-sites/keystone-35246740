@@ -3,15 +3,17 @@
 // locations, site features) were sourced from each site's public backend
 // data — the same records the sites themselves render — so the metadata
 // stays accurate to what is live. Facts and attributes intentionally vary
-// per entry; whatever a business doesn't have is simply omitted.
+// per entry; whatever a business doesn't have is simply omitted. Attribute
+// pills mix distinctive site traits with Keystone platform capabilities
+// (sales agent, content agent, ads infra, etc.).
 
 import type { GalleryEntryContent } from '@/design-system/patterns/gallery';
 
 export const GALLERY_PAGE = {
   eyebrow: 'Gallery',
-  title: "Websites we've built",
+  title: "Sales & marketing systems we've built",
   subtitle:
-    'Real businesses, live on the Keystone platform. Browse each site right here, or take it fullscreen.',
+    'The website is the foundation — then agents, ads, and content that keep running. Browse each live system, or take it fullscreen.',
   closingTitle: 'Your business could be next',
 } as const;
 
@@ -27,7 +29,30 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Founder', value: 'Ashley Yannotta' },
       { label: 'Location', value: 'Colts Neck, NJ' },
     ],
-    attributes: ['Ten-treatment service menu', 'FAQ library', 'Live webchat', 'Lead capture'],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Ads infrastructure',
+      'Lead capture',
+    ],
+  },
+  {
+    slug: 'ciela-events',
+    name: 'CieLA Events',
+    industry: 'Boutique event planning',
+    url: 'https://keystone-site-prod-ciela-events-x3xpfctd.rahul-0b6.workers.dev',
+    story:
+      'A Beverly Hills boutique event team — planners, day-of managers, bartenders, photo booths, and décor under one roof — working celebrations across greater Los Angeles. CieLA grew out of a decade-plus photo booth company, Photo-Fun-Moments, into a full-service crew that hosts can book together or à la carte.',
+    facts: [
+      { label: 'Team', value: 'Nazy Zakhor · Liam & Josh Luxon · Talia Zakhor' },
+      { label: 'Location', value: 'Beverly Hills, CA' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Event gallery',
+      'Three service pillars',
+    ],
   },
   {
     slug: 'x2talent',
@@ -40,7 +65,12 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Founder', value: 'Carl' },
       { label: 'Team', value: 'Ex-Meta recruiting leadership' },
     ],
-    attributes: ['Role-focused service pages', 'Founder profiles', 'Live webchat'],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Role-focused pages',
+      'Founder profiles',
+    ],
   },
   {
     slug: 'face-brow-beauty-bar',
@@ -54,7 +84,13 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Locations', value: 'Midtown · Downtown · Brickell' },
       { label: 'City', value: 'Miami, FL' },
     ],
-    attributes: ['Three-location finder', 'Membership packages', 'Team of five artists', 'Blog', 'FAQ library'],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Ads infrastructure',
+      'Multi-location',
+      'Membership packages',
+    ],
   },
   {
     slug: 'ora-medical-clinic',
@@ -68,7 +104,31 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Based in', value: 'Berkeley, CA' },
       { label: 'Care model', value: 'Virtual-first' },
     ],
-    attributes: ['Telehealth-oriented design', 'Blog', 'FAQ library', 'Live webchat'],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Lead capture',
+      'Telehealth-oriented design',
+    ],
+  },
+  {
+    slug: 'davin-security',
+    name: 'Davin Security',
+    industry: 'Private security',
+    url: 'https://keystone-site-prod-davin-security-wqpbsfjs.rahul-0b6.workers.dev',
+    story:
+      "A Seattle security company built by professionals who rejected the staffing-firm model. Founded by CEO N'Vida Yotcho and COO Daniel Okenve, Davin delivers tailored, proactive protection — observation, presence, and customer service — across construction, healthcare, residential, hotel, office, and event sites in Washington.",
+    facts: [
+      { label: 'CEO', value: "N'Vida Yotcho" },
+      { label: 'COO', value: 'Daniel Okenve' },
+      { label: 'Location', value: 'Seattle, WA' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Six industry solutions',
+      'Event security packages',
+    ],
   },
   {
     slug: 'a-g-agricultural-supply',
@@ -82,7 +142,12 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Founders', value: 'Andy & Greg Liekhus' },
       { label: 'Location', value: 'Oakdale, CA' },
     ],
-    attributes: ['Product & supply catalog', 'Family team page', 'Live webchat'],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Product catalog',
+      'Family team page',
+    ],
   },
   {
     slug: 'keystone',
@@ -95,7 +160,13 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Founder', value: 'Rahul Jaswa' },
       { label: 'Headquarters', value: 'San Francisco, CA' },
     ],
-    attributes: ['Fully custom design system', 'Scroll-driven animation', 'Case studies', 'Blog', 'Live grader search'],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Ads infrastructure',
+      'Live grader search',
+      'Case studies',
+    ],
   },
   {
     slug: 'lean-lovely',
@@ -109,7 +180,12 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Medical director', value: 'Dr. Michael Lee' },
       { label: 'Location', value: 'Escondido, CA' },
     ],
-    attributes: ['Ten-service treatment menu', 'Client reviews wall', 'Blog', 'FAQ library', 'Live webchat'],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Ads infrastructure',
+      'Reviews wall',
+    ],
   },
   {
     slug: 'exsula-foods',
@@ -122,6 +198,11 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       { label: 'Owner & CEO', value: 'Martin Pytela' },
       { label: 'Locations', value: 'Carson City, NV · Tacoma & Blaine, WA' },
     ],
-    attributes: ['Wholesale product catalog', 'Ten-person team page', 'Multi-location footprint'],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Wholesale catalog',
+      'Multi-location footprint',
+    ],
   },
 ];

@@ -25,7 +25,7 @@ export const SITE_NAV_ITEMS: NavItem[] = [
       },
     ],
     promos: [
-      { copy: 'Browse live websites built on Keystone', href: '/gallery', tone: 'green' },
+      { copy: 'Browse live sales & marketing systems on Keystone', href: '/gallery', tone: 'green' },
       { copy: 'The stories behind the numbers', href: '/case-studies', tone: 'orange' },
     ],
   },

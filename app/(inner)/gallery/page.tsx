@@ -12,7 +12,7 @@ import { GALLERY_PAGE, GALLERY_ENTRIES } from '@/data/gallery-page';
 export const metadata: Metadata = {
   title: 'Gallery | Keystone',
   description:
-    'Live websites built on the Keystone platform — browse real customer sites and the businesses behind them.',
+    'Sales and marketing systems built on Keystone — website as the foundation, with agents, ads, and content on top. Browse live customer systems.',
 };
 
 export default function GalleryPage() {
@@ -24,7 +24,7 @@ export default function GalleryPage() {
         subtitle={GALLERY_PAGE.subtitle}
       />
 
-      <main className="ks-gallery" aria-label="Websites built with Keystone">
+      <main className="ks-gallery" aria-label="Sales and marketing systems built with Keystone">
         {GALLERY_ENTRIES.map((entry) => (
           <GalleryEntry key={entry.slug} content={entry} />
         ))}
