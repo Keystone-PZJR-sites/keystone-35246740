@@ -28,9 +28,9 @@ export interface NavPromoTile {
 }
 
 /**
- * A direct top-level link (Pricing, How it works). When `scrollToPricing` is
- * set, clicking scrolls to the homepage pricing area instead of navigating —
- * the `href` is the no-JS fallback.
+ * A direct top-level link (Pricing). When `scrollToPricing` is set, clicking
+ * scrolls to the homepage pricing area instead of navigating — the `href` is
+ * the no-JS fallback.
  */
 export interface NavDirectItem {
   type: 'link';

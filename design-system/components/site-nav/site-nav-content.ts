@@ -1,15 +1,34 @@
 // Shared site-navigation content: the top-level menu structure, dropdown
-// columns, promo tiles, and the Login / primary-CTA labels (Spec 034). Lives
-// in one place so the homepage, every inner page (via InnerPageShell), and the
-// /styles catalog preview all render the same nav from identical data. Hrefs
-// target existing site routes; service links point at their per-service detail
-// pages (/services/<slug>, spec 037) where one exists, and otherwise fall back
-// to the services index.
+// columns, promo tiles, and the Login / primary-CTA labels (Specs 034, 050,
+// 054). Lives in one place so the homepage, every inner page (via
+// InnerPageShell), and the /styles catalog preview all render the same nav
+// from identical data. Hrefs target existing site routes; service links point
+// at their per-service detail pages (/services/<slug>, spec 037) where one
+// exists, and otherwise fall back to the services index.
 
 import { GRADER_URL } from '../../constants/grader';
 import type { NavItem } from './types';
 
 export const SITE_NAV_ITEMS: NavItem[] = [
+  {
+    type: 'dropdown',
+    label: 'Our Work',
+    variant: 'compact',
+    categories: [
+      {
+        heading: 'Our Work',
+        links: [
+          { label: 'Gallery', href: '/gallery' },
+          { label: 'Case Studies', href: '/case-studies' },
+          { label: 'How it Works', href: '/how-it-works' },
+        ],
+      },
+    ],
+    promos: [
+      { copy: 'Browse live websites built on Keystone', href: '/gallery', tone: 'green' },
+      { copy: 'The stories behind the numbers', href: '/case-studies', tone: 'orange' },
+    ],
+  },
   {
     type: 'dropdown',
     label: 'Solutions',
@@ -67,11 +86,6 @@ export const SITE_NAV_ITEMS: NavItem[] = [
     href: '/pricing',
   },
   {
-    type: 'link',
-    label: 'How it Works',
-    href: '/how-it-works',
-  },
-  {
     type: 'dropdown',
     label: 'Company',
     variant: 'compact',
@@ -98,7 +112,6 @@ export const SITE_NAV_ITEMS: NavItem[] = [
       {
         heading: 'Resources',
         links: [
-          { label: 'Case Studies', href: '/case-studies' },
           { label: 'Blog', href: '/blog' },
           { label: 'Grader', href: GRADER_URL, external: true },
         ],

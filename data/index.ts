@@ -51,6 +51,7 @@ export {
   getCaseStudy,
   getOtherCaseStudies,
 } from './case-studies';
+export { GALLERY_PAGE, GALLERY_ENTRIES } from './gallery-page';
 export { MEDIA } from './media';
 export type {
   MediaImage,

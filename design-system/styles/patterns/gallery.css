@@ -1,0 +1,298 @@
+/* ============================================================
+   Gallery (spec 054) — live-site showcase at /gallery.
+   ============================================================
+   A vertical column of showcase entries on the shared cream
+   surface: each is a white card with a story header (industry
+   eyebrow, name, narrative, fact row, attribute pills, and a
+   top-right fullscreen control) above a framed live embed of
+   the production website. The expand control opens a fullscreen
+   takeover with a mobile / tablet / full viewport switcher.
+   Tokens only — never a raw hex.
+   ============================================================ */
+
+.gallery-page {
+  background-color: var(--color-bg-primary);
+}
+
+.ks-gallery {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(8px, 3vw, 32px) 24px clamp(48px, 7vw, 80px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 56px);
+}
+
+/* ── Showcase entry card ─────────────────────────────────── */
+
+.ks-gallery-entry {
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.ks-gallery-entry__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: clamp(24px, 4vw, 40px) clamp(20px, 4vw, 40px) clamp(20px, 3vw, 28px);
+}
+
+.ks-gallery-entry__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.ks-gallery-entry__name {
+  margin: 0;
+}
+
+.ks-gallery-entry__story {
+  margin: 0;
+  max-width: 64ch;
+}
+
+/* ── Fact row — small labeled pairs, like the case-study KPI row ── */
+
+.ks-gallery-entry__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-8);
+  margin: var(--space-2) 0 0;
+}
+
+.ks-gallery-fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ks-gallery-fact__label {
+  font-family: var(--font-body);
+  font-size: var(--type-eyebrow);
+  line-height: var(--leading-eyebrow);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.ks-gallery-fact__value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-text-primary);
+}
+
+/* ── Attribute pills ─────────────────────────────────────── */
+
+.ks-gallery-entry__attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── Live-site frame ─────────────────────────────────────── */
+
+.ks-gallery-frame {
+  position: relative;
+  border-top: 1px solid var(--color-border-tertiary);
+}
+
+.ks-gallery-frame__iframe {
+  display: block;
+  width: 100%;
+  /* ~20% taller than the original clamp(420px, 60vh, 640px). */
+  height: clamp(504px, 72vh, 768px);
+  border: 0;
+  background-color: var(--color-bg-primary);
+}
+
+.ks-gallery-frame__expand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: var(--radius-interactive);
+  background-color: var(--color-hero-bg);
+  color: var(--color-hero-text);
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.ks-gallery-frame__expand:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ks-gallery-frame__expand:focus-visible {
+  outline: 2px solid var(--color-hero-accent);
+  outline-offset: 2px;
+}
+
+/* ── Fullscreen takeover ─────────────────────────────────── */
+
+.ks-gallery-takeover {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-portal);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-hero-bg);
+  animation: ks-gallery-takeover-in var(--duration-base) var(--ease-emphasized);
+}
+
+@keyframes ks-gallery-takeover-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ks-gallery-takeover__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+}
+
+.ks-gallery-takeover__name {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-hero-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+
+.ks-gallery-takeover__viewports {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-interactive);
+  background-color: color-mix(in srgb, var(--color-hero-text) 12%, transparent);
+  flex-shrink: 0;
+}
+
+.ks-gallery-takeover__viewport {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--color-hero-text) 70%, transparent);
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  line-height: 1;
+  padding: 8px 14px;
+  border-radius: var(--radius-interactive);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.ks-gallery-takeover__viewport:hover {
+  color: var(--color-hero-text);
+}
+
+.ks-gallery-takeover__viewport--active {
+  background-color: var(--color-hero-text);
+  color: var(--color-hero-bg);
+}
+
+.ks-gallery-takeover__viewport:focus-visible {
+  outline: 2px solid var(--color-hero-accent);
+  outline-offset: 2px;
+}
+
+.ks-gallery-takeover__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  min-width: 2.5rem;
+}
+
+.ks-gallery-takeover__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background-color: color-mix(in srgb, var(--color-hero-bg) 85%, black);
+  padding: 0;
+}
+
+.ks-gallery-takeover__iframe {
+  height: 100%;
+  max-width: 100%;
+  border: 0;
+  background-color: var(--color-bg-primary);
+  transition: width var(--duration-base) var(--ease-emphasized);
+}
+
+.ks-gallery-takeover__iframe[data-viewport='mobile'],
+.ks-gallery-takeover__iframe[data-viewport='tablet'] {
+  border-inline: 1px solid color-mix(in srgb, var(--color-hero-text) 18%, transparent);
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+
+@media (width < theme(--breakpoint-md)) {
+  .ks-gallery-frame__iframe {
+    /* ~20% taller than the original min(70vh, 560px). */
+    height: min(84vh, 672px);
+  }
+
+  .ks-gallery-takeover__bar {
+    flex-wrap: wrap;
+  }
+
+  .ks-gallery-takeover__name {
+    flex: 1 1 auto;
+    order: 1;
+  }
+
+  .ks-gallery-takeover__actions {
+    order: 2;
+  }
+
+  .ks-gallery-takeover__viewports {
+    order: 3;
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-gallery-takeover {
+    animation: none;
+  }
+  .ks-gallery-frame__expand,
+  .ks-gallery-frame__expand:hover,
+  .ks-gallery-takeover__iframe {
+    transition: none;
+    transform: none;
+  }
+}
