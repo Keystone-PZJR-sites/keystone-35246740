@@ -23,6 +23,10 @@
   gap: clamp(32px, 5vw, 56px);
 }
 
+.ks-gallery .ks-pagination {
+  padding-block: var(--space-2);
+}
+
 /* ── Showcase entry card ─────────────────────────────────── */
 
 .ks-gallery-entry {

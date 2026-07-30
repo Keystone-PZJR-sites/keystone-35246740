@@ -1,0 +1,86 @@
+/* ============================================================
+   Pagination — reusable Previous / page nums / Next control.
+   Visually aligned with the blog pagination treatment: bordered
+   Prev/Next pills, brand-solid active page number. Tokens only.
+   ============================================================ */
+
+.ks-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding-top: var(--space-2);
+}
+
+.ks-pagination__btn {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  color: var(--color-text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-interactive);
+  border: 1.5px solid var(--color-border-secondary);
+  text-decoration: none;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.ks-pagination__btn:hover:not(.is-disabled) {
+  border-color: var(--color-border-brand);
+  color: var(--color-text-brand-secondary);
+}
+
+.ks-pagination__btn.is-disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.ks-pagination__numbers {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.ks-pagination__num {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-interactive);
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ks-pagination__num:hover {
+  border-color: var(--color-border-brand);
+  color: var(--color-text-brand-secondary);
+}
+
+.ks-pagination__num.is-active {
+  background-color: var(--color-bg-brand-solid);
+  color: var(--color-text-primary);
+  border-color: var(--color-bg-brand-solid);
+}
+
+.ks-pagination__ellipsis {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  color: var(--color-text-quaternary);
+  width: 36px;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-pagination__btn,
+  .ks-pagination__num {
+    transition: none;
+  }
+}

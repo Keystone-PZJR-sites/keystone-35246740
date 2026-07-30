@@ -17,6 +17,9 @@ export const GALLERY_PAGE = {
   closingTitle: 'Your business could be next',
 } as const;
 
+/** Entries shown per page on `/gallery`. */
+export const GALLERY_PAGE_SIZE = 1;
+
 export const GALLERY_ENTRIES: GalleryEntryContent[] = [
   {
     slug: 'house-of-aesthetics',

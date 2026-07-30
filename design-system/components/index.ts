@@ -53,3 +53,6 @@ export type { MarqueeProps } from './Marquee';
 
 export { HeroBusinessSearch } from './HeroBusinessSearch';
 export type { HeroBusinessSearchProps } from './HeroBusinessSearch';
+
+export { Pagination, getPageNumbers } from './Pagination';
+export type { PaginationProps } from './Pagination';

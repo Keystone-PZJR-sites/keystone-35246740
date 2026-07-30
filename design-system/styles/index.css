@@ -31,6 +31,7 @@
 @import "./components/lead-capture.css";
 @import "./components/content-cards.css";
 @import "./components/marquee.css";
+@import "./components/pagination.css";
 
 /* 5. Patterns */
 @import "./patterns/blog.css";
