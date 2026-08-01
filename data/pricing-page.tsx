@@ -122,7 +122,9 @@ export const PRICING_PAGE: PricingPageContent = {
 
   manageSubscription: {
     label: 'Manage your subscription',
-    href: '/billing',
+    // Direct portal URL (new tab) — avoids host trailingSlash redirect issues.
+    // Short path /billing also redirects here via app/billing/page.tsx.
+    href: STRIPE_BILLING_PORTAL_URL,
     note: 'Already a customer? Update payment details, view invoices, or cancel anytime.',
   },
 

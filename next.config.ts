@@ -61,22 +61,17 @@ const nextConfig: NextConfig = {
         destination: '/get-in-touch',
         permanent: true,
       },
-      // Stripe Customer Portal aliases. The canonical handler is app/billing/route.ts
-      // (handles /billing/ under trailingSlash). These catch bare paths / aliases.
+      // Stripe Customer Portal short aliases → portal login (external).
+      // /billing itself is handled by app/billing/page.tsx (avoids trailingSlash loops).
       {
-        source: '/billing',
-        destination: '/billing/',
+        source: '/manage-subscription',
+        destination: 'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01',
         permanent: false,
       },
       {
-        source: '/manage-subscription',
-        destination: '/billing/',
-        permanent: true,
-      },
-      {
         source: '/manage-subscription/',
-        destination: '/billing/',
-        permanent: true,
+        destination: 'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01',
+        permanent: false,
       },
 
       // A past version of the blog rendered relative "blog/<slug>" hrefs
