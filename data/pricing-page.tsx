@@ -12,10 +12,10 @@ import type { FeatureItem, FaqItem } from '@/design-system';
 import type { PricingPlan } from '@/design-system/patterns/pricing';
 import { SHARED_TESTIMONIALS_SECTION } from '@/data/shared-sections';
 
-/** Stripe Payment Links from the sales playbook. */
+/** Stripe Payment Links (custom domain pay.keystone.app). */
 export const STRIPE_PAYMENT_LINKS = {
-  foundation: 'https://buy.stripe.com/fZucN6fhC7vhe6j5ux0VO02',
-  system: 'https://buy.stripe.com/4gMaEY5H2g1N3rF1eh0VO01',
+  foundation: 'https://pay.keystone.app/b/fZucN6fhC7vhe6j5ux0VO02',
+  system: 'https://pay.keystone.app/b/4gMaEY5H2g1N3rF1eh0VO01',
 } as const;
 
 /**
@@ -23,7 +23,7 @@ export const STRIPE_PAYMENT_LINKS = {
  * invoices, and cancellation here. Site path `/billing` redirects to this.
  */
 export const STRIPE_BILLING_PORTAL_URL =
-  'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01';
+  'https://pay.keystone.app/p/login/fZucN67Pa3f14vJ5ux0VO00';
 
 /**
  * Absolute return URLs to paste into each Stripe Payment Link

@@ -65,12 +65,12 @@ const nextConfig: NextConfig = {
       // /billing itself is handled by app/billing/page.tsx (avoids trailingSlash loops).
       {
         source: '/manage-subscription',
-        destination: 'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01',
+        destination: 'https://pay.keystone.app/p/login/fZucN67Pa3f14vJ5ux0VO00',
         permanent: false,
       },
       {
         source: '/manage-subscription/',
-        destination: 'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01',
+        destination: 'https://pay.keystone.app/p/login/fZucN67Pa3f14vJ5ux0VO00',
         permanent: false,
       },
 
