@@ -61,16 +61,21 @@ const nextConfig: NextConfig = {
         destination: '/get-in-touch',
         permanent: true,
       },
-      // Stripe Customer Portal (subscription self-serve). Temporary so the
-      // portal login URL can change without fighting cached permanent redirects.
+      // Stripe Customer Portal aliases. The canonical handler is app/billing/route.ts
+      // (handles /billing/ under trailingSlash). These catch bare paths / aliases.
       {
         source: '/billing',
-        destination: 'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01',
+        destination: '/billing/',
         permanent: false,
       },
       {
         source: '/manage-subscription',
-        destination: '/billing',
+        destination: '/billing/',
+        permanent: true,
+      },
+      {
+        source: '/manage-subscription/',
+        destination: '/billing/',
         permanent: true,
       },
 
