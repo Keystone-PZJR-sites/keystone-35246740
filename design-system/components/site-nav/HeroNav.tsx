@@ -31,6 +31,7 @@ export function HeroNav({
   loginLabel,
   loginHref,
   ctaLabel,
+  ctaHref,
   wordmarkColor = 'var(--color-hero-accent,#6ecc8b)',
   openMenuLabel,
   closeMenuLabel,
@@ -94,6 +95,7 @@ export function HeroNav({
         loginLabel={loginLabel}
         loginHref={loginHref}
         ctaLabel={ctaLabel}
+        ctaHref={ctaHref}
         wordmarkColor={wordmarkColor}
       />
       <MobileNav
@@ -101,6 +103,7 @@ export function HeroNav({
         loginLabel={loginLabel}
         loginHref={loginHref}
         ctaLabel={ctaLabel}
+        ctaHref={ctaHref}
         wordmarkColor={wordmarkColor}
         openMenuLabel={openMenuLabel}
         closeMenuLabel={closeMenuLabel}

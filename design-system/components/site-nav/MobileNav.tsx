@@ -4,27 +4,33 @@ import { useCallback, useId, useState } from 'react';
 import Link from 'next/link';
 import { ArrowNarrowRight, ChevronDown, Menu02, XClose } from '@untitledui/icons';
 import { KeystoneWordmark } from '@/design-system/primitives';
-import { useGetInTouchCta } from '@/design-system/hooks/useGetInTouchCta';
 import { useScrollToPricing } from './useScrollToPricing';
 import type { HeroNavProps, NavItem } from './types';
 
 type MobileNavProps = Pick<
   HeroNavProps,
-  'items' | 'loginLabel' | 'loginHref' | 'ctaLabel' | 'wordmarkColor' | 'openMenuLabel' | 'closeMenuLabel'
+  | 'items'
+  | 'loginLabel'
+  | 'loginHref'
+  | 'ctaLabel'
+  | 'ctaHref'
+  | 'wordmarkColor'
+  | 'openMenuLabel'
+  | 'closeMenuLabel'
 >;
 
 /**
  * Mobile nav (<985px): a compact dark rounded bar with a circular green menu
- * button. Opening reveals a calm light panel below the bar. Services, Company,
- * and Resources are accordion rows — only one open at a time. Pricing and
- * "How it works" are direct links. Nested content reuses the desktop category
- * and link labels, without promo tiles (Spec 034).
+ * button. Opening reveals a calm light panel below the bar. Dropdown groups
+ * are accordion rows — only one open at a time. Nested content reuses the
+ * desktop category and link labels, without promo tiles (Spec 034).
  */
 export function MobileNav({
   items,
   loginLabel,
   loginHref,
   ctaLabel,
+  ctaHref,
   wordmarkColor = 'var(--color-hero-accent,#6ecc8b)',
   openMenuLabel = 'Open navigation menu',
   closeMenuLabel = 'Close navigation menu',
@@ -32,7 +38,7 @@ export function MobileNav({
   const panelId = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [openRow, setOpenRow] = useState<string | null>(null);
-  const { href: ctaHref, onGetInTouchClick } = useGetInTouchCta();
+  const showLogin = Boolean(loginLabel && loginHref);
 
   const closeMenu = useCallback(() => {
     setIsOpen(false);
@@ -59,15 +65,8 @@ export function MobileNav({
         </Link>
 
         <div className="hero-nav-mobile-controls">
-          <Link
-            href={ctaHref}
-            className="hero-nav-mobile-top-cta"
-            onClick={(event) => {
-              closeMenu();
-              onGetInTouchClick(event);
-            }}
-          >
-            Get a Demo
+          <Link href={ctaHref} className="hero-nav-mobile-top-cta" onClick={closeMenu}>
+            {ctaLabel}
           </Link>
           <button
             type="button"
@@ -98,17 +97,12 @@ export function MobileNav({
           </ul>
 
           <div className="hero-nav-mobile-actions">
-            <Link href={loginHref} className="hero-nav-mobile-login" onClick={closeMenu}>
-              {loginLabel}
-            </Link>
-            <Link
-              href={ctaHref}
-              className="hero-nav-mobile-cta"
-              onClick={(event) => {
-                closeMenu();
-                onGetInTouchClick(event);
-              }}
-            >
+            {showLogin ? (
+              <Link href={loginHref!} className="hero-nav-mobile-login" onClick={closeMenu}>
+                {loginLabel}
+              </Link>
+            ) : null}
+            <Link href={ctaHref} className="hero-nav-mobile-cta" onClick={closeMenu}>
               {ctaLabel}
               <ArrowNarrowRight size={16} aria-hidden="true" />
             </Link>

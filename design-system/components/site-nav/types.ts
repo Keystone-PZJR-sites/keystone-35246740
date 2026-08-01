@@ -56,11 +56,16 @@ export type NavItem = NavDirectItem | NavDropdownItem;
 export interface HeroNavProps {
   /** Centered top-level navigation, in order. */
   items: NavItem[];
-  /** Right-side secondary link. */
-  loginLabel: string;
-  loginHref: string;
-  /** Right-side primary CTA. Behaves like every other "Get in touch" CTA on the site. */
+  /**
+   * Optional right-side secondary link (formerly Login). When omitted, the
+   * login control is not rendered on desktop or mobile.
+   */
+  loginLabel?: string;
+  loginHref?: string;
+  /** Right-side primary CTA label (e.g. "Get Started"). */
   ctaLabel: string;
+  /** Right-side primary CTA destination (e.g. `/pricing`). */
+  ctaHref: string;
   /** Keystone wordmark color. */
   wordmarkColor?: string;
   /** Accessible label for the mobile menu toggle when closed/open. */

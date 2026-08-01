@@ -124,6 +124,9 @@ export const SITE_NAV_ITEMS: NavItem[] = [
   },
 ];
 
+/** @deprecated Login removed from the site nav (spec 055 follow-up). Kept for catalog previews. */
 export const SITE_NAV_LOGIN_LABEL = 'Login';
+/** @deprecated Login removed from the site nav. Kept for catalog previews. */
 export const SITE_NAV_LOGIN_HREF = '/portal';
-export const SITE_NAV_CTA_LABEL = 'Get a free demo';
+export const SITE_NAV_CTA_LABEL = 'Get Started';
+export const SITE_NAV_CTA_HREF = '/pricing';

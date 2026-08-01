@@ -30,9 +30,8 @@ import {
   FOOTER_VIDEOS_DESKTOP,
   FOOTER_VIDEOS_MOBILE,
   SITE_NAV_ITEMS,
-  SITE_NAV_LOGIN_LABEL,
-  SITE_NAV_LOGIN_HREF,
   SITE_NAV_CTA_LABEL,
+  SITE_NAV_CTA_HREF,
   SpotlightCard,
   CardGrid,
   CardGridItem,
@@ -760,9 +759,8 @@ function SiteNavPreview() {
   return (
     <HeroNav
       items={SITE_NAV_ITEMS}
-      loginLabel={SITE_NAV_LOGIN_LABEL}
-      loginHref={SITE_NAV_LOGIN_HREF}
       ctaLabel={SITE_NAV_CTA_LABEL}
+      ctaHref={SITE_NAV_CTA_HREF}
       wordmarkColor="var(--color-hero-accent,#6ecc8b)"
       openMenuLabel="Open menu"
       closeMenuLabel="Close menu"

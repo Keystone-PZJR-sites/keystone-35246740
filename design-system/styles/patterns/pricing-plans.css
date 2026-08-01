@@ -153,3 +153,72 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+/* ── Post-purchase success modal ── */
+
+.ks-purchase-success {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-portal);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  pointer-events: auto;
+}
+
+.ks-purchase-success__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 32, 25, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.ks-purchase-success__card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 520px);
+  max-height: min(90lvh, 640px);
+  overflow-y: auto;
+  padding: clamp(28px, 5vw, 40px);
+  padding-top: clamp(48px, 7vw, 56px);
+  border-radius: 20px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  box-shadow: 0 10px 30px rgba(4, 32, 25, 0.2);
+}
+
+.ks-purchase-success__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.ks-purchase-success__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.ks-purchase-success__body,
+.ks-purchase-success__questions {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-secondary);
+}
+
+.ks-purchase-success__questions {
+  margin-top: var(--space-4);
+}
+
+.ks-purchase-success__email {
+  color: var(--color-text-brand-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}

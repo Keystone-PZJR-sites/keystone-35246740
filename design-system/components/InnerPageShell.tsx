@@ -13,9 +13,8 @@ import { getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api'
 import {
   HeroNav,
   SITE_NAV_ITEMS,
-  SITE_NAV_LOGIN_LABEL,
-  SITE_NAV_LOGIN_HREF,
   SITE_NAV_CTA_LABEL,
+  SITE_NAV_CTA_HREF,
 } from './site-nav';
 import { LeadCaptureProvider } from './LeadCaptureModal';
 import { LEAD_CAPTURE_COPY } from './lead-capture-content';
@@ -42,9 +41,8 @@ export async function InnerPageShell({ children }: InnerPageShellProps) {
         <HeroNav
           wordmarkColor="var(--color-hero-accent,#6ecc8b)"
           items={SITE_NAV_ITEMS}
-          loginLabel={SITE_NAV_LOGIN_LABEL}
-          loginHref={SITE_NAV_LOGIN_HREF}
           ctaLabel={SITE_NAV_CTA_LABEL}
+          ctaHref={SITE_NAV_CTA_HREF}
         />
         {children}
         <OversizedFooter {...FOOTER_COPY} {...social} {...FOOTER_VIDEOS_DESKTOP} />

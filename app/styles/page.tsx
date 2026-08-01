@@ -14,9 +14,8 @@ import {
   LeadCaptureProvider,
   LEAD_CAPTURE_COPY,
   SITE_NAV_ITEMS,
-  SITE_NAV_LOGIN_LABEL,
-  SITE_NAV_LOGIN_HREF,
   SITE_NAV_CTA_LABEL,
+  SITE_NAV_CTA_HREF,
 } from '@/design-system/components';
 import { StylesCatalog } from './StylesCatalog';
 
@@ -33,9 +32,8 @@ export default function StylesCatalogPage() {
         <HeroNav
           wordmarkColor="var(--color-hero-accent,#6ecc8b)"
           items={SITE_NAV_ITEMS}
-          loginLabel={SITE_NAV_LOGIN_LABEL}
-          loginHref={SITE_NAV_LOGIN_HREF}
           ctaLabel={SITE_NAV_CTA_LABEL}
+          ctaHref={SITE_NAV_CTA_HREF}
         />
 
         <main className="max-w-container mx-auto px-6 pb-24 pt-24 md:px-12 md:pt-28">

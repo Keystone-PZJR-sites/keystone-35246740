@@ -12,6 +12,7 @@ export {
   SITE_NAV_LOGIN_LABEL,
   SITE_NAV_LOGIN_HREF,
   SITE_NAV_CTA_LABEL,
+  SITE_NAV_CTA_HREF,
 } from './site-nav';
 export type {
   HeroNavProps,

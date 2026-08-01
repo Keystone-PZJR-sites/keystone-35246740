@@ -58,6 +58,13 @@ export interface PricingPageContent {
     primaryHref: string;
     secondaryLabel: string;
     secondaryHref: string;
+    modal: {
+      title: string;
+      body: string;
+      questionsLead: string;
+      supportEmail: string;
+      closeLabel: string;
+    };
   };
   cancel: {
     title: string;
@@ -216,11 +223,19 @@ export const PRICING_PAGE: PricingPageContent = {
       default: 'You are in — welcome to Keystone',
     },
     subtitle:
-      'Thanks for subscribing. We will reach out shortly to kick off setup. Most sites are live within a week.',
+      'Thanks for subscribing. We will email you within 1 business day to activate your account and start onboarding.',
     primaryLabel: 'See example work',
     primaryHref: '/gallery',
     secondaryLabel: 'Read case studies',
     secondaryHref: '/case-studies',
+    modal: {
+      title: 'Welcome to Keystone',
+      body:
+        'Keystone will reach out to the email you used to sign up to activate your account and start onboarding within the next 1 business day.',
+      questionsLead: 'Please reach out to',
+      supportEmail: 'growthpartners@keystone.app',
+      closeLabel: 'Close welcome message',
+    },
   },
 
   cancel: {
