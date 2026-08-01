@@ -32,7 +32,12 @@ export {
   SHARED_PRICING_SECTION_PROPS,
   SHARED_MOBILE_PRICING_SECTION_PROPS,
 } from './shared-sections';
-export { PRICING_PAGE } from './pricing-page';
+export {
+  PRICING_PAGE,
+  STRIPE_PAYMENT_LINKS,
+  STRIPE_RETURN_URLS,
+  STRIPE_BILLING_PORTAL_URL,
+} from './pricing-page';
 export type { PricingPageContent } from './pricing-page';
 export { HOW_IT_WORKS_PAGE } from './how-it-works-page';
 export type { HowItWorksPageContent, HowItWorksStep } from './how-it-works-page';

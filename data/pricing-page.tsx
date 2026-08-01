@@ -1,203 +1,129 @@
-// Authored content for the /pricing page (spec 039).
-// The page file composes design-system sections and feeds them this data —
-// nothing is hardcoded inside the components. The price summary itself is fed
-// from the shared homepage pricing content (SHARED_PRICING_* in
-// ./shared-sections) so the price and included list live in one place.
-//
-// This module is .tsx because the "what's included" / "why Keystone" cards
-// carry icon glyphs (data-as-content, same pattern as the service pages).
+// Authored content for the /pricing checkout page (spec 055).
+// Two subscription plans — Foundation ($50) and Sales & Marketing ($250) —
+// each with a Stripe Payment Link. The page file composes design-system
+// sections and feeds them this data.
 
 import {
-  Globe01,
-  MessageSmileCircle,
-  SearchLg,
-  MessageChatCircle,
-  Target04,
-  Star01,
-  BarChartSquare02,
-  RefreshCcw05,
   Zap,
   CalendarCheck01,
   PhoneCall01,
 } from '@untitledui/icons';
-import type {
-  FeatureItem,
-  FaqItem,
-  TestimonialCard,
-  PricingCalcItem,
-} from '@/design-system';
+import type { FeatureItem, FaqItem } from '@/design-system';
+import type { PricingPlan } from '@/design-system/patterns/pricing';
 import { SHARED_TESTIMONIALS_SECTION } from '@/data/shared-sections';
+
+/** Stripe Payment Links from the sales playbook. */
+export const STRIPE_PAYMENT_LINKS = {
+  foundation: 'https://buy.stripe.com/fZucN6fhC7vhe6j5ux0VO02',
+  system: 'https://buy.stripe.com/4gMaEY5H2g1N3rF1eh0VO01',
+} as const;
+
+/**
+ * Stripe Customer Portal login — subscribers manage payment method,
+ * invoices, and cancellation here. Site path `/billing` redirects to this.
+ */
+export const STRIPE_BILLING_PORTAL_URL =
+  'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01';
+
+/**
+ * Absolute return URLs to paste into each Stripe Payment Link
+ * (After payment → Don't show confirmation page → Redirect to…).
+ * Production host; local testing can use http://localhost:4013 instead.
+ */
+export const STRIPE_RETURN_URLS = {
+  foundation: {
+    success: 'https://keystone.app/pricing/success?plan=foundation',
+    cancel: 'https://keystone.app/pricing/cancel?plan=foundation',
+  },
+  system: {
+    success: 'https://keystone.app/pricing/success?plan=system',
+    cancel: 'https://keystone.app/pricing/cancel?plan=system',
+  },
+} as const;
 
 export interface PricingPageContent {
   meta: { title: string; description: string };
   header: { eyebrow: string; title: string; subtitle: string };
-  /** Label for the action beneath the price summary. */
-  summaryActionLabel: string;
-  calculator: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    planName: string;
-    planNote: string;
-    basePrice: number;
-    period: string;
-    note: string;
-    actionLabel: string;
-    items: PricingCalcItem[];
-  };
-  included: { eyebrow: string; title: string; items: FeatureItem[] };
+  plans: PricingPlan[];
+  /** Link under the plan cards to the Stripe Customer Portal. */
+  manageSubscription: { label: string; href: string; note: string };
   assurances: { eyebrow: string; title: string; items: FeatureItem[] };
-  testimonials: { title: string; cards: TestimonialCard[] };
+  testimonials: { title: string; cards: typeof SHARED_TESTIMONIALS_SECTION.cards };
   faq: { eyebrow: string; title: string; items: FaqItem[] };
   closing: { title: string; actionLabel: string; actionHref: string };
+  success: {
+    titleByPlan: Record<'foundation' | 'system' | 'default', string>;
+    subtitle: string;
+    primaryLabel: string;
+    primaryHref: string;
+    secondaryLabel: string;
+    secondaryHref: string;
+  };
+  cancel: {
+    title: string;
+    subtitle: string;
+    primaryLabel: string;
+    primaryHref: string;
+    secondaryLabel: string;
+    secondaryHref: string;
+  };
 }
-
-// The extra-work catalog. Each row mirrors an included allowance below, so the
-// calculator reads as "you get N included — add more here." Prices for social
-// posts, blog posts, ads, email/text, and website updates reflect the latest
-// pricing; messages, review responses, and reports use ⚠️ PLACEHOLDER per-unit
-// prices pending real numbers. All values live here so they are easy to edit.
-const EXTRA_WORK_ITEMS: PricingCalcItem[] = [
-  {
-    id: 'social-posts',
-    label: 'Social posts',
-    description: 'Designed, captioned, and scheduled across your channels.',
-    unit: 'post',
-    unitPrice: 5,
-  },
-  {
-    id: 'blog-posts',
-    label: 'Blog posts',
-    description: 'Long-form, SEO-optimized articles written and published for you.',
-    unit: 'post',
-    unitPrice: 10,
-  },
-  {
-    id: 'messages',
-    label: 'Messages',
-    description: 'Customer messages answered for you across your channels.',
-    unit: 'message',
-    unitPrice: 1,
-  },
-  {
-    id: 'ad-campaigns',
-    label: 'Ad campaigns',
-    description: 'A new paid campaign built, launched, and optimized.',
-    unit: 'campaign',
-    unitPrice: 100,
-  },
-  {
-    id: 'email-sms',
-    label: 'Email & text campaigns',
-    description: 'A broadcast written and sent to your customer list.',
-    unit: 'campaign',
-    unitPrice: 25,
-  },
-  {
-    id: 'review-responses',
-    label: 'Review responses',
-    description: 'On-brand replies written for your customer reviews.',
-    unit: 'response',
-    unitPrice: 5,
-  },
-  {
-    id: 'reports',
-    label: 'Reports',
-    description: 'A clear performance report on what is working.',
-    unit: 'report',
-    unitPrice: 25,
-  },
-  {
-    id: 'website-updates',
-    label: 'Website updates',
-    description: 'A standard new page or a round of straightforward site changes, designed and shipped.',
-    unit: 'update',
-    unitPrice: 100,
-  },
-];
 
 export const PRICING_PAGE: PricingPageContent = {
   meta: {
     title: 'Pricing | Keystone',
     description:
-      'One simple price covers every Keystone tool. Want more work done? Only pay for what you use — no contracts. Estimate your monthly total.',
+      'Sales and marketing for independent businesses. Start with Foundation at $50/month, or the full Sales & Marketing system at $250/month. Cancel anytime.',
   },
 
   header: {
     eyebrow: 'Pricing',
-    title: 'Simple pricing that grows with you',
+    title: 'Simple plans. Real results.',
     subtitle:
-      'One price covers everything you need to run. Want more done? Only pay for the work you use — no contracts, no surprises.',
+      'Start with a custom website and marketing engine, or go all-in on ads, social, and lead follow-up. Month-to-month — cancel anytime.',
   },
 
-  summaryActionLabel: 'Get a demo',
+  plans: [
+    {
+      id: 'foundation',
+      name: 'Foundation',
+      tagline: 'Your website and marketing engine — the base every business needs.',
+      priceAmount: '$50',
+      pricePeriod: '/mo',
+      badge: 'Most popular',
+      highlighted: true,
+      features: [
+        'Custom website, built and managed for you',
+        'Ongoing SEO content published to your site',
+        'Google Maps / Business Profile optimization',
+        'Embedded website sales chat',
+        'Full marketing platform ready to expand',
+      ],
+      ctaLabel: 'Start Foundation',
+      checkoutUrl: STRIPE_PAYMENT_LINKS.foundation,
+    },
+    {
+      id: 'system',
+      name: 'Sales & Marketing',
+      tagline: 'The full always-on system — Foundation plus acquisition and follow-up.',
+      priceAmount: '$250',
+      pricePeriod: '/mo',
+      features: [
+        'Everything in Foundation',
+        'Paid ads (Meta, with Google layered in)',
+        'Social media content and posting',
+        'Newsletters and SMS blasts',
+        'CRM lead pursuit and management',
+      ],
+      ctaLabel: 'Start Sales & Marketing',
+      checkoutUrl: STRIPE_PAYMENT_LINKS.system,
+    },
+  ],
 
-  calculator: {
-    eyebrow: 'Only pay for what you use',
-    title: 'Need more work done?',
-    description:
-      'Your plan covers everything you need. When you want extra work in a given month, add it here and only pay for what you use.',
-    planName: 'Everything plan',
-    planNote: 'Every Keystone tool, included.',
-    basePrice: 249,
-    period: '/mo',
-    note: 'Every plan is month-to-month — no contracts, cancel anytime.',
-    actionLabel: 'Get a demo',
-    items: EXTRA_WORK_ITEMS,
-  },
-
-  included: {
-    eyebrow: "What's included",
-    title: 'Everything you need, every month',
-    items: [
-      {
-        icon: <Globe01 aria-hidden="true" />,
-        title: 'Your website',
-        description: 'A fast, SEO-optimized site, built and maintained for you.',
-        href: '/services/websites',
-      },
-      {
-        icon: <MessageSmileCircle aria-hidden="true" />,
-        title: '2 social posts',
-        description: 'Designed, captioned, and scheduled across your channels each month.',
-        href: '/services/social-media',
-      },
-      {
-        icon: <SearchLg aria-hidden="true" />,
-        title: '2 blog posts',
-        description: 'Long-form, SEO-optimized articles written and published each month.',
-        href: '/services/content-marketing',
-      },
-      {
-        icon: <MessageChatCircle aria-hidden="true" />,
-        title: '30 messages',
-        description: 'Customer messages answered across your channels each month.',
-        href: '/services/sales-team',
-      },
-      {
-        icon: <Target04 aria-hidden="true" />,
-        title: '1 ad campaign',
-        description: 'A paid campaign built, launched, and optimized each month.',
-        href: '/services/google-ads',
-      },
-      {
-        icon: <Star01 aria-hidden="true" />,
-        title: '2 review responses',
-        description: 'On-brand replies to your customer reviews each month.',
-        href: '/services/reviews',
-      },
-      {
-        icon: <BarChartSquare02 aria-hidden="true" />,
-        title: '2 reports',
-        description: "Clear performance reports so you always know what's working.",
-      },
-      {
-        icon: <RefreshCcw05 aria-hidden="true" />,
-        title: '1 website update',
-        description: 'A new page or a round of site changes each month.',
-        href: '/services/websites',
-      },
-    ],
+  manageSubscription: {
+    label: 'Manage your subscription',
+    href: '/billing',
+    note: 'Already a customer? Update payment details, view invoices, or cancel anytime.',
   },
 
   assurances: {
@@ -206,21 +132,21 @@ export const PRICING_PAGE: PricingPageContent = {
     items: [
       {
         icon: <Zap aria-hidden="true" />,
-        title: 'Setup & migration',
+        title: 'Live in about a week',
         description:
-          'We move everything over for you with a dedicated specialist, so you go live fast.',
+          'We typically have your website live within a week — setup and migration handled for you.',
       },
       {
         icon: <CalendarCheck01 aria-hidden="true" />,
         title: 'No long-term contracts',
         description:
-          "Month-to-month, always. You stay because it works — not because you're locked in.",
+          'Month-to-month, always. You stay because it works — not because you are locked in.',
       },
       {
         icon: <PhoneCall01 aria-hidden="true" />,
-        title: 'Real human support',
+        title: 'Dedicated account manager',
         description:
-          'A team that actually picks up, consistently rated best-in-class by the businesses we serve.',
+          'Every client gets a real human who knows digital marketing and is available when you need them.',
       },
     ],
   },
@@ -232,47 +158,76 @@ export const PRICING_PAGE: PricingPageContent = {
     title: 'Your top questions, answered',
     items: [
       {
-        id: 'included',
-        question: 'What is included for $249/month?',
+        id: 'foundation-includes',
+        question: 'What exactly is included in the $50 Foundation plan?',
         answer:
-          'Every Keystone tool: your website, CRM, ads, social, reviews, content, listings, and sales follow-up — for one price per location.',
+          'We build you a new website, manage it and make updates, and publish new content several times per month for SEO. We also optimize your Maps profile so you show up higher on local searches, and include a website sales chat. The full marketing platform is included so it is easy to add other services later.',
       },
       {
-        id: 'extra-work',
-        question: 'What do I pay for extra work?',
+        id: 'system-includes',
+        question: 'What is in the $250 Sales & Marketing plan?',
         answer:
-          'The base plan covers everything you need to run. If you want more done in a given month — extra campaigns, more content, new pages — you only pay the per-item price for what you use.',
+          'Everything in Foundation, plus ads, social media, newsletters, SMS blasts, and CRM lead pursuit and management — the full always-on sales and marketing system most single-location businesses use.',
+      },
+      {
+        id: 'one-or-other',
+        question: 'Do I need to buy both plans?',
+        answer:
+          'No. Pick one. Foundation is the starting point; Sales & Marketing is the full stack. You do not buy them as a stack of two subscriptions.',
       },
       {
         id: 'contracts',
         question: 'Are there any contracts?',
-        answer:
-          'No. Every plan is month-to-month, so you can change or cancel anytime.',
+        answer: 'No. Every plan is month-to-month, so you can change or cancel anytime.',
       },
       {
-        id: 'flat-price',
-        question: 'Is it really one flat price?',
+        id: 'cancel-website',
+        question: 'If I cancel, will I keep my website?',
         answer:
-          'Yes. $249/month per location covers the full platform. Optional extra work is the only thing that adds to it, and only when you ask for it.',
+          'We are happy to send you the code, but you will need another company to host and manage it — like building a house and then turning off the power and water.',
       },
       {
-        id: 'get-started',
-        question: 'How fast can I get started?',
+        id: 'timeline',
+        question: 'How long until the website is ready / I see results?',
         answer:
-          'Most businesses are live within a couple of weeks. We handle setup and migration for you.',
+          'We can typically have the website live in a week. Most customers see immediate conversion improvements from a professional site and sales chat. SEO and Maps visibility take a couple of months but start improving right away.',
       },
       {
-        id: 'multi-location',
-        question: 'Do you offer multi-location pricing?',
+        id: 'have-website',
+        question: 'I already have a website. Why switch?',
         answer:
-          "Yes — reach out and we'll put together pricing for multiple locations.",
+          'We rebuild everything you have into a modern marketing engine with more content, pages, and SEO configuration so you actually show up for the searches that matter — plus sales chat and the platform underneath.',
       },
     ],
   },
 
   closing: {
-    title: 'The easiest way to grow your business',
-    actionLabel: 'Get a demo',
+    title: 'Want a walkthrough before you buy?',
+    actionLabel: 'Get a free demo',
     actionHref: '/get-in-touch',
+  },
+
+  success: {
+    titleByPlan: {
+      foundation: 'You are in — Foundation is starting',
+      system: 'You are in — Sales & Marketing is starting',
+      default: 'You are in — welcome to Keystone',
+    },
+    subtitle:
+      'Thanks for subscribing. We will reach out shortly to kick off setup. Most sites are live within a week.',
+    primaryLabel: 'See example work',
+    primaryHref: '/gallery',
+    secondaryLabel: 'Read case studies',
+    secondaryHref: '/case-studies',
+  },
+
+  cancel: {
+    title: 'Checkout canceled',
+    subtitle:
+      'No charge was made. Pick a plan when you are ready, or book a quick demo if you want to talk it through first.',
+    primaryLabel: 'Back to pricing',
+    primaryHref: '/pricing',
+    secondaryLabel: 'Get a free demo',
+    secondaryHref: '/get-in-touch',
   },
 };

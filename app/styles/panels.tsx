@@ -50,7 +50,6 @@ import {
   type TestimonialCard,
   CtaBand,
   PriceSummary,
-  PricingCalculator,
   FeatureGrid,
   ProcessSteps,
   QuoteWall,
@@ -129,6 +128,7 @@ import {
   SHARED_PRICING_SUBCOPY_LINE_2,
   SHARED_PRICING_FEATURE_CHIPS,
 } from '@/data';
+import { PricingPlans } from '@/design-system/patterns/pricing';
 import {
   COLOR_FAMILIES,
   TEXT_COLORS,
@@ -1134,7 +1134,7 @@ function StepperDemo() {
 export function PricingPanel() {
   return (
     <div>
-      <PanelHeader title="Pricing" meta="spec 039 · PriceSummary · PricingCalculator · QuantityStepper · FeatureGrid" />
+      <PanelHeader title="Pricing" meta="spec 055 · PricingPlans · PriceSummary · QuantityStepper · FeatureGrid" />
 
       <Group
         label="QuantityStepper"
@@ -1146,8 +1146,19 @@ export function PricingPanel() {
       </Group>
 
       <Group
+        label="PricingPlans"
+        note="The two-plan checkout grid on /pricing: Foundation ($50) and Sales & Marketing ($250), each with a Stripe Payment Link CTA (spec 055)."
+      >
+        <PreviewFrame title="PricingPlans" surface="cream" padded={false}>
+          <div style={{ padding: '24px' }}>
+            <PricingPlans plans={PRICING_PAGE.plans} />
+          </div>
+        </PreviewFrame>
+      </Group>
+
+      <Group
         label="PriceSummary — light"
-        note="The cream price card used on the /pricing page: tagline, two-tone price, sub-copy, and the everything-included chips. No credits paragraph or add-ons."
+        note="The cream price card still used in catalogs and light contexts: tagline, two-tone price, sub-copy, and feature chips."
       >
         <PreviewFrame title="PriceSummary light" surface="cream">
           <PriceSummary
@@ -1191,29 +1202,11 @@ export function PricingPanel() {
       </Group>
 
       <Group
-        label="PricingCalculator"
-        note="The 'only pay for what you use' estimator. The included plan is the floor; each row adds quantity × unit price to a live monthly total. Prices shown are authored placeholders."
+        label="FeatureGrid — assurances"
+        note="The shared FeatureGrid used for the 'why Keystone' reassurances on /pricing."
       >
-        <PreviewFrame title="PricingCalculator" surface="cream">
-          <PricingCalculator
-            planName={PRICING_PAGE.calculator.planName}
-            planNote={PRICING_PAGE.calculator.planNote}
-            basePrice={PRICING_PAGE.calculator.basePrice}
-            period={PRICING_PAGE.calculator.period}
-            items={PRICING_PAGE.calculator.items}
-            note={PRICING_PAGE.calculator.note}
-            actionLabel={PRICING_PAGE.calculator.actionLabel}
-            actionHref="#"
-          />
-        </PreviewFrame>
-      </Group>
-
-      <Group
-        label="FeatureGrid — image / icon + link"
-        note="The shared FeatureGrid section takes an optional photo/screenshot thumbnail (preferred — see data/card-concepts.ts) OR a fallback icon tile above the heading, plus an optional href. A card with an href becomes a link to the relevant service page with a ghost ArrowUpRight cue (top-right) that warms to brand on hover. Cards without an href (e.g. the report tile) simply omit the arrow."
-      >
-        <PreviewFrame title="FeatureGrid icon + link" surface="cream">
-          <FeatureGrid items={PRICING_PAGE.included.items} />
+        <PreviewFrame title="FeatureGrid assurances" surface="cream">
+          <FeatureGrid items={PRICING_PAGE.assurances.items} />
         </PreviewFrame>
       </Group>
     </div>

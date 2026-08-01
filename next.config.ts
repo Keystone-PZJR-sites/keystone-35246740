@@ -61,6 +61,19 @@ const nextConfig: NextConfig = {
         destination: '/get-in-touch',
         permanent: true,
       },
+      // Stripe Customer Portal (subscription self-serve). Temporary so the
+      // portal login URL can change without fighting cached permanent redirects.
+      {
+        source: '/billing',
+        destination: 'https://billing.stripe.com/p/login/4gMaEY5H2g1N3rF1eh0VO01',
+        permanent: false,
+      },
+      {
+        source: '/manage-subscription',
+        destination: '/billing',
+        permanent: true,
+      },
+
       // A past version of the blog rendered relative "blog/<slug>" hrefs
       // (missing leading slash), so crawlers indexed /blog/blog/<slug> and
       // /blog/<carrier>/blog/<slug>. The bug is long fixed; permanently fold

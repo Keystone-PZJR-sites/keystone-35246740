@@ -18,10 +18,10 @@ export const SHARED_WORK_SHOWCASE_INDUSTRIES: WorkIndustry[] = WORK_INDUSTRIES;
 export const SHARED_WORK_SHOWCASE_CARDS: WorkCardData[] = WORK_CARDS;
 
 export const SHARED_PRICING_TAGLINE = 'Always-on Sales & Marketing';
-export const SHARED_PRICING_PRICE_AMOUNT = '$249 ';
+export const SHARED_PRICING_PRICE_AMOUNT = '$50 ';
 export const SHARED_PRICING_PRICE_PERIOD = '/ MONTH';
-export const SHARED_PRICING_SUBCOPY_LINE_1 = 'Per location. Every tool included.';
-export const SHARED_PRICING_SUBCOPY_LINE_2 = 'No contracts. No negotiation. Simple to scale.';
+export const SHARED_PRICING_SUBCOPY_LINE_1 = 'Foundation. Website, SEO, Maps, and sales chat.';
+export const SHARED_PRICING_SUBCOPY_LINE_2 = 'Full Sales & Marketing system from $250/mo. Cancel anytime.';
 export const SHARED_PRICING_FEATURE_CHIPS: FeatureChip[] = [
   { label: 'Your Website', iconColor: '#FF6F5C' },
   { label: 'Your CRM', iconColor: '#F297B7' },
