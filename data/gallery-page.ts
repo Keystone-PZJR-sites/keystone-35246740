@@ -40,6 +40,24 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
     ],
   },
   {
+    slug: 'drefadez',
+    name: 'DreFadez',
+    industry: 'Barber',
+    url: 'https://keystone-site-prod-drefadez-hvzjaquz.rahul-0b6.workers.dev',
+    story:
+      'A one-chair precision barber studio inside Onyx Salon in Roy, Utah — crisp fades, clean lineups, and straight-razor finishes from Top 10 Utah barber DreFadez.',
+    facts: [
+      { label: 'Recognition', value: 'Top 10 Utah barber · 2024' },
+      { label: 'Location', value: 'Roy, UT · Studio #12' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Work gallery',
+      'Online booking',
+    ],
+  },
+  {
     slug: 'ciela-events',
     name: 'CieLA Events',
     industry: 'Boutique event planning',
