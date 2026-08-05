@@ -19,8 +19,8 @@ import type { FieldErrors, RegisterOptions, UseFormRegister, UseFormRegisterRetu
 import gsap from 'gsap';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useFormDefinitions } from 'keystone-design-bootstrap/next/contexts/form-definitions';
-import type { FormFieldDefinition, FormFieldItem } from 'keystone-design-bootstrap/types';
+import { useFormDefinitions } from '@keystone-sites/widgets/next/contexts/form-definitions';
+import type { FormFieldDefinition, FormFieldItem } from 'keystone-legacy-templates/types';
 import { KeystoneMark, KeystoneWordmark } from '@/design-system/primitives';
 import { lockScroll } from '@/lib/scrollLock';
 import { classifyField } from '@/lib/leadFormFields';

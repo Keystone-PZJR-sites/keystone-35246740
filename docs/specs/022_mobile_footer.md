@@ -136,7 +136,7 @@ For implementation, use a flex column with appropriate padding/gap values rather
 - Props type: `MobileFooterProps` — shares the same prop interface as `OversizedFooterProps` except the video props `videoD` and `videoE` are not used on mobile (only `videoA`, `videoB`, `videoC` appear in the collage)
 - `OversizedFooter` gains `hidden md:block` on its root element; the footer is **not** subject to the `md:hidden` rule on `MobileFooter`'s parent wrapper (footer is the last element, after all pinned sections)
 - `/_videos/v1/` paths from Figma are placeholders; reuse existing `/footer/` video files
-- The email submit handler must import `setPixelUserData` and `captureEvent` from `keystone-design-bootstrap/tracking`, matching the desktop footer pattern exactly
+- The email submit handler must import `setPixelUserData` and `captureEvent` from `@keystone-sites/services/tracking`, matching the desktop footer pattern exactly
 - Social icons are inline SVG paths — reuse the desktop footer SVG path data for consistency
 - "Get started" CTA button calls `openModal` from `useLeadCapture` (same as desktop footer)
 - `OversizedFooter` currently has no `hidden md:block`. It needs to gain `hidden md:block` in this change

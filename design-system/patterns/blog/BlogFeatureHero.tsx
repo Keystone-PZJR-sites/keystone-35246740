@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { BlogPost } from 'keystone-design-bootstrap/types';
+import type { BlogPost } from 'keystone-legacy-templates/types';
 import { Heading } from '@/design-system/primitives/Heading';
 import { Text } from '@/design-system/primitives/Text';
 import { Eyebrow } from '@/design-system/primitives/Eyebrow';

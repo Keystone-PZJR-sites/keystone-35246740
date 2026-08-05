@@ -234,7 +234,7 @@ All components under `design-system/`. Section components (one per Figma section
 
 A page file mounts design-system pieces and feeds them data — nothing more. Every non-home page wraps its body in `<InnerPageShell>` (sticky nav + footer + lead-capture modal in one place), opens with `<PageHero>`, stacks `<ContentSection>` bodies, and closes with `<CtaBand>`. A page never defines its own nav, footer, hero chrome, or colors.
 
-Data fetched from `keystone-design-bootstrap/lib/server-api` is typed at the page boundary against the package's entity types (`Service`, `Testimonial`, `TeamMember`, `FaqQuestion`, `Location`, `SocialPost`, `JobPosting`, …) before being passed into a typed section. Several API helpers return `unknown`; cast to the documented entity type at the fetch site, then render only fields you have verified are strings (the API occasionally returns objects where a string is typed — see `asText` in `design-system/lib/text.ts`).
+Data fetched from `@keystone-sites/core/lib/server-api` is typed at the page boundary against the package's entity types (`Service`, `Testimonial`, `TeamMember`, `FaqQuestion`, `Location`, `SocialPost`, `JobPosting`, …) before being passed into a typed section. Several API helpers return `unknown`; cast to the documented entity type at the fetch site, then render only fields you have verified are strings (the API occasionally returns objects where a string is typed — see `asText` in `design-system/lib/text.ts`).
 
 ---
 

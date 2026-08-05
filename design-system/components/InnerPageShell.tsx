@@ -9,7 +9,7 @@
 // Server Component — fetches the company social URLs the footer needs.
 
 import type { ReactNode } from 'react';
-import { getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api';
+import { getCompanyInformation } from '@keystone-sites/core/lib/server-api';
 import {
   HeroNav,
   SITE_NAV_ITEMS,

@@ -1,4 +1,4 @@
-import type { Location } from 'keystone-design-bootstrap/types';
+import type { Location } from 'keystone-legacy-templates/types';
 import { Card } from '@/design-system/primitives/Card';
 import { Heading } from '@/design-system/primitives/Heading';
 import { Text } from '@/design-system/primitives/Text';

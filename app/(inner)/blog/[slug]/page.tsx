@@ -12,8 +12,8 @@ import { notFound } from 'next/navigation';
 import {
   serverApi,
   getCompanyInformation,
-} from 'keystone-design-bootstrap/lib/server-api';
-import type { BlogPost } from 'keystone-design-bootstrap/types';
+} from '@keystone-sites/core/lib/server-api';
+import type { BlogPost } from 'keystone-legacy-templates/types';
 import { MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 import { CtaBand } from '@/design-system/sections';
 import {

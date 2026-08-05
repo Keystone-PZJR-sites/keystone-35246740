@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import type { JobPosting, TeamMember } from 'keystone-design-bootstrap/types';
-import { getJobPostings, getTeamMembers } from 'keystone-design-bootstrap/lib/server-api';
+import type { JobPosting, TeamMember } from 'keystone-legacy-templates/types';
+import { getJobPostings, getTeamMembers } from '@keystone-sites/core/lib/server-api';
 import {
   SplitHero,
   ContentSection,

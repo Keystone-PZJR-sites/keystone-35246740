@@ -13,9 +13,11 @@
  * component are not purged at build time.
  */
 @source "../design-system/**/*.{ts,tsx}";
-@source "../node_modules/keystone-design-bootstrap/src/**/*.{ts,tsx}";
+@source "../node_modules/keystone-legacy-templates/src/**/*.{ts,tsx}";
+@source "../node_modules/@keystone-sites/widgets/src/**/*.{ts,tsx}";
 
 /* The entire design system, in cascade order. */
+@import "@keystone-sites/widgets/theme.css";
 @import "../design-system/styles/index.css";
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));

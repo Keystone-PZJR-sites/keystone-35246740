@@ -1,4 +1,4 @@
-import type { FaqQuestion } from 'keystone-design-bootstrap/types';
+import type { FaqQuestion } from 'keystone-legacy-templates/types';
 import { plainText } from '@/design-system/lib/text';
 
 /** A plain question / answer pair, for authored (non-API) FAQ content. */

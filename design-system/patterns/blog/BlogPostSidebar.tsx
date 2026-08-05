@@ -1,4 +1,4 @@
-import type { BlogPostAuthor } from 'keystone-design-bootstrap/types';
+import type { BlogPostAuthor } from 'keystone-legacy-templates/types';
 import { BlogAvatar } from './BlogAvatar';
 import { BlogArticleToc } from './BlogArticleToc';
 import { BlogPromoCard } from './BlogPromoCard';

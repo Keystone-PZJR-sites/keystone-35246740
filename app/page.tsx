@@ -39,7 +39,7 @@ import {
 } from '@/design-system';
 import { SmoothScrollProvider } from '@/design-system/providers';
 import { PillHandoffProvider } from '@/design-system/providers';
-import { getCompanyInformation } from 'keystone-design-bootstrap/lib/server-api';
+import { getCompanyInformation } from '@keystone-sites/core/lib/server-api';
 import {
   EVERY_CHANNEL_PILLS,
   MOBILE_EVERY_CHANNEL_PILLS,

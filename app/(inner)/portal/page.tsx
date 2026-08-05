@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PortalPage } from 'keystone-design-bootstrap/portal';
+import { PortalPage } from '@keystone-sites/widgets/portal';
 import {
   WorkShowcase,
   MobileWorkShowcase,

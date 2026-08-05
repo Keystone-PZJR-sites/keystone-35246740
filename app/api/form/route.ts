@@ -1,4 +1,4 @@
 import { NextResponse } from 'next/server';
-import { createFormRouteHandlers } from 'keystone-design-bootstrap/next/routes/form';
+import { createFormRouteHandlers } from '@keystone-sites/core/next/routes/form';
 
 export const { POST } = createFormRouteHandlers({ NextResponse });

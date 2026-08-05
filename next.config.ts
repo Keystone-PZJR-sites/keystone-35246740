@@ -43,7 +43,16 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   trailingSlash: true,
   // Transpile the design-bootstrap package (standard for TypeScript packages in Next.js)
-  transpilePackages: ['keystone-design-bootstrap'],
+  transpilePackages: [
+    'keystone-legacy-templates',
+    '@keystone-sites/core',
+    '@keystone-sites/services',
+    '@keystone-sites/widgets',
+    // npm aliases used by keystone-legacy-templates
+    'keystone-sdk',
+    'keystone-shared-services',
+    'keystone-widgets',
+  ],
   async redirects() {
     return [
       // Campaign / influencer links (e.g. 1stcollab) point at /landing-page,

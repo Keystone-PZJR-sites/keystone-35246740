@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { firePixelEvent, log, warn } from 'keystone-design-bootstrap/tracking';
+import { firePixelEvent, log, warn } from '@keystone-sites/services/tracking';
 
 type RouteRule = {
   pattern: RegExp;
@@ -103,7 +103,7 @@ async function waitForFbq(maxWaitMs: number, intervalMs: number): Promise<boolea
 
 /**
  * Customer-site patch: track ViewContent for custom routes that are not mapped
- * in keystone-design-bootstrap's shared MetaPixelTracker.
+ * in @keystone-sites/services shared MetaPixelTracker.
  */
 export function CustomPageViewTracker() {
   const pathname = usePathname();

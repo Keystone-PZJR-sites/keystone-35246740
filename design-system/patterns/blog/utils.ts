@@ -2,7 +2,7 @@ import type {
   BlogPost,
   BlogPostTag,
   BlogPostAuthor,
-} from 'keystone-design-bootstrap/types';
+} from 'keystone-legacy-templates/types';
 
 // ---------------------------------------------------------------------------
 // Image

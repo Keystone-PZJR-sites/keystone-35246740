@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import type { TeamMember } from 'keystone-design-bootstrap/types';
-import { getTeamMembers } from 'keystone-design-bootstrap/lib/server-api';
+import type { TeamMember } from 'keystone-legacy-templates/types';
+import { getTeamMembers } from '@keystone-sites/core/lib/server-api';
 import {
   CenteredHero,
   ContentSection,

@@ -1,4 +1,4 @@
-import type { PhotoAttachment } from 'keystone-design-bootstrap/types';
+import type { PhotoAttachment } from 'keystone-legacy-templates/types';
 
 export interface ResolvedPhoto {
   url: string;

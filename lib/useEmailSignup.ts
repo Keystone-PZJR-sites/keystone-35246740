@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { setPixelUserData, captureEvent } from 'keystone-design-bootstrap/tracking';
+import { setPixelUserData, captureEvent } from '@keystone-sites/services/tracking';
 
 export type EmailSignupState = 'idle' | 'submitting' | 'success' | 'error';
 

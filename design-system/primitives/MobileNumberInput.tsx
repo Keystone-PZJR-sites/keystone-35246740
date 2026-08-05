@@ -5,7 +5,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import * as CountryFlags from '@untitledui/country-flags';
-import countries from 'keystone-design-bootstrap/utils/countries';
+import countries from 'keystone-legacy-templates/utils/countries';
 
 type Country = typeof countries[0];
 

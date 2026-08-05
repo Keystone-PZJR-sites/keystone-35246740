@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createChatRouteHandlers } from 'keystone-design-bootstrap/next/routes/chat';
+import { createChatRouteHandlers } from '@keystone-sites/core/next/routes/chat';
 
 export const { GET, POST } = createChatRouteHandlers({ NextResponse });
 

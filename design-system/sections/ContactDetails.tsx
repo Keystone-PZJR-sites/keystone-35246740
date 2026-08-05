@@ -1,4 +1,4 @@
-import type { CompanyInformation } from 'keystone-design-bootstrap/types';
+import type { CompanyInformation } from 'keystone-legacy-templates/types';
 import { Card } from '@/design-system/primitives/Card';
 import { Eyebrow } from '@/design-system/primitives/Eyebrow';
 import { Text } from '@/design-system/primitives/Text';

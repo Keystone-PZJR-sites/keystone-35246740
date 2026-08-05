@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { getCompanyInformation, getLocations } from 'keystone-design-bootstrap/lib/server-api';
-import type { Location } from 'keystone-design-bootstrap/types';
+import { getCompanyInformation, getLocations } from '@keystone-sites/core/lib/server-api';
+import type { Location } from 'keystone-legacy-templates/types';
 import {
   LegalDocumentPage,
   buildLegalPlaceholders,

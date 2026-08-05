@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { KeystoneRootLayout } from 'keystone-design-bootstrap/next/layouts/root-layout';
+import { KeystoneRootLayout } from 'keystone-legacy-templates/next/layouts/root-layout';
 import { config } from '@/config';
 import { CustomPageViewTracker } from '@/design-system/tracking/CustomPageViewTracker';
 import { DESKTOP_MEDIA, MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';

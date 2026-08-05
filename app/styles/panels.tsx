@@ -60,7 +60,7 @@ import {
 import { ProcessMock, type ProcessMockKind } from '@/design-system/patterns/how-it-works';
 import { TeamCollage } from '@/design-system/patterns/careers';
 import { LegalDocumentPage } from '@/design-system/patterns/legal';
-import type { BlogPost, JobPosting } from 'keystone-design-bootstrap/types';
+import type { BlogPost, JobPosting } from 'keystone-legacy-templates/types';
 import {
   BlogFeatureHero,
   BlogHighlightCard,
