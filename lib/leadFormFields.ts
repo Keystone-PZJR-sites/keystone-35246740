@@ -1,4 +1,4 @@
-import type { FormFieldDefinition, FormFieldItem } from 'keystone-legacy-templates/types';
+import type { FormFieldDefinition, FormFieldItem } from '@keystone-sites/legacy/types';
 
 /**
  * `FormFieldDefinition.type` from the API is a free-form string, so the kind

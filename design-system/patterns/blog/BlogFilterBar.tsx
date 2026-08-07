@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { SearchLg } from '@untitledui/icons';
-import type { BlogPostTag } from 'keystone-legacy-templates/types';
+import type { BlogPostTag } from '@keystone-sites/legacy/types';
 
 interface BlogFilterBarProps {
   tags: BlogPostTag[];

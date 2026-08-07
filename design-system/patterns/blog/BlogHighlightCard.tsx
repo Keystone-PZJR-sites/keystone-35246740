@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { BlogPost } from 'keystone-legacy-templates/types';
+import type { BlogPost } from '@keystone-sites/legacy/types';
 import { Eyebrow } from '@/design-system/primitives/Eyebrow';
 import { MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 import { BlogMeta } from './BlogMeta';

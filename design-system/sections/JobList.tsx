@@ -1,4 +1,4 @@
-import type { JobPosting } from 'keystone-legacy-templates/types';
+import type { JobPosting } from '@keystone-sites/legacy/types';
 import { Card } from '@/design-system/primitives/Card';
 import { Heading } from '@/design-system/primitives/Heading';
 import { Text } from '@/design-system/primitives/Text';

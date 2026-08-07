@@ -6,7 +6,7 @@ import {
   firePixelEvent,
   captureEvent,
 } from '@keystone-sites/services/tracking';
-import type { FormFieldItem } from 'keystone-legacy-templates/types';
+import type { FormFieldItem } from '@keystone-sites/legacy/types';
 import { findIdentityFieldNames, findImpliedConsentFieldNames } from './leadFormFields';
 
 export type LeadSubmitState = 'idle' | 'submitting' | 'success' | 'error';

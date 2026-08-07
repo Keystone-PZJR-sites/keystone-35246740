@@ -1,10 +1,10 @@
 /**
- * Ambient module declarations for keystone-legacy-templates subpath exports
+ * Ambient module declarations for @keystone-sites/legacy subpath exports
  * that use wildcard patterns TypeScript's resolver cannot follow at compile time.
  * The bundler resolves these correctly at runtime.
  */
 
-declare module 'keystone-legacy-templates/utils/countries' {
+declare module '@keystone-sites/legacy/utils/countries' {
   type Country = {
     name: string;
     code: string;

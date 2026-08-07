@@ -13,7 +13,7 @@ import {
   serverApi,
   getCompanyInformation,
 } from '@keystone-sites/core/lib/server-api';
-import type { BlogPost } from 'keystone-legacy-templates/types';
+import type { BlogPost } from '@keystone-sites/legacy/types';
 import { MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 import { CtaBand } from '@/design-system/sections';
 import {

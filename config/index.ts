@@ -3,7 +3,7 @@
  * Simple, route-based navigation
  */
 
-import type { Theme, SiteConfig } from 'keystone-legacy-templates/types';
+import type { Theme, SiteConfig } from '@keystone-sites/legacy/types';
 
 export const config: SiteConfig = {
   site: {

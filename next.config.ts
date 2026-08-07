@@ -44,11 +44,11 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   // Transpile the design-bootstrap package (standard for TypeScript packages in Next.js)
   transpilePackages: [
-    'keystone-legacy-templates',
+    '@keystone-sites/legacy',
     '@keystone-sites/core',
     '@keystone-sites/services',
     '@keystone-sites/widgets',
-    // npm aliases used by keystone-legacy-templates
+    // npm aliases used by @keystone-sites/legacy
     'keystone-sdk',
     'keystone-shared-services',
     'keystone-widgets',

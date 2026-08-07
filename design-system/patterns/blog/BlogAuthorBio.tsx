@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import type { BlogPostAuthor } from 'keystone-legacy-templates/types';
+import type { BlogPostAuthor } from '@keystone-sites/legacy/types';
 import { BlogAvatar } from './BlogAvatar';
 import { getAuthorAvatar } from './utils';
 

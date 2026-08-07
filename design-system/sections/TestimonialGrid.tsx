@@ -1,4 +1,4 @@
-import type { Testimonial } from 'keystone-legacy-templates/types';
+import type { Testimonial } from '@keystone-sites/legacy/types';
 import { Card } from '@/design-system/primitives/Card';
 import { Text } from '@/design-system/primitives/Text';
 import { primaryPhoto, initials } from '@/design-system/lib/photos';

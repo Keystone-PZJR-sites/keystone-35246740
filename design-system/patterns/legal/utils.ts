@@ -1,8 +1,8 @@
-import type { CompanyInformation } from 'keystone-legacy-templates/types';
+import type { CompanyInformation } from '@keystone-sites/legacy/types';
 
 // ---------------------------------------------------------------------------
 // Placeholder substitution
-// Mirrors the logic in keystone-legacy-templates/src/next/legal/placeholders.ts,
+// Mirrors the logic in @keystone-sites/legacy/src/next/legal/placeholders.ts,
 // which is not publicly exported from the package.
 // ---------------------------------------------------------------------------
 

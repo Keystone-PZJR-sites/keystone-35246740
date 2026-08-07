@@ -1,4 +1,4 @@
-import type { SocialPost } from 'keystone-legacy-templates/types';
+import type { SocialPost } from '@keystone-sites/legacy/types';
 import { Card } from '@/design-system/primitives/Card';
 import { Text } from '@/design-system/primitives/Text';
 import { Pill } from '@/design-system/primitives/Pill';

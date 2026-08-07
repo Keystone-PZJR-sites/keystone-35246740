@@ -472,7 +472,7 @@ const Flag = dynamic(
 <Flag width={24} height={16} aria-hidden="true" />
 ```
 
-Country codes from `keystone-legacy-templates/utils/countries` are already ISO 3166-1 alpha-2 — use `country.code` directly with the `titleCase` utility above.
+Country codes from `@keystone-sites/legacy/utils/countries` are already ISO 3166-1 alpha-2 — use `country.code` directly with the `titleCase` utility above.
 
 The flag components render inline SVGs. No stylesheet or additional configuration is required. Check the package README for the prop that selects the rectangular shape (matching Figma node `1422:1466`) if a shape variant prop exists — default may already be rectangular.
 

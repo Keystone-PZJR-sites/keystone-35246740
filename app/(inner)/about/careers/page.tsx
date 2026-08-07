@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { JobPosting, TeamMember } from 'keystone-legacy-templates/types';
+import type { JobPosting, TeamMember } from '@keystone-sites/legacy/types';
 import { getJobPostings, getTeamMembers } from '@keystone-sites/core/lib/server-api';
 import {
   SplitHero,

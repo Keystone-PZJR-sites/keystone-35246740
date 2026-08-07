@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { TeamMember } from 'keystone-legacy-templates/types';
+import type { TeamMember } from '@keystone-sites/legacy/types';
 import { getTeamMembers } from '@keystone-sites/core/lib/server-api';
 import {
   CenteredHero,

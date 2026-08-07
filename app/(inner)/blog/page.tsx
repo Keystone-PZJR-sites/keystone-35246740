@@ -9,7 +9,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { serverApi } from '@keystone-sites/core/lib/server-api';
-import type { BlogPost } from 'keystone-legacy-templates/types';
+import type { BlogPost } from '@keystone-sites/legacy/types';
 import { CtaBand } from '@/design-system/sections';
 import {
   BlogGalleryHeader,
