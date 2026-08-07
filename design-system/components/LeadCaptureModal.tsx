@@ -19,7 +19,7 @@ import type { FieldErrors, RegisterOptions, UseFormRegister, UseFormRegisterRetu
 import gsap from 'gsap';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useFormDefinitions } from '@keystone-sites/widgets/next/contexts/form-definitions';
+import { useFormDefinitions } from 'keystone-widgets/next/contexts/form-definitions';
 import type { FormFieldDefinition, FormFieldItem } from '@keystone-sites/legacy/types';
 import { KeystoneMark, KeystoneWordmark } from '@/design-system/primitives';
 import { lockScroll } from '@/lib/scrollLock';
