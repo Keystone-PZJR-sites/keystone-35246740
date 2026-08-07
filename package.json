@@ -12,10 +12,10 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
-    "@keystone-sites/core": "1.0.2",
-    "@keystone-sites/legacy": "1.0.0",
-    "@keystone-sites/services": "1.0.0",
-    "@keystone-sites/widgets": "1.0.2",
+    "@keystone-sites/core": "^1.0.3",
+    "@keystone-sites/legacy": "^1.0.1",
+    "@keystone-sites/services": "^1.0.0",
+    "@keystone-sites/widgets": "^1.0.4",
     "@opennextjs/cloudflare": "^1.14.8",
     "@tailwindcss/typography": "^0.5.16",
     "@untitledui/country-flags": "^0.0.17",
