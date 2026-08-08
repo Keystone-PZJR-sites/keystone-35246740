@@ -226,4 +226,44 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       'Multi-location footprint',
     ],
   },
+  {
+    slug: 'bare-lux-studio',
+    name: 'Bare Lúx Studio',
+    industry: 'Medical aesthetics',
+    url: 'https://bare-lux-studio-93591379.rahul-0b6.workers.dev',
+    story:
+      'A nurse-founded medical aesthetics studio in Bordentown, New Jersey, focused on regenerative and anti-aging medicine — neurotoxins, fillers, biostimulators, and advanced skin therapies — with personalized plans and natural-looking results.',
+    facts: [
+      { label: 'Founders', value: 'Estefany Crook · Escarly Crook' },
+      { label: 'Medical director', value: 'Dr. Hanna Eadeh' },
+      { label: 'Location', value: 'Bordentown, NJ' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Ads infrastructure',
+      'Treatment packages',
+      'Financing options',
+    ],
+  },
+  {
+    slug: 'enthea-care',
+    name: 'EntheaCare',
+    industry: 'Cannabis nursing & microdosing',
+    url: 'https://keystone-site-prod-enthea-care-mwv8s7a3.rahul-0b6.workers.dev',
+    story:
+      'A nurse-led practice in Southern California pairing free product guidance and structured microdosing programs with a crafted hemp line — every batch lab-tested, every plan grounded in real nursing practice. Founded as Trusted Canna Nurse in 2022 and rebranded as EntheaCare in 2025.',
+    facts: [
+      { label: 'Founder', value: 'Megan Mbengue, RN' },
+      { label: 'Founded', value: '2022' },
+      { label: 'Based in', value: 'Rancho Cucamonga, CA' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Outbound shop hub',
+      'Nurse booking CTAs',
+      'Education blog',
+    ],
+  },
 ];
