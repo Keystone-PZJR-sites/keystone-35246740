@@ -22,6 +22,25 @@ export const GALLERY_PAGE_SIZE = 1;
 
 export const GALLERY_ENTRIES: GalleryEntryContent[] = [
   {
+    slug: 'zivel-palm-coast',
+    name: 'Zivel Palm Coast',
+    industry: 'Recovery & wellness',
+    url: 'https://palm-coast-zivel-35621640-staging.rahul-0b6.workers.dev',
+    story:
+      'A family-founded recovery studio in Palm Coast, Florida — cryotherapy, infrared sauna, red light, dry float, and more — bringing athlete-grade recovery tools to Flagler County with a science library behind every pathway on the floor.',
+    facts: [
+      { label: 'Founders', value: 'Nikki Lang · Kelly Lang' },
+      { label: 'Location', value: 'Palm Coast, FL' },
+    ],
+    attributes: [
+      'Member pricing portal',
+      'Science education library',
+      'Lead capture',
+      'Membership packages',
+      'Pathway video gallery',
+    ],
+  },
+  {
     slug: 'house-of-aesthetics',
     name: 'House of Aesthetics',
     industry: 'Medical aesthetics',
