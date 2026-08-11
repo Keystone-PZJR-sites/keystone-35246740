@@ -209,25 +209,6 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
     ],
   },
   {
-    slug: 'lean-lovely',
-    name: 'Lean & Lovely',
-    industry: 'Medspa & wellness',
-    url: 'https://lean-lovely-46413763.rahul-0b6.workers.dev',
-    story:
-      'An Escondido, California medspa offering science-backed treatments — advanced injectables to customized weight-loss programs. Owned and led by Kristin Beseke, MSN, APRN, FNP-BC, with Dr. Michael Lee serving as medical director.',
-    facts: [
-      { label: 'Owner', value: 'Kristin Beseke, FNP-BC' },
-      { label: 'Medical director', value: 'Dr. Michael Lee' },
-      { label: 'Location', value: 'Escondido, CA' },
-    ],
-    attributes: [
-      'Embedded sales agent',
-      'AI content agent',
-      'Ads infrastructure',
-      'Reviews wall',
-    ],
-  },
-  {
     slug: 'exsula-foods',
     name: 'Exsula Foods',
     industry: 'Wholesale nutrition',
