@@ -41,6 +41,26 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
     ],
   },
   {
+    slug: 'your-health-solutions',
+    name: 'Your Health Solutions',
+    industry: 'Medical aesthetics & wellness',
+    url: 'https://your-health-solutions-66700434.rahul-0b6.workers.dev',
+    story:
+      'A nurse-founded medical aesthetics and wellness clinic in Portland, Connecticut, led by founder Jessica Blancato. Evidence-based injectables, body treatments, medically supervised weight loss, and IV therapy — natural results, no pressure, and physician-guided care from one clinic on Portland-Cobalt Road.',
+    facts: [
+      { label: 'Founder', value: 'Jessica Blancato' },
+      { label: 'Medical director', value: 'Dr. William Gray' },
+      { label: 'Location', value: 'Portland, CT' },
+    ],
+    attributes: [
+      'Pricing portal',
+      'Treatment worlds',
+      'Membership packages',
+      'Care pathways',
+      'Lead capture',
+    ],
+  },
+  {
     slug: 'house-of-aesthetics',
     name: 'House of Aesthetics',
     industry: 'Medical aesthetics',
