@@ -79,6 +79,26 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
     ],
   },
   {
+    slug: 'dulce-luna-massage-wellness',
+    name: 'Dulce Luna Massage & Wellness',
+    industry: 'Massage & somatic wellness',
+    url: 'https://keystone-site-prod-dulce-luna-massage-wellnes-gfm36wi3.rahul-0b6.workers.dev',
+    story:
+      'Home of the IZAKALI™ Method in Lewisville, Texas — a transformational practice of self-discovery through the wisdom of the body, created by Dulce Luna. Somatic awareness, ancestral wisdom, and guided self-inquiry meet skilled massage modalities under one roof.',
+    facts: [
+      { label: 'Founder', value: 'Dulce Luna' },
+      { label: 'Signature method', value: 'IZAKALI™' },
+      { label: 'Location', value: 'Lewisville, TX' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'Lead capture',
+      'Method & paths structure',
+      'Bilingual site',
+      'Online booking',
+    ],
+  },
+  {
     slug: 'drefadez',
     name: 'DreFadez',
     industry: 'Barber',
