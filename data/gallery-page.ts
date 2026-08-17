@@ -173,6 +173,25 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
     ],
   },
   {
+    slug: 'jesses-barbershop-alma-tattoo',
+    name: "Jesse's Barbershop & Alma Tattoo",
+    industry: 'Barbershop & tattoo',
+    url: 'https://keystone-site-prod-jesse-s-barbershop-2-b2zum1m8.rahul-0b6.workers.dev',
+    story:
+      "Two barbershops and a custom tattoo studio — three doors on the same Anaheim block on N State College Blvd. Jesse's runs classic fades, hot towel shaves, and walk-ins seven days a week; Alma Tattoo Co. next door does black and gray realism, lettering, and fine line with free estimates.",
+    facts: [
+      { label: 'Locations', value: "Jesse's #1 · Jesse's #2 · Alma Tattoo Co." },
+      { label: 'City', value: 'Anaheim, CA' },
+    ],
+    attributes: [
+      'Multi-location',
+      'Pricing portal',
+      'Online booking',
+      'Walk-in friendly',
+      'Lead capture',
+    ],
+  },
+  {
     slug: 'ora-medical-clinic',
     name: 'Ōra Medical Clinic',
     industry: 'Telehealth & weight management',
