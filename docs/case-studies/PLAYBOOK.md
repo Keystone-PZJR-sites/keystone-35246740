@@ -348,6 +348,10 @@ the label shown (e.g. `'94,493'`); set `highlight: true` on the hero datapoint.
 3. **Industry page** — the relevant industry (e.g. `HEALTH_WELLNESS` in
    `data/industry-pages/index.tsx`) points its `testimonials.cards` at
    `CASE_STUDY_TESTIMONIAL_CARDS`, so it picks up new cards automatically.
+4. **Gallery results strip** — if the business has an entry in
+   `data/gallery-page.ts`, add a `caseStudy` block to it (the case-study
+   slug plus the hero stats) and move the entry toward the front of
+   `GALLERY_ENTRIES` — entries backed by case studies lead the gallery.
 
 ---
 
