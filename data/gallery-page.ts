@@ -39,6 +39,14 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       'Membership packages',
       'Pathway video gallery',
     ],
+    caseStudy: {
+      slug: 'palm-coast-zivel',
+      stats: [
+        { value: '257', label: 'leads tracked' },
+        { value: '12,515', label: 'AI follow-up texts' },
+        { value: '$998', label: 'total ad spend' },
+      ],
+    },
   },
   {
     slug: 'your-health-solutions',
@@ -59,6 +67,14 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       'Care pathways',
       'Lead capture',
     ],
+    caseStudy: {
+      slug: 'your-health-solutions',
+      stats: [
+        { value: '320', label: 'leads tracked' },
+        { value: '34,356', label: 'AI follow-up texts' },
+        { value: '$3.50', label: 'cost per lead' },
+      ],
+    },
   },
   {
     slug: 'house-of-aesthetics',
@@ -304,6 +320,14 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       'Treatment packages',
       'Financing options',
     ],
+    caseStudy: {
+      slug: 'bare-lux-studio',
+      stats: [
+        { value: '94,493', label: 'ad impressions' },
+        { value: '9,383', label: 'AI follow-up texts' },
+        { value: '$1,785', label: 'total ad spend' },
+      ],
+    },
   },
   {
     slug: 'enthea-care',

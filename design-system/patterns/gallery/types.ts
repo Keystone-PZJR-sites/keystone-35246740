@@ -7,6 +7,17 @@ export interface GalleryFact {
   value: string;
 }
 
+/**
+ * Optional case-study callout on a gallery card: hero KPIs plus a link to
+ * `/case-studies/[slug]` on keystone.app (opens in a new tab).
+ */
+export interface GalleryCaseStudy {
+  /** Case-study route slug (may differ from the gallery entry slug). */
+  slug: string;
+  /** Hero baseball-card KPIs from the case study. */
+  stats: GalleryFact[];
+}
+
 /** One showcased website: the story header plus the live embed target. */
 export interface GalleryEntryContent {
   /** Stable key, also used as the entry's DOM id for deep links. */
@@ -23,4 +34,6 @@ export interface GalleryEntryContent {
   facts: GalleryFact[];
   /** Key website attributes rendered as pills. Varies per business. */
   attributes: string[];
+  /** When present, renders KPI stats and a case-study CTA on the card. */
+  caseStudy?: GalleryCaseStudy;
 }

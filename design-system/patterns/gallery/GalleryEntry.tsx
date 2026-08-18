@@ -10,6 +10,7 @@ import { Eyebrow } from '@/design-system/primitives/Eyebrow';
 import { Heading } from '@/design-system/primitives/Heading';
 import { Text } from '@/design-system/primitives/Text';
 import { Pill } from '@/design-system/primitives/Pill';
+import { GalleryCaseStudyCallout } from './GalleryCaseStudyCallout';
 import { SiteFrame } from './SiteFrame';
 import type { GalleryEntryContent } from './types';
 
@@ -18,7 +19,7 @@ export interface GalleryEntryProps {
 }
 
 export function GalleryEntry({ content }: GalleryEntryProps) {
-  const { slug, name, industry, url, story, facts, attributes } = content;
+  const { slug, name, industry, url, story, facts, attributes, caseStudy } = content;
   return (
     <article className="ks-gallery-entry" id={slug}>
       <SiteFrame
@@ -47,6 +48,8 @@ export function GalleryEntry({ content }: GalleryEntryProps) {
                 ))}
               </dl>
             ) : null}
+
+            {caseStudy ? <GalleryCaseStudyCallout caseStudy={caseStudy} /> : null}
 
             {attributes.length > 0 ? (
               <ul className="ks-gallery-entry__attributes" aria-label="Website highlights">
