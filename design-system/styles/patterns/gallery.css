@@ -94,22 +94,24 @@
   color: var(--color-text-primary);
 }
 
-/* ── Case-study KPI callout (baseball-card stats + CTA) ──── */
+/* ── Case-study results — open editorial strip, no panel ──── */
 
 .ks-gallery-entry__case-study {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-4);
-  margin-top: var(--space-2);
-  padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--color-border-tertiary);
-  border-radius: var(--radius-panel);
-  background-color: color-mix(in srgb, var(--color-bg-primary) 72%, var(--color-surface-card));
+  margin-top: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-tertiary);
 }
 
 .ks-gallery-entry__case-stats {
-  width: 100%;
+  gap: var(--space-4) var(--space-8);
+}
+
+.ks-gallery-entry__case-link {
+  font-size: var(--type-small);
 }
 
 /* ── Attribute pills ─────────────────────────────────────── */

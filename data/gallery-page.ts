@@ -77,6 +77,34 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
     },
   },
   {
+    slug: 'bare-lux-studio',
+    name: 'Bare Lúx Studio',
+    industry: 'Medical aesthetics',
+    url: 'https://bare-lux-studio-93591379.rahul-0b6.workers.dev',
+    story:
+      'A nurse-founded medical aesthetics studio in Bordentown, New Jersey, focused on regenerative and anti-aging medicine — neurotoxins, fillers, biostimulators, and advanced skin therapies — with personalized plans and natural-looking results.',
+    facts: [
+      { label: 'Founders', value: 'Estefany Crook · Escarly Crook' },
+      { label: 'Medical director', value: 'Dr. Hanna Eadeh' },
+      { label: 'Location', value: 'Bordentown, NJ' },
+    ],
+    attributes: [
+      'Embedded sales agent',
+      'AI content agent',
+      'Ads infrastructure',
+      'Treatment packages',
+      'Financing options',
+    ],
+    caseStudy: {
+      slug: 'bare-lux-studio',
+      stats: [
+        { value: '94,493', label: 'ad impressions' },
+        { value: '9,383', label: 'AI follow-up texts' },
+        { value: '$1,785', label: 'total ad spend' },
+      ],
+    },
+  },
+  {
     slug: 'house-of-aesthetics',
     name: 'House of Aesthetics',
     industry: 'Medical aesthetics',
@@ -300,34 +328,6 @@ export const GALLERY_ENTRIES: GalleryEntryContent[] = [
       'Wholesale catalog',
       'Multi-location footprint',
     ],
-  },
-  {
-    slug: 'bare-lux-studio',
-    name: 'Bare Lúx Studio',
-    industry: 'Medical aesthetics',
-    url: 'https://bare-lux-studio-93591379.rahul-0b6.workers.dev',
-    story:
-      'A nurse-founded medical aesthetics studio in Bordentown, New Jersey, focused on regenerative and anti-aging medicine — neurotoxins, fillers, biostimulators, and advanced skin therapies — with personalized plans and natural-looking results.',
-    facts: [
-      { label: 'Founders', value: 'Estefany Crook · Escarly Crook' },
-      { label: 'Medical director', value: 'Dr. Hanna Eadeh' },
-      { label: 'Location', value: 'Bordentown, NJ' },
-    ],
-    attributes: [
-      'Embedded sales agent',
-      'AI content agent',
-      'Ads infrastructure',
-      'Treatment packages',
-      'Financing options',
-    ],
-    caseStudy: {
-      slug: 'bare-lux-studio',
-      stats: [
-        { value: '94,493', label: 'ad impressions' },
-        { value: '9,383', label: 'AI follow-up texts' },
-        { value: '$1,785', label: 'total ad spend' },
-      ],
-    },
   },
   {
     slug: 'enthea-care',
