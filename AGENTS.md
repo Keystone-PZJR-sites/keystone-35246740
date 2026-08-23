@@ -22,4 +22,6 @@ prior extractions.
 
 Write all commit messages in ASD-STE100 Simplified Technical English (see
 "Git Workflow" in `docs/rules/rules.md`): active voice, one idea per
-sentence, 20 words or fewer per sentence, plain approved words.
+sentence, 20 words or fewer per sentence, plain approved words. Prefer the
+smallest complete commit (one spec, one token layer, one primitive) — not a
+whole phase.
