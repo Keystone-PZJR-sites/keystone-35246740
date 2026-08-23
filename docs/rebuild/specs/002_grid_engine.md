@@ -1,6 +1,6 @@
 # Spec 002 — Grid engine, all bands, with dev harness
 
-**Status:** Approved 2026-08-22 — in progress
+**Status:** Approved 2026-08-22 — implemented and verified 2026-08-22
 **Depends on:** spec 001 (tokens: `--color-border-000` is the line color)
 **Sources:** `docs/rebuild/reference/GRID-SPEC.md` (v5 — normative mechanics)
 · the five anchor frames (plan.md table) · `keystone-v5.html` in the grid
@@ -77,23 +77,32 @@ sections. The harness contains:
 At each of the five anchor widths, and at one arbitrary mid-band width per
 band, with a classic scrollbar forced on:
 
-- [ ] `--t` measures exactly anchor-width ÷ 12 at every anchor (container, not
-      viewport, drives it).
-- [ ] Interpolation weights read exactly 1/0 at band floors and ceilings; a
+- [x] `--t` measures exactly anchor-width ÷ 12 at every anchor (container, not
+      viewport, drives it). (Sweep 2026-08-22: t = 32/48/64/80/112 exact with
+      the container 15px narrower than the viewport.)
+- [x] Interpolation weights read exactly 1/0 at band floors and ceilings; a
       sample interpolated value is continuous across all four switches (no
-      jump at any width, scrollbar on or off).
-- [ ] Fixture landmarks divide by `--t` to integers (or the designed
+      jump at any width, scrollbar on or off). (Weights 1.0000/0.0000 at all
+      five anchors; sample walks linearly through 576/768/960/1344, e.g.
+      41.969 → 42.000 → 42.031.)
+- [x] Fixture landmarks divide by `--t` to integers (or the designed
       half-ticks/fractions) — the v5 landmark audit passes.
-- [ ] Stack sum passes on the fixture page at every width in every band.
-- [ ] At a fractional-tick width, zoomed inspection of (a) two adjacent
+- [x] Stack sum passes on the fixture page at every width in every band.
+      (43/32/25/22/20t per band, exact at anchors, within rounding mid-band.)
+- [x] At a fractional-tick width, zoomed inspection of (a) two adjacent
       regions' shared edge, (b) a bordered box over a region line, and (c) a
       scroll strip's card edges shows one line, one pixel — no doubling, no
-      gaps, no drift down the strip.
-- [ ] Exactly one band class renders at every width (band-gate sweep),
+      gaps, no drift down the strip. (Inspected at t = 70.828; the in-page
+      seam check also asserts coincidence numerically at every width.)
+- [x] Exactly one band class renders at every width (band-gate sweep),
       including for `.decor`-style compound-gated vocabulary.
-- [ ] The lattice never intercepts pointer events and never paints above
+- [x] The lattice never intercepts pointer events and never paints above
       content; ornament cells paint between lattice and content.
-- [ ] Lattice, overlay, and injector produce zero hydration mismatches and
-      survive Strict Mode double-mount and HMR (idempotent effects).
-- [ ] The debug overlay and self-test readout are absent from the production
-      bundle.
+- [x] Lattice, overlay, and injector produce zero hydration mismatches and
+      survive Strict Mode double-mount and HMR (idempotent effects). (The
+      region component renders its interior lines at render time — same DOM
+      as v5's injector with no post-mount script; see
+      `design-system/v2/grid/region.tsx`.)
+- [x] The debug overlay and self-test readout are absent from the production
+      bundle. (Verified by grep over `.next/static` after a production
+      build; devtools code and styles load only in development.)
