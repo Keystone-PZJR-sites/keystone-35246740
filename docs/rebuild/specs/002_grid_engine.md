@@ -1,6 +1,6 @@
 # Spec 002 — Grid engine, all bands, with dev harness
 
-**Status:** Draft — awaiting approval
+**Status:** Approved 2026-08-22 — in progress
 **Depends on:** spec 001 (tokens: `--color-border-000` is the line color)
 **Sources:** `docs/rebuild/reference/GRID-SPEC.md` (v5 — normative mechanics)
 · the five anchor frames (plan.md table) · `keystone-v5.html` in the grid
