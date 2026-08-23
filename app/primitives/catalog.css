@@ -34,12 +34,17 @@
   color: var(--color-text-100);
 }
 
-.pv-section h3 {
+.pv-section h3,
+.pv-section h4 {
   margin: var(--space-lg) var(--space-none) var(--space-none);
   font: var(--ts-text-sm-medium-font);
   letter-spacing: var(--ts-text-sm-medium-ls);
   font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz);
   color: var(--color-text-400);
+}
+.pv-section h4 {
+  font: var(--ts-text-xs-medium-font);
+  letter-spacing: var(--ts-text-xs-medium-ls);
 }
 
 /* variant rows */
@@ -80,29 +85,50 @@
   color: var(--color-text-400);
 }
 
-/* token catalog */
-.pv-swatches {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
-  gap: var(--space-md);
+/* token catalog — one hue per row, tints in aligned columns */
+.pv-scales {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
-.pv-swatch {
-  display: flex;
+.pv-scale {
+  display: grid;
+  grid-template-columns: 88px repeat(var(--_cols, 8), minmax(36px, 1fr));
+  gap: var(--space-sm);
   align-items: center;
-  gap: var(--space-md);
+}
+
+.pv-scale-head {
+  font: var(--ts-text-3xs-regular-font);
+  letter-spacing: var(--ts-text-3xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-3xs-regular-opsz);
+  color: var(--color-text-500);
+  text-align: center;
+}
+
+.pv-scale-name {
   font: var(--ts-text-xs-regular-font);
   letter-spacing: var(--ts-text-xs-regular-ls);
   font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz);
-  color: var(--color-text-400);
-  overflow-wrap: anywhere;
+  color: var(--color-text-300);
+}
+
+.pv-swatch,
+.pv-swatch-empty {
+  display: flex;
+  justify-content: center;
+}
+
+.pv-swatch i,
+.pv-swatch-empty {
+  flex: none;
+  width: var(--space-4xl);
+  height: var(--space-3xl);
+  border-radius: var(--radius-xs);
 }
 
 .pv-swatch i {
-  flex: none;
-  width: var(--space-3xl);
-  height: var(--space-3xl);
-  border-radius: var(--radius-xs);
   border: 1px solid var(--color-border-000);
   background: var(--_c);
 }
@@ -158,12 +184,25 @@
   gap: var(--space-2xl);
 }
 
-.pv-type > code {
+.pv-type-meta {
   flex: none;
   width: 296px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.pv-type-meta > code {
   font: var(--ts-text-xs-regular-font);
   letter-spacing: var(--ts-text-xs-regular-ls);
   color: var(--color-text-500);
+}
+
+.pv-type-meta > span {
+  font: var(--ts-text-2xs-regular-font);
+  letter-spacing: var(--ts-text-2xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-2xs-regular-opsz);
+  color: var(--color-text-400);
 }
 
 .pv-type .v2-text {
