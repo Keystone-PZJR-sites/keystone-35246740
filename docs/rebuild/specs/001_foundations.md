@@ -49,11 +49,12 @@ via `@font-face`. Facts below were read from the actual binaries (fvar table,
   `font-weight: 300 900` and every style must set an explicit weight, or text
   renders Black), `opsz` 10–30 (default 10), `slnt` 0–6 (unused; uprights
   only).
-- Optical masters behind the Figma instance prefixes: **L = opsz 30 ·
-  M = opsz 18 · S = opsz 10**. Figma binds `L *` instances for `text/lg` and
-  up, `M *` below (handoff §3.2). Implement with `font-optical-sizing: none`
-  plus explicit `font-variation-settings: 'opsz' <value>` per type-scale step,
-  so rendering matches the pinned Figma instances rather than auto-sizing.
+- The font is a VF: CSS sets `font-weight` and `opsz` independently.
+  Figma's L/M/S named instances are presets that pin both axes at once;
+  we do not call them. Implement with `font-optical-sizing: none` plus
+  `font-variation-settings: 'opsz' <value>` per type-scale step:
+  **text** 3xs / 2xs / xs / nav-label = **24**; sm–2xl = **26**.
+  **display-sans** 2xs = **28**; xs and up = **30**.
 - Weight mapping: Light 300 · Regular 400 · Medium 500 · Semibold 600.
 
 **PP Kyoto Variable Upright** (`PPKyoto-VariableUprightVF.woff2`)
@@ -91,10 +92,9 @@ paths) before committing; request re-exports if not.
       weights 300–600 with the correct optical size per type step (spot-check
       a `text/md` and a `text/xl` sample against Figma); Kyoto renders at
       weights 100–500. (Both fonts load and every weight renders on the
-      /primitives specimens, 2026-08-23; opsz is pinned per the style
-      snapshot. Open: the visual spot-check against Figma — including the
-      text/xl M-master vs text/lg L-master question — is design's pass on
-      /primitives.)
+      /primitives specimens, 2026-08-23; opsz is pinned per type-scale
+      step, not Figma L/M/S instances. Open: visual spot-check on
+      /primitives against the intended 24/26/28/30 pins.)
 - [x] With fonts blocked, fallbacks render without layout explosion
       (`font-display` chosen deliberately and documented in the font CSS).
       (Verified 2026-08-23 with woff2 requests blocked: system fallbacks

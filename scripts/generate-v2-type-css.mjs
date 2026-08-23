@@ -22,24 +22,53 @@ const WEIGHTS = {
   Medium: 500,
   Semibold: 600,
 };
-// GT Standard optical-size masters, from the binary's named instances.
-const OPSZ = { S: 10, M: 18, L: 30 };
 
-function parseStyle(family, style) {
-  if (family === "PP Kyoto") {
-    if (!(style in WEIGHTS)) throw new Error(`unknown Kyoto style: ${style}`);
-    return { font: "var(--font-serif)", weight: WEIGHTS[style], opsz: null };
+// GT Standard is a variable font. CSS sets wght and opsz independently;
+// Figma's L/M/S named instances are ignored for opsz. Pins decided
+// 2026-08-23 (design), not read from the Figma instance prefix.
+const TEXT_OPSZ = {
+  "3xs": 24,
+  "2xs": 24,
+  xs: 24,
+  "nav-label": 24,
+  sm: 26,
+  md: 26,
+  lg: 26,
+  xl: 26,
+  "2xl": 26,
+};
+const DISPLAY_SANS_OPSZ = {
+  "2xs": 28,
+};
+
+function weightName(style) {
+  const [head, ...rest] = style.split(" ");
+  if (head === "S" || head === "M" || head === "L") return rest.join(" ");
+  return style;
+}
+
+function gtOpsz(name) {
+  const [family, step] = name.split("/");
+  if (family === "text") {
+    if (!(step in TEXT_OPSZ)) throw new Error(`unknown text step: ${name}`);
+    return TEXT_OPSZ[step];
   }
-  const [prefix, ...rest] = style.split(" ");
-  const weightName = rest.join(" ");
-  if (!(prefix in OPSZ) || !(weightName in WEIGHTS)) {
-    throw new Error(`unknown GT Standard style: ${style}`);
+  if (family === "display-sans") {
+    return DISPLAY_SANS_OPSZ[step] ?? 30;
   }
-  return {
-    font: "var(--font-sans)",
-    weight: WEIGHTS[weightName],
-    opsz: OPSZ[prefix],
-  };
+  throw new Error(`unknown GT style: ${name}`);
+}
+
+function parseStyle(s) {
+  const weight = WEIGHTS[weightName(s.style)];
+  if (!weight) throw new Error(`unknown weight in ${s.name}: ${s.style}`);
+  if (s.family === "PP Kyoto") {
+    return { font: "var(--font-serif)", weight, opsz: null };
+  }
+  if (s.family !== "GT Standard Standard VF") {
+    throw new Error(`unknown family: ${s.family}`);
+  }
+  return { font: "var(--font-sans)", weight, opsz: gtOpsz(s.name) };
 }
 
 function varBase(name) {
@@ -60,12 +89,16 @@ lines.push(`   Per style: -font is a CSS font shorthand (weight size/lh family);
 lines.push(`   -ls is letter-spacing; -opsz is the pinned GT Standard optical`);
 lines.push(`   size (consume as font-variation-settings: "opsz" var(...) with`);
 lines.push(`   font-optical-sizing: none); -ps is Figma paragraph spacing; -case`);
-lines.push(`   is text-transform. Kyoto styles have no -opsz. */`);
+lines.push(`   is text-transform. Kyoto styles have no -opsz.`);
+lines.push(``);
+lines.push(`   opsz is set on the variable font directly (not via Figma L/M/S`);
+lines.push(`   named instances): text 3xs/2xs/xs/nav-label = 24; text sm–2xl`);
+lines.push(`   = 26; display-sans 2xs = 28; display-sans xs and up = 30. */`);
 lines.push(``);
 lines.push(`:root {`);
 
 for (const s of styles) {
-  const { font, weight, opsz } = parseStyle(s.family, s.style);
+  const { font, weight, opsz } = parseStyle(s);
   const b = varBase(s.name);
   lines.push(`  ${b}-font: ${weight} ${s.size}px/${s.lh}px ${font};`);
   lines.push(`  ${b}-ls: ${em(s.ls)};`);

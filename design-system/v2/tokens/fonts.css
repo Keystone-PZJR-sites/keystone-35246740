@@ -8,9 +8,9 @@
    PP Kyoto Variable Upright — wght 100-900 (default 100). The binary's
    family name reads "PP Kyoto Thin"; the clean name is declared here.
 
-   Optical sizing is pinned per type style (type.css), not auto: Figma
-   binds pinned optical masters (M/L instance prefixes), and auto-sizing
-   disagrees with them (e.g. text/lg is 18px but binds the L=30 master).
+   Optical sizing is pinned per type-scale step in type.css, not auto
+   and not via Figma's L/M/S named instances. CSS sets wght (font-weight)
+   and opsz (font-variation-settings) independently on this VF.
 
    font-display: swap — content stays readable on slow connections; both
    files are small (~140/125 KB) and self-hosted, so the swap window is
@@ -46,8 +46,10 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
 
-  /* GT Standard optical-size masters (fvar named instances) */
-  --font-opsz-s: 10;
-  --font-opsz-m: 18;
-  --font-opsz-l: 30;
+  /* GT Standard opsz pins (type-scale steps, not Figma L/M/S).
+     Binary named instances remain S=10 · M=18 · L=30; we do not use them. */
+  --font-opsz-text-compact: 24;
+  --font-opsz-text: 26;
+  --font-opsz-display-2xs: 28;
+  --font-opsz-display: 30;
 }
