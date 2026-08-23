@@ -39,17 +39,19 @@ Variants: size `xl/lg/md/sm` × chrome `teal/gray` × shape `pill/box` ×
 state `default/hover/focus`. No disabled state — decision 2026-08-22.
 
 Geometry (px). Pill is one spacing step wider than box per side; xl/lg
-carry the optical `pt 10 / pb 12`:
+use a symmetric `y 10` (the set's `pb 12` was dropped 2026-08-23):
 
 | size | height | pill padding | box padding | label style |
 |---|---|---|---|---|
-| xl | 48 | 24 · 20 (t 10 b 12) | 20 · 16 (t 10 b 12) | `text/xl/Light` |
-| lg | 48 | 20 · 16 (t 10 b 12) | 16 · 12 (t 10 b 12) | `text/lg/Light` |
+| xl | 48 | 24 · 20 (y 10) | 20 · 16 (y 10) | `text/xl/Light` |
+| lg | 48 | 20 · 16 (y 10) | 16 · 12 (y 10) | `text/lg/Light` |
 | md | 40 | 16 · 12 (y 8) | 12 · 8 (y 8) | `text/md/Light` |
 | sm | 36 | 12 · 10 (y 6) | 10 · 8 (y 6) | `text/sm/Light` |
 
 Pill radius `--radius-full`; box radius 0. Trailing 10px nav-trigger
-glyph (committed asset, see §5). Chrome:
+glyph, `type=arrow` (committed asset, see §6), sits in a `label-icon`
+row with `--space-xs` (4px) gap, vertically centered on the text
+line-box. Chrome:
 
 | chrome | bg | hover bg | focus ring | label ink |
 |---|---|---|---|---|
@@ -131,6 +133,10 @@ adds a message row below (gap 8, message inset 16), totalling
 | filled | `teal-300` | `teal-200` | `text-200` | teal | teal · default |
 | error | `red-400` | `red-300` | `text-200` | red | gray · default |
 
+Error chrome (`red-400` border, `red-300` ring) must out-specify the
+filled/active `:has()` rules — those selectors otherwise keep the teal
+ring on an errored field that also has a value.
+
 Error message: `text/sm/Light` in `red-500`, linked to the field with
 `aria-describedby`; the field carries `aria-invalid`. The arrow-to-state
 mapping above is the set's embedded truth (read from variant instances
@@ -189,7 +195,7 @@ paddings — live in the component token layer). A permanent, noindexed
 **`/primitives` dev page** renders the full variant × state matrix of all
 four components, the icon sheet, and the token catalog — the visual-QA
 surface spec 001's last criterion calls for, and where type rendering
-(including the pinned M/L optical masters) is eyeballed against Figma.
+(including the pinned 24/26/28/30 optical sizes) is eyeballed against Figma.
 
 ## 9 · Acceptance criteria
 
@@ -223,5 +229,5 @@ surface spec 001's last criterion calls for, and where type rendering
       of route JS; shared first-load unchanged at 102 kB.)
 - [x] `/primitives` displays the full matrix plus the token catalog
       (closes spec 001's remaining catalog criterion; the brand marks and
-      type specimens also close two more 001 criteria — the M/L optical
+      type specimens also close two more 001 criteria — the pinned optical
       spot-check remains design's visual pass).
