@@ -1,0 +1,147 @@
+/* v2 primitives — grader-input (spec 003 §5).
+   White pill with an always-on 4px ring that recolors per state; the
+   embedded button-arrow follows the input's state (disabled look while
+   empty, teal when submittable, gray in error). State forcing for the
+   QA matrix mirrors every interactive selector with a data-state twin.
+
+   Cascade order is load-bearing: default → hover → focus → active →
+   filled → error, so later states win when several apply. */
+
+.grader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.grader-field {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: var(--space-xl);
+  background: var(--color-bg-000);
+  border: 1px solid var(--_border);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 var(--ring-w) var(--_ring);
+  /* default state palette */
+  --_border: var(--color-border-000);
+  --_ring: var(--color-bg-200);
+  --_ph: var(--color-text-500);
+}
+
+/* heights are the set's fixed values (66/50/44), content centered —
+   the variants' padding sums do not close to the fixed heights, so
+   height is authoritative and vertical padding is not restated */
+.grader[data-size="lg"] .grader-field {
+  height: 66px;
+  padding-inline: var(--space-xl) var(--space-lg);
+  --_font: var(--ts-text-xl-light-font);
+  --_ls: var(--ts-text-xl-light-ls);
+  --_opsz: var(--ts-text-xl-light-opsz);
+}
+.grader[data-size="md"] .grader-field,
+.grader[data-size="sm"] .grader-field {
+  padding-inline: var(--space-lg) var(--space-md);
+  --_font: var(--ts-text-md-light-font);
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+.grader[data-size="md"] .grader-field {
+  height: 50px;
+}
+.grader[data-size="sm"] .grader-field {
+  height: 44px;
+}
+
+.grader-sparkle {
+  display: inline-flex;
+  flex: none;
+}
+
+.grader-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: var(--space-none);
+  background: none;
+  outline: none;
+  font: var(--_font);
+  letter-spacing: var(--_ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--_opsz);
+  color: var(--color-text-200);
+}
+.grader-field input::placeholder {
+  color: var(--_ph);
+  opacity: 1;
+}
+
+/* hover */
+@media (hover: hover) {
+  .grader-field:hover {
+    --_border: var(--color-teal-250);
+    --_ring: var(--color-teal-200);
+    --_ph: var(--color-text-400);
+  }
+}
+.grader[data-state="hover"] .grader-field {
+  --_border: var(--color-teal-250);
+  --_ring: var(--color-teal-200);
+  --_ph: var(--color-text-400);
+}
+
+/* focus (field focused, still empty) */
+.grader-field:focus-within,
+.grader[data-state="focus"] .grader-field {
+  --_border: var(--color-teal-400);
+  --_ring: var(--color-teal-300);
+  --_ph: var(--color-text-400);
+}
+
+/* active (focused with content) */
+.grader-field:focus-within:has(input:not(:placeholder-shown)),
+.grader[data-state="active"] .grader-field {
+  --_border: var(--color-teal-300);
+  --_ring: var(--color-teal-200);
+}
+
+/* filled (content, not focused) */
+.grader-field:not(:focus-within):has(input:not(:placeholder-shown)),
+.grader[data-state="filled"] .grader-field {
+  --_border: var(--color-teal-300);
+  --_ring: var(--color-teal-200);
+}
+
+/* the embedded arrow is visually disabled until the value is non-empty
+   (the set's mapping, spec 003 §5) */
+.grader-field:has(input:placeholder-shown) .btn-arrow:not(:disabled),
+.grader[data-state="default"] .grader-field .btn-arrow:not(:disabled),
+.grader[data-state="hover"] .grader-field .btn-arrow:not(:disabled),
+.grader[data-state="focus"] .grader-field .btn-arrow:not(:disabled),
+.grader[data-state="active"] .grader-field .btn-arrow:not(:disabled) {
+  background: var(--_bg-disabled);
+  color: var(--_glyph-disabled);
+  pointer-events: none;
+}
+
+/* error — wins over everything above */
+.grader[data-error] .grader-field {
+  --_border: var(--color-red-400);
+  --_ring: var(--color-red-300);
+  --sparkle-a: var(--color-red-400);
+  --sparkle-b: var(--color-red-600);
+}
+.grader[data-error] .grader-field .btn-arrow:not(:disabled) {
+  background: var(--_bg);
+  color: var(--_glyph);
+  pointer-events: auto;
+}
+
+.grader-error {
+  margin: var(--space-none);
+  padding-inline: var(--space-xl);
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz);
+  color: var(--color-red-500);
+}
