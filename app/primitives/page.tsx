@@ -1,5 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import Image from "next/image";
+import { MEDIA_V2 } from "@/design-system/v2/media";
 import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primitives/buttons";
 import { GraderInput } from "@/design-system/v2/primitives/grader";
 import { Text } from "@/design-system/v2/primitives/text";
@@ -159,6 +161,15 @@ export default function PrimitivesPage() {
           <IconNavMenu />
           <IconNavMenu open />
           <IconLoadingCircle />
+        </div>
+      </section>
+
+      <section className="pv-section">
+        <h2>brand marks</h2>
+        <div className="pv-icons">
+          {Object.entries(MEDIA_V2.brand).map(([key, asset]) => (
+            <Image key={key} src={asset.src} width={asset.width} height={asset.height} alt={asset.alt} unoptimized />
+          ))}
         </div>
       </section>
 
