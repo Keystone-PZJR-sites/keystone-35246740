@@ -9,7 +9,8 @@
     "lint": "next lint",
     "preview": "npx opennextjs-cloudflare build && npx wrangler dev",
     "deploy": "npx opennextjs-cloudflare build && npx wrangler deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "test:grid": "node scripts/grid-selftest.mjs"
   },
   "dependencies": {
     "@keystone-sites/core": "^1.0.4",
@@ -52,6 +53,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "postcss": "^8.5.6",
+    "puppeteer-core": "^25.8.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.54.0"
