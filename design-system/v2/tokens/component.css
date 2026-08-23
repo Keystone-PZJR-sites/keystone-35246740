@@ -1,3 +1,15 @@
-/* v2 tokens — component (layer 3 of 3)
-   Empty by design at Phase 0. Component-scoped tokens are added by the
-   spec that introduces the component (docs/rebuild/specs/). */
+/* v2 tokens — component layer (spec 001 §1.3). Populated by component
+   specs; constants here are design facts the semantic layer does not
+   carry. */
+
+:root {
+  /* The ring: Figma's focus-ring effect style — 4px spread, no blur
+     (spec 003). One geometry for focus rings and the grader's
+     always-on state ring; colors are per component state. */
+  --ring-w: 4px;
+
+  /* button-fill's two non-token constants (spec 003 §2): the optical
+     10px top padding on xl/lg, and the 10px horizontal step on sm. */
+  --btn-fill-pt: 10px;
+  --btn-fill-pad-10: 10px;
+}

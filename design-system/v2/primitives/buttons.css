@@ -1,0 +1,320 @@
+/* v2 primitives — button-fill, button-ghost, button-arrow (spec 003).
+   All geometry is material (fixed px per size variant); widths hug.
+   Every value traces to a token or the component token layer.
+
+   State forcing: the /primitives QA matrix renders non-default states
+   statically via data-state; every interactive selector is therefore
+   paired with its data-state twin. Hover styles apply on hover-capable
+   devices only. */
+
+.btn-fill,
+.btn-ghost,
+.btn-arrow {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  font-optical-sizing: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ---------------- button-fill (486:5251) ---------------- */
+
+.btn-fill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--radius-full);
+  background: var(--_bg);
+  color: var(--_ink);
+  font: var(--_font);
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz);
+}
+.btn-fill[data-shape="box"] {
+  border-radius: var(--radius-none);
+}
+
+/* sizes — heights, per-shape asymmetric paddings, label style.
+   xl/lg place the label with the set's optical 10/12 vertical split;
+   md/sm center it. */
+.btn-fill[data-size="xl"],
+.btn-fill[data-size="lg"] {
+  height: 48px;
+  align-items: flex-start;
+  padding-top: var(--btn-fill-pt);
+}
+.btn-fill[data-size="xl"] {
+  padding-left: var(--space-3xl);
+  padding-right: var(--space-2xl);
+  --_font: var(--ts-text-xl-light-font);
+  --_ls: var(--ts-text-xl-light-ls);
+  --_opsz: var(--ts-text-xl-light-opsz);
+}
+.btn-fill[data-size="lg"] {
+  padding-left: var(--space-2xl);
+  padding-right: var(--space-xl);
+  --_font: var(--ts-text-lg-light-font);
+  --_ls: var(--ts-text-lg-light-ls);
+  --_opsz: var(--ts-text-lg-light-opsz);
+}
+.btn-fill[data-size="md"] {
+  height: 40px;
+  padding-left: var(--space-xl);
+  padding-right: var(--space-lg);
+  --_font: var(--ts-text-md-light-font);
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+.btn-fill[data-size="sm"] {
+  height: 36px;
+  padding-left: var(--space-lg);
+  padding-right: var(--btn-fill-pad-10);
+  --_font: var(--ts-text-sm-light-font);
+  --_ls: var(--ts-text-sm-light-ls);
+  --_opsz: var(--ts-text-sm-light-opsz);
+}
+.btn-fill[data-size="xl"][data-shape="box"] {
+  padding-left: var(--space-2xl);
+  padding-right: var(--space-xl);
+}
+.btn-fill[data-size="lg"][data-shape="box"] {
+  padding-left: var(--space-xl);
+  padding-right: var(--space-lg);
+}
+.btn-fill[data-size="md"][data-shape="box"] {
+  padding-left: var(--space-lg);
+  padding-right: var(--space-md);
+}
+.btn-fill[data-size="sm"][data-shape="box"] {
+  padding-left: var(--btn-fill-pad-10);
+  padding-right: var(--space-md);
+}
+
+/* chromes */
+.btn-fill[data-chrome="teal"] {
+  --_bg: var(--color-teal-300);
+  --_bg-hover: var(--color-teal-400);
+  --_ring: var(--color-teal-500);
+  --_ink: var(--color-teal-800);
+  --_glyph: var(--color-teal-600);
+}
+.btn-fill[data-chrome="gray"] {
+  --_bg: var(--color-bg-300);
+  --_bg-hover: var(--color-bg-400);
+  --_ring: var(--color-border-200);
+  --_ink: var(--color-text-200);
+  --_glyph: var(--color-text-500);
+}
+
+@media (hover: hover) {
+  .btn-fill:hover {
+    background: var(--_bg-hover);
+  }
+}
+.btn-fill[data-state="hover"] {
+  background: var(--_bg-hover);
+}
+.btn-fill:focus-visible,
+.btn-fill[data-state="focus"] {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--_ring);
+}
+
+/* trailing nav-trigger glyph */
+.btn-fill .btn-glyph {
+  display: inline-flex;
+  color: var(--_glyph);
+}
+
+/* ---------------- button-ghost (90:8297) ---------------- */
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--_ink);
+  font: var(--_font);
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz);
+  gap: var(--space-md);
+}
+
+.btn-ghost[data-size="xl"] {
+  height: 48px;
+  padding-inline: var(--space-2xl);
+  --_icon: 20px;
+  --_font: var(--ts-text-xl-light-font);
+  --_ls: var(--ts-text-xl-light-ls);
+  --_opsz: var(--ts-text-xl-light-opsz);
+}
+.btn-ghost[data-size="lg"] {
+  height: 48px;
+  padding-inline: var(--space-xl);
+  --_icon: 20px;
+  --_font: var(--ts-text-lg-light-font);
+  --_ls: var(--ts-text-lg-light-ls);
+  --_opsz: var(--ts-text-lg-light-opsz);
+}
+.btn-ghost[data-size="md"] {
+  height: 40px;
+  padding-inline: var(--space-lg);
+  --_icon: 18px;
+  --_font: var(--ts-text-md-light-font);
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+.btn-ghost[data-size="sm"] {
+  height: 36px;
+  padding-inline: var(--space-lg);
+  --_icon: 16px;
+  --_font: var(--ts-text-sm-light-font);
+  --_ls: var(--ts-text-sm-light-ls);
+  --_opsz: var(--ts-text-sm-light-opsz);
+}
+.btn-ghost[data-size="xs"] {
+  height: 32px;
+  padding-inline: var(--space-lg);
+  gap: var(--space-sm);
+  --_icon: 14px;
+  --_font: var(--ts-text-xs-light-font);
+  --_ls: var(--ts-text-xs-light-ls);
+  --_opsz: var(--ts-text-xs-light-opsz);
+}
+
+.btn-ghost[data-color="brown"] {
+  --_ink: var(--color-brown-600);
+  --_hover-bg: var(--color-brown-200);
+  --_ring: var(--color-brown-200);
+}
+.btn-ghost[data-color="teal"] {
+  --_ink: var(--color-teal-600);
+  --_hover-bg: var(--color-teal-200);
+  --_ring: var(--color-teal-200);
+}
+.btn-ghost[data-color="gray"] {
+  --_ink: var(--color-text-200);
+  --_hover-bg: var(--color-bg-300);
+  --_ring: var(--color-bg-200);
+}
+
+@media (hover: hover) {
+  .btn-ghost:not(:disabled):hover {
+    background: var(--_hover-bg);
+  }
+}
+.btn-ghost[data-state="hover"] {
+  background: var(--_hover-bg);
+}
+/* derived focus (decision 2026-08-22): the fill ring construction in the
+   color's 200 tint */
+.btn-ghost:focus-visible,
+.btn-ghost[data-state="focus"] {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--_ring);
+}
+.btn-ghost:disabled {
+  --_ink: var(--color-text-500);
+  cursor: default;
+}
+
+/* leading icon slot — icons keep their intrinsic two-tone palettes */
+.btn-ghost .btn-icon {
+  display: inline-flex;
+}
+.btn-ghost .btn-icon svg {
+  width: var(--_icon);
+  height: var(--_icon);
+}
+
+/* ---------------- button-arrow (520:15542) ---------------- */
+
+.btn-arrow {
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  border-radius: var(--radius-full);
+  padding: var(--space-none);
+  width: var(--_d);
+  height: var(--_d);
+  background: var(--_bg);
+  color: var(--_glyph);
+  flex: none;
+}
+.btn-arrow[data-size="lg"] {
+  --_d: 40px;
+  --_g: 24px;
+}
+.btn-arrow[data-size="md"] {
+  --_d: 32px;
+  --_g: 18px;
+}
+.btn-arrow[data-size="sm"] {
+  --_d: 28px;
+  --_g: 16px;
+}
+.btn-arrow svg {
+  width: var(--_g);
+  height: var(--_g);
+}
+
+.btn-arrow[data-chrome="teal"] {
+  --_bg: var(--color-teal-400);
+  --_bg-hover: var(--color-teal-500);
+  --_bg-disabled: var(--color-teal-250);
+  --_bg-loading: var(--color-teal-300);
+  --_glyph: var(--color-teal-800);
+  --_glyph-disabled: var(--color-teal-500);
+  --_glyph-loading: var(--color-teal-800);
+}
+.btn-arrow[data-chrome="gray"] {
+  --_bg: var(--color-bg-300);
+  --_bg-hover: var(--color-bg-500);
+  --_bg-disabled: var(--color-bg-200);
+  --_bg-loading: var(--color-bg-300);
+  --_glyph: var(--color-text-200);
+  --_glyph-disabled: var(--color-text-600);
+  --_glyph-loading: var(--color-text-100);
+}
+
+@media (hover: hover) {
+  .btn-arrow:not(:disabled):not([data-loading]):hover {
+    background: var(--_bg-hover);
+  }
+}
+.btn-arrow[data-state="hover"] {
+  background: var(--_bg-hover);
+}
+.btn-arrow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--_bg-disabled);
+}
+.btn-arrow:disabled,
+.btn-arrow[data-state="disabled"] {
+  background: var(--_bg-disabled);
+  color: var(--_glyph-disabled);
+  cursor: default;
+}
+.btn-arrow[data-loading] {
+  background: var(--_bg-loading);
+  color: var(--_glyph-loading);
+  pointer-events: none;
+}
+.btn-arrow[data-loading] svg {
+  animation: btn-arrow-spin 1s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-arrow[data-loading] svg {
+    animation: none;
+  }
+}
+@keyframes btn-arrow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
