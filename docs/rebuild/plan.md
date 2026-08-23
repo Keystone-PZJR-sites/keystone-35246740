@@ -121,9 +121,9 @@ values and would need editing later — which spec immutability forbids.
 
 - Phase 2: component nodes for `button-fill`, `button-ghost`, `grader-input`
   — received 2026-08-22 (486:5251 · 90:8297 · 503:25844, plus the `icons`
-  sheet 519:5431); specced in 003. Still open from design: grader-input
-  error and loading states (deferred to the section spec that wires
-  submission).
+  sheet 519:5431); specced in 003. 2026-08-23: design added grader error
+  states, the `button-arrow` set (520:15542, incl. loading), and the
+  expanded icon sheet — folded into 003. Nothing open for Phase 2.
 - Phase 3: footer nodes are already in the anchor frames; confirm accordion
   behavior at 384.
 - Phase 4: nav nodes incl. mobile-menu open state.
