@@ -18,6 +18,9 @@
   font-optical-sizing: none;
   text-decoration: none;
   white-space: nowrap;
+  transition-property: background-color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
 }
 
 /* ---------------- button-fill (486:5251) ---------------- */
@@ -38,14 +41,14 @@
   border-radius: var(--radius-none);
 }
 
-/* sizes — heights, per-shape asymmetric paddings, label style.
-   xl/lg place the label with the set's optical 10/12 vertical split;
-   md/sm center it. */
+/* sizes — heights, per-shape paddings, label style.
+   xl/lg: symmetric 10/10 vertical (set's 12pb dropped — decision
+   2026-08-23). md/sm: y 8 / y 6. The inner label-icon row centers
+   in the remaining content box. */
 .btn-fill[data-size="xl"],
 .btn-fill[data-size="lg"] {
   height: 48px;
-  align-items: flex-start;
-  padding-top: var(--btn-fill-pt);
+  padding-block: var(--btn-fill-pt);
 }
 .btn-fill[data-size="xl"] {
   padding-left: var(--space-3xl);
@@ -63,6 +66,7 @@
 }
 .btn-fill[data-size="md"] {
   height: 40px;
+  padding-block: var(--space-md);
   padding-left: var(--space-xl);
   padding-right: var(--space-lg);
   --_font: var(--ts-text-md-light-font);
@@ -71,6 +75,7 @@
 }
 .btn-fill[data-size="sm"] {
   height: 36px;
+  padding-block: var(--space-sm);
   padding-left: var(--space-lg);
   padding-right: var(--btn-fill-pad-10);
   --_font: var(--ts-text-sm-light-font);
@@ -124,9 +129,16 @@
   box-shadow: 0 0 0 var(--ring-w) var(--_ring);
 }
 
-/* trailing nav-trigger glyph */
+/* label-icon row — 4px gap, icon centered on the text line-box
+   (Figma 486:5250). The trailing glyph is type=arrow. */
+.btn-fill .btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
 .btn-fill .btn-glyph {
   display: inline-flex;
+  flex: none;
   color: var(--_glyph);
 }
 
@@ -137,7 +149,7 @@
   align-items: center;
   box-sizing: border-box;
   border-radius: var(--radius-full);
-  background: none;
+  background-color: transparent;
   color: var(--_ink);
   font: var(--_font);
   letter-spacing: var(--_ls);
@@ -309,6 +321,11 @@
   animation: btn-arrow-spin 1s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
+  .btn-fill,
+  .btn-ghost,
+  .btn-arrow {
+    transition-duration: 0s;
+  }
   .btn-arrow[data-loading] svg {
     animation: none;
   }

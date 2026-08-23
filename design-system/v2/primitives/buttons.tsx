@@ -35,9 +35,11 @@ export function ButtonFill({
       data-shape={shape}
       data-state={forceState}
     >
-      {children}
-      <span className="btn-glyph">
-        <IconNavTrigger variant="chevron" />
+      <span className="btn-label">
+        {children}
+        <span className="btn-glyph">
+          <IconNavTrigger variant="arrow" />
+        </span>
       </span>
     </button>
   );
