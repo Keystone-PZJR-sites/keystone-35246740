@@ -8,8 +8,13 @@
      always-on state ring; colors are per component state. */
   --ring-w: 4px;
 
-  /* button-fill's two non-token constants (spec 003 §2): the optical
-     10px top padding on xl/lg, and the 10px horizontal step on sm. */
+  /* button-fill's two non-token constants (spec 003 §2): the 10px
+     vertical padding on xl/lg, and the 10px horizontal step on sm. */
   --btn-fill-pt: 10px;
   --btn-fill-pad-10: 10px;
+
+  /* Hover in and out. On the resting rule so both directions ease.
+     Named properties only — never transition: all. */
+  --motion-hover-duration: 150ms;
+  --motion-hover-ease: ease-in-out;
 }
