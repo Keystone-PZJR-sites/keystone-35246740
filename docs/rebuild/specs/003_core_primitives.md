@@ -1,6 +1,6 @@
 # Spec 003 — Core primitives: buttons, grader input, icons, text
 
-**Status:** Draft — awaiting approval
+**Status:** Approved 2026-08-23 — in progress
 **Depends on:** spec 001 (tokens, fonts) · spec 002 (weights `--wA`/`--wB`)
 **Sources:** fresh MCP reads 2026-08-22/23 of the component sets
 `button-fill` (486:5251) · `button-ghost` (90:8297) · `grader-input`
