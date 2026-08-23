@@ -3,10 +3,9 @@
    nothing here is imported by the old design system, and nothing old is
    imported here. Import order matters for the cascade.
 
-   Layers present so far (Phase 0): fonts and tokens.
-   Later phases append: grid engine, base, primitives, components,
-   sections. Edit the file for the layer you work on; never add rules to
-   this index. */
+   Layers present so far: fonts, tokens (Phase 0), grid engine (Phase 1).
+   Later phases append: base, primitives, components, sections. Edit the
+   file for the layer you work on; never add rules to this index. */
 
 /* Fonts */
 @import "./tokens/fonts.css";
@@ -16,3 +15,6 @@
 @import "./tokens/semantic.css";
 @import "./tokens/type.css";
 @import "./tokens/component.css";
+
+/* Grid engine (spec 002) */
+@import "./grid/engine.css";

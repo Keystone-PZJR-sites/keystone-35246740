@@ -1,0 +1,205 @@
+/* v2 grid engine — GRID-SPEC.md v5 mechanics under container queries.
+   Spec 002. Normative source: docs/rebuild/reference/GRID-SPEC.md (§1–§7);
+   amendment (spec 002 §1): bands are gated by @container rules, not media
+   queries, so structure switches and interpolation weights read the same
+   width (the page container). Anchors: 384 · 576 · 768 · 960 · 1344
+   (tick = 32 / 48 / 64 / 80 / 112). Mobile-first: the un-gated rules ARE
+   the 384 design.
+
+   The two units (v5 §1):
+   --t (tick)  = 100cqw / 12 — fluid; all structure.
+   --c (cell)  = 16px (--space-xl) — fixed; all material.
+
+   The 1px values below are not spacing: they are the hairline geometry of
+   v5 §5 (line-inclusive sizing, interior lines at k·t − 1px). The px
+   anchor constants in the weight formulas are the designed anchor ticks. */
+
+/* The size container. body once the rebuild owns the root layout; until
+   then any full-width wrapper (the harness root) plays the role — the
+   container reads content width, which is what keeps anchors pixel-exact
+   with a classic scrollbar forced on. */
+.v2-root {
+  container-type: inline-size;
+}
+
+/* ---- tick, cell, line, and per-band interpolation weights ---- */
+
+.page {
+  position: relative;
+  --t: calc(100cqw / 12);
+  --c: var(--space-xl);
+  --line: var(--color-border-000);
+
+  /* base band (< 576) interpolates 384 → 576 (T0 32, T1 48); below 384
+     the same line extrapolates downward (v5 §2). */
+  --wA: calc((48px - var(--t)) / 16);
+  --wB: calc((var(--t) - 32px) / 16);
+}
+
+@container (min-width: 576px) {
+  .page {
+    --wA: calc((64px - var(--t)) / 16);
+    --wB: calc((var(--t) - 48px) / 16);
+  }
+}
+
+@container (min-width: 768px) {
+  .page {
+    --wA: calc((80px - var(--t)) / 16);
+    --wB: calc((var(--t) - 64px) / 16);
+  }
+}
+
+@container (min-width: 960px) {
+  .page {
+    --wA: calc((112px - var(--t)) / 32);
+    --wB: calc((var(--t) - 80px) / 32);
+  }
+}
+
+@container (min-width: 1344px) {
+  .page {
+    /* above the last anchor: pure zoom (v5 §2) */
+    --wA: 0px;
+    --wB: calc(var(--t) / 112);
+  }
+}
+
+/* ---- page skeleton (v5 §3) ---- */
+
+/* isolation is load-bearing: it gives each section its own stacking
+   context so the overlay can sit at z-index -1 inside the section —
+   above the page background, below all flow content. */
+.sec {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ---- selective exposure overlay (v5 §4) ---- */
+
+.gx {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Exposure region: outer rectangle drawn by its own border, sized
+   line-inclusively (k·t + 1px) so the far border lands on the same pixel
+   as the next lattice line. Interior lines are real 1px children at
+   k·t − 1px offsets — same pixel geometry as the border (children measure
+   from the padding box, inside the 1px border). */
+.grid-region {
+  position: absolute;
+  border: 1px solid var(--line);
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) * var(--gw) + 1px);
+  height: calc(var(--t) * var(--gh) + 1px);
+}
+.grid-region i {
+  position: absolute;
+  background: var(--line);
+}
+.grid-region i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: calc(var(--t) * var(--n) - 1px);
+}
+.grid-region i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  top: calc(var(--t) * var(--n) - 1px);
+}
+
+/* Solid cell. */
+.grid-fill {
+  position: absolute;
+  background: var(--line);
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) * var(--gw, 1) + 1px);
+  height: calc(var(--t) * var(--gh, 1) + 1px);
+}
+
+/* Standalone outlined cell or block. */
+.grid-cellx {
+  position: absolute;
+  border: 1px solid var(--line);
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) * var(--gw, 1) + 1px);
+  height: calc(var(--t) * var(--gh, 1) + 1px);
+}
+
+/* Ornament cell: paints between lattice and content (z-index 0 inside the
+   isolated section), never intercepts the pointer. */
+.decor {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) + 1px);
+  height: calc(var(--t) + 1px);
+}
+
+/* ---- band gating: rm (base) · rs · rt · rd1 · rd2 ---- */
+/* Exactly one band class is visible at any width. */
+
+.rs,
+.rt,
+.rd1,
+.rd2 {
+  display: none;
+}
+@container (min-width: 576px) {
+  .rm { display: none; }
+  .rs { display: block; }
+}
+@container (min-width: 768px) {
+  .rs { display: none; }
+  .rt { display: block; }
+}
+@container (min-width: 960px) {
+  .rt { display: none; }
+  .rd1 { display: block; }
+}
+@container (min-width: 1344px) {
+  .rd1 { display: none; }
+  .rd2 { display: block; }
+}
+
+/* Compound gating for .decor (v5 §4 ordering gotcha): the .decor
+   display:grid above outranks the generic band gating by order, so decors
+   carry their own. Any absolutely-positioned vocabulary added after the
+   generic gating rules needs the same treatment. */
+.decor.rs,
+.decor.rt,
+.decor.rd1,
+.decor.rd2 {
+  display: none;
+}
+@container (min-width: 576px) {
+  .decor.rm { display: none; }
+  .decor.rs { display: grid; }
+}
+@container (min-width: 768px) {
+  .decor.rs { display: none; }
+  .decor.rt { display: grid; }
+}
+@container (min-width: 960px) {
+  .decor.rt { display: none; }
+  .decor.rd1 { display: grid; }
+}
+@container (min-width: 1344px) {
+  .decor.rd1 { display: none; }
+  .decor.rd2 { display: grid; }
+}
