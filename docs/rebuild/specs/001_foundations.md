@@ -82,10 +82,11 @@ paths) before committing; request re-exports if not.
 
 ## 4 · Acceptance criteria
 
-- [ ] Every color, spacing, radius, and effect value in the token layer traces
+- [x] Every color, spacing, radius, and effect value in the token layer traces
       to a Figma variable or style re-extracted at build time; a diff of the
-      extraction against the committed tokens is empty.
-- [ ] No hex, px-spacing, or radius literal exists outside the token files.
+      extraction against the committed tokens is empty. (Extracted and built
+      2026-08-22; type styles regenerate byte-identical from the snapshot.)
+- [x] No hex, px-spacing, or radius literal exists outside the token files.
 - [ ] Both fonts load from `public/media/fonts/`; GT Standard renders at
       weights 300–600 with the correct optical size per type step (spot-check
       a `text/md` and a `text/xl` sample against Figma); Kyoto renders at
