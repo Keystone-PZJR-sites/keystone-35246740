@@ -47,7 +47,14 @@
 }
 
 /* Full-lattice debug overlay: real 1px elements on the same k·t geometry
-   as the engine (no gradients, v5 §5.1) — above content, ink-tinted. */
+   as the engine (no gradients, v5 §5.1) — above content, ink-tinted.
+   Lines sit at k·t exactly. The engine's interior-line rule subtracts 1px
+   because those lines live inside a region's 1px border; this overlay is
+   anchored to the borderless page, so subtracting here would fork the
+   geometry (v5 §5.2) and smear a second line one pixel off the painted
+   one. Drawn from the same expression, the overlay coincides with every
+   painted line — any painted line still visible under the overlay is
+   off-grid. */
 .gdt-overlay {
   position: absolute;
   inset: 0;
@@ -62,13 +69,13 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  left: calc(var(--t) * var(--n) - 1px);
+  left: calc(var(--t) * var(--n));
 }
 .gdt-overlay i.h {
   left: 0;
   right: 0;
   height: 1px;
-  top: calc(var(--t) * var(--n) - 1px);
+  top: calc(var(--t) * var(--n));
 }
 
 /* Hidden measurement probes for the self-tests */
