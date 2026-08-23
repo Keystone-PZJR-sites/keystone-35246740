@@ -2,7 +2,9 @@
 
 Keystone's own corporate website, built on the Keystone platform. This is a **fully custom, agency-built site** driven by a central, professional-grade design system at `design-system/`. No stock design-system visual components or CSS are loaded — the Keystone data/API layer is used for backend data only.
 
-> **AI agents and designers: read `docs/rules/rules.md` before doing anything else.**
+> **AI agents and designers — this branch is the new-brand rebuild: read
+> `docs/rebuild/plan.md` first, then `docs/rules/rules.md` (partially
+> superseded; its header banner lists what still applies).**
 
 ---
 

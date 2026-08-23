@@ -1,5 +1,24 @@
 # Site Rules
 
+> **⚠ Rebuild in progress on this branch (`new-brand-marketing-site`).**
+> Read [`docs/rebuild/plan.md`](../rebuild/plan.md) first. For rebuild work,
+> the rebuild plan and its specs (`docs/rebuild/specs/`) **supersede** these
+> sections of this file:
+>
+> - **Responsive-Native** — 985px boundary → five anchors (384 · 576 · 768 ·
+>   960 · 1344), container-query band switches, mobile-first 384 base.
+> - **Fonts Are Licensed** — FK family → GT Standard Standard VF + PP Kyoto
+>   Variable Upright (facts in rebuild spec 001).
+> - **Specs Come First**, value-free clause only — rebuild specs live in
+>   `docs/rebuild/specs/` (new series from 001) and use tick/anchor/cell
+>   vocabulary; the spec-first workflow itself still applies, plus the
+>   just-in-time cadence in plan.md.
+> - **Site Scope** — the rebuild replaces the old-brand site described there.
+>
+> Everything else below remains in force. This file gets its full revision
+> when rebuild development starts (plan.md, "Rules deltas"). The old-site
+> rules remain intact and authoritative on `main`.
+
 Non-negotiable standards for this codebase. Read this before touching a file.
 
 Rules are grouped by theme and titled, not numbered for posterity — refer to them by title in code comments and PRs so renumbering never invalidates a reference.
