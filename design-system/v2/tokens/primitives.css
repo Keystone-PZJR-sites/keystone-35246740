@@ -1,0 +1,158 @@
+/* v2 tokens — primitives (layer 1 of 3)
+   Source: Figma `ks-MarketingSite` variables, collection "00 primitives".
+   Extracted via figma-console MCP on 2026-08-22. Do not edit values by
+   hand — re-extract from Figma (see docs/rebuild/specs/001_foundations.md).
+   Nothing outside the token layers may reference these directly; consume
+   the semantic layer instead. */
+
+:root {
+  /* base */
+  --color-base-white: #ffffff;
+  --color-base-black: #000000;
+
+  /* neutrals — warm grays (paper/ink axis) */
+  --color-lightgray-050: #fcfbf8;
+  --color-lightgray-100: #f8f7f2;
+  --color-lightgray-200: #f0eee6;
+  --color-lightgray-300: #e9e7dd;
+  --color-lightgray-400: #e0ddd1;
+  --color-lightgray-500: #d6d2c2;
+  --color-lightgray-600: #cbc5b4;
+  --color-lightgray-700: #beb8a7;
+  --color-lightgray-800: #b1aa9a;
+  --color-lightgray-900: #a49d8e;
+  --color-lightgray-950: #989281;
+
+  --color-darkgray-050: #8e897b;
+  --color-darkgray-100: #847f71;
+  --color-darkgray-200: #6c6860;
+  --color-darkgray-300: #5d5a56;
+  --color-darkgray-400: #4f4d4a;
+  --color-darkgray-500: #444240;
+  --color-darkgray-600: #3a3836;
+  --color-darkgray-700: #2f2e2d;
+  --color-darkgray-800: #242323;
+  --color-darkgray-900: #1d1c1c;
+  --color-darkgray-950: #141313;
+
+  /* hues (100 light -> 800 dark) */
+  --color-orange-100: #fff5ec;
+  --color-orange-200: #ffebd9;
+  --color-orange-300: #ffbb8a;
+  --color-orange-400: #f57e56;
+  --color-orange-500: #cf5330;
+  --color-orange-600: #a03722;
+  --color-orange-700: #6e271d;
+  --color-orange-800: #3c1618;
+
+  --color-red-100: #fff1ec;
+  --color-red-200: #ffe8e0;
+  --color-red-300: #ffb2a3;
+  --color-red-400: #f55c47;
+  --color-red-500: #cb452f;
+  --color-red-600: #9f3722;
+  --color-red-700: #792b20;
+  --color-red-800: #3c1618;
+
+  --color-yellow-100: #fdf5e3;
+  --color-yellow-200: #fceac6;
+  --color-yellow-300: #f7ca6f;
+  --color-yellow-400: #f5b83d;
+  --color-yellow-500: #dc9c19;
+  --color-yellow-600: #9f7318;
+  --color-yellow-700: #70531a;
+  --color-yellow-800: #3a2a0e;
+
+  --color-green-100: #eefdec;
+  --color-green-200: #dcfbd9;
+  --color-green-300: #a7f0b4;
+  --color-green-400: #66cc86;
+  --color-green-500: #46a56d;
+  --color-green-600: #267d54;
+  --color-green-700: #16573d;
+  --color-green-800: #063126;
+
+  --color-teal-100: #e9f6f3;
+  --color-teal-200: #d2ede6;
+  --color-teal-250: #aadfd7; /* the only half-step in the hue ramps */
+  --color-teal-300: #8cd4c9;
+  --color-teal-400: #5bc3b3;
+  --color-teal-500: #4aac9d;
+  --color-teal-600: #318175;
+  --color-teal-700: #236058;
+  --color-teal-800: #0d2a28;
+
+  --color-blue-100: #edf8ff;
+  --color-blue-200: #dbf1ff;
+  --color-blue-300: #a3ceff;
+  --color-blue-400: #3393ff;
+  --color-blue-500: #307be8;
+  --color-blue-600: #2566d0;
+  --color-blue-700: #24509e;
+  --color-blue-800: #0f223d;
+
+  --color-purple-100: #f8f3ff;
+  --color-purple-200: #f0e8ff;
+  --color-purple-300: #d8c2ff;
+  --color-purple-400: #9c69ea;
+  --color-purple-500: #8552c9;
+  --color-purple-600: #6e3ca7;
+  --color-purple-700: #4f2573;
+  --color-purple-800: #2f0d3f;
+
+  --color-pink-100: #fceef2;
+  --color-pink-200: #f9dce4;
+  --color-pink-300: #feaac8;
+  --color-pink-400: #f38bb0;
+  --color-pink-500: #da749b;
+  --color-pink-600: #bd527e;
+  --color-pink-700: #783551;
+  --color-pink-800: #3d1324;
+
+  --color-brown-100: #f6f1ee;
+  --color-brown-200: #e5d7cc;
+  --color-brown-300: #cbaf9a;
+  --color-brown-400: #ad8261;
+  --color-brown-500: #946b4d;
+  --color-brown-600: #72523b;
+  --color-brown-700: #513b2a;
+  --color-brown-800: #2f2218;
+
+  /* spacing scale — 4px base, Tailwind-style index.
+     The 16px cell of the grid system is --spacing-4.
+     The tick is NOT a token (it is derived geometry, spec 002). */
+  --spacing-0: 0px;
+  --spacing-0-5: 2px;
+  --spacing-1: 4px;
+  --spacing-1-5: 6px;
+  --spacing-2: 8px;
+  --spacing-2-5: 10px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-18: 72px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+  --spacing-40: 160px;
+  --spacing-48: 192px;
+  --spacing-56: 224px;
+  --spacing-64: 256px;
+  --spacing-80: 320px;
+  --spacing-96: 384px;
+  --spacing-120: 480px;
+  --spacing-140: 560px;
+  --spacing-160: 640px;
+  --spacing-180: 720px;
+  --spacing-192: 768px;
+  --spacing-256: 1024px;
+  --spacing-320: 1280px;
+  --spacing-360: 1440px;
+  --spacing-400: 1600px;
+  --spacing-480: 1920px;
+}
