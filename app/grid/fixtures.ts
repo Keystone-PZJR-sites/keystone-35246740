@@ -43,6 +43,11 @@ export interface DecorSpec {
   gx: number;
   gy: number;
   dir: "fwd" | "back";
+  /** The design draws this ornament inside a stroked cell (the carousel
+   * arrow frames carry a 1px border/000 stroke in Figma — verified from
+   * node strokes 2026-08-22). Rendered as a grid-cellx under the decor,
+   * so the notch's interior hairline is painted. */
+  cell?: boolean;
 }
 
 export interface FixtureBandMap {
@@ -71,8 +76,8 @@ export const GALLERY: Fixture = {
         { gx: 10, gy: 18, gw: 1, gh: 1 },
       ],
       decors: [
-        { gx: 10, gy: 16, dir: "fwd" },
-        { gx: 10, gy: 17, dir: "back" },
+        { gx: 10, gy: 16, dir: "fwd", cell: true },
+        { gx: 10, gy: 17, dir: "back", cell: true },
       ],
     },
     rs: {
@@ -83,8 +88,8 @@ export const GALLERY: Fixture = {
         { gx: 10, gy: 9, gw: 1, gh: 2 },
       ],
       decors: [
-        { gx: 10, gy: 7, dir: "fwd" },
-        { gx: 10, gy: 8, dir: "back" },
+        { gx: 10, gy: 7, dir: "fwd", cell: true },
+        { gx: 10, gy: 8, dir: "back", cell: true },
       ],
     },
     rt: {
@@ -95,8 +100,8 @@ export const GALLERY: Fixture = {
         { gx: 10, gy: 9, gw: 1, gh: 1 },
       ],
       decors: [
-        { gx: 10, gy: 7, dir: "fwd" },
-        { gx: 10, gy: 8, dir: "back" },
+        { gx: 10, gy: 7, dir: "fwd", cell: true },
+        { gx: 10, gy: 8, dir: "back", cell: true },
       ],
     },
     rd1: {
@@ -107,8 +112,8 @@ export const GALLERY: Fixture = {
         { gx: 10, gy: 9, gw: 1, gh: 1 },
       ],
       decors: [
-        { gx: 10, gy: 7, dir: "fwd" },
-        { gx: 10, gy: 8, dir: "back" },
+        { gx: 10, gy: 7, dir: "fwd", cell: true },
+        { gx: 10, gy: 8, dir: "back", cell: true },
       ],
     },
     rd2: {
@@ -119,8 +124,8 @@ export const GALLERY: Fixture = {
         { gx: 9, gy: 8, gw: 1, gh: 1 },
       ],
       decors: [
-        { gx: 9, gy: 6, dir: "fwd" },
-        { gx: 9, gy: 7, dir: "back" },
+        { gx: 9, gy: 6, dir: "fwd", cell: true },
+        { gx: 9, gy: 7, dir: "back", cell: true },
       ],
     },
   },

@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import {
   GridRegion,
+  GridCellX,
   GridDecor,
   type GridBand,
 } from "@/design-system/v2/grid/region";
@@ -30,11 +31,14 @@ function FixtureOverlay({ fixture }: { fixture: Fixture }) {
           ...map.regions.map((r, i) => (
             <GridRegion key={`${band}-r${i}`} band={band as GridBand} {...r} />
           )),
-          ...(map.decors ?? []).map((d, i) => (
+          ...(map.decors ?? []).flatMap((d, i) => [
+            ...(d.cell
+              ? [<GridCellX key={`${band}-dc${i}`} band={band as GridBand} gx={d.gx} gy={d.gy} />]
+              : []),
             <GridDecor key={`${band}-d${i}`} band={band as GridBand} gx={d.gx} gy={d.gy}>
               <span>{d.dir === "back" ? "\u2190" : "\u2192"}</span>
-            </GridDecor>
-          )),
+            </GridDecor>,
+          ]),
         ];
       })}
     </div>
