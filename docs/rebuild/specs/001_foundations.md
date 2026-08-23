@@ -1,6 +1,6 @@
 # Spec 001 — Foundations: tokens, fonts, brand marks
 
-**Status:** Draft — awaiting approval
+**Status:** Approved 2026-08-22 — in progress
 **Depends on:** `docs/rebuild/plan.md`
 **Sources:** `docs/rebuild/reference/TOKENS-HANDOFF.md` · Figma variables API
 (re-extract before building) · font binaries · logo SVGs
