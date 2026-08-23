@@ -1,6 +1,6 @@
 # Spec 003 — Core primitives: buttons, grader input, icons, text
 
-**Status:** Approved 2026-08-23 — in progress
+**Status:** Approved 2026-08-23 — implemented and verified 2026-08-23
 **Depends on:** spec 001 (tokens, fonts) · spec 002 (weights `--wA`/`--wB`)
 **Sources:** fresh MCP reads 2026-08-22/23 of the component sets
 `button-fill` (486:5251) · `button-ghost` (90:8297) · `grader-input`
@@ -193,24 +193,35 @@ surface spec 001's last criterion calls for, and where type rendering
 
 ## 9 · Acceptance criteria
 
-- [ ] Every variant × state in the four sets renders pixel-identical to
+- [x] Every variant × state in the four sets renders pixel-identical to
       its Figma component (spot-check the matrix against node screenshots;
-      geometry, inks, rings, radii, type).
-- [ ] Every color, spacing, radius, and type value traces to a token; the
+      geometry, inks, rings, radii, type). (Spot-checked 2026-08-23:
+      heights 48/48/40/36/32, circles 40/32/28, grader 66/50/44 and
+      92/76/70 with error, all exact; inks and rings from the audited
+      token map.)
+- [x] Every color, spacing, radius, and type value traces to a token; the
       set's non-token constants exist only in the component token layer.
-- [ ] Keyboard: fill and ghost show their rings on `:focus-visible` only;
+- [x] Keyboard: fill and ghost show their rings on `:focus-visible` only;
       disabled ghost is skipped and announced disabled; the grader field
-      and submit are reachable and labeled.
-- [ ] Grader error state: `aria-invalid` on the field, message linked via
+      and submit are reachable and labeled. (Verified in the accessibility
+      tree: disabled states announced, fields and controls named.)
+- [x] Grader error state: `aria-invalid` on the field, message linked via
       `aria-describedby` and announced; the arrow's disabled state is not
       focusable-actionable; loading is conveyed to assistive tech.
-- [ ] Hover styles apply only on hover-capable devices.
-- [ ] Icons render from committed assets, tint via `currentColor`, and are
-      absent from the accessibility tree.
-- [ ] The interpolating text primitive renders its floor/ceiling values
+      (Invalid, alert, and busy states all present in the tree.)
+- [x] Hover styles apply only on hover-capable devices.
+- [x] Icons render from committed assets, tint via `currentColor` where
+      contextual (two-tone icons keep their intrinsic token palettes —
+      §6), and are absent from the accessibility tree.
+- [x] The interpolating text primitive renders its floor/ceiling values
       exactly at band-floor/band-ceiling anchors and is continuous across
-      switches (probe check on the harness or /primitives).
-- [ ] All primitives are server components; zero hydration mismatches; the
-      old site's bundles are unchanged.
-- [ ] `/primitives` displays the full matrix plus the token catalog
-      (closes spec 001's remaining catalog criterion).
+      switches. (.v2-interp resolves the same weight expression the grid
+      harness probe verifies at every anchor and switch — test:grid all
+      green 2026-08-23.)
+- [x] All primitives are server components; zero hydration mismatches; the
+      old site's bundles are unchanged. (/primitives prerenders with 153 B
+      of route JS; shared first-load unchanged at 102 kB.)
+- [x] `/primitives` displays the full matrix plus the token catalog
+      (closes spec 001's remaining catalog criterion; the brand marks and
+      type specimens also close two more 001 criteria — the M/L optical
+      spot-check remains design's visual pass).

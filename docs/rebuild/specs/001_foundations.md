@@ -90,10 +90,19 @@ paths) before committing; request re-exports if not.
 - [ ] Both fonts load from `public/media/fonts/`; GT Standard renders at
       weights 300–600 with the correct optical size per type step (spot-check
       a `text/md` and a `text/xl` sample against Figma); Kyoto renders at
-      weights 100–500.
-- [ ] With fonts blocked, fallbacks render without layout explosion
+      weights 100–500. (Both fonts load and every weight renders on the
+      /primitives specimens, 2026-08-23; opsz is pinned per the style
+      snapshot. Open: the visual spot-check against Figma — including the
+      text/xl M-master vs text/lg L-master question — is design's pass on
+      /primitives.)
+- [x] With fonts blocked, fallbacks render without layout explosion
       (`font-display` chosen deliberately and documented in the font CSS).
-- [ ] The three brand marks render from the media registry; no SHA-named or
-      duplicate assets.
-- [ ] A `/styles`-style catalog page (or the grid harness of spec 002) can
-      display the full token set for visual QA.
+      (Verified 2026-08-23 with woff2 requests blocked: system fallbacks
+      render, all fixed material heights hold.)
+- [x] The three brand marks render from the media registry; no SHA-named or
+      duplicate assets. (Rendered on /primitives from `MEDIA_V2`,
+      2026-08-23.)
+- [x] A `/styles`-style catalog page (or the grid harness of spec 002) can
+      display the full token set for visual QA. (The /primitives page of
+      spec 003 renders the full token catalog from the committed token
+      files.)
