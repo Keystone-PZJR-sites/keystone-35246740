@@ -1,0 +1,109 @@
+/* /grid devtools styles — imported by grid-devtools.tsx only, so they
+   ship in development and are absent from the production bundle. */
+
+/* ---- devtools (dev only): self-test readout + debug overlay ---- */
+
+.gdt-panel {
+  position: fixed;
+  right: var(--c);
+  bottom: var(--c);
+  z-index: 10;
+  max-width: 336px;
+  max-height: 60dvh;
+  overflow-y: auto;
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-000);
+  padding: var(--c);
+  font: var(--ts-text-xs-regular-font);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz);
+  color: var(--color-text-300);
+}
+.gdt-panel h2 {
+  margin: 0 0 var(--space-sm);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  color: var(--color-text-100);
+}
+.gdt-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.gdt-panel li {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: space-between;
+  padding-block: var(--space-2xs);
+  border-top: 1px solid var(--color-border-000);
+}
+.gdt-panel li[data-pass="false"] {
+  color: var(--color-danger-500);
+  font-weight: 500;
+}
+.gdt-panel .gdt-hint {
+  margin-top: var(--space-sm);
+  color: var(--color-text-500);
+}
+
+/* Full-lattice debug overlay: real 1px elements on the same k·t geometry
+   as the engine (no gradients, v5 §5.1) — above content, ink-tinted. */
+.gdt-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+}
+.gdt-overlay i {
+  position: absolute;
+  background: var(--color-alpha-black-20);
+}
+.gdt-overlay i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: calc(var(--t) * var(--n) - 1px);
+}
+.gdt-overlay i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  top: calc(var(--t) * var(--n) - 1px);
+}
+
+/* Hidden measurement probes for the self-tests */
+.gdt-probe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Interpolation probe: one designed value per anchor (the ladder in
+   fixtures.ts), each band walking its own pair — continuous through every
+   switch because neighbors share the switch anchor. */
+.gdt-probe [data-probe="interp"] {
+  width: calc(var(--wA) * 36 + var(--wB) * 42);
+}
+@container (min-width: 576px) {
+  .gdt-probe [data-probe="interp"] {
+    width: calc(var(--wA) * 42 + var(--wB) * 48);
+  }
+}
+@container (min-width: 768px) {
+  .gdt-probe [data-probe="interp"] {
+    width: calc(var(--wA) * 48 + var(--wB) * 56);
+  }
+}
+@container (min-width: 960px) {
+  .gdt-probe [data-probe="interp"] {
+    width: calc(var(--wA) * 56 + var(--wB) * 64);
+  }
+}
+@container (min-width: 1344px) {
+  .gdt-probe [data-probe="interp"] {
+    width: calc(var(--wB) * 64);
+  }
+}

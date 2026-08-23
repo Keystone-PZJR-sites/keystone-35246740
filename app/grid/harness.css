@@ -1,0 +1,118 @@
+/* /grid harness — page-local styles (spec 002 §3).
+   Fixture band constants are read off the anchor frames (see fixtures.ts
+   for provenance). Everything structural is ticks; material is tokens.
+   The harness lives under the old root layout, so the v2 root neutralizes
+   the inherited chrome locally. */
+
+.v2-root {
+  min-height: 100dvh;
+  background: var(--color-bg-100);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- fixture sections: whole-tick heights per band ---- */
+
+.fx-gallery {
+  height: calc(var(--t) * 19);
+  /* strip band constants (ticks): top offset, card size, left pad */
+  --strip-top: 4;
+  --card-w: 9.5;
+  --card-h: 12;
+  --strip-pad: 0.5;
+}
+.fx-footer {
+  height: calc(var(--t) * 24);
+}
+
+@container (min-width: 576px) {
+  .fx-gallery {
+    height: calc(var(--t) * 11);
+    --strip-top: 3;
+    --card-w: 9;
+    --card-h: 6;
+    --strip-pad: 1;
+  }
+  .fx-footer {
+    height: calc(var(--t) * 21);
+  }
+}
+
+@container (min-width: 768px) {
+  .fx-gallery {
+    height: calc(var(--t) * 10);
+    --strip-top: 2;
+  }
+  .fx-footer {
+    height: calc(var(--t) * 15);
+  }
+}
+
+@container (min-width: 960px) {
+  .fx-footer {
+    height: calc(var(--t) * 12);
+  }
+}
+
+@container (min-width: 1344px) {
+  .fx-gallery {
+    height: calc(var(--t) * 9);
+    --card-w: 8;
+    --card-h: 5;
+  }
+  .fx-footer {
+    height: calc(var(--t) * 11);
+  }
+}
+
+/* ---- card scroll strip: stride stays exactly k·t (v5 §5.4) ---- */
+
+.fx-strip {
+  align-self: stretch;
+  margin-top: calc(var(--t) * var(--strip-top));
+  height: calc(var(--t) * var(--card-h) + 1px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.fx-strip::-webkit-scrollbar {
+  display: none;
+}
+.fx-strip .strip {
+  display: flex;
+  width: max-content;
+  gap: calc(var(--t) - 1px);
+  padding-left: calc(var(--t) * var(--strip-pad));
+}
+
+/* Bordered box merging with the lattice (v5 §6.1): sized k·t + 1px so its
+   far border lands on the same pixel as the next lattice line. */
+.fx-card {
+  flex: none;
+  width: calc(var(--t) * var(--card-w) + 1px);
+  height: calc(var(--t) * var(--card-h) + 1px);
+  border: 1px solid var(--line);
+  background: var(--color-bg-000);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--c);
+}
+.fx-card span {
+  font: var(--ts-text-xs-regular-font);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz);
+  color: var(--color-text-500);
+}
+
+/* Decor arrow glyphs */
+.decor span {
+  font: var(--ts-text-md-regular-font);
+  color: var(--color-text-400);
+}
+.decor.back span {
+  transform: scaleX(-1);
+}
