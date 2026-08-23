@@ -126,33 +126,40 @@ values and would need editing later — which spec immutability forbids.
 - Phase 5: `portfolio-card`, `engine`, `testimonial-card`,
   `hero-carousel-image` component nodes; per-anchor active/inactive states for
   the engine accordion; carousel/scroll motion intent; the gallery
-  carousel-control node (see "Special cells" below — its stacked
-  forward/back arrangement must be reconciled with the anchor frames'
-  lattice layers before the gallery spec is written).
+  carousel-control node (see "Special cells" below).
 
 ## Special cells — ornament and function on the lattice
 
 Noted 2026-08-22 while verifying Phase 1. Some tick cells in the anchor
 frames are not plain lattice: cells with a radius (full-radius circles),
 cells with radius **and** fill, and cells that host controls (the
-carousel forward/back buttons). Two consequences:
+carousel forward/back buttons). Three consequences:
 
-1. **Metadata reads cannot see them.** `get_metadata` returns position and
-   size only — no corner radius, fill, or interactivity. Cell-map
-   transcription therefore treats every tick-sized rectangle as a plain
-   cell. When a phase spec covers a section, its special cells are
+1. **Metadata reads cannot see what a cell is.** `get_metadata` returns
+   position and size only — no corner radius, fill, or interactivity.
+   Cell-map transcription therefore treats every tick-sized rectangle as a
+   plain cell. When a phase spec covers a section, its special cells are
    inventoried explicitly and read per-node with `get_design_context`;
    they are built as ornament vocabulary (`.decor`, shaped elements) or as
    real content-layer components (controls need pointer events; the
    lattice never takes them), never painted as plain cells.
-2. **Known discrepancy to reconcile in Figma.** The anchor frames' lattice
-   layers embed `forward-button`/`back-button` cells *diagonally* (960:
-   ticks 10,20 and 11,21 · 1344: 9,18 and 10,19 — re-verified from node
-   data 2026-08-22), but the current carousel-control design stacks the
-   back cell directly below the forward circle in one column. Design
-   reconciles the lattice layers with the control (or removes the embedded
-   button cells) before the Phase 5 gallery spec is written from fresh
-   reads.
+2. **Metadata reads cannot always see where a node is.** The lattice
+   layers are Figma **grid auto-layouts**; a grid child's `x`/`y` can be a
+   stale cached value that disagrees with where the grid actually renders
+   it (found 2026-08-22: every `back-button`'s metadata x was one column
+   off; its grid anchor and rendered bounds were correct). Transcription
+   from a grid-auto-layout frame is verified against **rendered bounds**
+   (`absoluteBoundingBox`, via the console bridge) before it is committed.
+   The full five-anchor audit found every cell rectangle correct; only the
+   moved button frames were stale.
+3. **The arrow arrangement, from rendered truth:** the gallery carousel
+   control is a vertical pair — forward arrow with the back arrow directly
+   below, exactly filling the lattice's 1×2 notch (384: col 10, rows
+   42–43 · 576: col 10, 27–28 · 768/960: col 10, 20–21 · 1344: col 9,
+   18–19, zero-based). The testimonial-strip pair sits side-by-side (back
+   left of forward: 384: 9–10,76 · 576: 8–9,52 · 768/960: 8–9,38). No
+   Figma reconciliation is needed; the earlier "diagonal" reading was the
+   stale-metadata artifact of point 2.
 
 ## Rules deltas (to fold into the rules revision)
 

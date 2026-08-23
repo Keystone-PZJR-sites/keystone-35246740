@@ -6,10 +6,15 @@
  * 1344 = 378:34835. Cell rectangles were absolute-positioned, divided by
  * the anchor tick (32/48/64/80/112 — zero off-grid cells at any anchor),
  * and merged into maximal rectangles; rows are section-local (v5 §4).
+ * Re-verified 2026-08-22 against rendered bounds through the console
+ * bridge (the lattice layers are Figma grid auto-layouts, whose metadata
+ * x/y can be stale — see plan.md, "Special cells"): every cell matched;
+ * only the back-arrow decor positions were corrected.
  *
  * Fixture "gallery" is the portfolio-gallery zone: full field on top, a
- * notched sub-field below (the forward arrow sits in the void, the back
- * arrow on a cell), and the card scroll strip.
+ * notched sub-field below (the 1×2 notch is exactly the carousel control:
+ * forward arrow above, back arrow directly below), and the card scroll
+ * strip.
  * Fixture "footer" is the footer: full fields, the lockup channel flanked
  * by 1-wide columns (384/576), and the sparser designed maps (768+).
  */
@@ -67,7 +72,7 @@ export const GALLERY: Fixture = {
       ],
       decors: [
         { gx: 10, gy: 16, dir: "fwd" },
-        { gx: 11, gy: 17, dir: "back" },
+        { gx: 10, gy: 17, dir: "back" },
       ],
     },
     rs: {
@@ -79,7 +84,7 @@ export const GALLERY: Fixture = {
       ],
       decors: [
         { gx: 10, gy: 7, dir: "fwd" },
-        { gx: 11, gy: 8, dir: "back" },
+        { gx: 10, gy: 8, dir: "back" },
       ],
     },
     rt: {
@@ -91,7 +96,7 @@ export const GALLERY: Fixture = {
       ],
       decors: [
         { gx: 10, gy: 7, dir: "fwd" },
-        { gx: 11, gy: 8, dir: "back" },
+        { gx: 10, gy: 8, dir: "back" },
       ],
     },
     rd1: {
@@ -103,7 +108,7 @@ export const GALLERY: Fixture = {
       ],
       decors: [
         { gx: 10, gy: 7, dir: "fwd" },
-        { gx: 11, gy: 8, dir: "back" },
+        { gx: 10, gy: 8, dir: "back" },
       ],
     },
     rd2: {
@@ -115,7 +120,7 @@ export const GALLERY: Fixture = {
       ],
       decors: [
         { gx: 9, gy: 6, dir: "fwd" },
-        { gx: 10, gy: 7, dir: "back" },
+        { gx: 9, gy: 7, dir: "back" },
       ],
     },
   },
