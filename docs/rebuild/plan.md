@@ -119,7 +119,11 @@ values and would need editing later — which spec immutability forbids.
 
 ## Inputs needed from design, by phase
 
-- Phase 2: component nodes for `button-fill`, `button-ghost`, `grader-input`.
+- Phase 2: component nodes for `button-fill`, `button-ghost`, `grader-input`
+  — received 2026-08-22 (486:5251 · 90:8297 · 503:25844, plus the `icons`
+  sheet 519:5431); specced in 003. Still open from design: grader-input
+  error and loading states (deferred to the section spec that wires
+  submission).
 - Phase 3: footer nodes are already in the anchor frames; confirm accordion
   behavior at 384.
 - Phase 4: nav nodes incl. mobile-menu open state.
