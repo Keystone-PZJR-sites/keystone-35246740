@@ -26,6 +26,9 @@
   --_border: var(--color-border-000);
   --_ring: var(--color-bg-200);
   --_ph: var(--color-text-500);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
 }
 
 /* heights are the set's fixed values (66/50/44), content centered —
@@ -73,6 +76,9 @@
 .grader-field input::placeholder {
   color: var(--_ph);
   opacity: 1;
+  transition-property: color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
 }
 
 /* hover */
@@ -123,8 +129,15 @@
   pointer-events: none;
 }
 
-/* error — wins over everything above */
-.grader[data-error] .grader-field {
+/* error — must out-specify the :has() filled/active rules above;
+   those selectors carry :has()/:not() specificity that otherwise
+   keeps the teal ring. Restate every interactive twin so hover
+   and focus-within cannot leak teal over red/400 + red/300. */
+.grader[data-error] .grader-field,
+.grader[data-error] .grader-field:hover,
+.grader[data-error] .grader-field:focus-within,
+.grader[data-error] .grader-field:focus-within:has(input:not(:placeholder-shown)),
+.grader[data-error] .grader-field:not(:focus-within):has(input:not(:placeholder-shown)) {
   --_border: var(--color-red-400);
   --_ring: var(--color-red-300);
   --sparkle-a: var(--color-red-400);
@@ -144,4 +157,11 @@
   font-optical-sizing: none;
   font-variation-settings: "opsz" var(--ts-text-sm-light-opsz);
   color: var(--color-red-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grader-field,
+  .grader-field input::placeholder {
+    transition-duration: 0s;
+  }
 }
