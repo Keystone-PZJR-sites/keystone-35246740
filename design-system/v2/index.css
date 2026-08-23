@@ -18,3 +18,8 @@
 
 /* Grid engine (spec 002) */
 @import "./grid/engine.css";
+
+/* Primitives (spec 003) */
+@import "./primitives/buttons.css";
+@import "./primitives/grader.css";
+@import "./primitives/text.css";

@@ -1,0 +1,22 @@
+/* v2 primitives — text (spec 003 §7).
+   .v2-text applies a token type style (set inline by the Text
+   component). .v2-interp rides the band weights: the consumer restates
+   the unitless floor/ceiling pairs per band (--fs0/--fs1/--lh0/--lh1)
+   and the weights carry the px (they are px-valued, spec 002). At an
+   anchor one weight is exactly 1, so the designed value renders exactly. */
+
+.v2-text {
+  margin: var(--space-none);
+  font-optical-sizing: none;
+}
+
+.v2-interp {
+  margin: var(--space-none);
+  font-optical-sizing: none;
+  /* the token style's family and weight come in through the shorthand;
+     the longhands after it replace its size and line-height with the
+     weight-interpolated values */
+  font: var(--_ts-font);
+  font-size: calc(var(--wA) * var(--fs0) + var(--wB) * var(--fs1, var(--fs0)));
+  line-height: calc(var(--wA) * var(--lh0) + var(--wB) * var(--lh1, var(--lh0)));
+}
