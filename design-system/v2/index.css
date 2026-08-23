@@ -8,6 +8,9 @@
    sections. Edit the file for the layer you work on; never add rules to
    this index. */
 
+/* Fonts */
+@import "./tokens/fonts.css";
+
 /* Tokens */
 @import "./tokens/primitives.css";
 @import "./tokens/semantic.css";
