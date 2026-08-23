@@ -136,6 +136,8 @@ The test before committing: if someone read only the docs and only the code, wou
 
 Branch names: `feature/`, `fix/`, `docs/`, `chore/`. Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/) — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `style:`, `perf:` followed by an imperative summary.
 
+Commit messages (summary and body) are written in [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/): active voice, imperative or simple present tense, one idea per sentence, sentences of 20 words or fewer, plain approved words (write "start", not "initiate"; "use", not "utilize"), no noun clusters of more than three words.
+
 One commit = one logical unit of work. `npx tsc --noEmit` and `npm run lint` must pass before every commit. `git push --force` to `main` is forbidden. PRs squash to a small number of logical commits before merge.
 
 ---
