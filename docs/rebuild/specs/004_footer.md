@@ -157,7 +157,11 @@ Careers) · **Find Us** (LinkedIn · Facebook · Instagram · YouTube · Spotify
 
 Header row is 24px tall: dot + heading left, 16px `IconChevronDownMedium`
 right, vertically centered in the closed row. Rows are disclosure buttons
-(§5).
+(§5). Accordion type interpolates 16→20 (headings) and 14→16 (items)
+across the base band — both anchors are accordion values — and **holds
+the 576 values across rs**: the 768 anchor belongs to the column
+structure and is not an interpolation target; the type switches with
+the structure at 768 (decision 2026-08-24, §9).
 
 **Columns (rt, rd1, rd2).** Four bordered columns left-to-right in source
 order:
@@ -326,6 +330,12 @@ the nodes after the fix:
   approval, 2026-08-23). The 384/576 frames bind `pink/400`; the
   768/960/1344 frames bind `pink/300` — the code follows the decision and
   the file is to be normalized to `pink/400`.
+- **Accordion type holds across rs** (decision, 2026-08-24): the build
+  first interpolated the rs nav type toward the 768 column values, so
+  the labels got smaller as the band got wider. The 768 structural
+  switch breaks the shared-anchor pair. The accordion keeps its 576
+  values (headings 20/24, items 16/22) through the rs band — the same
+  hold pattern as the tagline through rs/rt.
 - **The rt cell `(11,2)` is a plain rail cell, not an ornament**
   (decision, 2026-08-24): the 768 frame draws a filled circle there in
   error. The build renders the cell as normal lattice; the file is to
@@ -373,7 +383,10 @@ scrollbar forced on:
       tagline 42/50 Thin −3% at 1344; mid-band walk verified, e.g.
       tagline 36.95 at t 95.833; above 1344 pure zoom, 46.875 =
       42·t/112 at 1500. Continuity comes from shared-anchor pairs;
-      weight/tracking are band constants in the CSS.)
+      weight/tracking are band constants in the CSS.) Amended
+      2026-08-24: the accordion's nav type holds its 576 values across
+      rs and switches with the structure at 768 (§4, §9) — the
+      continuity requirement does not apply at that switch.
 - [x] The lockup measures exactly 8t wide at every anchor and keeps riding
       the tick above 1344. (8.0000t at 384/960/1344/1500.)
 - [x] Accordion: headers are buttons with correct `aria-expanded`/

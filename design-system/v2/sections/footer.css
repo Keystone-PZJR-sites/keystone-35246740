@@ -470,11 +470,15 @@
     width: 8px;
     height: 8px;
   }
+  /* The accordion holds its 576 anchor type through the rs band (like
+     the tagline through rs/rt). The 768 anchor belongs to the column
+     structure, so it is not an interpolation target — the type switches
+     with the structure at 768 (§9). */
   .fnav-name {
     font: var(--ts-display-serif-2xs-plus-regular-font);
     letter-spacing: var(--ts-display-serif-2xs-plus-regular-ls);
-    font-size: calc(var(--wA) * 20 + var(--wB) * 14);
-    line-height: calc(var(--wA) * 24 + var(--wB) * 18);
+    font-size: 20px;
+    line-height: 24px;
   }
   .fnav-listwrap {
     margin-top: 12px;
@@ -484,8 +488,8 @@
     gap: 10px;
   }
   .fnav-list .fitem {
-    font-size: calc(var(--wA) * 16 + var(--wB) * 14);
-    line-height: calc(var(--wA) * 22 + var(--wB) * 18);
+    font-size: 16px;
+    line-height: 22px;
   }
 }
 
