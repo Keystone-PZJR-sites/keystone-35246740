@@ -1,0 +1,21 @@
+/* v2 tokens — motion (global layer). Created 2026-08-24 when the nav
+   became the second consumer of the footer's drawer grammar (spec 005
+   §6; spec 004 §5 deferred promotion to exactly this moment). Values
+   are spec 004's, unchanged.
+
+   The draw-down grammar: a box's bottom edge draws to its target height
+   over the duration — open on the ease-in-out curve, close on the
+   ease-out curve — content revealed by the moving clip edge. The hard
+   shadow does not paint while the box moves; when the box lands, its
+   offset grows from the 0,0 origin token to the shadow token's value
+   over the shadow duration on the ease-out curve. On close the shadow
+   goes off at once. */
+
+:root {
+  --motion-drawer-duration: 250ms;
+  /* ease-out — the close direction (and the shadow growth) */
+  --motion-drawer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* ease-in-out — the open direction */
+  --motion-drawer-ease-open: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-drawer-shadow-duration: 200ms;
+}

@@ -14,6 +14,7 @@
 @import "./tokens/primitives.css";
 @import "./tokens/semantic.css";
 @import "./tokens/type.css";
+@import "./tokens/motion.css";
 @import "./tokens/component.css";
 
 /* Grid engine (spec 002) */

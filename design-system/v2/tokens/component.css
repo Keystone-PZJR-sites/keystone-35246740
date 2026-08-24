@@ -25,14 +25,18 @@
   --fitem-gap-hover: 5px;
   --fitem-bar: 3px;
 
-  /* Drawer motion (spec 004 §5, amended 2026-08-24) — the build's first
-     structural motion values. They stay in the component layer until a
-     second section needs them (then they promote to a global motion
-     layer). The open eases in and out; the close keeps the ease-out.
-     The shadow grows out of the origin after the box lands. */
-  --motion-drawer-duration: 250ms;
-  --motion-drawer-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-drawer-ease-open: cubic-bezier(0.65, 0, 0.35, 1);
-  --motion-drawer-shadow-duration: 200ms;
+  /* Footer rail cascade (spec 004 §5). The shared drawer constants
+     promoted to tokens/motion.css 2026-08-24 (spec 005 §6); the stagger
+     stays here — the footer is its only consumer. */
   --motion-rail-stagger: 40ms;
+
+  /* The z scale (rules.md "The Z-Index Scale"), added with the
+     rebuild's first overlay chrome (spec 005 §1). Only --z-nav is
+     consumed today; the scale ships whole so no one invents numbers. */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-nav: 50;
+  --z-modal: 100;
+  --z-portal: 9999;
 }
