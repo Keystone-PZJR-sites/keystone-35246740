@@ -129,7 +129,9 @@ Layout per anchor (content values from the nodes):
   "yourbusiness.com"; state wiring per spec 003 §5.
 - At rd1/rd2 the two bordered boxes merge with the lattice (`6t+1` wide,
   `2t+1` tall, `border/000`); tagline box padding px 32 (rd1) / 56 (rd2),
-  input box px 32 (rd1) / 72 (rd2), both py 8, content vertically centered.
+  input box px 32 (rd1) / 56 (rd2), both py 8, content vertically centered.
+  (The rd2 input padding was 72 at approval; design updated it to 56 on
+  2026-08-24 for optical alignment with the tagline box — §9.)
 - Above 1344 the content column zooms (`528 · t/112`); across rd1 it
   interpolates 416→528; across the base band 300→416; constant 416 through
   rs/rt.
@@ -284,9 +286,9 @@ partial cell row (r5, with the filled circle at col 3) · copyright.
    `_nav-trigger-icon`, `ksLockup`, tokens, type styles.
 
 Non-token material constants found in the set (component token layer, per
-band only where used): nav paddings 56 (rd2), tagline/input box paddings 56
-· 72 (rd2), footer-item icon gap 3 (5 on hover), the rs open-row internals
-36 · 22 · 10 (§5), and bullet top offsets (§3).
+band only where used): nav paddings 56 (rd2), tagline/input box padding 56
+(rd2, both boxes — §3), footer-item icon gap 3 (5 on hover), the rs
+open-row internals 36 · 22 · 10 (§5), and bullet top offsets (§3).
 
 ## 8 · Semantics, deliverable
 
@@ -322,6 +324,10 @@ the nodes after the fix:
   approval, 2026-08-23). The 384/576 frames bind `pink/400`; the
   768/960/1344 frames bind `pink/300` — the code follows the decision and
   the file is to be normalized to `pink/400`.
+- **The rd2 input box padding is 56, not 72** (design update,
+  2026-08-24): design changed the approved 72 to 56 for optical
+  alignment with the tagline box. §3 and §7 carry the new value; the
+  build follows it.
 - **Erratum (found at build, 2026-08-23):** §2's rd2 map lists logo-r5 at
   gy 9 and its filled circle at (3,9) — off by one against §1's totals
   (logo r1 at gy 6 + 3t sides puts r5 at gy 10) and the node read
