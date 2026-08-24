@@ -66,7 +66,8 @@ const SECTION_MAP: Record<GridBand, BandMap> = {
     ornaments: [
       { gx: 11, gy: 0, shape: "square" },
       { gx: 0, gy: 2, shape: "circle" },
-      { gx: 11, gy: 2, shape: "circle" },
+      /* (11,2) is a plain rail cell — the Figma circle there is an
+         error (decision 2026-08-24, spec §9) */
       { gx: 3, gy: 9, shape: "outline" },
     ],
   },

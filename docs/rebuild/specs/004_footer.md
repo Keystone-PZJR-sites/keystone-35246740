@@ -71,9 +71,11 @@ sized `k·t+1` that merge with the grid (v5 §6.1) and are listed in §3–§6.
   (center 10t is void — bounded by the rails and the nav top) · logo-r1
   `0,10,12,1` · logo sides `0,11,1,3` / `11,11,1,3` · logo-r5 left cells
   `0,14,6,1`
-- ornaments: filled square `(11,0)` · filled circles `(0,2)` and `(11,2)` ·
-  outlined circle `(3,9)` (1×1t, bottom-left corner of the Resources
-  column) · filled square `(8,10)` · filled circle `(3,14)`
+- ornaments: filled square `(11,0)` · filled circle `(0,2)` · outlined
+  circle `(3,9)` (1×1t, bottom-left corner of the Resources column) ·
+  filled square `(8,10)` · filled circle `(3,14)`. (The frame also draws
+  a filled circle at `(11,2)` — a Figma error; that cell is a plain rail
+  cell. Decision 2026-08-24, §9.)
 
 **rd1 (960):**
 
@@ -324,6 +326,10 @@ the nodes after the fix:
   approval, 2026-08-23). The 384/576 frames bind `pink/400`; the
   768/960/1344 frames bind `pink/300` — the code follows the decision and
   the file is to be normalized to `pink/400`.
+- **The rt cell `(11,2)` is a plain rail cell, not an ornament**
+  (decision, 2026-08-24): the 768 frame draws a filled circle there in
+  error. The build renders the cell as normal lattice; the file is to
+  be corrected.
 - **The rd2 input box padding is 56, not 72** (design update,
   2026-08-24): design changed the approved 72 to 56 for optical
   alignment with the tagline box. §3 and §7 carry the new value; the
