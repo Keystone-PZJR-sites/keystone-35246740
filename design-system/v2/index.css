@@ -23,3 +23,6 @@
 @import "./primitives/buttons.css";
 @import "./primitives/grader.css";
 @import "./primitives/text.css";
+
+/* Primitives (spec 004) */
+@import "./primitives/footer-item.css";

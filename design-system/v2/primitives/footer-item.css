@@ -1,0 +1,79 @@
+/* v2 primitives — footer-item (spec 004 §4, set 523:19371).
+   Sizes: sm = text/sm/Regular · md = text/md/Regular. Chromes carry the
+   ink walk (default → hover → focus); the arrow tints with the label
+   (currentColor). Hover grows the label→arrow gap 3 → 5 on hover-capable
+   devices only; :focus-visible paints the bg/400 highlight bar behind
+   the label — square, 3px side bearings, no layout shift. */
+
+.fitem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fitem-gap);
+  color: var(--_ink);
+  font: var(--_font);
+  letter-spacing: var(--_ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--_opsz);
+  text-decoration: none;
+  white-space: nowrap;
+  transition-property: color, gap;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+
+.fitem[data-size="sm"] {
+  --_font: var(--ts-text-sm-regular-font);
+  --_ls: var(--ts-text-sm-regular-ls);
+  --_opsz: var(--ts-text-sm-regular-opsz);
+}
+.fitem[data-size="md"] {
+  --_font: var(--ts-text-md-regular-font);
+  --_ls: var(--ts-text-md-regular-ls);
+  --_opsz: var(--ts-text-md-regular-opsz);
+}
+
+.fitem[data-chrome="light"] {
+  --_ink: var(--color-text-400);
+  --_ink-hover: var(--color-text-200);
+  --_ink-focus: var(--color-text-300);
+}
+.fitem[data-chrome="dark"] {
+  --_ink: var(--color-text-300);
+  --_ink-hover: var(--color-text-100);
+  --_ink-focus: var(--color-text-200);
+}
+
+@media (hover: hover) {
+  .fitem:hover {
+    color: var(--_ink-hover);
+    gap: var(--fitem-gap-hover);
+  }
+}
+.fitem[data-state="hover"] {
+  color: var(--_ink-hover);
+  gap: var(--fitem-gap-hover);
+}
+
+.fitem:focus-visible,
+.fitem[data-state="focus"] {
+  outline: none;
+  color: var(--_ink-focus);
+}
+.fitem:focus-visible .fitem-label,
+.fitem[data-state="focus"] .fitem-label {
+  background: var(--color-bg-400);
+  box-shadow:
+    var(--fitem-bar) 0 0 var(--color-bg-400),
+    calc(-1 * var(--fitem-bar)) 0 0 var(--color-bg-400);
+}
+
+.fitem-glyph {
+  display: inline-flex;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fitem {
+    transition-duration: 0s;
+  }
+}

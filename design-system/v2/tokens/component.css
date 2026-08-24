@@ -17,4 +17,11 @@
      Named properties only — never transition: all. */
   --motion-hover-duration: 150ms;
   --motion-hover-ease: ease-in-out;
+
+  /* footer-item's non-token constants (spec 004 §4/§7): the 3px
+     label→arrow gap (5 on hover) and the focus bar's 3px side
+     bearings. */
+  --fitem-gap: 3px;
+  --fitem-gap-hover: 5px;
+  --fitem-bar: 3px;
 }
