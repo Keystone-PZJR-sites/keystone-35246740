@@ -626,7 +626,16 @@
 .f-lockup {
   display: block;
   width: calc(var(--t) * 8);
-  height: auto;
+  aspect-ratio: 380 / 61;
+  background-color: var(--color-text-200);
+  -webkit-mask-image: url("/media/brand/ks-lockup.svg");
+  mask-image: url("/media/brand/ks-lockup.svg");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
 .f-copy {

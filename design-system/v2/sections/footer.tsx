@@ -294,12 +294,10 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
         <Overlay maps={LOGO_MAP} />
         <div className="f-lockband">
           {/* 8t at every anchor (§6) — pure tick structure */}
-          <img
+          <div
             className="f-lockup"
-            src={lockup.src}
-            width={lockup.width}
-            height={lockup.height}
-            alt={lockup.alt}
+            role="img"
+            aria-label={lockup.alt}
           />
         </div>
         <div className="f-copy">
