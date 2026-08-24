@@ -70,7 +70,7 @@
   font: var(--_font);
   letter-spacing: var(--_ls);
   font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--_opsz);
+  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
   color: var(--color-text-200);
 }
 .grader-field input::placeholder {
@@ -155,7 +155,7 @@
   font: var(--ts-text-sm-light-font);
   letter-spacing: var(--ts-text-sm-light-ls);
   font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz);
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
   color: var(--color-red-500);
 }
 

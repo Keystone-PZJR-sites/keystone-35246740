@@ -160,7 +160,7 @@
   margin: var(--space-none);
   font-family: var(--font-sans);
   font-optical-sizing: none;
-  font-variation-settings: "opsz" 26;
+  font-variation-settings: "opsz" 26, var(--font-sans-slnt);
   font-weight: 300;
   letter-spacing: -0.01em;
   font-size: 16px;
@@ -642,7 +642,7 @@
   padding-inline: calc(var(--t));
   font-family: var(--font-sans);
   font-optical-sizing: none;
-  font-variation-settings: "opsz" 24;
+  font-variation-settings: "opsz" 24, var(--font-sans-slnt);
   font-weight: 400;
   letter-spacing: -0.02em;
   font-size: calc(var(--wA) * 10 + var(--wB) * 12);
@@ -690,7 +690,7 @@
 @container (min-width: 1344px) {
   .f-copy {
     gap: var(--space-6xl);
-    font-variation-settings: "opsz" 26;
+    font-variation-settings: "opsz" 26, var(--font-sans-slnt);
     font-size: calc(var(--wB) * 14);
     line-height: calc(var(--wB) * 18);
   }

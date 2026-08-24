@@ -52,4 +52,7 @@
   --font-opsz-text: 26;
   --font-opsz-display-2xs: 28;
   --font-opsz-display: 30;
+
+  /* GT Standard VF slnt axis (0–6). WebKit renders oblique when omitted. */
+  --font-sans-slnt: "slnt" 0;
 }

@@ -35,7 +35,7 @@
   color: var(--_ink);
   font: var(--_font);
   letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz);
+  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
 }
 .btn-fill[data-shape="box"] {
   border-radius: var(--radius-none);
@@ -153,7 +153,7 @@
   color: var(--_ink);
   font: var(--_font);
   letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz);
+  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
   gap: var(--space-md);
 }
 

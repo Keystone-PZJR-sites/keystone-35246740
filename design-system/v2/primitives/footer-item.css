@@ -13,7 +13,7 @@
   font: var(--_font);
   letter-spacing: var(--_ls);
   font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--_opsz);
+  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
   text-decoration: none;
   white-space: nowrap;
   transition-property: color, gap;
