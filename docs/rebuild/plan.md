@@ -125,7 +125,14 @@ values and would need editing later — which spec immutability forbids.
   states, the `button-arrow` set (520:15542, incl. loading), and the
   expanded icon sheet — folded into 003. Nothing open for Phase 2.
 - Phase 3: footer nodes are already in the anchor frames; confirm accordion
-  behavior at 384.
+  behavior at 384 — received 2026-08-23: the open-drawer states at 384
+  (268:31970) and 576 (525:20011) and the footer-item state set
+  (523:19371); same day design fixed the 384 grader gap, the open-frame
+  height, the 1344 lockup (now 8t), and the 768 heading gap (12, uniform);
+  single-open accordion decided; drawer motion intent supplied (draw-down,
+  chevron rotation, rail cascade — 004 §5). All specced in 004 from
+  post-fix re-reads; nothing open for Phase 3 (004 §9 records the
+  resolutions).
 - Phase 4: nav nodes incl. mobile-menu open state.
 - Phase 5: `portfolio-card`, `engine`, `testimonial-card`,
   `hero-carousel-image` component nodes; per-anchor active/inactive states for
