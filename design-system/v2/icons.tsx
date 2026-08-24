@@ -117,6 +117,17 @@ export function IconNavTrigger({
   );
 }
 
+/** IconChevronDownMedium (523:19955) — 16-grid stroked chevron,
+ * currentColor. The footer accordion trigger glyph (spec 004 §7);
+ * exported via the console bridge 2026-08-23. */
+export function IconChevronDownMedium({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.83301 6.33301L7.99967 10.4997L12.1663 6.33301" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" />
+    </svg>
+  );
+}
+
 /** _nav-menu-mobile (520:15982) — 32-grid, currentColor. Consumer is the
  * Phase 4 nav; committed with the sheet (spec 003 §6). */
 export function IconNavMenu({ open = false, size = 32, className }: Props & { open?: boolean }) {
