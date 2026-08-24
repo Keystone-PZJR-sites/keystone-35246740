@@ -94,7 +94,10 @@ const RESOURCE_CARDS = [
 ] as const;
 
 /* Decorative 4×4 card lattices (§3): which cells render full-radius,
-   row-major, read from the drawer nodes 2026-08-24. */
+   row-major, read from the drawer nodes 2026-08-24. Built like a spec
+   002 region — outer border plus single interior lines (per-cell
+   borders would double every shared edge) — with the circles overlaid
+   line-inclusively on their cells. */
 const DECOR_ROUND: Record<string, number[]> = {
   feature: [0, 1, 11],
   blog: [0, 3, 9],
@@ -103,10 +106,21 @@ const DECOR_ROUND: Record<string, number[]> = {
 };
 
 function Decor({ variant }: { variant: keyof typeof DECOR_ROUND }) {
+  const lines = [1, 2, 3];
   return (
     <span className="knav-decor" data-decor={variant} aria-hidden="true">
-      {Array.from({ length: 16 }, (_, i) => (
-        <i key={i} className={DECOR_ROUND[variant].includes(i) ? "round" : undefined} />
+      {lines.map((n) => (
+        <i key={`v${n}`} className="v" style={{ "--n": n } as CSSProperties} />
+      ))}
+      {lines.map((n) => (
+        <i key={`h${n}`} className="h" style={{ "--n": n } as CSSProperties} />
+      ))}
+      {DECOR_ROUND[variant].map((i) => (
+        <i
+          key={`c${i}`}
+          className="c"
+          style={{ "--cx": i % 4, "--cy": Math.floor(i / 4) } as CSSProperties}
+        />
       ))}
     </span>
   );

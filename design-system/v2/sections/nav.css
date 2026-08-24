@@ -143,15 +143,14 @@
   font-optical-sizing: none;
   font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
   color: var(--color-text-300);
-  transition:
-    color var(--knav-ink-dur) var(--motion-hover-ease),
-    gap var(--knav-ink-dur) var(--motion-hover-ease);
+  transition: color var(--knav-ink-dur) var(--motion-hover-ease);
 }
 .knav-tick {
   flex: none;
   color: var(--color-text-500);
   transition:
     rotate var(--knav-chev-dur) var(--motion-drawer-ease),
+    translate var(--knav-ink-dur) var(--motion-hover-ease),
     color var(--knav-ink-dur) var(--motion-hover-ease);
 }
 
@@ -172,8 +171,11 @@
   .knav-btn[aria-controls]:hover .knav-tick {
     rotate: 180deg;
   }
-  .knav-login:hover .knav-item {
-    gap: var(--fitem-gap-hover);
+  /* the label→arrow gap reads 3 → 5 by moving the arrow right — a real
+     gap change would widen the hugging button and shift the label
+     (QA decision 2026-08-24); the button's box never changes */
+  .knav-login:hover .knav-tick {
+    translate: calc(var(--fitem-gap-hover) - var(--fitem-gap)) 0;
   }
 }
 .knav-btn[aria-expanded="true"]::after {
@@ -248,16 +250,34 @@
 }
 
 /* content variants share one open panel; moving between the triggers
-   swaps content without a close/reopen (§6.3) */
+   swaps content without a close/reopen (§6.3). Both variants stay
+   rendered, stacked in one grid cell, and swap by visibility — a
+   display switch would strip the blocks' computed styles and the
+   reveal cascade would not fire on a fresh open. The visible rule is
+   gated on [data-open] so a closed drawer's whole subtree still
+   leaves the accessibility tree. */
+.knav-drawer {
+  display: grid;
+}
 .knav-dcontent {
-  display: none;
+  grid-area: 1 / 1;
+  display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  height: 100%;
+  min-height: 0;
+  visibility: hidden;
+  /* on close, the active content stays visible through the panel fade
+     and goes hidden with it */
+  transition: visibility 0s linear var(--knav-reveal-slide);
 }
-.knav-drawer[data-item="solutions"] .knav-dcontent[data-content="solutions"],
-.knav-drawer[data-item="resources"] .knav-dcontent[data-content="resources"] {
-  display: flex;
+/* while the drawer is open, visibility changes are instant — that is
+   the trigger-to-trigger content swap (§6.3) */
+.knav-drawer[data-open] .knav-dcontent {
+  transition: none;
+}
+.knav-drawer[data-open][data-item="solutions"] .knav-dcontent[data-content="solutions"],
+.knav-drawer[data-open][data-item="resources"] .knav-dcontent[data-content="resources"] {
+  visibility: visible;
 }
 
 .knav-dlabels {
@@ -375,22 +395,45 @@
   align-self: stretch;
 }
 
+/* one outer border + single interior lines (never doubled), circles
+   overlaid line-inclusively (cell + 1px) so their edges share the
+   lattice's pixels — the spec 002 region construction at card scale */
 .knav-decor {
   position: absolute;
+  box-sizing: border-box;
   top: var(--knav-decor-top);
   left: calc(50% + var(--knav-decor-cx));
   transform: translateX(-50%);
-  display: grid;
-  grid-template-columns: repeat(4, var(--knav-decor-cell));
-  grid-auto-rows: var(--knav-decor-cell);
+  width: calc(var(--knav-decor-cell) * 4 + 1px);
+  height: calc(var(--knav-decor-cell) * 4 + 1px);
+  border: 1px solid var(--_decor);
   pointer-events: none;
 }
 .knav-decor i {
-  box-sizing: border-box;
-  border: 1px solid var(--_decor);
+  position: absolute;
 }
-.knav-decor i.round {
+.knav-decor i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--_decor);
+  left: calc(var(--knav-decor-cell) * var(--n) - 1px);
+}
+.knav-decor i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--_decor);
+  top: calc(var(--knav-decor-cell) * var(--n) - 1px);
+}
+.knav-decor i.c {
+  box-sizing: border-box;
+  width: calc(var(--knav-decor-cell) + 1px);
+  height: calc(var(--knav-decor-cell) + 1px);
+  border: 1px solid var(--_decor);
   border-radius: var(--radius-full);
+  left: calc(var(--knav-decor-cell) * var(--cx) - 1px);
+  top: calc(var(--knav-decor-cell) * var(--cy) - 1px);
 }
 
 .knav-fcard {
@@ -1102,6 +1145,7 @@ a.knav-row {
   .knav-tick,
   .knav-drawer,
   .knav-drawer[data-open],
+  .knav-dcontent,
   .knav-blk,
   .knav-drawer[data-open] .knav-blk,
   .knav-sub,
