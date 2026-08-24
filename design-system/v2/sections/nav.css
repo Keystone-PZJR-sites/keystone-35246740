@@ -75,6 +75,11 @@
   box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
   z-index: 1;
 }
+/* focus returned by a pointer-initiated close: keep the position, not
+   the ring (iOS Safari treats programmatic focus as focus-visible) */
+.knav-mtoggle[data-quiet-focus]:focus-visible {
+  box-shadow: none;
+}
 
 /* ================= desktop bar (§1–§2) ================= */
 

@@ -69,10 +69,20 @@ export function NavMobile({
     return unlock;
   }, [open]);
 
-  const close = () => {
+  /** Close and return focus to the toggle (§7). Pointer-initiated
+   * closes mark the toggle so the focus ring stays quiet — iOS Safari
+   * treats programmatic focus as :focus-visible and would paint the
+   * ring after a tap. Keyboard closes (Escape) keep the ring. The mark
+   * clears on blur or the next key press. */
+  const close = (viaKeyboard = false) => {
     setOpen(false);
     setOpenDrawer(null);
-    toggleRef.current?.focus({ preventScroll: true });
+    const toggle = toggleRef.current;
+    if (toggle) {
+      if (viaKeyboard) delete toggle.dataset.quietFocus;
+      else toggle.dataset.quietFocus = "";
+      toggle.focus({ preventScroll: true });
+    }
   };
 
   return (
@@ -80,7 +90,7 @@ export function NavMobile({
       className="knav-m"
       data-open={open || undefined}
       onKeyDown={(e) => {
-        if (e.key === "Escape" && open) close();
+        if (e.key === "Escape" && open) close(true);
       }}
     >
       <div className="knav-mbar">
@@ -96,6 +106,8 @@ export function NavMobile({
           aria-controls="knav-panel"
           aria-label="Menu"
           onClick={() => (open ? close() : setOpen(true))}
+          onBlur={(e) => delete e.currentTarget.dataset.quietFocus}
+          onKeyDown={(e) => delete e.currentTarget.dataset.quietFocus}
         >
           <GlyphStack />
         </button>
