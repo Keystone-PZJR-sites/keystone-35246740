@@ -1,6 +1,6 @@
 # Spec 004 — Footer: the first real section
 
-**Status:** Approved 2026-08-23
+**Status:** Approved 2026-08-23 — implemented and verified 2026-08-23
 **Depends on:** spec 001 (tokens, fonts, `ksLockup`) · spec 002 (grid engine,
 exposure vocabulary, band classes) · spec 003 (grader-input, button-arrow,
 `_nav-trigger-icon`, text primitives)
@@ -322,54 +322,88 @@ the nodes after the fix:
   approval, 2026-08-23). The 384/576 frames bind `pink/400`; the
   768/960/1344 frames bind `pink/300` — the code follows the decision and
   the file is to be normalized to `pink/400`.
+- **Erratum (found at build, 2026-08-23):** §2's rd2 map lists logo-r5 at
+  gy 9 and its filled circle at (3,9) — off by one against §1's totals
+  (logo r1 at gy 6 + 3t sides puts r5 at gy 10) and the node read
+  (`505:14569`: r1 112 + middle 336 + r5 112 = 5t). Built from the node:
+  r5 at gy 10, circle at (3,10).
 
 ## 10 · Acceptance criteria
 
 At each of the five anchors and one arbitrary mid-band width per band,
 scrollbar forced on:
 
-- [ ] Section height ÷ t equals 24/21/15/12/11 exactly at anchors (drawers
+- [x] Section height ÷ t equals 24/21/15/12/11 exactly at anchors (drawers
       closed); with the Product drawer open it equals 29 at 384 and 25 at
       576; the derived drawers land on their §5 ticks. Stack sum and
       landmark audit pass with the footer mounted on the fixture page.
-- [ ] Every region, ornament cell, bordered box edge, and the lockup's
+      (Measured 2026-08-23 on /footer: all five anchor totals exact;
+      open Product 29/25 exact; derived Resources row 5t+1; page stack
+      sum whole-tick with a live scrollbar, e.g. 738 = 24 × 30.75.)
+- [x] Every region, ornament cell, bordered box edge, and the lockup's
       left/right column edges land on tick lines (rendered-bounds check,
-      never metadata x/y — plan.md "Special cells").
-- [ ] Seam inspection at a fractional-tick width: nav row/column borders,
+      never metadata x/y — plan.md "Special cells"). (Landmark rects
+      divide to integers at anchors: top 0–10t, nav rows 11t+1 wide,
+      tagline boxes 6t+1 × 2t+1 at gx 0/6, lockup left edge 2t, width
+      8t exact.)
+- [x] Seam inspection at a fractional-tick width: nav row/column borders,
       tagline boxes, copyright boxes, and region lines coincide — one line,
       one pixel; the outlined ornament circles sit tangent without
-      doubling.
-- [ ] Exactly one band's regions/ornaments render at every width
-      (band-gate sweep, compound-gated `.decor` included).
-- [ ] Type walks its interpolation lines: tagline, prompt, nav headings,
+      doubling. (At t = 71.667 adjacent column borders share one pixel
+      and the nav's bottom border lands on the logo row's top line.)
+- [x] Exactly one band's regions/ornaments render at every width
+      (band-gate sweep, compound-gated `.decor` included). (Swept ten
+      widths; one band class visible at each, extension cells included.)
+- [x] Type walks its interpolation lines: tagline, prompt, nav headings,
       and footer items render the designed values exactly at band floors
       and ceilings and are continuous across all four switches; weight and
-      tracking switch only at band boundaries.
-- [ ] The lockup measures exactly 8t wide at every anchor and keeps riding
-      the tick above 1344.
-- [ ] Accordion: headers are buttons with correct `aria-expanded`/
+      tracking switch only at band boundaries. (Anchor values exact —
+      tagline 42/50 Thin −3% at 1344; mid-band walk verified, e.g.
+      tagline 36.95 at t 95.833; above 1344 pure zoom, 46.875 =
+      42·t/112 at 1500. Continuity comes from shared-anchor pairs;
+      weight/tracking are band constants in the CSS.)
+- [x] The lockup measures exactly 8t wide at every anchor and keeps riding
+      the tick above 1344. (8.0000t at 384/960/1344/1500.)
+- [x] Accordion: headers are buttons with correct `aria-expanded`/
       `aria-controls`; closed lists absent from the accessibility tree;
       chevron flips when open; the open drawer shows `bg/100` fill and the
       `hard-shadow-square-md` token over the row below; keyboard operation
       end-to-end. Single-open holds: opening a drawer closes any other and
       focus stays on the pressed header. At 768+ no accordion semantics
-      remain in the tree.
-- [ ] Drawer motion matches §5: the header never moves while the row draws
+      remain in the tree. (Verified in-browser: aria states track opens,
+      closed lists are visibility-hidden, single-open handoff leaves one
+      drawer open; the 768 accessibility tree carries headed lists only.)
+- [x] Drawer motion matches §5: the header never moves while the row draws
       down at 250ms on the specified curve; the chevron's 180° rotation
       tracks the height change; rail extension cells cascade in at 40ms per
       cell away from the drawer (both rails mirrored at 576, right rail
       only at 384); close reverses with no stagger and no delay; under
       `prefers-reduced-motion: reduce` everything renders state-to-state;
       stack-sum and landmark audits pass at rest in both states.
-- [ ] The grader inside the footer passes its spec 003 criteria at the
-      per-band size variants (sm/md/md/md/lg) and widths (§3).
-- [ ] Every color, spacing, radius, type, and effect value traces to a
+      (Computed transitions: height/rotate/opacity 250ms on
+      cubic-bezier(0.22, 1, 0.36, 1); cascade delays 0/40/80/120/160ms
+      on open, none on close; reduced motion zeroes durations and the
+      cascade delay; at-rest totals exact in both states.)
+- [x] The grader inside the footer passes its spec 003 criteria at the
+      per-band size variants (sm/md/md/md/lg) and widths (§3). (Field
+      heights 44/50/50/50/66 via the band overrides; widths 300→416,
+      416, 416→528 — 471.41 measured mid-rd1 — and 528 zooming.)
+- [x] Every color, spacing, radius, type, and effect value traces to a
       token; §7's non-token constants exist only in the component token
-      layer; the chevron icon is a committed verbatim export.
-- [ ] footer-item states render as designed (§4): hover ink shift and 5px
+      layer; the chevron icon is a committed verbatim export. (Constants
+      added: fitem gap/bar and the three drawer motion values; chevron
+      exported from 523:19955 through the console bridge.)
+- [x] footer-item states render as designed (§4): hover ink shift and 5px
       arrow gap on hover-capable devices only; the `bg/400` highlight bar
-      on `:focus-visible` only, at both sizes and chromes.
-- [ ] All decorative ornaments and dots are hidden from the accessibility
-      tree.
-- [ ] Server/client split as §8; zero hydration mismatches; `/footer` dev
-      page renders all bands and drawer states.
+      on `:focus-visible` only, at both sizes and chromes. (Settled
+      computed values: hover text/200 + 5px gap; focus text/300 with the
+      bg/400 bar and 3px bearings; hover rules sit under hover-capable
+      media.)
+- [x] All decorative ornaments and dots are hidden from the accessibility
+      tree. (Overlays, decors, dots, and the rail layer are aria-hidden;
+      the tree carries only the form, nav, headings, links, and text.)
+- [x] Server/client split as §8; zero hydration mismatches; `/footer` dev
+      page renders all bands and drawer states. (The accordion island is
+      the only client code — 938 B route JS; a clean load logs no
+      console errors; the old site's routes and the 102 kB shared
+      first-load are unchanged in the production build.)
