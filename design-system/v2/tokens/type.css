@@ -1,5 +1,5 @@
 /* v2 tokens — type styles. GENERATED FILE, do not edit.
-   Source: type-styles.json (Figma text styles, extracted 2026-08-23).
+   Source: type-styles.json (Figma text styles, extracted 2026-08-24).
    Regenerate: node scripts/generate-v2-type-css.mjs
 
    Per style: -font is a CSS font shorthand (weight size/lh family);
@@ -252,7 +252,7 @@
   --ts-display-sans-2xs-regular-font: 400 28px/36px var(--font-sans);
   --ts-display-sans-2xs-regular-ls: -0.01em;
   --ts-display-sans-2xs-regular-opsz: 28;
-  --ts-text-nav-label-font: 500 10px/16px var(--font-sans);
+  --ts-text-nav-label-font: 500 10px/12px var(--font-sans);
   --ts-text-nav-label-ls: 0.02em;
   --ts-text-nav-label-opsz: 24;
   --ts-text-nav-label-case: uppercase;
@@ -333,27 +333,27 @@
   --ts-text-xs-semibold-ls: -0.01em;
   --ts-text-xs-semibold-opsz: 24;
   --ts-text-2xs-light-font: 300 10px/12px var(--font-sans);
-  --ts-text-2xs-light-ls: -0.02em;
+  --ts-text-2xs-light-ls: -0.01em;
   --ts-text-2xs-light-opsz: 24;
   --ts-text-2xs-regular-font: 400 10px/12px var(--font-sans);
-  --ts-text-2xs-regular-ls: -0.02em;
+  --ts-text-2xs-regular-ls: -0.01em;
   --ts-text-2xs-regular-opsz: 24;
   --ts-text-2xs-medium-font: 500 10px/12px var(--font-sans);
-  --ts-text-2xs-medium-ls: -0.02em;
+  --ts-text-2xs-medium-ls: -0.01em;
   --ts-text-2xs-medium-opsz: 24;
-  --ts-text-2xs-semibold-font: 600 10px/12px var(--font-sans);
-  --ts-text-2xs-semibold-ls: -0.02em;
+  --ts-text-2xs-semibold-font: 400 10px/12px var(--font-sans);
+  --ts-text-2xs-semibold-ls: -0.01em;
   --ts-text-2xs-semibold-opsz: 24;
-  --ts-text-3xs-light-font: 300 8px/10px var(--font-sans);
-  --ts-text-3xs-light-ls: -0.05em;
+  --ts-text-3xs-light-font: 400 8px/10px var(--font-sans);
+  --ts-text-3xs-light-ls: -0.01em;
   --ts-text-3xs-light-opsz: 24;
   --ts-text-3xs-regular-font: 400 8px/10px var(--font-sans);
-  --ts-text-3xs-regular-ls: -0.05em;
+  --ts-text-3xs-regular-ls: -0.01em;
   --ts-text-3xs-regular-opsz: 24;
   --ts-text-3xs-medium-font: 500 8px/10px var(--font-sans);
-  --ts-text-3xs-medium-ls: -0.05em;
+  --ts-text-3xs-medium-ls: -0.01em;
   --ts-text-3xs-medium-opsz: 24;
   --ts-text-3xs-semibold-font: 600 8px/10px var(--font-sans);
-  --ts-text-3xs-semibold-ls: -0.05em;
+  --ts-text-3xs-semibold-ls: -0.01em;
   --ts-text-3xs-semibold-opsz: 24;
 }

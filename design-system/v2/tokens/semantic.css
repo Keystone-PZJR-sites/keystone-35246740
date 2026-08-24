@@ -119,16 +119,19 @@
   --radius-4xl: var(--spacing-6);
   --radius-full: 9999px;
 
-  /* effects — shadow ink #32261b is a deliberate literal (warm near-black,
-     not a palette member; TOKENS-HANDOFF.md section 6) */
-  --shadow-ink: #32261b;
-  --shadow-hard-round: 3px 4px 0 0 rgba(50, 38, 27, 0.2);
-  --shadow-hard-square: 4px 4px 0 0 rgba(50, 38, 27, 0.15);
-  --shadow-hard-square-md: 3px 3px 0 0 rgba(50, 38, 27, 0.15);
-  /* origin state of the md hard shadow: zero offset paints nothing but
+  /* effects — shadow ink #554d44 is a deliberate literal (warm near-black,
+     not a palette member; TOKENS-HANDOFF.md section 6). Re-inked from
+     #32261b in Figma 2026-08-24 (spec 005 §8/§9 F3+F16); the round
+     shadow's alpha moved 20% → 15% in the same pass. */
+  --shadow-ink: #554d44;
+  --shadow-hard-round: 3px 4px 0 0 rgba(85, 77, 68, 0.15);
+  --shadow-hard-square: 4px 4px 0 0 rgba(85, 77, 68, 0.15);
+  --shadow-hard-square-md: 3px 3px 0 0 rgba(85, 77, 68, 0.15);
+  /* origin states of the hard shadows: zero offset paints nothing but
      gives transitions a same-structure start value, so the offset can
-     grow 0,0 → 3,3 (spec 004 §5) */
-  --shadow-hard-square-md-0: 0 0 0 0 rgba(50, 38, 27, 0.15);
+     grow 0,0 → 3,3 (spec 004 §5) and 0,0 → 4,4 (spec 005 §6) */
+  --shadow-hard-square-0: 0 0 0 0 rgba(85, 77, 68, 0.15);
+  --shadow-hard-square-md-0: 0 0 0 0 rgba(85, 77, 68, 0.15);
   /* Figma "noise" effect: black at 6%, noise size 0.5. CSS has no noise
      primitive; consumers implement it with a texture asset that reads
      this opacity. */
