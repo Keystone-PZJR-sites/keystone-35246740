@@ -1,0 +1,1064 @@
+/* v2 sections — the global nav chrome (spec 005). Overlay chrome: the
+   bar never joins a section's tick stack; bar height (44) and component
+   internals are material. Two structures gated at the rd1 boundary:
+   mobile (base, rs, rt) and desktop (rd1, rd2). The un-gated rules are
+   the 384 design; @container blocks override upward. */
+
+.ks-nav,
+.ks-nav > nav {
+  display: contents;
+}
+
+/* ---- structure gate (§1): mobile below 960, desktop from 960 ---- */
+
+.knav-d {
+  display: none;
+}
+@container (min-width: 960px) {
+  .knav-d {
+    display: contents;
+  }
+  .knav-m {
+    display: none;
+  }
+}
+
+/* ================= shared rail vocabulary (§2) ================= */
+
+.knav-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--knav-bar-h);
+  height: var(--knav-bar-h);
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-mark {
+  display: block;
+  width: var(--knav-logomark);
+  height: var(--knav-logomark);
+  background: var(--color-text-300);
+  -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+}
+
+.knav-vr {
+  flex: none;
+  align-self: center;
+  width: 1px;
+  height: var(--space-3xl);
+  background: var(--color-bg-400);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+
+/* engine colors — the canonical mapping (§3), one rule for dots and chips */
+.ks-nav [data-engine="visibility"] { --_eng: var(--color-orange-400); }
+.ks-nav [data-engine="ads"] { --_eng: var(--color-yellow-400); }
+.ks-nav [data-engine="brand"] { --_eng: var(--color-pink-400); }
+.ks-nav [data-engine="reception"] { --_eng: var(--color-purple-400); }
+.ks-nav [data-engine="engagement"] { --_eng: var(--color-blue-400); }
+
+/* the site focus treatment (spec 003 vocabulary) on nav controls */
+.knav-logo:focus-visible,
+.knav-btn:focus-visible,
+.knav-mtoggle:focus-visible,
+.knav-row:focus-visible,
+.knav-sub:focus-visible,
+.knav-card:focus-visible,
+.knav-chip:focus-visible,
+.knav-rchip:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
+  z-index: 1;
+}
+
+/* ================= desktop bar (§1–§2) ================= */
+
+.knav-bar {
+  position: fixed;
+  top: 0;
+  left: var(--t);
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  width: calc(var(--t) * 10);
+  height: var(--knav-bar-h);
+  /* the space between rail and Login is transparent — the page's top
+     row shows through and stays clickable */
+  pointer-events: none;
+}
+.knav-rail {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  background: var(--color-bg-200);
+  pointer-events: auto;
+}
+.knav-login {
+  pointer-events: auto;
+}
+
+.knav-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--knav-bar-h);
+  padding-left: var(--space-xl);
+  padding-right: var(--knav-btn-pr);
+  background: var(--color-bg-200);
+  text-decoration: none;
+  pointer-events: auto;
+}
+/* the hover underline: full cell width, bottom edge, center origin
+   (§6.1) — a border cannot transform, so a scaling pseudo-element */
+.knav-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-text-600);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--knav-underline-dur) var(--motion-drawer-ease);
+}
+
+.knav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--fitem-gap);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  color: var(--color-text-300);
+  transition:
+    color var(--knav-ink-dur) var(--motion-hover-ease),
+    gap var(--knav-ink-dur) var(--motion-hover-ease);
+}
+.knav-tick {
+  flex: none;
+  color: var(--color-text-500);
+  transition:
+    rotate var(--knav-chev-dur) var(--motion-drawer-ease),
+    color var(--knav-ink-dur) var(--motion-hover-ease);
+}
+
+/* hover / open state — same chrome (§2); mouse-out reverses on the same
+   curves (transitions live on the resting rules above). Only the
+   triggers (they carry aria-controls) rotate their chevron; only Login
+   grows its label→arrow gap 3 → 5 (§6.2). */
+@media (hover: hover) {
+  .knav-btn:hover::after {
+    transform: scaleX(1);
+  }
+  .knav-btn:hover .knav-item {
+    color: var(--color-text-100);
+  }
+  .knav-btn:hover .knav-tick {
+    color: var(--color-text-400);
+  }
+  .knav-btn[aria-controls]:hover .knav-tick {
+    rotate: 180deg;
+  }
+  .knav-login:hover .knav-item {
+    gap: var(--fitem-gap-hover);
+  }
+}
+.knav-btn[aria-expanded="true"]::after {
+  transform: scaleX(1);
+}
+.knav-btn[aria-expanded="true"] .knav-item {
+  color: var(--color-text-100);
+}
+.knav-btn[aria-expanded="true"] .knav-tick {
+  color: var(--color-text-400);
+  rotate: 180deg;
+}
+
+/* ================= desktop subnav drawer (§3, §6.3) ================= */
+
+.knav-drawer {
+  position: fixed;
+  top: calc(var(--knav-bar-h) + var(--space-xs));
+  left: var(--t);
+  z-index: var(--z-nav);
+  box-sizing: border-box;
+  width: var(--knav-drawer-md);
+  height: var(--knav-drawer-h);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
+  background: var(--color-bg-000);
+  border-radius: var(--radius-none);
+  box-shadow: var(--shadow-hard-square);
+  overflow: clip;
+  opacity: 0;
+  translate: 0 calc(-1 * var(--knav-reveal-rise));
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--knav-reveal-fade) ease,
+    translate var(--knav-reveal-slide) var(--motion-drawer-ease),
+    visibility 0s linear var(--knav-reveal-slide);
+}
+.knav-drawer[data-open] {
+  opacity: 1;
+  translate: 0 0;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity var(--knav-reveal-fade) ease,
+    translate var(--knav-reveal-slide) var(--motion-drawer-ease);
+}
+
+@container (min-width: 1344px) {
+  .knav-drawer {
+    width: var(--knav-drawer-lg);
+  }
+}
+
+/* reveal cascade (§6.3): blocks land staggered in reading order on
+   open; on close the panel fade carries them — no stagger, and the
+   transform resets only after the panel has hidden */
+.knav-blk {
+  opacity: 0;
+  translate: 0 var(--knav-blk-rise);
+  transition:
+    opacity var(--knav-reveal-fade) ease,
+    translate 0s linear var(--knav-reveal-slide);
+}
+.knav-drawer[data-open] .knav-blk {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--knav-blk-fade) ease
+      calc(var(--knav-stagger-base) + var(--i) * var(--knav-stagger)),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease)
+      calc(var(--knav-stagger-base) + var(--i) * var(--knav-stagger));
+}
+
+/* content variants share one open panel; moving between the triggers
+   swaps content without a close/reopen (§6.3) */
+.knav-dcontent {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+}
+.knav-drawer[data-item="solutions"] .knav-dcontent[data-content="solutions"],
+.knav-drawer[data-item="resources"] .knav-dcontent[data-content="resources"] {
+  display: flex;
+}
+
+.knav-dlabels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 16px;
+}
+/* label cells: 243/208 at md, 280/280 at lg (from the drawer nodes —
+   the md drawer narrows its labels with its columns) */
+.knav-dlabel {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 243px;
+  padding-inline: var(--space-lg);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  text-transform: var(--ts-text-nav-label-case);
+  color: var(--color-darkgray-100);
+  white-space: nowrap;
+}
+.knav-dlabel-b {
+  width: var(--knav-card-w-md);
+  padding-inline: var(--space-xl);
+}
+
+/* body gap: 12 at md, 16 at lg (the md drawer's columns fit 800 with
+   the narrower gap — rendered-bounds read 2026-08-24) */
+.knav-dbody {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-lg);
+  flex: 1;
+  min-height: 0;
+}
+.knav-dvr {
+  flex: none;
+  align-self: stretch;
+  width: 1px;
+  background: var(--color-border-000);
+}
+.knav-dcol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* --- nav-solutions-subitem (533:22606) --- */
+
+.knav-sub {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: var(--knav-sub-w-md);
+  padding: var(--knav-sub-pt) var(--space-lg) var(--space-lg);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.knav-subhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+.knav-subtitle {
+  font: var(--ts-display-serif-2xs-medium-font);
+  letter-spacing: var(--ts-display-serif-2xs-medium-ls);
+  color: var(--color-text-100);
+}
+.knav-subdot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--_eng);
+  transition: border-radius var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.knav-subdesc {
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  color: var(--color-text-300);
+}
+/* hover: fill, and the dot drops its radius — circle → square
+   (confirmed intentional, §9 F13) */
+@media (hover: hover) {
+  .knav-sub:hover {
+    background: var(--color-bg-100);
+  }
+  .knav-sub:hover .knav-subdot {
+    border-radius: var(--radius-none);
+  }
+}
+
+@container (min-width: 1344px) {
+  .knav-sub {
+    width: var(--knav-sub-w-lg);
+  }
+}
+
+/* --- cards (feature + resources) and their decor lattices (§3) --- */
+
+.knav-card {
+  position: relative;
+  box-sizing: border-box;
+  overflow: clip;
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-none) var(--radius-xl);
+  text-decoration: none;
+  align-self: stretch;
+}
+
+.knav-decor {
+  position: absolute;
+  top: var(--knav-decor-top);
+  left: calc(50% + var(--knav-decor-cx));
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(4, var(--knav-decor-cell));
+  grid-auto-rows: var(--knav-decor-cell);
+  pointer-events: none;
+}
+.knav-decor i {
+  box-sizing: border-box;
+  border: 1px solid var(--_decor);
+}
+.knav-decor i.round {
+  border-radius: var(--radius-full);
+}
+
+.knav-fcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: var(--knav-card-w-md);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
+  background: var(--color-teal-100);
+  --_decor: var(--knav-decor-teal);
+}
+.knav-fcopy {
+  position: relative;
+  width: min(var(--knav-copy-w), 100%);
+  font: var(--ts-text-xl-light-font);
+  letter-spacing: var(--ts-text-xl-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+  color: var(--color-teal-600);
+}
+.knav-frow {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-md);
+  color: var(--color-teal-500);
+}
+.knav-flabel {
+  flex: 1;
+  font: var(--ts-text-lg-light-font);
+  letter-spacing: var(--ts-text-lg-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+}
+.knav-frow svg {
+  flex: none;
+}
+
+@container (min-width: 1344px) {
+  .knav-dbody {
+    gap: var(--space-xl);
+  }
+  .knav-dlabel,
+  .knav-dlabel-b {
+    width: var(--knav-label-w);
+  }
+  .knav-dlabel-b {
+    padding-inline: var(--space-3xl);
+  }
+  .knav-fcard {
+    width: var(--knav-sub-w-lg);
+  }
+}
+
+.knav-rcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-xl);
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--space-xl);
+  background: var(--_bg);
+}
+.knav-chiprow {
+  position: relative;
+  display: flex;
+}
+.knav-cardchip {
+  display: grid;
+  place-items: center;
+  width: var(--space-4xl);
+  height: var(--space-4xl);
+  border-radius: var(--radius-full);
+  background: var(--_chipbg);
+  color: var(--_chipink);
+}
+.knav-cbody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.knav-crow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--_title);
+}
+.knav-ctitle {
+  font: var(--ts-display-serif-xs-light-font);
+  letter-spacing: var(--ts-display-serif-xs-light-ls);
+  white-space: nowrap;
+}
+.knav-crow svg {
+  flex: none;
+}
+.knav-cdesc {
+  font: var(--ts-text-lg-light-font);
+  letter-spacing: var(--ts-text-lg-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  color: var(--_desc);
+}
+
+.knav-rcard[data-card="blog"] {
+  --_bg: var(--color-bg-100);
+  --_decor: var(--color-bg-200);
+  --_chipbg: var(--color-text-500);
+  --_chipink: var(--color-text-100);
+  --_title: var(--color-text-200);
+  --_desc: var(--color-text-400);
+}
+.knav-rcard[data-card="grader"] {
+  --_bg: var(--color-brown-100);
+  --_decor: var(--knav-decor-brown);
+  --_chipbg: var(--color-brown-300);
+  --_chipink: var(--color-brown-600);
+  --_title: var(--color-brown-700);
+  --_desc: var(--color-brown-500);
+}
+.knav-rcard[data-card="podcast"] {
+  --_bg: var(--color-yellow-100);
+  --_decor: var(--knav-decor-yellow);
+  --_chipbg: var(--color-yellow-400);
+  --_chipink: var(--color-yellow-600);
+  --_title: var(--color-yellow-700);
+  --_desc: var(--color-yellow-600);
+}
+
+@container (min-width: 1344px) {
+  .knav-rcard {
+    flex: none;
+    width: var(--knav-sub-w-lg);
+  }
+}
+
+/* ================= mobile rail + panel (§2, §4–§6) ================= */
+
+/* the closed rail: absolute at the page top, right edge on the 11t
+   line; it scrolls away (§1) */
+.knav-mbar {
+  position: absolute;
+  top: 0;
+  right: calc(var(--t) - 1px);
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+}
+
+.knav-mtoggle {
+  appearance: none;
+  border: 0;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  display: grid;
+  place-items: center;
+  width: var(--knav-bar-h);
+  height: var(--knav-bar-h);
+  background: var(--color-bg-200);
+  cursor: pointer;
+  color: var(--color-text-400);
+  touch-action: manipulation;
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+
+/* the hamburger ↔ X swap (§6.4): both glyphs in one grid cell */
+.knav-glyphstack {
+  display: grid;
+  place-items: center;
+}
+.knav-glyphstack svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--icon-swap-dur) var(--motion-drawer-ease-open),
+    filter var(--icon-swap-dur) var(--motion-drawer-ease-open),
+    scale var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-glyph-x {
+  opacity: 0;
+  filter: blur(var(--icon-swap-blur));
+  scale: var(--icon-swap-start-scale);
+}
+.knav-m[data-open] .knav-glyph-menu {
+  opacity: 0;
+  filter: blur(var(--icon-swap-blur));
+  scale: var(--icon-swap-start-scale);
+}
+.knav-m[data-open] .knav-glyph-x {
+  opacity: 1;
+  filter: blur(0);
+  scale: 1;
+}
+
+/* open-state chrome swap (§2): rail cells bg/200 → bg/300, divider
+   bg/400 → border/100, crossfading with the icon swap */
+.knav-m[data-open] .knav-logo,
+.knav-m[data-open] .knav-plogo,
+.knav-m[data-open] .knav-mtoggle {
+  background: var(--color-bg-300);
+}
+.knav-m[data-open] .knav-mvr {
+  background: var(--color-border-100);
+}
+
+/* the designed click-catcher over the exposed 1t strip — no fill (§4) */
+.knav-catch {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-nav) - 1);
+}
+.knav-m[data-open] .knav-catch {
+  display: block;
+}
+
+/* --- the panel: a full-height sheet drawing down from the viewport
+   top in the footer grammar (§4, §6.6) --- */
+
+.knav-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-nav);
+  box-sizing: border-box;
+  width: calc(var(--t) * 11 + 1px);
+  height: 0;
+  background: var(--color-bg-200);
+  border: 1px solid var(--color-border-050);
+  border-top: 0;
+  box-shadow: var(--shadow-hard-square-md-0);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  /* the close's destination rule times the close: ease-out height,
+     shadow off at once (§6.6) */
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease),
+    visibility 0s linear var(--motion-drawer-duration);
+}
+.knav-panel:focus {
+  outline: none;
+}
+.knav-m[data-open] .knav-panel {
+  height: 100dvh;
+  visibility: visible;
+  box-shadow: var(--shadow-hard-square-md);
+  /* open ease-in-out; the shadow grows out of the origin after the box
+     lands (§6.6) */
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease)
+      var(--motion-drawer-duration);
+}
+
+/* content is static under the moving clip edge: the inner column keeps
+   the full viewport height regardless of the panel's animated height.
+   The −1 margin re-anchors the column to the panel's outer left edge so
+   the §4 insets (24/32) and the list's line-inclusive boxes measure
+   from the true edge, not from inside the 1px border. */
+.knav-pin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100dvh;
+  margin-left: -1px;
+  width: calc(100% + 1px);
+}
+
+/* --- top zone (§4) --- */
+
+.knav-ptop {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: calc(var(--t) * 3);
+}
+.knav-wordmark {
+  position: absolute;
+  left: var(--space-3xl);
+  top: 28px;
+  display: block;
+}
+.knav-wmark {
+  display: block;
+  /* 70×16 → 87×20 across the base band; constant above (§4) */
+  width: calc(var(--wA) * 70 + var(--wB) * 87);
+  height: calc(var(--wA) * 16 + var(--wB) * 20);
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-wordmark.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-wordmark.svg") center / contain no-repeat;
+}
+/* the open-state rail, right edge flush with the panel's right edge */
+.knav-prailtop {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  display: flex;
+  align-items: center;
+}
+.knav-plogo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--knav-bar-h);
+  height: var(--knav-bar-h);
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+
+/* --- menu list (§4) --- */
+
+.knav-list {
+  list-style: none;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  position: relative;
+  width: calc(var(--t) * 10 + 1px);
+  isolation: isolate;
+  flex: none;
+}
+/* rows stack with descending z-order so an open box's shadow paints
+   over the next row's top edge (§5, 004 pattern) */
+.knav-slot:nth-child(1) { z-index: 5; }
+.knav-slot:nth-child(2) { z-index: 4; }
+.knav-slot:nth-child(3) { z-index: 3; }
+.knav-slot:nth-child(4) { z-index: 2; }
+.knav-slot:nth-child(5) { z-index: 1; }
+
+.knav-slot {
+  position: relative;
+  height: calc(var(--t) * 2 + 1px);
+}
+.knav-slot + .knav-slot {
+  margin-top: -1px;
+}
+
+/* one label geometry for every row, closed and open: top pad
+   (row − label line-height)/2 = 14 · 30 · 45 measured from the row
+   box's outer edge (§5) — t − 19 (t − 20 at rt) inside the 1px border —
+   so a drawer's label never moves */
+.knav-row {
+  box-sizing: border-box;
+  appearance: none;
+  margin: var(--space-none);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: calc(var(--t) - 19px) var(--space-2xl) 0;
+  background: none;
+  border: 0;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+a.knav-row {
+  height: calc(var(--t) * 2 + 1px);
+  border: 1px solid var(--color-border-050);
+}
+.knav-rlabel {
+  padding-left: var(--space-2xs);
+  font: var(--ts-display-sans-2xs-light-font);
+  letter-spacing: var(--ts-display-sans-2xs-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-display-sans-2xs-light-opsz), var(--font-sans-slnt);
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--color-text-200);
+  white-space: nowrap;
+}
+.knav-rchev {
+  flex: none;
+  /* centered on the label's line box: (36 − 16) / 2 */
+  margin-top: 10px;
+  color: var(--color-text-500);
+  transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.knav-gslot[data-open] .knav-rchev {
+  rotate: 180deg;
+  transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease-open);
+}
+
+/* --- mobile drawers (§5): the box draws down to its designed height;
+   the slot advances the whole-tick push-down --- */
+
+.knav-gslot {
+  --_g: var(--g-rm);
+  --_b: var(--b-rm);
+  transition: height var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.knav-gslot[data-open] {
+  height: calc(var(--t) * var(--_g) + 1px);
+  transition: height var(--motion-drawer-duration) var(--motion-drawer-ease-open);
+}
+
+.knav-gbox {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: calc(var(--t) * 2 + 1px);
+  border: 1px solid var(--color-border-050);
+  background: var(--color-bg-200);
+  overflow: clip;
+  box-shadow: var(--shadow-hard-square-md-0);
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.knav-gslot[data-open] .knav-gbox {
+  /* the designed box height; never taller than the whole-tick group
+     (the guard matters only below 384, where the band extrapolates) */
+  height: min(var(--_b), calc(var(--t) * var(--_g) + 1px));
+  box-shadow: var(--shadow-hard-square-md);
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease)
+      var(--motion-drawer-duration);
+}
+
+.knav-gtrigger {
+  flex: none;
+  padding-bottom: 0;
+}
+
+/* label → chips gap 24, box bottom pad 16, px 20 (§5); closed lists
+   leave the accessibility tree */
+.knav-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--space-md);
+  margin-top: var(--space-3xl);
+  padding: 0 var(--space-2xl) var(--space-xl);
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear var(--motion-drawer-duration);
+}
+.knav-gslot[data-open] .knav-chips {
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+}
+
+/* --- engine chips (§5): pill, square dot, F15 type resolution --- */
+
+.knav-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-000);
+  text-decoration: none;
+  color: var(--color-text-200);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  /* size/line-height interpolate 14→20 across rm; weight switches at
+     the 576 boundary (§9 F15) */
+  font-size: calc(var(--wA) * 14 + var(--wB) * 20);
+  line-height: calc(var(--wA) * 18 + var(--wB) * 26);
+  white-space: nowrap;
+}
+.knav-chipdot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--_eng);
+}
+
+/* --- resource chips (§5) --- */
+
+.knav-rchip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--knav-rchip-pl);
+  border-radius: var(--radius-full);
+  background: var(--_chipbg);
+  text-decoration: none;
+  color: var(--_label);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  font-size: calc(var(--wA) * 14 + var(--wB) * 20);
+  line-height: calc(var(--wA) * 18 + var(--wB) * 26);
+  white-space: nowrap;
+}
+.knav-rchipicon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.knav-rchip[data-card="blog"] {
+  --_chipbg: var(--color-text-500);
+  --_label: var(--color-bg-300);
+}
+.knav-rchip[data-card="grader"] {
+  --_chipbg: var(--color-brown-300);
+  --_label: var(--color-brown-700);
+}
+.knav-rchip[data-card="podcast"] {
+  --_chipbg: var(--color-yellow-400);
+  --_label: var(--color-yellow-700);
+}
+
+/* --- right rail ornament (§4): 1t cells from the list top to the
+   panel bottom; panel-local vocabulary (border/050) --- */
+
+.knav-prail {
+  position: absolute;
+  top: calc(var(--t) * 3);
+  bottom: 0;
+  right: -1px;
+  width: calc(var(--t) + 1px);
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+}
+.knav-pcell {
+  box-sizing: border-box;
+  flex: none;
+  width: 100%;
+  height: calc(var(--t) + 1px);
+  border: 1px solid var(--color-border-050);
+}
+.knav-pcell + .knav-pcell {
+  margin-top: -1px;
+}
+/* circle rows: 3 and 10 zero-based at rm (§4) */
+.knav-pcell:nth-child(4),
+.knav-pcell:nth-child(11) {
+  border-radius: var(--radius-full);
+}
+
+/* --- buttons (§4): pinned bottom-left --- */
+
+.knav-pbtns {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xl);
+  align-self: flex-start;
+  margin: auto var(--space-none) var(--space-4xl) var(--space-3xl);
+  padding-top: var(--space-3xl);
+}
+
+/* ================= mobile band overrides (rs, rt) ================= */
+
+@container (min-width: 576px) {
+  .knav-panel {
+    box-shadow: var(--shadow-hard-square-0);
+  }
+  .knav-m[data-open] .knav-panel {
+    box-shadow: var(--shadow-hard-square);
+  }
+  .knav-ptop {
+    height: calc(var(--t) * 2);
+  }
+  .knav-wordmark {
+    top: var(--space-3xl);
+  }
+  .knav-wmark {
+    width: 87px;
+    height: 20px;
+  }
+  .knav-prail {
+    top: calc(var(--t) * 2);
+  }
+  /* circle rows move to 4 and 10 zero-based (§4) */
+  .knav-pcell:nth-child(4) {
+    border-radius: var(--radius-none);
+  }
+  .knav-pcell:nth-child(5) {
+    border-radius: var(--radius-full);
+  }
+  .knav-gslot {
+    --_g: var(--g-rs);
+    --_b: var(--b-rs);
+  }
+  /* row label interpolates 28/36 → 32/38 across rs (§4) */
+  .knav-rlabel {
+    font-size: calc(var(--wA) * 28 + var(--wB) * 32);
+    line-height: calc(var(--wA) * 36 + var(--wB) * 38);
+  }
+  .knav-chips {
+    gap: var(--space-lg);
+  }
+  /* chip type: weight switches to Light, 20→24 across rs (§9 F15) */
+  .knav-chip,
+  .knav-rchip {
+    font: var(--ts-text-xl-light-font);
+    letter-spacing: var(--ts-text-xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+    font-size: calc(var(--wA) * 20 + var(--wB) * 24);
+    line-height: calc(var(--wA) * 26 + var(--wB) * 32);
+  }
+}
+
+@container (min-width: 768px) {
+  .knav-gslot {
+    --_g: var(--g-rt);
+    --_b: var(--b-rt);
+  }
+  /* row label holds 32/38 across rt; label pad becomes 45 (t − 20) */
+  .knav-row {
+    padding-top: calc(var(--t) - 20px);
+  }
+  .knav-rlabel {
+    font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
+    font-size: 32px;
+    line-height: 38px;
+  }
+  .knav-rchev {
+    width: 20px;
+    height: 20px;
+    /* (38 − 20) / 2 */
+    margin-top: 9px;
+  }
+  .knav-chips {
+    gap: var(--space-xl);
+  }
+  .knav-chip,
+  .knav-rchip {
+    font: var(--ts-text-2xl-light-font);
+    letter-spacing: var(--ts-text-2xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .knav-chipdot {
+    width: 8px;
+    height: 8px;
+  }
+  .knav-rchip {
+    gap: var(--space-md);
+    padding-left: var(--space-lg);
+    padding-right: var(--space-xl);
+  }
+  .knav-rchipicon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ================= reduced motion (§6.7) ================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .knav-logo,
+  .knav-plogo,
+  .knav-vr,
+  .knav-btn::after,
+  .knav-item,
+  .knav-tick,
+  .knav-drawer,
+  .knav-drawer[data-open],
+  .knav-blk,
+  .knav-drawer[data-open] .knav-blk,
+  .knav-sub,
+  .knav-subdot,
+  .knav-mtoggle,
+  .knav-glyphstack svg,
+  .knav-panel,
+  .knav-m[data-open] .knav-panel,
+  .knav-rchev,
+  .knav-gslot[data-open] .knav-rchev,
+  .knav-gslot,
+  .knav-gslot[data-open],
+  .knav-gbox,
+  .knav-gslot[data-open] .knav-gbox,
+  .knav-chips {
+    transition: none;
+  }
+}

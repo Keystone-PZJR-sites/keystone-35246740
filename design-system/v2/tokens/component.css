@@ -39,4 +39,45 @@
   --z-nav: 50;
   --z-modal: 100;
   --z-portal: 9999;
+
+  /* nav constants (spec 005 §8.4) — material facts of the chrome the
+     token layers do not carry. The item icon gap reuses --fitem-gap /
+     --fitem-gap-hover (shared with footer-item by design). */
+  --knav-bar-h: 44px;
+  --knav-btn-pr: 14px;
+  --knav-logomark: 18px;
+  --knav-drawer-lg: 890px;
+  --knav-drawer-md: 800px;
+  --knav-drawer-h: 338px;
+  --knav-sub-w-lg: 264px;
+  --knav-sub-w-md: 255px;
+  --knav-card-w-md: 208px;
+  --knav-label-w: 280px;
+  --knav-sub-pt: 10px;
+  --knav-copy-w: 216px;
+  --knav-rchip-pl: 10px;
+  /* decorative card lattices: cell, anchor offsets, per-card strokes */
+  --knav-decor-cell: 112px;
+  --knav-decor-top: -78px;
+  --knav-decor-cx: -76px;
+  --knav-decor-teal: #d4ece7;
+  --knav-decor-brown: #eee5dd;
+  --knav-decor-yellow: #fbebcb;
+
+  /* nav motion (spec 005 §6). The drawer draw-down constants live in
+     tokens/motion.css; these are the nav's own values. */
+  --knav-underline-dur: 320ms;
+  --knav-ink-dur: 180ms;
+  --knav-chev-dur: 300ms;
+  --knav-reveal-fade: 180ms;
+  --knav-reveal-slide: 240ms;
+  --knav-reveal-rise: 6px;
+  --knav-blk-fade: 320ms;
+  --knav-blk-slide: 380ms;
+  --knav-blk-rise: 12px;
+  --knav-stagger: 50ms;
+  --knav-stagger-base: 60ms;
+  --icon-swap-dur: 250ms;
+  --icon-swap-blur: 2px;
+  --icon-swap-start-scale: 0.25;
 }

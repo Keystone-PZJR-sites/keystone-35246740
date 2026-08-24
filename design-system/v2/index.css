@@ -30,3 +30,6 @@
 
 /* Sections (spec 004) */
 @import "./sections/footer.css";
+
+/* Sections (spec 005) */
+@import "./sections/nav.css";

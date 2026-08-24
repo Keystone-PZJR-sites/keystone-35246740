@@ -1,0 +1,19 @@
+/* /nav — page-local styles. The v2 root neutralizes the old root
+   layout's chrome (same construction as /grid and /footer). */
+
+.v2-root {
+  min-height: 100dvh;
+  background: var(--color-bg-100);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nfx {
+  width: 100%;
+}
