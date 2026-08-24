@@ -14,6 +14,9 @@ interface ButtonFillProps {
   chrome?: "teal" | "gray";
   shape?: "pill" | "box";
   type?: "button" | "submit";
+  /** Renders the same chrome as a link (the nav's Get Started / Login,
+   * spec 005 §4). States stay CSS-driven either way. */
+  href?: string;
   forceState?: ForceableState;
   children: ReactNode;
 }
@@ -23,9 +26,32 @@ export function ButtonFill({
   chrome = "teal",
   shape = "pill",
   type = "button",
+  href,
   forceState,
   children,
 }: ButtonFillProps) {
+  const label = (
+    <span className="btn-label">
+      {children}
+      <span className="btn-glyph">
+        <IconNavTrigger variant="arrow" />
+      </span>
+    </span>
+  );
+  if (href !== undefined) {
+    return (
+      <a
+        href={href}
+        className="btn-fill"
+        data-size={size}
+        data-chrome={chrome}
+        data-shape={shape}
+        data-state={forceState}
+      >
+        {label}
+      </a>
+    );
+  }
   return (
     <button
       type={type}
@@ -35,12 +61,7 @@ export function ButtonFill({
       data-shape={shape}
       data-state={forceState}
     >
-      <span className="btn-label">
-        {children}
-        <span className="btn-glyph">
-          <IconNavTrigger variant="arrow" />
-        </span>
-      </span>
+      {label}
     </button>
   );
 }
