@@ -244,9 +244,14 @@
   translate: 0 0;
   transition:
     opacity var(--knav-blk-fade) ease
-      calc(var(--knav-stagger-base) + var(--i) * var(--knav-stagger)),
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
     translate var(--knav-blk-slide) var(--motion-drawer-ease)
-      calc(var(--knav-stagger-base) + var(--i) * var(--knav-stagger));
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger)));
+}
+/* Resources spreads its 4 blocks over Solutions' 8-block window so
+   both cascades resolve together (amendment 2026-08-24) */
+.knav-dcontent[data-content="resources"] {
+  --_stagger: var(--knav-stagger-res);
 }
 
 /* content variants share one open panel; moving between the triggers

@@ -76,6 +76,10 @@
   --knav-blk-slide: 380ms;
   --knav-blk-rise: 12px;
   --knav-stagger: 50ms;
+  /* Resources has 4 cascade blocks to Solutions' 8; its stagger
+     stretches so both drawers land their final block together
+     (7 · 50ms / 3 — amendment 2026-08-24, spec 005 §9) */
+  --knav-stagger-res: calc(7 * var(--knav-stagger) / 3);
   --knav-stagger-base: 60ms;
   --icon-swap-dur: 250ms;
   --icon-swap-blur: 2px;
