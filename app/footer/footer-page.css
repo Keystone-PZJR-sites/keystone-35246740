@@ -1,0 +1,17 @@
+/* /footer — page-local styles. The v2 root neutralizes the old root
+   layout's chrome (same construction as the /grid harness). Horizontal
+   overflow is clipped so the +1px line-inclusive right edges of
+   full-width bordered boxes (v5 §5.3) never create a scroll region. */
+
+.v2-root {
+  min-height: 100dvh;
+  background: var(--color-bg-100);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -26,3 +26,6 @@
 
 /* Primitives (spec 004) */
 @import "./primitives/footer-item.css";
+
+/* Sections (spec 004) */
+@import "./sections/footer.css";

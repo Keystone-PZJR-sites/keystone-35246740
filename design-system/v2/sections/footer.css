@@ -1,0 +1,730 @@
+/* v2 sections — footer (spec 004). Anchors rm/rs/rt/rd1/rd2; the un-gated
+   rules are the 384 design and @container blocks override upward.
+
+   Structure is ticks (heights, widths, margins on tick lines); material
+   is fixed px per band; type interpolates with the band weights — pairs
+   are the §3/§4/§6 anchor values, weight and tracking restated as band
+   constants. Bordered boxes size k·t+1 and collapse shared edges with
+   -1px margins (v5 §5/§6.1); blocks that end on a section-internal tick
+   carry margin-bottom -1px so flow advances whole ticks. */
+
+/* ---------------- top block (§3) ---------------- */
+
+.f-top {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(var(--t) * 10);
+  padding: calc(var(--t) + 32px) 0 0 20px;
+  /* content column: 300 → 416 across the base band */
+  --_gw: calc(var(--wA) * 300 + var(--wB) * 416);
+}
+
+.f-ti,
+.f-tag,
+.f-inp {
+  box-sizing: border-box;
+}
+.f-tag {
+  margin-bottom: 32px;
+}
+.f-inpcol {
+  width: var(--_gw);
+}
+
+@container (min-width: 576px) {
+  .f-top {
+    height: calc(var(--t) * 7);
+    padding: calc(var(--t)) 0 0 0;
+    --_gw: 416px;
+  }
+  .f-ti {
+    margin-left: calc(var(--t));
+    width: calc(var(--t) * 10 + 1px);
+    height: calc(var(--t) * 6 + 1px);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 12px;
+  }
+  .f-tag,
+  .f-inp {
+    width: 416px;
+  }
+  .f-tag {
+    margin-bottom: 40px;
+  }
+}
+
+@container (min-width: 768px) {
+  .f-top {
+    height: calc(var(--t) * 6);
+  }
+  .f-ti {
+    margin-left: 0;
+    width: 100%;
+    height: calc(var(--t) * 5);
+    border: none;
+  }
+}
+
+@container (min-width: 960px) {
+  .f-top {
+    height: calc(var(--t) * 3);
+    --_gw: calc(var(--wA) * 416 + var(--wB) * 528);
+  }
+  .f-ti {
+    width: calc(var(--t) * 12 + 1px);
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: 0;
+  }
+  .f-tag,
+  .f-inp {
+    width: calc(var(--t) * 6 + 1px);
+    height: calc(var(--t) * 2 + 1px);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .f-tag {
+    margin-bottom: 0;
+    padding: 8px 32px;
+  }
+  .f-inp {
+    margin-left: -1px;
+    padding: 8px 32px;
+    align-items: center;
+  }
+}
+
+@container (min-width: 1344px) {
+  .f-top {
+    --_gw: calc(var(--wB) * 528);
+  }
+  .f-tag {
+    padding: 8px 56px;
+  }
+  .f-inp {
+    padding: 8px 72px;
+  }
+}
+
+/* ---- tagline, prompt, bullets ---- */
+
+.f-tagrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-left: var(--space-2xs);
+}
+.f-promptrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: var(--space-xl);
+}
+
+.f-dot {
+  flex: none;
+  border-radius: var(--radius-full);
+  width: 6px;
+  height: 6px;
+}
+.f-dot-tag {
+  background: var(--color-orange-400);
+  /* bullet top offsets are component-layer constants (§3):
+     12 / 21 / 21 / 19 / 19 per anchor */
+  margin-top: 12px;
+}
+.f-dot-prompt {
+  background: var(--color-teal-400);
+  /* the 384 node bottom-aligns the 6px dot in a 13px frame */
+  margin-top: 7px;
+}
+
+.f-tagline {
+  margin: var(--space-none);
+  font-family: var(--font-serif);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-size: calc(var(--wA) * 28 + var(--wB) * 32);
+  line-height: calc(var(--wA) * 34 + var(--wB) * 38);
+  color: var(--color-text-200);
+}
+.f-prompt {
+  margin: var(--space-none);
+  font-family: var(--font-sans);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 26;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--color-text-300);
+}
+
+/* designed line breaks per band: a = rm/rd1/rd2 · b = rs/rt · c = rm */
+.f-brk-b {
+  display: none;
+}
+
+@container (min-width: 576px) {
+  .f-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .f-dot-tag {
+    margin-top: 21px;
+  }
+  .f-dot-prompt {
+    margin-top: 0;
+  }
+  .f-promptrow {
+    align-items: center;
+  }
+  .f-tagline {
+    font-weight: 200;
+    font-size: 32px;
+    line-height: 38px;
+  }
+  .f-brk-a {
+    display: none;
+  }
+  .f-brk-b {
+    display: revert;
+  }
+  .f-brk-c {
+    display: none;
+  }
+}
+
+@container (min-width: 768px) {
+  .f-tagrow {
+    padding-left: var(--space-none);
+  }
+  .f-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@container (min-width: 960px) {
+  .f-tagrow {
+    padding-left: var(--space-2xs);
+  }
+  .f-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .f-dot-tag {
+    margin-top: 19px;
+  }
+  .f-tagline {
+    font-size: calc(var(--wA) * 32 + var(--wB) * 42);
+    line-height: calc(var(--wA) * 38 + var(--wB) * 50);
+  }
+  .f-prompt {
+    font-size: calc(var(--wA) * 16 + var(--wB) * 18);
+    line-height: calc(var(--wA) * 22 + var(--wB) * 26);
+  }
+  .f-brk-a {
+    display: revert;
+  }
+  .f-brk-b {
+    display: none;
+  }
+}
+
+@container (min-width: 1344px) {
+  .f-tagline {
+    font-weight: 100;
+    letter-spacing: -0.03em;
+    font-size: calc(var(--wB) * 42);
+    line-height: calc(var(--wB) * 50);
+  }
+  .f-prompt {
+    font-size: calc(var(--wB) * 18);
+    line-height: calc(var(--wB) * 26);
+  }
+}
+
+/* ---- grader size variant per band: sm / md / md / md / lg (§3).
+   The primitive's data-size cannot switch per band, so the spec 003
+   size-variant geometry is restated here as band constants. ---- */
+
+.f-grader .grader {
+  width: 100%;
+}
+.f-grader .grader .grader-field {
+  height: 44px;
+}
+.f-grader .grader .btn-arrow {
+  --_d: 28px;
+  --_g: 16px;
+}
+
+@container (min-width: 576px) {
+  .f-grader .grader .grader-field {
+    height: 50px;
+  }
+  .f-grader .grader .btn-arrow {
+    --_d: 32px;
+    --_g: 18px;
+  }
+}
+
+@container (min-width: 1344px) {
+  .f-grader .grader .grader-field {
+    height: 66px;
+    padding-inline: var(--space-xl) var(--space-lg);
+    --_font: var(--ts-text-xl-light-font);
+    --_ls: var(--ts-text-xl-light-ls);
+    --_opsz: var(--ts-text-xl-light-opsz);
+  }
+  .f-grader .grader .btn-arrow {
+    --_d: 40px;
+    --_g: 24px;
+  }
+}
+
+/* ---------------- nav (§4–§5) ---------------- */
+
+.f-nav {
+  width: calc(var(--t) * 11 + 1px);
+  margin-bottom: -1px;
+}
+
+.fnav-groups {
+  list-style: none;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  width: 100%;
+  isolation: isolate;
+}
+
+/* Rows stack with descending z-order so an open drawer's shadow paints
+   over the following row (§5). */
+.fnav-group:nth-child(1) { z-index: 4; }
+.fnav-group:nth-child(2) { z-index: 3; }
+.fnav-group:nth-child(3) { z-index: 2; }
+.fnav-group:nth-child(4) { z-index: 1; }
+
+.fnav-group {
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  width: 100%;
+  height: calc(var(--t) * 2 + 1px);
+  padding: 20px 20px 0;
+  overflow: clip;
+  --_open: var(--open-rm);
+  transition: height var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.fnav-group + .fnav-group {
+  margin-top: -1px;
+}
+
+/* The drawer draws down from itself: the header stays put, the bottom
+   edge moves; chrome rides the growing box (§5). */
+.fnav-group[data-open] {
+  height: calc(var(--t) * var(--_open) + 1px);
+  background: var(--color-bg-100);
+  box-shadow: var(--shadow-hard-square-md);
+}
+
+.fnav-h {
+  margin: var(--space-none);
+}
+
+.fnav-trigger {
+  appearance: none;
+  border: 0;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 24px;
+  color: inherit;
+}
+.fnav-hg {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: var(--space-2xs);
+}
+.fnav-static {
+  display: none;
+}
+
+.fnav-dot {
+  flex: none;
+  border-radius: var(--radius-full);
+  width: 6px;
+  height: 6px;
+}
+.fnav-dot[data-g="product"] { background: var(--color-yellow-400); }
+.fnav-dot[data-g="resources"] { background: var(--color-pink-400); }
+.fnav-dot[data-g="company"] { background: var(--color-purple-400); }
+.fnav-dot[data-g="findus"] { background: var(--color-blue-400); }
+
+.fnav-name {
+  font: var(--ts-display-serif-3xs-medium-font);
+  letter-spacing: var(--ts-display-serif-3xs-medium-ls);
+  font-size: calc(var(--wA) * 16 + var(--wB) * 20);
+  line-height: calc(var(--wA) * 20 + var(--wB) * 24);
+  color: var(--color-text-200);
+  white-space: nowrap;
+}
+
+.fnav-chevron {
+  flex: none;
+  color: var(--color-border-300);
+  transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.fnav-group[data-open] .fnav-chevron {
+  rotate: 180deg;
+}
+
+/* Closed lists leave the accessibility tree; the moving clip edge does
+   the visual reveal, so visibility flips only after the collapse. */
+.fnav-listwrap {
+  margin-top: 8px;
+  padding-left: 16px;
+  visibility: hidden;
+  transition: visibility 0s linear var(--motion-drawer-duration);
+}
+.fnav-group[data-open] .fnav-listwrap {
+  visibility: visible;
+  transition: none;
+}
+
+.fnav-list {
+  list-style: none;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* flex items, not inline baselines — an inline-flex link on the li's
+   baseline would add descender space below every item */
+.fnav-list li {
+  display: flex;
+}
+
+/* footer-item size rides the band: sm / md / sm / md / md (§4); sizes
+   interpolate, weight and tracking hold (both variants are Regular −1%). */
+.fnav-list .fitem {
+  font-size: calc(var(--wA) * 14 + var(--wB) * 16);
+  line-height: calc(var(--wA) * 18 + var(--wB) * 22);
+}
+
+@container (min-width: 576px) {
+  .f-nav {
+    width: calc(var(--t) * 10 + 1px);
+    margin-left: calc(var(--t));
+  }
+  .fnav-group {
+    padding: 36px 32px 0;
+    --_open: var(--open-rs);
+  }
+  .fnav-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .fnav-name {
+    font: var(--ts-display-serif-2xs-plus-regular-font);
+    letter-spacing: var(--ts-display-serif-2xs-plus-regular-ls);
+    font-size: calc(var(--wA) * 20 + var(--wB) * 14);
+    line-height: calc(var(--wA) * 24 + var(--wB) * 18);
+  }
+  .fnav-listwrap {
+    margin-top: 12px;
+    padding-left: 22px;
+  }
+  .fnav-list {
+    gap: 10px;
+  }
+  .fnav-list .fitem {
+    font-size: calc(var(--wA) * 16 + var(--wB) * 14);
+    line-height: calc(var(--wA) * 22 + var(--wB) * 18);
+  }
+}
+
+@container (min-width: 768px) {
+  .f-nav {
+    width: calc(var(--t) * 12 + 1px);
+    margin-left: 0;
+  }
+  .fnav-groups {
+    display: flex;
+  }
+  .fnav-group,
+  .fnav-group[data-open] {
+    width: calc(var(--t) * 3 + 1px);
+    height: calc(var(--t) * 4 + 1px);
+    padding: 20px 20px 0;
+    overflow: visible;
+    background: none;
+    box-shadow: none;
+  }
+  .fnav-group + .fnav-group {
+    margin-top: 0;
+    margin-left: -1px;
+  }
+  .fnav-trigger {
+    display: none;
+  }
+  .fnav-static {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: var(--space-2xs);
+  }
+  .fnav-dot {
+    width: 6px;
+    height: 6px;
+  }
+  .fnav-name {
+    font: var(--ts-display-serif-4xs-plus-medium-font);
+    letter-spacing: var(--ts-display-serif-4xs-plus-medium-ls);
+    font-size: calc(var(--wA) * 14 + var(--wB) * 16);
+    line-height: calc(var(--wA) * 18 + var(--wB) * 20);
+  }
+  .fnav-listwrap,
+  .fnav-group[data-open] .fnav-listwrap {
+    margin-top: 12px;
+    padding-left: 16px;
+    visibility: visible;
+    transition: none;
+  }
+  .fnav-list {
+    gap: 8px;
+  }
+  .fnav-list .fitem {
+    font-size: calc(var(--wA) * 14 + var(--wB) * 16);
+    line-height: calc(var(--wA) * 18 + var(--wB) * 22);
+  }
+}
+
+@container (min-width: 960px) {
+  .fnav-group,
+  .fnav-group[data-open] {
+    padding: 24px 32px 0;
+  }
+  .fnav-static {
+    gap: 12px;
+  }
+  .fnav-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .fnav-name {
+    font: var(--ts-display-serif-3xs-medium-font);
+    letter-spacing: var(--ts-display-serif-3xs-medium-ls);
+    font-size: calc(var(--wA) * 16 + var(--wB) * 18);
+    line-height: calc(var(--wA) * 20 + var(--wB) * 24);
+  }
+  .fnav-listwrap,
+  .fnav-group[data-open] .fnav-listwrap {
+    padding-left: 24px;
+  }
+  .fnav-list {
+    gap: 12px;
+  }
+  .fnav-list .fitem {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@container (min-width: 1344px) {
+  .fnav-group,
+  .fnav-group[data-open] {
+    height: calc(var(--t) * 3 + 1px);
+    padding: 48px 56px 0;
+  }
+  .fnav-name {
+    font: var(--ts-display-serif-2xs-medium-font);
+    letter-spacing: var(--ts-display-serif-2xs-medium-ls);
+    font-size: calc(var(--wB) * 18);
+    line-height: calc(var(--wB) * 24);
+  }
+  .fnav-listwrap,
+  .fnav-group[data-open] .fnav-listwrap {
+    margin-top: 16px;
+  }
+  .fnav-list .fitem {
+    font-size: calc(var(--wB) * 16);
+    line-height: calc(var(--wB) * 22);
+  }
+}
+
+/* ---- rail extension cells (§5): the drawer's lattice growth ---- */
+
+.f-railext {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.f-ext {
+  position: absolute;
+  box-sizing: border-box;
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) + 1px);
+  height: calc(var(--t) + 1px);
+  border: 1px solid var(--line);
+  opacity: 0;
+  transition: opacity var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.f-ext.on {
+  opacity: 1;
+  /* cascade away from the drawer, nearest cell first; close fades with
+     the collapse — no stagger, no delay (the base rule above) */
+  transition-delay: calc(var(--i) * var(--motion-rail-stagger));
+}
+
+/* compound band gating (v5 §4 ordering gotcha) */
+.f-ext.rs {
+  display: none;
+}
+@container (min-width: 576px) {
+  .f-ext.rm { display: none; }
+  .f-ext.rs { display: block; }
+}
+@container (min-width: 768px) {
+  .f-ext.rm,
+  .f-ext.rs { display: none; }
+}
+
+/* ---------------- logo block (§6) ---------------- */
+
+.f-logo {
+  position: relative;
+  width: 100%;
+  height: calc(var(--t) * 6);
+}
+.f-lockband {
+  margin-top: calc(var(--t));
+  height: calc(var(--t) * 3);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.f-lockup {
+  display: block;
+  width: calc(var(--t) * 8);
+  height: auto;
+}
+
+.f-copy {
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(var(--t));
+  width: calc(var(--t) * 12 + 1px);
+  height: calc(var(--t));
+  /* tick-riding side insets (§6) */
+  padding-inline: calc(var(--t));
+  font-family: var(--font-sans);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 24;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-size: calc(var(--wA) * 10 + var(--wB) * 12);
+  line-height: calc(var(--wA) * 12 + var(--wB) * 16);
+  color: var(--color-text-500);
+  white-space: nowrap;
+}
+.f-copy a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@container (min-width: 576px) {
+  .f-copy {
+    letter-spacing: -0.01em;
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+@container (min-width: 768px) {
+  .f-logo {
+    height: calc(var(--t) * 5);
+  }
+  .f-copy {
+    margin-top: 0;
+    margin-left: calc(var(--t) * 6);
+    width: calc(var(--t) * 6 + 1px);
+    justify-content: center;
+    gap: var(--space-xl);
+    padding-inline: var(--space-none);
+  }
+}
+
+@container (min-width: 960px) {
+  .f-copy {
+    margin-left: calc(var(--t) * 7);
+    width: calc(var(--t) * 5 + 1px);
+    gap: var(--space-4xl);
+    font-size: calc(var(--wA) * 12 + var(--wB) * 14);
+    line-height: calc(var(--wA) * 16 + var(--wB) * 18);
+  }
+}
+
+@container (min-width: 1344px) {
+  .f-copy {
+    gap: var(--space-6xl);
+    font-variation-settings: "opsz" 26;
+    font-size: calc(var(--wB) * 14);
+    line-height: calc(var(--wB) * 18);
+  }
+}
+
+/* ---------------- ornament cells (§2) ---------------- */
+
+/* Rendered inside GridDecor cells (t+1, z 0, compound band gating).
+   filled square = bg/200 + border/000 · filled circle adds the radius ·
+   outlined circle drops the fill. */
+.f-cell {
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+}
+.f-cell.fill {
+  background: var(--color-bg-200);
+}
+.f-cell.round {
+  border-radius: var(--radius-full);
+}
+
+/* ---------------- reduced motion (§5) ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .fnav-group,
+  .fnav-chevron,
+  .fnav-listwrap,
+  .f-ext {
+    transition: none;
+  }
+  .f-ext.on {
+    transition-delay: 0s;
+  }
+}

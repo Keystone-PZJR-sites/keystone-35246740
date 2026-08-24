@@ -24,4 +24,11 @@
   --fitem-gap: 3px;
   --fitem-gap-hover: 5px;
   --fitem-bar: 3px;
+
+  /* Drawer motion (spec 004 §5) — the build's first structural motion
+     values. They stay in the component layer until a second section
+     needs them (then they promote to a global motion layer). */
+  --motion-drawer-duration: 250ms;
+  --motion-drawer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-rail-stagger: 40ms;
 }
