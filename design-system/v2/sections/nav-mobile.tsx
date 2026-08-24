@@ -26,10 +26,11 @@ export interface NavMobileRow {
   /** Plain rows link; drawer rows disclose. */
   href?: string;
   drawer?: ReactNode;
-  /** Whole-tick push-down per band (§5, "group"). The box itself is
-   * content-driven and rides the tick where the tick governs — the §5
-   * box values fall out of the anatomy. */
+  /** Whole-tick push-down per band (§5, "group"). */
   group?: { rm: number; rs: number; rt: number };
+  /** The open box's own whole-tick height per band (§5, "box") — at rs
+   * it is smaller than the group and the remainder is clear space. */
+  boxTicks?: { rm: number; rs: number; rt: number };
 }
 
 /** Both glyphs stack in one grid cell; the swap is CSS (§6.4). */
@@ -158,6 +159,9 @@ export function NavMobile({
                       "--g-rm": row.group!.rm,
                       "--g-rs": row.group!.rs,
                       "--g-rt": row.group!.rt,
+                      "--bt-rm": row.boxTicks!.rm,
+                      "--bt-rs": row.boxTicks!.rs,
+                      "--bt-rt": row.boxTicks!.rt,
                     } as CSSProperties
                   }
                 >
