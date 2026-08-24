@@ -4,9 +4,12 @@
    mobile (base, rs, rt) and desktop (rd1, rd2). The un-gated rules are
    the 384 design; @container blocks override upward. */
 
+/* Every child of the chrome is fixed or absolute, so these wrappers are
+   zero-height boxes: they keep the banner/navigation landmarks sturdy
+   (display: contents can drop them) without touching layout. */
 .ks-nav,
 .ks-nav > nav {
-  display: contents;
+  display: block;
 }
 
 /* ---- structure gate (§1): mobile below 960, desktop from 960 ---- */
@@ -16,7 +19,7 @@
 }
 @container (min-width: 960px) {
   .knav-d {
-    display: contents;
+    display: block;
   }
   .knav-m {
     display: none;
