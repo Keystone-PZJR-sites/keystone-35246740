@@ -133,7 +133,26 @@ values and would need editing later — which spec immutability forbids.
   chevron rotation, rail cascade — 004 §5). All specced in 004 from
   post-fix re-reads; nothing open for Phase 3 (004 §9 records the
   resolutions).
-- Phase 4: nav nodes incl. mobile-menu open state.
+- Phase 4: nav nodes incl. mobile-menu open state — received 2026-08-24:
+  the `_nav` component section (94:8739 — navRail, nav-item, nav-button,
+  the marketing-nav set with desktop solutions/resources open states,
+  nav-solutions-subitem, nav-drawer) and the Mobile Nav states
+  (540:23937 — open, Solutions expanded, Resources expanded, at 384 and,
+  added later the same day, at 576; the 384 frames were re-cut without
+  iPhone chrome and "Our Approach" was dropped from the menu). Same day
+  design added `icons/blog`/`icons/grader`/`icons/podcast` to the sheet
+  and supplied motion intent (button-hover underline, subnav reveal
+  cascade, hamburger icon swap, footer-grammar mobile drawers and panel).
+  Later the same day design resolved all fifteen spec flags: 768 open
+  states, full-height panels, rebuilt drawer groups (pinned labels),
+  nav-drawer lg/md size variants, the 576 nav position, rail geometry,
+  shadow tokens bound and re-inked `#554D44`, canonical engine colors,
+  and the behavior decisions (desktop bar fixed; desktop triggers
+  navigate and disclose). All re-read post-fix and specced in 005
+  (draft); 005 §9 is the resolutions record. Follow-ups the same day:
+  F16/F17 fixed, Visibility/Brand subitem copy reworded (set-wide), and
+  the F18 stale drawer copy overrides cleared — all verified from the
+  nodes; nothing remains open for Phase 4.
 - Phase 5: `portfolio-card`, `engine`, `testimonial-card`,
   `hero-carousel-image` component nodes; per-anchor active/inactive states for
   the engine accordion; carousel/scroll motion intent; the gallery
