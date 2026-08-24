@@ -26,10 +26,10 @@ export interface NavMobileRow {
   /** Plain rows link; drawer rows disclose. */
   href?: string;
   drawer?: ReactNode;
-  /** Whole-tick push-down per band (§5, "group"). */
+  /** Whole-tick push-down per band (§5, "group"). The box itself is
+   * content-driven and rides the tick where the tick governs — the §5
+   * box values fall out of the anatomy. */
   group?: { rm: number; rs: number; rt: number };
-  /** Designed open box heights in px per band (§5, "box"). */
-  box?: { rm: number; rs: number; rt: number };
 }
 
 /** Both glyphs stack in one grid cell; the swap is CSS (§6.4). */
@@ -158,9 +158,6 @@ export function NavMobile({
                       "--g-rm": row.group!.rm,
                       "--g-rs": row.group!.rs,
                       "--g-rt": row.group!.rt,
-                      "--b-rm": `${row.box!.rm}px`,
-                      "--b-rs": `${row.box!.rs}px`,
-                      "--b-rt": `${row.box!.rt}px`,
                     } as CSSProperties
                   }
                 >
@@ -176,7 +173,7 @@ export function NavMobile({
                       <IconChevronDownMedium className="knav-rchev" />
                     </button>
                     <div className="knav-chips" id={`knav-g-${row.id}`}>
-                      {row.drawer}
+                      <div className="knav-chipsin">{row.drawer}</div>
                     </div>
                   </div>
                 </li>

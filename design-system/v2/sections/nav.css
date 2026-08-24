@@ -526,7 +526,8 @@
 /* ================= mobile rail + panel (§2, §4–§6) ================= */
 
 /* the closed rail: absolute at the page top, right edge on the 11t
-   line; it scrolls away (§1) */
+   line; it scrolls away (§1). The rail paints whole — the divider gap
+   is rail fill, not a window (§2). */
 .knav-mbar {
   position: absolute;
   top: 0;
@@ -534,6 +535,11 @@
   z-index: var(--z-nav);
   display: flex;
   align-items: center;
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-m[data-open] .knav-mbar {
+  background: var(--color-bg-300);
 }
 
 .knav-mtoggle {
@@ -620,6 +626,8 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* vertical pan only — the 1px rail overhang must never be draggable */
+  touch-action: pan-y;
   visibility: hidden;
   /* the close's destination rule times the close: ease-out height,
      shadow off at once (§6.6) */
@@ -652,7 +660,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 100dvh;
+  /* the panel's interior is 100dvh minus its bottom border — an exact
+     fit, so nothing scrolls unless content genuinely overflows */
+  min-height: calc(100dvh - 1px);
   margin-left: -1px;
   width: calc(100% + 1px);
 }
@@ -680,13 +690,19 @@
   -webkit-mask: url("/media/brand/ks-wordmark.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-wordmark.svg") center / contain no-repeat;
 }
-/* the open-state rail, right edge flush with the panel's right edge */
+/* the open-state rail, right edge flush with the panel's right edge;
+   fully painted like the closed rail */
 .knav-prailtop {
   position: absolute;
   top: 0;
   right: -1px;
   display: flex;
   align-items: center;
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-m[data-open] .knav-prailtop {
+  background: var(--color-bg-300);
 }
 .knav-plogo {
   display: grid;
@@ -708,6 +724,9 @@
   width: calc(var(--t) * 10 + 1px);
   isolation: isolate;
   flex: none;
+  /* above the rail ornament, so an open box's shadow paints over the
+     rail cells instead of resolving behind them */
+  z-index: 1;
 }
 /* rows stack with descending z-order so an open box's shadow paints
    over the next row's top edge (§5, 004 pattern) */
@@ -772,12 +791,18 @@ a.knav-row {
   transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease-open);
 }
 
-/* --- mobile drawers (§5): the box draws down to its designed height;
-   the slot advances the whole-tick push-down --- */
+/* --- mobile drawers (§5): the slot advances the whole-tick push-down;
+   the box draws down by expanding its chips row (auto 0fr → auto 1fr),
+   so its height is content-true at every width. A per-band min-height
+   makes the box ride the tick where the tick governs (rm, rt — box =
+   group) and lets it hug where the design hugs (rs), the remainder
+   staying clear space in the slot. --- */
 
 .knav-gslot {
   --_g: var(--g-rm);
-  --_b: var(--b-rm);
+  /* the open box's floor: the whole-tick group at rm/rt, the closed
+     row (hug governs) at rs */
+  --_gmin: calc(var(--t) * var(--_g) + 1px);
   transition: height var(--motion-drawer-duration) var(--motion-drawer-ease);
 }
 .knav-gslot[data-open] {
@@ -787,42 +812,39 @@ a.knav-row {
 
 .knav-gbox {
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 0fr;
   align-items: stretch;
-  height: calc(var(--t) * 2 + 1px);
+  min-height: calc(var(--t) * 2 + 1px);
   border: 1px solid var(--color-border-050);
   background: var(--color-bg-200);
   overflow: clip;
   box-shadow: var(--shadow-hard-square-md-0);
   transition:
-    height var(--motion-drawer-duration) var(--motion-drawer-ease);
+    grid-template-rows var(--motion-drawer-duration) var(--motion-drawer-ease),
+    min-height var(--motion-drawer-duration) var(--motion-drawer-ease);
 }
 .knav-gslot[data-open] .knav-gbox {
-  /* the designed box height; never taller than the whole-tick group
-     (the guard matters only below 384, where the band extrapolates) */
-  height: min(var(--_b), calc(var(--t) * var(--_g) + 1px));
+  grid-template-rows: auto 1fr;
+  min-height: var(--_gmin);
   box-shadow: var(--shadow-hard-square-md);
   transition:
-    height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    grid-template-rows var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    min-height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
     box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease)
       var(--motion-drawer-duration);
 }
 
 .knav-gtrigger {
-  flex: none;
   padding-bottom: 0;
 }
 
-/* label → chips gap 24, box bottom pad 16, px 20 (§5); closed lists
-   leave the accessibility tree */
+/* the collapsible chips row; closed lists leave the accessibility
+   tree. The inner block carries the §5 anatomy: 24 to the label above,
+   px 20, 16 bottom pad. */
 .knav-chips {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: var(--space-md);
-  margin-top: var(--space-3xl);
-  padding: 0 var(--space-2xl) var(--space-xl);
+  min-height: 0;
+  overflow: clip;
   visibility: hidden;
   pointer-events: none;
   transition: visibility 0s linear var(--motion-drawer-duration);
@@ -831,6 +853,13 @@ a.knav-row {
   visibility: visible;
   pointer-events: auto;
   transition: none;
+}
+.knav-chipsin {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-3xl) var(--space-2xl) var(--space-xl);
 }
 
 /* --- engine chips (§5): pill, square dot, F15 type resolution --- */
@@ -880,22 +909,28 @@ a.knav-row {
   line-height: calc(var(--wA) * 18 + var(--wB) * 26);
   white-space: nowrap;
 }
+/* the icon keeps its own ink — it does not tint with the label
+   (glyph fills read from the chip nodes 2026-08-24) */
 .knav-rchipicon {
   flex: none;
   width: 16px;
   height: 16px;
+  color: var(--_icon);
 }
 .knav-rchip[data-card="blog"] {
   --_chipbg: var(--color-text-500);
   --_label: var(--color-bg-300);
+  --_icon: var(--color-text-100);
 }
 .knav-rchip[data-card="grader"] {
   --_chipbg: var(--color-brown-300);
   --_label: var(--color-brown-700);
+  --_icon: var(--color-brown-600);
 }
 .knav-rchip[data-card="podcast"] {
   --_chipbg: var(--color-yellow-400);
   --_label: var(--color-yellow-700);
+  --_icon: var(--color-yellow-600);
 }
 
 /* --- right rail ornament (§4): 1t cells from the list top to the
@@ -969,14 +1004,16 @@ a.knav-row {
   }
   .knav-gslot {
     --_g: var(--g-rs);
-    --_b: var(--b-rs);
+    /* rs: the designed boxes hug shorter than the group (§5) — the
+       floor is the closed row and content sets the height */
+    --_gmin: calc(var(--t) * 2 + 1px);
   }
   /* row label interpolates 28/36 → 32/38 across rs (§4) */
   .knav-rlabel {
     font-size: calc(var(--wA) * 28 + var(--wB) * 32);
     line-height: calc(var(--wA) * 36 + var(--wB) * 38);
   }
-  .knav-chips {
+  .knav-chipsin {
     gap: var(--space-lg);
   }
   /* chip type: weight switches to Light, 20→24 across rs (§9 F15) */
@@ -993,7 +1030,9 @@ a.knav-row {
 @container (min-width: 768px) {
   .knav-gslot {
     --_g: var(--g-rt);
-    --_b: var(--b-rt);
+    /* rt: the tick wins over the padding sum; slack sits inside the
+       box (§5) */
+    --_gmin: calc(var(--t) * var(--_g) + 1px);
   }
   /* row label holds 32/38 across rt; label pad becomes 45 (t − 20) */
   .knav-row {
@@ -1010,7 +1049,7 @@ a.knav-row {
     /* (38 − 20) / 2 */
     margin-top: 9px;
   }
-  .knav-chips {
+  .knav-chipsin {
     gap: var(--space-xl);
   }
   .knav-chip,
@@ -1041,6 +1080,8 @@ a.knav-row {
 @media (prefers-reduced-motion: reduce) {
   .knav-logo,
   .knav-plogo,
+  .knav-mbar,
+  .knav-prailtop,
   .knav-vr,
   .knav-btn::after,
   .knav-item,

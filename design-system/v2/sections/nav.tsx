@@ -240,7 +240,8 @@ function ResourceChips() {
 /* ---- the chrome ---- */
 
 /* Menu rows (§4–§5). Drawer rows carry the whole-tick push-down group
-   heights (ticks) and the designed open box heights (px) per anchor. */
+   heights per band; the open box is content-driven and floored to the
+   tick where the tick governs (rm, rt). */
 const MOBILE_ROWS: NavMobileRow[] = [
   { id: "our-work", label: "Our Work", href: LINKS.ourWork },
   {
@@ -248,7 +249,6 @@ const MOBILE_ROWS: NavMobileRow[] = [
     label: "Solutions",
     drawer: <EngineChips />,
     group: { rm: 5, rs: 5, rt: 4 },
-    box: { rm: 160, rs: 194, rt: 256 },
   },
   { id: "pricing", label: "Pricing", href: LINKS.pricing },
   { id: "company", label: "Company", href: LINKS.company },
@@ -257,7 +257,6 @@ const MOBILE_ROWS: NavMobileRow[] = [
     label: "Resources",
     drawer: <ResourceChips />,
     group: { rm: 4, rs: 4, rt: 4 },
-    box: { rm: 128, rs: 144, rt: 256 },
   },
 ];
 
