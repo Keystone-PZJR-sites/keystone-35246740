@@ -145,6 +145,38 @@ export function IconNavMenu({ open = false, size = 32, className }: Props & { op
   );
 }
 
+/** icons/blog (540:23965) — 20-grid, currentColor (tints with its chip
+ * label, spec 005 §8). Exported via the console bridge 2026-08-24. */
+export function IconBlog({ size = 20, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M10.8333 8.33301H6.66667V7.29134H10.8333V8.33301Z" fill="currentColor" />
+      <path d="M13.3333 5.83301H6.66667V4.79134H13.3333V5.83301Z" fill="currentColor" />
+      <path fillRule="evenodd" clipRule="evenodd" d="M16.5625 14.4788H14.6875V17.1872H16.5625V18.2288H5.625C4.41688 18.2288 3.4375 17.2495 3.4375 16.0413V3.95801C3.4375 2.74988 4.41688 1.77051 5.625 1.77051H16.5625V14.4788ZM5.625 2.81217C4.99217 2.81217 4.47917 3.32518 4.47917 3.95801V13.8571C4.86446 13.5925 5.33063 13.4372 5.83333 13.4372H15.5208V2.81217H5.625Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/grader (540:23964) — 20-grid, currentColor (tints with its chip
+ * label, spec 005 §8). Exported via the console bridge 2026-08-24. */
+export function IconGrader({ size = 20, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.47884 1.77051H9.99967C14.5445 1.77051 18.2288 5.45483 18.2288 9.99967C18.2288 14.5445 14.5445 18.2288 9.99967 18.2288C5.45483 18.2288 1.77051 14.5445 1.77051 9.99967C1.77051 8.72599 2.0602 7.51856 2.5778 6.44092L2.80322 5.97135L3.74235 6.4222L3.51693 6.89176C3.06544 7.83171 2.81217 8.8854 2.81217 9.99967C2.81217 13.9692 6.03013 17.1872 9.99967 17.1872C13.9692 17.1872 17.1872 13.9692 17.1872 9.99967C17.1872 6.20532 14.2468 3.09943 10.5205 2.83252V4.89551H9.47884V1.77051ZM12.8122 9.99967C12.8122 11.553 11.553 12.8122 9.99967 12.8122C8.44636 12.8122 7.18717 11.553 7.18717 9.99967C7.18717 9.41138 7.36747 8.86506 7.67627 8.41357L4.21436 4.95166L3.84652 4.58301L4.58301 3.84652L4.95166 4.21436L8.41357 7.67627C8.86506 7.36747 9.41138 7.18717 9.99967 7.18717C11.553 7.18717 12.8122 8.44636 12.8122 9.99967Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/podcast (540:23963) — 20-grid, currentColor (tints with its chip
+ * label, spec 005 §8). Exported via the console bridge 2026-08-24. */
+export function IconPodcast({ size = 20, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.48014 16.3335C6.92799 16.1394 4.77255 14.5308 3.79411 12.2913L3.58496 11.8145L4.53955 11.397L4.74788 11.8747C5.63243 13.8992 7.6525 15.3122 10.001 15.3122C12.3494 15.3121 14.3686 13.8991 15.2533 11.8747L15.4624 11.397L16.417 11.8145L16.2078 12.2913C15.2294 14.5308 13.074 16.1393 10.5218 16.3335V18.2288H9.48014V16.3335ZM14.0635 9.58301C14.0635 11.8266 12.2446 13.6455 10.001 13.6455C7.75734 13.6455 5.93848 11.8267 5.93848 9.58301V5.83301C5.93848 3.58935 7.75734 1.77051 10.001 1.77051C12.2446 1.77054 14.0635 3.58937 14.0635 5.83301V9.58301Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** IconLoadingCircle (button-arrow loading glyph) — track stays the
  * alpha-ink token; the head is currentColor per chrome. */
 export function IconLoadingCircle({ size = 24, className }: Props) {
