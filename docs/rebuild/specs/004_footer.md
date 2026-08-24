@@ -227,13 +227,19 @@ approved with the spec):
 - **The drawer draws down from itself.** The closed 2t row is the origin:
   the header stays put and the row's bottom edge draws downward to the open
   tick height, pushing every block below it (later rows, logo block) down
-  in flow. One height animation, **250ms** on the ease-out curve
-  `cubic-bezier(0.22, 1, 0.36, 1)`. The item list is revealed by the moving
-  clip edge — content never scales or squishes; the border, `bg/100` fill,
-  and hard shadow ride the growing box. Close is the exact reverse at the
-  same duration and curve (one reversible motion, not an open/close pair).
-- **Chevron** rotates 180° (pointing up when open), same 250ms ease-out,
-  synchronized with the height change; rotates back on close.
+  in flow. One height animation, **250ms** per direction: the open runs on
+  the ease-in-out curve `cubic-bezier(0.65, 0, 0.35, 1)`, the close on the
+  ease-out curve `cubic-bezier(0.22, 1, 0.36, 1)` (amended 2026-08-24 —
+  the open first shared the close's ease-out and felt severe; §9). The
+  item list is revealed by the moving clip edge — content never scales or
+  squishes; the border and `bg/100` fill ride the growing box.
+- **Shadow** (amended 2026-08-24, §9): the hard shadow does not paint
+  while the box grows. When the box lands (250ms), the shadow offset
+  grows from 0,0 to its 3,3 token value over **200ms** on the ease-out
+  curve — the drawer rises after the container opens. On close the
+  shadow goes off at once with the collapse.
+- **Chevron** rotates 180° (pointing up when open) at the height's
+  duration and curve in each direction; rotates back on close.
 - **Rail cascade.** The growth ticks extend the exposed rails (right rail
   at rm; both rails at rs, mirrored left/right). Each new rail cell fades
   in with an ease-out opacity ramp (250ms), staggered **40ms per cell
@@ -244,10 +250,10 @@ approved with the spec):
 - **Single-open handoff:** opening B while A is open runs both height
   animations concurrently on the same curve; the rails animate to the net
   section change.
-- The motion constants (250ms · 40ms stagger · the ease-out cubic-bezier)
-  are the build's first motion values and live in the component token
-  layer; promotion to a global motion-token layer waits until a second
-  section needs them.
+- The motion constants (250ms · 40ms stagger · the open and close curves
+  · the 200ms shadow growth) are the build's first motion values and live
+  in the component token layer; promotion to a global motion-token layer
+  waits until a second section needs them.
 - `prefers-reduced-motion: reduce` renders every part of this
   state-to-state, no transitions.
 - Mid-flight the section is transiently fractional-tick by design; the
@@ -330,6 +336,11 @@ the nodes after the fix:
   approval, 2026-08-23). The 384/576 frames bind `pink/400`; the
   768/960/1344 frames bind `pink/300` — the code follows the decision and
   the file is to be normalized to `pink/400`.
+- **Open motion re-timed** (design direction, 2026-08-24): the open
+  first ran on the close's ease-out curve and painted the shadow at
+  once, which felt severe. The open now runs ease-in-out and the shadow
+  grows from offset 0,0 to 3,3 after the box lands (§5). The close is
+  unchanged.
 - **Accordion type holds across rs** (decision, 2026-08-24): the build
   first interpolated the rs nav type toward the 768 column values, so
   the labels got smaller as the band got wider. The 768 structural
@@ -408,7 +419,10 @@ scrollbar forced on:
       (Computed transitions: height/rotate/opacity 250ms on
       cubic-bezier(0.22, 1, 0.36, 1); cascade delays 0/40/80/120/160ms
       on open, none on close; reduced motion zeroes durations and the
-      cascade delay; at-rest totals exact in both states.)
+      cascade delay; at-rest totals exact in both states.) Amended
+      2026-08-24: the open runs ease-in-out and the shadow grows
+      0,0 → 3,3 over 200ms after the box lands (§5); the close keeps
+      the recorded values.
 - [x] The grader inside the footer passes its spec 003 criteria at the
       per-band size variants (sm/md/md/md/lg) and widths (§3). (Field
       heights 44/50/50/50/66 via the band overrides; widths 300→416,

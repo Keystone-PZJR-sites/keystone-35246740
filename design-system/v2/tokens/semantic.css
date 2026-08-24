@@ -125,6 +125,10 @@
   --shadow-hard-round: 3px 4px 0 0 rgba(50, 38, 27, 0.2);
   --shadow-hard-square: 4px 4px 0 0 rgba(50, 38, 27, 0.15);
   --shadow-hard-square-md: 3px 3px 0 0 rgba(50, 38, 27, 0.15);
+  /* origin state of the md hard shadow: zero offset paints nothing but
+     gives transitions a same-structure start value, so the offset can
+     grow 0,0 → 3,3 (spec 004 §5) */
+  --shadow-hard-square-md-0: 0 0 0 0 rgba(50, 38, 27, 0.15);
   /* Figma "noise" effect: black at 6%, noise size 0.5. CSS has no noise
      primitive; consumers implement it with a texture asset that reads
      this opacity. */

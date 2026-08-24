@@ -25,10 +25,14 @@
   --fitem-gap-hover: 5px;
   --fitem-bar: 3px;
 
-  /* Drawer motion (spec 004 §5) — the build's first structural motion
-     values. They stay in the component layer until a second section
-     needs them (then they promote to a global motion layer). */
+  /* Drawer motion (spec 004 §5, amended 2026-08-24) — the build's first
+     structural motion values. They stay in the component layer until a
+     second section needs them (then they promote to a global motion
+     layer). The open eases in and out; the close keeps the ease-out.
+     The shadow grows out of the origin after the box lands. */
   --motion-drawer-duration: 250ms;
   --motion-drawer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-drawer-ease-open: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-drawer-shadow-duration: 200ms;
   --motion-rail-stagger: 40ms;
 }

@@ -335,6 +335,11 @@
   padding: calc(var(--t) - 12px) 20px 0;
   overflow: clip;
   --_open: var(--open-rm);
+  /* the zero-offset origin shadow paints nothing; it gives the open
+     transition a same-structure start so the offset grows 0,0 → 3,3 */
+  box-shadow: var(--shadow-hard-square-md-0);
+  /* this rule is the close's destination, so it times the close:
+     ease-out height, shadow off at once — unchanged (§5) */
   transition: height var(--motion-drawer-duration) var(--motion-drawer-ease);
 }
 .fnav-group + .fnav-group {
@@ -347,6 +352,13 @@
   height: calc(var(--t) * var(--_open) + 1px);
   background: var(--color-bg-100);
   box-shadow: var(--shadow-hard-square-md);
+  /* open (§5, amended 2026-08-24): the height eases in and out, and the
+     shadow grows out of its origin only after the box lands — the
+     drawer rises once the container has opened. */
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease)
+      var(--motion-drawer-duration);
 }
 
 .fnav-h {
@@ -413,6 +425,8 @@
 }
 .fnav-group[data-open] .fnav-chevron {
   rotate: 180deg;
+  /* the rotation tracks the height in each direction (§5) */
+  transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease-open);
 }
 
 /* Closed lists leave the accessibility tree; the box's moving clip edge
@@ -767,7 +781,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .fnav-group,
+  .fnav-group[data-open],
   .fnav-chevron,
+  .fnav-group[data-open] .fnav-chevron,
   .fnav-listwrap,
   .f-ext {
     transition: none;
