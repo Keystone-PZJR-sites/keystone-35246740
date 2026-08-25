@@ -20,8 +20,11 @@ All geometry, type, and token values come from the live Figma file
 `ks-MarketingSite` through the Figma MCP — never from screenshots, memory, or
 prior extractions.
 
-Write all commit messages in ASD-STE100 Simplified Technical English (see
-"Git Workflow" in `docs/rules/rules.md`): active voice, one idea per
-sentence, 20 words or fewer per sentence, plain approved words. Prefer the
-smallest complete commit (one spec, one token layer, one primitive) — not a
-whole phase.
+Do not commit, stage, or push unless the human asks in that turn.
+Completing a spec or passing checks is not permission to commit. Leave
+the working tree dirty and report what is ready. When asked to commit,
+write messages in ASD-STE100 Simplified Technical English (see "Git
+Workflow" in `docs/rules/rules.md`): active voice, one idea per sentence,
+20 words or fewer per sentence, plain approved words. Prefer the smallest
+complete commit (one spec, one token layer, one primitive) — not a whole
+phase.

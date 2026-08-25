@@ -134,6 +134,8 @@ The test before committing: if someone read only the docs and only the code, wou
 
 ## Git Workflow
 
+**Do not commit unless asked.** Agents leave the working tree uncommitted. Do not run `git commit`, `git add` (as a prelude to a commit), or `git push` unless the human explicitly asks in that turn. Finishing a spec, passing `tsc`/`lint`, or completing a phase is not permission. When asked, follow the rest of this section.
+
 Branch names: `feature/`, `fix/`, `docs/`, `chore/`. Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/) — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `style:`, `perf:` followed by an imperative summary.
 
 Commit messages (summary and body) are written in [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/): active voice, imperative or simple present tense, one idea per sentence, sentences of 20 words or fewer, plain approved words (write "start", not "initiate"; "use", not "utilize"), no noun clusters of more than three words.
