@@ -117,10 +117,13 @@ export function NavMobile({
           no visual scrim (§4) */}
       <div className="knav-catch" aria-hidden="true" onClick={() => close()} />
 
+      {/* inline display = the pre-CSS FOUC guard; nav.css re-asserts
+          block !important (see the drawer note in nav-desktop.tsx) */}
       <div
         id="knav-panel"
         ref={panelRef}
         className="knav-panel"
+        style={{ display: "none" }}
         role="dialog"
         aria-modal="true"
         aria-label="Menu"

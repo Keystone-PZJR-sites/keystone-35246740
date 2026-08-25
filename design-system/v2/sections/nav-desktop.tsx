@@ -150,9 +150,18 @@ export function NavDesktop({
           </span>
         </a>
       </div>
+      {/* The inline display is the pre-CSS FOUC guard (found 2026-08-25
+          on cold dev loads: the drawer painted raw before nav.css
+          arrived, then transitioned out). nav.css re-asserts the
+          constant `display: grid !important`, which outranks the inline
+          value the moment the sheet is present; the [hidden] attribute
+          could not do this job — the old design system's Tailwind
+          preflight hides [hidden] with a layered !important, which
+          beats any unlayered counter-rule. */}
       <div
         id="knav-drawer"
         className="knav-drawer"
+        style={{ display: "none" }}
         data-open={item !== null || undefined}
         data-item={content}
         onMouseEnter={cancelClose}

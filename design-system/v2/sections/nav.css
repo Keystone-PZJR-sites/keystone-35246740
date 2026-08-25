@@ -306,8 +306,11 @@
    reveal cascade would not fire on a fresh open. The visible rule is
    gated on [data-open] so a closed drawer's whole subtree still
    leaves the accessibility tree. */
+/* display is a constant (state is opacity/visibility); !important so
+   this sheet's arrival retires the markup's inline pre-CSS FOUC guard
+   (see nav-desktop.tsx). */
 .knav-drawer {
-  display: grid;
+  display: grid !important;
 }
 .knav-dcontent {
   grid-area: 1 / 1;
@@ -753,6 +756,9 @@
    top in the footer grammar (§4, §6.6) --- */
 
 .knav-panel {
+  /* constant display, !important to retire the inline pre-CSS FOUC
+     guard — same construction as .knav-drawer */
+  display: block !important;
   position: fixed;
   top: 0;
   left: 0;
