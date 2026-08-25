@@ -41,7 +41,8 @@
   display: block;
   width: var(--knav-logomark);
   height: var(--knav-logomark);
-  background: var(--color-text-300);
+  /* re-inked text/300 → text/200 in the rail set 2026-08-24 (§9) */
+  background: var(--color-text-200);
   -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
 }

@@ -128,18 +128,16 @@ export function IconChevronDownMedium({ size = 16, className }: Props) {
   );
 }
 
-/** _nav-menu-mobile (520:15982) — 32-grid, currentColor. Consumer is the
- * Phase 4 nav; committed with the sheet (spec 003 §6). */
-export function IconNavMenu({ open = false, size = 32, className }: Props & { open?: boolean }) {
+/** _nav-menu-mobile (520:15982) — 28-grid, currentColor. Consumer is the
+ * Phase 4 nav. Re-exported 2026-08-24 after design resized the set
+ * 32 → 28 (spec 005 §9). */
+export function IconNavMenu({ open = false, size = 28, className }: Props & { open?: boolean }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
       {open ? (
-        <>
-          <path d="M23.0708 21.6566L21.6566 23.0708L8.92871 10.3429L10.3429 8.92871L23.0708 21.6566Z" fill="currentColor" />
-          <path d="M23.0708 10.3431L21.6566 8.92887L8.92871 21.6568L10.3429 23.071L23.0708 10.3431Z" fill="currentColor" />
-        </>
+        <path d="M20.1873 9.0498L15.2372 13.999L20.1873 18.9491L18.9491 20.1873L13.999 15.2372L9.0498 20.1873L7.8125 18.95L12.7617 13.9999L7.8125 9.0498L9.0498 7.8125L13.999 12.7617L18.9491 7.8125L20.1873 9.0498Z" fill="currentColor" />
       ) : (
-        <path d="M25 21V23H7V21H25ZM25 15V17H7V15H25ZM25 9V11H7V9H25Z" fill="currentColor" />
+        <path d="M21.875 18.375V20.125H6.125V18.375H21.875ZM21.875 13.125V14.875H6.125V13.125H21.875ZM21.875 7.875V9.625H6.125V7.875H21.875Z" fill="currentColor" />
       )}
     </svg>
   );
