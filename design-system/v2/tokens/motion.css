@@ -18,4 +18,26 @@
   /* ease-in-out — the open direction */
   --motion-drawer-ease-open: cubic-bezier(0.65, 0, 0.35, 1);
   --motion-drawer-shadow-duration: 200ms;
+
+  /* The fade-rise grammar (spec 006 §6): every load-choreography entry
+     is opacity 0→1 with translateY(rise distance)→0 on the rise ease.
+     The rise ease aliases the existing ease-out curve — do not fork. */
+  --motion-rise-distance: 26px;
+  --motion-rise-duration: 800ms;
+  --motion-rise-ease: var(--motion-drawer-ease);
+
+  /* The chip highlight pass (spec 006 §6): each chip wipes its brand
+     fill left→right over the neutral base and cross-fades its ink. */
+  --motion-wipe-duration: 420ms;
+  --motion-wipe-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  --motion-chip-stagger: 150ms;
+
+  /* The carousel slide grammar (spec 006 §6): the track translates by
+     the leaving frame's width — smooth, no overshoot. The two timer
+     constants are read by the carousel island from computed style, so
+     these tokens are their single source. */
+  --motion-slide-duration: 900ms;
+  --motion-slide-ease: cubic-bezier(0.45, 0.05, 0.15, 1);
+  --motion-carousel-dwell: 3500ms;
+  --motion-carousel-first-advance: 4500ms;
 }

@@ -97,6 +97,70 @@
   /* the grid circles ride ease-in-out; the shadow keeps the ease-out */
   --knav-card-slide-ease: var(--motion-drawer-ease-open);
 
+  /* hero constants (spec 006 §7) — material facts of the section the
+     token layers do not carry. Header block y offsets are per-band
+     content-layer constants (67/99/88/144/152); the rm inset is 16
+     (= t/2 at the anchor, but a designed constant). */
+  --hx-head-top-rm: 67px;
+  --hx-head-top-rs: 99px;
+  --hx-head-top-rt: 88px;
+  --hx-head-top-rd1: 144px;
+  --hx-head-top-rd2: 152px;
+  --hx-inset-rm: 16px;
+  /* wordmark-in-subhead sizes (§3): scaled to the type per band */
+  --hx-wm-w: 79.13px;
+  --hx-wm-h: 16.06px;
+  --hx-wm-w-rt: 71.37px;
+  --hx-wm-h-rt: 14.49px;
+  --hx-wm-w-rd2: 94.75px;
+  --hx-wm-h-rd2: 19.23px;
+  /* the inline cut's baseline: flat letter bottoms at y 13.003 of the
+     16.0625 art box (measured from the node 506:4400 export's path
+     data) — 19.045% of the art hangs below the baseline (the y's
+     descender). The art drops by this fraction of its height so its
+     baseline meets the text baseline at every size. */
+  --hx-wm-drop: 0.19045;
+  /* rt subhead constants (§9 F7): designed values, not tokens */
+  --hx-gap-inline-rt: 5px;
+  --hx-chip-lh-rt: 24px;
+  /* the rm/rs subhead block is a designed 384 wide (nodes 500:24680 ·
+     506:4396, read 2026-08-25) — the natural-wrap constraint that puts
+     "everything…" and "follow-ups…" on the second lines. Unset at rt+
+     (single lines). */
+  --hx-sub-maxw: 384px;
+  /* rt CTA top gap (§4): 56 has no spacing token — a material constant */
+  --hx-cta-top-rt: 56px;
+  /* rm/rs CTA row offset below the subhead top: the designed subhead
+     block height (122, nodes 500:24680 · 506:4396) + the 40 top gap
+     (§4). The CTA rides the subhead's tick anchor so the two never
+     cross mid-band; at the anchors it lands exactly on §1's 738/834. */
+  --hx-cta-sub-drop: 162px;
+  /* load choreography (§6): the page-wide sweep, the nav's drop, and
+     the per-element fade-rise delays. 006 owns the orchestrator; later
+     sections inherit these. */
+  --load-sweep-duration: 700ms;
+  --load-sweep-offset: 120ms;
+  --load-nav-duration: 600ms;
+  --load-nav-drop: 8px;
+  --hx-d-h1a: 80ms;
+  --hx-d-h1b: 190ms;
+  --hx-d-sub1: 330ms;
+  --hx-d-sub2: 410ms;
+  --hx-d-cta: 490ms;
+  --hx-d-rect: 620ms;
+  --hx-d-circle: 760ms;
+  --hx-d-pass: 1450ms;
+  /* Below 768 the visual order differs (§1), and the cascade follows
+     it — h1 · images · subhead · CTA · highlight pass (design owner
+     amendment 2026-08-25, superseding §6's "same delays by element"
+     bullet for rm/rs). Same rhythm, reordered; the pass still starts
+     after the last rise settles (570 + 800 ≤ 1450). */
+  --hx-d-rect-m: 190ms;
+  --hx-d-circle-m: 330ms;
+  --hx-d-sub1-m: 410ms;
+  --hx-d-sub2-m: 490ms;
+  --hx-d-cta-m: 570ms;
+
   /* solutions subitem hover: the bg/100 highlight fades on the
      ease-out; the dot morphs circle → square while rotating its
      corners out and locking into place (180deg reads intentional;
