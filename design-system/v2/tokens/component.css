@@ -90,6 +90,6 @@
      the slide is a 112px move, so it wants a longer run than the
      drawer constants it first borrowed. */
   --knav-card-slide-dur: 500ms;
-  --knav-card-shadow-dur: 350ms;
+  --knav-card-shadow-dur: 450ms;
   --knav-card-ease: var(--motion-drawer-ease);
 }
