@@ -255,15 +255,26 @@
   --_stagger: var(--knav-stagger-res);
 }
 
-/* subitems are cascade blocks AND highlight hosts; the combined rule
-   restates both lists so the fill fade survives the block rule */
+/* subitems are cascade blocks AND highlight hosts; the combined rules
+   restate both lists so the fill fade survives the block rule — the
+   arrival on the hover side, the slower release on the resting side */
 .knav-drawer[data-open] .knav-sub.knav-blk {
   transition:
     opacity var(--knav-blk-fade) ease
       calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
     translate var(--knav-blk-slide) var(--motion-drawer-ease)
       calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
+    background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
+}
+@media (hover: hover) {
+  .knav-drawer[data-open] .knav-sub.knav-blk:hover {
+    transition:
+      opacity var(--knav-blk-fade) ease
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      translate var(--knav-blk-slide) var(--motion-drawer-ease)
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
+  }
 }
 
 /* cards are cascade blocks AND hover-shadow hosts; transition is one
@@ -378,7 +389,8 @@
   padding: var(--knav-sub-pt) var(--space-lg) var(--space-lg);
   border-radius: var(--radius-md);
   text-decoration: none;
-  transition: background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
+  /* the resting rule times the release (slower than the arrival) */
+  transition: background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
 }
 .knav-subhead {
   display: flex;
@@ -1233,6 +1245,7 @@ a.knav-row {
   .knav-subdot,
   .knav-sub:hover .knav-subdot,
   .knav-drawer[data-open] .knav-sub.knav-blk,
+  .knav-drawer[data-open] .knav-sub.knav-blk:hover,
   .knav-card,
   .knav-card:hover,
   .knav-drawer[data-open] .knav-card.knav-blk,

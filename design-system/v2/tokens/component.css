@@ -102,11 +102,13 @@
      corners out and locking into place (180deg reads intentional;
      360deg is one lever away) */
   --knav-sub-fill-dur: 300ms;
+  /* the highlight releases a little slower than it arrives */
+  --knav-sub-fill-out-dur: 400ms;
   --knav-dot-morph-dur: 450ms;
-  /* the return to a circle runs 50% slower, on the ease-in-out — an
+  /* the return to a circle runs slower, on the ease-in-out — an
      ease-out return front-loads the unwind and reads fast despite the
      longer duration */
-  --knav-dot-morph-out-dur: 675ms;
+  --knav-dot-morph-out-dur: 600ms;
   --knav-dot-morph-out-ease: var(--motion-drawer-ease-open);
   --knav-dot-rotation: 180deg;
 }
