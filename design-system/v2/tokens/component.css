@@ -84,4 +84,12 @@
   --icon-swap-dur: 250ms;
   --icon-swap-blur: 2px;
   --icon-swap-start-scale: 0.25;
+
+  /* drawer-card hover levers (set 549:37044): the one-cell circle
+     slide, the shadow growth, and their shared ease-out. Tune here —
+     the slide is a 112px move, so it wants a longer run than the
+     drawer constants it first borrowed. */
+  --knav-card-slide-dur: 500ms;
+  --knav-card-shadow-dur: 350ms;
+  --knav-card-ease: var(--motion-drawer-ease);
 }

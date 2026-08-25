@@ -273,7 +273,7 @@
         calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
       translate var(--knav-blk-slide) var(--motion-drawer-ease)
         calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-      box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease);
+      box-shadow var(--knav-card-shadow-dur) var(--knav-card-ease);
   }
 }
 
@@ -431,7 +431,7 @@
 @media (hover: hover) {
   .knav-card:hover {
     box-shadow: var(--_hs);
-    transition: box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease);
+    transition: box-shadow var(--knav-card-shadow-dur) var(--knav-card-ease);
   }
   /* the circles slide one cell in their designed directions and slide
      back on mouse-out on the same curve */
@@ -480,7 +480,7 @@
   border-radius: var(--radius-full);
   left: calc(var(--knav-decor-cell) * var(--cx) - 1px);
   top: calc(var(--knav-decor-cell) * var(--cy) - 1px);
-  transition: translate var(--motion-drawer-duration) var(--motion-drawer-ease);
+  transition: translate var(--knav-card-slide-dur) var(--knav-card-ease);
 }
 
 .knav-fcard {
