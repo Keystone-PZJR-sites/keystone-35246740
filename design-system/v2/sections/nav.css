@@ -400,10 +400,11 @@
      few px of a 9999 → 0 run */
   border-radius: 50%;
   background: var(--_eng);
-  /* the resting rule times the return: 50% slower than the morph out */
+  /* the resting rule times the return: 50% slower than the morph out,
+     easing in and out so the unwind starts lazy instead of snapping */
   transition:
-    border-radius var(--knav-dot-morph-out-dur) var(--motion-drawer-ease),
-    rotate var(--knav-dot-morph-out-dur) var(--motion-drawer-ease);
+    border-radius var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease),
+    rotate var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease);
 }
 .knav-subdesc {
   font: var(--ts-text-sm-light-font);
