@@ -255,6 +255,28 @@
   --_stagger: var(--knav-stagger-res);
 }
 
+/* cards are cascade blocks AND hover-shadow hosts; transition is one
+   property, so the combined rules restate both lists — the shadow at
+   0s on the resting side (off at once) and growing on hover */
+.knav-drawer[data-open] .knav-card.knav-blk {
+  transition:
+    opacity var(--knav-blk-fade) ease
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease)
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    box-shadow 0s;
+}
+@media (hover: hover) {
+  .knav-drawer[data-open] .knav-card.knav-blk:hover {
+    transition:
+      opacity var(--knav-blk-fade) ease
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      translate var(--knav-blk-slide) var(--motion-drawer-ease)
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease);
+  }
+}
+
 /* content variants share one open panel; moving between the triggers
    swaps content without a close/reopen (§6.3). Both variants stay
    rendered, stacked in one grid cell, and swap by visibility — a
@@ -399,6 +421,24 @@
   border-radius: var(--radius-xl) var(--radius-xl) var(--radius-none) var(--radius-xl);
   text-decoration: none;
   align-self: stretch;
+  /* hover shadow (set 549:37044): grows out of the origin in the
+     drawer grammar; a shadow never takes layout, so neither the card
+     nor the drawer changes size. The resting rule's 0s transition
+     drops it at once on mouse-out (004 §5 pattern). */
+  box-shadow: var(--_hs0);
+  transition: box-shadow 0s;
+}
+@media (hover: hover) {
+  .knav-card:hover {
+    box-shadow: var(--_hs);
+    transition: box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease);
+  }
+  /* the circles slide one cell in their designed directions and slide
+     back on mouse-out on the same curve */
+  .knav-card:hover .knav-decor i.c {
+    translate: calc(var(--dx, 0) * var(--knav-decor-cell))
+      calc(var(--dy, 0) * var(--knav-decor-cell));
+  }
 }
 
 /* one outer border + single interior lines (never doubled), circles
@@ -440,6 +480,7 @@
   border-radius: var(--radius-full);
   left: calc(var(--knav-decor-cell) * var(--cx) - 1px);
   top: calc(var(--knav-decor-cell) * var(--cy) - 1px);
+  transition: translate var(--motion-drawer-duration) var(--motion-drawer-ease);
 }
 
 .knav-fcard {
@@ -450,6 +491,8 @@
   padding: var(--space-lg) var(--space-xl) var(--space-xl);
   background: var(--color-teal-100);
   --_decor: var(--knav-decor-teal);
+  --_hs: 3px 3px 0 0 var(--color-teal-200);
+  --_hs0: 0 0 0 0 var(--color-teal-200);
 }
 .knav-fcopy {
   position: relative;
@@ -530,8 +573,9 @@
   color: var(--_title);
 }
 .knav-ctitle {
-  font: var(--ts-display-serif-xs-light-font);
-  letter-spacing: var(--ts-display-serif-xs-light-ls);
+  /* Light → Regular (design touch 2026-08-24, set 549:37044 — §9) */
+  font: var(--ts-display-serif-xs-regular-font);
+  letter-spacing: var(--ts-display-serif-xs-regular-ls);
   white-space: nowrap;
 }
 .knav-crow svg {
@@ -552,6 +596,9 @@
   --_chipink: var(--color-text-100);
   --_title: var(--color-text-200);
   --_desc: var(--color-text-400);
+  /* the neutral card binds the standard md hard shadow (549:37044) */
+  --_hs: var(--shadow-hard-square-md);
+  --_hs0: var(--shadow-hard-square-md-0);
 }
 .knav-rcard[data-card="grader"] {
   --_bg: var(--color-brown-100);
@@ -560,6 +607,8 @@
   --_chipink: var(--color-brown-600);
   --_title: var(--color-brown-700);
   --_desc: var(--color-brown-500);
+  --_hs: 3px 3px 0 0 var(--color-brown-200);
+  --_hs0: 0 0 0 0 var(--color-brown-200);
 }
 .knav-rcard[data-card="podcast"] {
   --_bg: var(--color-yellow-100);
@@ -568,6 +617,8 @@
   --_chipink: var(--color-yellow-600);
   --_title: var(--color-yellow-700);
   --_desc: var(--color-yellow-600);
+  --_hs: 3px 3px 0 0 var(--color-yellow-200);
+  --_hs0: 0 0 0 0 var(--color-yellow-200);
 }
 
 @container (min-width: 1344px) {
@@ -1156,6 +1207,9 @@ a.knav-row {
   .knav-drawer[data-open] .knav-blk,
   .knav-sub,
   .knav-subdot,
+  .knav-card,
+  .knav-card:hover,
+  .knav-decor i.c,
   .knav-mtoggle,
   .knav-glyphstack svg,
   .knav-panel,

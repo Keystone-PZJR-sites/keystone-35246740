@@ -97,15 +97,22 @@ const RESOURCE_CARDS = [
    row-major, read from the drawer nodes 2026-08-24. Built like a spec
    002 region — outer border plus single interior lines (per-cell
    borders would double every shared edge) — with the circles overlaid
-   line-inclusively on their cells. */
-const DECOR_ROUND: Record<string, number[]> = {
-  feature: [0, 1, 11],
-  blog: [0, 3, 9],
-  grader: [0, 5, 15],
-  podcast: [0, 7, 9],
+   line-inclusively on their cells. On hover each non-corner circle
+   slides one cell in its designed direction (dx/dy in cells, from the
+   nav-feature-card hover set 549:37044, added 2026-08-24 — §9). */
+interface DecorCircle {
+  i: number;
+  dx?: number;
+  dy?: number;
+}
+const DECOR_CIRCLES: Record<string, DecorCircle[]> = {
+  feature: [{ i: 0 }, { i: 1, dy: 1 }, { i: 11, dx: -1 }],
+  blog: [{ i: 0 }, { i: 3, dy: 1 }, { i: 9, dx: 1 }],
+  grader: [{ i: 0 }, { i: 5, dx: 1 }, { i: 15, dy: -1 }],
+  podcast: [{ i: 0 }, { i: 7, dy: 1 }, { i: 9, dy: -1 }],
 };
 
-function Decor({ variant }: { variant: keyof typeof DECOR_ROUND }) {
+function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
   const lines = [1, 2, 3];
   return (
     <span className="knav-decor" data-decor={variant} aria-hidden="true">
@@ -115,11 +122,18 @@ function Decor({ variant }: { variant: keyof typeof DECOR_ROUND }) {
       {lines.map((n) => (
         <i key={`h${n}`} className="h" style={{ "--n": n } as CSSProperties} />
       ))}
-      {DECOR_ROUND[variant].map((i) => (
+      {DECOR_CIRCLES[variant].map(({ i, dx, dy }) => (
         <i
           key={`c${i}`}
           className="c"
-          style={{ "--cx": i % 4, "--cy": Math.floor(i / 4) } as CSSProperties}
+          style={
+            {
+              "--cx": i % 4,
+              "--cy": Math.floor(i / 4),
+              ...(dx && { "--dx": dx }),
+              ...(dy && { "--dy": dy }),
+            } as CSSProperties
+          }
         />
       ))}
     </span>
