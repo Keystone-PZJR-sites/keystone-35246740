@@ -71,6 +71,12 @@ interface ButtonGhostProps {
   color?: "brown" | "teal" | "gray";
   /** Leading icon; icons keep their intrinsic two-tone palettes. */
   icon?: ReactNode;
+  /** Renders the same chrome as a link (spec 006 §9, mirroring
+   * ButtonFill's extension from spec 005). */
+  href?: string;
+  /** Behavior hook rendered as data-action — e.g. the hero's inert
+   * "open-chat" (spec 006 §9), wired when the feature lands. */
+  action?: string;
   disabled?: boolean;
   forceState?: ForceableState;
   children: ReactNode;
@@ -80,10 +86,32 @@ export function ButtonGhost({
   size = "lg",
   color = "brown",
   icon = <IconCaseStudies />,
+  href,
+  action,
   disabled = false,
   forceState,
   children,
 }: ButtonGhostProps) {
+  const content = (
+    <>
+      <span className="btn-icon">{icon}</span>
+      {children}
+    </>
+  );
+  if (href !== undefined) {
+    return (
+      <a
+        href={href}
+        className="btn-ghost"
+        data-size={size}
+        data-color={color}
+        data-state={forceState}
+        data-action={action}
+      >
+        {content}
+      </a>
+    );
+  }
   return (
     <button
       type="button"
@@ -91,10 +119,10 @@ export function ButtonGhost({
       data-size={size}
       data-color={color}
       data-state={forceState}
+      data-action={action}
       disabled={disabled}
     >
-      <span className="btn-icon">{icon}</span>
-      {children}
+      {content}
     </button>
   );
 }
