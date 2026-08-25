@@ -156,7 +156,16 @@ values and would need editing later — which spec immutability forbids.
 - Phase 5: `portfolio-card`, `engine`, `testimonial-card`,
   `hero-carousel-image` component nodes; per-anchor active/inactive states for
   the engine accordion; carousel/scroll motion intent; the gallery
-  carousel-control node (see "Special cells" below).
+  carousel-control node (see "Special cells" below). Hero inputs received
+  2026-08-25: `hero-carousel-image` variants in the anchor frames, the
+  hero motion intent (load choreography, chip highlight pass, carousel
+  behavior), and the fourteen-frame image exports (WebP, six width
+  tiers, re-cut same day at flag review) — specced in 006 (approved
+  2026-08-25; all eight §9 flags resolved same day, fixes re-read
+  post-fix, build-prep decisions in 006 §9). Phase 5
+  specs are per-section (006 hero · 007 portfolio · 008 engine ·
+  009 testimonials), written just-in-time as each section's inputs
+  stabilize; portfolio/engine/testimonial inputs remain open.
 
 ## Special cells — ornament and function on the lattice
 
