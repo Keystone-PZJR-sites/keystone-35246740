@@ -105,11 +105,14 @@ interface DecorCircle {
   dx?: number;
   dy?: number;
 }
+/* Re-read 2026-08-24 after design normalized the set: every card now
+   lands its circles on the same hover cells (0, 6, 11); the starts
+   differ per card (pairing by layer identity in the file). */
 const DECOR_CIRCLES: Record<string, DecorCircle[]> = {
-  feature: [{ i: 0 }, { i: 1, dy: 1 }, { i: 11, dx: -1 }],
-  blog: [{ i: 0 }, { i: 3, dy: 1 }, { i: 9, dx: 1 }],
-  grader: [{ i: 0 }, { i: 5, dx: 1 }, { i: 15, dy: -1 }],
-  podcast: [{ i: 0 }, { i: 7, dy: 1 }, { i: 9, dy: -1 }],
+  feature: [{ i: 0 }, { i: 7, dx: -1 }, { i: 10, dx: 1 }],
+  blog: [{ i: 0 }, { i: 5, dx: 1 }, { i: 15, dy: -1 }],
+  grader: [{ i: 0 }, { i: 7, dx: -1 }, { i: 15, dy: -1 }],
+  podcast: [{ i: 0 }, { i: 2, dy: 1 }, { i: 10, dx: 1 }],
 };
 
 function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
