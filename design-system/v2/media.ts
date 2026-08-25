@@ -1,8 +1,8 @@
 /** v2 media registry — the single source of truth for new-brand asset
  * paths. Code never hardcodes an asset path; it references an entry here.
- * Source files: brand-id 2.0 logo set (copied 2026-08-22, verified as
- * flattened multi-path exports). Intrinsic sizes come from each SVG
- * viewBox. */
+ * Source files: brand-id 2.0 logo set (copied 2026-08-22; lockup and
+ * logomark refreshed 2026-08-24). Verified as flattened multi-path
+ * exports. Intrinsic sizes come from each SVG viewBox. */
 
 export interface MediaAsset {
   src: string;
