@@ -255,6 +255,17 @@
   --_stagger: var(--knav-stagger-res);
 }
 
+/* subitems are cascade blocks AND highlight hosts; the combined rule
+   restates both lists so the fill fade survives the block rule */
+.knav-drawer[data-open] .knav-sub.knav-blk {
+  transition:
+    opacity var(--knav-blk-fade) ease
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease)
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
+}
+
 /* cards are cascade blocks AND hover-shadow hosts; transition is one
    property, so the combined rules restate both lists — the shadow
    reversing on the resting side and growing on hover */
@@ -389,9 +400,10 @@
      few px of a 9999 → 0 run */
   border-radius: 50%;
   background: var(--_eng);
+  /* the resting rule times the return: 50% slower than the morph out */
   transition:
-    border-radius var(--knav-dot-morph-dur) var(--motion-drawer-ease),
-    rotate var(--knav-dot-morph-dur) var(--motion-drawer-ease);
+    border-radius var(--knav-dot-morph-out-dur) var(--motion-drawer-ease),
+    rotate var(--knav-dot-morph-out-dur) var(--motion-drawer-ease);
 }
 .knav-subdesc {
   font: var(--ts-text-sm-light-font);
@@ -411,6 +423,9 @@
   .knav-sub:hover .knav-subdot {
     border-radius: var(--radius-none);
     rotate: var(--knav-dot-rotation);
+    transition:
+      border-radius var(--knav-dot-morph-dur) var(--motion-drawer-ease),
+      rotate var(--knav-dot-morph-dur) var(--motion-drawer-ease);
   }
 }
 
@@ -1215,8 +1230,12 @@ a.knav-row {
   .knav-drawer[data-open] .knav-blk,
   .knav-sub,
   .knav-subdot,
+  .knav-sub:hover .knav-subdot,
+  .knav-drawer[data-open] .knav-sub.knav-blk,
   .knav-card,
   .knav-card:hover,
+  .knav-drawer[data-open] .knav-card.knav-blk,
+  .knav-drawer[data-open] .knav-card.knav-blk:hover,
   .knav-decor i.c,
   .knav-mtoggle,
   .knav-glyphstack svg,

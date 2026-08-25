@@ -103,5 +103,7 @@
      360deg is one lever away) */
   --knav-sub-fill-dur: 300ms;
   --knav-dot-morph-dur: 450ms;
+  /* the return to a circle runs 50% slower than the morph out */
+  --knav-dot-morph-out-dur: 675ms;
   --knav-dot-rotation: 180deg;
 }
