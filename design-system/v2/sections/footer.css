@@ -760,22 +760,8 @@
 
 /* ---------------- ornament cells (§2) ---------------- */
 
-/* Rendered inside GridDecor cells (t+1, z 0, compound band gating).
-   filled square = bg/200 + border/000 · filled circle adds the radius ·
-   outlined circle drops the fill. */
-.f-cell {
-  display: block;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  border: 1px solid var(--line);
-}
-.f-cell.fill {
-  background: var(--color-bg-200);
-}
-.f-cell.round {
-  border-radius: var(--radius-full);
-}
+/* The .f-cell shape rules moved verbatim to grid/engine.css 2026-08-25
+   when the hero became their second consumer (spec 006 §2 erratum). */
 
 /* ---------------- reduced motion (§5) ---------------- */
 

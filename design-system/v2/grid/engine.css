@@ -137,6 +137,25 @@
   height: calc(var(--t) * var(--gh, 1) + 1px);
 }
 
+/* Ornament-cell shapes, rendered inside GridDecor cells. Born in the
+   footer (spec 004 §2); promoted here verbatim 2026-08-25 when the hero
+   became the second consumer (spec 006 §2 erratum — its lattice carries
+   outlined and filled circles). filled square = bg/200 + border/000 ·
+   filled circle adds the radius · outlined circle drops the fill. */
+.f-cell {
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+}
+.f-cell.fill {
+  background: var(--color-bg-200);
+}
+.f-cell.round {
+  border-radius: var(--radius-full);
+}
+
 /* Ornament cell: paints between lattice and content (z-index 0 inside the
    isolated section), never intercepts the pointer. */
 .decor {
