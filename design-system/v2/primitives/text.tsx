@@ -5,6 +5,12 @@
  * (serif) styles carry no opsz token; the fallback resolves to the GT
  * Standard default and is ignored by fonts without the axis.
  *
+ * Both primitives pin the slnt axis (--font-sans-slnt, "slnt" 0):
+ * WebKit renders GT Standard oblique when the axis is omitted from
+ * font-variation-settings (the fonts.css note, found again on iOS
+ * 2026-08-25 — an element-level font-variation-settings replaces the
+ * inherited one, so the pin must ride along). Kyoto ignores the axis.
+ *
  * InterpText rides the band weights (spec 002): the consumer's own CSS
  * restates the unitless px pairs `--fs0/--fs1/--lh0/--lh1` per band —
  * those values are section design data and never live in the primitive.
@@ -26,7 +32,7 @@ export function Text({ style, as: Tag = "p", color, className, children }: TextP
   const css: CSSProperties = {
     font: `var(--ts-${style}-font)`,
     letterSpacing: `var(--ts-${style}-ls)`,
-    fontVariationSettings: `"opsz" var(--ts-${style}-opsz, 10)`,
+    fontVariationSettings: `"opsz" var(--ts-${style}-opsz, 10), var(--font-sans-slnt)`,
     ...(color && { color: `var(--color-${color})` }),
   };
   return (
@@ -49,7 +55,7 @@ export function InterpText({ style, as: Tag = "p", className, children }: Interp
   const css: CSSProperties = {
     "--_ts-font": `var(--ts-${style}-font)`,
     letterSpacing: `var(--ts-${style}-ls)`,
-    fontVariationSettings: `"opsz" var(--ts-${style}-opsz, 10)`,
+    fontVariationSettings: `"opsz" var(--ts-${style}-opsz, 10), var(--font-sans-slnt)`,
   } as CSSProperties;
   return (
     <Tag className={className ? `v2-interp ${className}` : "v2-interp"} style={css}>
