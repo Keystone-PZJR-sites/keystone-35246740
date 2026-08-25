@@ -33,3 +33,6 @@
 
 /* Sections (spec 005) */
 @import "./sections/nav.css";
+
+/* Sections (spec 006) */
+@import "./sections/hero.css";

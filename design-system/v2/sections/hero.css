@@ -1,0 +1,533 @@
+/* v2 sections — hero (spec 006). Anchors rm/rs/rt/rd1/rd2; the un-gated
+   rules are the 384 design and @container blocks override upward.
+
+   Structure is ticks (section total, carousel top/height/frame widths);
+   material is fixed px per band (header y offsets, insets, gaps — §7
+   component constants); type interpolates with the band weights. The
+   lattice is selectively exposed (§2 erratum, see hero.tsx): a stepped
+   right-side rail of regions and ornament circles; the content floats
+   above it. The load choreography (§6) is
+   keyed off the page root's `v2-load` class, set by the orchestrator
+   island — the settled, branded state is the un-classed default, so a
+   no-JS render is complete. */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.v2-hero {
+  width: 100%;
+  height: calc(var(--t) * 26);
+}
+@container (min-width: 576px) {
+  .v2-hero { height: calc(var(--t) * 20); }
+}
+@container (min-width: 768px) {
+  .v2-hero { height: calc(var(--t) * 13); }
+}
+@container (min-width: 1344px) {
+  .v2-hero { height: calc(var(--t) * 12); }
+}
+
+/* ---------------- header block (§1/§3) ---------------- */
+
+/* y offsets are per-band content-layer constants (§7); left inset is
+   16 at rm, 1t above. Right insets from the header nodes: 32 at rm
+   (383:37879 — x 16, w 336) and 2t at rs (359:30033 — x 48, w 432);
+   these pin the H1's designed natural wrap. */
+.hx-head {
+  position: absolute;
+  top: var(--hx-head-top-rm);
+  left: var(--hx-inset-rm);
+  right: 32px;
+}
+@container (min-width: 576px) {
+  .hx-head { top: var(--hx-head-top-rs); left: var(--t); right: calc(2 * var(--t)); }
+}
+@container (min-width: 768px) {
+  .hx-head { right: var(--t); }
+}
+@container (min-width: 768px) {
+  .hx-head { top: var(--hx-head-top-rt); }
+}
+@container (min-width: 960px) {
+  .hx-head { top: var(--hx-head-top-rd1); }
+}
+@container (min-width: 1344px) {
+  .hx-head { top: var(--hx-head-top-rd2); }
+}
+
+/* rm/rs only: the wordmark above the H1 (72×15, its own cut — node
+   230:13315, committed as ks-wordmark-sm) — the nav at those bands
+   does not carry the mark. */
+.hx-wm-head {
+  display: block;
+  width: 72px;
+  height: 15px;
+  margin-bottom: 16px;
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-wordmark-sm.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-wordmark-sm.svg") center / contain no-repeat;
+}
+@container (min-width: 576px) {
+  .hx-wm-head { margin-bottom: 24px; }
+}
+@container (min-width: 768px) {
+  .hx-wm-head { display: none; }
+}
+
+/* ---- H1 (§3): PP Kyoto Thin, ink text/100, tracking −3% (token).
+   Type walks 36→42, holds 42 across rs and rt's floor, 42→48 across
+   rt, 48→72 across rd1, rides the zoom above 1344. ---- */
+
+.hx-h1 {
+  color: var(--color-text-100);
+  --fs0: 36; --fs1: 42; --lh0: 42; --lh1: 50;
+}
+@container (min-width: 576px) {
+  .hx-h1 { --fs0: 42; --fs1: 42; --lh0: 50; --lh1: 50; }
+}
+@container (min-width: 768px) {
+  .hx-h1 { --fs0: 42; --fs1: 48; --lh0: 50; --lh1: 56; }
+}
+@container (min-width: 960px) {
+  .hx-h1 { --fs0: 48; --fs1: 72; --lh0: 56; --lh1: 78; }
+}
+@container (min-width: 1344px) {
+  .hx-h1 { --fs0: 72; --fs1: 72; --lh0: 78; --lh1: 78; }
+}
+
+/* copy switch rides the 768 band gate (§9 F8); the designed break at
+   rt+ is the two line spans (they animate separately — §6) */
+.hx-copy-lo { display: block; }
+.hx-copy-hi { display: none; }
+@container (min-width: 768px) {
+  .hx-copy-lo { display: none; }
+  .hx-copy-hi { display: block; }
+}
+
+/* ---------------- subhead (§3) ---------------- */
+
+/* Prose ink text/200. Type holds 20 to 768, drops to 18 at the switch,
+   walks 18→20→24, rides the zoom above 1344. Chip line-height carries
+   its own pairs (--clh0/--clh1); gaps and paddings are per-band
+   material. At rm/rs the block is absolutely repositioned below the
+   carousel (§1) — offsets are section ticks minus the header constant. */
+.hx-sub {
+  position: absolute;
+  top: calc(var(--t) * 18 - var(--hx-head-top-rm));
+  left: 0;
+  right: 0;
+  /* designed wrap constraint at rm/rs (nodes 500:24680 · 506:4396) */
+  max-width: var(--hx-sub-maxw);
+  color: var(--color-text-200);
+  --fs0: 20; --fs1: 20; --lh0: 26; --lh1: 26;
+  --clh0: 26; --clh1: 26;
+  --hx-gap-inline: 6px;
+  --hx-gap-row: 6px;
+  --hx-chip-px: 4px;
+}
+@container (min-width: 576px) {
+  .hx-sub { top: calc(var(--t) * 14 - var(--hx-head-top-rs)); }
+}
+@container (min-width: 768px) {
+  .hx-sub {
+    position: static;
+    margin-top: 40px;
+    max-width: none;
+    --fs0: 18; --fs1: 20; --lh0: 26; --lh1: 26;
+    --clh0: 24; --clh1: 26;
+    --hx-gap-inline: var(--hx-gap-inline-rt);
+    --hx-gap-row: 4px;
+  }
+}
+@container (min-width: 960px) {
+  .hx-sub {
+    --fs0: 20; --fs1: 24; --lh0: 26; --lh1: 32;
+    --clh0: 26; --clh1: 32;
+    --hx-gap-inline: 6px;
+    --hx-gap-row: 8px;
+    --hx-chip-px: 6px;
+  }
+}
+@container (min-width: 1344px) {
+  .hx-sub {
+    margin-top: 48px;
+    --fs0: 24; --fs1: 24; --lh0: 32; --lh1: 32;
+    --clh0: 32; --clh1: 32;
+    --hx-chip-px: 8px;
+  }
+}
+
+.hx-vis { display: block; }
+.hx-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--hx-gap-inline);
+  row-gap: var(--hx-gap-row);
+}
+.hx-row + .hx-row {
+  margin-top: var(--hx-gap-row);
+}
+/* wrapped-line pitches from the nodes (500:24681/24690): row 1's
+   second line butts the chip box (pitch 28 — internal gap 0); row 2's
+   carries the 6 (pitch 34) via the row gap above. */
+.hx-row1 { row-gap: 0; }
+
+/* the word "keystone" is the wordmark, not type (§3) — the inline cut
+   (node 506:4400, committed as ks-wordmark-inline), scaled to the
+   band's type; the hidden sentence carries the word for readers.
+   Baseline: the flex row aligns the empty block's bottom to the text
+   baseline; the relative drop lowers the art by its own descender
+   fraction (--hx-wm-drop) so its letter bottoms sit on the baseline
+   and the y's descender hangs below — x-height then matches the prose
+   at every size. */
+.hx-wm {
+  --_wmw: var(--hx-wm-w);
+  --_wmh: var(--hx-wm-h);
+  position: relative;
+  top: calc(var(--_wmh) * var(--hx-wm-drop));
+  display: inline-block;
+  width: var(--_wmw);
+  height: var(--_wmh);
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-wordmark-inline.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-wordmark-inline.svg") center / contain no-repeat;
+}
+@container (min-width: 768px) {
+  .hx-wm { --_wmw: var(--hx-wm-w-rt); --_wmh: var(--hx-wm-h-rt); }
+}
+@container (min-width: 960px) {
+  .hx-wm { --_wmw: var(--hx-wm-w); --_wmh: var(--hx-wm-h); }
+}
+@container (min-width: 1344px) {
+  .hx-wm { --_wmw: var(--hx-wm-w-rd2); --_wmh: var(--hx-wm-h-rd2); }
+}
+
+/* ---- chips (§3): fill the brand color, radius-xs, padding-x per
+   band, padding-bottom 2, baseline-aligned. The neutral base (bg/300 +
+   text/200 ink) is the load state; the brand layer (::before) wipes in
+   during the §6 highlight pass. Settled state is branded. ---- */
+
+.hx-chip {
+  position: relative;
+  display: inline-block;
+  padding: 0 var(--hx-chip-px) var(--space-2xs);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-300);
+  line-height: calc(var(--wA) * var(--clh0) + var(--wB) * var(--clh1));
+}
+.hx-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--chip-fill);
+}
+.hx-chip-label {
+  position: relative;
+  color: var(--chip-ink);
+}
+
+/* color pairs from the node fills (§3; website's /250 fill and
+   social's /600 ink are deliberate — §9 F4) */
+.hx-chip[data-chip="website"] { --chip-fill: var(--color-teal-250); --chip-ink: var(--color-teal-700); }
+.hx-chip[data-chip="ads"] { --chip-fill: var(--color-pink-300); --chip-ink: var(--color-pink-700); }
+.hx-chip[data-chip="social"] { --chip-fill: var(--color-orange-300); --chip-ink: var(--color-orange-600); }
+.hx-chip[data-chip="reviews"] { --chip-fill: var(--color-yellow-300); --chip-ink: var(--color-yellow-700); }
+.hx-chip[data-chip="content"] { --chip-fill: var(--color-blue-300); --chip-ink: var(--color-blue-700); }
+.hx-chip[data-chip="follow-ups"] { --chip-fill: var(--color-purple-300); --chip-ink: var(--color-purple-700); }
+
+/* ---------------- CTA row (§4) ---------------- */
+
+/* One row per designed size set; exactly one is visible per band
+   (compound display gating — flex outranks the engine's generic band
+   rules, so the rows carry their own). At rm/rs the row is absolute
+   (its top is a per-band constant); at rt+ it flows under the subhead. */
+.hx-cta {
+  display: none;
+  align-items: center;
+  gap: var(--space-5xl);
+}
+/* The row rides the subhead's tick anchor plus the designed block
+   height + gap (--hx-cta-sub-drop), so subhead and CTA never cross at
+   mid-band widths; at the anchors this is exactly §1's 738/834. */
+.hx-cta-a {
+  display: flex;
+  position: absolute;
+  top: calc(var(--t) * 18 - var(--hx-head-top-rm) + var(--hx-cta-sub-drop));
+  left: 0;
+  gap: var(--space-3xl);
+}
+@container (min-width: 576px) {
+  .hx-cta-a { top: calc(var(--t) * 14 - var(--hx-head-top-rs) + var(--hx-cta-sub-drop)); }
+}
+@container (min-width: 768px) {
+  .hx-cta-a { display: none; }
+  .hx-cta-b { display: flex; margin-top: var(--hx-cta-top-rt); }
+}
+@container (min-width: 960px) {
+  .hx-cta-b { display: none; }
+  .hx-cta-c { display: flex; margin-top: var(--space-7xl); }
+}
+@container (min-width: 1344px) {
+  .hx-cta-c { display: none; }
+  .hx-cta-d { display: flex; margin-top: var(--space-7xl); }
+}
+
+/* ---------------- carousel (§5) ---------------- */
+
+/* The strip starts at x 0 (full-bleed left) and the running edge
+   bleeds off the right; frames butt with no gap. Height = the band's
+   rectangle height; the circle is a radius-full mask over a square. */
+.hx-carousel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--t) * 8);
+  height: calc(var(--t) * 8);
+  overflow: hidden;
+}
+@container (min-width: 576px) {
+  .hx-carousel { top: calc(var(--t) * 7); height: calc(var(--t) * 6); }
+}
+@container (min-width: 768px) {
+  .hx-carousel { height: calc(var(--t) * 5); }
+}
+@container (min-width: 1344px) {
+  .hx-carousel { top: calc(var(--t) * 6); }
+}
+
+.hx-window { height: 100%; }
+
+/* The track's transform resolves the island's leaving-frame tallies in
+   ticks (--hc-ct = circle width in ticks per band), so geometry stays
+   CSS-driven and a band switch mid-flight re-resolves cleanly. */
+.hx-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  list-style: none;
+  --hc-ct: 8;
+  transform: translateX(calc(var(--t) * (var(--hc-r, 0) * 8 + var(--hc-c, 0) * var(--hc-ct)) * -1));
+  transition: transform var(--motion-slide-duration) var(--motion-slide-ease);
+}
+@container (min-width: 576px) {
+  .hx-track { --hc-ct: 6; }
+}
+@container (min-width: 768px) {
+  .hx-track { --hc-ct: 5; }
+}
+/* the wrap snap: no transition while the island resets the tallies */
+.hx-track.hx-snap { transition: none; }
+
+.hx-frame {
+  flex: none;
+  width: calc(var(--t) * 8);
+  height: 100%;
+  overflow: hidden;
+}
+.hx-frame[data-shape="circle"] {
+  border-radius: var(--radius-full);
+}
+@container (min-width: 576px) {
+  .hx-frame[data-shape="circle"] { width: calc(var(--t) * 6); }
+}
+@container (min-width: 768px) {
+  .hx-frame[data-shape="circle"] { width: calc(var(--t) * 5); }
+}
+.hx-frame picture,
+.hx-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hx-frame img {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ---------------- load choreography (§6) ---------------- */
+
+/* Every entry is the same fade-rise; delays are the §6 table (component
+   tokens). Fill mode is `backwards`: the pre-delay state is the from
+   keyframe and the settled state is the natural one — no persistent
+   transform (load-bearing for the nav: its bar is position: fixed, and
+   a lasting transform would re-contain it).
+
+   The cascade follows the band's visual order: below 768 it runs
+   h1 · images · subhead · CTA · highlight pass (design owner amendment
+   2026-08-25, superseding §6's rm/rs bullet); at 768+ it is the §6
+   table. The indirection vars below carry the band's assignment. */
+
+.v2-hero {
+  --_d-rect: var(--hx-d-rect-m);
+  --_d-circle: var(--hx-d-circle-m);
+  --_d-sub1: var(--hx-d-sub1-m);
+  --_d-sub2: var(--hx-d-sub2-m);
+  --_d-cta: var(--hx-d-cta-m);
+}
+@container (min-width: 768px) {
+  .v2-hero {
+    --_d-rect: var(--hx-d-rect);
+    --_d-circle: var(--hx-d-circle);
+    --_d-sub1: var(--hx-d-sub1);
+    --_d-sub2: var(--hx-d-sub2);
+    --_d-cta: var(--hx-d-cta);
+  }
+}
+
+/* Cold-load guard: with a cold font cache the settled page painted
+   before the orchestrator's class landed, then reset and re-animated.
+   When scripting is enabled and motion is allowed, choreographed
+   elements hold their hidden from-state from first paint until
+   `v2-load` arrives. No-JS renders (scripting: none) and reduced
+   motion stay settled — the §8 contract. Only pages that mount the
+   orchestrator opt in via `v2-choreo` on the page root, so lattice-only
+   dev pages (/grid, /footer, /nav) are untouched. Browsers without the
+   scripting media feature just keep the brief settled flash. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .page.v2-choreo:not(.v2-load):not([data-motion="reduce"])
+    :is(.hx-rise, .hx-frame:nth-child(-n + 2), .grid-region, .decor, .knav-bar, .knav-mbar) {
+    opacity: 0;
+  }
+}
+
+@keyframes hx-rise {
+  from { opacity: 0; transform: translateY(var(--motion-rise-distance)); }
+}
+@keyframes hx-fade {
+  from { opacity: 0; }
+}
+@keyframes hx-sweep-v {
+  from { transform: scaleY(0); }
+}
+@keyframes hx-sweep-h {
+  from { transform: scaleX(0); }
+}
+@keyframes hx-nav-drop {
+  from { opacity: 0; transform: translateY(calc(-1 * var(--load-nav-drop))); }
+}
+@keyframes hx-chip-wipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes hx-chip-ink {
+  from { color: var(--color-text-200); }
+}
+
+/* the lattice sweep — page-wide: verticals draw down, horizontals draw
+   right at the offset, the region edges fade with the vertical sweep;
+   ornament cells ride the same fade */
+.v2-load .grid-region,
+.v2-load .decor {
+  animation: hx-fade var(--load-sweep-duration) var(--motion-rise-ease) backwards;
+}
+.v2-load .grid-region i.v {
+  transform-origin: top;
+  animation: hx-sweep-v var(--load-sweep-duration) var(--motion-rise-ease) backwards;
+}
+.v2-load .grid-region i.h {
+  transform-origin: left;
+  animation: hx-sweep-h var(--load-sweep-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--load-sweep-offset);
+}
+
+/* the nav rides the same class; internals unchanged (§6) */
+.v2-load .knav-bar,
+.v2-load .knav-mbar {
+  animation: hx-nav-drop var(--load-nav-duration) var(--motion-rise-ease) backwards;
+}
+
+/* fade-rises, per-element delays */
+.v2-load .hx-rise {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d, 0ms);
+}
+.hx-wm-head,
+.hx-copy-lo,
+.hx-line1 { --_d: var(--hx-d-h1a); }
+.hx-line2 { --_d: var(--hx-d-h1b); }
+.hx-row1 { --_d: var(--_d-sub1); }
+.hx-row2 { --_d: var(--_d-sub2); }
+.hx-cta { --_d: var(--_d-cta); }
+
+/* the first rectangle and circle enter as plain fade-rises (§6 —
+   nothing image-specific); later frames are offscreen and simply exist */
+.v2-load .hx-frame:nth-child(1) {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d-rect);
+}
+.v2-load .hx-frame:nth-child(2) {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d-circle);
+}
+
+/* the highlight pass — strictly after the fade-rises settle: each chip
+   wipes its brand fill left→right over the neutral base and cross-fades
+   its ink, in reading order at the chip stagger */
+.v2-load .hx-chip::before {
+  animation: hx-chip-wipe var(--motion-wipe-duration) var(--motion-wipe-ease) backwards;
+  animation-delay: var(--_cd);
+}
+.v2-load .hx-chip-label {
+  animation: hx-chip-ink var(--motion-wipe-duration) ease backwards;
+  animation-delay: var(--_cd);
+}
+.hx-chip[data-chip="website"] { --_cd: var(--hx-d-pass); }
+.hx-chip[data-chip="ads"] { --_cd: calc(var(--hx-d-pass) + var(--motion-chip-stagger)); }
+.hx-chip[data-chip="social"] { --_cd: calc(var(--hx-d-pass) + 2 * var(--motion-chip-stagger)); }
+.hx-chip[data-chip="reviews"] { --_cd: calc(var(--hx-d-pass) + 3 * var(--motion-chip-stagger)); }
+.hx-chip[data-chip="content"] { --_cd: calc(var(--hx-d-pass) + 4 * var(--motion-chip-stagger)); }
+.hx-chip[data-chip="follow-ups"] { --_cd: calc(var(--hx-d-pass) + 5 * var(--motion-chip-stagger)); }
+
+/* ---- reduced motion (§6): state-to-state — no sweep, no fade-rise,
+   chips born branded, the carousel holds (the island runs no timers).
+   The dev toggle's data-motion attribute mirrors the media query. ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-load .grid-region,
+  .v2-load .decor,
+  .v2-load .grid-region i.v,
+  .v2-load .grid-region i.h,
+  .v2-load .knav-bar,
+  .v2-load .knav-mbar,
+  .v2-load .hx-rise,
+  .v2-load .hx-frame:nth-child(1),
+  .v2-load .hx-frame:nth-child(2),
+  .v2-load .hx-chip::before,
+  .v2-load .hx-chip-label {
+    animation: none;
+  }
+  .hx-track { transition: none; }
+}
+.page[data-motion="reduce"] .grid-region,
+.page[data-motion="reduce"] .decor,
+.page[data-motion="reduce"] .grid-region i.v,
+.page[data-motion="reduce"] .grid-region i.h,
+.page[data-motion="reduce"] .knav-bar,
+.page[data-motion="reduce"] .knav-mbar,
+.page[data-motion="reduce"] .hx-rise,
+.page[data-motion="reduce"] .hx-frame:nth-child(1),
+.page[data-motion="reduce"] .hx-frame:nth-child(2),
+.page[data-motion="reduce"] .hx-chip::before,
+.page[data-motion="reduce"] .hx-chip-label {
+  animation: none;
+}
+.page[data-motion="reduce"] .hx-track { transition: none; }
+
+/* ---------------- utility ---------------- */
+
+/* visually hidden, readable — the subhead's sentence pair (§8) */
+.hx-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

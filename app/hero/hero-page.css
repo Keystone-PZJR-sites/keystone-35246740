@@ -1,0 +1,48 @@
+/* /hero — page-local styles. The v2 root neutralizes the old root
+   layout's chrome (same construction as /grid, /footer, and /nav);
+   overflow is clipped so the +1px line-inclusive right edges of
+   full-width regions (v5 §5.3) never create a scroll region. */
+
+.v2-root {
+  min-height: 100dvh;
+  background: var(--color-bg-100);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* the QA controls float above the section, outside the grid system */
+.hx-devbar {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: var(--z-portal);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border-100);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-100);
+  font: var(--ts-text-sm-regular-font);
+}
+.hx-devbar button {
+  appearance: none;
+  border: 1px solid var(--color-border-100);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-200);
+  padding: 4px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.hx-devbar label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}

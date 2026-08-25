@@ -1,0 +1,31 @@
+/* /home-fixture — page-local styles. The v2 root neutralizes the old
+   root layout's chrome (same construction as the other dev pages). */
+
+.v2-root {
+  min-height: 100dvh;
+  background: var(--color-bg-100);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* the portfolio placeholder: an exposed field standing in for spec 007
+   so the hero's bottom joint and the stack sum are testable. The tick
+   height is provisional — 007 sets the real totals. */
+.hfx-placeholder {
+  width: 100%;
+  height: calc(var(--t) * 8);
+  display: grid;
+  place-items: center;
+}
+.hfx-placeholder p {
+  margin: var(--space-none);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+  color: var(--color-text-500);
+}
