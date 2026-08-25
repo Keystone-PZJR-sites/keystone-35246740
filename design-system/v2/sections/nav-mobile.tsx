@@ -115,7 +115,7 @@ export function NavMobile({
 
       {/* the designed click-catcher over the exposed 1t strip — no fill,
           no visual scrim (§4) */}
-      <div className="knav-catch" aria-hidden="true" onClick={close} />
+      <div className="knav-catch" aria-hidden="true" onClick={() => close()} />
 
       <div
         id="knav-panel"
@@ -142,7 +142,7 @@ export function NavMobile({
                 aria-expanded={open}
                 aria-controls="knav-panel"
                 aria-label="Close menu"
-                onClick={close}
+                onClick={() => close()}
               >
                 <GlyphStack />
               </button>
