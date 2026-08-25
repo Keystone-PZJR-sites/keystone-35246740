@@ -94,4 +94,14 @@
   /* mouse-out: the shadow reverses, a little quicker than it grew */
   --knav-card-shadow-out-dur: 300ms;
   --knav-card-ease: var(--motion-drawer-ease);
+  /* the grid circles ride ease-in-out; the shadow keeps the ease-out */
+  --knav-card-slide-ease: var(--motion-drawer-ease-open);
+
+  /* solutions subitem hover: the bg/100 highlight fades on the
+     ease-out; the dot morphs circle → square while rotating its
+     corners out and locking into place (180deg reads intentional;
+     360deg is one lever away) */
+  --knav-sub-fill-dur: 300ms;
+  --knav-dot-morph-dur: 450ms;
+  --knav-dot-rotation: 180deg;
 }

@@ -367,7 +367,7 @@
   padding: var(--knav-sub-pt) var(--space-lg) var(--space-lg);
   border-radius: var(--radius-md);
   text-decoration: none;
-  transition: background-color var(--motion-hover-duration) var(--motion-hover-ease);
+  transition: background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
 }
 .knav-subhead {
   display: flex;
@@ -384,9 +384,14 @@
   flex: none;
   width: 8px;
   height: 8px;
-  border-radius: var(--radius-full);
+  /* 50%, not the 9999px token: it renders the same circle, but the
+     morph interpolates the whole way instead of snapping in the last
+     few px of a 9999 → 0 run */
+  border-radius: 50%;
   background: var(--_eng);
-  transition: border-radius var(--motion-hover-duration) var(--motion-hover-ease);
+  transition:
+    border-radius var(--knav-dot-morph-dur) var(--motion-drawer-ease),
+    rotate var(--knav-dot-morph-dur) var(--motion-drawer-ease);
 }
 .knav-subdesc {
   font: var(--ts-text-sm-light-font);
@@ -396,13 +401,16 @@
   color: var(--color-text-300);
 }
 /* hover: fill, and the dot drops its radius — circle → square
-   (confirmed intentional, §9 F13) */
+   (confirmed intentional, §9 F13) — rotating its corners out as it
+   morphs and locking into place (the end orientation of a square is
+   identical at 180deg, so the rotation is felt only in transit) */
 @media (hover: hover) {
   .knav-sub:hover {
     background: var(--color-bg-100);
   }
   .knav-sub:hover .knav-subdot {
     border-radius: var(--radius-none);
+    rotate: var(--knav-dot-rotation);
   }
 }
 
@@ -480,7 +488,7 @@
   border-radius: var(--radius-full);
   left: calc(var(--knav-decor-cell) * var(--cx) - 1px);
   top: calc(var(--knav-decor-cell) * var(--cy) - 1px);
-  transition: translate var(--knav-card-slide-dur) var(--knav-card-ease);
+  transition: translate var(--knav-card-slide-dur) var(--knav-card-slide-ease);
 }
 
 .knav-fcard {
