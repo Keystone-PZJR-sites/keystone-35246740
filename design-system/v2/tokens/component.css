@@ -91,5 +91,7 @@
      drawer constants it first borrowed. */
   --knav-card-slide-dur: 500ms;
   --knav-card-shadow-dur: 450ms;
+  /* mouse-out: the shadow reverses, a little quicker than it grew */
+  --knav-card-shadow-out-dur: 300ms;
   --knav-card-ease: var(--motion-drawer-ease);
 }

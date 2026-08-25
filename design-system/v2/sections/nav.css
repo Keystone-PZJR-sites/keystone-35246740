@@ -256,15 +256,15 @@
 }
 
 /* cards are cascade blocks AND hover-shadow hosts; transition is one
-   property, so the combined rules restate both lists — the shadow at
-   0s on the resting side (off at once) and growing on hover */
+   property, so the combined rules restate both lists — the shadow
+   reversing on the resting side and growing on hover */
 .knav-drawer[data-open] .knav-card.knav-blk {
   transition:
     opacity var(--knav-blk-fade) ease
       calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
     translate var(--knav-blk-slide) var(--motion-drawer-ease)
       calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    box-shadow 0s;
+    box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
 }
 @media (hover: hover) {
   .knav-drawer[data-open] .knav-card.knav-blk:hover {
@@ -423,10 +423,10 @@
   align-self: stretch;
   /* hover shadow (set 549:37044): grows out of the origin in the
      drawer grammar; a shadow never takes layout, so neither the card
-     nor the drawer changes size. The resting rule's 0s transition
-     drops it at once on mouse-out (004 §5 pattern). */
+     nor the drawer changes size. The resting rule times the mouse-out:
+     the shadow reverses, a little quicker than it grew. */
   box-shadow: var(--_hs0);
-  transition: box-shadow 0s;
+  transition: box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
 }
 @media (hover: hover) {
   .knav-card:hover {
