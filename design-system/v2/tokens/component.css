@@ -31,14 +31,15 @@
   --btn-glyph-slide-dur: var(--knav-ink-dur);
 
   /* button-arrow's hover pass-through (design direction 2026-08-25):
-     the arrow exits the right edge and re-enters through the left,
-     clipped by the circle — one run per hover, half out, half in.
-     Thrown, not carried: the exit accelerates on the mirror of the
-     drawer ease-out (reflected (0.22,1,0.36,1)), the entry brakes on
-     the ease-out itself — it leaves the way it arrives, reversed.
-     The curves live as literals in the buttons.css keyframes: var()
-     cannot reach keyframe timing functions. */
+     the arrow exits the right edge and a second glyph enters through
+     the left, clipped by the circle — half the duration out, half in,
+     sequenced by transition delays. Thrown, not carried: the exit
+     accelerates on the mirror of the drawer ease-out (reflected
+     (0.22,1,0.36,1)), the entry brakes on the ease-out itself — it
+     leaves the way it arrives, reversed. */
   --btn-arrow-thru-dur: 500ms;
+  --btn-arrow-thru-exit-ease: cubic-bezier(0.64, 0, 0.78, 0);
+  --btn-arrow-thru-enter-ease: var(--motion-drawer-ease);
 
   /* footer-item's non-token constants (spec 004 §4/§7): the 3px
      label→arrow gap (5 on hover) and the focus bar's 3px side

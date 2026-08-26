@@ -296,6 +296,7 @@
   --_g: 16px;
 }
 .btn-arrow svg {
+  grid-area: 1 / 1;
   width: var(--_g);
   height: var(--_g);
   /* relative left, not transform — same no-compositor rule as
@@ -303,27 +304,21 @@
   position: relative;
   left: 0;
 }
-/* out the right, back in through the left; the mid jump is hidden
-   outside the clip. Per-segment curves: accelerate off, brake in.
-   Literal beziers — var() cannot reach keyframe timing functions
-   (verified 2026-08-25; the segments fell back to `ease`). Exit is
-   the mirror of --motion-drawer-ease; entry is --motion-drawer-ease
-   itself — keep all three in sync. */
-@keyframes btn-arrow-thru {
-  0% {
-    left: 0;
-    animation-timing-function: cubic-bezier(0.64, 0, 0.78, 0);
-  }
-  50% {
-    left: var(--_thru);
-  }
-  50.001% {
-    left: calc(-1 * var(--_thru));
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  100% {
-    left: 0;
-  }
+/* the pass-through is two stacked glyphs on plain left transitions —
+   the same mechanics as the fill's nudge, no keyframe animation
+   (an animation restart snaps and its machinery flickered,
+   2026-08-25). Each leg runs half the duration; the sequencing
+   delays live on the rule each direction lands on, so hover-in runs
+   main-out-then-ghost-in and hover-out reverses ghost-first —
+   mid-flight interruptions blend instead of snapping. */
+.btn-arrow .btn-arrow-main {
+  transition: left calc(var(--btn-arrow-thru-dur) / 2)
+    var(--btn-arrow-thru-enter-ease) calc(var(--btn-arrow-thru-dur) / 2);
+}
+.btn-arrow .btn-arrow-ghost {
+  left: calc(-1 * var(--_thru));
+  transition: left calc(var(--btn-arrow-thru-dur) / 2)
+    var(--btn-arrow-thru-exit-ease);
 }
 
 .btn-arrow[data-chrome="teal"] {
@@ -349,15 +344,29 @@
   .btn-arrow:not(:disabled):not([data-loading]):hover {
     background: var(--_bg-hover);
   }
-  .btn-arrow:not(:disabled):not([data-loading]):hover svg {
-    animation: btn-arrow-thru var(--btn-arrow-thru-dur);
+  .btn-arrow:not(:disabled):not([data-loading]):hover .btn-arrow-main {
+    left: var(--_thru);
+    transition: left calc(var(--btn-arrow-thru-dur) / 2)
+      var(--btn-arrow-thru-exit-ease);
+  }
+  .btn-arrow:not(:disabled):not([data-loading]):hover .btn-arrow-ghost {
+    left: 0;
+    transition: left calc(var(--btn-arrow-thru-dur) / 2)
+      var(--btn-arrow-thru-enter-ease) calc(var(--btn-arrow-thru-dur) / 2);
   }
 }
 .btn-arrow[data-state="hover"] {
   background: var(--_bg-hover);
 }
-.btn-arrow[data-state="hover"] svg {
-  animation: btn-arrow-thru var(--btn-arrow-thru-dur);
+.btn-arrow[data-state="hover"] .btn-arrow-main {
+  left: var(--_thru);
+  transition: left calc(var(--btn-arrow-thru-dur) / 2)
+    var(--btn-arrow-thru-exit-ease);
+}
+.btn-arrow[data-state="hover"] .btn-arrow-ghost {
+  left: 0;
+  transition: left calc(var(--btn-arrow-thru-dur) / 2)
+    var(--btn-arrow-thru-enter-ease) calc(var(--btn-arrow-thru-dur) / 2);
 }
 .btn-arrow:focus-visible {
   outline: none;
@@ -381,10 +390,11 @@
   .btn-fill,
   .btn-ghost,
   .btn-arrow,
-  .btn-fill .btn-glyph {
+  .btn-fill .btn-glyph,
+  .btn-arrow svg {
     transition-duration: 0s;
+    transition-delay: 0s;
   }
-  .btn-arrow svg,
   .btn-arrow[data-loading] svg {
     animation: none;
   }

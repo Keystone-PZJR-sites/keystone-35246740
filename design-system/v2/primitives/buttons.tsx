@@ -159,7 +159,17 @@ export function ButtonArrow({
       aria-busy={loading || undefined}
       aria-label={label}
     >
-      {loading ? <IconLoadingCircle /> : <IconArrowRight />}
+      {loading ? (
+        <IconLoadingCircle />
+      ) : (
+        <>
+          {/* two stacked glyphs for the hover pass-through: main exits
+              right, the ghost enters from the left (the 005 §6.4
+              glyph-stack pattern) */}
+          <IconArrowRight className="btn-arrow-main" />
+          <IconArrowRight className="btn-arrow-ghost" />
+        </>
+      )}
     </button>
   );
 }
