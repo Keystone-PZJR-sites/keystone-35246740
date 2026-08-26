@@ -238,7 +238,10 @@ The tiers are **art direction, not resolution steps** — the crops differ
 per band — so the image renders as `<picture>` with one media-gated
 `<source>` per tier, largest-first, and the 384 file as the `<img>`
 fallback (the spec 006 §5 pattern; the same scrollbar-lag caveat is
-accepted as density-only). Worst-case densities (1.31–1.65× at band tops)
+accepted as density-only). *Amended 2026-08-26 (spec 002.r1 — §9 R25):
+the media cuts follow the nearest-anchor structural gates (470 · 665 ·
+860 · 1130), superseding the table's "serves container" column and the
+1152 line — the 1344 tier now serves from the 1130 gate.* Worst-case densities (1.31–1.65× at band tops)
 match the range accepted for the hero (006 §9 F6); the known remedy —
 re-cut a tier at a higher width — applies if any slot reads soft on
 device. `decoding="async"`, explicit width/height. Loading: the at-rest
@@ -601,6 +604,13 @@ design shipped them.
   thumbnail (`clip-path`, radius reduced to match, riding the slot
   morph's timing), tucking the clip edge fully under the ring's paint.
   Verified at 10× magnification against the reproduced artifact.
+- **R25 — tier cuts follow the structural gates** (spec 002.r1,
+  2026-08-26): under nearest-anchor rendering the rs design renders
+  from 470, so the anchor-width `<source>` cuts showed a neighboring
+  band's crop across each compressed slice. The cuts moved to
+  470/665/860/1130; the 1344 tier serves from 1130, superseding the
+  draft's 1152 decision. Density worst cases stay within the accepted
+  range.
 - **R16 — the header wrap is the text box's, not the frame's**
   (build-day, 2026-08-26). §3's block widths are the header frames; the
   designed two-line wrap comes from the narrower text nodes

@@ -214,7 +214,11 @@ fallback. The media conditions mirror the band gates plus the 1152 split
 (a presentation-only cut inside rd1, no structural switch); they are
 viewport queries, so near a band edge with a scrollbar the tier may
 lag the container band by the scrollbar width — a density detail only,
-geometry is CSS-driven and unaffected. `object-fit: cover;
+geometry is CSS-driven and unaffected. *Amended 2026-08-26 (spec
+002.r1 — §9): the media cuts follow the nearest-anchor structural
+gates (470 · 665 · 860 · 1130) so each band's crop shows wherever its
+design renders; the 1152 mid-cut serves the compressed rd2 slice. The
+scrollbar-lag caveat stands.* `object-fit: cover;
 object-position: center`, explicit width/height, `decoding="async"`.
 The first rectangle and first circle are priority-loaded (§6 needs
 pixels at +620/+760ms); later frames lazy-load.
@@ -290,6 +294,15 @@ resume; it does not pause on hover (no user controls in the design).
 state-to-state: no sweep, no fade-rise, chips born in their brand state,
 and the carousel holds the first frames — no auto-advance, no timers.
 
+*Amended 2026-08-26 (spec 002.r1's settle contract — §9):* the
+choreography ends its run explicitly. On the final beat's
+`animationend` (the follow-ups chip's wipe) the orchestrator marks the
+page `v2-settled`, whose CSS turns the choreography animations off —
+band-gated elements re-entering `display` then have nothing to
+restart, so resizing across gates no longer replays the load. The
+`v2-load` class stays (the cold-load guard keys on it); the dev replay
+clears the settled mark before re-flipping.
+
 ## 7 · New assets and non-token constants
 
 1. **Carousel images** — the 84 WebP exports (§5), committed verbatim to
@@ -308,6 +321,19 @@ used): header block y offsets 67/99/88/144/152 and the rm 16px inset;
 wordmark-in-subhead sizes (§3); the rt inline gap 5 and chip line-height
 24; nav drop 8px. (The Figma overlay `rgba(72,0,0,0.1)` is baked into
 the exports — no code constant; §5, §9.)
+
+*Amended 2026-08-26 (spec 002.r1's four units — §9):* several of these
+constants were geometry or typography in disguise and now scale, as
+exact anchor ratios that render identically at the anchors: the header
+y offsets ride the tick (67/32 · 99/48 · 88/64 · 144/80 · 152/112);
+the rm inset and the header wordmark's gap are `t/2` (16 at rm and 24
+at rs collapse into one rule); the rm header right inset is 1t; the
+subhead wrap box (384) and the CTA drop's 122 text height ride the
+weights; the subhead inline gap and chip padding-x ride the type in em
+(6/20 · 6/20 · 5/18 · 6/20 · 6/24 and 4/20 · 4/20 · 4/18 · 6/20 ·
+8/24). True material — the wordmark mark, row gaps, buttons, icons —
+stays px. Tick- and weight-riding constants moved to the component
+token layer's `.page` block (the 002.r1 scope rule).
 
 ## 8 · Semantics, deliverable
 
@@ -378,6 +404,25 @@ node fixes were re-read from the file after design shipped them.
   the component's `rgba(72,0,0,0.1)` multiply overlay was applied at
   export time — the build renders the supplied pixels and adds no
   overlay layer or blend mode in code (§5, §7).
+
+Post-approval amendments, 2026-08-26 (spec 002.r1 — nearest-anchor
+rendering; approved by the design owner at the mid-band review):
+
+- **Constants reclassified under the four units** (§7 amendment): the
+  header offsets, insets, and wordmark gap ride the tick; the subhead
+  wrap box and CTA drop ride the weights; the subhead's line-internal
+  spacing rides the type in em. Found at review: the fixed 384px wrap
+  box and fixed line spacing re-broke the designed subhead rag below
+  ~539, and the fixed header offsets ate the H1's carousel clearance
+  in the compressed rs slice (002.r1 §7 R2/R3 carry the findings).
+- **The choreography settles** (§6 amendment): resizing across gates
+  replayed every display-gated element's animation — everything except
+  the subhead, the one choreographed element with no band variants
+  (002.r1 §7 R4). The orchestrator now ends the run on the last chip's
+  `animationend`.
+- **Tier cuts follow the structural gates** (§5 amendment): under
+  midpoint gating the old anchor-width cuts showed a neighboring
+  band's crop across a compressed slice (002.r1 §7 R6).
 
 Pre-approval decisions, 2026-08-25 (build-prep review):
 

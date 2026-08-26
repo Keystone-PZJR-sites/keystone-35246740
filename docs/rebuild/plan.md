@@ -90,6 +90,29 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   CSS-dot precedent, and the art-directed image-tier doctrine.
   `AGENTS.md` carries the agent-facing digest.
 
+## Decision log — 2026-08-26
+
+- **Nearest-anchor rendering adopted** (spec 002.r1), from the design
+  owner's mid-band quality review on real Phase 5 content: structural
+  gates move from the anchors to the bands' geometric midpoints
+  (470 · 665 · 860 · 1130); above a gate the upper anchor's design
+  renders compressed (worst-case zoom drops from +50% to ~±20%); in a
+  compressed slice the weights collapse to a pure zoom of the slice's
+  anchor, so wrap counts and designed clearances hold by construction.
+  Type steps down at gates — invisible to fixed-width devices,
+  accepted. The anchors render unchanged.
+- **The four units** (002.r1 §4): geometry rides ticks, text columns
+  ride the weights, line-internal spacing rides the type in em,
+  material stays px. Constants that reference `--t` or the weights are
+  declared on `.page`, never `:root`. The hero's constants were
+  converted (006 carries the amendments); remaining sections are
+  audited as they are touched.
+- **Choreographies settle** (002.r1 §5): the load orchestrator ends its
+  run explicitly (`v2-settled` on the last beat), so band-gated
+  display variants never replay animations on resize.
+- **Image tier cuts follow the structural gates** (006/007 §5
+  amendments) so each band's crop shows wherever its design renders.
+
 ## Phasing
 
 Each phase covers **all five anchors** and is done only when its spec's
