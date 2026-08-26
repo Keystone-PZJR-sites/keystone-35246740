@@ -182,7 +182,15 @@ values and would need editing later — which spec immutability forbids.
   post-fix, build-prep decisions in 006 §9). Phase 5
   specs are per-section (006 hero · 007 portfolio · 008 engine ·
   009 testimonials), written just-in-time as each section's inputs
-  stabilize; portfolio/engine/testimonial inputs remain open.
+  stabilize. Portfolio inputs received 2026-08-26: the eight-site
+  exports (WebP, five width tiers, the 1344 tier serving from 1152),
+  the motion intent (curtain-reveal entrance, hero pause, desaturation
+  directive), the `grid-button` control set (590:18139), and same-day
+  button-bar fixes (icon mapping, casing, 384 sizes, the rm second
+  button) — specced in 007 (draft; all twelve §9 flags resolved the
+  same day, fixes re-read post-fix, incl. the site names and the
+  1t card-resize explanation for the 768/960 frame totals).
+  Engine/testimonial inputs remain open.
 
 ## Special cells — ornament and function on the lattice
 
@@ -215,7 +223,14 @@ carousel forward/back buttons). Three consequences:
    18–19, zero-based). The testimonial-strip pair sits side-by-side (back
    left of forward: 384: 9–10,76 · 576: 8–9,52 · 768/960: 8–9,38). No
    Figma reconciliation is needed; the earlier "diagonal" reading was the
-   stale-metadata artifact of point 2.
+   stale-metadata artifact of point 2. *Superseded 2026-08-26 for the
+   gallery pair:* the file moved it — rendered truth is now 384: col 10,
+   rows 42–43 · 576: col 10, 27–28 · 768/960: col 8, 19–20 · 1344: col 8,
+   18–19 (spec 007 §2, which is the current record). The same re-audit
+   measured the 768 frame at 53t and the 960 frame at 51t page total
+   (vs 54t/52t above) — design reduced the portfolio cards by 1t at those
+   anchors after 2026-08-22 (gallery row 6t→5t; spec 007 §9); Phase 6
+   re-verifies totals from the then-current frames.
 
 ## Rules deltas (folded into the rules revision, 2026-08-25)
 
