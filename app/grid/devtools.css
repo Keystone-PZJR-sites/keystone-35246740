@@ -94,22 +94,22 @@
 .gdt-probe [data-probe="interp"] {
   width: calc(var(--wA) * 36 + var(--wB) * 42);
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .gdt-probe [data-probe="interp"] {
     width: calc(var(--wA) * 42 + var(--wB) * 48);
   }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .gdt-probe [data-probe="interp"] {
     width: calc(var(--wA) * 48 + var(--wB) * 56);
   }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .gdt-probe [data-probe="interp"] {
     width: calc(var(--wA) * 56 + var(--wB) * 64);
   }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .gdt-probe [data-probe="interp"] {
     width: calc(var(--wB) * 64);
   }

@@ -17,13 +17,13 @@
   width: 100%;
   height: calc(var(--t) * 26);
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .v2-hero { height: calc(var(--t) * 20); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .v2-hero { height: calc(var(--t) * 13); }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .v2-hero { height: calc(var(--t) * 12); }
 }
 
@@ -39,19 +39,19 @@
   left: var(--hx-inset-rm);
   right: 32px;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-head { top: var(--hx-head-top-rs); left: var(--t); right: calc(2 * var(--t)); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-head { right: var(--t); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-head { top: var(--hx-head-top-rt); }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .hx-head { top: var(--hx-head-top-rd1); }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .hx-head { top: var(--hx-head-top-rd2); }
 }
 
@@ -67,10 +67,10 @@
   -webkit-mask: url("/media/brand/ks-wordmark-sm.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-wordmark-sm.svg") center / contain no-repeat;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-wm-head { margin-bottom: 24px; }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-wm-head { display: none; }
 }
 
@@ -82,16 +82,16 @@
   color: var(--color-text-100);
   --fs0: 36; --fs1: 42; --lh0: 42; --lh1: 50;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-h1 { --fs0: 42; --fs1: 42; --lh0: 50; --lh1: 50; }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-h1 { --fs0: 42; --fs1: 48; --lh0: 50; --lh1: 56; }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .hx-h1 { --fs0: 48; --fs1: 72; --lh0: 56; --lh1: 78; }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .hx-h1 { --fs0: 72; --fs1: 72; --lh0: 78; --lh1: 78; }
 }
 
@@ -99,7 +99,7 @@
    rt+ is the two line spans (they animate separately — §6) */
 .hx-copy-lo { display: block; }
 .hx-copy-hi { display: none; }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-copy-lo { display: none; }
   .hx-copy-hi { display: block; }
 }
@@ -125,10 +125,10 @@
   --hx-gap-row: 6px;
   --hx-chip-px: 4px;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-sub { top: calc(var(--t) * 14 - var(--hx-head-top-rs)); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-sub {
     position: static;
     margin-top: 40px;
@@ -139,7 +139,7 @@
     --hx-gap-row: 4px;
   }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .hx-sub {
     --fs0: 20; --fs1: 24; --lh0: 26; --lh1: 32;
     --clh0: 26; --clh1: 32;
@@ -148,7 +148,7 @@
     --hx-chip-px: 6px;
   }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .hx-sub {
     margin-top: 48px;
     --fs0: 24; --fs1: 24; --lh0: 32; --lh1: 32;
@@ -249,18 +249,18 @@
   left: 0;
   gap: var(--space-3xl);
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-cta-a { top: calc(var(--t) * 14 - var(--hx-head-top-rs) + var(--hx-cta-sub-drop)); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-cta-a { display: none; }
   .hx-cta-b { display: flex; margin-top: var(--hx-cta-top-rt); }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .hx-cta-b { display: none; }
   .hx-cta-c { display: flex; margin-top: var(--space-7xl); }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .hx-cta-c { display: none; }
   .hx-cta-d { display: flex; margin-top: var(--space-7xl); }
 }
@@ -278,13 +278,13 @@
   height: calc(var(--t) * 8);
   overflow: hidden;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-carousel { top: calc(var(--t) * 7); height: calc(var(--t) * 6); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-carousel { height: calc(var(--t) * 5); }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .hx-carousel { top: calc(var(--t) * 6); }
 }
 
@@ -304,10 +304,10 @@
   transform: translateX(calc(var(--t) * (var(--hc-r, 0) * 8 + var(--hc-c, 0) * var(--hc-ct)) * -1));
   transition: transform var(--motion-slide-duration) var(--motion-slide-ease);
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-track { --hc-ct: 6; }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-track { --hc-ct: 5; }
 }
 /* the wrap snap: no transition while the island resets the tallies */
@@ -322,10 +322,10 @@
 .hx-frame[data-shape="circle"] {
   border-radius: var(--radius-full);
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .hx-frame[data-shape="circle"] { width: calc(var(--t) * 6); }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .hx-frame[data-shape="circle"] { width: calc(var(--t) * 5); }
 }
 .hx-frame picture,
@@ -359,7 +359,7 @@
   --_d-sub2: var(--hx-d-sub2-m);
   --_d-cta: var(--hx-d-cta-m);
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .v2-hero {
     --_d-rect: var(--hx-d-rect);
     --_d-circle: var(--hx-d-circle);

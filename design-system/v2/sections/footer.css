@@ -32,7 +32,7 @@
   width: var(--_gw);
 }
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .f-top {
     height: calc(var(--t) * 7);
     padding: calc(var(--t)) 0 0 0;
@@ -58,7 +58,7 @@
   }
 }
 
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .f-top {
     height: calc(var(--t) * 6);
   }
@@ -70,7 +70,7 @@
   }
 }
 
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .f-top {
     height: calc(var(--t) * 3);
     --_gw: calc(var(--wA) * 416 + var(--wB) * 528);
@@ -110,7 +110,7 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .f-top {
     --_gw: calc(var(--wB) * 528);
   }
@@ -181,7 +181,7 @@
   display: none;
 }
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .f-dot {
     width: 8px;
     height: 8px;
@@ -211,7 +211,7 @@
   }
 }
 
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .f-tagrow {
     padding-left: var(--space-none);
   }
@@ -221,7 +221,7 @@
   }
 }
 
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .f-tagrow {
     padding-left: var(--space-2xs);
   }
@@ -248,7 +248,7 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .f-tagline {
     font-weight: 100;
     letter-spacing: -0.03em;
@@ -276,7 +276,7 @@
   --_g: 16px;
 }
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .f-grader .grader .grader-field {
     height: 50px;
   }
@@ -286,7 +286,7 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .f-grader .grader .grader-field {
     height: 66px;
     padding-inline: var(--space-xl) var(--space-lg);
@@ -471,7 +471,7 @@
   line-height: calc(var(--wA) * 18 + var(--wB) * 22);
 }
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .f-nav {
     width: calc(var(--t) * 10 + 1px);
     margin-left: calc(var(--t));
@@ -507,7 +507,7 @@
   }
 }
 
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .f-nav {
     width: calc(var(--t) * 12 + 1px);
     margin-left: 0;
@@ -565,7 +565,7 @@
   }
 }
 
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .fnav-group,
   .fnav-group[data-open] {
     padding: 24px 32px 0;
@@ -596,7 +596,7 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .fnav-group,
   .fnav-group[data-open] {
     height: calc(var(--t) * 3 + 1px);
@@ -648,11 +648,11 @@
 .f-ext.rs {
   display: none;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .f-ext.rm { display: none; }
   .f-ext.rs { display: block; }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .f-ext.rm,
   .f-ext.rs { display: none; }
 }
@@ -713,7 +713,7 @@
   text-decoration: none;
 }
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .f-copy {
     letter-spacing: -0.01em;
     font-size: 12px;
@@ -721,7 +721,7 @@
   }
 }
 
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   /* +1px covers the line-inclusive r5 overlay so #042019 cannot
      leak under the copyright cell (the left cells already paint t+1). */
   .f-logo {
@@ -739,7 +739,7 @@
   }
 }
 
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .f-copy {
     margin-left: calc(var(--t) * 7);
     width: calc(var(--t) * 5 + 1px);
@@ -749,7 +749,7 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .f-copy {
     gap: var(--space-6xl);
     font-variation-settings: "opsz" 26, var(--font-sans-slnt);

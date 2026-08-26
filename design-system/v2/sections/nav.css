@@ -17,7 +17,7 @@
 .knav-d {
   display: none;
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .knav-d {
     display: block;
   }
@@ -224,7 +224,7 @@
     translate var(--knav-reveal-slide) var(--motion-drawer-ease);
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .knav-drawer {
     width: var(--knav-drawer-lg);
   }
@@ -445,7 +445,7 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .knav-sub {
     width: var(--knav-sub-w-lg);
   }
@@ -560,7 +560,7 @@
   flex: none;
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .knav-dbody {
     gap: var(--space-xl);
   }
@@ -660,7 +660,7 @@
   --_hs0: 0 0 0 0 var(--color-yellow-200);
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .knav-rcard {
     flex: none;
     width: var(--knav-sub-w-lg);
@@ -1131,7 +1131,7 @@ a.knav-row {
 
 /* ================= mobile band overrides (rs, rt) ================= */
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .knav-panel {
     box-shadow: var(--shadow-hard-square-0);
   }
@@ -1184,7 +1184,7 @@ a.knav-row {
   }
 }
 
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .knav-gslot {
     --_g: var(--g-rt);
     --_bt: var(--bt-rt);

@@ -36,6 +36,23 @@
   --wB: calc((var(--t) - 32px) / 16);
 }
 
+/* Nearest-anchor rendering (spec 002.r1): each structural gate sits at
+   the band's geometric midpoint (470 · 665 · 860 · 1130), so every
+   width renders the nearest anchor's design — stretched below its
+   anchor, compressed above the gate. In a compressed slice
+   (gate → anchor) the weights collapse to a pure zoom of the slice's
+   anchor (--wA: t/T0, --wB: 0 — the same construction as above-1344),
+   so type and containers shrink together: wrap counts and designed
+   clearances hold by construction. From the anchor up, the designed
+   interpolation line resumes. */
+
+@container (min-width: 470px) {
+  .page {
+    /* compressed rs: the 576 design zooming down */
+    --wA: calc(var(--t) / 48);
+    --wB: 0px;
+  }
+}
 @container (min-width: 576px) {
   .page {
     --wA: calc((64px - var(--t)) / 16);
@@ -43,6 +60,13 @@
   }
 }
 
+@container (min-width: 665px) {
+  .page {
+    /* compressed rt: the 768 design zooming down */
+    --wA: calc(var(--t) / 64);
+    --wB: 0px;
+  }
+}
 @container (min-width: 768px) {
   .page {
     --wA: calc((80px - var(--t)) / 16);
@@ -50,6 +74,13 @@
   }
 }
 
+@container (min-width: 860px) {
+  .page {
+    /* compressed rd1: the 960 design zooming down */
+    --wA: calc(var(--t) / 80);
+    --wB: 0px;
+  }
+}
 @container (min-width: 960px) {
   .page {
     --wA: calc((112px - var(--t)) / 32);
@@ -57,9 +88,10 @@
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .page {
-    /* above the last anchor: pure zoom (v5 §2) */
+    /* the 1344 design: zooming down to 1130 and up without bound —
+       one rule covers the compressed slice and the v5 §2 over-zoom */
     --wA: 0px;
     --wB: calc(var(--t) / 112);
   }
@@ -179,19 +211,19 @@
 .rd2 {
   display: none;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .rm { display: none; }
   .rs { display: block; }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .rs { display: none; }
   .rt { display: block; }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .rt { display: none; }
   .rd1 { display: block; }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .rd1 { display: none; }
   .rd2 { display: block; }
 }
@@ -206,19 +238,19 @@
 .decor.rd2 {
   display: none;
 }
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .decor.rm { display: none; }
   .decor.rs { display: grid; }
 }
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .decor.rs { display: none; }
   .decor.rt { display: grid; }
 }
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .decor.rt { display: none; }
   .decor.rd1 { display: grid; }
 }
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .decor.rd1 { display: none; }
   .decor.rd2 { display: grid; }
 }

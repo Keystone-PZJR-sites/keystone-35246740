@@ -30,7 +30,7 @@
   height: calc(var(--t) * 24);
 }
 
-@container (min-width: 576px) {
+@container (min-width: 470px) {
   .fx-gallery {
     height: calc(var(--t) * 11);
     --strip-top: 3;
@@ -43,7 +43,7 @@
   }
 }
 
-@container (min-width: 768px) {
+@container (min-width: 665px) {
   .fx-gallery {
     height: calc(var(--t) * 10);
     --strip-top: 2;
@@ -53,13 +53,13 @@
   }
 }
 
-@container (min-width: 960px) {
+@container (min-width: 860px) {
   .fx-footer {
     height: calc(var(--t) * 12);
   }
 }
 
-@container (min-width: 1344px) {
+@container (min-width: 1130px) {
   .fx-gallery {
     height: calc(var(--t) * 9);
     --card-w: 8;

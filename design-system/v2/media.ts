@@ -30,13 +30,16 @@ export interface HeroCarouselTier {
 }
 
 /** Largest-first, ready for <source> order; the last entry is the
- * 384 fallback. */
+ * 384 fallback. The media cuts follow the nearest-anchor structural
+ * gates (spec 002.r1 — amended 2026-08-26) so each band's crop shows
+ * wherever its design renders; the 1152 mid-cut serves the compressed
+ * rd2 slice. */
 export const HERO_CAROUSEL_TIERS: HeroCarouselTier[] = [
   { cut: 1344, media: "(min-width: 1344px)", rect: { width: 1792, height: 1120 }, circle: { width: 1120, height: 1120 } },
-  { cut: 1152, media: "(min-width: 1152px)", rect: { width: 1536, height: 960 }, circle: { width: 960, height: 960 } },
-  { cut: 960, media: "(min-width: 960px)", rect: { width: 1280, height: 800 }, circle: { width: 800, height: 800 } },
-  { cut: 768, media: "(min-width: 768px)", rect: { width: 1024, height: 640 }, circle: { width: 640, height: 640 } },
-  { cut: 576, media: "(min-width: 576px)", rect: { width: 768, height: 576 }, circle: { width: 576, height: 576 } },
+  { cut: 1152, media: "(min-width: 1130px)", rect: { width: 1536, height: 960 }, circle: { width: 960, height: 960 } },
+  { cut: 960, media: "(min-width: 860px)", rect: { width: 1280, height: 800 }, circle: { width: 800, height: 800 } },
+  { cut: 768, media: "(min-width: 665px)", rect: { width: 1024, height: 640 }, circle: { width: 640, height: 640 } },
+  { cut: 576, media: "(min-width: 470px)", rect: { width: 768, height: 576 }, circle: { width: 576, height: 576 } },
   { cut: 384, media: null, rect: { width: 512, height: 512 }, circle: { width: 512, height: 512 } },
 ];
 
@@ -75,12 +78,15 @@ export interface PortfolioTier {
 }
 
 /** Largest-first, ready for <source> order; the last entry is the
- * 384 fallback. */
+ * 384 fallback. The media cuts follow the nearest-anchor structural
+ * gates (spec 002.r1 — amended 2026-08-26): the 1344 tier now serves
+ * from the 1130 gate, superseding the 1152 line (spec 007 §5 as
+ * amended). */
 export const PORTFOLIO_TIERS: PortfolioTier[] = [
-  { cut: 1344, media: "(min-width: 1152px)", width: 640, height: 1088 },
-  { cut: 960, media: "(min-width: 960px)", width: 448, height: 768 },
-  { cut: 768, media: "(min-width: 768px)", width: 352, height: 608 },
-  { cut: 576, media: "(min-width: 576px)", width: 352, height: 544 },
+  { cut: 1344, media: "(min-width: 1130px)", width: 640, height: 1088 },
+  { cut: 960, media: "(min-width: 860px)", width: 448, height: 768 },
+  { cut: 768, media: "(min-width: 665px)", width: 352, height: 608 },
+  { cut: 576, media: "(min-width: 470px)", width: 352, height: 544 },
   { cut: 384, media: null, width: 576, height: 736 },
 ];
 
