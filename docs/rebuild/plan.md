@@ -190,7 +190,16 @@ values and would need editing later — which spec immutability forbids.
   button) — specced in 007 (draft; all twelve §9 flags resolved the
   same day, fixes re-read post-fix, incl. the site names and the
   1t card-resize explanation for the 768/960 frame totals).
-  Engine/testimonial inputs remain open.
+  Engine inputs received 2026-08-26: the `engine` component set
+  (104:10164, engine × breakpoint — 21 variants; the 576 breakpoint
+  carries visibility only), the collapsed-pill and engine-circle sets,
+  the five-engine exports (WebP, five width tiers, washes baked), and
+  the motion intent (the accordion spring reflow, pill dot-morph hover,
+  sub-768 carousel with breadcrumb) — specced in 008 (draft; all eight
+  §9 flags resolved the same day, fixes re-read post-fix, incl. the
+  un-swapped 384 reception/engagement fills, the sanctioned 576
+  derivation, and the curly-apostrophe copy canon). Testimonial inputs
+  remain open.
 
 ## Special cells — ornament and function on the lattice
 
