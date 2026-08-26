@@ -39,3 +39,6 @@
 
 /* Primitives (spec 007) */
 @import "./primitives/grid-button.css";
+
+/* Sections (spec 007) */
+@import "./sections/portfolio.css";
