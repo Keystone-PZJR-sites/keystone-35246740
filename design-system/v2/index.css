@@ -36,3 +36,6 @@
 
 /* Sections (spec 006) */
 @import "./sections/hero.css";
+
+/* Primitives (spec 007) */
+@import "./primitives/grid-button.css";

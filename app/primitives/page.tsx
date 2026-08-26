@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import { MEDIA_V2 } from "@/design-system/v2/media";
 import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primitives/buttons";
+import { GridButton } from "@/design-system/v2/primitives/grid-button";
 import { GraderInput } from "@/design-system/v2/primitives/grader";
 import { Text } from "@/design-system/v2/primitives/text";
 import {
@@ -157,6 +158,7 @@ function ScaleRows({ scales }: { scales: ColorScale[] }) {
 const FILL_SIZES = ["xl", "lg", "md", "sm"] as const;
 const GHOST_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
 const ARROW_SIZES = ["lg", "md", "sm"] as const;
+const GRID_BUTTON_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
 
 const GHOST_COLORS = [
   { color: "brown", label: "Our work", icon: <IconProjects /> },
@@ -246,6 +248,28 @@ export default function PrimitivesPage() {
                     <ButtonArrow size={size} chrome={chrome} label="Submit" forceState="hover" />
                     <ButtonArrow size={size} chrome={chrome} label="Submit" disabled />
                     <ButtonArrow size={size} chrome={chrome} label="Submit" loading />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="pv-section">
+        <h2>grid-button</h2>
+        {(["forward", "back"] as const).map((direction) => (
+          <div key={direction}>
+            <h3>{direction}</h3>
+            <div className="pv-row">
+              {GRID_BUTTON_SIZES.map((size) => (
+                <div key={size} className="pv-cell">
+                  <span>{size}</span>
+                  <div className="pv-row">
+                    <GridButton direction={direction} size={size} label="Next sites" />
+                    <GridButton direction={direction} size={size} label="Next sites" forceState="hover" />
+                    <GridButton direction={direction} size={size} label="Next sites" forceState="focus" />
+                    <GridButton direction={direction} size={size} label="Next sites" disabled />
                   </div>
                 </div>
               ))}
