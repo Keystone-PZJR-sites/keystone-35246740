@@ -14,12 +14,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* the portfolio placeholder: an exposed field standing in for spec 007
-   so the hero's bottom joint and the stack sum are testable. The tick
-   height is provisional — 007 sets the real totals. */
+/* the Phase 5 placeholders (spec 007 §8.8): exposed fields standing in
+   for the engine (spec 008) and testimonials (spec 009) rows so the
+   footer joint stays testable. Tick totals from the anchor frames at
+   007 writing time. */
 .hfx-placeholder {
   width: 100%;
-  height: calc(var(--t) * 8);
   display: grid;
   place-items: center;
 }
@@ -28,4 +28,32 @@
   font: var(--ts-text-sm-regular-font);
   letter-spacing: var(--ts-text-sm-regular-ls);
   color: var(--color-text-500);
+}
+.hfx-engine { height: calc(var(--t) * 21); }
+.hfx-testimonials { height: calc(var(--t) * 11); }
+@container (min-width: 576px) {
+  .hfx-engine { height: calc(var(--t) * 13); }
+  .hfx-testimonials { height: calc(var(--t) * 9); }
+}
+@container (min-width: 768px) {
+  .hfx-engine { height: calc(var(--t) * 9); }
+  .hfx-testimonials { height: calc(var(--t) * 7); }
+}
+@container (min-width: 960px) {
+  .hfx-testimonials { height: calc(var(--t) * 8); }
+}
+@container (min-width: 1344px) {
+  .hfx-engine { height: calc(var(--t) * 8); }
+  .hfx-testimonials { height: calc(var(--t) * 11); }
+}
+
+/* the designed 1t clear row above the footer at rd2 only (007 §8.8) */
+.hfx-clear-rd2 {
+  display: none;
+}
+@container (min-width: 1344px) {
+  .hfx-clear-rd2 {
+    display: block;
+    height: var(--t);
+  }
 }

@@ -4,8 +4,9 @@ import type { Metadata } from "next";
 
 /** /home-fixture — the noindexed dev route that stacks the new-brand
  * homepage sections in order as Phase 5 lands them (decision 2026-08-25,
- * spec 006 §9). Today: nav · hero · portfolio placeholder · footer.
- * Phase 6 promotes this page to `/` at cutover. */
+ * spec 006 §9). Today: nav · hero · portfolio · engine and testimonial
+ * placeholders (spec 007 §8.8) · footer. Phase 6 promotes this page to
+ * `/` at cutover. */
 export const metadata: Metadata = {
   title: "Home fixture",
   robots: { index: false, follow: false },
