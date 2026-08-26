@@ -1,23 +1,11 @@
 # Site Rules
 
-> **⚠ Rebuild in progress on this branch (`new-brand-marketing-site`).**
-> Read [`docs/rebuild/plan.md`](../rebuild/plan.md) first. For rebuild work,
-> the rebuild plan and its specs (`docs/rebuild/specs/`) **supersede** these
-> sections of this file:
->
-> - **Responsive-Native** — 985px boundary → five anchors (384 · 576 · 768 ·
->   960 · 1344), container-query band switches, mobile-first 384 base.
-> - **Fonts Are Licensed** — FK family → GT Standard Standard VF + PP Kyoto
->   Variable Upright (facts in rebuild spec 001).
-> - **Specs Come First**, value-free clause only — rebuild specs live in
->   `docs/rebuild/specs/` (new series from 001) and use tick/anchor/cell
->   vocabulary; the spec-first workflow itself still applies, plus the
->   just-in-time cadence in plan.md.
-> - **Site Scope** — the rebuild replaces the old-brand site described there.
->
-> Everything else below remains in force. This file gets its full revision
-> when rebuild development starts (plan.md, "Rules deltas"). The old-site
-> rules remain intact and authoritative on `main`.
+> **⚠ Two sites live in this repo.** The old-brand site ships from `main`,
+> where the pre-revision rules remain authoritative. This branch
+> (`new-brand-marketing-site`) carries the new-brand rebuild — read
+> [`docs/rebuild/plan.md`](../rebuild/plan.md) first. On 2026-08-25 this
+> file received the rebuild revision plan.md promised: sections that differ
+> between the two sites say so inline; everything else applies to both.
 
 Non-negotiable standards for this codebase. Read this before touching a file.
 
@@ -31,12 +19,16 @@ Rules are grouped by theme and titled, not numbered for posterity — refer to t
 
 **New sections, features, and rewrites never begin as code — there is a spec first** (surgical changes are the exception, see below). The flow:
 
-1. Designer writes a spec in `docs/specs/` describing what the section looks like and how it behaves. Numbered `001_…`, `002_…`, sequential and never reused.
+1. Designer writes a spec describing what the section looks like and how it behaves. Numbered `001_…`, `002_…`, sequential and never reused.
 2. Spec is approved before any implementation begins.
 3. Implementation traces back to something in the spec. Out-of-spec work stops to update the spec first.
 4. Acceptance criteria are checked off in the spec when verified.
 
-Specs are written for a non-technical Figma-literate reader, in design language only:
+Two spec series exist. The old series (`docs/specs/`) describes the old-brand site and is frozen. The rebuild series (`docs/rebuild/specs/`, numbered from 001) follows the same spec-first workflow plus the just-in-time cadence in plan.md — one phase ahead at most, written from fresh MCP node reads when the phase's inputs are stable.
+
+The design-language style below governs the **old series**. Rebuild specs speak the grid's language instead: ticks, anchors, and cells are the numeric vocabulary, and the material px values read from the nodes at writing time are the implementation contract — see "Rebuild Spec Conventions".
+
+Old-series specs are written for a non-technical Figma-literate reader, in design language only:
 
 - **Visual language, not engineering language.** Describe colors, sizes, spacing, and motion in plain words ("the site's dark green", "a quick fade"). No component names, libraries, CSS properties.
 - **A visual reference for every state.** Start, end, and intermediate states. For site sections this is a Figma link; for reusable components built from an external reference it is the attached screenshot (see "Reference-Driven Components"). The implementer reads exact values from the reference, never from the spec.
@@ -47,6 +39,26 @@ Specs are written for a non-technical Figma-literate reader, in design language 
 - **Edge cases noted.** At minimum: mobile and `prefers-reduced-motion`.
 - **Acceptance criteria observable.** "The headline slides fully off-screen" — verifiable in a browser by a non-engineer. Never code-shaped.
 - **No code snippets.** Ever.
+
+---
+
+## Rebuild Spec Conventions
+
+The shape rebuild specs converged on over 001–006. New specs inherit it.
+
+**Header.** Status (with approval date) · Depends on (prior specs) · Sources — the exact Figma node IDs read, with read dates, plus design decisions and motion intent received, each dated.
+
+**Body order.** Tick-total anatomy table per band → exposure map (regions and ornament cells in zero-based section-local ticks) → content blocks with per-anchor value tables → motion → new assets and non-token constants → semantics and deliverable → resolutions record (§9) → acceptance criteria.
+
+**Conventions that hold across every spec:**
+
+- Every geometry fact is read off the nodes at writing time; nothing is scaled from a neighboring anchor.
+- Non-token designed constants are **enumerated in the spec** and live only in the component token layer (`design-system/v2/tokens/component.css`), per band only where used.
+- Motion intent arrives from design in plain language; the spec chooses the values and approval covers both (see "Motion Grammars").
+- Draft flags go to design; fixes are re-read from the nodes; §9 records every resolution. Nothing is built from a node known to be wrong.
+- Every spec ships a **permanent, noindexed dev route** as its QA surface (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero`; `/home-fixture` assembles Phase 5 and is promoted to `/` at cutover).
+- The acceptance preamble is standard: *at each of the five anchors and one arbitrary mid-band width per band, scrollbar forced on.* Checked boxes carry the measured evidence in parentheses.
+- Acceptance always includes: the client-island count, the route's JS size, the old site's shared first-load unchanged, and every value tracing to a token or an enumerated constant.
 
 ---
 
@@ -85,6 +97,8 @@ Two exceptions exist for revising the same section:
 
 In both cases the prior spec is left unedited.
 
+**Rebuild amendment protocol.** The rebuild's same-day design-fix cadence (flag → fix in Figma → re-read → record) produces post-approval changes too small for a new spec. These land as a **dated inline amendment** at the value they change ("amended 2026-08-24 — …") plus an entry in the spec's resolutions record (§9) — the body always carries the built truth, the record carries the history. Errata found at build follow the same shape. Wholesale redesigns still get a new sequential number. The Status line, acceptance checkboxes, dated amendments, and the resolutions record are the only mutable zones of a rebuild spec.
+
 ---
 
 ## Figma Links Are Read Through the MCP
@@ -104,6 +118,24 @@ Acceptable recovery steps:
 - Node ID is malformed or the node was deleted → ask the user to re-share the URL.
 
 Falling back to "I'll just read the screenshot" or "the data file probably still matches" is not on the list.
+
+### Node reads have known blind spots
+
+- `get_metadata` returns position and size only — it cannot see corner radius, fills, or interactivity. Any cell that might be ornament or a control is read per-node with `get_design_context`.
+- Inside a Figma **grid auto-layout**, a child's metadata `x`/`y` can be a stale cached value that disagrees with where the grid renders it. Geometry transcribed from a grid auto-layout is verified against rendered bounds (`absoluteBoundingBox`, via the console bridge) before it is committed. Never trust metadata coordinates alone.
+- Stroke alignment produces ±0.5/±1px artifacts in node reads: frames at x −0.5, a 577-wide frame, insets reading 23/31/33 where the design means 24/32. Recognize the class and read the intended whole value; do not transcribe the artifact.
+
+### The console bridge
+
+"The console bridge" is the Figma console MCP (`figma_execute` and its siblings): it runs JavaScript inside the live Figma file and returns what the standard read tools cannot — rendered bounds (`absoluteBoundingBox`), effect values, and verbatim SVG exports of vector geometry. Use it to verify transcription against rendered truth, to export icon geometry (see "SVG Export Rules"), and for any read where cached metadata is suspect.
+
+### The file can be wrong — never build the error
+
+Anchor frames and component sets occasionally contain design errors: a mis-bound variable, a stray ornament cell, stale copy overrides. When a node disagrees with the established pattern or with its siblings, flag it to design instead of building it. The loop: flag at draft → design fixes in Figma or records a decision → **re-read the touched nodes after the fix** → record the resolution in the spec's §9. Building a known error "to match the file" is never correct.
+
+### Re-extract the token layer before every build
+
+Token values are re-extracted from the Figma variables API before each phase's build (rebuild spec 001 rule). Silent design-side changes — a shadow re-ink, type-style drift — arrive through re-extraction and flow to built sections through the tokens with no code change. Skipping the re-extraction ships stale values.
 
 ---
 
@@ -244,6 +276,8 @@ All brand UI lives under `design-system/` at the repo root and is consumed throu
 - **Patterns** (`design-system/patterns/`) are page-specific groups (`blog/`, `legal/`), imported by path, not from the top barrel.
 
 Import from the top barrel (`@/design-system`) for tokens → sections; import patterns by their own path. Every change to a primitive or token updates the `/styles` catalog in the same commit. Full architecture: `docs/explainers/design-system.md`.
+
+**The rebuild lives in `design-system/v2/`** with the same upward layering: `tokens/` (primitives · semantic · type · motion · `component.css`, the component token layer holding every enumerated non-token constant) → `grid/` (the spec 002 engine) → `primitives/` → `sections/`, plus `icons.tsx` (verbatim exports) and `media.ts` (the v2 media registry). Changes to a v2 primitive or token update the `/primitives` catalog in the same commit. The old tree is not extended with new-brand work.
 
 ---
 
@@ -440,12 +474,10 @@ The exception is per-instance values inside a `ScaledMockCard` (see the ScaledMo
 
 ## Fonts Are Licensed
 
-The FK font family (FK Screamer, FK Grotesk Neue Trial, FK Grotesk Mono Trial, FK Roman Standard Trial, FK Screamer Legacy Trial) is licensed and **not** on Google Fonts or Fontsource.
+Every font in this repo is licensed and **not** on Google Fonts or Fontsource. Never `@import` any of them from a CDN or public URL; never commit them to a public mirror. System-font fallbacks are acceptable in development only.
 
-- Don't `@import` FK fonts from a CDN or public URL.
-- Font files live in `public/media/fonts/` and load via `@font-face` in `design-system/tokens/fonts.css`.
-- Until files are provided, use system-font fallbacks in development — never ship without the real fonts.
-- Read `design-system/tokens/fonts.css` for exact font names and weights.
+- **Rebuild (v2):** GT Standard Standard VF + PP Kyoto Variable Upright. Files in `public/media/fonts/`, loaded via `@font-face` in `design-system/v2/tokens/fonts.css`. The axis facts, weight mappings, and per-step optical-size pins are the implementation contract in rebuild spec 001 — read it before touching type. (GT Standard's variable default weight is 900: every style sets an explicit weight or text renders Black.)
+- **Old site:** the FK family (FK Screamer, FK Grotesk Neue Trial, FK Grotesk Mono Trial, FK Roman Standard Trial, FK Screamer Legacy Trial) loads via `design-system/tokens/fonts.css` and still ships from `main`.
 
 ---
 
@@ -456,6 +488,8 @@ The FK font family (FK Screamer, FK Grotesk Neue Trial, FK Grotesk Mono Trial, F
 Export flattened compositions instead: the background shape is one `<path>`, foreground letterforms or elements are separate `<path>` elements with explicit fills. The resulting SVG is self-contained.
 
 If you receive an Exclude-style SVG from Figma, ask for a flattened re-export.
+
+**Vector geometry is never hand-authored.** Icons and marks are exported verbatim from Figma (the rebuild exports through the console bridge — see "Figma Links Are Read Through the MCP"); the only permitted edit is normalizing paint to `currentColor` where the icon tints with text. Shapes with no vector geometry — dots, plain circles and squares — are built as CSS with token fills instead of exported files: the rule protects geometry, and a circle has none. (Rebuild specs 003 §6, 004 §7.)
 
 ---
 
@@ -480,6 +514,7 @@ Approved reasons:
 - The image is part of a *layered SVG composition* inside a transform-scaled mock (see ScaledMockCard below). `next/image`'s lazy-loading and srcset machinery interact badly with the transform stack.
 - The image is a `data:` URI generated at runtime.
 - The source is a same-origin SVG and `next/image` rejects it for unrelated reasons.
+- The image is an **art-directed tier set** — the crops differ per band, so the frames render as `<picture>` with one media-gated `<source>` per tier, explicit width/height, and the smallest tier as the `<img>` fallback (the rebuild carousel pattern, spec 006 §5). Tiers are art direction, not resolution steps; cut each at 2× its band's rendered frame size. `<source media>` is viewport-based and may lag the container band by a scrollbar width near a band edge — accepted as a density-only effect; geometry stays CSS-driven.
 
 Every `eslint-disable` for `no-img-element` carries a justifying comment. If an entire file is exempt for the same reason (e.g. a section that is mostly `ScaledMockCard` instances), write the explanation **once** as a block comment at the top and let the inline disables stand as bookkeeping. Dozens of identical disable comments without explanation means the rule is being treated as a nuisance — fix the cause or document at the file level.
 
@@ -525,6 +560,19 @@ Define once. Reference everywhere. No raw numbers above `3` in component files. 
 
 ---
 
+## Motion Grammars (rebuild)
+
+Rebuild motion is a vocabulary of named grammars, not per-section improvisation. The global grammars live in `design-system/v2/tokens/motion.css`, each with a prose definition in the file: **draw-down** (a box's bottom edge draws to its target height, content revealed by the moving clip edge), **fade-rise**, the **chip wipe**, the **carousel slide**.
+
+- **Reuse before inventing.** A new section reaches for an existing grammar first. A genuinely new grammar is named, defined in prose, and specced.
+- **Design supplies intent; the spec chooses values.** Motion intent arrives from design in plain language; durations, curves, and staggers are chosen in the spec and approved with it.
+- **Constants are born in the component token layer and promote at their second consumer** — to `tokens/motion.css`, values unchanged. (Spec 004 deferred the drawer constants; spec 005 promoted them, exactly as planned.)
+- **Alias, never fork curves.** A grammar that wants an existing curve aliases its token (the rise ease aliases the drawer ease-out).
+- **Open/close asymmetry.** Opens run the ease-in-out curve; closes run the ease-out. A hard shadow never paints while its box moves: the offset grows from 0,0 after the box lands and drops at once on close.
+- **`prefers-reduced-motion: reduce` renders every grammar state-to-state** — no transitions, no timers, elements born in their settled state. A no-JS render shows the same settled state.
+
+---
+
 ## Public Asset Naming & The Media Registry
 
 Static media lives under `/public/media/`, organized by **function** (what the asset _is_), not by the page that uses it — so the same file can be referenced from anywhere without duplication. Folders are subject-based for content (`/public/media/product-screens/`, `/public/media/social-proof/`, `/public/media/showcase-cards/`, `/public/media/hero/`, `/public/media/channels/`, `/public/media/value-props/`) and component-named for chrome (`/public/media/footer/`, `/public/media/lead-capture/`, `/public/media/pricing/`). Brand marks live in `/public/media/brand/`, fonts in `/public/media/fonts/`. Only site metadata kept at the public root for tooling conventions is exempt: favicons, `og-image.png`, and `site.webmanifest`.
@@ -543,22 +591,32 @@ When an asset is replaced or made redundant, delete it (and its registry entry).
 
 ## Responsive-Native
 
-One mobile↔desktop boundary, used app-wide:
+Two responsive systems coexist while the rebuild replaces the old site.
 
-| Breakpoint | Width | Tailwind prefix |
-|------------|-------|-----------------|
-| Mobile | < 985 px | (base) |
-| Desktop | ≥ 985 px | `md:` (redefined from 768 px in `tokens.css`) |
+**Rebuild (v2) — five anchors on the global grid.** The design exists at five anchor widths (384 · 576 · 768 · 960 · 1344); the tick is the page container's width ÷ 12. Base CSS is the 384 design (mobile-first); four band switches (`rs` · `rt` · `rd1` · `rd2`) are gated by **container queries** on the page container — never media queries — so structure switches and interpolation weights read the same width. Above 1344 everything rides the tick (pure zoom, uncapped); below 384 the base band's interpolation extrapolates downward. JavaScript that needs the current band measures the container (ResizeObserver), never `matchMedia`. Mechanics: `docs/rebuild/reference/GRID-SPEC.md` (v5) as amended by rebuild spec 002; the laws that emerged in the build are in "Grid & Type Laws (rebuild)" below. Every section is verified at all five anchors and at a mid-band width per band, scrollbar forced on.
 
-The whole site hands off at **985 px** — sections, JS `matchMedia` gates, `<source media>` video swaps, and `@media` queries all switch there together. Tablets / iPad portrait fall in the mobile range; there is no tablet-specific layout. A secondary **1280 px** tier (hand-written `@media`, no utility prefix) only refines proportions toward the 1440 px Figma; it never swaps layouts. The lead-capture modal is the sole exception (640 / 1024 px, from its Figma spec). Full detail in `docs/explainers/responsive.md`.
+**Old site — the 985 px boundary.** The old-brand pages (shipping from `main`) hand off mobile↔desktop at **985 px** app-wide (`md:` is redefined from 768 px in `tokens.css`); a secondary 1280 px tier refines proportions toward the 1440 px Figma and never swaps layouts; the lead-capture modal is the sole exception (640 / 1024 px). Old-site design starts from the 1440 px desktop Figma and adapts down. Full detail in `docs/explainers/responsive.md`. Don't introduce new cutoffs in old-site code.
 
-- Design from the **desktop** (Figma is 1440 px wide), then adapt down.
-- Test every section below **and** above 985 px (and at the 1280 px refinement) before considering it done.
+Both systems:
+
 - Never use fixed pixel widths that overflow on mobile.
-- Text scales gracefully — 216 px headlines need deliberate reductions on tablet/mobile.
-- Don't introduce a new cutoff for a single component — reach for the 985 px boundary.
+- Text scales gracefully — large headlines need deliberate reductions down-band.
 - Touch targets are at least 44 × 44 px on mobile.
-- No hover-only interactions; every state must work on touch.
+- No hover-only interactions; every state must work on touch. Hover styles sit under hover-capable media.
+
+---
+
+## Grid & Type Laws (rebuild)
+
+Laws discovered while building specs 002–006. GRID-SPEC.md v5 (as amended by spec 002) remains the normative mechanics; these govern on top of it. Refer to them by name.
+
+- **Hold-then-switch.** Interpolation runs between a band's two anchors only when both carry the same structure. When a band boundary is also a structural switch, the shared-anchor pair breaks: type holds its last designed value across the band and switches with the structure at the gate. (Footer accordion type across `rs`, spec 004 §9; hero subhead at 768, spec 006 §3.)
+- **Size and line-height interpolate; weight and tracking are band constants**, restated per band and switching only at band boundaries.
+- **The tick wins.** A whole-tick box height governs over its declared padding sum. Where designed content hugs shorter than the tick height, the slack compresses padding or sits as clear space; content stays anchored per the spec. (Spec 004 §5; spec 005 §5.)
+- **Derived states.** When design supplies one archetype state, siblings derive as the smallest whole-tick height that fits their content at the band's internals. The derivation rule is written in the spec and sanctioned by design. (Spec 004 §5.)
+- **Audits at rest.** Mid-flight motion may be transiently fractional-tick by design; the stack-sum and landmark audits are asserted at rest in every state.
+- **Material vs. tick-riding vs. overlay chrome.** Primitives are material: fixed px per size variant, never band-aware. Sections choose the size variant per band and own each instance's width. Overlay chrome (the nav) never participates in a section's tick stack.
+- **Rendered truth over metadata.** Every landmark is verified against rendered bounds, never Figma metadata x/y — see "Figma Links Are Read Through the MCP".
 
 ---
 
@@ -772,5 +830,7 @@ This rule does not block refactoring of internal code: utility modules, helper f
 The site has grown from the single-page splash (Figma node `915:2616`) into a full multi-page marketing site driven by the central design system. The homepage plus the nav-linked inner pages — about (and team, careers), services, contact, faq, testimonials, social-media, locations, blog, how-it-works — are **live** and built on the design system.
 
 Pages under `app/` that nothing links to are still intentional orphans (landing pages, external links, SEO). Don't delete them, don't link to them, and don't re-skin them unless asked — but they may be brought onto the design system when their turn comes.
+
+**The rebuild** replaces the old-brand site described above with the new-brand site (sitemap: Home · Our Work · Solutions · Pricing · Company · Resources), built phase by phase under `design-system/v2/` per [`docs/rebuild/plan.md`](../rebuild/plan.md). The old-brand pages remain live from `main` and untouched here until cutover. The rebuild's dev routes (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero`, `/home-fixture`) are permanent and noindexed; `/home-fixture` is promoted to `/` at Phase 6 cutover.
 
 See [`docs/specs/001_splash_page_alpha.md`](../specs/001_splash_page_alpha.md) for the original splash scope and [`docs/explainers/design-system.md`](../explainers/design-system.md) for the current architecture.

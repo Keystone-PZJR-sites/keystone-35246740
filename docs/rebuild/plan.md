@@ -73,6 +73,23 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   supersession banner atop `rules.md`, a rebuild-first pointer in the README,
   and a repo-root `AGENTS.md` routing agents here.
 
+## Decision log — 2026-08-25
+
+- **The rules revision landed** (`docs/rules/rules.md`). The "Rules deltas"
+  below are folded in, plus the laws and practices specs 002–006
+  accumulated: the grid/type laws (hold-then-switch, the tick wins,
+  derived states, audits at rest, band-constant weight/tracking, the
+  material/tick-riding/chrome taxonomy), the motion-grammar policy
+  (reuse before inventing, promotion at second consumer, alias-never-fork,
+  open/close asymmetry, reduced-motion state-to-state), the Figma
+  verification protocol (metadata blind spots, rendered bounds through
+  the console bridge, stroke-alignment artifacts, the flag→fix→re-read
+  loop, pre-build token re-extraction), the rebuild spec conventions
+  (template, acceptance preamble, dev route per spec, island/bundle
+  criteria), the amendment protocol for post-approval changes, the
+  CSS-dot precedent, and the art-directed image-tier doctrine.
+  `AGENTS.md` carries the agent-facing digest.
+
 ## Phasing
 
 Each phase covers **all five anchors** and is done only when its spec's
@@ -200,10 +217,10 @@ carousel forward/back buttons). Three consequences:
    Figma reconciliation is needed; the earlier "diagonal" reading was the
    stale-metadata artifact of point 2.
 
-## Rules deltas (to fold into the rules revision)
+## Rules deltas (folded into the rules revision, 2026-08-25)
 
-Old-brand facts the current `docs/rules/rules.md` encodes that the rebuild
-replaces:
+Old-brand facts the pre-revision `docs/rules/rules.md` encoded that the
+rebuild replaces — kept as the record of what the revision changed:
 
 - Single 985px breakpoint → five anchors, four container-query band switches,
   mobile-first (384 base).
