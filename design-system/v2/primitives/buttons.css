@@ -76,7 +76,8 @@
 .btn-fill[data-size="sm"] {
   height: 36px;
   padding-block: var(--space-sm);
-  padding-left: var(--space-lg);
+  /* +2px optical left pad on sm (design direction 2026-08-25) */
+  padding-left: var(--btn-fill-pad-14);
   padding-right: var(--btn-fill-pad-10);
   --_font: var(--ts-text-sm-light-font);
   --_ls: var(--ts-text-sm-light-ls);
@@ -95,7 +96,8 @@
   padding-right: var(--space-md);
 }
 .btn-fill[data-size="sm"][data-shape="box"] {
-  padding-left: var(--btn-fill-pad-10);
+  /* +2px optical left pad on sm (design direction 2026-08-25) */
+  padding-left: var(--space-lg);
   padding-right: var(--space-md);
 }
 
@@ -119,9 +121,15 @@
   .btn-fill:hover {
     background: var(--_bg-hover);
   }
+  .btn-fill:hover .btn-glyph {
+    left: var(--btn-glyph-slide);
+  }
 }
 .btn-fill[data-state="hover"] {
   background: var(--_bg-hover);
+}
+.btn-fill[data-state="hover"] .btn-glyph {
+  left: var(--btn-glyph-slide);
 }
 .btn-fill:focus-visible,
 .btn-fill[data-state="focus"] {
@@ -140,6 +148,17 @@
   display: inline-flex;
   flex: none;
   color: var(--_glyph);
+  /* the arrow-slide hover (the Login grammar): the glyph moves right,
+     the hugging box never changes size — on the resting rule so
+     mouse-out reverses on the same curve. A relative left offset, not
+     translate: starting a translate transition promotes the glyph to a
+     compositor layer whose creation re-rasters the pill mid
+     background-transition — a visible flicker (2026-08-25; survives
+     will-change). left paints in place; a 2px nudge on a 10px glyph
+     costs nothing. */
+  position: relative;
+  left: 0;
+  transition: left var(--btn-glyph-slide-dur) var(--motion-hover-ease);
 }
 
 /* ---------------- button-ghost (90:8297) ---------------- */
@@ -257,6 +276,12 @@
   background: var(--_bg);
   color: var(--_glyph);
   flex: none;
+  /* the hover pass-through (design direction 2026-08-25): the arrow
+     slides off the right edge and back on through the left. The circle
+     clips the travel; the exit distance is where the glyph's trailing
+     edge clears the circle's edge. */
+  overflow: clip;
+  --_thru: calc((var(--_d) + var(--_g)) / 2);
 }
 .btn-arrow[data-size="lg"] {
   --_d: 40px;
@@ -273,6 +298,32 @@
 .btn-arrow svg {
   width: var(--_g);
   height: var(--_g);
+  /* relative left, not transform — same no-compositor rule as
+     .btn-glyph; also keeps clear of the loading spin's transform */
+  position: relative;
+  left: 0;
+}
+/* out the right, back in through the left; the mid jump is hidden
+   outside the clip. Per-segment curves: accelerate off, brake in.
+   Literal beziers — var() cannot reach keyframe timing functions
+   (verified 2026-08-25; the segments fell back to `ease`). Exit is
+   the mirror of --motion-drawer-ease; entry is --motion-drawer-ease
+   itself — keep all three in sync. */
+@keyframes btn-arrow-thru {
+  0% {
+    left: 0;
+    animation-timing-function: cubic-bezier(0.64, 0, 0.78, 0);
+  }
+  50% {
+    left: var(--_thru);
+  }
+  50.001% {
+    left: calc(-1 * var(--_thru));
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    left: 0;
+  }
 }
 
 .btn-arrow[data-chrome="teal"] {
@@ -298,9 +349,15 @@
   .btn-arrow:not(:disabled):not([data-loading]):hover {
     background: var(--_bg-hover);
   }
+  .btn-arrow:not(:disabled):not([data-loading]):hover svg {
+    animation: btn-arrow-thru var(--btn-arrow-thru-dur);
+  }
 }
 .btn-arrow[data-state="hover"] {
   background: var(--_bg-hover);
+}
+.btn-arrow[data-state="hover"] svg {
+  animation: btn-arrow-thru var(--btn-arrow-thru-dur);
 }
 .btn-arrow:focus-visible {
   outline: none;
@@ -323,9 +380,11 @@
 @media (prefers-reduced-motion: reduce) {
   .btn-fill,
   .btn-ghost,
-  .btn-arrow {
+  .btn-arrow,
+  .btn-fill .btn-glyph {
     transition-duration: 0s;
   }
+  .btn-arrow svg,
   .btn-arrow[data-loading] svg {
     animation: none;
   }

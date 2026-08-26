@@ -8,15 +8,37 @@
      always-on state ring; colors are per component state. */
   --ring-w: 4px;
 
-  /* button-fill's two non-token constants (spec 003 §2): the 10px
-     vertical padding on xl/lg, and the 10px horizontal step on sm. */
+  /* button-fill's non-token constants (spec 003 §2): the 10px vertical
+     padding on xl/lg, and the 10px horizontal step on sm. The 14px is
+     the sm pill's left padding — design added 2px of optical left pad
+     to the sm sizes 2026-08-25 (the sm box takes --space-lg). */
   --btn-fill-pt: 10px;
   --btn-fill-pad-10: 10px;
+  --btn-fill-pad-14: 14px;
 
   /* Hover in and out. On the resting rule so both directions ease.
      Named properties only — never transition: all. */
   --motion-hover-duration: 150ms;
   --motion-hover-ease: ease-in-out;
+
+  /* The arrow-slide hover (the Login grammar, specs 004 §4 / 005 §6.2;
+     extended to button-fill 2026-08-25): the arrow glyph offsets right
+     (relative left, not translate — see buttons.css) by the
+     label→arrow gap delta — the hugging box never changes size.
+     Distance and duration alias the grammar's existing constants;
+     never fork. */
+  --btn-glyph-slide: calc(var(--fitem-gap-hover) - var(--fitem-gap));
+  --btn-glyph-slide-dur: var(--knav-ink-dur);
+
+  /* button-arrow's hover pass-through (design direction 2026-08-25):
+     the arrow exits the right edge and re-enters through the left,
+     clipped by the circle — one run per hover, half out, half in.
+     Thrown, not carried: the exit accelerates on the mirror of the
+     drawer ease-out (reflected (0.22,1,0.36,1)), the entry brakes on
+     the ease-out itself — it leaves the way it arrives, reversed.
+     The curves live as literals in the buttons.css keyframes: var()
+     cannot reach keyframe timing functions. */
+  --btn-arrow-thru-dur: 500ms;
 
   /* footer-item's non-token constants (spec 004 §4/§7): the 3px
      label→arrow gap (5 on hover) and the focus bar's 3px side
