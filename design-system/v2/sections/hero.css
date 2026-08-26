@@ -484,6 +484,26 @@
 .hx-chip[data-chip="content"] { --_cd: calc(var(--hx-d-pass) + 4 * var(--motion-chip-stagger)); }
 .hx-chip[data-chip="follow-ups"] { --_cd: calc(var(--hx-d-pass) + 5 * var(--motion-chip-stagger)); }
 
+/* ---- settled (the orchestrator's end-of-run mark): once the last
+   beat lands, the choreography animations turn off so band-gated
+   elements re-entering display do not restart them — without this,
+   resizing across a gate replayed the whole load choreography.
+   animation: none is visually a no-op here (every animation has
+   completed and the settled state is the natural one). ---- */
+
+.page.v2-settled .grid-region,
+.page.v2-settled .decor,
+.page.v2-settled .grid-region i.v,
+.page.v2-settled .grid-region i.h,
+.page.v2-settled .knav-bar,
+.page.v2-settled .knav-mbar,
+.page.v2-settled .hx-rise,
+.page.v2-settled .hx-frame:nth-child(-n + 2),
+.page.v2-settled .hx-chip::before,
+.page.v2-settled .hx-chip-label {
+  animation: none;
+}
+
 /* ---- reduced motion (§6): state-to-state — no sweep, no fade-rise,
    chips born branded, the carousel holds (the island runs no timers).
    The dev toggle's data-motion attribute mirrors the media query. ---- */
