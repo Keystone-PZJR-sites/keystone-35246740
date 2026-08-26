@@ -45,6 +45,50 @@ export function heroCarouselSrc(frame: number, cut: HeroCarouselTier["cut"]): st
   return `/media/hero-carousel/hero-${String(frame).padStart(2, "0")}-${cut}.webp`;
 }
 
+/* ---- portfolio gallery (spec 007 §5) ----
+ * 40 verbatim WebP exports (supplied 2026-08-26): eight sites in five
+ * width tiers, each exactly 2× its anchor's thumbnail interior. Art
+ * direction, not resolution steps (crops differ per band): cards render
+ * as <picture> with one media-gated <source> per tier, largest-first,
+ * the 384 file as the <img> fallback. The 1344 tier serves down to 1152
+ * (decision 2026-08-26 — no mid-rd1 cut). */
+
+/** Export order 01–08; index + 1 is the file number. The names ship as
+ * the images' alt text (spec 007 §9 R12). */
+export const PORTFOLIO_SITES = [
+  "Palm Coast Zivel",
+  "Lune Bodywork",
+  "x2o Studio",
+  "DreFadez",
+  "Your Health Solutions",
+  "Miriam Merin, LCSW",
+  "House of Aesthetics",
+  "X2Talent",
+] as const;
+
+export interface PortfolioTier {
+  cut: 384 | 576 | 768 | 960 | 1344;
+  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
+  media: string | null;
+  width: number;
+  height: number;
+}
+
+/** Largest-first, ready for <source> order; the last entry is the
+ * 384 fallback. */
+export const PORTFOLIO_TIERS: PortfolioTier[] = [
+  { cut: 1344, media: "(min-width: 1152px)", width: 640, height: 1088 },
+  { cut: 960, media: "(min-width: 960px)", width: 448, height: 768 },
+  { cut: 768, media: "(min-width: 768px)", width: 352, height: 608 },
+  { cut: 576, media: "(min-width: 576px)", width: 352, height: 544 },
+  { cut: 384, media: null, width: 576, height: 736 },
+];
+
+/** portfolio-{01–08}-{tier}.webp under public/media/portfolio. */
+export function portfolioSrc(site: number, cut: PortfolioTier["cut"]): string {
+  return `/media/portfolio/portfolio-${String(site).padStart(2, "0")}-${cut}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
