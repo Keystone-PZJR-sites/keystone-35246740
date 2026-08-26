@@ -120,16 +120,6 @@
   /* the grid circles ride ease-in-out; the shadow keeps the ease-out */
   --knav-card-slide-ease: var(--motion-drawer-ease-open);
 
-  /* hero constants (spec 006 §7) — material facts of the section the
-     token layers do not carry. Header block y offsets are per-band
-     content-layer constants (67/99/88/144/152); the rm inset is 16
-     (= t/2 at the anchor, but a designed constant). */
-  --hx-head-top-rm: 67px;
-  --hx-head-top-rs: 99px;
-  --hx-head-top-rt: 88px;
-  --hx-head-top-rd1: 144px;
-  --hx-head-top-rd2: 152px;
-  --hx-inset-rm: 16px;
   /* wordmark-in-subhead size (§3). The per-anchor node sizes are one
      art at a fixed ratio to the type: 16.0625/20 · 14.49/18 ·
      19.23/24 ≈ 0.8031em tall, 79.1255/20 ≈ 3.9563em wide (anchors
@@ -148,18 +138,8 @@
   /* rt subhead constants (§9 F7): designed values, not tokens */
   --hx-gap-inline-rt: 5px;
   --hx-chip-lh-rt: 24px;
-  /* the rm/rs subhead block is a designed 384 wide (nodes 500:24680 ·
-     506:4396, read 2026-08-25) — the natural-wrap constraint that puts
-     "everything…" and "follow-ups…" on the second lines. Unset at rt+
-     (single lines). */
-  --hx-sub-maxw: 384px;
   /* rt CTA top gap (§4): 56 has no spacing token — a material constant */
   --hx-cta-top-rt: 56px;
-  /* rm/rs CTA row offset below the subhead top: the designed subhead
-     block height (122, nodes 500:24680 · 506:4396) + the 40 top gap
-     (§4). The CTA rides the subhead's tick anchor so the two never
-     cross mid-band; at the anchors it lands exactly on §1's 738/834. */
-  --hx-cta-sub-drop: 162px;
   /* load choreography (§6): the page-wide sweep, the nav's drop, and
      the per-element fade-rise delays. 006 owns the orchestrator; later
      sections inherit these. */
@@ -246,4 +226,30 @@
   --knav-dot-morph-out-dur: 600ms;
   --knav-dot-morph-out-ease: var(--motion-drawer-ease-open);
   --knav-dot-rotation: 180deg;
+}
+
+/* Tick-riding component constants (spec 002.r1 units). These reference
+   --t and the band weights, which live on .page — a custom property
+   resolves its inner var()s where it is declared, so these cannot live
+   on :root. Content-layer geometry rides the tick as exact anchor
+   ratios (byte-identical at the anchors, proportional in the zoom
+   slices); wrap-pinning text-column widths ride the weights (v5 §2) so
+   the box tracks the type and the designed rag holds in every zone.
+   True material (buttons, icons, marks) stays px above. */
+.page {
+  /* hero header y offsets (67/99/88/144/152 at their anchors) and the
+     rm inset (16 = t/2) */
+  --hx-head-top-rm: calc(var(--t) * 67 / 32);
+  --hx-head-top-rs: calc(var(--t) * 99 / 48);
+  --hx-head-top-rt: calc(var(--t) * 88 / 64);
+  --hx-head-top-rd1: calc(var(--t) * 144 / 80);
+  --hx-head-top-rd2: calc(var(--t) * 152 / 112);
+  --hx-inset-rm: calc(var(--t) / 2);
+  /* the rm/rs subhead wrap box (a designed 384, nodes 500:24680 ·
+     506:4396) — a text column, carried by the weights */
+  --hx-sub-maxw: calc((var(--wA) + var(--wB)) * 384);
+  /* the CTA drop below the subhead top: the designed 122 text height
+     rides the weights (v5 §2's flow-margin corollary); the 40 top gap
+     stays material */
+  --hx-cta-sub-drop: calc((var(--wA) + var(--wB)) * 122 + 40px);
 }

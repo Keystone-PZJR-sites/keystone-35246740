@@ -37,7 +37,9 @@
   position: absolute;
   top: var(--hx-head-top-rm);
   left: var(--hx-inset-rm);
-  right: 32px;
+  /* 32 at the rm anchor = 1t — tick-riding (spec 002.r1 units) so the
+     H1's wrap box scales with its type */
+  right: var(--t);
 }
 @container (min-width: 470px) {
   .hx-head { top: var(--hx-head-top-rs); left: var(--t); right: calc(2 * var(--t)); }
@@ -62,13 +64,13 @@
   display: block;
   width: 72px;
   height: 15px;
-  margin-bottom: 16px;
+  /* 16 at rm and 24 at rs are both exactly t/2 — one tick-riding rule
+     replaces the two band constants (spec 002.r1 units); the mark
+     itself stays material */
+  margin-bottom: calc(var(--t) / 2);
   background: var(--color-text-200);
   -webkit-mask: url("/media/brand/ks-wordmark-sm.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-wordmark-sm.svg") center / contain no-repeat;
-}
-@container (min-width: 470px) {
-  .hx-wm-head { margin-bottom: 24px; }
 }
 @container (min-width: 665px) {
   .hx-wm-head { display: none; }
@@ -121,9 +123,13 @@
   color: var(--color-text-200);
   --fs0: 20; --fs1: 20; --lh0: 26; --lh1: 26;
   --clh0: 26; --clh1: 26;
-  --hx-gap-inline: 6px;
+  /* Line-internal spacing rides the type in em (spec 002.r1 units —
+     exact anchor ratios, 6/20 and 4/20 here), like the in-subhead
+     wordmark: fixed px overhead at zoomed type shifted the designed
+     rag. Row gaps are vertical rhythm and stay px. */
+  --hx-gap-inline: 0.3em;
   --hx-gap-row: 6px;
-  --hx-chip-px: 4px;
+  --hx-chip-px: 0.2em;
 }
 @container (min-width: 470px) {
   .hx-sub { top: calc(var(--t) * 14 - var(--hx-head-top-rs)); }
@@ -135,17 +141,20 @@
     max-width: none;
     --fs0: 18; --fs1: 20; --lh0: 26; --lh1: 26;
     --clh0: 24; --clh1: 26;
-    --hx-gap-inline: var(--hx-gap-inline-rt);
+    /* 5/18 and 4/18 at the rt anchor (§9 F7's designed 5 held in em) */
+    --hx-gap-inline: 0.2778em;
     --hx-gap-row: 4px;
+    --hx-chip-px: 0.2222em;
   }
 }
 @container (min-width: 860px) {
   .hx-sub {
     --fs0: 20; --fs1: 24; --lh0: 26; --lh1: 32;
     --clh0: 26; --clh1: 32;
-    --hx-gap-inline: 6px;
+    /* 6/20 and 6/20 at the rd1 anchor */
+    --hx-gap-inline: 0.3em;
     --hx-gap-row: 8px;
-    --hx-chip-px: 6px;
+    --hx-chip-px: 0.3em;
   }
 }
 @container (min-width: 1130px) {
@@ -153,7 +162,9 @@
     margin-top: 48px;
     --fs0: 24; --fs1: 24; --lh0: 32; --lh1: 32;
     --clh0: 32; --clh1: 32;
-    --hx-chip-px: 8px;
+    /* 6/24 and 8/24 at the rd2 anchor */
+    --hx-gap-inline: 0.25em;
+    --hx-chip-px: 0.3333em;
   }
 }
 
