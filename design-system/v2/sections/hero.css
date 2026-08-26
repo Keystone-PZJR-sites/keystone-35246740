@@ -182,25 +182,16 @@
    and the y's descender hangs below — x-height then matches the prose
    at every size. */
 .hx-wm {
-  --_wmw: var(--hx-wm-w);
-  --_wmh: var(--hx-wm-h);
   position: relative;
-  top: calc(var(--_wmh) * var(--hx-wm-drop));
+  top: calc(var(--hx-wm-h) * var(--hx-wm-drop));
   display: inline-block;
-  width: var(--_wmw);
-  height: var(--_wmh);
+  /* em-sized: rides the interpolated type at every band (see the
+     component token note) */
+  width: var(--hx-wm-w);
+  height: var(--hx-wm-h);
   background: var(--color-text-200);
   -webkit-mask: url("/media/brand/ks-wordmark-inline.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-wordmark-inline.svg") center / contain no-repeat;
-}
-@container (min-width: 768px) {
-  .hx-wm { --_wmw: var(--hx-wm-w-rt); --_wmh: var(--hx-wm-h-rt); }
-}
-@container (min-width: 960px) {
-  .hx-wm { --_wmw: var(--hx-wm-w); --_wmh: var(--hx-wm-h); }
-}
-@container (min-width: 1344px) {
-  .hx-wm { --_wmw: var(--hx-wm-w-rd2); --_wmh: var(--hx-wm-h-rd2); }
 }
 
 /* ---- chips (§3): fill the brand color, radius-xs, padding-x per

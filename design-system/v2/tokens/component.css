@@ -107,13 +107,15 @@
   --hx-head-top-rd1: 144px;
   --hx-head-top-rd2: 152px;
   --hx-inset-rm: 16px;
-  /* wordmark-in-subhead sizes (§3): scaled to the type per band */
-  --hx-wm-w: 79.13px;
-  --hx-wm-h: 16.06px;
-  --hx-wm-w-rt: 71.37px;
-  --hx-wm-h-rt: 14.49px;
-  --hx-wm-w-rd2: 94.75px;
-  --hx-wm-h-rd2: 19.23px;
+  /* wordmark-in-subhead size (§3). The per-anchor node sizes are one
+     art at a fixed ratio to the type: 16.0625/20 · 14.49/18 ·
+     19.23/24 ≈ 0.8031em tall, 79.1255/20 ≈ 3.9563em wide (anchors
+     agree within their own export rounding, ≤0.05px). Em sizing rides
+     the interpolated type, so the mark tracks the prose at mid-band
+     widths and through the zoom — fixed per-band px lagged the type
+     above 768 (fixed 2026-08-25). */
+  --hx-wm-w: 3.9563em;
+  --hx-wm-h: 0.8031em;
   /* the inline cut's baseline: flat letter bottoms at y 13.003 of the
      16.0625 art box (measured from the node 506:4400 export's path
      data) — 19.045% of the art hangs below the baseline (the y's
