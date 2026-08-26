@@ -186,6 +186,52 @@
   --hx-d-sub2-m: 490ms;
   --hx-d-cta-m: 570ms;
 
+  /* grid-button (spec 007 §6) — material facts of the control the token
+     layers do not carry. The cell is tick-riding (the section owns each
+     instance's width); the inner disc/square and its glyph are material.
+     Inner sizes per cell size, forward then back; the glyph box is a
+     fixed fraction of its inner (56.8% forward, 59.8% back — set
+     geometry, read 2026-08-26). */
+  --gbtn-fwd-inner-xs: 26px;
+  --gbtn-fwd-inner-sm: 28px;
+  --gbtn-fwd-inner-md: 32px;
+  --gbtn-fwd-inner-lg: 40px;
+  --gbtn-fwd-inner-xl: 48px;
+  --gbtn-back-inner-xs: 24px;
+  --gbtn-back-inner-sm: 26px;
+  --gbtn-back-inner-md: 30px;
+  --gbtn-back-inner-lg: 38px;
+  --gbtn-back-inner-xl: 46px;
+  --gbtn-fwd-glyph: 0.568;
+  --gbtn-back-glyph: 0.598;
+  /* the xs cell is 32×32 — below the 44px touch floor; the hit area
+     extends by an inset-negative pseudo-element (spec 007 §6) */
+  --gbtn-hit-extend: -6px;
+
+  /* portfolio constants (spec 007 §8.6). The inactive shell fill is
+     deliberate and its own value, not an alias of bg/300 (§9 R11). The
+     inactive filter + opacity replace the file's luminosity blend
+     ("CSS Transition Constraints"). Tuned at build QA 2026-08-26
+     against the exact luminosity composite (canvas grid search over
+     all eight exports): brightness 0.97 → 0.98, mean delta 1.5/255. */
+  --pf-card-inactive-bg: rgba(234, 232, 224, 0.5);
+  --pf-inactive-filter: grayscale(1) sepia(0.1) brightness(0.98);
+  --pf-inactive-opacity: 0.8;
+  /* curtain-reveal entrance (spec 007 §7.1): component-born constants,
+     promote to tokens/motion.css at a second consumer. The entrance
+     gates on the gallery window's visible fraction (amendment
+     2026-08-26, §9 R20 — the section-level gate opened on the header
+     alone); the island reads the band's value from computed style.
+     The base band opens earlier (0.18 — design direction 2026-08-26,
+     §9 R22: portrait devices held the reveal too long at 0.25). */
+  --pf-enter: 0.25;
+  --pf-enter-rm: 0.18;
+  --pf-frame-dur: 450ms;
+  --pf-frame-scale: 0.985;
+  --pf-stagger: 120ms;
+  --pf-curtain-dur: 700ms;
+  --pf-curtain-delay: 350ms;
+
   /* solutions subitem hover: the bg/100 highlight fades on the
      ease-out; the dot morphs circle → square while rotating its
      corners out and locking into place (180deg reads intentional;
