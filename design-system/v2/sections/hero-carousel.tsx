@@ -75,6 +75,11 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       track.classList.remove("hx-snap");
     };
 
+    /* the hero pause (spec 007 §7.4): while the portfolio section
+       intersects the viewport, no new slide schedules — the flag guards
+       every schedule path so two carousels are never in motion at once */
+    let portfolioVisible = false;
+
     const clear = () => {
       if (timer !== undefined) window.clearTimeout(timer);
       if (snapTimer !== undefined) window.clearTimeout(snapTimer);
@@ -99,6 +104,7 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
 
     const schedule = (delay: number) => {
       clear();
+      if (portfolioVisible) return;
       timer = window.setTimeout(advance, delay);
     };
 
@@ -120,14 +126,33 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       snapHome();
       if (!reduced() && !document.hidden) schedule(firstAdvance);
     };
+    /* spec 007 §7.4: the portfolio island dispatches these from its
+       IntersectionObserver. Visible → clear (a mid-flight slide
+       finishes, no new one schedules); hidden → reschedule at one
+       dwell, same as the visibility-resume path. */
+    const onPortfolioVisible = () => {
+      portfolioVisible = true;
+      /* only the advance timer — a pending wrap snap (invisible, no
+         transition) must still land or the track rests on the clones */
+      if (timer !== undefined) window.clearTimeout(timer);
+      timer = undefined;
+    };
+    const onPortfolioHidden = () => {
+      portfolioVisible = false;
+      if (!reduced() && !document.hidden) schedule(dwell);
+    };
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("v2:replay", onReplay);
+    window.addEventListener("v2:portfolio-visible", onPortfolioVisible);
+    window.addEventListener("v2:portfolio-hidden", onPortfolioHidden);
 
     return () => {
       cancelled = true;
       clear();
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("v2:replay", onReplay);
+      window.removeEventListener("v2:portfolio-visible", onPortfolioVisible);
+      window.removeEventListener("v2:portfolio-hidden", onPortfolioHidden);
     };
   }, []);
 
