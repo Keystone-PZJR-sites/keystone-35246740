@@ -20,6 +20,21 @@
   width: 100%;
   height: calc(var(--t) * 19);
 }
+
+/* the designed section-top rule (§2 amended 2026-08-26 — §9 R26): the
+   anchor frames carry a top-only 1px border/000 stroke; full width at
+   every band. Chrome level (z −1, with the lattice) so content passes
+   over it; where the rail's row-0 tops meet it they share pixels. */
+.pf-toprule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 1px;
+  background: var(--color-border-000);
+  pointer-events: none;
+}
 @container (min-width: 470px) {
   .v2-portfolio { height: calc(var(--t) * 11); }
 }

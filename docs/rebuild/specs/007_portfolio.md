@@ -107,6 +107,17 @@ the known grid auto-layout staleness; the table above is rendered truth
 and **supersedes the gallery-pair positions recorded in plan.md** from the
 2026-08-22 audit (768/960/1344 have since moved — §9).
 
+*Amended 2026-08-26 (§9 R26):* the section also draws a **designed top
+rule** the per-cell sweep could not see: the anchor section frames carry
+a **top-only 1px `border/000` stroke** (`strokeTopWeight` 1, the other
+sides 0; stroke-aligned center — the ±0.5px artifact class, the intended
+value is 1px on the section's first row line). It is section chrome, not
+lattice paint. Visible span: the **full 12t at every band** — the frame
+hugs the overflowing card track (1328/960/1024/1280/1792 wide) and the
+page clips it to the anchor width; where the rail's row-0 cell tops meet
+it they share the row line's pixels (v5 §4). Drawn by the section,
+`aria-hidden`.
+
 ## 3 · Header
 
 Copy at every anchor: **"It starts with a site that's worth the visit."**
@@ -611,6 +622,15 @@ design shipped them.
   470/665/860/1130; the 1344 tier serves from 1130, superseding the
   draft's 1152 decision. Density worst cases stay within the accepted
   range.
+- **R26 — the designed section-top rule was invisible to the exposure
+  read** (build erratum, flagged by design 2026-08-26): the anchor
+  frames paint a **top-only 1px `border/000` stroke on the section
+  frame itself** — chrome the per-cell stroke sweep (R13) never
+  covered, and the fixture placeholder's accidental full-width region
+  border had been standing in for it, so the line vanished when the
+  real section landed. §2 amended; the build draws it as section
+  chrome (`.pf-toprule` — full width, 1px `border/000`, `aria-hidden`,
+  under the content layer), sharing pixels with the rail's row-0 tops.
 - **R16 — the header wrap is the text box's, not the frame's**
   (build-day, 2026-08-26). §3's block widths are the header frames; the
   designed two-line wrap comes from the narrower text nodes

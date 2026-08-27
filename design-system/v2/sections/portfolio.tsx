@@ -194,6 +194,9 @@ const SITES = Array.from({ length: PORTFOLIO_SITES.length }, (_, i) => i);
 export function PortfolioSection() {
   return (
     <section className="sec v2-portfolio" aria-labelledby="pf-heading">
+      {/* the designed section-top rule (§2 amended 2026-08-26 — §9 R26):
+          the anchor frames' top-only border/000 stroke, section chrome */}
+      <i className="pf-toprule" aria-hidden="true" />
       {/* the rail (§2 amended) */}
       <div className="gx" aria-hidden="true">
         {BANDS.map((band) => [
