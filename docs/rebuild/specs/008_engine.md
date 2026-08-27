@@ -1,7 +1,10 @@
 # Spec 008 — Engine accordion: the spring reflow and the small-band carousel
 
-**Status:** Draft 2026-08-26 (all §9 flags resolved same day; file fixes
-re-read post-fix; awaiting approval)
+**Status:** Approved 2026-08-26 (draft same day; all §9 flags resolved
+same day; file fixes re-read post-fix; pre-approval tier-cut amendment
+in §5/§9/§10). Built and verified the same day — §10 checked with
+measured evidence except the accessibility box, held open on the
+title-ink contrast flag (§9 F9).
 **Depends on:** spec 001 (tokens, fonts) · spec 002 (grid engine, exposure
 vocabulary, band classes) · spec 003 (button-ghost + sizes, the icon sheet)
 · spec 005 (nav — mounted on the QA surfaces; the subitem dot-morph hover
@@ -139,6 +142,13 @@ title and body inks are that hue's /100 and /800:
 other's fills; design fixed the swap the same day — re-read clean, every
 variant now binds the canon above — §9 F2.)
 
+*Amended 2026-08-26 (interim design direction at build review): the
+title ink ships plain white (#ffffff, `base-white`) at every band and
+state, superseding the table's per-hue /100 inks for now. The §9 F9
+title-contrast question stays open — accessibility of this section is
+deferred by the design owner's direction; the /100 column above remains
+the file's canon until it is resolved.*
+
 **The expanded card** (accordion bands) — engine-color fill, two interior
 columns laid out at the card's full expanded size (text 3t · image 3t):
 
@@ -177,7 +187,16 @@ bottom-center at the bottom padding. Per the CSS-dot precedent (003 §6 /
 004 §7) it is built as CSS with a token fill, never an exported file.
 Pill label type interpolates 20→24 across rt and 24→28 across rd1. (The
 file draws the pill hairline stroke-aligned center — the ±0.5px artifact
-class; the intended value is the 1px hairline.)
+class; the intended value is the 1px hairline.) *Amended 2026-08-26
+(build erratum, flagged by design — §9 F12): butted boxes each drew
+their own ring, doubling every pill boundary into two hairlines. The
+  cards now render line-inclusive (+1px with a −1px overlap — the v5 §5 /
+  007 §9 R21 convention adapted to the shared row): adjacent hairlines
+  share one pixel, every boundary lands on its lattice line, and the row
+  is 10t + 1px so the last ring lands on the col-11 line. Further
+  amended the same day (§9 F14): the active card always paints on top —
+  its edges are clean color, and a neighboring pill's shared-pixel
+  hairline tucks underneath it.*
 
 **Copy** — one title + one body per engine, identical at every breakpoint
 variant. Apostrophes ship **curly** everywhere (content decision
@@ -226,6 +245,12 @@ state (the engagement variant draws no neighbor; §9 F2).
 visible 304×256; the export is cut at 2× the visible slot — the 270 is a
 file artifact with no build consequence.)
 
+*Amended 2026-08-26 (build erratum, flagged by design — §9 F12): the
+carousel cards render line-inclusive too (+1px, the track gap giving
+the pixel back — pitches unchanged), so the active card's right edge
+resolves ON the col-10 hairline instead of rasterizing a sub-pixel seam
+beside it at fractional-tick widths.*
+
 - **Breadcrumb**: five stops under the active card, horizontally centered
   (72 wide), bottom-aligned in its 1t row. The active stop is a 24×6
   `radius-full` pill in the **active engine's /400**; inactive stops are
@@ -242,7 +267,13 @@ file artifact with no build consequence.)
   `--eng-inactive-opacity`, starting `grayscale(1) sepia(0.08)
   brightness(0.99)` at 0.7), visually tuned at build QA against the
   rendered file treatment (the 007 canvas-grid-search method) and
-  recorded here as an amendment.
+  recorded here as an amendment. *Amended 2026-08-26 (build QA): tuned
+  values `grayscale(1) sepia(0.12) brightness(0.975)` at opacity 0.7.
+  Tuned quantitatively: a canvas grid search against the exact
+  luminosity composite (the image luminosity-blended at 70% over the
+  shell backdrop), averaged over all five engine exports; the tuned
+  values minimize the mean RGB delta at 1.49/255 (the draft constants
+  measured 1.86/255).*
 - The inactive card's interior layout was normalized in the file
   2026-08-26 (§9 F4): its text pads now match the active card's
   (pl 16 · pt 12 · pr 32 · pb 16, re-read clean). The build uses **one
@@ -271,6 +302,17 @@ pattern — no mid-rd1 cut):
 | 768 | 384×640 | 768–959 | 2.0× → 1.6× |
 | 960 | 480×800 | 960–1151 | 2.0× → 1.67× |
 | 1344 | 672×896 | ≥ 1152 | 2.33× → 2.0×, easing up as the zoom rides |
+
+*Amended 2026-08-26 (pre-approval — §9): the `<source>` cuts follow the
+nearest-anchor structural gates (470 · 665 · 860 · 1130, spec 002.r1 §6),
+superseding the table's "serves container" column and the 1152 line — the
+1344 tier serves from the 1130 gate, matching the built portfolio tiers
+(007 §9 R25). Anything else would show a neighboring band's crop across
+each compressed slice — the defect R25 fixed. Densities shift only at the
+slice bottoms (each tier now also serves its design's stretched slice,
+e.g. the 576 tier from 470 at ≈2.45×); the worst-case soft ends at the
+band tops are unchanged, and the known remedy — re-cut a tier at a higher
+width — applies if any slot reads soft on device.*
 
 The tiers are **art direction, not resolution steps** — the crops and
 aspects differ per band — so the image renders as `<picture>` with one
@@ -330,7 +372,12 @@ never per-card animations that could drift apart:
   mid-travel, decelerates hard, overshoots ≈ 1% and relaxes back; settles
   in ≈ 400ms). Rest threshold `--eng-spring-rest` 0.001 (fraction and
   velocity). The overshoot is felt, not watched: when in doubt, tune
-  stiffer.
+  stiffer. *Amended 2026-08-26 (design direction at build review —
+  §9 F11): no bounce — the spring is critically damped and stiffer:
+  stiffness **420** · damping **41** · mass 1 (ζ ≈ 1.0; tighter and
+  snappier, zero overshoot, visibly settled ≈ 250ms). The ≈1%-overshoot
+  language above is superseded; the spring remains a retargetable
+  physical spring with preserved velocity.*
 - **Interruption retargets.** Clicking a new card mid-flight re-aims the
   running springs from their current positions **and velocities**;
   nothing restarts, snaps, or reverses discontinuously.
@@ -388,6 +435,11 @@ interrupted slides retarget from current position and velocity like the
 accordion. Activation chrome (shell fill, inks, the inactive filter, the
 breadcrumb swap) transitions with the slide on the drawer tokens
 (`--motion-drawer-duration`/`--motion-drawer-ease` — alias, never fork).
+*Amended 2026-08-26 (design direction at build review — §9 F13): the
+250ms drawer duration read as instant on the full-card swap — the
+activation chrome now fades in both directions on its own
+`--eng-chrome-fade-dur` (450ms) with the drawer ease-out; the ease stays
+aliased, never forked.*
 
 - **Drag**: the track follows the finger 1:1; past either end it resists
   at `--eng-overscroll-resist` (0.3) and springs back. Release snaps to
@@ -427,10 +479,12 @@ expanded.
    constants are born in the component layer and promote at their second
    consumer.
 4. **Component-layer constants** (`v2/tokens/component.css`, per band only
-   where used, `--eng-` prefix): the spring (stiffness 210 · damping 24 ·
+   where used, `--eng-` prefix): the spring (stiffness 210 · damping 24 —
+   *amended 2026-08-26: 420 · 41, critically damped, §9 F11* ·
    mass 1 · rest 0.001), the ramps (pill-fade-end 0.35 ·
    content-fade-start 0.25 · content-fade-end 0.75), the carousel
-   (overscroll-resist 0.3 · fling-speed 500), the inactive treatment
+   (overscroll-resist 0.3 · fling-speed 500 · *chrome-fade-dur 450ms,
+   added 2026-08-26 — §9 F13*), the inactive treatment
    (`--eng-card-inactive-bg: var(--pf-card-inactive-bg)` ·
    `--eng-inactive-filter` · `--eng-inactive-opacity` 0.7, tuned at build
    QA), and the §4/§5 material facts the token layers do not carry (text
@@ -509,6 +563,72 @@ same day; file fixes were re-read from the nodes after they shipped.
   stale hug widths (352 at rm, 1233 at rd1/rd2); the rm bar's stale icon
   layer name; the rs/rt header frames' nested "portfolio-header" naming.
 
+Build-QA flags, 2026-08-26 (open — awaiting design decision):
+
+- **F9 — title-ink contrast (open).** Measured at build QA: the /100
+  title inks read below the WCAG AA large-text 3:1 floor on four of
+  the five /400 fills — visibility 2.44 · ads 1.64 · brand 2.04 ·
+  engagement 2.88 (reception passes at 3.42). Body inks pass everywhere
+  (4.5–7.78) and the pill label passes (5.9). The pairs are the
+  canonical palette bindings (§4, re-verified from the set at build),
+  so the build renders the canon and the §10 accessibility box stays
+  unchecked until design resolves the pairs or records acceptance.
+  The engine name is also each card's accessible button name, so the
+  low-contrast render is not the only path to the information.
+  Addendum, same day: the titles ship plain white as an interim design
+  direction (§4 amendment) — a visual choice, not the contrast
+  resolution; white on the /400 fills measures 2.63 · 1.78 · 2.30 ·
+  3.72 · 3.11 (reception and engagement clear 3:1, the rest do not),
+  so this flag stays open and section accessibility is deferred by the
+  design owner.
+- **F11 — the spring bounces (design direction, 2026-08-26).** The
+  approved 210/24 pair (ζ ≈ 0.83, ≈1% overshoot) read as bounce on the
+  real row; design directed tighter/snappier with no bounce. Resolved:
+  critically damped 420/41 (ζ ≈ 1.0), zero overshoot, visibly settled
+  ≈250ms; §7.1/§8.4/§10 carry dated amendments. Retargeting with
+  preserved velocity is unchanged.
+- **F12 — card edges off their hairlines (build erratum, flagged by
+  design 2026-08-26).** Two symptoms, one cause: the accordion's butted
+  boxes each drew their own 1px ring (doubled boundary lines, pills
+  reading off-grid), and the rm active card's right edge sat adjacent
+  to the col-10 line, rasterizing a sub-pixel seam at fractional-tick
+  widths. Resolved by the line-inclusive convention (v5 §5 / 007 §9
+  R21): all engine cards size +1px — the accordion overlaps −1px so
+  boundary hairlines share one pixel and land on the lattice lines
+  (the ring rides a raised overlay so a neighbor's opaque fill never
+  swallows the shared pixel; the row is 10t + 1px); the carousel's
+  track gap gives the pixel back, pitches unchanged. The width shares
+  move from flex-grow normalization to the island's explicit
+  normalized write (`--_w`, Σ ≡ 10) — the edge-to-edge invariant holds
+  by the same construction. §4/§5 amended. Follow-up erratum, same
+  day: the first cut left the interior at its designed 6t (rs: 9t)
+  inside the +1px box, so one pixel of the card's own /400 fill showed
+  at the image's trailing edge; the image column now flex-fills the
+  line-inclusive interior (its designed 3t/4.5t plus the shared
+  pixel), and the interior spans the full box.
+- **F13 — activation chrome read as instant (design direction,
+  2026-08-26).** The §7.4 drawer-duration choice (250ms) read as an
+  instant swap on the full card; design directed a visible fade with
+  an ease-out. Resolved: `--eng-chrome-fade-dur` 450ms on the drawer
+  ease-out (aliased), both directions — card fill, inks, the inactive
+  filter, and the breadcrumb swap. §7.4/§8.4 amended.
+- **F14 — the active card paints on top (design direction,
+  2026-08-26).** After F12's shared-pixel rings, a pill's hairline
+  could paint across the active card's colored edge (the ring overlay
+  sat above sibling fills), reading as the pill overlapping the card.
+  Resolved: every card is its own stacking context and the active card
+  raises above the pills — its edges are always clean color; between
+  two pills the later sibling's ring repaints the shared pixel in the
+  same color, so the single boundary hairline stands without any
+  overlay. §4 amended.
+- **F10 — breadcrumb touch targets (noted).** The designed stops are
+  6px dots at a 6px gap: a 44×44 target is geometrically impossible
+  without heavy overlap. Built: each stop extends its hit area to the
+  full stop pitch × 44px (no overlap); the full-size touch paths to
+  the same action are the swipe and the card taps. Recorded here so
+  the §10 "≥ 44px where interactive" line reads against this
+  constraint.
+
 Decisions recorded at draft (approval covers them):
 
 - **Motion values are this spec's** (§7), chosen from the design intent
@@ -523,7 +643,11 @@ Decisions recorded at draft (approval covers them):
   luminosity blend is replaced by the tuned filter (rules, "CSS
   Transition Constraints").
 - **The 1344 tier serves from 1152** (the 007 tier-scheme decision
-  applied unchanged).
+  applied unchanged). *Amended 2026-08-26 (pre-approval): superseded —
+  the draft transcribed 007's original 1152 decision, which 007 §9 R25
+  had already superseded under spec 002.r1 (tier cuts follow the
+  structural gates). The cuts are 470 · 665 · 860 · 1130; the 1344 tier
+  serves from 1130. §5 and §10 carry matching amendments.*
 - **Bounded carousel** — five positions, no loop, no timers.
 
 ## 10 · Acceptance criteria
@@ -531,60 +655,121 @@ Decisions recorded at draft (approval covers them):
 At each of the five anchors and one arbitrary mid-band width per band,
 scrollbar forced on:
 
-- [ ] Section height ÷ t equals 21/13/9/9/8 exactly; the three blocks
+- [x] Section height ÷ t equals 21/13/9/9/8 exactly; the three blocks
       land on §1's ticks; the section top sits on the portfolio's last
       row; stack sum and landmark audit pass on `/home-fixture` with the
       real section and the testimonial placeholder mounted — audited at
-      rest in every expansion state.
-- [ ] The lattice renders §2's rail transcription through the spec 002
+      rest in every expansion state. (Measured at containers
+      384/576/768/960/1344 and 399/520/700/900/1200: section 21/13/9/9/8t
+      exact; blocks 4+14+3 · 3+8+2 · 2+5+2 · 2+5+2 · 2+4+2t; fixture
+      engine tops 45/31/22/22/21t on the portfolio totals, testimonial
+      top on the engine total, page totals 101/74/53/51/52t; the 768
+      fixture re-audited at rest in the brand state — same ticks,
+      widths [1,1,6,1,1]t.)
+- [x] The lattice renders §2's rail transcription through the spec 002
       vocabulary, including the filled-circle ornament at 11 × 0 and the
       fixed rd1 rail (no strays — §9 F7); verified against rendered
-      bounds, never metadata.
-- [ ] Header type walks its lines (24→28, hold across rs, 28→32, 32→42);
+      bounds, never metadata. (Rendered regions 11×0–3 + 9–11×4–20 ·
+      9–11×0–12 · 8–11×0–8 · 8–11×0–8 · 8–11×0–7; `f-cell fill round`
+      at 11×0 every band; outlined circles rs 9×12 · rt 9×8 · rd1 8×8 ·
+      rd2 9×6; source cells verified through the console bridge,
+      §9 F7's strokes confirmed invisible at build.)
+- [x] Header type walks its lines (24→28, hold across rs, 28→32, 32→42);
       weight/tracking are band constants switching at 1344; the designed
       copy swap rides the 960 gate (§9 F5); two lines at every anchor.
-- [ ] The accordion renders §4 exactly at rt/rd1/rd2: 10t row, 6t + 4×1t,
+      (Anchors 24/28/28/32/42 exact; 399 → 24.3125 on the designed line;
+      520/700/900/1200 → 25.28/25.52/30/37.5 — pure zooms of the slice
+      anchors; the copy swaps at the 860 gate; two lines at all nine
+      widths.)
+- [x] The accordion renders §4 exactly at rt/rd1/rd2: 10t row, 6t + 4×1t,
       no gaps, canonical order, engine palette per the table, pill chrome
       and anchors, left-only expanded radii; every expansion state lands
-      whole-tick at rest.
-- [ ] The carousel renders §5 exactly at rm/rs: window, card sizes,
+      whole-tick at rest. (Re-verified 2026-08-26 post-F12: cards
+      line-inclusive — widths [6t+1, 1t+1 ×4] with the −1px overlaps,
+      boundaries exactly on cols 7/8/9/10, the row spanning 10t + 1px;
+      a pixel scan across a boundary reads exactly one 1px border/000
+      column on the lattice line, and the bottom tangents land on their
+      row line; pills 64/80/112 with labels 20/24/28 and dots 12/16/18;
+      expanded radii 16/20/24 left, 0 right; all five rest states
+      exact.)
+- [x] The carousel renders §5 exactly at rm/rs: window, card sizes,
       pitches, all-corner radius at rm, breadcrumb geometry and colors,
       inactive treatment (tuned filter recorded as an amendment; no blend
       modes in the section's CSS); the correct tier is fetched per band
-      with the 1344 tier serving from 1152 (network log: WebP only, one
-      tier per width).
-- [ ] The spring reflow per §7.1: one redistribution — the row fills its
+      with the cuts at the structural gates and the 1344 tier serving
+      from 1130 (amended 2026-08-26 — §9; network log: WebP only, one
+      tier per width).       (384: card 9.5×13t, pitch 10.5t, 1t sliver,
+      crumbs 24×6 + 6px at the row bottom; 576: 9×7t, pitch 10t; tiers
+      384/576/768/960/1344 fetched at 384/520/700/900/1200 — the gate
+      cuts; filter tuned to grayscale(1) sepia(0.12) brightness(0.975)
+      @ 0.7, mean delta 1.49/255 vs the luminosity composite; no blend
+      modes in engine.css. Re-verified post-F12/F13: the active card's
+      right edge lands at exactly 10t + 1px — on the col-10 hairline,
+      pitch unchanged at 10.5t; the activation chrome fades both ways
+      on the 450ms ease-out — sampled mid-fade at 91%/59% at 150ms,
+      settled by 450ms.)
+- [x] The spring reflow per §7.1: one redistribution — the row fills its
       container edge to edge at every frame (assert during motion);
-      opening and closing land together; nothing overlaps; a ≈1%
-      overshoot is measurable on the expanding card's width and settles
-      without visible wobble; content is clipped, never scaled (title
-      and body pixel positions relative to the leading edge are
-      constant throughout).
-- [ ] Interrupts retarget: rapid clicks across all five cards (the
+      opening and closing land together; nothing overlaps; *amended
+      2026-08-26 (§9 F11): zero overshoot — the critically damped
+      spring never exceeds its target, tight with no bounce*; content
+      is clipped, never scaled (title and body pixel positions relative
+      to the leading edge are constant throughout). (Re-measured
+      post-F11 at 1344: 43-frame sample, max span error 0.008px against
+      the 10t + 1px row; the expanding card peaks exactly at its target
+      — 0.00px overshoot; visible travel completes ≈230–320ms on the
+      critical curve; title offset constant through the flight.)
+- [x] Interrupts retarget:       rapid clicks across all five cards (the
       `/engine` interrupt-storm control) never restart, jump, or leave
       the row off its edge-to-edge sum; fractions and velocities carry
-      through every retarget.
-- [ ] Crossfades ride the fraction per §7.2's ramps; mid-exchange both
+      through every retarget. (Re-run post-F11/F12: 10 retargets at
+      70ms — span error ≤ 0.031px across 94 frames, zero overshoot
+      mid-storm, continuous motion, consistent settled end state.)
+- [x] Crossfades ride the fraction per §7.2's ramps; mid-exchange both
       cards' contents are briefly visible; the pill label and dot are
-      gone by f 0.35; fill and radii track f linearly.
-- [ ] Pill hover/focus per §7.3: the row never moves on hover; the dot
+      gone by f 0.35; fill and radii track f linearly. (All three ramps
+      are CSS functions of the card's own --_f — clamp(1 − f/0.35),
+      clamp((f − 0.25)/0.5), color-mix/radius calc linear in f — one
+      driver by construction; verified live against the island's
+      per-frame fraction writes.)
+- [x] Pill hover/focus per §7.3: the row never moves on hover; the dot
       morphs on the promoted tokens both directions; focus adds the
       two-layer ring; the expanded card has no hover response; clicking
-      it does nothing.
-- [ ] Carousel behavior per §7.4: spring-driven slides, drag follows the
+      it does nothing. (Forced :hover — dot radius 0 / rotate 180deg in
+      450ms, card width constant 112; resting out 600ms on the
+      ease-in-out; forced :focus-visible — morph + rings bg/100 2px,
+      bg/500 4px; hover rules under hover-capable media; the expanded
+      card's hit is a guarded no-op.)
+- [x] Carousel behavior per §7.4: spring-driven slides, drag follows the
       finger with 0.3 overscroll resist and spring-back, fling bias over
       500 px/s, breadcrumb and inactive-card presses retarget, chrome
-      morphs ride the drawer tokens, no timers ever run.
-- [ ] `prefers-reduced-motion: reduce` renders every change
+      morphs fade on `--eng-chrome-fade-dur` with the drawer ease-out
+      (amended 2026-08-26 — §9 F13), no timers ever run. (Crumb press →
+      settled x exactly −3 pitches, active card on the window edge;
+      100px overscroll drag → 30px travel, sprang back to 0; ~2000px/s
+      fling → one-position bias, settled −1 pitch exactly; the 450ms
+      two-way fade sampled mid-flight; the island sets no timers or
+      auto-advance.)
+- [x] `prefers-reduced-motion: reduce` renders every change
       state-to-state per §7.5; a no-JS render shows the settled state.
+      (Under the reduce toggle a press lands the full settled state
+      [1,1,1,1,6]t within two frames — no travel; with script execution
+      disabled the render is the settled accordion, Visibility
+      expanded.)
 - [ ] Accessibility: `<h2>`; the cards are labeled buttons with
       `aria-expanded` and associated panels; breadcrumb stops are labeled
       buttons; focus is never trapped; contrast passes for every
       engine's title/body inks on its /400 fill and the pill label on
       `lightgray/200`; touch targets ≥ 44px where interactive.
-- [ ] Every value traces to a token, a §8.4 constant, or the promoted
+- [x] Every value traces to a token, a §8.4 constant, or the promoted
       motion tokens; the images are committed verbatim; one client
       island; the dot-morph promotion leaves the nav visually unchanged;
       `/engine` renders all bands with the state readout,
       interrupt-storm, and reduced-motion controls; the old site's routes
-      and bundles are unchanged in the production build.
+      and bundles are unchanged in the production build. (25 WebPs
+      verbatim under public/media/engines; one island — engine-row.tsx;
+      the nav subdot computes identical values through the --knav
+      aliases (0.6s out on the ease-in-out, resting 50%); /engine ships
+      2.63 kB route JS / 112 kB first load; the shared first-load holds
+      at 102 kB and every old-site route builds unchanged; tsc and lint
+      clean.)
