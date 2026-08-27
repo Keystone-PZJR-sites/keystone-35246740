@@ -143,6 +143,50 @@ export function engineSrc(engine: EngineId, cut: EngineTier["cut"]): string {
   return `/media/engines/${String(n).padStart(2, "0")}-${engine}-${cut}.webp`;
 }
 
+/* ---- testimonials (spec 009 §5) ----
+ * Three 672×672 WebP placeholder exports, cut by the build from the
+ * file 2026-08-26 (the fill hashes and crops are identical at every
+ * band — hash-verified through the console bridge; crops baked at
+ * export; the circle is a CSS radius-full mask, per the CSS-dot
+ * doctrine). Placeholders by design decision: one export serves every
+ * band through the tier-set markup (one <picture>, no <source>), so
+ * the real art-directed tier set drops in additively. Empty alts —
+ * ambient photography; the subjects here are descriptors, not alt
+ * text. */
+
+export interface TestimonialImage {
+  src: string;
+  width: number;
+  height: number;
+  /** Subject descriptor — documentation only; the photos render with
+   * empty alts (ambient). */
+  subject: string;
+}
+
+/** Export order 01–03 = the strip's slide order (§4: green · brown ·
+ * yellow). Cut at 672×672 — exactly 2× the largest slot (the rd2 336
+ * circle). */
+export const TESTIMONIAL_IMAGES: TestimonialImage[] = [
+  {
+    src: "/media/testimonials/testimonial-01-672.webp",
+    width: 672,
+    height: 672,
+    subject: "pizzaiolo at a wood-fired oven",
+  },
+  {
+    src: "/media/testimonials/testimonial-02-672.webp",
+    width: 672,
+    height: 672,
+    subject: "owner taking a call at her laptop",
+  },
+  {
+    src: "/media/testimonials/testimonial-03-672.webp",
+    width: 672,
+    height: 672,
+    subject: "counter worker writing an order",
+  },
+];
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
