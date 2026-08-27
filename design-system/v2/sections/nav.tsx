@@ -16,7 +16,8 @@
  * Link targets (decision 2026-08-24, recorded at build per §7): the new
  * sitemap routes; the engine subitems and all three resources cards and
  * chips point at their index pages for now; Get Started goes to
- * /pricing; Login keeps /portal.
+ * /pricing; Login goes to the external console (owner decision
+ * 2026-08-27, spec 010 §7 F4).
  */
 
 import type { CSSProperties, ReactNode } from "react";
@@ -34,7 +35,7 @@ const LINKS = {
   pricing: "/pricing",
   company: "/company",
   resources: "/resources",
-  login: "/portal",
+  login: "https://console.localkeystone.com/login",
   approach: "/how-it-works",
   getStarted: "/pricing",
 };

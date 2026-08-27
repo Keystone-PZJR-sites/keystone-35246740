@@ -185,7 +185,8 @@ function navGroups(social: FooterSocial): Array<{
         { label: "Our Work", href: "/our-work" },
         { label: "Case Studies", href: "/case-studies" },
         { label: "Pricing", href: "/pricing" },
-        { label: "Login", href: "/portal", arrow: true, chrome: "dark" },
+        /* the external console (owner decision 2026-08-27, spec 010 §7 F4) */
+        { label: "Login", href: "https://console.localkeystone.com/login", arrow: true, chrome: "dark" },
       ],
     },
     {
