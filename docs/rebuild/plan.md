@@ -222,7 +222,21 @@ values and would need editing later — which spec immutability forbids.
   §9 flags resolved the same day, fixes re-read post-fix, incl. the
   un-swapped 384 reception/engagement fills, the sanctioned 576
   derivation, and the curly-apostrophe copy canon). Testimonial inputs
-  remain open.
+  received 2026-08-26: the `testimonial-card` set (117:11219, color ×
+  breakpoint — no 576 breakpoint, the 008-style derivation), the
+  in-frame sections (strip at rm–rd1, the full-grid composition at
+  rd2), and the motion intent (staggered fade-rise entrance, the hover
+  hard-shadow, the ~6.5s auto-rotation with the grid-button pair) —
+  specced in 009 (draft; all seven §9 flags resolved by design the
+  same day — the 384 pads unified, the rd1 header box normalized, the
+  header copy unified to one line at every band, the rs 768-unit
+  derivation rejected in favor of a tick-true 576 unit with a 336-wide
+  card, the resting offsets confirmed, the rs corner cell painted;
+  every fix re-read post-fix, nothing pending — the draft is ready for
+  approval). The photos and attribution are
+  placeholders by design decision: the build exports the three images
+  from the file at a single 672 tier, and a content pass replaces the
+  copy before cutover.
 
 ## Special cells — ornament and function on the lattice
 
@@ -258,11 +272,15 @@ carousel forward/back buttons). Three consequences:
    stale-metadata artifact of point 2. *Superseded 2026-08-26 for the
    gallery pair:* the file moved it — rendered truth is now 384: col 10,
    rows 42–43 · 576: col 10, 27–28 · 768/960: col 8, 19–20 · 1344: col 8,
-   18–19 (spec 007 §2, which is the current record). The same re-audit
+   18–19 (spec 007 §2, which is the current record).    The same re-audit
    measured the 768 frame at 53t and the 960 frame at 51t page total
    (vs 54t/52t above) — design reduced the portfolio cards by 1t at those
    anchors after 2026-08-22 (gallery row 6t→5t; spec 007 §9); Phase 6
-   re-verifies totals from the then-current frames.
+   re-verifies totals from the then-current frames. *Superseded
+   2026-08-26 for the testimonial pair's 768/960 rows:* the same 1t
+   resize moved them — rendered truth is 8–9,37 (spec 009 §2, the
+   current record); the 384 (9–10,76) and 576 (8–9,52) positions are
+   unchanged.
 
 ## Rules deltas (folded into the rules revision, 2026-08-25)
 
