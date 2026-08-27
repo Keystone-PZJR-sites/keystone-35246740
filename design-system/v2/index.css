@@ -45,3 +45,6 @@
 
 /* Sections (spec 008) */
 @import "./sections/engine.css";
+
+/* Sections (spec 009) */
+@import "./sections/testimonials.css";
