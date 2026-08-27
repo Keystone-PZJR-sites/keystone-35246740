@@ -109,13 +109,17 @@
   --icon-swap-start-scale: 0.25;
 
   /* drawer-card hover levers (set 549:37044): the one-cell circle
-     slide, the shadow growth, and their shared ease-out. Tune here —
-     the slide is a 112px move, so it wants a longer run than the
-     drawer constants it first borrowed. */
+     slide, the shadow growth, and their shared ease-out. The shadow
+     pair promoted to tokens/motion.css 2026-08-26 at its second
+     consumer (the testimonial card, spec 009 §8.3 — the 004→005
+     promotion pattern exactly); the --knav names stay as aliases so
+     the nav is untouched, values unchanged. The slide stays here —
+     it is a 112px move, so it wants a longer run than the drawer
+     constants it first borrowed. */
   --knav-card-slide-dur: 500ms;
-  --knav-card-shadow-dur: 450ms;
+  --knav-card-shadow-dur: var(--motion-card-shadow-dur);
   /* mouse-out: the shadow reverses, a little quicker than it grew */
-  --knav-card-shadow-out-dur: 300ms;
+  --knav-card-shadow-out-dur: var(--motion-card-shadow-out-dur);
   --knav-card-ease: var(--motion-drawer-ease);
   /* the grid circles ride ease-in-out; the shadow keeps the ease-out */
   --knav-card-slide-ease: var(--motion-drawer-ease-open);
@@ -197,18 +201,21 @@
   --pf-card-inactive-bg: rgba(234, 232, 224, 0.5);
   --pf-inactive-filter: grayscale(1) sepia(0.1) brightness(0.98);
   --pf-inactive-opacity: 0.8;
-  /* curtain-reveal entrance (spec 007 §7.1): component-born constants,
-     promote to tokens/motion.css at a second consumer. The entrance
-     gates on the gallery window's visible fraction (amendment
-     2026-08-26, §9 R20 — the section-level gate opened on the header
-     alone); the island reads the band's value from computed style.
-     The base band opens earlier (0.18 — design direction 2026-08-26,
-     §9 R22: portrait devices held the reveal too long at 0.25). */
-  --pf-enter: 0.25;
-  --pf-enter-rm: 0.18;
+  /* curtain-reveal entrance (spec 007 §7.1): component-born constants.
+     The entrance gates on the gallery window's visible fraction
+     (amendment 2026-08-26, §9 R20 — the section-level gate opened on
+     the header alone); the island reads the band's value from computed
+     style. The base band opens earlier (0.18 — design direction
+     2026-08-26, §9 R22: portrait devices held the reveal too long at
+     0.25). The gate fractions and the stagger promoted to
+     tokens/motion.css 2026-08-26 at their second consumer (the
+     testimonial entrance, spec 009 §8.3); the --pf names stay as
+     aliases so the portfolio is untouched, values unchanged. */
+  --pf-enter: var(--motion-enter-frac);
+  --pf-enter-rm: var(--motion-enter-frac-rm);
   --pf-frame-dur: 450ms;
   --pf-frame-scale: 0.985;
-  --pf-stagger: 120ms;
+  --pf-stagger: var(--motion-enter-stagger);
   --pf-curtain-dur: 700ms;
   --pf-curtain-delay: 350ms;
 
@@ -274,6 +281,14 @@
   --eng-dot-xl: 18px;
   --eng-crumb-active-w: 24px;
   --eng-crumb-h: 6px;
+
+  /* testimonial constants (spec 009 §8.4). The dwell is the strip's
+     auto-rotation period (~6.5s intent, decided 6500ms); the island
+     reads it from computed style, so this token is its single source.
+     Everything else in §4/§5 traces to existing tokens (the color
+     /200 /400 /700 /800 variables, the type styles, the spacing
+     scale) or to the tick expressions on .page below. */
+  --tst-dwell: 6500ms;
 }
 
 /* Tick-riding component constants (spec 002.r1 units). These reference
@@ -309,4 +324,33 @@
   --eng-col: calc(var(--t) * 3);
   --eng-col-rs: calc(var(--t) * 4.5);
   --eng-text-h-rm: calc((var(--wA) + var(--wB)) * 160);
+
+  /* testimonial constants (spec 009 §8.4): the strip's designed
+     resting offsets (§5/§9 F6 — −1t at rm, the first photo arrives
+     clipped off the left frame edge; 0 at rs since the 2026-08-27
+     1t card narrowing re-rested the strip on the frame edge, §9
+     amendment; +1t at rt/rd1, the strip rests on the inset) and the
+     §1 top-rule spans (11t · 9t · 8t · 8t · 11t — the first designed
+     top rule that is not full width). The header wrap boxes ride the
+     weights (§3 — 304/384/384/448/560 at the anchors; text columns
+     are weight-riding, not tick-bound). */
+  --tst-rest-rm: calc(var(--t) * -1);
+  --tst-rest-rs: 0px;
+  --tst-rest-rt: var(--t);
+  --tst-rest-rd1: var(--t);
+  --tst-rule-rm: calc(var(--t) * 11);
+  --tst-rule-rs: calc(var(--t) * 9);
+  --tst-rule-rt: calc(var(--t) * 8);
+  --tst-rule-rd1: calc(var(--t) * 8);
+  --tst-rule-rd2: calc(var(--t) * 11);
+  /* each box interpolates between its band's two anchor values on the
+     band weights (v5 §2 — the same lines the type rides), so the
+     designed two-line wrap holds through the interpolation zones and
+     the compressed slices alike; each name is valid only under its
+     band's gate, where .page carries that band's weights */
+  --tst-head-w-rm: calc(var(--wA) * 304 + var(--wB) * 384);
+  --tst-head-w-rs: calc(var(--wA) * 384 + var(--wB) * 384);
+  --tst-head-w-rt: calc(var(--wA) * 384 + var(--wB) * 448);
+  --tst-head-w-rd1: calc(var(--wA) * 448 + var(--wB) * 560);
+  --tst-head-w-rd2: calc(var(--wB) * 560);
 }

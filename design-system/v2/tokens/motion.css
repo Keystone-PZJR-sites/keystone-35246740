@@ -53,4 +53,24 @@
   --motion-dot-morph-out-dur: 600ms;
   --motion-dot-morph-out-ease: var(--motion-drawer-ease-open);
   --motion-dot-rotation: 180deg;
+
+  /* The card shadow growth (born in the nav's drawer cards, spec 005;
+     promoted 2026-08-26 when the testimonial card became the second
+     consumer — spec 009 §7.2/§8.3, values unchanged): a hard shadow
+     grows from its 0,0 origin token on the drawer ease-out (the
+     grammar's shadow law) and reverses a little quicker on the way
+     out. Per the same law the offset never grows while its box moves. */
+  --motion-card-shadow-dur: 450ms;
+  --motion-card-shadow-out-dur: 300ms;
+
+  /* The entrance gate and stagger (born in the portfolio, spec 007
+     §9 R20/R22; promoted 2026-08-26 at their second consumer — spec
+     009 §7.1/§8.3, values unchanged): a section's entrance fires the
+     first time its content block reaches the gate fraction of
+     visibility — the base band opens earlier (portrait devices hold
+     the reveal too long at the uniform fraction) — and its
+     participants beat at i × the stagger. */
+  --motion-enter-frac: 0.25;
+  --motion-enter-frac-rm: 0.18;
+  --motion-enter-stagger: 120ms;
 }
