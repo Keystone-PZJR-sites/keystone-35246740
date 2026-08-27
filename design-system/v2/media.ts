@@ -95,6 +95,54 @@ export function portfolioSrc(site: number, cut: PortfolioTier["cut"]): string {
   return `/media/portfolio/portfolio-${String(site).padStart(2, "0")}-${cut}.webp`;
 }
 
+/* ---- engine accordion (spec 008 §5) ----
+ * 25 verbatim WebP exports (supplied 2026-08-26): five engines in five
+ * width tiers, each exactly 2× its band's visible image slot; the
+ * engine wash is baked into the exports (008 §9 F3 — the build adds no
+ * wash layer). Art direction, not resolution steps (crops differ per
+ * band): the card image renders as <picture> with one media-gated
+ * <source> per tier, largest-first, the 384 file as the <img>
+ * fallback. Empty alt — ambient photography; the engine name is the
+ * card's own text. */
+
+/** Canonical engine order (spec 005 §5 / 008 §4); index + 1 is the
+ * file number. */
+export const ENGINE_IDS = [
+  "visibility",
+  "ads",
+  "brand",
+  "reception",
+  "engagement",
+] as const;
+
+export type EngineId = (typeof ENGINE_IDS)[number];
+
+export interface EngineTier {
+  cut: 384 | 576 | 768 | 960 | 1344;
+  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
+  media: string | null;
+  width: number;
+  height: number;
+}
+
+/** Largest-first, ready for <source> order; the last entry is the
+ * 384 fallback. The media cuts follow the nearest-anchor structural
+ * gates (spec 002.r1; 008 §5 as amended 2026-08-26): the 1344 tier
+ * serves from the 1130 gate. */
+export const ENGINE_TIERS: EngineTier[] = [
+  { cut: 1344, media: "(min-width: 1130px)", width: 672, height: 896 },
+  { cut: 960, media: "(min-width: 860px)", width: 480, height: 800 },
+  { cut: 768, media: "(min-width: 665px)", width: 384, height: 640 },
+  { cut: 576, media: "(min-width: 470px)", width: 432, height: 672 },
+  { cut: 384, media: null, width: 608, height: 512 },
+];
+
+/** {01–05}-{engine}-{tier}.webp under public/media/engines. */
+export function engineSrc(engine: EngineId, cut: EngineTier["cut"]): string {
+  const n = ENGINE_IDS.indexOf(engine) + 1;
+  return `/media/engines/${String(n).padStart(2, "0")}-${engine}-${cut}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
