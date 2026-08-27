@@ -116,7 +116,16 @@ built surfaces:
 
 - **Engine** (`grid/engine.css`): the weight cascade gains the four
   zoom slices; the ~110 band gates across the v2 styles and dev-route
-  CSS move to 470/665/860/1130.
+  CSS move to 470/665/860/1130. *Amended 2026-08-27 — erratum found at
+  the Phase 6 review: the `/grid` harness's JS band classification was
+  not converted with the engine. `bandForWidth`/`BAND_FLOORS`
+  (`app/grid/fixtures.ts`) still classify by anchor floors, so the
+  sweep's expectations disagree with the engine in every compressed
+  slice — the 2026-08-27 run fails at 470 and 1150 against a correct
+  build (the measured stack sums, 32t and 20t, are exactly the
+  nearest-anchor designs; the expectations are stale). The
+  realignment is specced with the page-level self-test (spec 010 §2);
+  §7 R7 records the finding.*
 - **Image tiers** (`media.ts`): the art-directed `<source>` cuts follow
   the structural gates so each band's crop shows wherever its design
   renders; the hero's 1152 mid-cut serves the compressed rd2 slice;
@@ -168,6 +177,16 @@ real content:
   gating at midpoints but `<source>` cuts at the anchors, a slice
   showed the neighboring band's crop. Resolved by moving the cuts to
   the gates (§6); the scrollbar-width lag stays accepted as before.
+- **R7 — the harness kept the anchor floors** (erratum, found
+  2026-08-27 at the Phase 6 review): §6's conversion moved the
+  engine's gates and the CSS band gates but not the harness's JS band
+  classification (`bandForWidth`), which feeds the sweep's expected
+  band, stack total, and ladder pair. The sweep therefore fails at
+  compressed-slice widths (470, 1150) while the build renders
+  correctly. The engine itself is right; no built surface is
+  affected. The fix — gate floors 470 · 665 · 860 · 1130 and sweep
+  sample widths re-chosen one per structural slice — lands with spec
+  010 §2's page-level self-test; §6 carries the dated amendment.
 
 ## 8 · Acceptance criteria
 

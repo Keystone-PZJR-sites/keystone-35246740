@@ -113,6 +113,28 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
 - **Image tier cuts follow the structural gates** (006/007 §5
   amendments) so each band's crop shows wherever its design renders.
 
+## Decision log — 2026-08-27
+
+- **Phase 5 is complete** (specs 006–009 approved, built, and verified;
+  the fixture stacks five real sections and the footer). **Spec 010
+  drafted** for Phase 6 from fresh reads of the five anchor frames,
+  every section top and page total verified against rendered bounds
+  the same day: page totals **101 · 74 · 53 · 51 · 52** ticks (the
+  2026-08-26 1t card reductions at 768/960 stand; 010 §2 is the
+  current record).
+- **The 002.r1 harness erratum found at review**: the `/grid` sweep's
+  band classification kept the anchor floors when the engine gates
+  moved to the midpoints, so the sweep fails at compressed-slice
+  widths (470/1150) against a correct build. Recorded in 002.r1
+  (§6 amendment, §7 R7); the fix is specced in 010 §3 with the
+  page-level self-test.
+- Phase 6 needs **no design inputs** beyond the cutover gates already
+  on record: the testimonials content pass (009), and 010 §7's flags —
+  F1 (nav/footer targets to unbuilt routes) resolved same day by the
+  owner: **ship 404s**; F2 (the `/` metadata copy, og-image, and theme
+  colors — old-brand today, full inventory in 010 §7) stays open for
+  design's content decision.
+
 ## Phasing
 
 Each phase covers **all five anchors** and is done only when its spec's
@@ -237,6 +259,12 @@ values and would need editing later — which spec immutability forbids.
   placeholders by design decision: the build exports the three images
   from the file at a single 672 tier, and a content pass replaces the
   copy before cutover.
+- Phase 6: **no new design inputs** — assembly, self-test, performance,
+  and cutover only (spec 010, drafted 2026-08-27 from fresh reads of
+  the five anchor frames). What design owes is at the cutover gates,
+  not the build: the testimonials content pass (009), the F1/F2
+  decisions (010 §7 — the nav targets to unbuilt routes and the `/`
+  metadata copy), and sign-off on the assembled page.
 
 ## Special cells — ornament and function on the lattice
 
@@ -275,8 +303,9 @@ carousel forward/back buttons). Three consequences:
    18–19 (spec 007 §2, which is the current record).    The same re-audit
    measured the 768 frame at 53t and the 960 frame at 51t page total
    (vs 54t/52t above) — design reduced the portfolio cards by 1t at those
-   anchors after 2026-08-22 (gallery row 6t→5t; spec 007 §9); Phase 6
-   re-verifies totals from the then-current frames. *Superseded
+   anchors after 2026-08-22    (gallery row 6t→5t; spec 007 §9); Phase 6
+   re-verified the totals 2026-08-27 from rendered bounds — 101 · 74 ·
+   53 · 51 · 52 (spec 010 §2, the current record). *Superseded
    2026-08-26 for the testimonial pair's 768/960 rows:* the same 1t
    resize moved them — rendered truth is 8–9,37 (spec 009 §2, the
    current record); the 384 (9–10,76) and 576 (8–9,52) positions are
