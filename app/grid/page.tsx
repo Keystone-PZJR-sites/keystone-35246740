@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import {
   GridRegion,
   GridCellX,
@@ -6,6 +5,8 @@ import {
   type GridBand,
 } from "@/design-system/v2/grid/region";
 import { BANDS, FIXTURES, type Fixture } from "./fixtures";
+import { FIXTURE_EXPECTATIONS } from "./expectations";
+import DevtoolsMount from "./devtools-mount";
 
 /** /grid — fixture page (spec 002 §3). Two fixture sections transcribed
  * from the anchor frames (fixtures.ts): together they exercise every v5
@@ -14,14 +15,10 @@ import { BANDS, FIXTURES, type Fixture } from "./fixtures";
  * contains nothing else in flow, so the stack sum is exactly the designed
  * tick total per band.
  *
- * The debug overlay and self-test readout ship in dev only; the constant
- * condition below is inlined at build time, so the devtools chunk never
- * reaches the production bundle. */
-const GridDevtools =
-  process.env.NODE_ENV !== "production"
-    ? dynamic(() => import("./grid-devtools"))
-    : () => null;
-
+ * The debug overlay and self-test readout ship in dev only — the
+ * production build swaps the mount for a null stub (devtools-mount.tsx,
+ * the next.config alias), so the devtools never reach the production
+ * bundle. */
 function FixtureOverlay({ fixture }: { fixture: Fixture }) {
   return (
     <div className="gx" aria-hidden="true">
@@ -67,7 +64,7 @@ export default function GridHarnessPage() {
         <FixtureOverlay fixture={FOOTER} />
       </section>
 
-      <GridDevtools />
+      <DevtoolsMount expectations={FIXTURE_EXPECTATIONS} />
     </div>
   );
 }

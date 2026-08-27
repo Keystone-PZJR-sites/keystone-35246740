@@ -23,9 +23,28 @@ export type Band = "rm" | "rs" | "rt" | "rd1" | "rd2";
 
 export const BANDS: Band[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
-/** Band floors in px of container width; rm is the base (no floor). */
+/** Band floors in px of container width; rm is the base (no floor).
+ * These are the STRUCTURAL GATES — the bands' geometric midpoints
+ * (002.r1 nearest-anchor rendering), not the anchor widths: above a
+ * gate the upper anchor's design renders compressed until its anchor.
+ * Realigned to the engine by spec 010 §3.1 (the 002.r1 §7 R7 erratum:
+ * the JS classification had kept the anchor floors when the engine's
+ * gates moved). */
 export const BAND_FLOORS: Record<Band, number> = {
   rm: 0,
+  rs: 470,
+  rt: 665,
+  rd1: 860,
+  rd2: 1130,
+};
+
+/** Anchor widths per band — the designed widths (tick = anchor ÷ 12).
+ * Between a band's gate floor and its anchor the engine renders a
+ * compressed pure zoom of the anchor: --wA collapses to t ÷ (anchor ÷ 12)
+ * and --wB to 0px (002.r1 §3; rd2 carries the same construction on --wB
+ * for its compressed slice and the above-1344 over-zoom alike). */
+export const BAND_ANCHORS: Record<Band, number> = {
+  rm: 384,
   rs: 576,
   rt: 768,
   rd1: 960,
@@ -207,11 +226,6 @@ export const FOOTER: Fixture = {
 };
 
 export const FIXTURES = [GALLERY, FOOTER];
-
-/** Designed page total in ticks per band — the stack-sum expectation. */
-export const STACK_TOTAL_TICKS: Record<Band, number> = Object.fromEntries(
-  BANDS.map((b) => [b, FIXTURES.reduce((sum, f) => sum + f.heights[b], 0)]),
-) as Record<Band, number>;
 
 /** Engine test ladder for the interpolation probe: an arbitrary value
  * designed at every anchor (384→36 · 576→42 · 768→48 · 960→56 · 1344→64),

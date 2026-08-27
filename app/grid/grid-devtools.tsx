@@ -1,12 +1,22 @@
 "use client";
 
-/** /grid devtools (spec 002 §3.2–3.3) — dev only, excluded from the
- * production bundle by the build-time gate in page.tsx.
+/** Grid devtools (spec 002 §3.2–3.3, generalized by spec 010 §3.2) —
+ * dev only, excluded from the production bundle by the build-time gate
+ * in each mounting page.
  *
  * Self-test readout: runs the v5 §8 checks (adapted to container-query
- * gating) in-page against the fixtures and renders pass/fail. Results are
- * exposed on window.__GRID_SELFTEST__ so the scripted sweep
- * (scripts/grid-selftest.mjs) can assert the same checks in CI.
+ * gating and 002.r1 nearest-anchor rendering) in-page against the
+ * mounting route's designed stack, passed in as the expectations prop
+ * (app/grid/expectations.ts) — /grid audits the transcribed fixtures,
+ * /home-fixture audits the real assembled homepage. Results are exposed
+ * on window.__GRID_SELFTEST__ so the scripted sweep
+ * (scripts/grid-selftest.mjs) can assert the same checks in CI on both
+ * routes with one contract.
+ *
+ * Audits run at rest in every rest state (the audits-at-rest law): an
+ * open footer drawer is a designed rest state, so the stack-sum and
+ * section-boundary checks add each open drawer's designed extra ticks
+ * (open − 2, spec 004 §5) to the expectation.
  *
  * Debug overlay: press "g" for a full-lattice layer over the page —
  * real 1px elements on the engine's k·t geometry, for eyeballing any
@@ -15,7 +25,8 @@
 
 import "./devtools.css";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { INTERP_LADDER, STACK_TOTAL_TICKS, bandForWidth, type Band } from "./fixtures";
+import { BAND_ANCHORS, INTERP_LADDER, bandForWidth, type Band } from "./fixtures";
+import type { GridExpectations } from "./expectations";
 
 interface Result {
   id: string;
@@ -29,6 +40,10 @@ interface Meta {
   containerW: number;
   t: number;
   rows: number;
+  /** False while a load choreography is still running (spec 002.r1 §5);
+   * the sweep waits for settle before asserting. Pages with no
+   * choreography are born settled. */
+  settled: boolean;
 }
 
 interface RunOutput {
@@ -57,12 +72,47 @@ function onLattice(v: number, t: number, tol = 0.26): boolean {
   return d <= tol || Math.abs(d - 1) <= tol;
 }
 
-function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement): RunOutput {
+/** On the designed row: k·t within the spec's ±1px line-inclusive
+ * allowance (010 §3.2). The margin also absorbs the subpixel that
+ * stacked flow boxes accumulate at fractional ticks; a real
+ * misplacement is half a tick or more away. */
+function onRow(v: number, ticks: number, t: number, tol = 1.1): boolean {
+  return Math.abs(v - ticks * t) <= tol;
+}
+
+/** Designed extra ticks from open footer drawers inside scope: each
+ * open group grows its section by its open height minus the 2t closed
+ * row (spec 004 §5). Drawers exist at the accordion bands only. */
+function drawerExtraTicks(scope: HTMLElement, band: Band): number {
+  if (band !== "rm" && band !== "rs") return 0;
+  let extra = 0;
+  scope.querySelectorAll<HTMLElement>(".fnav-group[data-open]").forEach((g) => {
+    const open = parseFloat(
+      getComputedStyle(g).getPropertyValue(band === "rm" ? "--open-rm" : "--open-rs"),
+    );
+    if (Number.isFinite(open)) extra += open - 2;
+  });
+  return extra;
+}
+
+function runSelfTests(
+  page: HTMLElement,
+  root: HTMLElement,
+  probes: HTMLElement,
+  expectations: GridExpectations,
+): RunOutput {
   const results: Result[] = [];
   const containerW = root.getBoundingClientRect().width;
   const band = bandForWidth(containerW);
   const probe = (name: string) =>
     (probes.querySelector(`[data-probe="${name}"]`) as HTMLElement).getBoundingClientRect().width;
+  // weights read through margin-left, not width: below 384 the base
+  // band's line extrapolates and wB goes negative (v5 §2), which a
+  // width would clamp to zero.
+  const probesLeft = probes.getBoundingClientRect().left;
+  const probeOffset = (name: string) =>
+    (probes.querySelector(`[data-probe="${name}"]`) as HTMLElement).getBoundingClientRect().left -
+    probesLeft;
 
   // 1 · tick: --t must read container width ÷ 12 (not viewport width).
   const t = probe("t");
@@ -74,25 +124,43 @@ function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement)
     detail: `t ${t.toFixed(3)}px · expected ${tExpected.toFixed(3)}px`,
   });
 
-  // 2 · weights. Inside interpolating bands the collapse identity
-  // wA + wB = 1 holds; above the last anchor (rd2) the band is pure zoom:
-  // wA = 0 and wB rides t/112 uncapped (v5 §2).
-  const wA = probe("wa") / 100;
-  const wB = probe("wb") / 100;
-  const weightsPass =
-    band === "rd2"
-      ? Math.abs(wA) <= 0.002 && Math.abs(wB - t / 112) <= 0.002
-      : Math.abs(wA + wB - 1) <= 0.002;
+  // 2 · weights, per structural slice (002.r1 §3). Stretched slices and
+  // interpolating widths carry the collapse identity wA + wB = 1 (the rm
+  // band extrapolates below 384 on the same line). In a compressed slice
+  // (gate → anchor) the weights are a pure zoom of the slice's anchor:
+  // wA = t / (anchor ÷ 12), wB = 0. rd2 rides the zoom on wB at every
+  // width (compressed slice and v5 §2 over-zoom alike).
+  const wA = probeOffset("wa") / 100;
+  const wB = probeOffset("wb") / 100;
+  const anchorT = BAND_ANCHORS[band] / 12;
+  // rm has no gate below its anchor — below 384 the base band's line
+  // extrapolates (wB goes negative, the sum identity holds); rd2 rides
+  // its zoom construction at every width.
+  const compressed =
+    band !== "rm" && band !== "rd2" && containerW < BAND_ANCHORS[band];
+  let weightsPass: boolean;
+  let weightsLabel: string;
+  if (band === "rd2") {
+    weightsPass = Math.abs(wA) <= 0.002 && Math.abs(wB - t / anchorT) <= 0.002;
+    weightsLabel = "weights: rd2 pure zoom";
+  } else if (compressed) {
+    weightsPass = Math.abs(wA - t / anchorT) <= 0.002 && Math.abs(wB) <= 0.002;
+    weightsLabel = `weights: compressed ${band} zoom`;
+  } else {
+    weightsPass = Math.abs(wA + wB - 1) <= 0.002;
+    weightsLabel = "wA + wB = 1";
+  }
   results.push({
     id: "weights",
-    label: band === "rd2" ? "weights: pure zoom" : "wA + wB = 1",
+    label: weightsLabel,
     pass: weightsPass,
     detail: `wA ${wA.toFixed(4)} · wB ${wB.toFixed(4)}`,
   });
 
   // 3 · sample interpolated value resolves on the band's wA/wB line
-  // (per-band pairs from the ladder; continuity across switches is
-  // asserted by the scripted sweep).
+  // (per-band pairs from the ladder; in a compressed slice the probed
+  // weights collapse, so the same expression asserts the pure zoom).
+  // Continuity across the anchors is asserted by the scripted sweep.
   const interp = probe("interp");
   const [v0, v1] = INTERP_LADDER[band];
   const interpExpected = wA * v0 + wB * v1;
@@ -103,9 +171,10 @@ function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement)
     detail: `sample ${interp.toFixed(3)}px · line ${interpExpected.toFixed(3)}px`,
   });
 
-  // 4 · stack sum: page height = designed tick total for the band.
+  // 4 · stack sum: page height = designed tick total for the band, plus
+  // any open drawer's designed growth.
   const pageH = page.getBoundingClientRect().height;
-  const expectedTicks = STACK_TOTAL_TICKS[band];
+  const expectedTicks = expectations.totals[band] + drawerExtraTicks(page, band);
   results.push({
     id: "stack",
     label: `stack sum = ${expectedTicks}t`,
@@ -113,15 +182,49 @@ function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement)
     detail: `page ${(pageH / t).toFixed(4)}t (${pageH.toFixed(1)}px)`,
   });
 
-  // 5 · landmark audit: tops and sizes land on (half-)ticks, ±1px for
-  // +1-sized boxes. Cards scroll horizontally, so only their vertical
-  // geometry is audited.
+  // 5 · section boundaries: every .sec flow child tops and sizes on its
+  // designed rows (spec 010 §3.2), matched in DOM order; a section with
+  // no rows at this band must be hidden.
   const pageTop = page.getBoundingClientRect().top;
+  const secs = [...page.querySelectorAll<HTMLElement>(".sec")];
+  const secFails: string[] = [];
+  if (secs.length !== expectations.sections.length) {
+    secFails.push(`${secs.length} .sec in DOM, ${expectations.sections.length} expected`);
+  } else {
+    expectations.sections.forEach((exp, i) => {
+      const el = secs[i];
+      const designed = exp.rows[band];
+      const rect = el.getBoundingClientRect();
+      if (!designed) {
+        if (el.getClientRects().length > 0 && rect.height > 0.5)
+          secFails.push(`${exp.id}: renders at ${band}`);
+        return;
+      }
+      const top = rect.top - pageTop;
+      const h = designed.h + drawerExtraTicks(el, band);
+      if (!onRow(top, designed.top, t))
+        secFails.push(`${exp.id} top ${(top / t).toFixed(3)}t ≠ ${designed.top}t`);
+      if (!onRow(rect.height, h, t))
+        secFails.push(`${exp.id} h ${(rect.height / t).toFixed(3)}t ≠ ${h}t`);
+    });
+  }
+  results.push({
+    id: "sections",
+    label: "section boundaries on designed rows",
+    pass: secFails.length === 0,
+    detail: secFails.length ? secFails.join(" · ") : `${expectations.sections.length} sections on rows`,
+  });
+
+  // 6 · landmark audit: tops and sizes land on (half-)ticks, ±1px for
+  // +1-sized boxes. Cards scroll horizontally, so only their vertical
+  // geometry is audited. Zero landmarks is a failure: the sections carry
+  // them by spec (010 §3.2), so an empty audit means lost attributes.
   let landmarks = 0;
   const drifted: string[] = [];
   page.querySelectorAll<HTMLElement>("[data-landmark]").forEach((el, i) => {
     const kind = el.dataset.landmark!;
     const rect = el.getBoundingClientRect();
+    if (el.getClientRects().length === 0) return; // band-hidden variant
     const anchorTop = kind === "sec" ? pageTop : el.closest(".sec")!.getBoundingClientRect().top;
     const checks: Array<[string, number]> = [
       ["top", rect.top - anchorTop],
@@ -135,11 +238,11 @@ function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement)
   results.push({
     id: "landmarks",
     label: "landmark audit",
-    pass: drifted.length === 0,
+    pass: drifted.length === 0 && landmarks > 0,
     detail: drifted.length ? drifted.join(" · ") : `${landmarks} checks on grid`,
   });
 
-  // 6 · band-gate sweep: exactly one band class visible, including .decor.
+  // 7 · band-gate sweep: exactly one band class visible, including .decor.
   const visibleBands = new Set<string>();
   page
     .querySelectorAll<HTMLElement>(".grid-region, .grid-fill, .grid-cellx, .decor")
@@ -154,8 +257,9 @@ function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement)
     detail: `visible: ${[...visibleBands].join(", ") || "none"}`,
   });
 
-  // 7 · seams: adjacent regions drawing a shared edge coincide into the
-  // same pixel (a.far − 1px = b.near, from line-inclusive sizing).
+  // 8 · seams: adjacent regions drawing a shared edge coincide into the
+  // same pixel (a.far − 1px = b.near, from line-inclusive sizing) — run
+  // over whatever .gx lattices the page renders.
   let seams = 0;
   const seamFails: string[] = [];
   page.querySelectorAll<HTMLElement>(".gx").forEach((gx) => {
@@ -193,11 +297,13 @@ function runSelfTests(page: HTMLElement, root: HTMLElement, probes: HTMLElement)
     detail: seamFails.length ? seamFails.join(" · ") : `${seams} seams, one pixel each`,
   });
 
-  const meta: Meta = { band, containerW, t, rows: Math.round(pageH / t) };
+  const settled =
+    !page.classList.contains("v2-choreo") || page.classList.contains("v2-settled");
+  const meta: Meta = { band, containerW, t, rows: Math.round(pageH / t), settled };
   return { meta, results, pass: results.every((r) => r.pass) };
 }
 
-export default function GridDevtools() {
+export default function GridDevtools({ expectations }: { expectations: GridExpectations }) {
   const probesRef = useRef<HTMLDivElement>(null);
   const [output, setOutput] = useState<RunOutput | null>(null);
   const [overlay, setOverlay] = useState(false);
@@ -210,7 +316,7 @@ export default function GridDevtools() {
     if (!page || !root) return;
 
     const run = () => {
-      const out = runSelfTests(page, root, probes);
+      const out = runSelfTests(page, root, probes, expectations);
       setOutput(out);
       window.__GRID_SELFTEST__ = { ...out, run };
       return out;
@@ -219,23 +325,27 @@ export default function GridDevtools() {
     const ro = new ResizeObserver(() => run());
     ro.observe(root);
     document.fonts?.ready.then(() => run()).catch(() => {});
+    // re-run when the load choreography settles (the page class flips)
+    const mo = new MutationObserver(() => run());
+    mo.observe(page, { attributes: true, attributeFilter: ["class"] });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "g" && !e.metaKey && !e.ctrlKey && !e.altKey) setOverlay((v) => !v);
     };
     window.addEventListener("keydown", onKey);
     return () => {
       ro.disconnect();
+      mo.disconnect();
       window.removeEventListener("keydown", onKey);
       delete window.__GRID_SELFTEST__;
     };
-  }, []);
+  }, [expectations]);
 
   return (
     <>
       <div ref={probesRef} className="gdt-probe" aria-hidden="true">
         <div data-probe="t" style={{ width: "calc(var(--t))" }} />
-        <div data-probe="wa" style={{ width: "calc(var(--wA) * 100)" }} />
-        <div data-probe="wb" style={{ width: "calc(var(--wB) * 100)" }} />
+        <div data-probe="wa" style={{ marginLeft: "calc(var(--wA) * 100)" }} />
+        <div data-probe="wb" style={{ marginLeft: "calc(var(--wB) * 100)" }} />
         <div data-probe="interp" />
       </div>
 
@@ -258,7 +368,10 @@ export default function GridDevtools() {
         {output && (
           <ul>
             <li>
-              <span>band {output.meta.band}</span>
+              <span>
+                band {output.meta.band}
+                {output.meta.settled ? "" : " · settling\u2026"}
+              </span>
               <span>
                 {output.meta.containerW.toFixed(0)}px · t {output.meta.t.toFixed(2)}px
               </span>
