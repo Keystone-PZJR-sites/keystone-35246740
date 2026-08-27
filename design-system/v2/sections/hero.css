@@ -201,8 +201,13 @@
   width: var(--hx-wm-w);
   height: var(--hx-wm-h);
   background: var(--color-text-200);
-  -webkit-mask: url("/media/brand/ks-wordmark-inline.svg") center / contain no-repeat;
-  mask: url("/media/brand/ks-wordmark-inline.svg") center / contain no-repeat;
+  /* 0 0 / 100% 100%, not center/contain: the box is cut to the art's
+     ratio (the em tokens), so both are the same geometry — but the box
+     is fractional at every size, and Safari rounds a centered mask's
+     offset, shaving the k's left stem (found 2026-08-26). Anchored at
+     0 0, any rounding spill falls past the art's right edge instead. */
+  -webkit-mask: url("/media/brand/ks-wordmark-inline.svg") 0 0 / 100% 100% no-repeat;
+  mask: url("/media/brand/ks-wordmark-inline.svg") 0 0 / 100% 100% no-repeat;
 }
 
 /* ---- chips (§3): fill the brand color, radius-xs, padding-x per
