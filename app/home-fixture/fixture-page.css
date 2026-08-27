@@ -14,36 +14,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* the Phase 5 placeholder (spec 007 §8.8): an exposed field standing
-   in for the testimonials row (spec 009) so the footer joint stays
-   testable. Tick totals from the anchor frames at 007 writing time.
-   (The engine placeholder was replaced by the real section — spec 008.) */
-.hfx-placeholder {
-  width: 100%;
-  display: grid;
-  place-items: center;
-}
-.hfx-placeholder p {
-  margin: var(--space-none);
-  font: var(--ts-text-sm-regular-font);
-  letter-spacing: var(--ts-text-sm-regular-ls);
-  color: var(--color-text-500);
-}
-.hfx-testimonials { height: calc(var(--t) * 11); }
-@container (min-width: 470px) {
-  .hfx-testimonials { height: calc(var(--t) * 9); }
-}
-@container (min-width: 665px) {
-  .hfx-testimonials { height: calc(var(--t) * 7); }
-}
-@container (min-width: 860px) {
-  .hfx-testimonials { height: calc(var(--t) * 8); }
-}
-@container (min-width: 1130px) {
-  .hfx-testimonials { height: calc(var(--t) * 11); }
-}
+/* The Phase 5 placeholders are gone: the last one (testimonials) was
+   replaced by the real section — spec 009 §8.6. */
 
-/* the designed 1t clear row above the footer at rd2 only (007 §8.8) */
+/* the designed 1t row above the footer at rd2 only (007 §8.8): the
+   file paints it as a full 12-cell lattice row — the "clear" in the
+   name is clear of content, not of lattice (spec 009 §9 amendment
+   2026-08-27). The .sec class on the element provides the isolation
+   the .gx overlay's z −1 needs. */
 .hfx-clear-rd2 {
   display: none;
 }
