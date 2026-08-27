@@ -1,20 +1,7 @@
 /* /grid harness — page-local styles (spec 002 §3).
    Fixture band constants are read off the anchor frames (see fixtures.ts
    for provenance). Everything structural is ticks; material is tokens.
-   The harness lives under the old root layout, so the v2 root neutralizes
-   the inherited chrome locally. */
-
-.v2-root {
-  min-height: 100dvh;
-  background: var(--color-bg-100);
-  color: var(--color-text-300);
-  font: var(--ts-text-md-regular-font);
-  letter-spacing: var(--ts-text-md-regular-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+   The site base (v2/base.css) carries the root styles. */
 
 /* ---- fixture sections: whole-tick heights per band ---- */
 

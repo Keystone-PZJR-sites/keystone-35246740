@@ -17,7 +17,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { lockScroll } from "@/lib/scrollLock";
+import { lockScroll } from "@/design-system/v2/lib/scroll-lock";
 import { IconChevronDownMedium, IconNavMenu } from "../icons";
 
 export interface NavMobileRow {

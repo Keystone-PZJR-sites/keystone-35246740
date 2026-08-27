@@ -23,9 +23,6 @@
       }
     ],
     "paths": {
-      "@/config": [
-        "./config/index.ts"
-      ],
       "@/*": [
         "./*"
       ]

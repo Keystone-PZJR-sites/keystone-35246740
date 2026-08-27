@@ -1,11 +1,11 @@
 # Site Rules
 
-> **⚠ Two sites live in this repo.** The old-brand site ships from `main`,
-> where the pre-revision rules remain authoritative. This branch
-> (`new-brand-marketing-site`) carries the new-brand rebuild — read
-> [`docs/rebuild/plan.md`](../rebuild/plan.md) first. On 2026-08-25 this
-> file received the rebuild revision plan.md promised: sections that differ
-> between the two sites say so inline; everything else applies to both.
+> Revised 2026-08-27, the day the old-brand site was purged from this
+> branch (owner decision — see plan.md, decision log). These rules
+> describe the only site in this tree: the new-brand rebuild under
+> `design-system/v2/`. The old-brand site still ships from `main`,
+> where the pre-revision rules remain authoritative for it. The old
+> spec series (`docs/specs/`) stays frozen here as a historical record.
 
 Non-negotiable standards for this codebase. Read this before touching a file.
 
@@ -19,32 +19,22 @@ Rules are grouped by theme and titled, not numbered for posterity — refer to t
 
 **New sections, features, and rewrites never begin as code — there is a spec first** (surgical changes are the exception, see below). The flow:
 
-1. Designer writes a spec describing what the section looks like and how it behaves. Numbered `001_…`, `002_…`, sequential and never reused.
+1. A spec is written describing what the section looks like and how it behaves, numbered `001_…`, `002_…`, sequential and never reused, in `docs/rebuild/specs/`.
 2. Spec is approved before any implementation begins.
 3. Implementation traces back to something in the spec. Out-of-spec work stops to update the spec first.
 4. Acceptance criteria are checked off in the spec when verified.
 
-Two spec series exist. The old series (`docs/specs/`) describes the old-brand site and is frozen. The rebuild series (`docs/rebuild/specs/`, numbered from 001) follows the same spec-first workflow plus the just-in-time cadence in plan.md — one phase ahead at most, written from fresh MCP node reads when the phase's inputs are stable.
+Specs follow the just-in-time cadence in plan.md — one phase ahead at most, written from fresh MCP node reads when the phase's inputs are stable.
 
-The design-language style below governs the **old series**. Rebuild specs speak the grid's language instead: ticks, anchors, and cells are the numeric vocabulary, and the material px values read from the nodes at writing time are the implementation contract — see "Rebuild Spec Conventions".
+Specs speak the grid's language: ticks, anchors, and cells are the numeric vocabulary, and the material px values read from the nodes at writing time are the implementation contract — see "Rebuild Spec Conventions".
 
-Old-series specs are written for a non-technical Figma-literate reader, in design language only:
-
-- **Visual language, not engineering language.** Describe colors, sizes, spacing, and motion in plain words ("the site's dark green", "a quick fade"). No component names, libraries, CSS properties.
-- **A visual reference for every state.** Start, end, and intermediate states. For site sections this is a Figma link; for reusable components built from an external reference it is the attached screenshot (see "Reference-Driven Components"). The implementer reads exact values from the reference, never from the spec.
-- **No exact values.** No hex codes, pixel measurements, font sizes, or timings. These live in the Figma file, or — for reference-driven components — are chosen at implementation against our tokens. Project breakpoints (985 px, 1280 px) are the only allowed numeric values.
-- **Every visual state described.** Pre-interaction, during, and complete. Anything missing will be guessed.
-- **Scroll/animation as observable outcomes.** "The headline slides off the top of the screen" — what the visitor sees, not what code achieves it. Cover trigger, what moves, direction, distance, scroll- or time-based, reversibility.
-- **Responsive behaviour explicit.** What is hidden, scales, or repositions at mobile / tablet / desktop. Engineers must not infer it.
-- **Edge cases noted.** At minimum: mobile and `prefers-reduced-motion`.
-- **Acceptance criteria observable.** "The headline slides fully off-screen" — verifiable in a browser by a non-engineer. Never code-shaped.
-- **No code snippets.** Ever.
+The old series (`docs/specs/`) described the old-brand site. It is frozen: never edit it, never build from it.
 
 ---
 
 ## Rebuild Spec Conventions
 
-The shape rebuild specs converged on over 001–006. New specs inherit it.
+The shape specs converged on over 001–006. New specs inherit it.
 
 **Header.** Status (with approval date) · Depends on (prior specs) · Sources — the exact Figma node IDs read, with read dates, plus design decisions and motion intent received, each dated.
 
@@ -56,9 +46,9 @@ The shape rebuild specs converged on over 001–006. New specs inherit it.
 - Non-token designed constants are **enumerated in the spec** and live only in the component token layer (`design-system/v2/tokens/component.css`), per band only where used.
 - Motion intent arrives from design in plain language; the spec chooses the values and approval covers both (see "Motion Grammars").
 - Draft flags go to design; fixes are re-read from the nodes; §9 records every resolution. Nothing is built from a node known to be wrong.
-- Every spec ships a **permanent, noindexed dev route** as its QA surface (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero`; `/home-fixture` assembles Phase 5 and is promoted to `/` at cutover).
+- Every spec ships a **permanent, noindexed dev route** as its QA surface (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero`, `/portfolio`, `/engine`, `/testimonials`; `/home-fixture` is the QA mount of the assembled homepage `/` renders).
 - The acceptance preamble is standard: *at each of the five anchors and one arbitrary mid-band width per band, scrollbar forced on.* Checked boxes carry the measured evidence in parentheses.
-- Acceptance always includes: the client-island count, the route's JS size, the old site's shared first-load unchanged, and every value tracing to a token or an enumerated constant.
+- Acceptance always includes: the client-island count, the route's JS size, and every value tracing to a token or an enumerated constant.
 
 ---
 
@@ -66,19 +56,9 @@ The shape rebuild specs converged on over 001–006. New specs inherit it.
 
 Specs gate **new work** — a new section, a new feature, or a rewrite of existing design. Anything that gives a non-technical reader a new picture of what a section looks like or how it behaves starts with a spec.
 
-**Surgical changes to already-built, already-specced work do not need a spec.** A breakpoint tweak, a type-weight or spacing adjustment, a copy fix, a new token, or a bug fix traces back to the existing spec's intent. Capture it in the code and the affected explainer — see "Docs Stay in Sync With Code" — instead of writing a new spec.
+**Surgical changes to already-built, already-specced work do not need a spec.** A breakpoint tweak, a type-weight or spacing adjustment, a copy fix, a new token, or a bug fix traces back to the existing spec's intent. Capture it in the code and the affected docs — see "Docs Stay in Sync With Code" — instead of writing a new spec.
 
 The test: if describing the change would require a new Figma frame, write a spec. If a reader could see the whole change by diffing the implementation, skip it.
-
----
-
-## Reference-Driven Components
-
-Reusable components shared across pages are often built to match an external reference instead of a Figma frame — a screenshot of the pattern from a well-designed site, paired with a battle-tested code example (such as UntitledUI) as a structural starting point.
-
-These still get a spec, numbered in sequence like any other. It stays value-free and design-language, but it is anchored to the attached reference screenshot rather than a Figma link, and it names — in plain design language — every new color, size, weight, or style the component needs that the system does not already have, so those additions are approved alongside it.
-
-The reference code is an input to the implementer: never pasted into the spec, never shipped verbatim. The component is rebuilt from our primitives and tokens so it reads as ours. Build one component at a time; `docs/explainers/components.md` carries the build steps. Numbering, immutability, and the approval gate are unchanged.
 
 ---
 
@@ -92,18 +72,16 @@ This matters because specs are referenced from code comments, commit messages, a
 
 Two exceptions exist for revising the same section:
 
-- **`.r1`, `.r2` suffixes on the same number** — a focused revision of one section that supersedes earlier revisions of that same section (`002_work_showcase.md` → `002_work_showcase.r1.md` → `002_work_showcase.r2.md`). Use this when the revision is contained to one section's visual design.
-- **A new sequential number with a `_refresh` (or similar) suffix** — a substantive redesign that needs to live alongside the original (`007_productscreens.md` → `024_product_screens_refresh.md`). Use this when the change is large enough that future readers benefit from seeing both side by side.
+- **`.r1`, `.r2` suffixes on the same number** — a focused revision of one section that supersedes earlier revisions of that same section. Use this when the revision is contained to one section's visual design.
+- **A new sequential number with a `_refresh` (or similar) suffix** — a substantive redesign that needs to live alongside the original. Use this when the change is large enough that future readers benefit from seeing both side by side.
 
 In both cases the prior spec is left unedited.
 
-**Rebuild amendment protocol.** The rebuild's same-day design-fix cadence (flag → fix in Figma → re-read → record) produces post-approval changes too small for a new spec. These land as a **dated inline amendment** at the value they change ("amended 2026-08-24 — …") plus an entry in the spec's resolutions record (§9) — the body always carries the built truth, the record carries the history. Errata found at build follow the same shape. Wholesale redesigns still get a new sequential number. The Status line, acceptance checkboxes, dated amendments, and the resolutions record are the only mutable zones of a rebuild spec.
+**Amendment protocol.** The same-day design-fix cadence (flag → fix in Figma → re-read → record) produces post-approval changes too small for a new spec. These land as a **dated inline amendment** at the value they change ("amended 2026-08-24 — …") plus an entry in the spec's resolutions record (§9) — the body always carries the built truth, the record carries the history. Errata found at build follow the same shape. Wholesale redesigns still get a new sequential number. The Status line, acceptance checkboxes, dated amendments, and the resolutions record are the only mutable zones of a spec.
 
 ---
 
 ## Figma Links Are Read Through the MCP
-
-This rule governs Figma-sourced work. A reusable component built from a reference screenshot (see "Reference-Driven Components") has no Figma node, so the "stop if the MCP is unreachable" requirement below does not gate it — but the moment a spec, comment, or asset does cite a Figma URL, everything here is in force.
 
 Every Figma node URL in a spec, comment, or chat message exists to be opened through the Figma MCP. This applies to spec authoring, implementation, asset refreshes, and revisions — every workflow that touches the design.
 
@@ -135,7 +113,7 @@ Anchor frames and component sets occasionally contain design errors: a mis-bound
 
 ### Re-extract the token layer before every build
 
-Token values are re-extracted from the Figma variables API before each phase's build (rebuild spec 001 rule). Silent design-side changes — a shadow re-ink, type-style drift — arrive through re-extraction and flow to built sections through the tokens with no code change. Skipping the re-extraction ships stale values.
+Token values are re-extracted from the Figma variables API before each phase's build (spec 001 rule). Silent design-side changes — a shadow re-ink, type-style drift — arrive through re-extraction and flow to built sections through the tokens with no code change. Skipping the re-extraction ships stale values.
 
 ---
 
@@ -205,10 +183,10 @@ Before every commit:
 
 Verify nothing already exists before creating anything new.
 
-- **Components:** Many marks, icons, and decorative shapes are inline React components with prop-driven color and size. An SVG file in `public/` is never the right answer when a component already serves the same role.
-- **Assets:** Check `public/` before adding a file. Figma exports often duplicate already-committed assets. Two copies will diverge.
-- **Design tokens:** Check `[data-theme="custom"]` in CSS before writing any color, spacing, or font value.
-- **Library utilities:** Check `keystone-design-bootstrap` and other installed packages before writing helpers.
+- **Icons and marks:** vector geometry lives in `design-system/v2/icons.tsx` (verbatim Figma exports) and `public/media/brand/` through the media registry. Never re-export what exists.
+- **Assets:** check `design-system/v2/media.ts` and `public/media/` before adding a file. Figma exports often duplicate already-committed assets. Two copies will diverge.
+- **Design tokens:** check the `design-system/v2/tokens/` layers before writing any color, spacing, type, motion, or z value.
+- **Library utilities:** check the `@keystone-sites/*` packages before writing data-layer helpers.
 
 **The Figma MCP does not know the codebase.** It exports whatever Figma contains, including assets and shapes already implemented. Always cross-reference its output before committing.
 
@@ -218,7 +196,7 @@ Verify nothing already exists before creating anything new.
 
 ## Plain Text Contains Plain Characters
 
-User-facing strings use literal Unicode characters. Apostrophe is `'`, ampersand is `&`, emoji is the emoji. Escapes like `\u2019`, `\u0026`, `\uD83D\uDC3E` belong only where a literal cannot appear (regex normalisation, identifiers).
+User-facing strings use literal Unicode characters. Apostrophe is `'`, ampersand is `&`, emoji is the emoji. Escapes like `\u2019`, `\u0026` belong only where a literal cannot appear (regex normalisation, identifiers).
 
 **The one exception is invisible characters whose presence is significant** — `\u00a0` (NBSP), `\u200d` (ZWJ), `\u202f` (narrow NBSP). A literal NBSP is indistinguishable from a regular space in source and silently changes layout; the escape makes intent reviewable. Comment the line so the reason is obvious.
 
@@ -226,16 +204,16 @@ User-facing strings use literal Unicode characters. Apostrophe is `'`, ampersand
 
 ## Values Are Defined Centrally, Never Hardcoded Inline
 
-Any value that *means* something is defined once, in a central place, and referenced by name — never inlined as a bare literal. **This holds even when there is only one reference today.** A named definition documents intent, gives the value a single home to edit, and survives the day a second reference appears — and it always does. Numbers, durations, easing curves, breakpoints, z-index layers, color roles, and the media-query strings JavaScript hands to `matchMedia` all qualify.
+Any value that *means* something is defined once, in a central place, and referenced by name — never inlined as a bare literal. **This holds even when there is only one reference today.** A named definition documents intent, gives the value a single home to edit, and survives the day a second reference appears — and it always does.
 
 Where the central definition lives, by kind:
 
-- **Design values** — color, spacing, radius, z-index, motion → a token in `design-system/tokens/tokens.css`. See "Hex values are tokens" and "The Z-Index Scale".
-- **Per-component magic numbers** — animation timings, beat positions, character durations, stagger amounts → a named-constants block at the top of the component file that the timeline references (`LINE_STAGGER`, `BEAT_DURATION`, `BEAT_STARTS`, …). A designer reads the block, changes a value, and knows exactly what they changed.
-- **Cross-cutting numeric concepts** — the mobile↔desktop breakpoint → a theme token read by CSS through `theme(...)` plus a mirrored JS constant module (`design-system/tokens/breakpoints.ts`). CSS and JS cannot share a literal, so the value is declared in exactly those two places and nowhere else. See "Responsive-Native".
-- **Repeated CSS values** — a delay reused across rules, a shared `cubic-bezier(...)` → a custom property or named easing token referenced everywhere.
+- **Design values** — color, spacing, radius, type, z-index, motion → a token in the `design-system/v2/tokens/` layers.
+- **Spec-enumerated non-token constants** → the component token layer (`v2/tokens/component.css`), per band only where used. Constants that reference `--t` or the interpolation weights are declared in a `.page` block, never `:root` (spec 002.r1's scope rule — a custom property resolves its inner `var()`s where it is declared).
+- **Per-island magic numbers** — timings, beat positions, thresholds → a named-constants block at the top of the island file. A designer reads the block, changes a value, and knows exactly what they changed.
+- **Repeated CSS values** — a delay reused across rules, a shared curve → a custom property or named token referenced everywhere (see "Motion Grammars" for promotion).
 
-The carve-out is meaning, not count. A value genuinely incidental to one spot that names no shared concept — a one-off prose `max-width`, a single decorative offset inside a `ScaledMockCard` — may stay inline, with a comment when its origin isn't obvious. The test: if another file could ever need to agree on the value, or a reader would ask "why this number?", it gets a central name.
+The carve-out is meaning, not count. A value genuinely incidental to one spot that names no shared concept may stay inline, with a comment when its origin isn't obvious. The test: if another file could ever need to agree on the value, or a reader would ask "why this number?", it gets a central name.
 
 ---
 
@@ -245,9 +223,9 @@ Comments that narrate what the next line does are noise. `// Increment counter` 
 
 Useful comments capture:
 
-- A non-obvious *why*: "We snap to `p`, not to `1`, because `1` would target an internal proxy that `gsap.killTweensOf` cannot reach."
-- A constraint the code cannot express: "Hardcoded mapOffset values come from Figma per industry — see spec 012."
-- A trade-off that survived a discussion: "ScrollSmoother applies a transform to `#smooth-content`, so fixed positioning breaks for descendants — that's why this modal portals into `document.body`."
+- A non-obvious *why*: "The offset grows from 0,0 after the box lands because a hard shadow never paints while its box moves."
+- A constraint the code cannot express: "The rest offsets are designed — see spec 009 §5."
+- A trade-off that survived a discussion.
 
 Block-letter `// =================` banners that label "what the next 200 lines render" are not comments — they're a substitute for splitting the file. The right fix is the split.
 
@@ -259,50 +237,46 @@ When in doubt, delete the comment and let the code speak. Naming a variable, ext
 
 ## Server vs Client Components
 
-Default to **Server Components**. Add `'use client'` only for: GSAP animations (`useLayoutEffect`, `useRef`), browser APIs (`window`, `document`), React state or effects, or event handlers.
+Default to **Server Components**. Add `'use client'` only for: browser APIs (`window`, `document`, measurement), React state or effects, or event handlers.
 
-Never put `'use client'` on page-level files (`app/*/page.tsx`). Push interactivity into leaf components. Never call API fetch functions inside client components.
+Never put `'use client'` on page-level files (`app/*/page.tsx`). Push interactivity into leaf islands — each section ships at most one, and the spec's acceptance counts them. Never call API fetch functions inside client components.
 
 ---
 
 ## The Design System Is Central
 
-All brand UI lives under `design-system/` at the repo root and is consumed through it. The layers build strictly upward — **tokens → primitives → components → sections** — and a layer may use the layers above it, never below.
+All brand UI lives under `design-system/v2/` and is consumed through it. The layers build strictly upward — **tokens → base → grid → primitives → sections** — and a layer may use the layers above it, never below.
 
-- **Tokens** (`design-system/tokens/`) are the only place colors, fonts, radii, spacing, z-index, elevation, and motion are defined.
-- **Primitives** (`design-system/primitives/`) are the lowest-level building blocks (`Text`, `Heading`, `Button`, `Card`, `Link`, `Pill`, …). Build everything from these; never hand-roll a styled `<button>` or `<h2>` in a page.
-- **Components** (`design-system/components/`) are composite site chrome (navs, footer, lead-capture modal, `InnerPageShell`).
-- **Sections** (`design-system/sections/`) are full-width page sections, including the reusable inner-page set (`PageHero`, `ContentSection`, `FeatureGrid`, `CtaBand`, and the typed data sections).
-- **Patterns** (`design-system/patterns/`) are page-specific groups (`blog/`, `legal/`), imported by path, not from the top barrel.
+- **Tokens** (`v2/tokens/`): primitives · semantic · type · motion · `component.css` (the component token layer holding every spec-enumerated non-token constant). The only place colors, fonts, radii, spacing, z-index, and motion values are defined.
+- **Base** (`v2/base.css`): the document reset the sections were verified under, and the site root (`.v2-root`, carried by `body` in the root layout). Part of the rendering contract — do not restyle it casually.
+- **Grid** (`v2/grid/`): the spec 002/002.r1 engine and exposure vocabulary.
+- **Primitives** (`v2/primitives/`): the lowest-level building blocks (buttons, grader, text, footer-item, grid-button). Build everything from these; never hand-roll a styled `<button>` or `<h2>` in a page.
+- **Sections** (`v2/sections/`): full-width page sections and the site chrome (nav, footer).
+- Plus `icons.tsx` (verbatim Figma exports), `media.ts` (the media registry), `lib/` (shared client utilities — currently the scroll lock), and `home.tsx` (the assembled homepage composition).
 
-Import from the top barrel (`@/design-system`) for tokens → sections; import patterns by their own path. Every change to a primitive or token updates the `/styles` catalog in the same commit. Full architecture: `docs/explainers/design-system.md`.
+All custom CSS lives in these layers, assembled by `v2/index.css` in cascade order — edit the file for the layer you work on; never add rules to the index. Dev-route QA styles live in the route's own css file. No CSS modules, styled-components, emotion, `<style>` tags (the root layout's cold-load guard is the sole, commented exception), and no utility-class framework.
 
-**The rebuild lives in `design-system/v2/`** with the same upward layering: `tokens/` (primitives · semantic · type · motion · `component.css`, the component token layer holding every enumerated non-token constant) → `grid/` (the spec 002 engine) → `primitives/` → `sections/`, plus `icons.tsx` (verbatim exports) and `media.ts` (the v2 media registry). Changes to a v2 primitive or token update the `/primitives` catalog in the same commit. The old tree is not extended with new-brand work.
+Every change to a primitive or token updates the `/primitives` catalog in the same commit.
 
 ---
 
 ## Component Organization
 
-All components under `design-system/`. Section components (one per Figma section) in `design-system/sections/`. Composite chrome in `design-system/components/`. Each subfolder has an `index.ts` barrel; the top-level `design-system/index.ts` re-exports tokens → primitives → components → sections. One component per file. Named exports only.
+All components under `design-system/v2/`. One component per file. Named exports only. A section and its sub-components share a name prefix (`nav.tsx` · `nav-desktop.tsx` · `nav-mobile.tsx`); a section's island is its own file.
 
 ---
 
 ## Pages Compose From the Design System
 
-A page file mounts design-system pieces and feeds them data — nothing more. Every non-home page wraps its body in `<InnerPageShell>` (sticky nav + footer + lead-capture modal in one place), opens with `<PageHero>`, stacks `<ContentSection>` bodies, and closes with `<CtaBand>`. A page never defines its own nav, footer, hero chrome, or colors.
+A page file mounts design-system pieces and feeds them data — nothing more. A page never defines its own nav, footer, hero chrome, or colors.
 
-Data fetched from `@keystone-sites/core/lib/server-api` is typed at the page boundary against the package's entity types (`Service`, `Testimonial`, `TeamMember`, `FaqQuestion`, `Location`, `SocialPost`, `JobPosting`, …) before being passed into a typed section. Several API helpers return `unknown`; cast to the documented entity type at the fetch site, then render only fields you have verified are strings (the API occasionally returns objects where a string is typed — see `asText` in `design-system/lib/text.ts`).
+Data fetched from `@keystone-sites/core/lib/server-api` is typed at the page boundary against the package's entity types before being passed into a typed component. Several API helpers return `unknown` or occasionally return objects where a string is typed — validate at the fetch site and render only fields verified to be the expected shape.
 
 ---
 
 ## Files Stay Small
 
-A component file past ~500 lines is a missing folder. Long files hide structure, make every diff noisy, and let unrelated concerns drift together. The split pattern:
-
-1. Create `design-system/sections/<section>/` with an `index.ts` barrel.
-2. Move the top-level section to `<section>/<Section>.tsx`.
-3. Move each visually distinct sub-component (each card variant, each modal, each shape primitive) to its own file.
-4. Section-private types go in a colocated `types.ts` re-exported through the index.
+A component file past ~500 lines is a missing folder. Long files hide structure, make every diff noisy, and let unrelated concerns drift together. Split the section into its own folder with an index barrel, one file per visually distinct sub-component, colocated `types.ts`.
 
 The rule is about ceilings, not floors. A 200-line section is fine; a 3000-line file is not. The signal is "I cannot hold the whole file in my head."
 
@@ -312,9 +286,7 @@ The same applies to data — a section's content array does not belong in the sa
 
 ## Sub-component Boundaries Are Real
 
-A "sub-component" buried inside the same file as its parent is still its own component. If `WorkShowcase.tsx` defines `SalesCard`, `AdsCard`, `SocialCard`, `WebCard`, `ContentCard`, and `ListingsCard` inline, those are six components hiding in one file.
-
-A thing is a sub-component when:
+A "sub-component" buried inside the same file as its parent is still its own component. A thing is a sub-component when:
 
 - It has a discrete prop interface and a discrete output.
 - It can be reasoned about without reading the parent's render.
@@ -326,30 +298,20 @@ Pure layout primitives (wrapper divs, flex rows that exist only to lay out child
 
 ## Everything Is Prop-Driven
 
-- **No hardcoded content in components.** Every string, image URL, color variant, label, and configuration is a prop.
+- **No hardcoded content in components.** Every string, image URL, color variant, label, and configuration is a prop or a typed data module the component imports.
 - TypeScript interfaces for every component. Never `any`. Never `object`.
 - Default prop values only for layout/style options (`variant`, `size`), never content.
-- Server components fetch data and pass it down. Client components receive data as props.
-
----
-
-## Page Files Compose, Data Files Hold Data
-
-A page file's job is to mount components and pass them props. It is not a content store.
-
-A page running into hundreds of lines of inline data (industry definitions, message threads, photo paths, slide quotes) is a missing data module. That data lives under `data/` — one file per section, exporting the typed arrays the page imports. The page ends up short enough to read in one screen.
-
-`.tsx` if the data contains JSX (small avatars, inline SVGs); `.ts` otherwise. Use the typed exports the section already provides — `WorkCardData[]`, `WorkIndustry[]`, etc.
+- Server components fetch data and pass it down. Client islands receive data as props or read it from the DOM/computed style per their spec.
 
 ---
 
 ## One Source of Truth for State
 
-A piece of state lives in exactly one place. Either React owns it and the animation library reads it, or the animation library owns it and React reads it. Not both.
+A piece of state lives in exactly one place. Either React owns it and the animation/timer code reads it, or the animation/timer code owns it and React reads it. Not both.
 
-The smell: `flushSync(() => setActiveIndex(newIndex))` from inside an animation callback. That tells you React state and the timeline are racing and `flushSync` is suppressing the race rather than fixing it. Pick one owner — drive the value from React `useState` and let the timeline read via a ref, or drive it from the timeline and treat React as a passive observer.
+The smell: forcing a synchronous React update from inside an animation or timer callback to keep two owners agreeing. That tells you the two are racing and the sync is suppressing the race rather than fixing it. Pick one owner — drive the value from React state and let the timer read via a ref, or drive it from the timeline and treat React as a passive observer.
 
-Same for scroll position (ScrollSmoother owns; React reads via API), focus (the DOM owns; React calls `.focus()`, reads via events), and form state (React Hook Form owns; uncontrolled inputs flow into it).
+Same for focus (the DOM owns; React calls `.focus()`, reads via events) and form state (uncontrolled inputs own their value; the submit handler reads it).
 
 ---
 
@@ -362,7 +324,6 @@ A common temptation is a module-level `Map` shared across sections, justified as
 Acceptable module-level state:
 
 - `const` registries that never change after import.
-- A single `gsap.registerPlugin()` call.
 - An exported `let` assigned exactly once during module evaluation.
 
 Anything else — caches, handoffs, "current state" trackers — uses React state, refs, or events.
@@ -371,23 +332,21 @@ Anything else — caches, handoffs, "current state" trackers — uses React stat
 
 ## Prefer Native CSS State Over JavaScript State
 
-If a state can be expressed via `:hover`, `:focus-within`, `:focus-visible`, `:has()`, `data-*` attributes, or media queries, use CSS. A `useState` whose only job is to add a class on focus is wasted memory, an extra render, and a hydration risk.
-
-Canonical example — floating-label input: a naive version tracks `isFocused` and `hasValue` with `useState`. Both are derivable from the input's own DOM: `:focus-within` for focus, `:not(:placeholder-shown)` for has-value (use `placeholder=" "` so the pseudo-class is meaningful).
+If a state can be expressed via `:hover`, `:focus-within`, `:focus-visible`, `:has()`, `data-*` attributes, or container/media queries, use CSS. A `useState` whose only job is to add a class on focus is wasted memory, an extra render, and a hydration risk.
 
 JavaScript state is appropriate when:
 
 - The state must be observed by code outside the affected element.
-- It cannot be derived from CSS pseudo-classes (multi-selection, debounced flags).
-- An animation library must read it to drive an animation.
+- It cannot be derived from CSS pseudo-classes (multi-selection, debounced flags, timers).
+- The island must read it to drive behaviour.
+
+The v2 islands follow this: state the CSS can carry lives in `data-*` attributes and classes; JS owns only what it must (timers, offsets, springs).
 
 ---
 
 ## Discriminated Unions Over String Sniffing
 
-Type-narrow with a discriminator field, never with string matching on names. Code like `if (field.name.includes('phone'))` is the anti-pattern — the next field that needs that branch will not be named that way and the bug is invisible until production.
-
-Every variant carries an explicit `type` literal. Every consumer narrows on that literal. TypeScript fails the build if a new variant is added without handling. A renderer is a single exhaustive `switch`.
+Type-narrow with a discriminator field, never with string matching on names. Every variant carries an explicit `type` literal. Every consumer narrows on that literal. TypeScript fails the build if a new variant is added without handling. A renderer is a single exhaustive `switch`.
 
 If the source data lacks a discriminator (an external schema), classify it once at the boundary into a closed union and switch on that — never re-sniff strings at every render.
 
@@ -395,15 +354,13 @@ If the source data lacks a discriminator (an external schema), classify it once 
 
 ## Data Models Are Typed at the Boundary
 
-The shape of every external response is parsed and typed before it enters the app. A response from `fetch('/api/form')` is not `{ success: boolean }` just because someone wrote `as { success: boolean }` — the cast lies the moment the API changes.
+The shape of every external response is parsed and typed before it enters the app. A response from `fetch(...)` is not `{ success: boolean }` just because someone wrote `as { success: boolean }` — the cast lies the moment the API changes.
 
 The pattern:
 
 1. Declare the response type once.
-2. Validate the parsed body against it (Zod, Valibot, or a small hand-written `parseFooResponse(raw: unknown)` validator — pick one approach, stay with it).
+2. Validate the parsed body against it (a small hand-written `parseFooResponse(raw: unknown)` validator is the simplest version).
 3. Use the validated value, not the raw `.json()` result.
-
-A hand-written validator takes `unknown`, narrows with `typeof === 'object'` checks, and returns a typed result with safe defaults. It is the simplest version of the rule.
 
 Third-party SDKs that already return typed responses are trusted — the cast at *our* boundary is what is forbidden.
 
@@ -411,12 +368,12 @@ Third-party SDKs that already return typed responses are trusted — the cast at
 
 ## Effects Are Idempotent
 
-Every `useEffect`, `useLayoutEffect`, animation context, and event listener must be safe to set up, tear down, and set up again. React Strict Mode mounts components twice in development. HMR reloads single files. Browser bfcache resurrects pages from snapshot.
+Every `useEffect`, `useLayoutEffect`, and event listener must be safe to set up, tear down, and set up again. React Strict Mode mounts components twice in development. HMR reloads single files. Browser bfcache resurrects pages from snapshot.
 
 The patterns:
 
-1. **Always return a cleanup.** Every `addEventListener` pairs with `removeEventListener`. Every `gsap.context(() => …)` pairs with `ctx.revert()`. Every `gsap.matchMedia()` pairs with `mm.revert()`. Every `setInterval` with `clearInterval`. Every `IntersectionObserver` with `disconnect()`. ScrollTriggers are killed implicitly by `gsap.context.revert()` — never wire one outside a context.
-2. **Guard one-time global setup against double-invocation.** `ScrollSmoother.get()?.kill()` before `ScrollSmoother.create(...)` ensures the previous instance is torn down before a new one is created.
+1. **Always return a cleanup.** Every `addEventListener` pairs with `removeEventListener`. Every `setTimeout`/`setInterval` with a clear. Every `ResizeObserver`/`IntersectionObserver` with `disconnect()`.
+2. **Guard one-time global setup against double-invocation.**
 3. **Capture refs at effect start, not at cleanup.** A cleanup callback that closes over `ref.current` may see `null` by the time it runs. Save into a local inside the effect body and reference that local from the cleanup.
 4. **Never depend on initial mount being the only mount.** Subscriptions, timers, and animations should produce the same observable state whether they run once, twice, or fifty times.
 
@@ -426,58 +383,45 @@ The smell that says you've broken this rule: "works the first time but breaks af
 
 # § Styling & Tokens
 
-## Use Robust Libraries for Complex Things
+## No UI Runtime Libraries Without Cause
 
-| Concern | Library |
-|---------|---------|
-| Animations | GSAP (see `docs/explainers/animations.md`) |
-| Carousels / sliders | Embla Carousel |
-| Forms | React Hook Form |
-| Icons | `@untitledui/icons` |
+The site ships **zero UI runtime libraries** — no animation engine, no carousel library, no form library. Motion is CSS (see "Motion Grammars"); the interactive behaviours are small specced islands; forms are uncontrolled inputs feeding the Keystone route handlers. This is a feature: the homepage's route JS is measured in hundreds of bytes and the spec acceptance counts every island.
 
-Don't roll custom animation logic with `requestAnimationFrame` or `setInterval`. Don't add a library for something that fits in five lines of CSS or one Tailwind class. Before installing anything new, check whether existing dependencies already cover it.
+Before adding any dependency: demonstrate the need in the spec, check whether the existing islands or the `@keystone-sites/*` packages already cover it, and prefer the platform. A library that earns its place is added deliberately — never as a reflex.
 
 ---
 
-## Styling: Tailwind, Tokens, Custom CSS
+## Styling Lives in the Token Layers
 
-- **Tailwind for layout and spacing** — flex, grid, padding, margin, width, height, display. Don't write custom CSS for what Tailwind handles in one class.
-- **Design tokens for colors, fonts, radius** — reference CSS custom properties from `design-system/tokens/tokens.css` (global `@theme`/`:root` tokens, and the `[data-theme="custom"]` palette roles). Never hardcoded hex values in class names.
-- **Arbitrary Tailwind values only for one-off exceptions.** Repeated `[value]` is a missing token.
-- **All custom CSS lives under `design-system/styles/`**, split by layer and assembled by `design-system/styles/index.css`. Edit the file for the layer you are working on; never add rules to the index. No CSS modules, styled-components, emotion, `<style>` tags.
+- **Design tokens for every color, font, radius, spacing, z, and motion value** — reference the custom properties from `design-system/v2/tokens/`. Never hardcoded hex or magic px in component CSS.
+- **Structure rides the grid** — ticks (`--t`), the interpolation weights, em at anchor ratios, or fixed material px per band, per the four units (002.r1). See "Grid & Type Laws".
+- **All custom CSS lives in the v2 layers** assembled by `v2/index.css`; dev-route QA styles in the route's css file.
 
 ### Inline `style={{}}` is allowed only for
 
-1. **Forwarding a prop** the CSS cannot know — a per-card background color, a per-pill `left/top` percentage, a per-image rotation.
-2. **CSS custom properties** consumed by a stylesheet rule — `style={{ '--ws-natural-w': '868px' }}` paired with `width: calc(var(--ws-natural-w) * var(--ws-card-scale))` in CSS.
-3. **GSAP transient state** — `willChange: 'transform'` on an element about to animate.
+1. **Forwarding a prop** the CSS cannot know — a per-card color role, a per-frame index.
+2. **CSS custom properties** consumed by a stylesheet rule — the islands' `setProperty("--eng-x", …)` pattern and `style={{ '--gx': n }}` grid placement.
+3. **Transient animation state** — `willChange` on an element about to move.
 
-If a value never changes per instance, it belongs in a class. The same `fontFamily` repeated twenty times is a missing class.
+If a value never changes per instance, it belongs in a class.
 
 ### Hex values are tokens
 
-Every hex color used by more than one element exists as a CSS custom property in `design-system/tokens/tokens.css` (the `[data-theme="custom"]` palette roles, or a global `@theme` token). The token name describes the role (`--color-pricing-tagline`), not the hue (`--color-mint-green`). One-off truly singular values may stay raw, with a comment explaining why no token applies.
+Every hex color exists as a custom property in the v2 token layers. The token name describes the role, not the hue. Hardcoded hex inside component files is forbidden; the two commented cold-load literals in the root layout (the guard style and the theme-color, which no stylesheet can serve) are the standing exceptions.
 
-Hardcoded hex inside component files is forbidden. A component asks for a color via prop; the page or token system supplies it. Every chip color, photo overlay, and gradient stop comes through as a string from page-level data — components never reach for `'#4f4d4a'` directly.
+### `!important` is forbidden
 
-### `!important` has one approved use
+It is never the answer to a specificity fight — fix the cascade. The base reset's `[hidden]` rule is the one standing exception (part of the document contract).
 
-Forbidden everywhere it's used to win a specificity fight. The only acceptable case is overriding GSAP's inline `transform`/`transition` in a `prefers-reduced-motion: reduce` media query, because GSAP's inline style outweighs any class. Even there, prefer killing the GSAP timeline itself.
+### Repeated values become tokens
 
-### Repeated arbitrary values become tokens
-
-If `text-[#4f4d4a]`, `text-[12px]`, or `tracking-[-0.12px]` appears in two places with the *same* design intent, promote it — to a CSS custom property if it's a design token, to a Tailwind utility class if it's a layout primitive. Two copies always drift.
-
-The exception is per-instance values inside a `ScaledMockCard` (see the ScaledMockCard rule below) — the same hex/font/size repeated across mock UIs is intentionally bespoke per mock.
+If the same literal appears in two places with the *same* design intent, promote it to a custom property. Two copies always drift. Motion constants promote at their second consumer (see "Motion Grammars").
 
 ---
 
 ## Fonts Are Licensed
 
-Every font in this repo is licensed and **not** on Google Fonts or Fontsource. Never `@import` any of them from a CDN or public URL; never commit them to a public mirror. System-font fallbacks are acceptable in development only.
-
-- **Rebuild (v2):** GT Standard Standard VF + PP Kyoto Variable Upright. Files in `public/media/fonts/`, loaded via `@font-face` in `design-system/v2/tokens/fonts.css`. The axis facts, weight mappings, and per-step optical-size pins are the implementation contract in rebuild spec 001 — read it before touching type. (GT Standard's variable default weight is 900: every style sets an explicit weight or text renders Black.)
-- **Old site:** the FK family (FK Screamer, FK Grotesk Neue Trial, FK Grotesk Mono Trial, FK Roman Standard Trial, FK Screamer Legacy Trial) loads via `design-system/tokens/fonts.css` and still ships from `main`.
+Both site fonts — **GT Standard Standard VF** and **PP Kyoto Variable Upright** — are licensed and **not** on Google Fonts or Fontsource. Never `@import` them from a CDN or public URL; never commit them to a public mirror. Files live in `public/media/fonts/`, loaded via `@font-face` in `design-system/v2/tokens/fonts.css` and preloaded by the root layout. The axis facts, weight mappings, and per-step optical-size pins are the implementation contract in spec 001 — read it before touching type. (GT Standard's variable default weight is 900: every style sets an explicit weight or text renders Black.)
 
 ---
 
@@ -489,7 +433,7 @@ Export flattened compositions instead: the background shape is one `<path>`, for
 
 If you receive an Exclude-style SVG from Figma, ask for a flattened re-export.
 
-**Vector geometry is never hand-authored.** Icons and marks are exported verbatim from Figma (the rebuild exports through the console bridge — see "Figma Links Are Read Through the MCP"); the only permitted edit is normalizing paint to `currentColor` where the icon tints with text. Shapes with no vector geometry — dots, plain circles and squares — are built as CSS with token fills instead of exported files: the rule protects geometry, and a circle has none. (Rebuild specs 003 §6, 004 §7.)
+**Vector geometry is never hand-authored.** Icons and marks are exported verbatim from Figma through the console bridge; the only permitted edit is normalizing paint to `currentColor` where the icon tints with text. Shapes with no vector geometry — dots, plain circles and squares, the corner triangles — are built as CSS with token fills instead of exported files: the rule protects geometry, and a circle has none. (Specs 003 §6, 004 §7, 009 §9 — the CSS-dot doctrine.)
 
 ---
 
@@ -498,88 +442,50 @@ If you receive an Exclude-style SVG from Figma, ask for a flattened re-export.
 | Use | Where it lives |
 |-----|----------------|
 | Used once, decorative, ≤ ~20 lines of markup | inline in the component |
-| Used twice or more, anywhere on site | extract to a `design-system/primitives/` brand mark with `color`/`size` props; variant differences become a `variant` prop |
-| Complex multi-layer artwork | SVG file in `public/`, loaded via `next/image` or `<img>` |
+| Used twice or more, anywhere on site | an export in `v2/icons.tsx` with `color`/`size` props |
+| Complex multi-layer artwork | SVG file in `public/media/`, registered in `v2/media.ts` |
 
-A repeated icon collapses into one inline definition (a `CheckmarkIcon` defined once near the top of a section, referenced N times). A duplicated icon across two section files collapses into a shared element. Either way, the SVG markup appears in source exactly once.
-
----
-
-## Use `next/image` Until It Costs You Performance
-
-`<img>` is forbidden unless `next/image` measurably hurts the page — that's the meaning of `@next/next/no-img-element`. `// eslint-disable-next-line` requires a real reason, not "the image is small."
-
-Approved reasons:
-
-- The image is part of a *layered SVG composition* inside a transform-scaled mock (see ScaledMockCard below). `next/image`'s lazy-loading and srcset machinery interact badly with the transform stack.
-- The image is a `data:` URI generated at runtime.
-- The source is a same-origin SVG and `next/image` rejects it for unrelated reasons.
-- The image is an **art-directed tier set** — the crops differ per band, so the frames render as `<picture>` with one media-gated `<source>` per tier, explicit width/height, and the smallest tier as the `<img>` fallback (the rebuild carousel pattern, spec 006 §5). Tiers are art direction, not resolution steps; cut each at 2× its band's rendered frame size. `<source media>` is viewport-based and may lag the container band by a scrollbar width near a band edge — accepted as a density-only effect; geometry stays CSS-driven.
-
-Every `eslint-disable` for `no-img-element` carries a justifying comment. If an entire file is exempt for the same reason (e.g. a section that is mostly `ScaledMockCard` instances), write the explanation **once** as a block comment at the top and let the inline disables stand as bookkeeping. Dozens of identical disable comments without explanation means the rule is being treated as a nuisance — fix the cause or document at the file level.
+A repeated icon collapses into one definition referenced N times. Either way, the SVG markup appears in source exactly once.
 
 ---
 
-## Pixel-Perfect Mocks Use One Approved Scaling Pattern (`ScaledMockCard`)
+## Images Are Art-Directed Tier Sets
 
-When the design demands pixel-perfect reproduction of an external interface — an iPhone chat UI, a Meta ad, a search-listings card — use the `ScaledMockCard` pattern. Internal pixel values stay exact; the whole card scales via a single CSS transform.
+Sections render photography as `<picture>` with one media-gated `<source>` per width tier and the smallest tier as the `<img>` fallback — the tier cuts follow the structural gates (spec 002.r1), because tiers are art direction, not resolution steps; cut each at 2× its band's rendered frame size. Explicit `width`/`height` on every image; WebP only; empty `alt` for ambient photography. Eager/lazy and decode-priming follow each section's spec. `<source media>` is viewport-based and may lag the container band by a scrollbar width near a band edge — accepted as a density-only effect; geometry stays CSS-driven.
 
-The pattern:
-
-1. Outer container carries the natural Figma dimensions as CSS custom properties (`--ws-natural-w`, `--ws-natural-h`).
-2. A child wrapper is sized to those natural dimensions; `transform: scale(...)` shrinks it to fit.
-3. Outer container's actual layout size is `naturalWidth * scale` so flex and Embla measure correctly.
-
-Inside that wrapper:
-
-- **Hardcoded pixel positions and sizes are not a layout violation.** They are part of the mock and they scale together. Don't retrofit pixel-perfect mocks to use proportional layout — they will lose fidelity.
-- **Inline typography is exempt** from the "extract repeated arbitrary values" guidance. Each mock UI mimics a different external interface (Instagram's Inter, a vintage menu's Josefin Slab, a search listings card's specific Roboto). Those font/size/letter-spacing values are part of the per-mock visual identity, not theme tokens. Keep them inline at the JSX where the mock is composed.
-
-Outside that wrapper (real site UI), normal layout rules apply in full and pixel positions are forbidden.
-
-The reference implementation lives in the WorkShowcase section.
+The deploy serves static assets directly (`images.unoptimized`); the tier markup, not an optimizer, is the delivery mechanism. Every asset path comes from the media registry (`v2/media.ts`) — see "Public Asset Naming & The Media Registry".
 
 ---
 
 ## The Z-Index Scale
 
-Stop inventing z-index numbers. Tokens defined once in `design-system/tokens/tokens.css`:
+Stop inventing z-index numbers. The tokens live in `v2/tokens/component.css` (`--z-base` · `--z-raised` · `--z-sticky` · `--z-nav` · `--z-modal` · `--z-portal`). Within a single component, small relative values (`z-index: 1/2/3`) may order siblings inside an *isolated* stacking context (the sections isolate; the lattice overlay sits at −1 by construction). The named tokens apply to anything that stacks against the rest of the page.
 
-| Layer | Token | Used for |
-|-------|-------|----------|
-| Base content | `--z-base` (or no z-index) | Document flow |
-| Raised content | `--z-raised` | Card lifted on hover, active tab |
-| Sticky chrome | `--z-sticky` | Pinned navs, sticky footers |
-| Site nav | `--z-nav` | Navigation painting over sections |
-| Modal | `--z-modal` | Modal dialog itself |
-| Portal | `--z-portal` | Portaled content above ScrollSmoother's transform |
-
-Within a single component, small relative values (`z-[1]`, `z-[2]`, `z-[3]`) may order siblings inside an *isolated* stacking context (e.g. layered photos in one card). The named tokens apply to anything that stacks against the rest of the page.
-
-Define once. Reference everywhere. No raw numbers above `3` in component files. No raw numbers in stylesheets.
+Define once. Reference everywhere. No raw numbers above `3` in component files.
 
 ---
 
-## Motion Grammars (rebuild)
+## Motion Grammars
 
-Rebuild motion is a vocabulary of named grammars, not per-section improvisation. The global grammars live in `design-system/v2/tokens/motion.css`, each with a prose definition in the file: **draw-down** (a box's bottom edge draws to its target height, content revealed by the moving clip edge), **fade-rise**, the **chip wipe**, the **carousel slide**.
+Motion is a vocabulary of named CSS grammars, not per-section improvisation. The global grammars live in `design-system/v2/tokens/motion.css`, each with a prose definition in the file: **draw-down**, **fade-rise**, the **chip wipe**, the **carousel slide**.
 
 - **Reuse before inventing.** A new section reaches for an existing grammar first. A genuinely new grammar is named, defined in prose, and specced.
 - **Design supplies intent; the spec chooses values.** Motion intent arrives from design in plain language; durations, curves, and staggers are chosen in the spec and approved with it.
-- **Constants are born in the component token layer and promote at their second consumer** — to `tokens/motion.css`, values unchanged. (Spec 004 deferred the drawer constants; spec 005 promoted them, exactly as planned.)
-- **Alias, never fork curves.** A grammar that wants an existing curve aliases its token (the rise ease aliases the drawer ease-out).
+- **Constants are born in the component token layer and promote at their second consumer** — to `tokens/motion.css`, values unchanged, prior names becoming aliases.
+- **Alias, never fork curves.** A grammar that wants an existing curve aliases its token.
 - **Open/close asymmetry.** Opens run the ease-in-out curve; closes run the ease-out. A hard shadow never paints while its box moves: the offset grows from 0,0 after the box lands and drops at once on close.
+- **Choreographies settle** (002.r1): a load choreography ends its run explicitly, so band-gated display variants never replay animations on resize.
 - **`prefers-reduced-motion: reduce` renders every grammar state-to-state** — no transitions, no timers, elements born in their settled state. A no-JS render shows the same settled state.
 
 ---
 
 ## Public Asset Naming & The Media Registry
 
-Static media lives under `/public/media/`, organized by **function** (what the asset _is_), not by the page that uses it — so the same file can be referenced from anywhere without duplication. Folders are subject-based for content (`/public/media/product-screens/`, `/public/media/social-proof/`, `/public/media/showcase-cards/`, `/public/media/hero/`, `/public/media/channels/`, `/public/media/value-props/`) and component-named for chrome (`/public/media/footer/`, `/public/media/lead-capture/`, `/public/media/pricing/`). Brand marks live in `/public/media/brand/`, fonts in `/public/media/fonts/`. Only site metadata kept at the public root for tooling conventions is exempt: favicons, `og-image.png`, and `site.webmanifest`.
+Static media lives under `/public/media/`, organized by **function** (what the asset _is_): `hero-carousel/`, `portfolio/`, `engines/`, `testimonials/`, `brand/`, `fonts/`. Only site metadata kept at the public root for tooling conventions is exempt: favicons, `og-image.png`, and `site.webmanifest`.
 
-`data/media.ts` is the **central media registry** — the single source of truth that maps every asset to its path with a typed descriptor. Code never hardcodes an asset path; it references a registry entry (e.g. `MEDIA.productScreens.web.src`, `MEDIA.heroClips.desktop`). To move or rename an asset, change it in one place. The only literal paths allowed are the two contexts that cannot import TS: `@font-face` rules in `fonts.css`, and favicon/og/manifest references in app metadata.
+`design-system/v2/media.ts` is the **central media registry** — the single source of truth mapping every asset to its path with a typed descriptor. Code never hardcodes an asset path; it references a registry entry or builder. The only literal paths allowed are the contexts that cannot import TS: `@font-face` rules in `fonts.css`, the root layout's preload hrefs, and favicon/og/manifest references in app metadata.
 
-Before naming a new asset, scan the existing files in the target folder and match the naming pattern — separators, prefixes, ordering, casing. If the folder has no pattern yet, use lowercase `kebab-case` with parts ordered most general to most specific (`health-ads-photo-1.png`, not `photo1-ads-health.png`).
+Before naming a new asset, scan the existing files in the target folder and match the naming pattern. If the folder has no pattern yet, use lowercase `kebab-case` with parts ordered most general to most specific.
 
 Every name must be identifiable without opening the file. `rect4.png`, `img1.png`, `icon.svg` are not acceptable.
 
@@ -591,31 +497,28 @@ When an asset is replaced or made redundant, delete it (and its registry entry).
 
 ## Responsive-Native
 
-Two responsive systems coexist while the rebuild replaces the old site.
+**Five anchors, nearest-anchor rendering.** The design exists at five anchor widths (384 · 576 · 768 · 960 · 1344); the tick is the page container's width ÷ 12. Base CSS is the 384 design (mobile-first); the four structural switches (`rs` · `rt` · `rd1` · `rd2`) are gated by **container queries** — never media queries — at the bands' **geometric midpoints** (470 · 665 · 860 · 1130, spec 002.r1), so every width renders the nearest anchor's design: stretched below its anchor, compressed above the gate (worst-case zoom ~±20%). In a compressed slice the weights collapse to a pure zoom of the slice's anchor, so wrap counts and designed clearances hold by construction; from the anchor up, the designed interpolation lines run as before. Above 1344 everything rides the tick (pure zoom, uncapped); below 384 the base band's line extrapolates downward. Type steps down at gates — invisible to fixed-width devices.
 
-**Rebuild (v2) — five anchors, nearest-anchor rendering.** The design exists at five anchor widths (384 · 576 · 768 · 960 · 1344); the tick is the page container's width ÷ 12. Base CSS is the 384 design (mobile-first); the four structural switches (`rs` · `rt` · `rd1` · `rd2`) are gated by **container queries** — never media queries — at the bands' **geometric midpoints** (470 · 665 · 860 · 1130, spec 002.r1), so every width renders the nearest anchor's design: stretched below its anchor, compressed above the gate (worst-case zoom ~±20%). In a compressed slice the weights collapse to a pure zoom of the slice's anchor, so wrap counts and designed clearances hold by construction; from the anchor up, the designed interpolation lines run as before. Above 1344 everything rides the tick (pure zoom, uncapped); below 384 the base band's line extrapolates downward. Type steps down at gates — invisible to fixed-width devices. JavaScript that needs the current band measures the container (ResizeObserver) or reads computed style, never `matchMedia`. Mechanics: `docs/rebuild/reference/GRID-SPEC.md` (v5) as amended by rebuild specs 002 and 002.r1; the laws that emerged in the build are in "Grid & Type Laws (rebuild)" below. Every section is verified at all five anchors and at a width per structural slice, scrollbar forced on.
+JavaScript that needs the current band measures the container (ResizeObserver) or reads computed style, never `matchMedia`. Mechanics: `docs/rebuild/reference/GRID-SPEC.md` (v5) as amended by specs 002 and 002.r1; the laws that emerged in the build are in "Grid & Type Laws" below. Every section is verified at all five anchors and at a width per structural slice, scrollbar forced on.
 
-**Old site — the 985 px boundary.** The old-brand pages (shipping from `main`) hand off mobile↔desktop at **985 px** app-wide (`md:` is redefined from 768 px in `tokens.css`); a secondary 1280 px tier refines proportions toward the 1440 px Figma and never swaps layouts; the lead-capture modal is the sole exception (640 / 1024 px). Old-site design starts from the 1440 px desktop Figma and adapts down. Full detail in `docs/explainers/responsive.md`. Don't introduce new cutoffs in old-site code.
-
-Both systems:
+Always:
 
 - Never use fixed pixel widths that overflow on mobile.
-- Text scales gracefully — large headlines need deliberate reductions down-band.
 - Touch targets are at least 44 × 44 px on mobile.
 - No hover-only interactions; every state must work on touch. Hover styles sit under hover-capable media.
 
 ---
 
-## Grid & Type Laws (rebuild)
+## Grid & Type Laws
 
-Laws discovered while building specs 002–006. GRID-SPEC.md v5 (as amended by spec 002) remains the normative mechanics; these govern on top of it. Refer to them by name.
+Laws discovered while building specs 002–009. GRID-SPEC.md v5 (as amended by specs 002 and 002.r1) remains the normative mechanics; these govern on top of it. Refer to them by name.
 
-- **Hold-then-switch.** Interpolation runs between a band's two anchors only when both carry the same structure. When a band boundary is also a structural switch, the shared-anchor pair breaks: type holds its last designed value across the band and switches with the structure at the gate. (Footer accordion type across `rs`, spec 004 §9; hero subhead at 768, spec 006 §3.)
+- **Hold-then-switch.** Interpolation runs between a band's two anchors only when both carry the same structure. When a band boundary is also a structural switch, the shared-anchor pair breaks: type holds its last designed value across the band and switches with the structure at the gate.
 - **Size and line-height interpolate; weight and tracking are band constants**, restated per band and switching only at band boundaries.
-- **The four units (spec 002.r1).** Geometry rides ticks; text columns (wrap-pinning widths, text-block heights in flow margins) ride the weights; line-internal spacing (inline gaps, chip paddings) rides the type in em at exact anchor ratios; material (buttons, icons, marks, control inners) stays fixed px per band. A px value that encodes any of the first three is a defect — it breaks rag, fit, or clearance in the compressed slices. Constants that reference `--t` or the weights are declared on `.page`, never `:root` (a custom property resolves its inner `var()`s where it is declared).
+- **The four units (spec 002.r1).** Geometry rides ticks; text columns (wrap-pinning widths, text-block heights in flow margins) ride the weights; line-internal spacing (inline gaps, chip paddings) rides the type in em at exact anchor ratios; material (buttons, icons, marks, control inners) stays fixed px per band. A px value that encodes any of the first three is a defect — it breaks rag, fit, or clearance in the compressed slices. Constants that reference `--t` or the weights are declared on `.page`, never `:root`.
 - **Choreographies settle (spec 002.r1).** A load choreography ends its run explicitly — the orchestrator marks the page settled on the final beat's `animationend` and the choreography's animations turn off. Band-gated display variants re-entering the tree then have nothing to restart, so resizing across gates never replays motion.
-- **The tick wins.** A whole-tick box height governs over its declared padding sum. Where designed content hugs shorter than the tick height, the slack compresses padding or sits as clear space; content stays anchored per the spec. (Spec 004 §5; spec 005 §5.)
-- **Derived states.** When design supplies one archetype state, siblings derive as the smallest whole-tick height that fits their content at the band's internals. The derivation rule is written in the spec and sanctioned by design. (Spec 004 §5.)
+- **The tick wins.** A whole-tick box height governs over its declared padding sum. Where designed content hugs shorter than the tick height, the slack compresses padding or sits as clear space; content stays anchored per the spec.
+- **Derived states.** When design supplies one archetype state, siblings derive as the smallest whole-tick height that fits their content at the band's internals. The derivation rule is written in the spec and sanctioned by design.
 - **Audits at rest.** Mid-flight motion may be transiently fractional-tick by design; the stack-sum and landmark audits are asserted at rest in every state.
 - **Material vs. tick-riding vs. overlay chrome.** Primitives are material: fixed px per size variant, never band-aware. Sections choose the size variant per band and own each instance's width. Overlay chrome (the nav) never participates in a section's tick stack.
 - **Rendered truth over metadata.** Every landmark is verified against rendered bounds, never Figma metadata x/y — see "Figma Links Are Read Through the MCP".
@@ -624,48 +527,26 @@ Laws discovered while building specs 002–006. GRID-SPEC.md v5 (as amended by s
 
 ## Layout Must Scale — No Fragile Positioning
 
-A layout is fragile when it looks correct on one viewport size and drifts on any other.
+A layout is fragile when it looks correct on one viewport size and drifts on any other. On this grid, structure is ticks and weights — a raw px position is almost always wrong (see "The four units").
 
 ### Absolute positioning is acceptable only for
 
-1. **Media fills** — `position: absolute; inset: 0; object-fit: cover` on a relatively-positioned parent sized via `aspect-ratio` or flex.
-2. **GSAP animation states** — initial `transform`/`opacity`/`y`/`x` set inside a `gsap.context()` that reverts on unmount.
-3. **Overlay layers** — modal backdrops, decorative pseudo-elements, gradient overlays.
-4. **True escape from document flow** — a viewport-fixed close button, a pinned nav. Position is defined relative to the viewport or modal, not to variable content.
+1. **Media fills** — `position: absolute; inset: 0; object-fit: cover` on a relatively-positioned parent sized by the grid.
+2. **The exposure vocabulary** — the engine's lattice regions, cells, and decors position absolutely by construction (`--gx`/`--gy` ticks).
+3. **Overlay layers** — the nav chrome, modal backdrops, decorative pseudo-elements.
+4. **True escape from document flow** — a viewport-fixed control, positioned relative to the viewport, not to variable content.
 
-Everything else uses normal flow (flex, grid, block) so the layout responds to actual content and viewport size.
+Everything else uses normal flow (flex, grid, block) so the layout responds to actual content and container size.
 
 ### Anti-patterns
 
 | Anti-pattern | Why it breaks | Fix |
 |--------------|---------------|-----|
-| Fixed px coords (`top: 415px`, `left: 30.71px`) | Came from Figma's ruler at one canvas size; correct nowhere else. | Flex order + margin, or % of a proportionally sized parent. |
-| `calc(50% + Npx)` + `translateX(-50%)` for off-center | The `Npx` shift doesn't scale across phone widths. | `margin-inline: auto` + padding, or a named grid column. |
-| Fixed px widths on text containers | Clips or whitespaces on non-reference devices. | `max-width` + `width: 100%`, or `min(Xpx, calc(100% - 48px))`. |
-| Fixed px heights on sub-containers | Rigid box that ignores screen height and font size. | `aspect-ratio`, `min-height`, or `vh`/`svh`. |
-| `line-height: 0` as a spacing hack | Resets must propagate through every child. | `display: flex; flex-direction: column; gap: Xpx`. |
-| Magic gaps (`gap: 227px`) | Doesn't adapt to narrower desktops. | `gap: clamp(24px, 15vw, 227px)`. |
-
-### Proportional collage pattern (footer reference)
-
-1. Outer container has fixed `aspect-ratio` from the Figma canvas — height is always a fixed fraction of width.
-2. `padding` and `gap` in `vw` so all breathing room scales with viewport.
-3. `font-size` in `vw` so text height equals row height at every width. Mobile-only sections (`md:hidden`) need no min/max cap.
-4. Video clips `flex: 1; min-width: 0` fill all unused space proportionally.
-5. Invisible `flex: 1` spacer between two text blocks holds proportional space without a video.
-
-The math is documented in the comment block at the top of `design-system/styles/sections/oversized-footer.css` and `design-system/styles/sections/mobile-footer.css`. Read those before building any new collage.
-
-### Mobile section pattern
-
-Mobile sections pinned full-screen (`height: 100vh`) may use `calc(N / 852 * 100%)` for **vertical** positions because `100%` equals `100vh` — a stable proportional base. Y axis only.
-
-X axis must use one of:
-
-- `left: 50%; transform: translateX(-50%)` for centering.
-- `padding-inline: 24px` (or the section's standard gutter) for edge-aligned content.
-- `width: calc(100% - 48px)` with `margin-inline: auto` for full-width-minus-gutter.
-- Flex or grid for multi-column content.
+| Fixed px coords from Figma's ruler | Correct at one canvas size; wrong everywhere else. | Ticks/weights, flex order + margin. |
+| Fixed px widths on text containers | Clips or re-rags off-anchor. | Weight-riding wrap boxes (002.r1 §4). |
+| Fixed px heights on sub-containers | Breaks the tick stack. | Whole-tick heights; "The tick wins". |
+| `line-height: 0` as a spacing hack | Resets must propagate through every child. | Flex column + gap. |
+| Magic gaps | Don't adapt across bands. | Tick or em expressions per the four units. |
 
 ---
 
@@ -675,12 +556,12 @@ X axis must use one of:
 
 `window`, `document`, `navigator`, and any DOM measurement API run only inside `useEffect`, `useLayoutEffect`, or event handlers. Never at module scope, never at the top of a component body, never in a `useMemo` initialiser that runs synchronously on the server.
 
-The first client render must produce React output that matches the SSR HTML byte-for-byte. Common hydration-mismatch sources, in order of how often they sneak in:
+The first client render must produce React output that matches the SSR HTML byte-for-byte. Common hydration-mismatch sources:
 
 1. **`Math.random()` / `Date.now()` during render** — sampled twice (server, client), never matches. Move to `useEffect`, or pre-compute on the server and thread down as a prop.
 2. **`new Date().getFullYear()` (or any wall-clock read) during render** — usually identical, mismatches across midnight UTC. Thread as a prop from a server component, hardcode, or wrap the span in `suppressHydrationWarning` if the brief flash is acceptable.
-3. **`typeof window !== 'undefined'` short-circuits that change render output** — a `useMemo` that returns `document.body` on the client and `null` on the server *and* gates a fiber (`{target && createPortal(...)}`) produces a mismatched tree. Keep the gating value `null` through SSR *and* the first client render, then flip after hydration.
-4. **Locale-sensitive formatting during render** — `toLocaleDateString` reads the request locale on the server, the browser locale on the client. Format on the server with an explicit locale, pass the string down.
+3. **`typeof window !== 'undefined'` short-circuits that change render output** — keep the gating value `null` through SSR *and* the first client render, then flip after hydration.
+4. **Locale-sensitive formatting during render** — format on the server with an explicit locale, pass the string down.
 
 ### Client-only state initialised after hydration
 
@@ -694,11 +575,9 @@ useEffect(() => {
 }, []);
 ```
 
-This is the **only** approved use of `setState` inside a top-level `useEffect` body. Every other case has a better tool (event handler, derived render, ref). The lint disable is required (the rule fires on every such pattern) and is always paired with a comment pointing back to this guidance.
+This is the **only** approved use of `setState` inside a top-level `useEffect` body. Every other case has a better tool (event handler, derived render, ref). The lint disable is required and is always paired with a comment pointing back to this guidance.
 
-A `useMemo` that returns `document.body` on the client (and `null` on the server) is **not** equivalent: `{portalTarget && createPortal(...)}` produces an extra fiber on the client that the SSR HTML lacks. The lint rule is wrong about this specific case — trust the pattern.
-
-`useSyncExternalStore` with a server snapshot is the React-blessed alternative when the value-on-mount is more interesting than `null`. For one-shot client-only init, `useState + useEffect + lint disable` is what the codebase uses.
+A `useMemo` that returns `document.body` on the client (and `null` on the server) is **not** equivalent: `{portalTarget && createPortal(...)}` produces an extra fiber on the client that the SSR HTML lacks.
 
 ### Layout reads belong in `useLayoutEffect`
 
@@ -708,61 +587,41 @@ A `useMemo` that returns `document.body` on the client (and `null` on the server
 
 ## UI Coordinates Through Events, Not Timers
 
-`setTimeout` is not a synchronisation primitive. If you're waiting "for the layout to settle", "for the focus to land", "for the next paint", or "for the modal to be visible", there is a real event to listen to.
+`setTimeout` is not a synchronisation primitive. If you're waiting "for the layout to settle", "for the focus to land", "for the next paint", or "for the panel to be visible", there is a real event to listen to.
 
 | Wait reason | Use instead |
 |-------------|-------------|
-| Wait for an animation | The animation library's `onComplete` callback |
-| Wait for a video to start | `loadeddata` or `playing` |
-| Wait for the next paint | `requestAnimationFrame` |
+| Wait for a CSS animation | `animationend` (the settle contract is built on it) |
 | Wait for a CSS transition | `transitionend` |
+| Wait for an image | `decode()`, `load` |
+| Wait for the next paint | `requestAnimationFrame` |
 | Wait for an element to focus correctly | `focus({ preventScroll: true })` called synchronously in the right effect |
 
-`setTimeout` is fine for things that genuinely fire on a timer — auto-advancing carousels, debounce intervals, scheduled retries. It is not fine for "I think this should be ready by now."
+`setTimeout` is fine for things that genuinely fire on a timer — auto-advancing carousels, debounce intervals. It is not fine for "I think this should be ready by now."
 
 ---
 
 ## CSS Transition Constraints
 
-- **`transition-colors` does not work on gradients.** CSS cannot interpolate between a solid color and a `background-image`. To animate a gradient in/out: keep the element's solid color, place an absolutely-positioned child div containing the gradient as the first DOM child, and transition that child's `opacity`.
-- **`transition-colors` is overridden by inline `style` color props.** `style={{ color: activeColor }}` wins at every point in the transition and the CSS transition has no visible effect. Apply the inline style only when active (`style={isActive ? { color } : undefined}`) and let the CSS class handle the default and the easing.
-- **`mix-blend-mode: luminosity` and a transitioning parent background interact badly.** A photo desaturated via `mix-blend-mode: luminosity` blinks mid-transition when its parent's `background-color` also transitions. Use a CSS `filter` for desaturation on any card whose background also transitions.
+- **`transition-colors` does not work on gradients.** CSS cannot interpolate between a solid color and a `background-image`. To animate a gradient in/out: keep the element's solid color, place an absolutely-positioned child containing the gradient, and transition that child's `opacity`.
+- **A CSS color transition is overridden by an inline `style` color.** The inline style wins at every point in the transition. Apply the inline style only when active and let the CSS class handle the default and the easing.
+- **`mix-blend-mode: luminosity` and a transitioning parent background interact badly.** Use a CSS `filter` for desaturation on any element whose background also transitions (the portfolio's desaturation directive, spec 007).
 
 ---
 
 ## Body Scroll Locking Has One Approved Approach
 
-`document.body.style.overflow = 'hidden'` is a footgun on iOS Safari. It often doesn't actually prevent touch scroll, loses scroll position when the modal closes, and interacts unpredictably with `position: fixed` overlays inside a transformed ancestor (which is what ScrollSmoother creates).
+`document.body.style.overflow = 'hidden'` is a footgun on iOS Safari: it often doesn't prevent touch scroll and it loses the scroll position on close.
 
-The single approved entry point lives at `lib/scrollLock.ts`. Every modal calls `lockScroll()` and stores the returned `unlock` function as the `useEffect` cleanup. `lockScroll()` branches once internally:
+The single approved entry point is `design-system/v2/lib/scroll-lock.ts`. Every overlay calls `lockScroll()` and stores the returned unlock callback as its effect cleanup. The technique (fixed body at `-scrollY`, `overflow-y: scroll` to keep the scrollbar gutter so the container width the grid reads never changes) is documented in the module.
 
-1. **With ScrollSmoother (homepage):** capture `smoother.scrollTop()`, call `paused(true)`, restore both on unlock.
-2. **Without ScrollSmoother (inner pages):** capture `window.scrollY`, set `position: fixed; top: -Npx; width: 100%; overflow-y: scroll` on the body, reverse on unlock with `window.scrollTo(0, savedY)`.
-
-Never set `document.body.style.overflow` directly from a component. Never invent a parallel scroll-lock helper. New edge cases (a portal stack, a sub-frame) update `lib/scrollLock.ts`.
+Never set `document.body.style.overflow` directly from a component. Never invent a parallel scroll-lock helper. New edge cases update the module.
 
 ---
 
-## Logging Goes Through the Central Logger
+## No Raw Console Logging in Shipped Code
 
-Raw `console.log` in production code is forbidden — calls survive code review by accident, ship unconditionally, and there is no single place to silence them. Every diagnostic line goes through `lib/logger.ts`:
-
-```ts
-import { log } from '@/lib/logger';
-
-log('hero-pin', 'ENTER_DISPATCHED', { reason });
-```
-
-`log(channel, event, detail)` writes a colour-coded line tagged with the channel name. `warn()` and `error()` share the same shape but are never silenced — reserved for things a developer must see when they happen.
-
-**Default state: enabled.** Logs reach the console in both development and production while we iterate on motion choreography. Two switches turn the firehose off:
-
-- Build-time: `NEXT_PUBLIC_LOGGING_DISABLED=1` in `.env.production`. Bundler inlines the flag and tree-shakes every call site.
-- Runtime: `window.__loggingDisabled = true` in the browser console.
-
-**No parallel loggers.** Don't introduce `if (DEBUG_X)` blocks scattered across components. New channels pick a name and call `log()`; channels that deserve a recognisable colour register one in `CHANNEL_COLORS` in the logger module.
-
-Third-party `console.warn`/`console.error` propagate normally. Our own warning and error paths use `warn()` / `error()` from the central logger so formatting stays consistent.
+`console.log` calls survive code review by accident, ship unconditionally, and have no single off switch. The v2 islands currently ship none — keep it that way. When diagnostics become genuinely necessary, add **one** central logger module with channel names and build-time/runtime kill switches, and route everything through it. `console.warn`/`console.error` for developer-must-see conditions are acceptable in the interim, sparingly.
 
 ---
 
@@ -770,48 +629,41 @@ Third-party `console.warn`/`console.error` propagate normally. Our own warning a
 
 ## Accessibility Baseline
 
-- All images have meaningful `alt` text. Decorative images use `alt=""`.
-- Autoplay videos are `muted` and `playsInline`. Never autoplay audio. Decorative autoplaying videos carry `aria-hidden="true"`.
+- All images have meaningful `alt` text. Decorative and ambient images use `alt=""`.
 - Every interactive element is keyboard-navigable and has a visible `:focus-visible` style.
-- GSAP animations respect `prefers-reduced-motion`. Wrap in `gsap.matchMedia()` with `(prefers-reduced-motion: no-preference)`. Skip animations at the GSAP level — never with `!important` resets in CSS.
-- Color contrast meets WCAG AA (4.5:1 for body text, 3:1 for large text/UI).
+- `prefers-reduced-motion: reduce` renders every grammar state-to-state (see "Motion Grammars") — no transitions, no timers, elements born settled. A no-JS render shows the same settled state.
+- Auto-rotation pauses on hover and focus; timers run only in-viewport with the document visible (the spec 009 timer discipline).
+- Color contrast meets WCAG AA (4.5:1 for body text, 3:1 for large text/UI); spec acceptance carries the measured ratios.
 
 ### Semantic HTML before ARIA
 
-Use the native element if one exists. Lists are `<ul><li>`, not `<div role="list"><div role="listitem">`. Buttons are `<button>`, not `<div onClick>`. Navigation is `<nav>`.
+Use the native element if one exists. Lists are `<ul><li>`, not `<div role="list">`. Buttons are `<button>`, not `<div onClick>`. Navigation is `<nav>`. Testimonials are figures with blockquotes and captions (spec 009 §8.5 is the reference shape).
 
 ### No interactive `<div>`
 
 Anything the user can click, hover, focus, or activate as a *control* is a `<button>` or `<a>`. A `<div>` with an `onClick` skips the focus ring, the keyboard activation, and the assistive-tech announcement that come for free. Style the button to not look like a button if the design calls for it; never start with the wrong element.
 
-The narrow exception is **modal backdrop dismissal**: a `<div role="dialog" aria-modal="true">` whose `onClick` closes the modal when the click target *is* the backdrop (`e.target === e.currentTarget`), and an inner `<div>` whose `onClick` calls `stopPropagation()` to keep clicks inside the dialog. These are mouse-routing helpers, not controls. Keyboard dismissal still wires through Escape, and the dialog still contains a real focusable close affordance.
+The narrow exception is **modal backdrop dismissal**: a backdrop `<div>` whose `onClick` closes when the click target *is* the backdrop. Keyboard dismissal still wires through Escape, and the dialog still contains a real focusable close affordance.
 
 ### Focus management
 
-When a modal opens, focus moves into it — by default to the dialog container itself (a `<div role="dialog">` with `tabIndex={-1}`), not to the first input. Auto-focusing an input on open triggers password manager extensions (1Password, LastPass, etc.) to surface their autofill dropdown the moment the modal appears, which reads as the site overstepping when the visitor has only just clicked a CTA. Focusing the dialog container keeps keyboard users inside the modal (Escape closes, Tab walks the form in order) without activating any field. The dialog container's own focus outline is suppressed in CSS — focus rings belong on real controls.
+When an overlay opens, focus moves into it — by default to the container (`tabIndex={-1}`), not to the first input (auto-focusing an input surfaces password-manager dropdowns uninvited). When it closes, focus returns to the element that opened it. Use `focus({ preventScroll: true })` in both directions.
 
-The narrow exception is a modal whose unambiguous purpose is text entry the moment it opens (a command palette, a search overlay triggered by `/`). There, focusing the input is the expected behaviour and matches the visitor's intent.
+### Decorative SVGs and chrome
 
-When a modal closes, focus returns to the element that opened it. Use `focus({ preventScroll: true })` in both directions so the browser doesn't scroll to the element — especially critical inside a transformed ancestor (ScrollSmoother, GSAP `transform`), where the browser miscalculates position and would jump to the top of the document.
-
-### Decorative SVGs
-
-Decorative SVGs use `aria-hidden="true"` and no `alt`. Meaningful SVGs use `role="img"` plus `aria-label` or an inline `<title>`. Never leave an SVG with no accessible name and no `aria-hidden` — screen readers will read its raw markup.
+Decorative SVGs use `aria-hidden="true"` and no `alt`. Meaningful SVGs use `role="img"` plus an accessible name. The lattice chrome, ornament cells, and clone slides are `aria-hidden`; the accessibility tree carries only real content.
 
 ---
 
 # § Forms & Data
 
-## Forms Use the Form Library Already Installed
+## Forms Stay Small and Uncontrolled
 
-React Hook Form is the form library. Don't roll a new one. Don't mix raw `useState` for form values with RHF's `register` on the same form. Pick one pattern per form and stay consistent:
+The site's forms are tiny (the grader input, a future signup): an uncontrolled `<form>` with `new FormData(e.currentTarget)` in the submit handler. Anything more elaborate (per-character `useState`, manual JSON assembly) is over-engineered.
 
-- **Multi-field, validated forms** (lead capture, contact, dynamic schemas): RHF — `register` for fields, `handleSubmit` for submit, `formState.errors` for errors.
-- **Tiny single-field forms** (footer email signup, newsletter inline): an uncontrolled `<form>` with `new FormData(e.currentTarget).get('email')` in the submit handler. Anything more elaborate (per-character `useState`, manual JSON assembly) is over-engineered.
+The network call, response validation, and the `idle | submitting | success | error` lifecycle live in a single hook the form consumes; the form decides what the states look like. Submissions go through the Keystone route handlers (`app/api/form`, `app/api/chat` — `@keystone-sites/core`).
 
-Either way, the network call, response validation, and tracking lifecycle live in a single hook (`useEmailSignup`, `useLeadSubmit`, …) that the form consumes. The form decides what the four states (`idle | submitting | success | error`) look like; it does not contain `fetch`, response parsing, or analytics inline.
-
-Validation lives in the form definition (schema or RHF `register` options), never as ad-hoc `if (!value.trim()) return` strewn through the submit handler.
+Validation lives in the form definition, never as ad-hoc `if (!value.trim()) return` strewn through the submit handler. If a genuinely complex multi-field validated form arrives, choose a form library deliberately then (see "No UI Runtime Libraries Without Cause").
 
 ---
 
@@ -819,8 +671,7 @@ Validation lives in the form definition (schema or RHF `register` options), neve
 
 ## Never Delete Pages or Routes
 
-- Do not delete pages, route handlers, or config files without explicit instruction.
-- Pages that aren't linked anywhere are intentionally orphaned — they may be used as landing pages, linked externally, or SEO-indexed. Deleting them breaks live URLs.
+- Do not delete pages, route handlers, or config files without explicit instruction. (The 2026-08-27 purge of the old-brand site was such an instruction — recorded in plan.md's decision log.)
 - If a page or route looks unused, add a comment flagging it. Do not remove it.
 
 This rule does not block refactoring of internal code: utility modules, helper functions, and components may be moved or merged when the replacement preserves observable behaviour. The boundary is the URL surface (and other public contracts) — those never disappear silently.
@@ -829,10 +680,6 @@ This rule does not block refactoring of internal code: utility modules, helper f
 
 ## Site Scope
 
-The site has grown from the single-page splash (Figma node `915:2616`) into a full multi-page marketing site driven by the central design system. The homepage plus the nav-linked inner pages — about (and team, careers), services, contact, faq, testimonials, social-media, locations, blog, how-it-works — are **live** and built on the design system.
+One site lives in this tree: the **new-brand rebuild** (sitemap: Home · Our Work · Solutions · Pricing · Company · Resources), built phase by phase under `design-system/v2/` per [`docs/rebuild/plan.md`](../rebuild/plan.md). Launch is **big-bang** (owner decision 2026-08-27): nothing deploys until the site is complete; the old-brand site ships from `main` until then.
 
-Pages under `app/` that nothing links to are still intentional orphans (landing pages, external links, SEO). Don't delete them, don't link to them, and don't re-skin them unless asked — but they may be brought onto the design system when their turn comes.
-
-**The rebuild** replaces the old-brand site described above with the new-brand site (sitemap: Home · Our Work · Solutions · Pricing · Company · Resources), built phase by phase under `design-system/v2/` per [`docs/rebuild/plan.md`](../rebuild/plan.md). The old-brand pages remain live from `main` and untouched here until cutover. The rebuild's dev routes (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero`, `/home-fixture`) are permanent and noindexed; `/home-fixture` is promoted to `/` at Phase 6 cutover.
-
-See [`docs/specs/001_splash_page_alpha.md`](../specs/001_splash_page_alpha.md) for the original splash scope and [`docs/explainers/design-system.md`](../explainers/design-system.md) for the current architecture.
+`/` renders the assembled homepage. The dev routes (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero`, `/portfolio`, `/engine`, `/testimonials`, `/home-fixture`) are permanent QA surfaces and noindexed. The nav links to pages that do not exist yet 404 by owner decision (spec 010 §7 F1) until those pages are built.

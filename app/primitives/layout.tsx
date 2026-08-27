@@ -1,4 +1,3 @@
-import "@/design-system/v2/index.css";
 import "./catalog.css";
 import type { Metadata } from "next";
 
@@ -11,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function PrimitivesLayout({ children }: { children: React.ReactNode }) {
-  return <div className="v2-root">{children}</div>;
+  return children;
 }

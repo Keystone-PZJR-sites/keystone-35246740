@@ -17,6 +17,9 @@
 @import "./tokens/motion.css";
 @import "./tokens/component.css";
 
+/* Base — the document reset and the site root */
+@import "./base.css";
+
 /* Grid engine (spec 002) */
 @import "./grid/engine.css";
 
@@ -48,3 +51,6 @@
 
 /* Sections (spec 009) */
 @import "./sections/testimonials.css";
+
+/* The assembled homepage (spec 010) */
+@import "./home.css";

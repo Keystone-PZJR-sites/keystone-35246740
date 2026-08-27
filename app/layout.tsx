@@ -1,99 +1,76 @@
-import "./globals.css";
+import "@/design-system/v2/index.css";
 import type { Metadata, Viewport } from "next";
-import { KeystoneRootLayout } from '@keystone-sites/legacy/next/layouts/root-layout';
-import { config } from '@/config';
-import { CustomPageViewTracker } from '@/design-system/tracking/CustomPageViewTracker';
-import { DESKTOP_MEDIA, MOBILE_MEDIA } from '@/design-system/tokens/breakpoints';
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ??
-  (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://keystone.app');
+  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://keystone.app");
 
-// ---------------------------------------------------------------------------
-// Metadata — static so generateMetadata never blocks HTML delivery.
-// The OG image is a static asset at /public/og-image.png — update the file
-// to change what appears in social share previews.
-// ---------------------------------------------------------------------------
+/* Metadata is static so it never blocks HTML delivery. The title,
+ * description, and og-image are the standing site copy — the new-brand
+ * copy and social card are an open content decision (spec 010 §7 F2)
+ * and replace these values in place when design supplies them. */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Keystone | Sales & Marketing for Local Businesses",
-  description: "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
+  description:
+    "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/favicon.ico',
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico",
   },
-  manifest: '/site.webmanifest',
-  openGraph: { images: [{ url: '/og-image.png' }] },
-  twitter: { card: 'summary_large_image', images: ['/og-image.png'] },
+  manifest: "/site.webmanifest",
+  openGraph: { images: [{ url: "/og-image.png" }] },
+  twitter: { card: "summary_large_image", images: ["/og-image.png"] },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#042019',
+  // bg/100 — the literal because the token stylesheet cannot be read here.
+  themeColor: "#f8f7f2",
 };
 
+/** The root layout — owned by the rebuild (spec 010 §4). `body` carries
+ * `.v2-root`: the site base styles and the size container the grid
+ * engine's container queries read (design-system/v2/base.css,
+ * grid/engine.css). */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <KeystoneRootLayout config={config}>
-      <CustomPageViewTracker />
-      {/*
-       * Critical inline CSS — embedded in the raw HTML so the dark background
-       * is guaranteed from byte 1, before any external stylesheet is fetched.
-       * Prevents the white flash on cold load regardless of CSS delivery speed.
-       * The literal is the ink / --color-hero-bg palette value; a token var
-       * cannot be used here because the token stylesheet has not loaded yet.
-       */}
-      <style>{`html,body{background-color:#042019}`}</style>
+    <html lang="en">
+      <head>
+        {/*
+         * Cold-load guard — inlined in the raw HTML so the page color is
+         * right from byte 1, before any stylesheet arrives. The literal is
+         * the bg/100 token value; a token var cannot be used here because
+         * the token stylesheet has not loaded yet.
+         */}
+        <style>{`html,body{background-color:#f8f7f2}`}</style>
 
-      {/*
-       * Only the first hero clip gets initial video priority. Desktop/mobile
-       * variants preload independently so each viewport fetches only its own
-       * clip-01 file. All other videos render preload="none" and are unlocked
-       * by proximity/interaction gates.
-       */}
-      <link
-        rel="preload"
-        href="/media/hero/hero-01-desktop.webm"
-        as="video"
-        type="video/webm"
-        media={DESKTOP_MEDIA}
-        // @ts-expect-error — fetchpriority is valid but not yet in React's types
-        fetchpriority="high"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="preload"
-        href="/media/hero/hero-01-mobile.webm"
-        as="video"
-        type="video/webm"
-        media={MOBILE_MEDIA}
-        // @ts-expect-error — fetchpriority is valid but not yet in React's types
-        fetchpriority="high"
-        crossOrigin="anonymous"
-      />
-
-      {/*
-       * Preload hints for above-the-fold FK fonts. The browser discovers
-       * @font-face rules late (only after parsing the CSS file), so without
-       * these hints font fetches start hundreds of milliseconds too late.
-       * These tell the browser to fetch in parallel with the HTML itself.
-       * Covers sections 1 and 2; all other FK variants are font-display:optional
-       * and load silently in the background.
-       */}
-      <link rel="preload" href="/media/fonts/FKScreamer-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/media/fonts/FKGroteskNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/media/fonts/FKGroteskNeue-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/media/fonts/FKGroteskNeue-Italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/media/fonts/FKRomanStandard-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-
-      <div style={{ display: 'contents' }}>
-        {children}
-      </div>
-    </KeystoneRootLayout>
+        {/*
+         * Preload hints for the two site fonts. The browser discovers
+         * @font-face rules only after parsing the CSS, so without these
+         * the font fetches start hundreds of milliseconds late. Both are
+         * small self-hosted variable fonts (spec 001; font-display: swap).
+         */}
+        <link
+          rel="preload"
+          href="/media/fonts/gt-standard-standard-vf.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/media/fonts/pp-kyoto-variable-upright-vf.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body className="v2-root">{children}</body>
+    </html>
   );
 }

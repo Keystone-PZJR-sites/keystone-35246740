@@ -1,17 +1,13 @@
-import "@/design-system/v2/index.css";
-import "./fixture-page.css";
 import type { Metadata } from "next";
 
-/** /home-fixture — the noindexed dev route that stacks the new-brand
- * homepage sections in order as Phase 5 lands them (decision 2026-08-25,
- * spec 006 §9). Today: nav · hero · portfolio · engine and testimonial
- * placeholders (spec 007 §8.8) · footer. Phase 6 promotes this page to
- * `/` at cutover. */
+/** /home-fixture — the permanent, noindexed QA surface for the
+ * assembled homepage (spec 010 §6.3). Renders the same composition `/`
+ * mounts; the spec 010 self-test readout mounts here (dev-only). */
 export const metadata: Metadata = {
   title: "Home fixture",
   robots: { index: false, follow: false },
 };
 
 export default function HomeFixtureLayout({ children }: { children: React.ReactNode }) {
-  return <div className="v2-root">{children}</div>;
+  return children;
 }
