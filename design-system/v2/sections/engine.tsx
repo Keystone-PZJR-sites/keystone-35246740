@@ -231,6 +231,10 @@ function BarRow({ size, variant }: { size: "sm" | "md" | "xl"; variant: string }
 export function EngineSection() {
   return (
     <section className="sec v2-engine" aria-labelledby="eng-heading">
+      {/* the designed section-top rule (§2 amended 2026-08-26 — §9 F15):
+          the anchor frames' top-only border/000 stroke, 11t + 1px; the
+          rail's row-0 tops complete the visible line to the page edge */}
+      <i className="eng-toprule" aria-hidden="true" />
       {/* the rail (§2) */}
       <div className="gx" aria-hidden="true">
         {BANDS.map((band) => [

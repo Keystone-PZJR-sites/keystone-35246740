@@ -96,6 +96,19 @@ Zero-based section-local ticks (cols × rows):
 - The engine row and header float on the content layer; the expanded card
   and pills are opaque and cover the cells they cross.
 
+*Amended 2026-08-26 (§9 F15):* the section also draws a **designed top
+rule** the per-cell sweep could not see: a **top-only 1px `border/000`
+stroke on the section frame itself** (stroke-aligned center — the
+±0.5px artifact class; the intended value is 1px on the section's first
+row line). The deliberately-sized frames span **11t** — 352 (rm) · 704
+(rt) · 1233 (rd2, line-inclusive, ending ON the col-11 line where the
+filled circle's cell begins); the rs/rd1 frame widths are stale rt/rd2
+copies overflowing the page. The distinction never paints: at every
+band the rail's row-0 cell tops continue the same row line to col 12
+(shared pixels, v5 §4), so the visible line is full width regardless.
+Built as **11t + 1px at every band**, drawn by the section,
+`aria-hidden`.
+
 ## 3 · Header
 
 Ink `text/100`, PP Kyoto. **The copy differs by band — deliberate**
@@ -621,6 +634,15 @@ Build-QA flags, 2026-08-26 (open — awaiting design decision):
   two pills the later sibling's ring repaints the shared pixel in the
   same color, so the single boundary hairline stands without any
   overlay. §4 amended.
+- **F15 — the designed section-top rule was invisible to the exposure
+  read** (build erratum, flagged by design 2026-08-26): the same
+  finding as 007 §9 R26 — the anchor frames carry a top-only 1px
+  `border/000` stroke on the section frame, chrome the per-cell sweep
+  never covered; the engine placeholder's full-width region border had
+  masked its absence until the real section landed. §2 amended; the
+  build draws it as section chrome (`.eng-toprule` — 11t + 1px, 1px
+  `border/000`, `aria-hidden`, under the content layer), the rail's
+  row-0 cell tops completing the visible line to the page edge.
 - **F10 — breadcrumb touch targets (noted).** The designed stops are
   6px dots at a 6px gap: a 44×44 target is geometrically impossible
   without heavy overlap. Built: each stop extends its hit area to the
