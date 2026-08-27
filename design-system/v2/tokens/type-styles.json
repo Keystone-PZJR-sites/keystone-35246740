@@ -1,6 +1,6 @@
 {
   "source": "Figma ks-MarketingSite (IBO39siJYDhiCRtuLWUTW2) local text styles",
-  "extracted": "2026-08-24",
+  "extracted": "2026-08-27",
   "note": "Extraction snapshot for size/lh/ls/ps/weight. Regenerate type.css with scripts/generate-v2-type-css.mjs. GT Standard opsz is NOT taken from the Figma L/M/S instance — the generator pins it per type-scale step.",
   "styles": [
     { "name": "display-serif/4xl/Extralight", "family": "PP Kyoto", "style": "Extralight", "size": 88, "lh": 90, "ls": "-2%", "ps": 0 },
@@ -110,7 +110,7 @@
     { "name": "text/2xl/Regular", "family": "GT Standard Standard VF", "style": "M Regular", "size": 24, "lh": 32, "ls": "-1%", "ps": 0 },
     { "name": "text/2xl/Medium", "family": "GT Standard Standard VF", "style": "M Medium", "size": 24, "lh": 32, "ls": "-1%", "ps": 0 },
     { "name": "text/2xl/Semibold", "family": "GT Standard Standard VF", "style": "M Semibold", "size": 24, "lh": 32, "ls": "-1%", "ps": 0 },
-    { "name": "text/xl/Light", "family": "GT Standard Standard VF", "style": "M Light", "size": 20, "lh": 26, "ls": "-1%", "ps": 0 },
+    { "name": "text/xl/Light", "family": "GT Standard Standard VF", "style": "M Light", "size": 20, "lh": 26, "ls": "-1%", "ps": 12 },
     { "name": "text/xl/Regular", "family": "GT Standard Standard VF", "style": "M Regular", "size": 20, "lh": 26, "ls": "-1%", "ps": 0 },
     { "name": "text/xl/Medium", "family": "GT Standard Standard VF", "style": "M Medium", "size": 20, "lh": 26, "ls": "-1%", "ps": 0 },
     { "name": "text/xl/Semibold", "family": "GT Standard Standard VF", "style": "M Semibold", "size": 20, "lh": 26, "ls": "-1%", "ps": 0 },

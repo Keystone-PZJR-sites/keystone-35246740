@@ -1,5 +1,5 @@
 /* v2 tokens — type styles. GENERATED FILE, do not edit.
-   Source: type-styles.json (Figma text styles, extracted 2026-08-24).
+   Source: type-styles.json (Figma text styles, extracted 2026-08-27).
    Regenerate: node scripts/generate-v2-type-css.mjs
 
    Per style: -font is a CSS font shorthand (weight size/lh family);
@@ -271,6 +271,7 @@
   --ts-text-xl-light-font: 300 20px/26px var(--font-sans);
   --ts-text-xl-light-ls: -0.01em;
   --ts-text-xl-light-opsz: 26;
+  --ts-text-xl-light-ps: 12px;
   --ts-text-xl-regular-font: 400 20px/26px var(--font-sans);
   --ts-text-xl-regular-ls: -0.01em;
   --ts-text-xl-regular-opsz: 26;
