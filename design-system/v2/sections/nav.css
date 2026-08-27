@@ -231,13 +231,15 @@
 }
 
 /* reveal cascade (§6.3): blocks land staggered in reading order on
-   open; on close the panel fade carries them — no stagger, and the
-   transform resets only after the panel has hidden */
+   open; on close the panel fade alone carries them — no stagger and no
+   self-fade (a block fading inside the fading panel compounds the two
+   curves and the contents vanish twice as fast as the panel) — so
+   opacity and transform reset only after the panel has hidden */
 .knav-blk {
   opacity: 0;
   translate: 0 var(--knav-blk-rise);
   transition:
-    opacity var(--knav-reveal-fade) ease,
+    opacity 0s linear var(--knav-reveal-slide),
     translate 0s linear var(--knav-reveal-slide);
 }
 .knav-drawer[data-open] .knav-blk {
@@ -257,7 +259,16 @@
 
 /* subitems are cascade blocks AND highlight hosts; the combined rules
    restate both lists so the fill fade survives the block rule — the
-   arrival on the hover side, the slower release on the resting side */
+   arrival on the hover side, the slower release on the resting side.
+   The closed-state combo restates the block resets: without it,
+   .knav-sub's own resting transition wins the cascade and the subitem
+   snaps out instantly while the panel is still fading. */
+.knav-sub.knav-blk {
+  transition:
+    opacity 0s linear var(--knav-reveal-slide),
+    translate 0s linear var(--knav-reveal-slide),
+    background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
+}
 .knav-drawer[data-open] .knav-sub.knav-blk {
   transition:
     opacity var(--knav-blk-fade) ease
@@ -279,7 +290,14 @@
 
 /* cards are cascade blocks AND hover-shadow hosts; transition is one
    property, so the combined rules restate both lists — the shadow
-   reversing on the resting side and growing on hover */
+   reversing on the resting side and growing on hover. The closed-state
+   combo restates the block resets (same construction as .knav-sub). */
+.knav-card.knav-blk {
+  transition:
+    opacity 0s linear var(--knav-reveal-slide),
+    translate 0s linear var(--knav-reveal-slide),
+    box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
+}
 .knav-drawer[data-open] .knav-card.knav-blk {
   transition:
     opacity var(--knav-blk-fade) ease
@@ -1248,11 +1266,13 @@ a.knav-row {
   .knav-blk,
   .knav-drawer[data-open] .knav-blk,
   .knav-sub,
+  .knav-sub.knav-blk,
   .knav-subdot,
   .knav-sub:hover .knav-subdot,
   .knav-drawer[data-open] .knav-sub.knav-blk,
   .knav-drawer[data-open] .knav-sub.knav-blk:hover,
   .knav-card,
+  .knav-card.knav-blk,
   .knav-card:hover,
   .knav-drawer[data-open] .knav-card.knav-blk,
   .knav-drawer[data-open] .knav-card.knav-blk:hover,
