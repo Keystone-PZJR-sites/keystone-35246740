@@ -259,7 +259,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
       <Overlay maps={SECTION_MAP} />
 
       {/* top block: exposed top row (overlay) + tagline / prompt / grader */}
-      <div className="f-top">
+      <div className="f-top" data-landmark="top">
         <div className="f-ti">
           <div className="f-tag">
             <div className="f-tagrow">
@@ -292,7 +292,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
       <FooterNav groups={groups} />
 
       {/* logo block: cell rows (overlay) + lockup + copyright */}
-      <div className="f-logo">
+      <div className="f-logo" data-landmark="logo">
         <Overlay maps={LOGO_MAP} />
         <div className="f-lockband">
           {/* 8t at every anchor (§6) — pure tick structure */}

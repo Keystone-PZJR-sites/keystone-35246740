@@ -11,8 +11,12 @@ import { FooterSection } from "@/design-system/v2/sections/footer";
  * and under the QA readout by `/home-fixture` (spec 010 §6.3). All five
  * Phase 5 sections are real (specs 006–009); the stack-sum audit runs
  * against them and the footer. Social URLs come from the retained
- * Keystone data layer. */
-export async function HomePage() {
+ * Keystone data layer.
+ *
+ * `qa` is /home-fixture's dev-only self-test mount (spec 010 §3.2). It
+ * renders inside the page div because the devtools' measurement probes
+ * resolve --t and the weights, which live on .page. `/` passes nothing. */
+export async function HomePage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (
     /* v2-choreo opts the page into the cold-load guard (see hero.css) */
@@ -40,6 +44,7 @@ export async function HomePage() {
           youtube: companyInfo?.youtube_url,
         }}
       />
+      {qa}
     </div>
   );
 }

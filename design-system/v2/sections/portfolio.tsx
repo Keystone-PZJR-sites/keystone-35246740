@@ -217,7 +217,7 @@ export function PortfolioSection() {
       {/* header (§3) — the page's first h2, centered in its block. The
           weight/tracking switch at the 1344 gate rides two band-gated
           spans (the hero copy-lo/hi pattern); size interpolates. */}
-      <div className="pf-header">
+      <div className="pf-header" data-landmark="head">
         <h2 className="pf-h2" id="pf-heading">
           <InterpText as="span" style="display-serif-xs-extralight" className="pf-h2-lo">
             {HEADLINE}
@@ -233,7 +233,7 @@ export function PortfolioSection() {
           2026-08-26); the control pair sits under the card layer, so
           sliding cards pass over it (§6 amended 2026-08-26). */}
       <PortfolioGallery>
-        <div className="pf-window">
+        <div className="pf-window" data-landmark="gallery">
           <ul className="pf-track">
             {SITES.map((i) => (
               <Card key={i} index={i} />
@@ -253,7 +253,7 @@ export function PortfolioSection() {
 
       {/* button-bar (§6) — server-rendered links, centered in the bar
           block; sizes sm/sm/md/md/xl per band */}
-      <div className="pf-bar">
+      <div className="pf-bar" data-landmark="bar">
         <BarRow size="sm" variant="sm" />
         <BarRow size="md" variant="md" />
         <BarRow size="xl" variant="xl" />

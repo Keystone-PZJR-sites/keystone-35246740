@@ -159,6 +159,36 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   page visually verified in the browser at desktop and phone widths.
   `docs/rules/rules.md` was revised the same day for the v2-only tree.
   Spec 010 (draft) carries the revision for Phase 6's changed shape.
+- **Phase 6 is built** (spec 010 approved and implemented the same
+  day). The token layer re-extracted first (001 rule): one drift —
+  `text/xl/Light` paragraph spacing 0 → 12 — flowed through the
+  tokens, no consumer. The harness realigned to the 002.r1 gates
+  (010 §3.1; two build errata amended in place — the
+  compressed-slice weights identity and the negative-wB probe); the
+  §2 page table ships as the expectations module and the devtools
+  audit the real homepage on `/home-fixture` (sections carry
+  `data-landmark` now); the sweep runs both routes at the five
+  anchors + ten slice widths through every rest state — green in one
+  run. Budgets measured on the production build: `/` 128 B route
+  JS · 111 kB first load · eight islands · static; CLS 0.000 and
+  TBT ≤ 28ms everywhere; LCP 1.12s at the desktop class but
+  **5.3s at the mobile classes** — the LCP element is the H1 under
+  the 006 hydration-gated cold-load guard, not the predicted hero
+  image; recorded as **010 §7 F5, an open launch gate** (owner:
+  re-baseline the budget or commission a 006 pre-hydration
+  orchestration revision). The devtools now swap to a null stub in
+  production through a webpack alias (010 §7 R6), keeping the QA
+  mounts out of every production graph (`/grid` route JS fell to
+  134 B). Reduced-motion and no-JS render the settled page at
+  101.000t. Phase 6 ends with the homepage done; work shifts to
+  Pricing.
+- **The launch checklist is a living doc** (owner direction, same
+  day): [`docs/rebuild/launch-checklist.md`](launch-checklist.md) —
+  extracted from spec 010 §5 (which carries the dated amendment and
+  stays the frozen record). It tracks the gates (incl. the open F2
+  metadata wipe and the F5 mobile-LCP decision), the launch steps,
+  the rollback line, and per-page completion status; every page
+  completion updates it in the same commit.
 - **The old-URL surface at launch** (blog, services, case-studies, …)
   — 010 §7 F3, resolved by the owner the same day: **pure 404s, zero
   backwards compatibility**. No redirect map, no legacy URL support.

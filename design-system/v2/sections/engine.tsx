@@ -255,7 +255,7 @@ export function EngineSection() {
       {/* header (§3): the designed copy swap rides the rd1 gate (§9
           F5); weight/tracking switch at the 1344 gate — four band-gated
           spans, one DOM (the hero/portfolio pattern) */}
-      <div className="eng-header">
+      <div className="eng-header" data-landmark="head">
         <h2 className="eng-h2" id="eng-heading">
           <InterpText as="span" style="display-serif-xs-extralight" className="eng-h2-a">
             {HEADLINE_LO}
@@ -276,7 +276,7 @@ export function EngineSection() {
 
       {/* the engine row (§4/§5/§7) — the one client island */}
       <EngineRow>
-        <div className="eng-row">
+        <div className="eng-row" data-landmark="row">
           <ul className="eng-track">
             {ENGINES.map((engine, i) => (
               <Card key={engine.id} engine={engine} index={i} />
@@ -301,7 +301,7 @@ export function EngineSection() {
       </EngineRow>
 
       {/* button-bar (§6) */}
-      <div className="eng-bar">
+      <div className="eng-bar" data-landmark="bar">
         <BarRow size="sm" variant="sm" />
         <BarRow size="md" variant="md" />
         <BarRow size="xl" variant="xl" />

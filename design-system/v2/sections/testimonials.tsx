@@ -279,7 +279,7 @@ export function TestimonialsSection() {
       {/* header (§3) — one unified line (§9 F4), centered in its
           block; the weight/tracking switch at the 1344 gate rides two
           band-gated spans (the 007 pattern); size interpolates. */}
-      <div className="tst-header tst-part">
+      <div className="tst-header tst-part" data-landmark="head">
         <h2 className="tst-h2" id="tst-heading">
           <InterpText as="span" style="display-serif-xs-extralight" className="tst-h2-lo">
             {HEADLINE}
@@ -295,7 +295,7 @@ export function TestimonialsSection() {
           aria-hidden tail clones for the seamless wrap; at rd2 the six
           real elements re-slot onto the grid and the clones drop. */}
       <TestimonialsBlock>
-        <div className="tst-window">
+        <div className="tst-window" data-landmark="strip">
           <ul className="tst-track">
             {TESTIMONIALS.map((t, i) => (
               <li className="tst-slide" key={t.color}>
@@ -312,7 +312,7 @@ export function TestimonialsSection() {
           </ul>
         </div>
         {(Object.keys(CTRL_SIZES) as GridBand[]).map((band) => (
-          <div key={band} className={`tst-ctrl tst-ctrl-${band}`}>
+          <div key={band} className={`tst-ctrl tst-ctrl-${band}`} data-landmark="ctrl">
             <GridButton direction="back" size={CTRL_SIZES[band]} label="Previous testimonial" />
             <GridButton direction="forward" size={CTRL_SIZES[band]} label="Next testimonial" />
           </div>

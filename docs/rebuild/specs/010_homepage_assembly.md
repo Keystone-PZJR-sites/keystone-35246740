@@ -1,6 +1,11 @@
 # Spec 010 — Phase 6: homepage assembly, the page self-test, the performance pass, and the launch checklist
 
-**Status:** Draft 2026-08-27 (revised same day after the old-brand
+**Status:** Approved 2026-08-27 · built and verified the same day —
+§8 evidence recorded; §3.1 carries a dated build amendment (the
+compressed-slice weights identity); §7 R5–R7 record the build
+findings, and F5 (the mobile-class LCP measurement vs the §4.2
+budget) is open as a launch gate for the owner. Draft 2026-08-27
+(revised same day after the old-brand
 purge — owner decision, plan.md decision log: launch is big-bang and
 the old-brand code left this branch. §4's head work landed with the
 purge and became a standing contract; §5's "promote" became "launch";
@@ -114,6 +119,19 @@ harness's JS band classification did not. Fix, verbatim scope:
   from the corrected band. (The 2026-08-27 failing run confirms the
   build is right and the expectations were stale: measured stacks at
   470/1150 were 32t and 20t — exactly the nearest-anchor designs.)
+  *Amended 2026-08-27 (build errata — §7 R5): two checks needed
+  mechanical realignment this line missed. The weights identity is
+  per structural slice: in a compressed slice the engine carries
+  wA = t/T0 · wB = 0 (002.r1 §3), not wA + wB = 1, so the check reads
+  the slice from the corrected band and its anchor. And the weight
+  probes read through margin-left, not width: the below-384
+  extrapolation drives wB negative, which a width probe clamps to
+  zero. The interp check is untouched — computed from the probed
+  weights, it asserts the pure zoom in compressed slices by
+  construction. The sweep also settles after every resize on the
+  homepage leg before asserting (the audits-at-rest law: a resize
+  retriggers the footer drawers' height-transition grammar
+  mid-flight).*
 
 ### 3.2 · The page test on the real homepage
 
@@ -206,6 +224,12 @@ the token re-extraction runs before this phase's build (001 rule) and
 any drift flows through tokens with no code change.
 
 ## 5 · The launch checklist — gates, steps, rollback (executed after all pages, not in Phase 6)
+
+*Amended 2026-08-27 (owner direction, post-build — §7 R8): the
+checklist's living copy moved to `docs/rebuild/launch-checklist.md`,
+next to plan.md, so page completions can add gates and track status
+without editing this spec. This section stays the frozen Phase 6
+record; statuses are current only in the checklist file.*
 
 The checklist this spec delivers — **not executes**. Phase 6 does not
 launch anything: when its build is done, work shifts to the remaining
@@ -333,8 +357,11 @@ review and the same-day purge; open flags gate launch (§5.4).
     `#042019`, background `#063126`, standalone — **still old-brand
     colors**; flips with the F2 decision (nothing else reads it now).
   - **Icons**: favicon.ico (16/32) · icon.svg · favicon-192.png ·
-    apple-icon.png (180) — the brand mark, brand-neutral enough to
-    carry unless design says otherwise.
+    favicon-512.png (manifest) · apple-icon.png (180) — *amended
+    2026-08-27 — design supplied the new-brand mark (teal rounded
+    square, geometric K) as `favicon.svg` + `favicon-1024.png`; the
+    icon slots now carry that art. Title, description, og-image, and
+    manifest colors stay on the F2 pre-launch wipe.*
   - **metadataBase**: `NEXT_PUBLIC_SITE_URL` → `https://keystone.app`.
     No canonical, no robots meta (indexable).
   The content decision for design: new-brand title/description copy,
@@ -359,35 +386,129 @@ review and the same-day purge; open flags gate launch (§5.4).
   `https://console.localkeystone.com/login`. Implemented the same day
   in `nav.tsx` and `footer.tsx` — a surgical link-target change
   tracing to spec 005's link-map decision record.
+- **R5 — new-brand favicons landed 2026-08-27.** Design dropped
+  `favicon.svg` and `favicon-1024.png` in the newsite handoff folder.
+  The F2 icon slots (`app/icon.svg`, `app/favicon.ico` 16/32,
+  `app/apple-icon.png` 180, `public/favicon-192.png`,
+  `public/favicon-512.png`) now carry the teal rounded-square
+  geometric K. Title, description, og-image, and manifest colors
+  stay on the F2 pre-launch wipe.
+- **R5 — §3.1 build errata** (found 2026-08-27, first sweep run: 42
+  failures, all three classes mechanical, no built surface wrong).
+  The weights check needed the compressed-slice identity, the weight
+  probes needed margin-left reads (negative wB below 384), and the
+  homepage sweep leg needed a settle after every resize (the footer
+  drawers' height-transition grammar retriggers on tick changes and
+  the first assert caught it mid-flight). §3.1 carries the dated
+  amendment; the section-boundary tolerance is the spec's ±1px
+  line-inclusive allowance, which also absorbs the sub-pixel that
+  stacked flow boxes accumulate at fractional ticks (worst measured:
+  0.010t = 0.52px at width 620).
+- **R6 — the devtools mount vs the route-JS budget** (found
+  2026-08-27 on the first §4.2 measurement). Mounting the self-test
+  on `/home-fixture` through `next/dynamic` made its production module
+  graph diverge from `/`, and the bundler re-attributed the shared
+  islands chunk into the route chunks: `/` route JS read 4.49 kB
+  against the ≤1 kB budget while the script payload stayed
+  byte-identical (477.4 vs 477.5 kB uncompressed script set on `/`,
+  first load 111 kB both ways — verified by diffing the prerendered
+  HTML's script lists). Resolved structurally: the mount moved to
+  `app/grid/devtools-mount.tsx` and the production build aliases it to
+  a server null stub (`devtools-mount.prod.tsx`, `next.config.ts`), so
+  no devtools code or chunk edge exists in any production graph. `/`
+  and `/home-fixture` measure 128 B route JS; `/grid` fell 721 B →
+  134 B (the old NODE_ENV gate had left a dead async edge webpack
+  still chunked).
+- **R7 — the token re-extraction diff** (§4.3 rule, run 2026-08-27):
+  one drift — `text/xl/Light` paragraph spacing 0 → 12. Snapshot
+  updated, `type.css` regenerated (`--ts-text-xl-light-ps: 12px`); no
+  consumer reads any `-ps` property, so nothing rendered changed.
+- **F5 (open) — the mobile-class LCP measurement vs the §4.2
+  budget** (found 2026-08-27 at the §4.2 measurement; a §5 launch
+  gate alongside F2). Lighthouse, local production build, default
+  throttling: 384-class LCP **5.33s** and 768-class **5.25s** against
+  the 2.5s budget (1344-class 1.12s ✓; CLS 0.000 ✓ and TBT ≤ 28ms ✓
+  at every class). Cause, not a code defect: at the mobile classes
+  the LCP element is the H1 (`.hx-rise`), not §4.2's predicted hero
+  frame-1 image, and the 006 cold-load guard holds choreographed
+  content hidden until the orchestrator hydrates — which simulated
+  slow-4G defers by ~3s. The page itself is within every bundle
+  budget (128 B route JS, TBT near zero). The budget as written
+  collides with the designed hydration-gated choreography. Decision
+  for design and the owner: accept the measurement and re-baseline
+  the budget for the designed cold-load behavior, or commission a
+  pre-hydration orchestration revision of 006 §5/§6 (a 006.r1 — the
+  settle contract must then survive animations that can finish before
+  hydration).
+- **R8 — the checklist extracted to a living doc** (owner direction
+  2026-08-27, post-build). §5's checklist is operational and grows
+  with every page completion, which spec immutability cannot host:
+  the living copy is `docs/rebuild/launch-checklist.md` (gates,
+  steps, rollback, the F2 metadata-wipe inventory, and the F5
+  decision note). §5 carries the dated amendment and stays the
+  frozen Phase 6 record.
 
 ## 8 · Acceptance criteria
 
 At each of the five anchors and one arbitrary width per structural
 slice (stretched and compressed, §3.1's ten), scrollbar forced on:
 
-- [ ] The page stack sum equals §2's total per band on both `/grid`'s
+- [x] The page stack sum equals §2's total per band on both `/grid`'s
       successor audit and `/home-fixture`; every `.sec` top and height
       lands on §2's rows; the landmark audit passes; exactly one band
       class visible — at rest in every §3.2 rest state, after settle.
-- [ ] The realigned sweep passes green in one run covering both
+      (Sweep 2026-08-27: both routes × the five anchors + the ten
+      §3.1 slice widths, every rest state asserted after settle —
+      each engine row active, the portfolio strip at +1/+2, the
+      testimonial offsets, a footer drawer open and closed at rm/rs,
+      the mobile nav open and closed below 860 — all green; 26
+      landmark checks on grid at 384.)
+- [x] The realigned sweep passes green in one run covering both
       routes, all fifteen widths each, and still asserts interpolation
-      continuity across the four anchors.
-- [ ] The nav overlays without entering any stack sum (asserted
+      continuity across the four anchors. (One `npm run test:grid`
+      run 2026-08-27; anchor joints: 41.922 → 42.000 → 42.031 ·
+      47.938 → 48.000 → 48.031 · 55.938 → 56.000 → 56.016 ·
+      63.938 → 64.000 → 64.047.)
+- [x] The nav overlays without entering any stack sum (asserted
       open and closed); the row-40 lattice renders at rd2 only.
-- [ ] The §4.1 head contract holds on `/`: the two site-font preloads,
+      (Mobile nav open/closed asserted at every audited width below
+      860 with stack totals unchanged; the §3.2 section audit asserts
+      row-40 on rows 40–41 at rd2 and hidden at rm–rd1.)
+- [x] The §4.1 head contract holds on `/`: the two site-font preloads,
       the light guard, the light theme-color — nothing else; no flash,
-      no dark browser-chrome tint.
+      no dark browser-chrome tint. (Prerendered head 2026-08-27: the
+      two woff2 preloads, `<style>html,body{background-color:#f8f7f2}
+      </style>`, `theme-color #f8f7f2`, zero video preloads, no robots
+      meta; the only other preload is Next's own framework script
+      hint.)
 - [ ] Budgets per §4.2 on the production build, measured numbers
       recorded: first load ≤ 115 kB, route JS ≤ 1 kB, eight islands,
       static prerender; Lighthouse LCP ≤ 2.5s / CLS ≤ 0.02 /
       TBT ≤ 200ms at the three viewport classes, LCP being the hero
-      frame-1 image.
-- [ ] `prefers-reduced-motion` renders the assembled page
+      frame-1 image. (Measured 2026-08-27: first load 111 kB ✓ ·
+      route JS 128 B ✓ · exactly eight islands ✓ · static prerender ✓
+      · CLS 0.000 at all three classes ✓ · TBT 28/3/0 ms ✓ ·
+      LCP 1344-class 1.12s ✓ — but 384-class 5.33s and 768-class
+      5.25s exceed the 2.5s budget, and the mobile-class LCP element
+      is the H1, not the hero image: the 006 cold-load guard defers
+      choreographed content to hydration. Open as §7 F5, a launch
+      gate for the owner; every other budget holds.)
+- [x] `prefers-reduced-motion` renders the assembled page
       state-to-state end to end; a no-JS render is the settled page.
-- [ ] The §5 checklist is current and its gates are tracked — every
+      (2026-08-27, production build: reduced — H1 born visible, zero
+      finite animations running at 384 and 1344, engine row settled
+      active, stack 101.000t; no-JS — settled page, zero
+      choreography-hidden elements, stack 101.000t.)
+- [x] The §5 checklist is current and its gates are tracked — every
       flag resolved or scheduled (F2's metadata wipe is a launch
       gate). Execution waits until all pages are built; Phase 6 ends
-      with the homepage done and work shifting to Pricing.
-- [ ] Zero TypeScript and lint errors; every value traces to a token,
+      with the homepage done and work shifting to Pricing. (F1/F3/F4
+      resolved; F2 scheduled; F5 added 2026-08-27 as a launch gate.
+      Statuses live in `docs/rebuild/launch-checklist.md` — §7 R8.)
+- [x] Zero TypeScript and lint errors; every value traces to a token,
       the §2 expectations module, or the root layout's two commented
-      cold-load literals (one `bg/100` value).
+      cold-load literals (one `bg/100` value). (tsc and lint zero
+      2026-08-27; the self-test reads the §2 table from the
+      expectations module; the gate floors and anchor widths in
+      `fixtures.ts` are the 002.r1 constants and the sweep's slice
+      widths are §3.1's, both spec-enumerated.)

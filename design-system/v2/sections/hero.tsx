@@ -314,7 +314,7 @@ export function HeroSection() {
       {/* §5/§8: ambient imagery — hidden from the accessibility tree,
           no controls, never focusable. Three leading frames cloned at
           the tail for the seamless wrap (§6). */}
-      <div className="hx-carousel" aria-hidden="true">
+      <div className="hx-carousel" data-landmark="carousel" aria-hidden="true">
         <HeroCarousel>
           <ul className="hx-track">
             {FRAMES.map((f) => (

@@ -66,7 +66,7 @@ export function FooterNav({ groups }: { groups: FooterNavGroup[] }) {
         {extCells("rm", EXT_RM, open ? open.openRm - 2 : 0)}
         {extCells("rs", EXT_RS, open ? open.openRs - 2 : 0)}
       </div>
-      <nav className="f-nav" aria-label="Footer">
+      <nav className="f-nav" data-landmark="nav" aria-label="Footer">
         <ul className="fnav-groups">
           {groups.map((g) => {
             const isOpen = g.id === openId;
