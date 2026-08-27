@@ -213,19 +213,67 @@
   --pf-curtain-delay: 350ms;
 
   /* solutions subitem hover: the bg/100 highlight fades on the
-     ease-out; the dot morphs circle → square while rotating its
-     corners out and locking into place (180deg reads intentional;
-     360deg is one lever away) */
+     ease-out; the dot-morph constants promoted to tokens/motion.css
+     2026-08-26 at their second consumer (the engine pill, spec 008
+     §8.3 — the 004→005 promotion pattern exactly). The --knav names
+     stay as aliases so the nav is untouched; values unchanged. */
   --knav-sub-fill-dur: 300ms;
   /* the highlight releases a little slower than it arrives */
   --knav-sub-fill-out-dur: 400ms;
-  --knav-dot-morph-dur: 450ms;
-  /* the return to a circle runs slower, on the ease-in-out — an
-     ease-out return front-loads the unwind and reads fast despite the
-     longer duration */
-  --knav-dot-morph-out-dur: 600ms;
-  --knav-dot-morph-out-ease: var(--motion-drawer-ease-open);
-  --knav-dot-rotation: 180deg;
+  --knav-dot-morph-dur: var(--motion-dot-morph-dur);
+  --knav-dot-morph-out-dur: var(--motion-dot-morph-out-dur);
+  --knav-dot-morph-out-ease: var(--motion-dot-morph-out-ease);
+  --knav-dot-rotation: var(--motion-dot-rotation);
+
+  /* engine constants (spec 008 §8.4). The accordion spring (§7.1, as
+     amended 2026-08-26) is a physical spring, not an easing curve —
+     critically damped (ζ ≈ 1): no overshoot, no bounce, tight; peak
+     velocity near mid-travel, visibly settled ≈250ms. (The draft's
+     210/24 underdamped pair overshot ≈1% — design direction at build
+     review: tighter, no bounce.) The island integrates it per frame
+     (the sanctioned rAF exception, scoped to this grammar) and reads
+     these from computed style, so they are its single source. Born in
+     the component layer; promote at a second consumer. */
+  --eng-spring-stiffness: 420;
+  --eng-spring-damping: 41;
+  --eng-spring-mass: 1;
+  /* rest threshold, fraction and velocity (§7.1) */
+  --eng-spring-rest: 0.001;
+  /* crossfade ramps riding the card's own fraction (§7.2): pill layer
+     gone by f 0.35; expanded content 0→1 over f 0.25→0.75 */
+  --eng-pill-fade-end: 0.35;
+  --eng-content-fade-start: 0.25;
+  --eng-content-fade-end: 0.75;
+  /* the rm/rs carousel (§7.4): drag resistance past the ends, and the
+     release speed that biases the snap one position in the fling
+     direction */
+  --eng-overscroll-resist: 0.3;
+  --eng-fling-speed: 500;
+  /* the activation chrome fade (§7.4 as amended 2026-08-26): the
+     drawer duration read as instant on the full-card swap — the
+     chrome now fades over its own duration on the drawer ease-out
+     (the ease is aliased, never forked) */
+  --eng-chrome-fade-dur: 450ms;
+  /* the inactive treatment (§5): the shell fill aliases the
+     portfolio's constant (alias, never fork); the filter + opacity
+     replace the file's 70% luminosity blend ("CSS Transition
+     Constraints"). Tuned at build QA 2026-08-26 against the exact
+     luminosity composite (the 007 canvas-grid-search method, averaged
+     over all five exports): sepia 0.08 → 0.12, brightness 0.99 →
+     0.975, mean delta 1.49/255 (the draft constants measured 1.86). */
+  --eng-card-inactive-bg: var(--pf-card-inactive-bg);
+  --eng-inactive-filter: grayscale(1) sepia(0.12) brightness(0.975);
+  --eng-inactive-opacity: 0.7;
+  /* §4/§5 material facts the token layers do not carry: the pill dot
+     per band (bottom-center, the engine-circle — CSS with a token
+     fill per the 003 §6 / 004 §7 precedent) and the breadcrumb stops
+     (active 24×6 pill · inactive 6px circles; the 6px gap is
+     spacing-sm) */
+  --eng-dot-sm: 12px;
+  --eng-dot-md: 16px;
+  --eng-dot-xl: 18px;
+  --eng-crumb-active-w: 24px;
+  --eng-crumb-h: 6px;
 }
 
 /* Tick-riding component constants (spec 002.r1 units). These reference
@@ -252,4 +300,13 @@
      rides the weights (v5 §2's flow-margin corollary); the 40 top gap
      stays material */
   --hx-cta-sub-drop: calc((var(--wA) + var(--wB)) * 122 + 40px);
+
+  /* engine card interior columns (spec 008 §4/§5): tick geometry —
+     the expanded text and image columns are 3t at rt/rd1/rd2 (192 ·
+     240 · 336 at the anchors), 4.5t at rs (216); the rm text block's
+     designed 160 height rides the weights (the flow-margin corollary,
+     as the hero's 122) */
+  --eng-col: calc(var(--t) * 3);
+  --eng-col-rs: calc(var(--t) * 4.5);
+  --eng-text-h-rm: calc((var(--wA) + var(--wB)) * 160);
 }

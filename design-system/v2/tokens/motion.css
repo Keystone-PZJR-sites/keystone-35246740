@@ -40,4 +40,17 @@
   --motion-slide-ease: cubic-bezier(0.45, 0.05, 0.15, 1);
   --motion-carousel-dwell: 3500ms;
   --motion-carousel-first-advance: 4500ms;
+
+  /* The dot morph (born in the nav's solutions subitems, spec 005;
+     promoted 2026-08-26 when the engine pill became the second consumer
+     — spec 008 §7.3/§8.3, values unchanged): a dot morphs circle →
+     square while rotating its corners out and locking into place — in
+     on the drawer ease-out, back out slower on the ease-in-out (an
+     ease-out return front-loads the unwind and reads fast despite the
+     longer duration). Resting radius is authored 50%; 180deg reads
+     intentional (360 is one lever away). */
+  --motion-dot-morph-dur: 450ms;
+  --motion-dot-morph-out-dur: 600ms;
+  --motion-dot-morph-out-ease: var(--motion-drawer-ease-open);
+  --motion-dot-rotation: 180deg;
 }
