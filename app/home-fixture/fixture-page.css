@@ -14,10 +14,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* the Phase 5 placeholders (spec 007 §8.8): exposed fields standing in
-   for the engine (spec 008) and testimonials (spec 009) rows so the
-   footer joint stays testable. Tick totals from the anchor frames at
-   007 writing time. */
+/* the Phase 5 placeholder (spec 007 §8.8): an exposed field standing
+   in for the testimonials row (spec 009) so the footer joint stays
+   testable. Tick totals from the anchor frames at 007 writing time.
+   (The engine placeholder was replaced by the real section — spec 008.) */
 .hfx-placeholder {
   width: 100%;
   display: grid;
@@ -29,21 +29,17 @@
   letter-spacing: var(--ts-text-sm-regular-ls);
   color: var(--color-text-500);
 }
-.hfx-engine { height: calc(var(--t) * 21); }
 .hfx-testimonials { height: calc(var(--t) * 11); }
 @container (min-width: 470px) {
-  .hfx-engine { height: calc(var(--t) * 13); }
   .hfx-testimonials { height: calc(var(--t) * 9); }
 }
 @container (min-width: 665px) {
-  .hfx-engine { height: calc(var(--t) * 9); }
   .hfx-testimonials { height: calc(var(--t) * 7); }
 }
 @container (min-width: 860px) {
   .hfx-testimonials { height: calc(var(--t) * 8); }
 }
 @container (min-width: 1130px) {
-  .hfx-engine { height: calc(var(--t) * 8); }
   .hfx-testimonials { height: calc(var(--t) * 11); }
 }
 

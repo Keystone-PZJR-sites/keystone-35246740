@@ -3,14 +3,15 @@ import { GridRegion, type GridBand } from "@/design-system/v2/grid/region";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { HeroSection } from "@/design-system/v2/sections/hero";
 import { PortfolioSection } from "@/design-system/v2/sections/portfolio";
+import { EngineSection } from "@/design-system/v2/sections/engine";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
 /** Stands in for the remaining Phase 5 rows (spec 007 §8.8) so the
- * footer joint stays testable: engine 21t/13t/9t/9t/8t and testimonials
- * 11t/9t/7t/8t/11t, from the anchor frames at writing time; specs
- * 008/009 replace them. */
+ * footer joint stays testable: testimonials 11t/9t/7t/8t/11t, from the
+ * anchor frames at writing time; spec 009 replaces it. (The engine
+ * placeholder was replaced by the real section — spec 008 §8.6.) */
 function PhasePlaceholder({
   name,
   ticks,
@@ -42,10 +43,7 @@ export default async function HomeFixturePage() {
       <main>
         <HeroSection />
         <PortfolioSection />
-        <PhasePlaceholder
-          name="Engine"
-          ticks={{ rm: 21, rs: 13, rt: 9, rd1: 9, rd2: 8 }}
-        />
+        <EngineSection />
         <PhasePlaceholder
           name="Testimonials"
           ticks={{ rm: 11, rs: 9, rt: 7, rd1: 8, rd2: 11 }}
