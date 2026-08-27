@@ -1,13 +1,21 @@
-# Spec 010 — Phase 6: homepage assembly, the page self-test, the performance pass, and cutover
+# Spec 010 — Phase 6: homepage assembly, the page self-test, the performance pass, and the launch checklist
 
-**Status:** Draft 2026-08-27
+**Status:** Draft 2026-08-27 (revised same day after the old-brand
+purge — owner decision, plan.md decision log: launch is big-bang and
+the old-brand code left this branch. §4's head work landed with the
+purge and became a standing contract; §5's "promote" became "launch";
+§7 records the purge as R4 and adds F3. Same-day compliance review
+against the purged tree: title and preamble de-cutovered, the §3.2
+landmark audit gained its missing deliverable — the sections carry no
+`data-landmark` today — F1 amended post-purge, and F4 opened: the
+nav's Login target `/portal` is not in the rebuild sitemap)
 **Depends on:** spec 001 (tokens, fonts — the pre-build re-extraction rule)
 · spec 002 (grid engine, the `/grid` harness and sweep this spec extends)
 · spec 002.r1 (nearest-anchor gates; its §7 R7 erratum is fixed here) ·
 spec 003 (primitives) · spec 004 (footer) · spec 005 (nav) · spec 006
-(hero) · spec 007 (portfolio; its §8.8 fixture element becomes page
-chrome here) · spec 008 (engine) · spec 009 (testimonials; its cutover
-content-pass decision gates §5)
+(hero) · spec 007 (portfolio; its §8.8 fixture element became page
+chrome at the purge — §7 R4) · spec 008 (engine) · spec 009
+(testimonials; its content-pass decision gates §5)
 **Sources:** fresh MCP reads 2026-08-27 of the five anchor frames —
 `230:12906` (384, 3232 = 101t) · `359:29494` (576, 3552 = 74t) ·
 `142:4180` (768, 3392 = 53t) · `142:3151` (960, 4080 = 51t) ·
@@ -24,13 +32,13 @@ layers `509:5403` / `505:15527` / `505:13888` / `505:12908` /
 `505:10884` — all in `ks-MarketingSite`. Build-state facts from the
 2026-08-27 review of the working tree at `d9fd8ba`: the sweep run
 (fails at 470/1150 — 002.r1 §7 R7), `tsc`/lint clean, and the
-production-build baseline in §4.3. No new design inputs: Phase 6 adds
-no designed surface.
+production-build baseline re-measured post-purge in §4.2. No new
+design inputs: Phase 6 adds no designed surface.
 
 Phase 6 builds no new section. Its deliverables are the page itself:
-the verified assembly of specs 004–009 on one route, the page-level
-self-test that keeps it verified, the performance pass, and the
-checklist that promotes `/home-fixture` to `/`.
+the verified assembly of specs 004–009 at `/`, the page-level
+self-test that keeps it verified, the performance budgets, and the
+launch checklist.
 
 ---
 
@@ -40,16 +48,18 @@ Three workstreams and a checklist:
 
 1. **The page self-test** (§3) — the `/grid` machinery, realigned to
    002.r1 and extended to run against the real assembled homepage.
-2. **The performance pass** (§4) — head hygiene at the root layout,
-   v2 font preloads, and measured budgets on the production build.
-3. **Cutover** (§5) — the gates, the promote steps, and the rollback
-   line. Executed only on the design owner's explicit go; this spec's
-   build makes the checklist *ready*, not *done*.
+2. **The performance pass** (§4) — the head contract (landed with the
+   2026-08-27 purge) held as acceptance, and measured budgets on the
+   production build.
+3. **The launch checklist** (§5) — the gates, the launch steps, and
+   the rollback line, written down now and executed much later: only
+   after every page is built, only on the owner's explicit go. This
+   spec's build makes the checklist *ready*, not *done*.
 
-The homepage composition already exists (`/home-fixture` mounts nav ·
-hero · portfolio · engine · testimonials · the rd2 row-40 element ·
-footer — spec 009 §8.6). This spec re-homes it into a module both `/`
-and `/home-fixture` render (§5.6) and changes nothing visual.
+The homepage composition exists as `design-system/v2/home.tsx` (moved
+at the purge), mounted bare by `/` and under the QA surface by
+`/home-fixture` — nav · hero · portfolio · engine · testimonials · the
+rd2 row-40 element · footer. This spec changes nothing visual.
 
 ## 2 · Page anatomy — the assembled stack per band
 
@@ -118,7 +128,11 @@ same build-time gate) with the §2 page table:
   fixture audit trusted two transcribed fixtures; the page test
   audits the six real flow children against designed rows.
 - **Landmark audit** — every `[data-landmark]` inside the sections,
-  on (half-)ticks, exactly as on `/grid`.
+  on (half-)ticks, exactly as on `/grid`. The sections carry no
+  landmark attributes today (only the `/grid` fixtures do): this
+  spec's build **adds `data-landmark` to each section's §1-anatomy
+  blocks** — a markup-only attribute, no visual or layout change —
+  so the audit checks the spec-verified rows, not zero elements.
 - **Band gate** — exactly one band class visible, including `.decor`.
 - **Seams** — shared region edges coincide, run over whatever `.gx`
   lattices the page renders.
@@ -140,73 +154,68 @@ nonzero on any failure. `npm run test:grid` stays the entry point.
 
 ## 4 · The performance pass
 
-### 4.1 · Head hygiene at the root layout
+### 4.1 · The head contract (landed at the purge — held as acceptance)
 
-`app/layout.tsx` currently ships four old-brand head blocks to
-**every** route, including the v2 surfaces and the future `/`: the
-dark cold-load guard (`html,body{background-color:#042019}` — the old
-hero ink), the matching `theme-color` viewport export, five FK font
-preloads, and two old hero video preloads. On the v2 homepage the
-guard paints a dark-green flash before the light `bg/100` page, the
-theme-color tints mobile browser chrome dark, and the preloads fetch
-~hundreds of kB of fonts and video the page never uses.
+The draft's head-hygiene workstream planned to split the old-brand
+head blocks (the dark `#042019` cold-load guard, the dark theme-color,
+five FK font preloads, two hero video preloads) away from the v2
+surfaces. The 2026-08-27 purge resolved it more simply: the root
+layout is **v2-owned**. The standing contract, asserted in §8:
 
-The fix re-homes them: the old-brand blocks move off the root layout
-onto the old-brand surfaces (the `(inner)` group layout and the
-old-brand home for as long as it renders), and the root keeps only
-what every route shares (metadata, icons, tracking). Old-brand routes
-must render byte-identical heads before and after the move.
-
-### 4.2 · The v2 head
-
-The v2 surfaces (and `/` at cutover) get their own critical path:
-
-- **Preload the two v2 font binaries**
+- The root layout ships **only**: the light cold-load guard (the
+  `bg/100` literal `#f8f7f2`, inlined with the comment explaining why
+  a token var cannot appear before the token stylesheet loads), the
+  matching light `theme-color`, **preloads for the two site fonts**
   (`gt-standard-standard-vf.woff2`, `pp-kyoto-variable-upright-vf.woff2`
-  — `font-display: swap` stands, spec 001).
-- **A light cold-load guard** in the same construction the old root
-  uses (an inline literal with the comment explaining why a token
-  var cannot appear before the token stylesheet loads), carrying the
-  `bg/100` value read from the token layer at build; the v2 surfaces'
-  `theme-color` reads the same value (a per-route viewport export).
-- No video preloads (the v2 page ships none); the hero's frame-1
+  — `font-display: swap` stands, spec 001), the site metadata, and
+  the v2 stylesheet.
+- No video preloads (the page ships none); the hero's frame-1
   `fetchpriority=high` images (006 §5) remain the LCP candidates.
+- `body` carries `.v2-root` — the site base and the engine's size
+  container (`v2/base.css`, which also carries the document reset the
+  sections were verified under; it is part of the rendering contract).
 
-### 4.3 · Budgets — from the 2026-08-27 baseline
+### 4.2 · Budgets — from the 2026-08-27 post-purge baseline
 
-Production build at review: `/home-fixture` **4.5 kB route JS ·
-116 kB first load · static prerender (1m revalidate)**; the shared
-first load **102 kB**; the old `/` for comparison: 346 kB first load.
-Eight client islands compose the page (nav-desktop · nav-mobile ·
-hero-load · hero-carousel · portfolio-gallery · engine-row ·
-testimonials-block · footer-nav); no animation library ships — all
-motion is CSS.
+Production build after the purge: **`/` 128 B route JS · 111 kB first
+load · static prerender (1m revalidate)**; 18 routes total; the
+102 kB shared baseline is framework chunks (verified identical before
+and after the purge — no old-site code hid in it). Eight client
+islands compose the page (nav-desktop · nav-mobile · hero-load ·
+hero-carousel · portfolio-gallery · engine-row · testimonials-block ·
+footer-nav); the dependency tree is seven runtime packages (next ·
+react · react-dom · the three `@keystone-sites/*` · the Cloudflare
+adapter) — no animation library, no CSS framework.
 
 The budgets, asserted on the production build:
 
-- `/` first load **≤ 120 kB**; route JS **≤ 6 kB**; exactly **eight
+- `/` first load **≤ 115 kB**; route JS **≤ 1 kB**; exactly **eight
   islands**; static prerender.
-- The shared first load holds at **102 kB**; every old-site route
-  builds unchanged.
 - Lighthouse on the local production build, default throttling,
   recorded at 384-, 768-, and 1344-class viewports: **LCP ≤ 2.5s**
   (the element being the hero frame-1 tier image), **CLS ≤ 0.02**
   (the choreography animates transform/opacity only and must not
   count), **TBT ≤ 200ms**. Measured numbers land in the acceptance
-  evidence; regressions beyond a budget block cutover.
+  evidence; regressions beyond a budget block launch.
 
-### 4.4 · Standing discipline (asserted, not rebuilt)
+### 4.3 · Standing discipline (asserted, not rebuilt)
 
 Image eager/lazy tiers per specs 006–009; WebP only, one tier fetched
 per width (002.r1); `prefers-reduced-motion` renders state-to-state;
 the token re-extraction runs before this phase's build (001 rule) and
 any drift flows through tokens with no code change.
 
-## 5 · Cutover — gates, promote, rollback
+## 5 · The launch checklist — gates, steps, rollback (executed after all pages, not in Phase 6)
 
-The checklist this spec delivers. Steps 1–5 are **gates** (all green
-before promote); 6–9 are the **promote**; 10 is the escape line.
-Promote executes only on the design owner's explicit go.
+The checklist this spec delivers — **not executes**. Phase 6 does not
+launch anything: when its build is done, work shifts to the remaining
+pages (Pricing first — owner decision 2026-08-27), and this checklist
+waits until every page is built (big-bang: the homepage alone does
+not ship). `/` already mounts the homepage, so there is no promote
+step — launch means deploying this branch in place of the old site
+that ships from `main`. Steps 1–5 are **gates** (all green before
+launch); 6–9 are the **launch**; 10 is the escape line. Launch
+executes only on the owner's explicit go.
 
 1. Specs 006–009 and this spec's §8 acceptance all checked; the §3
    sweep green in CI on both routes.
@@ -216,27 +225,27 @@ Promote executes only on the design owner's explicit go.
    attribution replace the placeholder copy; the real photos arrive
    as an art-directed tier set into the existing `<picture>` markup
    and registry entries. No structural change permitted.
-4. The §7 flags closed: **F1** is resolved (ship 404s, 2026-08-27);
-   **F2** (`/` metadata copy, og-image, theme colors) needs design's
-   content decision.
-5. Design owner sign-off on the assembled page at the five anchors
-   and one width per slice.
-6. **Promote:** the homepage composition moves to a single server
-   module; `app/page.tsx` mounts it bare; `/home-fixture` keeps
-   mounting it under the dev self-test readout and stays the
-   permanent QA surface. The old home's page file is retired from
-   `/` (its sections, data, and providers stay in the tree — the
-   old-brand inner pages still consume them; `main` still ships
-   them).
-7. `/` is indexable (no robots meta) and carries the §4.2 head and
-   the F2 metadata; every dev route keeps `robots: index false`.
-8. The §4.1 head split verified: `/` ships no FK preloads, no video
-   preloads, no dark guard; `/pricing`, `/about`, `/blog`, `/portal`
-   render byte-identical heads to pre-cutover.
-9. The §4.3 budgets re-measured on the cutover build and within
+4. The §7 flags: **F1**, **F3**, and **F4** are resolved (404s for
+   unbuilt routes and the legacy surface; Login goes to the external
+   console). **F2** resolves here: the **pre-launch metadata wipe**
+   (owner decision 2026-08-27) — new title/description copy, a
+   new-brand og-image, and the manifest colors land as one content
+   pass once all pages are done, right before launch.
+5. Owner sign-off on the assembled page at the five anchors and one
+   width per slice.
+6. **Launch:** deploy this branch as the production site (the
+   old-brand site retires when this branch becomes the production
+   deploy). `/home-fixture` stays the permanent QA surface, noindexed.
+7. `/` is indexable (no robots meta) and carries the F2 metadata; a
+   **sitemap for the new site** replaces the purged old-site proxy;
+   every dev route keeps `robots: index false`.
+8. The §4.1 head contract verified on the deployed `/`: the light
+   guard and theme-color, the two font preloads, nothing else.
+9. The §4.2 budgets re-measured on the launch build and within
    budget.
-10. **Rollback** is one revert of the promote commit; the old `/`
-    returns intact because nothing it renders was deleted.
+10. **Rollback** is redeploying `main`'s old-brand build — the two
+    sites never shared a deploy, so the escape line is the previous
+    deployment, not a revert.
 
 ## 6 · Deliverable — files, constants, semantics
 
@@ -247,24 +256,24 @@ Promote executes only on the design owner's explicit go.
 2. **Harness realignment** — `app/grid/fixtures.ts` (gate floors),
    `app/grid/grid-devtools.tsx` (expectations prop),
    `scripts/grid-selftest.mjs` (slice widths, the `/home-fixture`
-   leg, the rest-state drives).
-3. **Composition module** — one server component rendering the
-   assembled homepage, mounted by `app/page.tsx` (at promote) and
-   `app/home-fixture/page.tsx`; the row-40 element and the footer's
-   social-links fetch move with it.
-4. **Head restructure** — `app/layout.tsx` slimmed; the old-brand
-   blocks re-homed (§4.1); the v2 head additions (§4.2). The only new
-   constant is the light cold-load literal, commented per the
-   existing precedent.
+   leg, the rest-state drives), and the markup-only `data-landmark`
+   attributes on the sections' anatomy blocks (§3.2).
+3. **The new-site sitemap** (at launch, §5.7) — the purged old-site
+   proxy is not replaced until the sitemap's pages exist.
+4. *Landed at the purge (2026-08-27), asserted here:* the composition
+   module (`design-system/v2/home.tsx`, mounted by `/` and
+   `/home-fixture`), the v2-owned root layout and its head contract
+   (§4.1), the base layer (`v2/base.css`), and the v2 scroll lock
+   (`v2/lib/scroll-lock.ts`).
 5. **No new tokens, no new assets, no new motion.** Nothing visual
    changes at any width.
-6. Docs in the same commits: plan.md's Phase 6 record; the affected
-   explainers if the head split shifts any documented behavior.
+6. Docs in the same commits: plan.md's Phase 6 record and anything
+   the self-test work shifts in rules.md.
 
 ## 7 · Resolutions record
 
 Review-day record, 2026-08-27. Findings from the Phase 6 build
-review; flags F1–F2 are open for design/owner and gate cutover (§5.4).
+review and the same-day purge; open flags gate launch (§5.4).
 
 - **R1 — the 002.r1 harness erratum**: the sweep fails at 470/1150
   against a correct build because `bandForWidth` kept the anchor
@@ -281,16 +290,33 @@ review; flags F1–F2 are open for design/owner and gate cutover (§5.4).
   depth-1 frame named "header" (`506:4395` — the subhead/CTA group at
   y 14t); naming only, geometry correct. Noted for design, not
   flagged.
+- **R4 — the old-brand purge** (owner decision 2026-08-27, after this
+  spec's draft — the launch model is big-bang, so the in-place
+  cohabitation bought nothing): every old-brand route, the old
+  design-system tree, its infra, assets, and dependencies left this
+  branch; the root layout, base reset, scroll lock, and homepage
+  composition were rewritten v2-native (plan.md's decision log
+  carries the full record). Verified post-purge: tsc/lint zero, the
+  production build green (18 routes, `/` static at 111 kB first
+  load), the grid sweep byte-identical to pre-purge (anchors
+  pixel-exact; only the R1 failures), the page visually verified at
+  desktop and phone widths, and every CSS custom property in the v2
+  tree audited as v2-defined (no old-token dependencies existed).
+  This spec's §4 and §5 were revised the same day to the purged
+  shape; §2 and §3 stand as drafted.
 - **F1 — resolved: ship 404s** (owner decision 2026-08-27). The v2
-  nav and footer links to `/our-work`, `/solutions`, `/company`, and
-  `/resources` ship as-is and 404 until those pages land (only
-  `/pricing`, `/portal`, `/how-it-works` resolve today). No interim
-  redirects, no gating cutover on the next pages. The 404 surface is
-  the framework default (no `app/not-found.tsx` exists) — accepted
-  as-is; a branded not-found page is future work, not a Phase 6 gate.
-- **F2 (open) — `/` metadata**: the promoted `/` inherits the root
-  metadata wholesale (`app/page.tsx` exports none of its own). The
-  complete current account, verified against the prerendered head:
+  nav and footer links ship as-is and 404 until their pages land. No
+  interim redirects, no gating launch on the next pages. The 404
+  surface is the framework default (no `app/not-found.tsx` exists) —
+  accepted as-is; a branded not-found page is future work, not a
+  Phase 6 gate. *Amended 2026-08-27 (post-purge compliance review):
+  the record originally noted `/pricing`, `/portal`, and
+  `/how-it-works` still resolved — the purge removed them the same
+  day, so today every nav/footer target 404s until the rebuild's
+  pages ship. The posture is unchanged.*
+- **F2 (open) — `/` metadata**: `/` inherits the root metadata
+  wholesale (`app/page.tsx` exports none of its own). The complete
+  account at review, verified against the prerendered head:
   - **Title** (and derived og:/twitter:title): "Keystone | Sales &
     Marketing for Local Businesses". No title template.
   - **Description** (and derived og:/twitter:description): "Keystone
@@ -301,21 +327,38 @@ review; flags F1–F2 are open for design/owner and gate cutover (§5.4).
     summary_large_image): `/og-image.png`, 1200×630 — **old-brand
     art** (the dark-green FK Screamer "ALWAYS ON SALES & MARKETING"
     card with the colored pills).
-  - **theme-color meta**: `#042019` (the old hero ink — tints mobile
-    browser chrome dark green; §4.1/§4.2 re-home it).
-  - **Manifest** (`/site.webmanifest`, shared site-wide): name
-    "Keystone", theme `#042019`, background `#063126`, standalone.
+  - **theme-color meta**: was `#042019` (old hero ink) — *resolved at
+    the purge*: the root now ships the light `bg/100` (`#f8f7f2`).
+  - **Manifest** (`/site.webmanifest`): name "Keystone", theme
+    `#042019`, background `#063126`, standalone — **still old-brand
+    colors**; flips with the F2 decision (nothing else reads it now).
   - **Icons**: favicon.ico (16/32) · icon.svg · favicon-192.png ·
     apple-icon.png (180) — the brand mark, brand-neutral enough to
     carry unless design says otherwise.
-  - **metadataBase**: `NEXT_PUBLIC_SITE_URL` → `VERCEL_URL` →
-    `https://keystone.app`. No canonical, no robots meta (indexable).
+  - **metadataBase**: `NEXT_PUBLIC_SITE_URL` → `https://keystone.app`.
+    No canonical, no robots meta (indexable).
   The content decision for design: new-brand title/description copy,
-  a new-brand og-image, and whether the manifest/theme colors flip to
-  the light palette at cutover or wait for full old-brand retirement
-  (the manifest is one shared file — old-brand inner pages read it
-  too). The promoted `/` ships whatever design supplies, or the
-  standing copy if design confirms it.
+  a new-brand og-image, and the manifest colors. *Resolved 2026-08-27
+  (owner): a **pre-launch metadata wipe** — the standing copy ships on
+  the dev builds as-is, and the whole set is replaced in one content
+  pass once all pages are done, as a §5 launch gate. Not a Phase 6
+  question.*
+- **F3 — resolved: pure 404s, zero backwards compatibility** (owner
+  decision 2026-08-27). The old site's indexed URLs (`/about`,
+  `/blog/*`, `/services/*`, `/case-studies/*`, `/how-it-works`,
+  `/get-in-touch`, …) stop existing when this branch deploys — no
+  redirect map, no 410s, no legacy URL support. The F1 posture,
+  extended to the whole old surface. *Note (owner, same day): several
+  old paths return as rebuilt pages on the new sitemap — `/pricing`
+  is the next page built — so the dead-URL surface shrinks as the
+  page phases land; what never returns stays a 404.*
+- **F4 — resolved: Login goes to the external console** (owner
+  decision 2026-08-27). Found at the compliance review: the nav's
+  Login link targeted `/portal`, which left with the purge and is not
+  in the rebuild sitemap. Resolution: Login (nav and footer) points at
+  `https://console.localkeystone.com/login`. Implemented the same day
+  in `nav.tsx` and `footer.tsx` — a surgical link-target change
+  tracing to spec 005's link-map decision record.
 
 ## 8 · Acceptance criteria
 
@@ -331,19 +374,20 @@ slice (stretched and compressed, §3.1's ten), scrollbar forced on:
       continuity across the four anchors.
 - [ ] The nav overlays without entering any stack sum (asserted
       open and closed); the row-40 lattice renders at rd2 only.
-- [ ] Head hygiene per §4.1/§4.2: the v2 page ships the two v2 font
-      preloads, the light guard, and the light theme-color — no
-      FK/video preloads, no dark flash, no dark browser-chrome tint;
-      the old-brand routes render byte-identical heads.
-- [ ] Budgets per §4.3 on the production build, measured numbers
-      recorded: first load ≤ 120 kB, route JS ≤ 6 kB, eight islands,
-      static prerender, shared 102 kB unchanged, every old-site route
-      unchanged; Lighthouse LCP ≤ 2.5s / CLS ≤ 0.02 / TBT ≤ 200ms at
-      the three viewport classes, LCP being the hero frame-1 image.
+- [ ] The §4.1 head contract holds on `/`: the two site-font preloads,
+      the light guard, the light theme-color — nothing else; no flash,
+      no dark browser-chrome tint.
+- [ ] Budgets per §4.2 on the production build, measured numbers
+      recorded: first load ≤ 115 kB, route JS ≤ 1 kB, eight islands,
+      static prerender; Lighthouse LCP ≤ 2.5s / CLS ≤ 0.02 /
+      TBT ≤ 200ms at the three viewport classes, LCP being the hero
+      frame-1 image.
 - [ ] `prefers-reduced-motion` renders the assembled page
       state-to-state end to end; a no-JS render is the settled page.
-- [ ] The §5 checklist is ready: gates 1–3 checkable, F1/F2 answered
-      or explicitly carried, the promote steps rehearsed on a branch
-      build (steps 6–9 verified once without shipping).
+- [ ] The §5 checklist is current and its gates are tracked — every
+      flag resolved or scheduled (F2's metadata wipe is a launch
+      gate). Execution waits until all pages are built; Phase 6 ends
+      with the homepage done and work shifting to Pricing.
 - [ ] Zero TypeScript and lint errors; every value traces to a token,
-      the §2 expectations module, or the one commented literal.
+      the §2 expectations module, or the root layout's two commented
+      cold-load literals (one `bg/100` value).

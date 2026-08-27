@@ -1,9 +1,11 @@
 # Marketing site rebuild — plan
 
 New-brand rebuild of the Keystone corporate site. Complete visual and structural
-rebuild; the Keystone data/API layer (`@keystone-sites/*`) is retained. Work
-happens **in place** on `new-brand-marketing-site` — the new design system
-progressively replaces the old one.
+rebuild; the Keystone data/API layer (`@keystone-sites/core` · `services` ·
+`widgets`) is retained. Since 2026-08-27 the rebuild is the **only site in
+this tree** (the old-brand code was purged — see the decision log); the old
+site ships from `main` until the rebuild launches, and launch is
+**big-bang** — nothing deploys until the site is complete.
 
 Sitemap: Home · Our Work · Solutions · Pricing · Company · Resources.
 First page built: Home. Every page, at every viewport width, sits on the global
@@ -128,12 +130,47 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   widths (470/1150) against a correct build. Recorded in 002.r1
   (§6 amendment, §7 R7); the fix is specced in 010 §3 with the
   page-level self-test.
-- Phase 6 needs **no design inputs** beyond the cutover gates already
+- Phase 6 needs **no design inputs** beyond the launch gates already
   on record: the testimonials content pass (009), and 010 §7's flags —
   F1 (nav/footer targets to unbuilt routes) resolved same day by the
   owner: **ship 404s**; F2 (the `/` metadata copy, og-image, and theme
   colors — old-brand today, full inventory in 010 §7) stays open for
   design's content decision.
+- **The old-brand site was purged from this branch** (owner decision,
+  same day — "it's a big bang, it's always been a big bang"). Nothing
+  deploys until the new site is complete, so the cohabitation bought
+  nothing and cost real friction (the old root chrome, head preloads,
+  and global CSS underneath every v2 route; two design systems in one
+  tree). Deleted: every old route and page, the old `design-system/`
+  tree, `lib/`/`data/`/`config/`/`types/`, the old assets, scripts,
+  and explainers, `@keystone-sites/legacy`, Tailwind, and all old UI
+  dependencies. Kept: `design-system/v2/`, the dev routes, the
+  chat/form API routes on the current packages (`core` · `services` ·
+  `widgets`), the v2 assets, and both spec series (the old series is
+  a frozen record). Rewritten from scratch: the root layout (v2-owned
+  — light guard, light theme-color, v2 font preloads), a v2 `base.css`
+  carrying the reset contract the sections were verified under, the
+  scroll lock (`v2/lib/scroll-lock.ts`, no animation-engine branch),
+  and the homepage as a shared composition (`v2/home.tsx`) mounted by
+  both `/` and `/home-fixture`. Verified post-purge: tsc/lint zero,
+  the production build green (18 routes; `/` 128 B route JS · 111 kB
+  first load, static), the grid sweep byte-identical to pre-purge
+  (anchors pixel-exact; only the known 002.r1 R7 failures), and the
+  page visually verified in the browser at desktop and phone widths.
+  `docs/rules/rules.md` was revised the same day for the v2-only tree.
+  Spec 010 (draft) carries the revision for Phase 6's changed shape.
+- **The old-URL surface at launch** (blog, services, case-studies, …)
+  — 010 §7 F3, resolved by the owner the same day: **pure 404s, zero
+  backwards compatibility**. No redirect map, no legacy URL support.
+  All 010 flags are now settled (owner, same day): F4 — Login points
+  at the external console (`https://console.localkeystone.com/login`,
+  implemented in the nav and footer); F2 — a **pre-launch metadata
+  wipe** replaces the title/description, og-image, and manifest colors
+  in one pass once all pages are done (a 010 §5 launch gate, not a
+  Phase 6 question). Phase 6 does not launch: after it, work shifts to
+  the remaining pages, **Pricing next**; several old paths (like
+  `/pricing`) return as rebuilt pages, and whatever never returns
+  stays a 404.
 
 ## Phasing
 
@@ -156,10 +193,12 @@ acceptance criteria are checked at every anchor and at mid-band widths.
   each spec covers all anchors, its exposure regions per band, its type
   interpolation, and its motion.
 - **Phase 6 — Homepage assembly**: page-level stack-sum self-test, performance
-  pass, cutover checklist.
+  pass, launch checklist (delivered, not executed — launch is big-bang
+  after all pages).
 
 Subsequent pages (Our Work, Solutions, Pricing, Company, Resources) follow the
-same per-section pattern after Home ships.
+same per-section pattern once the homepage is done — **Pricing first**
+(owner decision 2026-08-27). Launch is big-bang after all pages are built.
 
 ## Spec cadence — just-in-time, never batched
 
@@ -260,11 +299,11 @@ values and would need editing later — which spec immutability forbids.
   from the file at a single 672 tier, and a content pass replaces the
   copy before cutover.
 - Phase 6: **no new design inputs** — assembly, self-test, performance,
-  and cutover only (spec 010, drafted 2026-08-27 from fresh reads of
-  the five anchor frames). What design owes is at the cutover gates,
-  not the build: the testimonials content pass (009), the F1/F2
-  decisions (010 §7 — the nav targets to unbuilt routes and the `/`
-  metadata copy), and sign-off on the assembled page.
+  and the launch checklist (spec 010, drafted 2026-08-27 from fresh
+  reads of the five anchor frames). What design owes is at the launch
+  gates, not the build: the testimonials content pass (009), the
+  pre-launch metadata wipe (010 §7 F2), and sign-off on the assembled
+  page.
 
 ## Special cells — ornament and function on the lattice
 
