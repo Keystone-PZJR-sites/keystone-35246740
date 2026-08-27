@@ -240,6 +240,17 @@ the inactive treatment. The window clips at the left inset and the right
 frame edge (`overflow` clipped in the file — the designed behavior; the
 portfolio's visible-crossing decision does not carry over).
 
+*Amended 2026-08-26 (design direction at build QA — §9 F16):* the left
+clip moves to the **viewport edge**; the window box and every resting
+value are unchanged. The static anchors cannot express the swipe: the
+frame's inset clip guillotined the outgoing card mid-word at the inset
+line, floating short of the viewport. Directed: the card stays visible
+across the inset strip and exits at the true edge. Built as a
+clip-plane extension only (a negative `clip-path` left inset on the
+window), never a wider box — the row, track, breadcrumb, and the
+island's arithmetic are untouched. The right clip stays on the frame
+edge.
+
 | | rm | rs |
 |---|---|---|
 | window | 368 wide from x 16 (t/2) to the frame edge | 528 wide from x 48 (1t) to the frame edge |
@@ -643,6 +654,17 @@ Build-QA flags, 2026-08-26 (open — awaiting design decision):
   build draws it as section chrome (`.eng-toprule` — 11t + 1px, 1px
   `border/000`, `aria-hidden`, under the content layer), the rail's
   row-0 cell tops completing the visible line to the page edge.
+- **F16 — the carousel's left clip moves to the viewport edge**
+  (design direction at build QA, 2026-08-26): §5 transcribed the
+  file's overflow-clipped frame (left edge at the inset) as the
+  designed behavior, but the static anchors never show a card crossing
+  that edge — mid-swipe the outgoing card cut at the inset line, short
+  of the viewport. Directed: clip at the viewport edge — the
+  portfolio's visible-crossing instinct carried to the engine's own
+  window. The build extends only the clip plane (a negative
+  `clip-path` left inset replaces `overflow: hidden` at the carousel
+  bands); the row box, track, and breadcrumb hold every §5 resting
+  value, and the island's math reads the same geometry. §5 amended.
 - **F10 — breadcrumb touch targets (noted).** The designed stops are
   6px dots at a 6px gap: a 44×44 target is geometrically impossible
   without heavy overlap. Built: each stop extends its hit area to the

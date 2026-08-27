@@ -162,12 +162,15 @@
 
 .eng-island { display: contents; }
 
-/* rm/rs: the carousel window — clipped at the left inset and the right
-   frame edge (the designed behavior; the portfolio's visible-crossing
-   decision does not carry over). The row block is card + the 1t
-   breadcrumb row. rt+: the accordion — a 10t row, 1t inset both sides
-   (cols 1–11). The island reads --eng-mode from computed style
-   (container measurement, §8.2). */
+/* rm/rs: the carousel window — clipped at the viewport's left edge and
+   the right frame edge (§5 amended 2026-08-26 — §9 F16). The box stays
+   at the inset (the resting geometry and the island's math never
+   move); a negative clip-path inset extends only the clip plane, so
+   the outgoing card stays visible across the inset strip and exits at
+   the true edge instead of guillotining at the inset line. The row
+   block is card + the 1t breadcrumb row. rt+: the accordion — a 10t
+   row, 1t inset both sides (cols 1–11). The island reads --eng-mode
+   from computed style (container measurement, §8.2). */
 .eng-row {
   --eng-mode: carousel;
   position: absolute;
@@ -175,7 +178,7 @@
   left: calc(var(--t) / 2);
   right: 0;
   height: calc(var(--t) * 14);
-  overflow: hidden;
+  clip-path: inset(0 0 0 calc(var(--t) / -2));
   touch-action: pan-y;
 }
 @container (min-width: 470px) {
@@ -183,6 +186,7 @@
     top: calc(var(--t) * 3);
     left: var(--t);
     height: calc(var(--t) * 8);
+    clip-path: inset(0 0 0 calc(-1 * var(--t)));
   }
 }
 @container (min-width: 665px) {
@@ -193,7 +197,7 @@
     right: auto;
     width: calc(var(--t) * 10);
     height: calc(var(--t) * 5);
-    overflow: visible;
+    clip-path: none;
     touch-action: auto;
   }
 }
