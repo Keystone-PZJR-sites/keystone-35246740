@@ -112,17 +112,17 @@
      slide, the shadow growth, and their shared ease-out. The shadow
      pair promoted to tokens/motion.css 2026-08-26 at its second
      consumer (the testimonial card, spec 009 §8.3 — the 004→005
-     promotion pattern exactly); the --knav names stay as aliases so
-     the nav is untouched, values unchanged. The slide stays here —
-     it is a 112px move, so it wants a longer run than the drawer
-     constants it first borrowed. */
-  --knav-card-slide-dur: 500ms;
+     promotion pattern exactly); the slide pair promoted 2026-08-27 at
+     its second consumer (the pricing card mosaic, spec 011 §7.1). The
+     --knav names stay as aliases so the nav is untouched, values
+     unchanged. */
+  --knav-card-slide-dur: var(--motion-cell-slide-dur);
   --knav-card-shadow-dur: var(--motion-card-shadow-dur);
   /* mouse-out: the shadow reverses, a little quicker than it grew */
   --knav-card-shadow-out-dur: var(--motion-card-shadow-out-dur);
   --knav-card-ease: var(--motion-drawer-ease);
   /* the grid circles ride ease-in-out; the shadow keeps the ease-out */
-  --knav-card-slide-ease: var(--motion-drawer-ease-open);
+  --knav-card-slide-ease: var(--motion-cell-slide-ease);
 
   /* wordmark-in-subhead size (§3). The per-anchor node sizes are one
      art at a fixed ratio to the type: 16.0625/20 · 14.49/18 ·
@@ -289,6 +289,40 @@
      /200 /400 /700 /800 variables, the type styles, the spacing
      scale) or to the tick expressions on .page below. */
   --tst-dwell: 6500ms;
+
+  /* pricing-button constants (spec 011 §4 as amended 2026-08-27, §9
+     R14/R16) — the primitive is proportional: it is drawn in units of
+     its lattice cell, and the set's cells are the band anchor ticks.
+     These are the cell DEFAULTS per size (the designed anchor cells,
+     which the /primitives catalog renders bare); a mounting section
+     overrides --pbtn-cell with the page tick and the whole button —
+     box, pads, label, chip, lattice — scales with the grid. All
+     interior ratios live in pricing-button.css as designed-px-over-
+     anchor-cell fractions. */
+  --pbtn-cell-xs: 32px;
+  --pbtn-cell-sm: 48px;
+  --pbtn-cell-md: 64px;
+  --pbtn-cell-lg: 80px;
+  --pbtn-cell-xl: 112px;
+
+  /* pricing-offer constants (spec 011 §8.4) — the price display is not
+     a ramp style: GT Standard L Light (300), size/line-height per band,
+     tracking −1%, opsz 30 (the L-instance display pin, spec 001);
+     band-restated, all in teal/600. The tag's 10px side pad and the
+     chat-row drops are designed material with no spacing token. */
+  --po-price-rm: 88px;
+  --po-price-rt: 88px;
+  --po-price-rd1: 128px;
+  --po-price-rd2: 176px;
+  --po-price-ls: -0.01em;
+  --po-price-opsz: 30;
+  /* the /month block tucks 4px into the $50 box's trailing bearing —
+     designed letter-fit, read from the nodes at every band */
+  --po-price-gap: -4px;
+  --po-tag-pad-x-rm: 10px;
+  --po-chat-drop-card-rm: 38px;
+  --po-chat-drop-list: 30px;
+  --po-chat-drop-rd2: 88px;
 }
 
 /* Tick-riding component constants (spec 002.r1 units). These reference
@@ -353,4 +387,48 @@
   --tst-head-w-rt: calc(var(--wA) * 384 + var(--wB) * 448);
   --tst-head-w-rd1: calc(var(--wA) * 448 + var(--wB) * 560);
   --tst-head-w-rd2: calc(var(--wB) * 560);
+
+  /* pricing-offer constants (spec 011 §1/§3/§8.4): the tick-riding
+     header tops (112/32 · 80/64 · 120/80 · 120/112 at their anchors —
+     the rs band derives from rm, §1.1, so it rides the rm ratio) and
+     the weight-riding H1/subhead wrap boxes. Every pricing gate is a
+     structural switch, so type and boxes are band constants
+     (hold-then-switch): each box is (wA+wB) × its band's designed
+     value — constant through the band's interpolation zone (wA+wB
+     resolves to 1px there) and a pure zoom of the anchor in the
+     compressed slices (wA collapses to t/T0). */
+  /* header tops re-read 2026-08-27 after design streamlined them:
+     100 · 112 · 96 · 112 · 174 at the anchors (the 960 value fixed
+     1t up the same evening and re-read) */
+  --po-head-top-rm: calc(var(--t) * 100 / 32);
+  --po-head-top-rs: calc(var(--t) * 112 / 48);
+  --po-head-top-rt: calc(var(--t) * 96 / 64);
+  --po-head-top-rd1: calc(var(--t) * 112 / 80);
+  --po-head-top-rd2: calc(var(--t) * 174 / 112);
+  --po-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
+  /* re-read 2026-08-27 after the copy fix: the 192 frame carries a
+     32 right pad — the wrap column is 160 and the four lines fall
+     naturally (§9 R15 follow-up) */
+  --po-h1-w-rs: calc((var(--wA) + var(--wB)) * 160);
+  --po-h1-w-rt: calc((var(--wA) + var(--wB)) * 288);
+  --po-h1-w-rd1: calc((var(--wA) + var(--wB)) * 328);
+  --po-h1-w-rd2: calc((var(--wA) + var(--wB)) * 724);
+  --po-sub-w-rm: calc((var(--wA) + var(--wB)) * 240);
+  --po-sub-w-rs: calc((var(--wA) + var(--wB)) * 192);
+  --po-sub-w-rt: calc((var(--wA) + var(--wB)) * 288);
+  --po-sub-w-rd1: calc((var(--wA) + var(--wB)) * 320);
+  --po-sub-w-rd2: calc((var(--wA) + var(--wB)) * 485);
+  /* the included-list item text columns (§5): box inner width minus
+     the material icon box and gap at each anchor (256 · 240 · 300 ·
+     440, the rendered text widths). Wrap-pinning widths ride the
+     weights, so the designed wrap counts hold in the compressed
+     slices; the row's material overhead presses into the box pads
+     there (the boxes clip). */
+  --po-item-w-rm: calc((var(--wA) + var(--wB)) * 256);
+  /* rs designed 2026-08-27 (§9 R15): the 5t box's inner column
+     (240 − 12 − 16 − icon 24 − gap 12 = 176) */
+  --po-item-w-rs: calc((var(--wA) + var(--wB)) * 176);
+  --po-item-w-rt: calc((var(--wA) + var(--wB)) * 240);
+  --po-item-w-rd1: calc((var(--wA) + var(--wB)) * 300);
+  --po-item-w-rd2: calc((var(--wA) + var(--wB)) * 440);
 }

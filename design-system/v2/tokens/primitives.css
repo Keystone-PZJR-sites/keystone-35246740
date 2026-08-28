@@ -1,7 +1,9 @@
 /* v2 tokens — primitives (layer 1 of 3)
    Source: Figma `ks-MarketingSite` variables, collection "00 primitives".
-   Extracted via figma-console MCP on 2026-08-22. Do not edit values by
-   hand — re-extract from Figma (see docs/rebuild/specs/001_foundations.md).
+   Extracted via figma-console MCP on 2026-08-22; re-extracted 2026-08-27
+   for the Phase 7 build (spec 011) — three new teal stops, no other
+   drift. Do not edit values by hand — re-extract from Figma (see
+   docs/rebuild/specs/001_foundations.md).
    Nothing outside the token layers may reference these directly; consume
    the semantic layer instead. */
 
@@ -73,11 +75,18 @@
   --color-green-800: #063126;
 
   --color-teal-100: #e9f6f3;
+  /* 150/250/450/550 are intermediate stops (the teal ramp is the only
+     one that carries them); 150/450 added 2026-08-27 for the pricing
+     lattice inks (spec 011 §9 R7). Re-extracted 2026-08-27 after the
+     design's hover-state revision: 450 re-inked, 650 replaced by 550. */
+  --color-teal-150: #dbf0eb;
   --color-teal-200: #d2ede6;
-  --color-teal-250: #aadfd7; /* the only half-step in the hue ramps */
+  --color-teal-250: #aadfd7;
   --color-teal-300: #8cd4c9;
   --color-teal-400: #5bc3b3;
+  --color-teal-450: #4cb3a3;
   --color-teal-500: #4aac9d;
+  --color-teal-550: #409689;
   --color-teal-600: #318175;
   --color-teal-700: #236058;
   --color-teal-800: #0d2a28;

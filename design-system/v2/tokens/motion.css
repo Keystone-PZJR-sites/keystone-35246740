@@ -63,6 +63,16 @@
   --motion-card-shadow-dur: 450ms;
   --motion-card-shadow-out-dur: 300ms;
 
+  /* The cell slide (born in the nav's drawer cards, spec 005; promoted
+     2026-08-27 when the pricing card mosaic became the second consumer
+     — spec 011 §7.1, values unchanged): a decorative lattice circle
+     slides exactly one cell in its designed direction while the pointer
+     rests on its card, and slides back on mouse-out on the same curve.
+     The slide is a translate; layout never moves. The ease aliases the
+     drawer's ease-in-out — never fork. */
+  --motion-cell-slide-dur: 500ms;
+  --motion-cell-slide-ease: var(--motion-drawer-ease-open);
+
   /* The entrance gate and stagger (born in the portfolio, spec 007
      §9 R20/R22; promoted 2026-08-26 at their second consumer — spec
      009 §7.1/§8.3, values unchanged): a section's entrance fires the
