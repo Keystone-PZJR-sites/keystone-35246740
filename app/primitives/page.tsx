@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import { MEDIA_V2 } from "@/design-system/v2/media";
 import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primitives/buttons";
+import { FaqQuestion } from "@/design-system/v2/primitives/faq-question";
 import { GridButton } from "@/design-system/v2/primitives/grid-button";
 import { GraderInput } from "@/design-system/v2/primitives/grader";
 import { PricingButton } from "@/design-system/v2/primitives/pricing-button";
@@ -11,6 +12,7 @@ import { PersonaCard } from "@/design-system/v2/primitives/persona-card";
 import { PricingTag } from "@/design-system/v2/primitives/pricing-tag";
 import { Slider } from "@/design-system/v2/primitives/slider";
 import { Text } from "@/design-system/v2/primitives/text";
+import { FAQ_ITEMS } from "@/design-system/v2/sections/faq-data";
 import { PERSONAS } from "@/design-system/v2/sections/pricing-scale-data";
 import {
   IconAiChat,
@@ -182,6 +184,15 @@ const PRICING_BUTTON_SIZES = [
 const GHOST_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
 const ARROW_SIZES = ["lg", "md", "sm"] as const;
 const GRID_BUTTON_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
+/* the set's designed anchor mounts (spec 013 §4) — the mount owns the
+   width, so the matrix renders each size at its anchor span */
+const FAQ_QUESTION_SIZES = [
+  { size: "xs", width: 352 },
+  { size: "sm", width: 480 },
+  { size: "md", width: 448 },
+  { size: "lg", width: 560 },
+  { size: "xl", width: 672 },
+] as const;
 
 const GHOST_COLORS = [
   { color: "brown", label: "Our work", icon: <IconProjects /> },
@@ -347,6 +358,34 @@ export default function PrimitivesPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="pv-section">
+        <h2>faq-question</h2>
+        {/* the designed anchor sizes bare (spec 013 §4/§8.2): closed,
+            and open at the placeholder-copy R7 derivation heights */}
+        {FAQ_QUESTION_SIZES.map(({ size, width }) => (
+          <div key={size}>
+            <h3>{size}</h3>
+            <ul className="pv-faq" style={{ width }}>
+              <FaqQuestion
+                id={`pv-faq-${size}-closed`}
+                size={size}
+                question={FAQ_ITEMS[0].question}
+                answer={FAQ_ITEMS[0].answer}
+              />
+            </ul>
+            <ul className="pv-faq" style={{ width }}>
+              <FaqQuestion
+                id={`pv-faq-${size}-open`}
+                size={size}
+                open
+                question={FAQ_ITEMS[0].question}
+                answer={FAQ_ITEMS[0].answer}
+              />
+            </ul>
+          </div>
+        ))}
       </section>
 
       <section className="pv-section">

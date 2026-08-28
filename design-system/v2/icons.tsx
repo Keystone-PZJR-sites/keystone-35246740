@@ -141,6 +141,20 @@ export function IconChevronDownMedium({ size = 16, className }: Props) {
   );
 }
 
+/** IconChevronDownSmall — the FAQ drawer chevron (spec 013 §4, §9 R8).
+ * The set mounts the 16-grid chevron resized to 12, which keeps the
+ * stroke absolute at 1.25 — a scaled SVG renders 0.94, so the rendered
+ * geometry ships verbatim (the 012 IconSliderArrow precedent). Exported
+ * via the console bridge 2026-08-28; ink normalized to currentColor
+ * (tints border/400 through the component layer). */
+export function IconChevronDownSmall({ size = 12, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M2.875 4.74976L6 7.87476L9.125 4.74976" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" />
+    </svg>
+  );
+}
+
 /** _nav-menu-mobile (520:15982) — 28-grid, currentColor. Consumer is the
  * Phase 4 nav. Re-exported 2026-08-24 after design resized the set
  * 32 → 28 (spec 005 §9). */
