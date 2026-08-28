@@ -1,0 +1,647 @@
+/* v2 sections — pricing-scale (spec 012). All five anchors designed
+   (the rs rows live in the redrawn 576 frame). The un-gated rules are
+   the 384 design; @container blocks override upward at the 002.r1
+   gates (470 · 665 · 860 · 1130).
+
+   Units (§1): the block box, card boxes, image bands, strip origin,
+   card widths, and the 1t gaps are tick geometry; EVERY interior of
+   the block and the card — pads, type, chips, the hanging tag — is a
+   band constant riding the weights through --ps-u (component.css:
+   (wA + wB), 1px through the interpolation zones, the anchor zoom in
+   the compressed slices). The slider is proportional over its width
+   (--sldr-w, the weight-riding mount widths). Material px survives
+   only as chrome: the 1px hairlines and the focus rings.
+
+   Motion (§7): no load choreography — the section is born settled at
+   k = 0. The snap (thumb, progress, strip translate, the card ink
+   cross) rides the one --ps-snap-dur clock; the hard shadow follows
+   the 005/009 law — the outgoing shadow drops at once when the strip
+   starts, the incoming grows from the 0,0 origin only after the strip
+   lands (the transition delay is the snap duration). Reduced motion
+   renders every change state-to-state. */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.v2-ps {
+  width: 100%;
+  height: calc(var(--t) * 29);
+}
+@container (min-width: 470px) {
+  .v2-ps { height: calc(var(--t) * 13); }
+}
+@container (min-width: 665px) {
+  .v2-ps { height: calc(var(--t) * 10); }
+}
+@container (min-width: 860px) {
+  .v2-ps { height: calc(var(--t) * 9); }
+}
+@container (min-width: 1130px) {
+  .v2-ps { height: calc(var(--t) * 7); }
+}
+
+/* the island wrapper is not a box — the section's children position
+   against .sec */
+.ps-island {
+  display: contents;
+}
+
+/* ---------------- the price-scale block (§3) ---------------- */
+
+/* a transparent box: the 1px top hairline lies on the section's top
+   row line (line-inclusive — the canonical [k·t, k·t+1) pixel), so it
+   coincides with, never doubles, the page lattice where 011's
+   staircase touches that line. The column is space-between: at rm/rs
+   the slider's bottom edge sits flush on the box's bottom row line;
+   at rt/rd1 the CTA's; at rd2 the CTA rests on the 48 bottom pad. */
+.ps-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border-000);
+  width: calc(var(--t) * 10);
+  height: calc(var(--t) * 10);
+  padding:
+    calc(var(--ps-u) * 24)
+    0
+    0
+    calc(var(--ps-u) * 16);
+}
+@container (min-width: 470px) {
+  .ps-block {
+    width: calc(var(--t) * 5);
+    padding:
+      calc(var(--ps-u) * 24)
+      calc(var(--ps-u) * 32)
+      0
+      calc(var(--ps-u) * 48);
+  }
+}
+@container (min-width: 665px) {
+  .ps-block {
+    height: calc(var(--t) * 7);
+    padding:
+      calc(var(--ps-u) * 32)
+      calc(var(--ps-u) * 64)
+      0
+      calc(var(--ps-u) * 64);
+  }
+}
+@container (min-width: 860px) {
+  .ps-block {
+    padding:
+      calc(var(--ps-u) * 32)
+      calc(var(--ps-u) * 80)
+      0
+      calc(var(--ps-u) * 80);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-block {
+    padding:
+      calc(var(--ps-u) * 40)
+      calc(var(--ps-u) * 40)
+      calc(var(--ps-u) * 48)
+      calc(var(--ps-u) * 112);
+  }
+}
+
+.ps-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* the weight-riding type construction (the 011 pattern): family and
+   band constants through --_f/--_ls/--_opsz, size and line-height as
+   --ps-u × the designed value */
+.ps-head,
+.ps-subhead,
+.ps-chip {
+  font: var(--_f);
+  font-size: calc(var(--ps-u) * var(--_fs));
+  line-height: calc(var(--ps-u) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.ps-head {
+  margin: 0;
+  color: var(--color-text-100);
+  max-width: calc(var(--ps-u) * 288);
+  --_f: var(--ts-display-serif-xs-extralight-font);
+  --_fs: 24;
+  --_lh: 30;
+  --_ls: var(--ts-display-serif-xs-extralight-ls);
+}
+@container (min-width: 470px) {
+  .ps-head { max-width: calc(var(--ps-u) * 160); }
+}
+@container (min-width: 665px) {
+  .ps-head { max-width: calc(var(--ps-u) * 192); }
+}
+@container (min-width: 860px) {
+  .ps-head {
+    max-width: calc(var(--ps-u) * 240);
+    --_f: var(--ts-display-serif-sm-extralight-font);
+    --_fs: 32;
+    --_lh: 38;
+    --_ls: var(--ts-display-serif-sm-extralight-ls);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-head {
+    max-width: calc(var(--ps-u) * 408);
+    --_f: var(--ts-display-serif-md-plus-extralight-font);
+    --_fs: 42;
+    --_lh: 50;
+    --_ls: var(--ts-display-serif-md-plus-extralight-ls);
+  }
+}
+
+.ps-subhead {
+  margin: calc(var(--ps-u) * 24) 0 0;
+  color: var(--color-text-400);
+  max-width: calc(var(--ps-u) * 288);
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 470px) {
+  .ps-subhead { max-width: calc(var(--ps-u) * 160); }
+}
+@container (min-width: 665px) {
+  .ps-subhead {
+    max-width: calc(var(--ps-u) * 192);
+    --_f: var(--ts-text-sm-light-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-light-ls);
+    --_opsz: var(--ts-text-sm-light-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .ps-subhead {
+    margin-top: calc(var(--ps-u) * 32);
+    max-width: calc(var(--ps-u) * 240);
+    --_f: var(--ts-text-md-light-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-light-ls);
+    --_opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-subhead {
+    max-width: calc(var(--ps-u) * 336);
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* ---------------- the keyword chips (§3) ---------------- */
+
+/* six chips, each its own hue pair (300 fill / 700 ink; Sales calls
+   orange/600 by design — §9 F5), wrapping in the weight-riding box.
+   The per-band ORDERS are design intent (§3 as amended 2026-08-28,
+   §9 F2 — rag balance): one copy set, flex order restated per band.
+   Radius reads 2 (radius-2xs) at rm/rs/rt/rd1 and 4 at rd2 — a build
+   erratum against the draft's blanket radius-xs, amended in §9. */
+.ps-chips {
+  list-style: none;
+  margin: calc(var(--ps-u) * 24) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+  gap: calc(var(--ps-u) * 4);
+}
+@container (min-width: 470px) {
+  .ps-chips { margin-top: calc(var(--ps-u) * 32); }
+}
+@container (min-width: 665px) {
+  .ps-chips {
+    margin-top: calc(var(--ps-u) * 24);
+    gap: calc(var(--ps-u) * 6);
+  }
+}
+@container (min-width: 860px) {
+  .ps-chips {
+    margin-top: calc(var(--ps-u) * 32);
+    gap: calc(var(--ps-u) * 6);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-chips { gap: calc(var(--ps-u) * 8); }
+}
+
+.ps-chip {
+  background: var(--_bg);
+  color: var(--_ink);
+  border-radius: calc(var(--ps-u) * 2);
+  padding:
+    calc(var(--ps-u) * 1)
+    calc(var(--ps-u) * 4)
+    calc(var(--ps-u) * 2);
+  white-space: nowrap;
+  --_f: var(--ts-text-xs-regular-font);
+  --_fs: 12;
+  --_lh: 16;
+  --_ls: var(--ts-text-xs-regular-ls);
+  --_opsz: var(--ts-text-xs-regular-opsz);
+}
+@container (min-width: 470px) {
+  .ps-chip {
+    --_f: var(--ts-text-2xs-regular-font);
+    --_fs: 10;
+    --_lh: 12;
+    --_ls: var(--ts-text-2xs-regular-ls);
+    --_opsz: var(--ts-text-2xs-regular-opsz);
+  }
+}
+@container (min-width: 665px) {
+  .ps-chip {
+    --_f: var(--ts-text-xs-regular-font);
+    --_fs: 12;
+    --_lh: 16;
+    --_ls: var(--ts-text-xs-regular-ls);
+    --_opsz: var(--ts-text-xs-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-chip {
+    border-radius: calc(var(--ps-u) * 4);
+    padding:
+      calc(var(--ps-u) * 2)
+      calc(var(--ps-u) * 6)
+      calc(var(--ps-u) * 2);
+    --_f: var(--ts-text-md-regular-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-regular-ls);
+    --_opsz: var(--ts-text-md-regular-opsz);
+  }
+}
+
+.ps-chip-ads {
+  --_bg: var(--color-pink-300);
+  --_ink: var(--color-pink-700);
+  order: 1;
+}
+.ps-chip-sales {
+  --_bg: var(--color-orange-300);
+  --_ink: var(--color-orange-600);
+  order: 2;
+}
+.ps-chip-social {
+  --_bg: var(--color-yellow-300);
+  --_ink: var(--color-yellow-700);
+  order: 3;
+}
+.ps-chip-phone {
+  --_bg: var(--color-teal-300);
+  --_ink: var(--color-teal-700);
+  order: 5;
+}
+.ps-chip-hvm {
+  --_bg: var(--color-blue-300);
+  --_ink: var(--color-blue-700);
+  order: 4;
+}
+.ps-chip-multi {
+  --_bg: var(--color-purple-300);
+  --_ink: var(--color-purple-700);
+  order: 6;
+}
+/* rs/rd1 — Ads · Sales calls · Phone answering · Social ·
+   High-volume messaging · Multi-location campaigns */
+@container (min-width: 470px) {
+  .ps-chip-phone { order: 3; }
+  .ps-chip-social { order: 4; }
+  .ps-chip-hvm { order: 5; }
+}
+/* rt/rd2 — Ads · Sales calls · Social · Phone answering ·
+   High-volume messaging · Multi-location campaigns */
+@container (min-width: 665px) {
+  .ps-chip-social { order: 3; }
+  .ps-chip-phone { order: 4; }
+  .ps-chip-hvm { order: 5; }
+}
+@container (min-width: 860px) {
+  .ps-chip-phone { order: 3; }
+  .ps-chip-social { order: 4; }
+}
+@container (min-width: 1130px) {
+  .ps-chip-social { order: 3; }
+  .ps-chip-phone { order: 4; }
+}
+
+/* ---------------- the slider mounts (§3/§4) ---------------- */
+
+/* lg rm · sm rs · md rt · lg rd1/rd2 — the mount width drives the
+   proportional primitive from the weight-riding constants */
+.ps-sl-rm .sldr { --sldr-w: var(--ps-slider-w-rm); }
+.ps-sl-rs .sldr { --sldr-w: var(--ps-slider-w-rs); }
+.ps-sl-rt .sldr { --sldr-w: var(--ps-slider-w-rt); }
+.ps-sl-rd .sldr { --sldr-w: var(--ps-slider-w-rd1); }
+@container (min-width: 1130px) {
+  .ps-sl-rd .sldr { --sldr-w: var(--ps-slider-w-rd2); }
+}
+
+.ps-sl-rs,
+.ps-sl-rt,
+.ps-sl-rd {
+  display: none;
+}
+@container (min-width: 470px) {
+  .ps-sl-rm { display: none; }
+  .ps-sl-rs { display: block; }
+}
+@container (min-width: 665px) {
+  .ps-sl-rs { display: none; }
+  .ps-sl-rt {
+    display: block;
+    margin-top: calc(var(--ps-u) * 24);
+  }
+}
+@container (min-width: 860px) {
+  .ps-sl-rt { display: none; }
+  .ps-sl-rd {
+    display: block;
+    margin-top: calc(var(--ps-u) * 32);
+  }
+}
+
+/* ---------------- the CTA mounts (§3) ---------------- */
+
+.ps-cta {
+  display: none;
+}
+@container (min-width: 665px) {
+  .ps-cta-rt { display: inline-block; }
+}
+@container (min-width: 860px) {
+  .ps-cta-rt { display: none; }
+  .ps-cta-rd1 { display: inline-block; }
+}
+@container (min-width: 1130px) {
+  .ps-cta-rd1 { display: none; }
+  .ps-cta-rd2 { display: inline-block; }
+}
+
+/* ---------------- the persona carousel (§1/§5/§6) ---------------- */
+
+/* the viewport clips the strip at the origin's left edge and the
+   page's right edge; the overflow past the right edge is design */
+.ps-carousel {
+  position: absolute;
+  top: calc(var(--t) * 11);
+  left: calc(var(--t) / 2);
+  right: 0;
+  overflow: clip;
+  touch-action: pan-y;
+}
+@container (min-width: 470px) {
+  .ps-carousel {
+    top: 0;
+    left: calc(var(--t) * 5);
+  }
+}
+
+/* the strip translates by whole card steps: −k × (card + 1t) —
+   10.5t rm · 7t rs · 6t rt/rd1/rd2 (geometry, never a px constant);
+   a swipe tracks live through --ps-drag-dx with the transition off */
+.ps-strip {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--t);
+  width: max-content;
+  /* a swipe must never start a text selection (the engine precedent);
+     the island suppresses the images' native drag the same way */
+  user-select: none;
+  --_step: calc(var(--t) * 10.5);
+  translate: calc(var(--ps-drag-dx, 0px) - var(--ps-k, 0) * var(--_step));
+  transition: translate var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.ps-strip[data-dragging] {
+  transition: none;
+}
+@container (min-width: 470px) {
+  .ps-strip { --_step: calc(var(--t) * 7); }
+}
+@container (min-width: 665px) {
+  .ps-strip { --_step: calc(var(--t) * 6); }
+}
+
+.ps-slot {
+  flex: none;
+  width: calc(var(--t) * 9.5);
+}
+@container (min-width: 470px) {
+  .ps-slot { width: calc(var(--t) * 6); }
+}
+@container (min-width: 665px) {
+  .ps-slot { width: calc(var(--t) * 5); }
+}
+
+/* card box geometry (§1, tick spans): the box and its image band are
+   exact tick multiples at every band; the cost card is the remainder */
+.ps-slot .pcard {
+  width: 100%;
+  --pcard-u: var(--ps-u);
+}
+.ps-slot .pcard-box {
+  height: calc(var(--t) * 16);
+}
+.ps-slot .pcard-image {
+  flex: none;
+  height: calc(var(--t) * 6);
+}
+@container (min-width: 470px) {
+  .ps-slot .pcard-box { height: calc(var(--t) * 11); }
+  .ps-slot .pcard-image { height: calc(var(--t) * 4); }
+}
+@container (min-width: 665px) {
+  .ps-slot .pcard-box { height: calc(var(--t) * 8); }
+  .ps-slot .pcard-image { height: calc(var(--t) * 3); }
+}
+@container (min-width: 860px) {
+  .ps-slot .pcard-box { height: calc(var(--t) * 7); }
+}
+@container (min-width: 1130px) {
+  .ps-slot .pcard-box { height: calc(var(--t) * 5); }
+  .ps-slot .pcard-image { height: calc(var(--t) * 2); }
+}
+
+/* ---- card interiors per band (§5 size materials: xs rm · sm rs ·
+   md rt · lg rd1 · xl rd2). The base band is the primitive's xs
+   defaults; each gate restates what changes, riding --pcard-u. ---- */
+
+@container (min-width: 470px) {
+  .ps-slot .pcard {
+    --pc-title-f: var(--ts-text-md-medium-font);
+    --pc-title-fs: 16;
+    --pc-title-lh: 22;
+    --pc-title-ls: var(--ts-text-md-medium-ls);
+    --pc-title-opsz: var(--ts-text-md-medium-opsz);
+    --pc-title-w: 232;
+    --pc-story-w: 256;
+  }
+}
+@container (min-width: 665px) {
+  .ps-slot .pcard {
+    --pc-title-f: var(--ts-text-lg-medium-font);
+    --pc-title-fs: 18;
+    --pc-title-lh: 26;
+    --pc-title-ls: var(--ts-text-lg-medium-ls);
+    --pc-title-opsz: var(--ts-text-lg-medium-opsz);
+    --pc-title-w: 264;
+    --pc-story-f: var(--ts-text-sm-light-font);
+    --pc-story-fs: 14;
+    --pc-story-lh: 18;
+    --pc-story-ls: var(--ts-text-sm-light-ls);
+    --pc-story-opsz: var(--ts-text-sm-light-opsz);
+    --pc-story-w: 288;
+    --pc-tag-inset: 32;
+    --ptag-f: var(--ts-text-xs-regular-font);
+    --ptag-fs: 12;
+    --ptag-lh: 16;
+    --ptag-ls: var(--ts-text-xs-regular-ls);
+    --ptag-opsz: var(--ts-text-xs-regular-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .ps-slot .pcard {
+    --pc-title-f: var(--ts-text-xl-medium-font);
+    --pc-title-fs: 20;
+    --pc-title-lh: 26;
+    --pc-title-ls: var(--ts-text-xl-medium-ls);
+    --pc-title-opsz: var(--ts-text-xl-medium-opsz);
+    --pc-title-w: 292;
+    --pc-cost-pt: 16;
+    --pc-cost-px: 20;
+    --pc-cost-pb: 20;
+    --pc-est-f: var(--ts-display-sans-2xs-light-font);
+    --pc-est-fs: 28;
+    --pc-est-lh: 36;
+    --pc-est-ls: var(--ts-display-sans-2xs-light-ls);
+    --pc-est-opsz: var(--ts-display-sans-2xs-light-opsz);
+    --pc-est-gap: 16;
+    --pc-story-f: var(--ts-text-md-light-font);
+    --pc-story-fs: 16;
+    --pc-story-lh: 22;
+    --pc-story-ls: var(--ts-text-md-light-ls);
+    --pc-story-opsz: var(--ts-text-md-light-opsz);
+    --pc-story-w: 360;
+    --ptag-pt: 4;
+    --ptag-px: 8;
+    --ptag-pb: 4;
+    --ptag-f: var(--ts-text-sm-regular-font);
+    --ptag-fs: 14;
+    --ptag-lh: 18;
+    --ptag-ls: var(--ts-text-sm-regular-ls);
+    --ptag-opsz: var(--ts-text-sm-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-slot .pcard {
+    --pc-img-pt: 24;
+    --pc-img-pr: 24;
+    --pc-img-pb: 24;
+    --pc-img-pl: 24;
+    --pc-title-just: flex-start;
+    --pc-title-f: var(--ts-text-2xl-medium-font);
+    --pc-title-fs: 24;
+    --pc-title-lh: 32;
+    --pc-title-ls: var(--ts-text-2xl-medium-ls);
+    --pc-title-opsz: var(--ts-text-2xl-medium-opsz);
+    --pc-title-w: 232;
+    --pc-cost-pt: 24;
+    --pc-cost-px: 32;
+    --pc-cost-pb: 32;
+    --pc-est-f: var(--ts-display-sans-sm-light-font);
+    --pc-est-fs: 36;
+    --pc-est-lh: 42;
+    --pc-est-ls: var(--ts-display-sans-sm-light-ls);
+    --pc-est-opsz: var(--ts-display-sans-sm-light-opsz);
+    --pc-est-gap: 24;
+    --pc-story-f: var(--ts-text-lg-light-font);
+    --pc-story-fs: 18;
+    --pc-story-lh: 26;
+    --pc-story-ls: var(--ts-text-lg-light-ls);
+    --pc-story-opsz: var(--ts-text-lg-light-opsz);
+    --pc-story-w: 496;
+    --pc-chips-gap: 8;
+    --pc-tag-h: 32;
+    --pc-tag-px: 12;
+    --pc-tag-f: var(--ts-text-xs-semibold-font);
+    --pc-tag-fs: 12;
+    --pc-tag-lh: 16;
+    --pc-tag-ls: var(--ts-text-xs-semibold-ls);
+    --pc-tag-opsz: var(--ts-text-xs-semibold-opsz);
+    --pc-tag-inset: 32;
+    --ptag-pt: 4;
+    --ptag-px: 10;
+    --ptag-pb: 4;
+  }
+}
+
+/* ---------------- the card state swap (§7.2) ---------------- */
+
+/* inks and fills cross on the snap clock */
+.ps-slot .pcard-cost {
+  transition: background-color var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.ps-slot .pcard-est,
+.ps-slot .pcard-story {
+  transition: color var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.ps-slot .pcard-tag,
+.ps-slot .ptag {
+  transition:
+    color var(--ps-snap-dur) var(--ps-snap-ease),
+    background-color var(--ps-snap-dur) var(--ps-snap-ease);
+}
+
+/* the shadow law (005/009): a hard shadow never paints while its box
+   moves — the outgoing shadow drops at once when the strip starts
+   (0s), the incoming grows from the 0,0 origin only after the strip
+   lands (delayed by the snap duration). The shadow lives on the
+   box's ::after overlay (persona-card.css) so it paints over the
+   hanging tag. The image's luminosity swap is not animatable and
+   switches state-to-state under the move. */
+.ps-slot .pcard-box::after {
+  box-shadow: var(--shadow-hard-square-0);
+  transition: box-shadow 0s;
+}
+.ps-slot .pcard[data-state="active"] .pcard-box::after {
+  box-shadow: var(--shadow-hard-square);
+  transition: box-shadow var(--motion-card-shadow-dur) var(--motion-drawer-ease) var(--ps-snap-dur);
+}
+
+/* ---------------- reduced motion (§7.3) ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-strip,
+  .ps-slot .pcard-cost,
+  .ps-slot .pcard-est,
+  .ps-slot .pcard-story,
+  .ps-slot .pcard-tag,
+  .ps-slot .ptag,
+  .ps-slot .pcard-box::after,
+  .ps-slot .pcard[data-state="active"] .pcard-box::after {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

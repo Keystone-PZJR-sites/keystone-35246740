@@ -64,3 +64,6 @@
 /* Primitives (spec 012) */
 @import "./primitives/slider.css";
 @import "./primitives/persona-card.css";
+
+/* Sections (spec 012) */
+@import "./sections/pricing-scale.css";

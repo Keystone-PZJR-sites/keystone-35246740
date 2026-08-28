@@ -1,14 +1,15 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { PricingOfferSection } from "@/design-system/v2/sections/pricing-offer";
+import { PricingScaleSection } from "@/design-system/v2/sections/pricing-scale";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 
 /** The assembled pricing page — one server component, mounted bare by
  * `/pricing` and under the QA readout by `/pricing-fixture` (spec 011
- * §8, the spec 010 §6.3 pattern). Born here with the offer section
- * (011); 012 (price scale + persona carousel) and 013 (FAQ) splice
- * their sections in as they land. The page-level expectations module
- * and sweep leg follow with 013.
+ * §8, the spec 010 §6.3 pattern). The offer (011) and the price scale
+ * + persona carousel (012) are built; 013 (FAQ) splices its section in
+ * when it lands. The page-level expectations module and sweep leg
+ * follow with 013.
  *
  * No `v2-choreo`: the page has no load choreography (011 §9 R10) —
  * every section renders settled. Social URLs come from the retained
@@ -25,6 +26,7 @@ export async function PricingPage({ qa }: { qa?: React.ReactNode }) {
       <NavChrome />
       <main>
         <PricingOfferSection />
+        <PricingScaleSection />
       </main>
       <FooterSection
         social={{

@@ -255,6 +255,75 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   bound to three new file variables — `color/teal/150` · `450` ·
   `650` — through the console bridge.
 
+- **Spec 012 is drafted** (late evening, from fresh reads of all five
+  anchor frames, every landmark verified against rendered bounds — the
+  rs 012 rows are designed in the redrawn 576 frame, so all five
+  anchors are designed for this section). The design's simplified
+  scaling system reads clean: the price-scale box is 5t×7t at
+  rt/rd1/rd2 (10t-wide/10t-tall variants at rm/rs), card boxes and
+  image bands are exact tick multiples at every size, and the FAQ top
+  sits card-box end + 2t at every band. New sets specced:
+  `persona-card` (persona × size × state, 30 variants; inactive cards
+  are translucent ghosts the lattice reads through), `slider` (3
+  states × 3 sizes, proportional over width per the 011 R16
+  taxonomy), `pricing-tag`. Interiors ride the weights as band
+  constants (the grid-digest law) — no fixed-px defects this pass.
+  The persona exports landed (three personas × five tiers, incl. the
+  new sm/lg for the 576/960 bands). Seven draft flags with design
+  (012 §9 F1–F7): the off-grid rd1 carousel container, three chip
+  orders in one file, copy-canon slips, unbound inks/effects (incl.
+  an off-doctrine soft shadow on the cost cards, not built), the
+  Sales-calls 600-ink outlier, naming hygiene, and the rm/rs frames
+  not closing over their footers (24t at row 93 → 117t vs the 115t
+  frame; 21t at row 49 → 70t vs 69t) — the frame fix is needed before
+  013 is written. The rt/rm frame totals grew with the section (47t →
+  48t · 114t → 115t); 012 §1 is the current record.
+
+## Decision log — 2026-08-28
+
+- **All seven 012 flags resolved by design** (morning; every fix
+  re-read from the nodes — 012 §9 is the record). Fixed: the rd1
+  carousel on its tick row, the cost-card soft shadow removed, the
+  slider track bound `lightgray/300 → 500`, the notch bound to a
+  **new `alpha/black-20` variable** (arrives via the pre-build
+  re-extraction), the chip instances and rs block name trued, and
+  **the rm/rs frames closed — 117t and 70t** (012 §9 F7 supersedes
+  the draft's 115t/69t reads; nothing for 013 blocks). Decided as
+  intent: the per-band chip orders (rag balance — the build renders
+  each band's designed order, 012 §3 amendment) and the Sales-calls
+  `orange/600` ink. Sanctioned as enumerated constants: the inactive
+  cost fill and the slider thumb bevel. Copy residuals stay with
+  design (the rd2 subhead apostrophe, the xl U+2028 breaks); the
+  build's copy set is canonical. The spec awaits approval.
+- **Spec 012 is approved and built** (owner approval, then the build
+  the same day). The token layer re-extracted first (001 rule) —
+  zero drift; the new `alpha/black-20` file variable resolves to the
+  standing semantic token. Every §1/§2/§3/§4/§5 value re-verified
+  from rendered bounds at build. Landed: the fifteen persona tiers
+  into `public/media/personas/` + the media registry; three new
+  primitives — `Slider` (proportional over width, the native range
+  carrying the semantics), `PersonaCard` (prop-driven, var-driven
+  interiors riding the section's band restatements), `PricingTag` —
+  plus the verbatim `IconSliderArrow` export; the pricing-scale
+  section with **one client island** (the §6 three-state machine:
+  slider drag/track/keys, strip swipe, card-overlay clicks, all
+  writing one k; the snap on one 450ms clock; the shadow on the
+  005/009 law); the `/primitives` catalog rows; the splice into
+  `v2/pricing.tsx`. Four build errata amended in place (012 §9
+  build record): the chip radius steps 2/2/2/2/4, the head's
+  designed U+2028 break (built explicit — natural wrap cannot
+  reproduce it at rm), the active/highgrowth service-chip order,
+  and the unspaced highgrowth estimate (spec copy canonical). Two
+  island lessons: a carousel viewport must **capture the pointer
+  lazily** (capture at pointerdown retargets the derived click and
+  the overlay buttons never fire) and must **suppress dragstart**
+  (a swipe starting on a card photo becomes a native image drag
+  that cancels the pointer stream). Acceptance checked at the five
+  anchors + nine slice widths; tsc/lint zero; the production build
+  static — `/pricing` 2 kB route JS · 107 kB first load (011's
+  island-less 141 B is the prior record), the homepage untouched.
+  013 (FAQ + page assembly) is the remaining pricing spec.
+
 ## Phasing
 
 Each phase covers **all five anchors** and is done only when its spec's
