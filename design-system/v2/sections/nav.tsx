@@ -3,7 +3,7 @@
  * One component, two structures, gated at the rd1 boundary (§1): a
  * desktop bar (fixed at the viewport top; rail left, Login right, the
  * space between transparent) with a hover-revealed subnav drawer, and a
- * mobile rail (absolute at the page top, scrolls away) with a
+ * mobile rail (fixed at the viewport top, amended 2026-08-28) with a
  * full-height menu panel carrying footer-grammar drawers.
  *
  * The nav is overlay chrome — it never participates in a section's tick

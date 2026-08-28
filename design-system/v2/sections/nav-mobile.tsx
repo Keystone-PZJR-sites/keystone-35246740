@@ -2,9 +2,9 @@
 
 /** v2 sections — the mobile nav island (spec 005 §2, §4–§6, §7).
  *
- * The closed rail is absolute at the page top and scrolls away; the
- * panel is a full-height fixed sheet drawing down from the viewport top
- * in the footer grammar (§6.6). The panel is a focus-managed
+ * The closed rail is fixed at the viewport top (amended 2026-08-28 —
+ * it no longer scrolls away); the panel is a full-height fixed sheet
+ * drawing down from the viewport top in the footer grammar (§6.6). The panel is a focus-managed
  * aria-modal dialog: focus moves to the container (never auto-focused
  * into a control), Escape and outside-click close, focus returns to the
  * toggle, body scroll locks through lib/scrollLock only.
