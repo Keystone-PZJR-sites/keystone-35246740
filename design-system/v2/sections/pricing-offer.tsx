@@ -60,38 +60,46 @@ interface BandMap {
 }
 
 const FIELD: Record<GridBand, BandMap> = {
+  /* re-read 2026-08-27 evening after the list resize and the chat-gap
+     fix (§9 R21/R22): the run extends to r47 with the filled circle
+     at [11,45] */
   rm: {
     regions: [
       { gx: 11, gy: 4 },
       { gx: 10, gy: 5, gw: 2 },
-      { gx: 9, gy: 6, gw: 3, gh: 39 },
+      { gx: 9, gy: 6, gw: 3, gh: 42 },
     ],
     circles: [
       { gx: 11, gy: 5 },
       { gx: 10, gy: 14 },
       { gx: 9, gy: 29 },
     ],
-    fillCircles: [{ gx: 9, gy: 7 }],
+    fillCircles: [
+      { gx: 9, gy: 7 },
+      { gx: 11, gy: 45 },
+    ],
     squares: [
       { gx: 11, gy: 12 },
       { gx: 11, gy: 23 },
     ],
   },
-  /* designed 2026-08-27 (frame 634:33130, §2 amendment — §9 R15); the
-     invisible [8,13] cell in the file's Grid layer is a hygiene flag,
-     not built */
+  /* designed 2026-08-27, redrawn the same evening (frame 636:38164,
+     §9 R22); the invisible [8,13] cell recurs in the new Grid layer —
+     a hygiene flag, not built */
   rs: {
     regions: [
       { gx: 11, gy: 4 },
       { gx: 10, gy: 5, gw: 2 },
       { gx: 9, gy: 6, gw: 3, gh: 15 },
       { gx: 9, gy: 21, gw: 2 },
+      { gx: 9, gy: 22, gw: 3, gh: 5 },
     ],
     circles: [
       { gx: 11, gy: 5 },
       { gx: 9, gy: 7 },
       { gx: 10, gy: 14 },
       { gx: 9, gy: 19 },
+      { gx: 9, gy: 22 },
     ],
     squares: [{ gx: 11, gy: 20 }],
   },
@@ -239,14 +247,14 @@ function ItemList({ items }: { items: typeof INCLUDED_ITEMS }) {
    icons/chat) rendering the inert open-chat action (the 006 §9
    contract) — wired when the chat widget lands (§9 R9). ---- */
 
-function ChatRow({ ghost }: { ghost: "sm" | "lg" }) {
+function ChatRow({ ghost, className }: { ghost: "sm" | "md" | "lg"; className?: string }) {
   return (
-    <>
+    <span className={className ? `po-chat-row ${className}` : "po-chat-row"}>
       <span className="po-chat-label">Got a question?</span>
       <ButtonGhost size={ghost} color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
-    </>
+    </span>
   );
 }
 
@@ -344,9 +352,11 @@ export function PricingOfferSection() {
         <span className="po-tag">No asterisks.</span>
       </div>
 
-      {/* rm/rs chat row after the card's tag (§1/§6) */}
+      {/* the chat row after the card (§1/§6): md at rm and rs (§9
+          R22/R23 — rm +24+38 below the tag, rs centered in its 1t
+          band) */}
       <div className="po-chat po-chat-card" data-landmark="chat">
-        <ChatRow ghost="sm" />
+        <ChatRow ghost="md" />
       </div>
 
       {/* the included list (§5) — one box at rm/rs/rd2 (the CTA shows
@@ -383,10 +393,12 @@ export function PricingOfferSection() {
         </div>
       </div>
 
-      {/* the chat row after the list: rm/rs (+30) · rt (+30) · rd2
-          (centered in the 2t gap, label indented 12) — none at rd1 */}
+      {/* the chat row after the list: rm/rs md (centered in the 3t /
+          1t gap, §9 R22/R23) · rt sm (+30) · rd2 lg (centered in the
+          2t gap, label indented 12) — none at rd1 */}
       <div className="po-chat po-chat-list" data-landmark="chat">
-        <ChatRow ghost="sm" />
+        <ChatRow ghost="md" className="po-cl-md" />
+        <ChatRow ghost="sm" className="po-cl-sm" />
       </div>
       <div className="po-chat po-chat-list-rd2" data-landmark="chat">
         <ChatRow ghost="lg" />

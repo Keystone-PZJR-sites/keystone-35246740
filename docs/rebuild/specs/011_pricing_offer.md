@@ -57,6 +57,21 @@ price-scale top (spec 012's first row).
 | chat row after list | +30 | +30 | — | +88³ |
 | **section end (price-scale top)** | **45t** | **16t** | **16t** | **13t** |
 
+Amended 2026-08-27 evening (§9 R21): the rm list block is **21t**
+(pads 16/16/24) and the rm section end is **46t**; the rm post-list
+chat row is an open flag — the frame leaves it at the pre-resize
+offset inside the grown box. *Resolved the same evening (§9 R22):
+design opened a **3t chat gap** — the row sits +30 below the 45t
+list end, symmetric in rows 45–48, and the rm section end is
+**48t**.*
+
+**Amended 2026-08-27 evening — the rs column redrawn (frame
+`636:38164` replaces `634:33130`, §9 R22):** the rs band now mirrors
+the rm structure — the header and card unchanged (112 top · card
+6–11 at 3t, 6t container); **two** chat rows (md ghosts in 1t bands,
+rows 10–11 and 25–26); **one** list box, **10t×12t** at tick 1 from
+**12t**; section end **27t** (frame 3312 = 69t).
+
 ¹ the rt/rd1 headers contain their chat row (§6).
 ² two 5t boxes: the left at the list top, the right staggered +1t
   (rt left 8–13t · right 9–14t; rd1 left 9–14t · right 10–15t).
@@ -135,8 +150,8 @@ below the section (012's record picks it up at the price-scale top).
 
 | band | staircase (rows of this section) |
 |---|---|
-| rm | r4: col 11 · r5: 10–11 · r6–44: 9–11 |
-| rs (amended 2026-08-27, §9 R15) | r4: 11 · r5: 10–11 · r6–20: 9–11 · r21: 9–10 |
+| rm | r4: col 11 · r5: 10–11 · r6–44: 9–11 (amended 2026-08-27 evening, §9 R21/R22: the run extends to r47, with the filled circle at [11,45]) |
+| rs (amended 2026-08-27, §9 R15; redrawn the same evening, §9 R22) | r4: 11 · r5: 10–11 · r6–20: 9–11 · r21: 9–10 · r22–26: 9–11 |
 | rt | r2: 11 · r3: 10–11 · r4: 9–11 · r5–15: 8–11 |
 | rd1 | r3: 11 · r4: 10–11 · r5: 9–11 · r6–15: 8–11 (amended 2026-08-27 evening, 1t up with the removed row: r2: 11 · r3: 10–11 · r4: 9–11 · r5–14: 8–11) |
 | rd2 | r2: 11 · r3: 10–11 · r4: 9–11 · r5: 8–11 · r6–9: 7–11 · r10–12: 8–11 |
@@ -146,9 +161,10 @@ construction; fills are `bg/200`, strokes the lattice's `border/000`):
 
 - rm: circles [11,5] · [9,7]+fill · [10,14] · [9,29]; filled squares
   [11,12] · [11,23].
-- rs (amended 2026-08-27, §9 R15): circles [11,5] · [9,7] · [10,14] ·
-  [9,19]; filled square [11,20]. (The frame's Grid layer also carries
-  a paintless circle at [8,13] — a hygiene flag, not built.)
+- rs (amended 2026-08-27, §9 R15; redrawn the same evening, §9 R22):
+  circles [11,5] · [9,7] · [10,14] · [9,19] · [9,22]; filled square
+  [11,20]. (The redrawn frame's Grid layer again carries the
+  paintless circle at [8,13] — a hygiene flag, not built.)
 - rt: circles [11,3] · [9,5] · [11,14]+fill · [8,15]; filled square
   [11,7].
 - rd1: circles [11,4] · [9,6] · [8,12]; filled square [11,13].
@@ -342,12 +358,24 @@ items, one copy set at every band:
 
 ⁵ the rd1 right box's list pads y24.
 
+Amended 2026-08-27 evening — the rm column resized (§9 R21): box
+pads **16/16/24**, items **`text/md/Light`** in a **260** column,
+head→list / item gaps **20 / 16**, icon box/glyph **32/20**
+(logomark 16).
+
 Amended 2026-08-27 — the rs column (the designed 576 frame, §9 R15):
 the pair layout — left box **8t**, right box **7t** staggered **+2t**
 (4 + 4 items); box pads **12/16/12** (the right box's CTA row stays
 p24); head `text/md/Medium`; items `text/sm/Light` in a **176** text
 column; head→list / item gaps **16 / 16**; icon box/glyph and the
 icon–text gap as rm; CTA ButtonFill **sm** in the right box.
+*Superseded the same evening (§9 R22, frame `636:38164`): rs returns
+to the **single box** — 10t×12t, pads **16/20/20**, items
+`text/md/Light` in a **392** column with the 32/20 icon boxes
+(logomark 16) and a **16** icon–text gap, head→list / item gaps
+**16 / 16**, and the CTA ButtonFill sm **left-aligned** in the box
+flow. The file's item 08 still reads `text/sm` — a flagged slip,
+built uniform md.*
 
 Head copy **What's included:**, `text/300` like the items. Item 1's
 icon is the brand logomark on a `bg/200` `radius-md` box (glyph 12 at
@@ -368,7 +396,14 @@ list; rd1 one row inside the header only (40 below the subhead); rd2
 one row after the list, centered in the 2t gap, its label indented
 12px. Amended 2026-08-27 (§9 R15): rs carries **one** row — the rm
 variants at tick 1, row-anchored at **10t** (design's same-evening
-fix moved it from +30-below-the-tag onto the row line).
+fix moved it from +30-below-the-tag onto the row line). *Superseded
+the same evening (§9 R22): rs carries **two** rows at tick 1 —
+**md** ghosts (40) with `text/md/Light` labels indented 8, each
+centered in a 1t band (rows 10–11 and 25–26); and the rm post-list
+row returns at +30, centered in the new 3t gap (rows 45–48).*
+*Re-amended (§9 R23): the rm rows step up to match — all four rm/rs
+rows are **md** ghosts with `text/md/Light` labels (the rm labels
+un-indented; the rs indent 8 holds); rt keeps sm, rd1/rd2 keep lg.*
 
 | | rm/rt | rd1/rd2 |
 |---|---|---|
@@ -661,6 +696,44 @@ post-fix; rendered bounds re-verified through the console bridge.
   canonical tick pixels). The file's mosaics still draw the
   center-aligned perimeter strokes — a hygiene note for a later
   file pass.
+- **R21 — the 384 list resized (design, 2026-08-27 evening),
+  re-read from the frame and the Grid layer:** the box grows 18t →
+  **21t** (section end 45t → **46t**, frame 111t → 112t); pads
+  20/24/20 → **16/16/24**; items step up to `text/md/Light` in a
+  **260** column with **16** gaps and the **32/20** icon boxes
+  (logomark 16) — the rd1/rd2 icon sizing; the head and its 20 gap
+  hold. The staircase extends to r45 and gains a **filled circle at
+  [11,45]**. §1/§2/§5 carry the dated amendments. **Open flag:** the
+  frame's post-list chat row still sits at the pre-resize offset
+  (y1374), inside the grown box, and the 1t gap left before the
+  price-scale top cannot hold the 36px row — the build centers it in
+  the gap as an interim (2px overhang each side at the anchor) while
+  design decides: drop the row at rm (the rs pattern) or open the
+  gap to 2t.
+- **R22 — the rm chat gap opened and the rs band redrawn (design,
+  2026-08-27 late evening), both re-read from rendered bounds.**
+  (1) The 384 frame resolves the R21 flag: a **3t gap** (rows 45–48)
+  holds the post-list chat row +30/+30 symmetric; the rm section end
+  is **48t** (frame 114t) and the staircase runs to r47. (2) Frame
+  `636:38164` replaces `634:33130` for the 576 anchor — the rs band
+  now mirrors rm, which collapses the rm↔rs structural switch: the
+  same single 10t×12t list box (pads 16/20/20, `text/md` items in a
+  392 column, 32/20 icons, 16 gaps, the sm CTA left-aligned in the
+  box flow), two chat rows (md ghosts, `text/md` labels indented 8,
+  centered in 1t bands at rows 10–11 and 25–26), section end
+  **27t**, and its own staircase to r26. Header, card, mosaic, and
+  the sm button carry over unchanged. Two hygiene flags to design,
+  neither built: the redrawn frame's item 08 still reads `text/sm`
+  (01–07 are `text/md`; built uniform), and the paintless circle
+  recurs at [8,13] in the new Grid layer. The prior rs flags died
+  with the replaced frame.
+- **R23 — the rm/rs chat rows unified on md (design, 2026-08-27 late
+  evening), re-read from both frames:** all four rows (rm ×2, rs ×2)
+  carry the **md** ghost (40) and `text/md/Light` labels; the rm rows
+  are un-indented, the rs rows keep the 8px indent; positions
+  unchanged (rm +24+38 below the tag and centered in the 3t gap; rs
+  centered in the 1t bands). rt stays sm, rd1/rd2 stay lg. §6
+  carries the amendment.
 - **Build note (2026-08-27)** — the four-units mechanics under
   nearest-anchor compression: all section type rides the weights with
   band-constant values (hold-then-switch at every gate — each gate is

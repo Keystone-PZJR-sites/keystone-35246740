@@ -424,10 +424,12 @@
      weights, so the designed wrap counts hold in the compressed
      slices; the row's material overhead presses into the box pads
      there (the boxes clip). */
-  --po-item-w-rm: calc((var(--wA) + var(--wB)) * 256);
-  /* rs designed 2026-08-27 (§9 R15): the 5t box's inner column
-     (240 − 12 − 16 − icon 24 − gap 12 = 176) */
-  --po-item-w-rs: calc((var(--wA) + var(--wB)) * 176);
+  /* rm resized 2026-08-27 evening (§9 R21): 304 inner − icon 32 −
+     gap 12 = 260 */
+  --po-item-w-rm: calc((var(--wA) + var(--wB)) * 260);
+  /* rs redrawn 2026-08-27 evening (§9 R22): the 10t box's inner
+     column (440 − icon 32 − gap 16 = 392) */
+  --po-item-w-rs: calc((var(--wA) + var(--wB)) * 392);
   --po-item-w-rt: calc((var(--wA) + var(--wB)) * 240);
   --po-item-w-rd1: calc((var(--wA) + var(--wB)) * 300);
   --po-item-w-rd2: calc((var(--wA) + var(--wB)) * 440);

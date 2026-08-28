@@ -32,11 +32,13 @@
 
 .v2-po {
   width: 100%;
-  height: calc(var(--t) * 45);
+  /* 48t since the 384 list grew to 21t with the 3t chat gap
+     (§9 R21/R22, 2026-08-27 evening) */
+  height: calc(var(--t) * 48);
 }
 @container (min-width: 470px) {
-  /* rs designed 2026-08-27 (frame 634:33130, §9 R15) */
-  .v2-po { height: calc(var(--t) * 22); }
+  /* rs redrawn 2026-08-27 evening (frame 636:38164, §9 R22) */
+  .v2-po { height: calc(var(--t) * 27); }
 }
 @container (min-width: 665px) {
   .v2-po { height: calc(var(--t) * 16); }
@@ -227,20 +229,49 @@
 
 /* ---------------- chat rows (§6) ---------------- */
 
+/* the container gates and positions; the row lays out (the rows are
+   band-gated per ghost size, §9 R22) */
 .po-chat {
+  display: flex;
+}
+.po-chat-row {
   display: flex;
   align-items: center;
   gap: var(--space-xl);
 }
+/* the post-list rows: md at rm/rs, sm at rt (§9 R23) */
+.po-cl-sm {
+  display: none;
+}
+@container (min-width: 665px) {
+  .po-cl-md { display: none; }
+  .po-cl-sm { display: flex; }
+}
 /* material like the ghost button beside it — fixed px per band, no
    weight riding (design direction 2026-08-27: 18px holds through the
-   rd2 slices) */
+   rd2 slices). text/md/Light at rm/rs (§9 R23, with the rs rows'
+   designed 8px indent), text/sm at rt, text/lg at rd1/rd2. */
 .po-chat-label {
   color: var(--color-text-400);
-  font: var(--ts-text-sm-light-font);
-  letter-spacing: var(--ts-text-sm-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
   font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .po-chat-card .po-chat-label,
+  .po-chat-list .po-chat-label {
+    padding-left: var(--space-md);
+  }
+}
+@container (min-width: 665px) {
+  .po-chat-list .po-chat-label,
+  .po-chat-head-rt .po-chat-label {
+    padding-left: var(--space-none);
+    font: var(--ts-text-sm-light-font);
+    letter-spacing: var(--ts-text-sm-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  }
 }
 
 /* the header rows: rt 48 below the subhead, rd1 40 below (in flow) */
@@ -281,10 +312,9 @@
   left: calc(var(--t) / 2);
 }
 @container (min-width: 470px) {
-  /* row-anchored at 10t (design fix 2026-08-27 — the frame moved the
-     row from +30 below the tag onto the row line) */
+  /* the md row centered in its 1t band (rows 10–11, §9 R22) */
   .po-chat-card {
-    top: calc(var(--t) * 10);
+    top: calc(var(--t) * 10.5 - 20px);
     left: var(--t);
   }
 }
@@ -292,21 +322,23 @@
   .po-chat-card { display: none; }
 }
 
-/* after the list: rm 42t+30 · rt 14t+30 — none at rs (the design
-   carries one chat row, §9 R15) */
+/* after the list: rm md centered in the 3t gap (rows 45–48, the
+   symmetric construction) · rs md centered in its 1t band (rows
+   25–26) · rt sm at 14t+30 — none at rd1 (§9 R22/R23) */
 .po-chat-list {
   position: absolute;
-  top: calc(var(--t) * 42 + var(--po-chat-drop-list));
+  top: calc(var(--t) * 46.5 - 20px);
   left: calc(var(--t) / 2);
 }
 @container (min-width: 470px) {
-  .po-chat-list { display: none; }
+  .po-chat-list {
+    top: calc(var(--t) * 25.5 - 20px);
+    left: var(--t);
+  }
 }
 @container (min-width: 665px) {
   .po-chat-list {
-    display: flex;
     top: calc(var(--t) * 14 + var(--po-chat-drop-list));
-    left: var(--t);
   }
 }
 @container (min-width: 860px) {
@@ -682,11 +714,23 @@
   top: calc(var(--t) * 24);
   left: calc(var(--t) / 2);
   width: calc(var(--t) * 10.5 + 1px);
-  height: calc(var(--t) * 18 + 1px);
-  padding: var(--space-2xl) var(--space-3xl) var(--space-2xl) var(--space-2xl);
+  /* resized by design 2026-08-27 evening (§9 R21): 21t, pads 16/16/24 */
+  height: calc(var(--t) * 21 + 1px);
+  padding: var(--space-xl) var(--space-xl) var(--space-3xl);
 }
 @container (min-width: 470px) {
-  /* the rs design carries the pair (§9 R15) */
+  /* rs redrawn as the single box (frame 636:38164, §9 R22): 10t×12t
+     at tick 1, pads 16/20/20, the CTA left-aligned */
+  .po-list-single {
+    top: calc(var(--t) * 12);
+    left: var(--t);
+    width: calc(var(--t) * 10 + 1px);
+    height: calc(var(--t) * 12 + 1px);
+    padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
+  }
+  .po-list-single .po-list-cta { align-self: flex-start; }
+}
+@container (min-width: 665px) {
   .po-list-single { display: none; }
 }
 @container (min-width: 1130px) {
@@ -700,26 +744,19 @@
   }
 }
 
-/* the pair: rs (designed 2026-08-27) — left 5t×8t at the list top,
-   right 5t×7t staggered +2t; rt/rd1 — two 5t boxes, the right
-   staggered +1t (§1) */
+/* the pair — rt/rd1 only (the rs redraw returned to the single box,
+   §9 R22): two 5t boxes, the right staggered +1t (§1; rd1 matches rt
+   since the 960 frame dropped its first row) */
 .po-list-pair {
   display: none;
   position: absolute;
-  top: calc(var(--t) * 12);
+  top: calc(var(--t) * 8);
   left: var(--t);
   width: calc(var(--t) * 10);
-  height: calc(var(--t) * 9);
+  height: calc(var(--t) * 6);
 }
-@container (min-width: 470px) {
-  .po-list-pair { display: block; }
-}
-/* rd1 matches rt (8t) since the 960 frame dropped its first row */
 @container (min-width: 665px) {
-  .po-list-pair {
-    top: calc(var(--t) * 8);
-    height: calc(var(--t) * 6);
-  }
+  .po-list-pair { display: block; }
 }
 @container (min-width: 1130px) {
   .po-list-pair { display: none; }
@@ -744,28 +781,6 @@
   left: calc(var(--t) * 5);
   padding-bottom: var(--space-3xl);
   box-shadow: none;
-}
-@container (min-width: 470px) {
-  /* rs designed pads 12/16/12 and box heights 8t/7t (§9 R15) */
-  .po-box {
-    padding: var(--space-lg) var(--space-xl) var(--space-lg) var(--space-lg);
-  }
-  .po-box-l { height: calc(var(--t) * 8 + 1px); }
-  .po-box-r {
-    top: calc(var(--t) * 2);
-    height: calc(var(--t) * 7 + 1px);
-    padding-bottom: var(--space-3xl);
-  }
-}
-@container (min-width: 665px) {
-  .po-box {
-    height: calc(var(--t) * 5 + 1px);
-    padding: var(--space-2xl) var(--space-3xl) var(--space-2xl) var(--space-2xl);
-  }
-  .po-box-r {
-    top: var(--t);
-    padding-bottom: var(--space-3xl);
-  }
 }
 @container (min-width: 860px) {
   .po-box {
@@ -817,31 +832,45 @@
   }
 }
 
+/* item gaps: rm/rs 16 · rt 12 · rd1 20 · rd2 12 (rm resized to the
+   16 gap 2026-08-27 evening, §9 R21) */
 .po-items {
   list-style: none;
   margin: var(--space-none);
   padding: var(--space-none);
   display: flex;
   flex-direction: column;
-  gap: calc((var(--wA) + var(--wB)) * 12);
-}
-@container (min-width: 470px) {
-  /* rs designed item gap 16 (§9 R15) */
-  .po-items { gap: calc((var(--wA) + var(--wB)) * 16); }
+  gap: calc((var(--wA) + var(--wB)) * 16);
 }
 @container (min-width: 665px) {
   .po-items { gap: calc((var(--wA) + var(--wB)) * 12); }
 }
+/* item type: rm/rs text/md (§9 R21/R22 — the file's rs item 08 still
+   reads 14/18, a flagged slip; built uniform) · rt text/sm · rd1
+   text/md · rd2 text/lg. The icon–text gap is 12 except rs's 16. */
 .po-items li {
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   color: var(--color-text-300);
-  --_f: var(--ts-text-sm-light-font);
-  --_fs: 14;
-  --_lh: 18;
-  --_ls: var(--ts-text-sm-light-ls);
-  --_opsz: var(--ts-text-sm-light-opsz);
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 470px) {
+  .po-items li { gap: var(--space-xl); }
+}
+@container (min-width: 665px) {
+  .po-items li {
+    gap: var(--space-lg);
+    --_f: var(--ts-text-sm-light-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-light-ls);
+    --_opsz: var(--ts-text-sm-light-opsz);
+  }
 }
 @container (min-width: 860px) {
   .po-items { gap: calc((var(--wA) + var(--wB)) * 20); }
@@ -882,30 +911,45 @@
   .po-item-text { width: var(--po-item-w-rd2); }
 }
 
-/* icon boxes: 24/24/32/32, glyphs 15/15/20/20; item 1's logomark on a
-   bg/200 radius-md box (glyph 12/12/16/16), tinted text/400 through
-   the nav's mask construction */
+/* icon boxes: 32 rm/rs (§9 R21/R22) · 24 rt · 32 rd1/rd2; glyphs
+   20/20/15/20/20; item 1's logomark on a bg/200 radius-md box (glyph
+   16/16/12/16/16), tinted text/400 through the nav's mask
+   construction */
 .po-item-icon {
   flex: none;
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 .po-item-icon svg {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 .po-item-icon-brand {
   background: var(--color-bg-200);
   border-radius: var(--radius-md);
 }
 .po-logomark {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   background: var(--color-text-400);
   -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+}
+@container (min-width: 665px) {
+  .po-item-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .po-item-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  .po-logomark {
+    width: 12px;
+    height: 12px;
+  }
 }
 @container (min-width: 860px) {
   .po-item-icon {
@@ -934,13 +978,6 @@
 }
 .po-cta-rd1 {
   display: none;
-}
-@container (min-width: 470px) {
-  /* the p24 CTA row against the rs box's 16 list pad (§9 R15) */
-  .po-box-r .po-list-cta { margin-right: var(--space-md); }
-}
-@container (min-width: 665px) {
-  .po-box-r .po-list-cta { margin-right: var(--space-none); }
 }
 @container (min-width: 860px) {
   .po-cta-rt { display: none; }
