@@ -91,6 +91,15 @@ input:where([type="button"], [type="reset"], [type="submit"]) {
    container-type). One declaration for the whole site — the dev routes
    inherit it and carry only their page-local styles. */
 
+/* Text selection — the site-wide inversion (owner decision 2026-08-28):
+   the highlight takes the body ink (text/200), the selected text takes
+   the light paper (bg/050). */
+.v2-root ::selection,
+.v2-root::selection {
+  background-color: var(--color-text-200);
+  color: var(--color-bg-050);
+}
+
 .v2-root {
   min-height: 100dvh;
   background: var(--color-bg-100);
