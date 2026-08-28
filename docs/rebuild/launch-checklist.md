@@ -43,6 +43,8 @@ dead-URL surface as they land; whatever never returns stays a 404
 | G4 | **The pre-launch metadata wipe** (010 §7 F2) — one content pass once all pages are done; see the inventory below | **open — design content decision** |
 | G5 | **The mobile-class LCP decision** (010 §7 F5); see the note below | **open — owner** |
 | G6 | Owner sign-off on every assembled page at the five anchors and one width per slice | open |
+| G7 | **Accessibility review** — assembled-site pass against the rules.md Accessibility Baseline once every page is built; see the note below | **open** |
+| G8 | **Loading-animation audit** — timing, hydration, and settle of every page's load choreography (006 §6 · 002.r1 §5); the start clock follows the G5 decision; see the note below | **open** |
 
 ## The launch steps (after all gates are green)
 
@@ -118,6 +120,83 @@ The owner picks one of two resolutions:
    and reduced-motion behavior are unaffected (the inline script
    never runs without JS; the guard's media query already excludes
    reduced motion).
+
+The assembled-site timing / hydration / settle audit of the
+choreography itself is **G8**. It re-runs against whichever start
+this decision picks.
+
+## G7 detail — the accessibility review
+
+The standing baseline (`docs/rules/rules.md`, Accessibility) is the
+law. Spec acceptance already carries per-section boxes; this gate is
+the assembled-site pass those boxes do not cover. It runs once every
+page is built, at the five anchors and one width per slice.
+
+Closes when all of the following hold on every launched page:
+
+- Each page's spec accessibility acceptance is checked, or an open
+  flag is resolved or recorded as accepted.
+- Every interactive element is keyboard-reachable and operable, with
+  a visible `:focus-visible` style. Overlays move focus in and restore
+  it on close. No focus traps except designed dialogs.
+- Color contrast meets WCAG AA (4.5:1 body text, 3:1 large text/UI).
+- `prefers-reduced-motion: reduce` and no-JS render the same settled
+  state (already in spec acceptance; re-checked on the assembled
+  pages).
+- The accessibility tree carries only real content: decorative SVGs,
+  lattice chrome, ornament cells, and clone slides are `aria-hidden`.
+  Native elements before ARIA (lists, buttons, nav, figures).
+
+Known deferred flag, carried here until design closes it:
+
+- **Spec 008 §9 F9** — engine title-ink contrast. White on the /400
+  fills measures below the 3:1 large-text floor on visibility, ads,
+  and brand (reception and engagement pass). The engine name is also
+  each card's accessible button name, so the low-contrast render is
+  not the only path to the information. Design resolves the pairs or
+  records acceptance; the section's accessibility box stays unchecked
+  until then.
+
+## G8 detail — the loading-animation audit
+
+Spec 006 §6 is the homepage cascade; spec 002.r1 §5 is the settle
+contract later pages inherit. This gate is the assembled-site pass
+of that motion — not the LCP-budget call (that is G5), but whether
+the choreography actually starts, times, and ends as designed once
+every page is built.
+
+**Start clock (coupled to G5).** Today, delays run from page ready:
+fonts loaded, first frame after the orchestrator island hydrates
+(006 §6). The cold-load guard holds choreographed content hidden
+until `v2-load`. G5 option 2 moves that flip to an inline script
+after `document.fonts.ready`, so this audit re-runs against
+whichever start the owner picks — including, under option 2, that
+the orchestrator reconstructs in-flight or finished state on mount
+instead of assuming it starts the run.
+
+Closes when all of the following hold:
+
+- **Timing.** On every page that specs a load choreography, computed
+  delays, durations, easings, and fill modes match the spec table.
+  The highlight pass starts only after the fade-rises settle; the
+  carousel's first advance waits for the highlight (006: +4500ms
+  from load start, then 3500ms dwell).
+- **Hydration.** No flash of settled content then a replay; no
+  hydration mismatches. The cold-load guard holds choreographed
+  content hidden until `v2-load`; un-choreographed page content is
+  not held. CLS stays on transform/opacity only (010 §4.2).
+- **Settle.** The last beat marks `v2-settled`; resizing across
+  gates does not replay the load; the grid sweep waits for settled
+  before it asserts (010 §3). Dev replay still works (clears the
+  mark, re-flips `v2-load`).
+- **Reduced motion and no-JS.** Both render the same settled state:
+  no sweep, no fade-rise, chips born branded, no timers. Reduced
+  motion needs no settle mark.
+- **Pages with no choreography** render settled from first paint
+  (pricing offer: 011 §9 R10 — none supplied). They must not inherit
+  a hide-until-hydrate. A later page that specs an entrance
+  inherits 006's orchestrator and this audit; it does not invent a
+  second start clock.
 
 ---
 
