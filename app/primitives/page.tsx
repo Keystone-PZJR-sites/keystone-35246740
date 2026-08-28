@@ -6,18 +6,26 @@ import { MEDIA_V2 } from "@/design-system/v2/media";
 import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primitives/buttons";
 import { GridButton } from "@/design-system/v2/primitives/grid-button";
 import { GraderInput } from "@/design-system/v2/primitives/grader";
+import { PricingButton } from "@/design-system/v2/primitives/pricing-button";
 import { Text } from "@/design-system/v2/primitives/text";
 import {
+  IconAiChat,
   IconApproach,
   IconArrowLeft,
   IconArrowRight,
   IconCaseStudies,
   IconChat,
   IconLoadingCircle,
+  IconMaps,
   IconNavMenu,
   IconNavTrigger,
   IconProjects,
+  IconReception,
+  IconReviews,
+  IconSearch,
   IconSparkle,
+  IconTokens,
+  IconWebsite,
 } from "@/design-system/v2/icons";
 
 /** /primitives — the spec 003 §8 QA matrix plus the token catalog.
@@ -156,6 +164,16 @@ function ScaleRows({ scales }: { scales: ColorScale[] }) {
 }
 
 const FILL_SIZES = ["xl", "lg", "md", "sm"] as const;
+/* the set's designed boxes (spec 011 §4, sm added with the 576 frame
+   2026-08-27) — the primitive fills its container, so the matrix
+   renders each size at its set width */
+const PRICING_BUTTON_SIZES = [
+  { size: "xs", width: 336 },
+  { size: "sm", width: 240 },
+  { size: "md", width: 320 },
+  { size: "lg", width: 400 },
+  { size: "xl", width: 560 },
+] as const;
 const GHOST_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
 const ARROW_SIZES = ["lg", "md", "sm"] as const;
 const GRID_BUTTON_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
@@ -257,6 +275,24 @@ export default function PrimitivesPage() {
       </section>
 
       <section className="pv-section">
+        <h2>pricing-button</h2>
+        {PRICING_BUTTON_SIZES.map(({ size, width }) => (
+          <div key={size}>
+            <h3>{size}</h3>
+            <div className="pv-row">
+              {([undefined, "hover", "focus"] as const).map((state) => (
+                <div key={state ?? "default"} style={{ width }}>
+                  <PricingButton size={size} href="#" forceState={state}>
+                    Start today
+                  </PricingButton>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="pv-section">
         <h2>grid-button</h2>
         {(["forward", "back"] as const).map((direction) => (
           <div key={direction}>
@@ -310,6 +346,13 @@ export default function PrimitivesPage() {
           <IconNavMenu />
           <IconNavMenu open />
           <IconLoadingCircle />
+          <IconWebsite />
+          <IconSearch />
+          <IconAiChat />
+          <IconMaps />
+          <IconReception />
+          <IconReviews />
+          <IconTokens />
         </div>
       </section>
 
