@@ -753,6 +753,48 @@
   }
 }
 
+/* The bar's ghost buttons ride the weights (008 §6 erratum, found by
+   the 013 §7.3 clearance assertion 2026-08-28 — the portfolio bar's
+   construction exactly; see portfolio.css for the full note). Anchors
+   render byte-identically; compressed slices zoom the row so the
+   designed clearance against the east cells holds by construction. */
+.eng-bar {
+  --_u: calc(var(--wA) + var(--wB));
+}
+.eng-bar .btn-ghost {
+  gap: calc(var(--_u) * 8);
+}
+.eng-bar .btn-ghost[data-size="sm"] {
+  height: calc(var(--_u) * 36);
+  padding-inline: calc(var(--_u) * 12);
+  --_icon: calc(var(--_u) * 16);
+  font-size: calc(var(--_u) * 14);
+  line-height: calc(var(--_u) * 18);
+}
+.eng-bar .btn-ghost[data-size="md"] {
+  height: calc(var(--_u) * 40);
+  padding-inline: calc(var(--_u) * 12);
+  --_icon: calc(var(--_u) * 18);
+  font-size: calc(var(--_u) * 16);
+  line-height: calc(var(--_u) * 22);
+}
+.eng-bar .btn-ghost[data-size="xl"] {
+  height: calc(var(--_u) * 48);
+  padding-inline: calc(var(--_u) * 20);
+  --_icon: calc(var(--_u) * 20);
+  font-size: calc(var(--_u) * 20);
+  line-height: calc(var(--_u) * 26);
+}
+.eng-bar-sm { gap: calc(var(--_u) * 8); }
+.eng-bar-md { gap: calc(var(--_u) * 8); }
+.eng-bar-xl { gap: calc(var(--_u) * 32); }
+@container (min-width: 470px) {
+  .eng-bar-sm { gap: calc(var(--_u) * 4); }
+}
+@container (min-width: 860px) {
+  .eng-bar-md { gap: calc(var(--_u) * 16); }
+}
+
 /* ---- reduced motion (§7.5): the spring never runs (the island
    switches state directly); the dot morph, chrome morphs, and the
    breadcrumb swap render state-to-state. The dev toggle's data-motion

@@ -481,6 +481,52 @@
   }
 }
 
+/* The bar's ghost buttons ride the weights (007 §6 erratum, found by
+   the 013 §7.3 clearance assertion 2026-08-28): the material row held
+   ~0.2t of designed clearance against the exposed east cells, and the
+   compressed slices ate it (the four-units defect — the 004/011
+   erratum class; the collision hid in the harness's vertical-only gap
+   until the assertion landed). The weight sum resolves to 1px at and
+   above every anchor, so designed widths render byte-identically; in
+   a compressed slice the whole row zooms with its band's design and
+   the designed clearance holds by construction. */
+.pf-bar {
+  --_u: calc(var(--wA) + var(--wB));
+}
+.pf-bar .btn-ghost {
+  gap: calc(var(--_u) * 8);
+}
+.pf-bar .btn-ghost[data-size="sm"] {
+  height: calc(var(--_u) * 36);
+  padding-inline: calc(var(--_u) * 12);
+  --_icon: calc(var(--_u) * 16);
+  font-size: calc(var(--_u) * 14);
+  line-height: calc(var(--_u) * 18);
+}
+.pf-bar .btn-ghost[data-size="md"] {
+  height: calc(var(--_u) * 40);
+  padding-inline: calc(var(--_u) * 12);
+  --_icon: calc(var(--_u) * 18);
+  font-size: calc(var(--_u) * 16);
+  line-height: calc(var(--_u) * 22);
+}
+.pf-bar .btn-ghost[data-size="xl"] {
+  height: calc(var(--_u) * 48);
+  padding-inline: calc(var(--_u) * 20);
+  --_icon: calc(var(--_u) * 20);
+  font-size: calc(var(--_u) * 20);
+  line-height: calc(var(--_u) * 26);
+}
+.pf-bar-sm { gap: calc(var(--_u) * 8); }
+.pf-bar-md { gap: calc(var(--_u) * 8); }
+.pf-bar-xl { gap: calc(var(--_u) * 32); }
+@container (min-width: 470px) {
+  .pf-bar-sm { gap: calc(var(--_u) * 4); }
+}
+@container (min-width: 860px) {
+  .pf-bar-md { gap: calc(var(--_u) * 16); }
+}
+
 /* ---- reduced motion (§7.5): everything state-to-state — no entrance
    (the island applies no reveal states), navigation snaps, the slot
    morph is instant. The dev toggle's data-motion attribute mirrors the

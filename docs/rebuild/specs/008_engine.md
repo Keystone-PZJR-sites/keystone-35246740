@@ -370,6 +370,17 @@ own routes ship). (The rm first button's icon layer keeps a stale
 `icons/case-studies` name over the projects glyph — the known
 stale-layer-name artifact; the rendered glyph is correct.)
 
+*Erratum 2026-08-28 (found by the 013 §7.3 clearance assertion, its
+first run): the bar's material row held only ~0.2t of designed
+clearance against the exposed east cells, and the compressed slices
+ate it — at 700 the md row ran 0.18t into the col-8 cells (the
+four-units defect, the 004/011 erratum class; it hid in the harness's
+vertical-only gap). Fixed in engine.css: the bar mount's button
+geometry — heights, pads, icon, type, gaps — rides the weight sum, so
+every designed width renders byte-identically and a compressed slice
+zooms the row with its band's design; the 003 primitive itself stays
+material. 013 §9 carries the build record.*
+
 ## 7 · Motion
 
 Intent supplied 2026-08-26 with the spec request; values below are the

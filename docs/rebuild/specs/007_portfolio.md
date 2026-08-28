@@ -285,6 +285,18 @@ real links to **`/our-work`** (decisions 2026-08-26: "Our approach" also
 goes to Our Work; "Case studies" points there too until its own route
 ships — re-point then, like the hero's Get Started).
 
+*Erratum 2026-08-28 (found by the 013 §7.3 clearance assertion, its
+first run): the bar's material row held only ~0.2t of designed
+clearance against the exposed east cells, and the compressed slices
+ate it — at 520 the sm row ran 0.6t into the col-9 cells (the
+four-units defect, the 004/011 erratum class; it hid in the harness's
+vertical-only gap). Fixed in portfolio.css: the bar mount's button
+geometry — heights, pads, icon, type, gaps — rides the weight sum, so
+every designed width renders byte-identically and a compressed slice
+zooms the row with its band's design; the 003 primitive itself stays
+material. The engine bar carried the same construction and the same
+fix (008 §6 erratum). 013 §9 carries the build record.*
+
 **The carousel control** — new primitive **`grid-button`**
 (`design-system/v2/primitives/`), from the component set `590:18139`:
 direction (forward/back) × size (xs 32 · sm 48 · md 64 · lg 80 · xl 112 —
