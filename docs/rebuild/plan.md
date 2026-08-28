@@ -323,6 +323,48 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   static — `/pricing` 2 kB route JS · 107 kB first load (011's
   island-less 141 B is the prior record), the homepage untouched.
   013 (FAQ + page assembly) is the remaining pricing spec.
+- **Spec 013 is drafted** (morning, from fresh reads of all five
+  anchor frames — every landmark, row height, and painted cell
+  verified against rendered bounds; all five anchors are designed
+  for the FAQ). The section reads clean: FAQ blocks at 012's section
+  ends, six-question accordion (closed rows exactly 1t per band, 2t
+  at rm; open +3/+2/+2/+1/+1t), a full-lattice 1t gap row before the
+  footer at every band, the east staircase narrowing to its final
+  rail. New set specced: `faq-question` (state × size, 10 variants);
+  the drawers reuse the footer draw-down grammar and promote the
+  rail-cascade stagger at its second consumer. The page half
+  delivers the pricing expectations module, the `/pricing-fixture`
+  sweep leg, and the **exposed-cell clearance assertion** (the
+  standing harness gap from rules.md "Audits at rest"). Six draft
+  flags (013 §9): **F1 — five of the six answers have no copy in the
+  file** (every instance carries the set's default answer; the build
+  gate), the ungrammatical rm/rs question-4 override, chat-row copy
+  drift ("Talk to us." · "Got a question?" vs "Got another
+  question?"), stale rt/rd1 chat instances, open-frame/anchor-frame
+  ornament divergence, and the rs header's ±1 artifact. **All six
+  flags resolved the same morning** (013 §9 is the record; fixes
+  re-read from the nodes): the placeholder-answer decision (answer
+  1's copy under all six questions, the 009 precedent — the content
+  pass is launch gate G9), the designed short question-4 variant at
+  rm/rs, the per-band chat labels as intent with the periods fixed,
+  the rt/rd1 chat instances replaced/trued, and the open-frame
+  hygiene fixed. The spec awaits approval.
+- **The FAQ drawer-height law** (owner decision, late morning —
+  013 §9 R7): the footer and the FAQ diverge deliberately. The
+  footer's drawers are fixed chrome over content that never changes
+  (its designed 004 constants stand); the FAQ is dynamic content
+  (questions can be added; the G9 pass brings real answers), so its
+  **open heights are content-derived** — the smallest whole-tick
+  height with bottom pad ≥ top pad, measured by the island and
+  re-derived on tick changes. Prompted by the drawn open states
+  under-sizing the placeholder copy at rm **and** rs (the new 576
+  open frame `634:36435`, read through the bridge the same morning,
+  draws 3t with a 4px bottom pad vs 12 top; the rule derives 4t).
+  The open frames demote to grammar archetypes; the §7.2
+  `--drawer-extra` contract carries measured and designed drawers
+  alike. Same session, the chevron measured (013 §9 R8): the set
+  mounts the 16-grid icon resized to 12 with the stroke absolute at
+  1.25, confirming the verbatim 12-viewBox export.
 
 ## Phasing
 

@@ -45,6 +45,7 @@ dead-URL surface as they land; whatever never returns stays a 404
 | G6 | Owner sign-off on every assembled page at the five anchors and one width per slice | open |
 | G7 | **Accessibility review** — assembled-site pass against the rules.md Accessibility Baseline once every page is built; see the note below | **open** |
 | G8 | **Loading-animation audit** — timing, hydration, and settle of every page's load choreography (006 §6 · 002.r1 §5); the start clock follows the G5 decision; see the note below | **open** |
+| G9 | **FAQ answer content pass** (013 §9 F1, owner decision 2026-08-28): answer 1's copy ships as the designed placeholder under all six pricing-FAQ questions; the five real answers land as a copy-only change to the FAQ data module before cutover | **open — design** |
 
 ## Punch list — auxiliary to-dos
 
