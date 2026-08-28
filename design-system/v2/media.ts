@@ -187,6 +187,47 @@ export const TESTIMONIAL_IMAGES: TestimonialImage[] = [
   },
 ];
 
+/* ---- persona carousel (spec 012 §5.2) ----
+ * 15 verbatim WebP exports (supplied 2026-08-27, renamed from the
+ * numbered exports per the §5 persona mapping: 01 steady · 02 active ·
+ * 03 highgrowth): three personas in five width tiers, each exactly 2×
+ * its band's rendered image band; the persona multiply overlay is baked
+ * into the exports (the build adds no overlay layer). Art direction,
+ * not resolution steps (crops differ per band): the card image renders
+ * as <picture> with one media-gated <source> per tier, largest-first,
+ * the xs file as the <img> fallback. The media cuts follow the
+ * nearest-anchor structural gates (spec 002.r1). Empty alt — the card
+ * titles carry the meaning. */
+
+export const PERSONA_IDS = ["steady", "active", "highgrowth"] as const;
+
+export type PersonaId = (typeof PERSONA_IDS)[number];
+
+export interface PersonaTier {
+  cut: "xs" | "sm" | "md" | "lg" | "xl";
+  /** null on the xs tier — it is the <img> fallback, not a <source>. */
+  media: string | null;
+  width: number;
+  height: number;
+}
+
+/** Largest-first, ready for <source> order; the last entry is the
+ * xs fallback. Tiers are named by the persona-card size they serve
+ * (xs rm · sm rs · md rt · lg rd1 · xl rd2), matching the file names. */
+export const PERSONA_TIERS: PersonaTier[] = [
+  { cut: "xl", media: "(min-width: 1130px)", width: 1120, height: 448 },
+  { cut: "lg", media: "(min-width: 860px)", width: 800, height: 480 },
+  { cut: "md", media: "(min-width: 665px)", width: 640, height: 384 },
+  { cut: "sm", media: "(min-width: 470px)", width: 576, height: 384 },
+  { cut: "xs", media: null, width: 608, height: 384 },
+];
+
+/** persona-{steady|active|highgrowth}-{tier}.webp under
+ * public/media/personas. */
+export function personaSrc(persona: PersonaId, cut: PersonaTier["cut"]): string {
+  return `/media/personas/persona-${persona}-${cut}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
