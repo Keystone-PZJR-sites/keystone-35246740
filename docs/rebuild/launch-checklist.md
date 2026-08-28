@@ -23,7 +23,7 @@ before the gates below can close.
 | page | spec(s) | status |
 |---|---|---|
 | Home | 006–009 (sections) · 010 (assembly) | **built + verified 2026-08-27** |
-| Pricing | 011 (offer) · 012 (price scale + personas) · 013 (FAQ + assembly) | **011 built + audited 2026-08-27**, incl. the designed 576 frame (011 §9 R15); **012 built + verified 2026-08-28** (acceptance at the five anchors + nine slice widths; one island; `/pricing` 2 kB route JS); 013 not started; page sweep leg lands with 013 |
+| Pricing | 011 (offer) · 012 (price scale + personas) · 013 (FAQ + assembly) | **built + verified 2026-08-28** — 011 built + audited 2026-08-27 (incl. the designed 576 frame, 011 §9 R15); 012 built + verified 2026-08-28; **013 approved + built 2026-08-28** (FAQ with content-derived drawer heights per §9 R7, page expectations, the exposed-cell clearance assertion, the `/pricing-fixture` sweep leg — three routes green in one run; five islands; `/pricing` 133 B route JS · 107 kB first load, static). **Pending gates:** G9 (the FAQ answer content pass) and G6 (owner sign-off on the assembled page) |
 | Our Work | — | not started |
 | Solutions | — | not started |
 | Company | — | not started |

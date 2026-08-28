@@ -365,6 +365,41 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   alike. Same session, the chevron measured (013 §9 R8): the set
   mounts the 16-grid icon resized to 12 with the stroke absolute at
   1.25, confirming the verbatim 12-viewBox export.
+- **Spec 013 is approved and built** (owner approval, then the build
+  the same day — the Pricing page is complete pending its launch
+  gates). The token layer re-extracted first (001 rule) — **zero
+  drift** across every layer. Every §1–§4 value re-verified from
+  rendered bounds at build; three deviations found and amended in
+  place (013 §9 build record): **question 4 is one canon** (the file
+  superseded the morning's F2 band split — every anchor carries the
+  short string), the rs header's right pad re-read 48, and the open
+  md variant's question-row quirk (built as the constant row). Landed:
+  the `FaqQuestion` primitive (+ catalog rows) with the 12-grid
+  chevron export; the faq section with **one island** carrying the §5
+  single-open machine and the **R7 content-derived heights** (the
+  island measures the answers and publishes `--fq-open` +
+  `--drawer-extra`; live derivations 6·4·3·2·2 with the placeholder
+  copy); the rail-cascade stagger promoted to tokens/motion.css at
+  its second consumer; the pricing expectations module; the
+  generalized `data-drawer`/`--drawer-extra` audit contract (the
+  footer adopted it, mechanics unchanged); and the **exposed-cell
+  clearance assertion** on all three audited routes — closing the
+  standing "Audits at rest" harness gap (rules.md updated). The
+  assertion's first run surfaced the standing designed overlaps
+  (declared in the expectations with citations) and **caught its
+  first real defect: the 007/008 button-bars** collided with the
+  east cells at compressed-slice widths (520/700) — fixed as errata
+  in both specs (the bar mounts' button geometry rides the weight
+  sum; anchors byte-identical). The sweep runs `/grid` +
+  `/home-fixture` + `/pricing-fixture` green in one run — anchors,
+  ten slices, every rest state incl. the FAQ single-open handoff and
+  the 012 machine on each k. Budgets on the production build: both
+  pricing routes static, five islands, `/pricing` 133 B route JS ·
+  107 kB first load; the homepage graph untouched (111 kB; its route
+  chunk +7 B from the footer's attribute adoption). Reduced motion
+  snaps state-to-state; a no-JS render is the settled closed section
+  with all six answers in the HTML. Remaining for Pricing: launch
+  gates only (G9 content pass, G6 sign-off).
 
 ## Phasing
 
