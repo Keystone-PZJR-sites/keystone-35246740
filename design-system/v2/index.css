@@ -67,3 +67,9 @@
 
 /* Sections (spec 012) */
 @import "./sections/pricing-scale.css";
+
+/* Primitives (spec 013) */
+@import "./primitives/faq-question.css";
+
+/* Sections (spec 013) */
+@import "./sections/faq.css";

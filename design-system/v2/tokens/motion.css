@@ -73,6 +73,14 @@
   --motion-cell-slide-dur: 500ms;
   --motion-cell-slide-ease: var(--motion-drawer-ease-open);
 
+  /* The rail cascade (born in the footer, spec 004 §5; promoted
+     2026-08-28 when the FAQ drawers became the second consumer — spec
+     013 §6, value unchanged): a drawer's growth ticks extend the
+     exposed rail, each extension cell fading in over the drawer
+     duration staggered this much per cell away from the drawer; on
+     close the extension fades with the collapse, no stagger. */
+  --motion-rail-stagger: 40ms;
+
   /* The entrance gate and stagger (born in the portfolio, spec 007
      §9 R20/R22; promoted 2026-08-26 at their second consumer — spec
      009 §7.1/§8.3, values unchanged): a section's entrance fires the

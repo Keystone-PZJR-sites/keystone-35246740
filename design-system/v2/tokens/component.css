@@ -48,10 +48,10 @@
   --fitem-gap-hover: 5px;
   --fitem-bar: 3px;
 
-  /* Footer rail cascade (spec 004 §5). The shared drawer constants
-     promoted to tokens/motion.css 2026-08-24 (spec 005 §6); the stagger
-     stays here — the footer is its only consumer. */
-  --motion-rail-stagger: 40ms;
+  /* The footer rail-cascade stagger (spec 004 §5) promoted to
+     tokens/motion.css 2026-08-28 at its second consumer — the FAQ
+     drawers (spec 013 §6); value unchanged, same name, so the
+     footer's reference reads the global token. */
 
   /* The z scale (rules.md "The Z-Index Scale"), added with the
      rebuild's first overlay chrome (spec 005 §1). Only --z-nav is
@@ -468,4 +468,15 @@
   --ps-slider-w-rt: calc((var(--wA) + var(--wB)) * 192);
   --ps-slider-w-rd1: calc((var(--wA) + var(--wB)) * 224);
   --ps-slider-w-rd2: calc((var(--wA) + var(--wB)) * 224);
+
+  /* faq constants (spec 013 §3/§8.4). --faq-u is the weight sum every
+     §3/§4 interior multiplies as a band constant (the grid-digest
+     law); the head wrap boxes are the designed per-anchor text columns
+     (176 · 160 · 240 · 320 — the rs head runs one designed line inside
+     its trued box, no wrap pin). */
+  --faq-u: calc(var(--wA) + var(--wB));
+  --faq-head-w-rm: calc((var(--wA) + var(--wB)) * 176);
+  --faq-head-w-rt: calc((var(--wA) + var(--wB)) * 160);
+  --faq-head-w-rd1: calc((var(--wA) + var(--wB)) * 240);
+  --faq-head-w-rd2: calc((var(--wA) + var(--wB)) * 320);
 }
