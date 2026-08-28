@@ -36,7 +36,11 @@
   .f-top {
     height: calc(var(--t) * 7);
     padding: calc(var(--t)) 0 0 0;
-    --_gw: 416px;
+    /* band-constant 416, on the weights so the compressed slices zoom
+       it with the tick — fixed px collided with the exposed rail
+       below ~500 (004 erratum found at the 011 review, 2026-08-27;
+       rt inherits: 416 holds to 960 per the rd1 line below) */
+    --_gw: calc((var(--wA) + var(--wB)) * 416);
   }
   .f-ti {
     margin-left: calc(var(--t));
@@ -51,7 +55,9 @@
   }
   .f-tag,
   .f-inp {
-    width: 416px;
+    /* the content column (--_gw) — not fixed px, so the compressed
+       slices zoom it with the tick (the 004 erratum above) */
+    width: var(--_gw);
   }
   .f-tag {
     margin-bottom: 40px;
@@ -171,8 +177,11 @@
   font-variation-settings: "opsz" 26, var(--font-sans-slnt);
   font-weight: 300;
   letter-spacing: -0.01em;
-  font-size: 16px;
-  line-height: 22px;
+  /* constant 16/22 through rm–rd1, on the weights so the compressed
+     slices zoom it with its column (the 002.r1 conversion — the 004
+     erratum, 2026-08-27) */
+  font-size: calc((var(--wA) + var(--wB)) * 16);
+  line-height: calc((var(--wA) + var(--wB)) * 22);
   color: var(--color-text-300);
 }
 
@@ -197,8 +206,11 @@
   }
   .f-tagline {
     font-weight: 200;
-    font-size: 32px;
-    line-height: 38px;
+    /* band-constant 32/38 on the weights (the 002.r1 conversion — the
+       004 erratum, 2026-08-27): zooms in the compressed slices so the
+       designed two-line wrap holds in the zooming column */
+    font-size: calc((var(--wA) + var(--wB)) * 32);
+    line-height: calc((var(--wA) + var(--wB)) * 38);
   }
   .f-brk-a {
     display: none;

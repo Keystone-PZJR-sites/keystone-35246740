@@ -136,7 +136,11 @@ Layout per anchor (content values from the nodes):
   2026-08-24 for optical alignment with the tagline box — §9.)
 - Above 1344 the content column zooms (`528 · t/112`); across rd1 it
   interpolates 416→528; across the base band 300→416; constant 416 through
-  rs/rt.
+  rs/rt. (Amended 2026-08-27 — the 002.r1 four-units conversion, found
+  at the spec 011 review: the rs/rt constant rides the weights
+  (`(wA+wB)·416`, and the tagline/input boxes ride the column) so the
+  compressed slices zoom it with the tick; the fixed px collided with
+  the exposed rail below ~500. §9.)
 
 ## 4 · Nav — one DOM, two structures
 
@@ -360,6 +364,23 @@ the nodes after the fix:
   (logo r1 at gy 6 + 3t sides puts r5 at gy 10) and the node read
   (`505:14569`: r1 112 + middle 336 + r5 112 = 5t). Built from the node:
   r5 at gy 10, circle at (3,10).
+- **Erratum (found at the spec 011 review, 2026-08-27): the rs/rt
+  content column was fixed px in the compressed slices.** §3's
+  "constant 416 through rs/rt" was built as `416px` (correct when 004
+  shipped — the 002.r1 nearest-anchor gates and their compressed
+  slices landed later, and the plan's 2026-08-26 record defers each
+  section's four-units conversion to when it is touched). Under
+  compression the fixed column and its tagline/input boxes collided
+  with the exposed rail below ~500. Converted per 002.r1 §4: the
+  column is `(wA+wB)·416` and the boxes ride it, and the same
+  conversion covers the two fixed type restatements (the rs/rt
+  tagline 32/38 and the rm–rd1 prompt 16/22 — fixed px in a zooming
+  column broke the designed wraps) — constant through the stretch
+  zones, a pure zoom of the anchor in the compressed slices.
+  Verified 384–1344: the column holds the anchor's tick span
+  (1.68–10.35 at rs, 2.75–9.25 at rt) and the tagline/prompt hold
+  their designed 2-line/1-line wraps at every audited width. §3
+  carries the dated amendment.
 
 ## 10 · Acceptance criteria
 
