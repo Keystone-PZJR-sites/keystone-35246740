@@ -64,7 +64,10 @@ const SECTION_MAP: Record<GridBand, BandMap> = {
       { gx: 11, gy: 1, gw: 1, gh: 5 },
     ],
     ornaments: [
-      { gx: 11, gy: 0, shape: "square" },
+      /* the (11,0) filled square was removed by owner decision
+         2026-08-28 (004 §2 amendment): on the pricing page it stacked
+         directly under the FAQ gap row's filled cell (013 §2) and the
+         pair read as one doubled blob */
       { gx: 0, gy: 2, shape: "circle" },
       /* (11,2) is a plain rail cell — the Figma circle there is an
          error (decision 2026-08-24, spec §9) */

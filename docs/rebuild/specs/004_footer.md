@@ -71,11 +71,14 @@ sized `k·t+1` that merge with the grid (v5 §6.1) and are listed in §3–§6.
   (center 10t is void — bounded by the rails and the nav top) · logo-r1
   `0,10,12,1` · logo sides `0,11,1,3` / `11,11,1,3` · logo-r5 left cells
   `0,14,6,1`
-- ornaments: filled square `(11,0)` · filled circle `(0,2)` · outlined
-  circle `(3,9)` (1×1t, bottom-left corner of the Resources column) ·
-  filled square `(8,10)` · filled circle `(3,14)`. (The frame also draws
-  a filled circle at `(11,2)` — a Figma error; that cell is a plain rail
-  cell. Decision 2026-08-24, §9.)
+- ornaments: ~~filled square `(11,0)`~~ *(removed by owner decision
+  2026-08-28, §9 — on the pricing page it stacked directly under the
+  FAQ gap row's filled cell, 013 §2, and the pair read as one doubled
+  blob; the file carries the fix with design)* · filled circle `(0,2)`
+  · outlined circle `(3,9)` (1×1t, bottom-left corner of the Resources
+  column) · filled square `(8,10)` · filled circle `(3,14)`. (The
+  frame also draws a filled circle at `(11,2)` — a Figma error; that
+  cell is a plain rail cell. Decision 2026-08-24, §9.)
 
 **rd1 (960):**
 
@@ -319,6 +322,18 @@ open-row internals 36 · 22 · 10 (§5), and bullet top offsets (§3).
   section alone, drawer states toggleable, at all bands.
 
 ## 9 · Resolutions record
+
+- *Amendment 2026-08-28 (owner decision, at the pricing-page review):*
+  the rt `(11,0)` filled square is removed from the exposure map. On
+  the pricing page (013) the footer's first row sits directly under
+  the FAQ gap row, whose own filled cell occupies `[11]` at rt — the
+  stacked pair read as one doubled blob. The build renders the cell as
+  plain lattice. Re-read from the file the same day: the pricing 768
+  frame (`376:33078`) already draws the cell stroke-only — the file
+  agrees; the homepage 768 frame (`142:4180`, this spec's source)
+  still carries the fill and awaits design's trueing (the one open
+  residual, no build impact — the anchor frames' FAQ/footer records
+  are otherwise current).
 
 No confirmations remain open. All flags raised while drafting were
 resolved 2026-08-23 through design fixes or decisions, each re-read from
