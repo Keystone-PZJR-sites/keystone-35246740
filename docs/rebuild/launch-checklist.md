@@ -46,6 +46,15 @@ dead-URL surface as they land; whatever never returns stays a 404
 | G7 | **Accessibility review** — assembled-site pass against the rules.md Accessibility Baseline once every page is built; see the note below | **open** |
 | G8 | **Loading-animation audit** — timing, hydration, and settle of every page's load choreography (006 §6 · 002.r1 §5); the start clock follows the G5 decision; see the note below | **open** |
 
+## Punch list — auxiliary to-dos
+
+Small owner-requested items. Not gates — they do not block launch,
+but they should land before cutover. Each item records its date and
+clears with a strikethrough or removal in the landing commit.
+
+- [ ] Add an Accessibility Statement to the footer (owner, 2026-08-28).
+- [ ] Add X to the footer's social links (owner, 2026-08-28).
+
 ## The launch steps (after all gates are green)
 
 1. Deploy this branch as the production site; the old-brand site
