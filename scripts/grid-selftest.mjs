@@ -1,22 +1,27 @@
-// Grid self-test sweep (spec 002 §3.3, extended by spec 010 §3) — runs
-// the in-page checks (window.__GRID_SELFTEST__, see
-// app/grid/grid-devtools.tsx) on both audited routes:
+// Grid self-test sweep (spec 002 §3.3, extended by specs 010 §3 and
+// 013 §7.4) — runs the in-page checks (window.__GRID_SELFTEST__, see
+// app/grid/grid-devtools.tsx) on the three audited routes:
 //
-//   /grid          — the fixture harness (spec 002)
-//   /home-fixture  — the real assembled homepage (spec 010 §3.2)
+//   /grid             — the fixture harness (spec 002)
+//   /home-fixture     — the real assembled homepage (spec 010 §3.2)
+//   /pricing-fixture  — the real assembled pricing page (spec 013 §7)
 //
 // at all five anchors and one width per structural slice (spec 010
 // §3.1 — stretched and compressed, 002.r1 nearest-anchor gates), with a
 // classic layout-consuming scrollbar forced on. Interpolation
 // continuity is asserted across the four anchors (a gate is a designed
-// downward step, not a continuity point). On the homepage the sweep
-// waits for the load choreography to settle (002.r1 §5), then drives
-// the page through its rest states (spec 010 §3.2) and re-asserts at
-// each: every engine row active, the portfolio strip scrolled, the
-// testimonial strip on each offset, a footer drawer open and closed at
-// the accordion bands, and the mobile nav open and closed (an overlay —
-// the assertion is that the stack is unchanged). Exits nonzero on any
-// failure, so CI can gate on it.
+// downward step, not a continuity point). On the fixture routes the
+// sweep waits for any load choreography to settle (002.r1 §5), then
+// drives the page through its rest states and re-asserts at each.
+// Homepage (spec 010 §3.2): every engine row active, the portfolio
+// strip scrolled, the testimonial strip on each offset, a footer
+// drawer open and closed at the accordion bands, and the mobile nav
+// open and closed (an overlay — the assertion is that the stack is
+// unchanged). Pricing (spec 013 §7.4): the 012 machine on each k
+// (card-overlay clicks to k = 1 and 2, arrow keys back to 0), an FAQ
+// drawer open, a second (the single-open handoff), then closed, the
+// footer drawer at the accordion bands, and the mobile nav. Exits
+// nonzero on any failure, so CI can gate on it.
 //
 // Usage:
 //   node scripts/grid-selftest.mjs            # starts `next dev` itself
@@ -189,15 +194,38 @@ async function main() {
 
     const interpSample = (out) => parseFloat(out.interp.detail.match(/sample ([\d.]+)px/)[1]);
 
-    // Rest-state drives (spec 010 §3.2), asserted per state. Heights
-    // never move except the footer drawer, whose designed growth the
-    // in-page audit adds to its expectation.
-    async function driveRestStates(route, width, band) {
-      const assertState = async (state) => {
-        const out = await runChecks();
-        if (!out.pass) fail(`${route} ${width} · ${state} · ${out.fails.join(" · ")}`);
-        else console.log(`PASS ${route} ${width} · ${state}`);
-      };
+    const makeAssert = (route, width) => async (state) => {
+      const out = await runChecks();
+      if (!out.pass) fail(`${route} ${width} · ${state} · ${out.fails.join(" · ")}`);
+      else console.log(`PASS ${route} ${width} · ${state}`);
+    };
+
+    // a footer drawer open, then closed (004 — accordion bands only),
+    // shared by both fixture routes
+    async function driveFooterDrawer(assertState, band) {
+      if (band !== "rm" && band !== "rs") return;
+      if (!(await clickVisible(".fnav-trigger"))) return;
+      await sleep(SETTLE_MS);
+      await assertState("footer drawer open");
+      await clickVisible(".fnav-trigger");
+      await sleep(SETTLE_MS);
+      await assertState("footer drawer closed");
+    }
+
+    // the mobile nav open and closed (005 — an overlay: the stack must
+    // be unchanged, which is exactly what the checks assert)
+    async function driveMobileNav(assertState) {
+      if (!(await clickVisible(".knav-mtoggle"))) return;
+      await sleep(SETTLE_MS);
+      await assertState("mobile nav open");
+      await clickVisible(".knav-mtoggle");
+      await sleep(SETTLE_MS);
+      await assertState("mobile nav closed");
+    }
+
+    // Homepage rest-state drives (spec 010 §3.2), asserted per state.
+    async function driveHomeStates(route, width, band) {
+      const assertState = makeAssert(route, width);
 
       // each engine row active, ending back on the first (008)
       for (const i of [1, 2, 3, 4, 0]) {
@@ -220,33 +248,64 @@ async function main() {
         await assertState(`testimonials offset ${k}`);
       }
 
-      // a footer drawer open, then closed (004 — accordion bands only)
-      if (band === "rm" || band === "rs") {
-        if (await clickVisible(".fnav-trigger")) {
-          await sleep(SETTLE_MS);
-          await assertState("footer drawer open");
-          await clickVisible(".fnav-trigger");
-          await sleep(SETTLE_MS);
-          await assertState("footer drawer closed");
-        }
-      }
-
-      // the mobile nav open and closed (005 — an overlay: the stack must
-      // be unchanged, which is exactly what the checks assert)
-      if (await clickVisible(".knav-mtoggle")) {
-        await sleep(SETTLE_MS);
-        await assertState("mobile nav open");
-        await clickVisible(".knav-mtoggle");
-        await sleep(SETTLE_MS);
-        await assertState("mobile nav closed");
-      }
+      await driveFooterDrawer(assertState, band);
+      await driveMobileNav(assertState);
     }
 
-    for (const route of ["/grid", "/home-fixture"]) {
+    // Pricing rest-state drives (spec 013 §7.4), asserted per state.
+    async function drivePricingStates(route, width, band) {
+      const assertState = makeAssert(route, width);
+
+      // the 012 machine on each k: overlay clicks to k = 1 and 2, then
+      // arrow keys on the focused range input back to k = 0
+      if (await clickVisible(".ps-slot:nth-child(2) .pcard-overlay")) {
+        await sleep(SETTLE_MS);
+        await assertState("price scale k=1");
+        if (await clickVisible(".ps-slot:nth-child(3) .pcard-overlay")) {
+          await sleep(SETTLE_MS);
+          await assertState("price scale k=2");
+        }
+        await page.evaluate(() => {
+          const input = [...document.querySelectorAll(".sldr-input")].find(
+            (el) => el.getClientRects().length > 0,
+          );
+          input?.focus();
+        });
+        await page.keyboard.press("ArrowLeft");
+        await page.keyboard.press("ArrowLeft");
+        await sleep(SETTLE_MS);
+        await assertState("price scale k=0 (keys)");
+      }
+
+      // an FAQ drawer open (item 1), a second (item 2 — the single-open
+      // handoff), then closed (013 §7.4)
+      if (await clickVisible(".faq-questions .fq:nth-child(1) .fq-trigger")) {
+        await sleep(SETTLE_MS);
+        await assertState("faq drawer 1 open");
+        await clickVisible(".faq-questions .fq:nth-child(2) .fq-trigger");
+        await sleep(SETTLE_MS);
+        await assertState("faq drawer 2 open (handoff)");
+        await clickVisible(".faq-questions .fq:nth-child(2) .fq-trigger");
+        await sleep(SETTLE_MS);
+        await assertState("faq drawers closed");
+      }
+
+      await driveFooterDrawer(assertState, band);
+      await driveMobileNav(assertState);
+    }
+
+    const ROUTES = [
+      { path: "/grid", drives: null },
+      { path: "/home-fixture", drives: driveHomeStates },
+      { path: "/pricing-fixture", drives: drivePricingStates },
+    ];
+
+    for (const { path: route, drives } of ROUTES) {
       console.log(`\n=== ${route} ===`);
       await page.goto(`${base}${route}`, { waitUntil: "networkidle0" });
 
-      // the audits run at rest: wait out the load choreography (002.r1 §5)
+      // the audits run at rest: wait out the load choreography (002.r1
+      // §5; pages with no choreography are born settled)
       await page.waitForFunction(
         () => {
           const p = document.querySelector(".page");
@@ -257,11 +316,11 @@ async function main() {
         { timeout: 30000 },
       );
 
-      const isHome = route === "/home-fixture";
+      const isFixture = drives !== null;
 
       // 1 · anchors: pixel-exact tick, all checks green.
       for (const anchor of ANCHORS) {
-        const out = await runAt(anchor, isHome);
+        const out = await runAt(anchor, isFixture);
         const tickExact = Math.abs(out.t - anchor / 12) < 0.01;
         const ok = out.pass && tickExact && out.containerW === anchor;
         if (!ok)
@@ -270,15 +329,15 @@ async function main() {
               (out.fails.length ? ` · ${out.fails.join(" · ")}` : ""),
           );
         else console.log(`PASS ${route} anchor ${anchor} · band ${out.band} · t ${out.t}`);
-        if (isHome) await driveRestStates(route, anchor, out.band);
+        if (drives) await drives(route, anchor, out.band);
       }
 
       // 2 · one width per structural slice.
       for (const w of SLICES) {
-        const out = await runAt(w, isHome);
+        const out = await runAt(w, isFixture);
         if (!out.pass) fail(`${route} slice ${w} · band ${out.band} · ${out.fails.join(" · ")}`);
         else console.log(`PASS ${route} slice ${w} · band ${out.band}`);
-        if (isHome) await driveRestStates(route, w, out.band);
+        if (drives) await drives(route, w, out.band);
       }
 
       // 3 · continuity across every anchor joint: the sample walks a

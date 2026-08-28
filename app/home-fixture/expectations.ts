@@ -7,7 +7,16 @@
  * Rows are zero-based page ticks. The nav is overlay chrome and never
  * appears here (the material-vs-tick-riding-vs-overlay-chrome law);
  * row 40 is the page-owned rd2-only lattice row (007 §8.8 as amended
- * by 009 §9). Sections are listed in the DOM order home.tsx mounts. */
+ * by 009 §9). Sections are listed in the DOM order home.tsx mounts.
+ *
+ * Declared §7.3 clearance exceptions (spec 013 §9 build record —
+ * designed overlaps between outer content boxes and their sections'
+ * own exposed lattice): the hero carousel over its cell field (006
+ * §2), the portfolio gallery window over the east cells (007 §2), the
+ * engine rows over the east cells (008 §2), the testimonial strip
+ * over its corner/rule cells (009 §2/§9), and the footer's top block
+ * and nav column over their in-block ornament cells (004 §2/§3). The
+ * finer landmarks (bar, ctrl, logo, card, item) stay fully audited. */
 
 import type { GridExpectations } from "../grid/expectations";
 
@@ -71,4 +80,5 @@ export const PAGE_EXPECTATIONS: GridExpectations = {
       },
     },
   ],
+  clearanceExceptions: ["carousel", "gallery", "row", "strip", "top", "nav"],
 };

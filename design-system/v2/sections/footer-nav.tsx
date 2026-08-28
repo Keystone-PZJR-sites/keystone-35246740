@@ -71,12 +71,21 @@ export function FooterNav({ groups }: { groups: FooterNavGroup[] }) {
           {groups.map((g) => {
             const isOpen = g.id === openId;
             return (
+              /* the shared drawer contract (spec 013 §7.2): while open,
+                 footer.css publishes --drawer-extra from the per-band
+                 extras below (open − 2, spec 004 §5) */
               <li
                 key={g.id}
                 className="fnav-group"
+                data-drawer=""
                 data-open={isOpen || undefined}
                 style={
-                  { "--open-rm": g.openRm, "--open-rs": g.openRs } as CSSProperties
+                  {
+                    "--open-rm": g.openRm,
+                    "--open-rs": g.openRs,
+                    "--fnav-extra-rm": g.openRm - 2,
+                    "--fnav-extra-rs": g.openRs - 2,
+                  } as CSSProperties
                 }
               >
                 <h3 className="fnav-h">

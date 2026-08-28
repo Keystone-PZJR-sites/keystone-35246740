@@ -80,17 +80,18 @@ function onRow(v: number, ticks: number, t: number, tol = 1.1): boolean {
   return Math.abs(v - ticks * t) <= tol;
 }
 
-/** Designed extra ticks from open footer drawers inside scope: each
- * open group grows its section by its open height minus the 2t closed
- * row (spec 004 §5). Drawers exist at the accordion bands only. */
-function drawerExtraTicks(scope: HTMLElement, band: Band): number {
-  if (band !== "rm" && band !== "rs") return 0;
+/** Designed extra ticks from open drawers inside scope — the shared
+ * contract (spec 013 §7.2): any element carrying data-drawer publishes
+ * `--drawer-extra`, its growth in ticks for the current band, while
+ * open. The FAQ items publish measured derived values (013 §4 R7); the
+ * footer nav publishes its designed open − 2 through the same property
+ * (0 at the column bands, where its drawers do not grow). */
+function drawerExtraTicks(scope: HTMLElement): number {
   let extra = 0;
-  scope.querySelectorAll<HTMLElement>(".fnav-group[data-open]").forEach((g) => {
-    const open = parseFloat(
-      getComputedStyle(g).getPropertyValue(band === "rm" ? "--open-rm" : "--open-rs"),
-    );
-    if (Number.isFinite(open)) extra += open - 2;
+  scope.querySelectorAll<HTMLElement>("[data-drawer][data-open]").forEach((d) => {
+    if (d.getClientRects().length === 0) return;
+    const v = parseFloat(getComputedStyle(d).getPropertyValue("--drawer-extra"));
+    if (Number.isFinite(v)) extra += v;
   });
   return extra;
 }
@@ -174,7 +175,7 @@ function runSelfTests(
   // 4 · stack sum: page height = designed tick total for the band, plus
   // any open drawer's designed growth.
   const pageH = page.getBoundingClientRect().height;
-  const expectedTicks = expectations.totals[band] + drawerExtraTicks(page, band);
+  const expectedTicks = expectations.totals[band] + drawerExtraTicks(page);
   results.push({
     id: "stack",
     label: `stack sum = ${expectedTicks}t`,
@@ -184,28 +185,34 @@ function runSelfTests(
 
   // 5 · section boundaries: every .sec flow child tops and sizes on its
   // designed rows (spec 010 §3.2), matched in DOM order; a section with
-  // no rows at this band must be hidden.
+  // no rows at this band must be hidden. An open drawer grows its own
+  // section and moves every later section down by the same ticks
+  // (spec 013 §7.2), so the designed tops carry the cumulative growth.
   const pageTop = page.getBoundingClientRect().top;
   const secs = [...page.querySelectorAll<HTMLElement>(".sec")];
   const secFails: string[] = [];
   if (secs.length !== expectations.sections.length) {
     secFails.push(`${secs.length} .sec in DOM, ${expectations.sections.length} expected`);
   } else {
+    let priorExtra = 0;
     expectations.sections.forEach((exp, i) => {
       const el = secs[i];
       const designed = exp.rows[band];
       const rect = el.getBoundingClientRect();
+      const ownExtra = drawerExtraTicks(el);
       if (!designed) {
         if (el.getClientRects().length > 0 && rect.height > 0.5)
           secFails.push(`${exp.id}: renders at ${band}`);
         return;
       }
       const top = rect.top - pageTop;
-      const h = designed.h + drawerExtraTicks(el, band);
-      if (!onRow(top, designed.top, t))
-        secFails.push(`${exp.id} top ${(top / t).toFixed(3)}t ≠ ${designed.top}t`);
+      const expectedTop = designed.top + priorExtra;
+      const h = designed.h + ownExtra;
+      if (!onRow(top, expectedTop, t))
+        secFails.push(`${exp.id} top ${(top / t).toFixed(3)}t ≠ ${expectedTop}t`);
       if (!onRow(rect.height, h, t))
         secFails.push(`${exp.id} h ${(rect.height / t).toFixed(3)}t ≠ ${h}t`);
+      priorExtra += ownExtra;
     });
   }
   results.push({
@@ -219,10 +226,15 @@ function runSelfTests(
   // +1-sized boxes. Cards scroll horizontally, so only their vertical
   // geometry is audited. Zero landmarks is a failure: the sections carry
   // them by spec (010 §3.2), so an empty audit means lost attributes.
+  // Kinds the expectations declare latticeExempt are designed content
+  // offsets, not tick geometry (013 §9 build record) — skipped here,
+  // still covered by the stack and section-boundary checks.
+  const latticeExempt = new Set(expectations.latticeExempt ?? []);
   let landmarks = 0;
   const drifted: string[] = [];
   page.querySelectorAll<HTMLElement>("[data-landmark]").forEach((el, i) => {
     const kind = el.dataset.landmark!;
+    if (latticeExempt.has(kind)) return;
     const rect = el.getBoundingClientRect();
     if (el.getClientRects().length === 0) return; // band-hidden variant
     const anchorTop = kind === "sec" ? pageTop : el.closest(".sec")!.getBoundingClientRect().top;
@@ -295,6 +307,52 @@ function runSelfTests(
     label: "shared edges coincide",
     pass: seamFails.length === 0,
     detail: seamFails.length ? seamFails.join(" · ") : `${seams} seams, one pixel each`,
+  });
+
+  // 9 · exposed-cell clearance (spec 013 §7.3): no landmark content box
+  // intersects a rendered exposed cell. The exposure layer is the
+  // engine vocabulary (regions, fills, cells, decors) outside landmark
+  // boxes — contained lattice (a section's own field inside a landmark,
+  // like the 011 card mosaic) does not participate. Shared edges are
+  // not intersections (the line-inclusive ±1px tolerance); designed
+  // overlaps are declared in the expectations (clearanceExceptions),
+  // never tolerated silently.
+  const exceptions = new Set(expectations.clearanceExceptions ?? []);
+  const pageLeft = page.getBoundingClientRect().left;
+  const exposure: DOMRect[] = [];
+  page
+    .querySelectorAll<HTMLElement>(".grid-region, .grid-fill, .grid-cellx, .decor")
+    .forEach((el) => {
+      if (el.getClientRects().length === 0) return;
+      if (el.closest("[data-landmark]")) return;
+      exposure.push(el.getBoundingClientRect());
+    });
+  const clearFails: string[] = [];
+  let clearChecks = 0;
+  page.querySelectorAll<HTMLElement>("[data-landmark]").forEach((lm, i) => {
+    if (lm.getClientRects().length === 0) return;
+    const kind = lm.dataset.landmark!;
+    if (exceptions.has(kind)) return;
+    const r = lm.getBoundingClientRect();
+    clearChecks++;
+    for (const cell of exposure) {
+      const w = Math.min(r.right, cell.right) - Math.max(r.left, cell.left);
+      const h = Math.min(r.bottom, cell.bottom) - Math.max(r.top, cell.top);
+      if (w > 1.1 && h > 1.1) {
+        clearFails.push(
+          `${kind}#${i} ∩ cell@(${((cell.left - pageLeft) / t).toFixed(1)},${((cell.top - pageTop) / t).toFixed(1)})t`,
+        );
+        break;
+      }
+    }
+  });
+  results.push({
+    id: "clearance",
+    label: "landmarks clear exposed cells",
+    pass: clearFails.length === 0,
+    detail: clearFails.length
+      ? clearFails.join(" · ")
+      : `${clearChecks} landmarks × ${exposure.length} cells clear`,
   });
 
   const settled =

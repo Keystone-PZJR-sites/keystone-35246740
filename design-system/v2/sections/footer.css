@@ -359,8 +359,13 @@
 }
 
 /* The drawer draws down from itself: the header stays put, the bottom
-   edge moves; chrome rides the growing box (§5). */
+   edge moves; chrome rides the growing box (§5). While open the group
+   publishes --drawer-extra — the shared audit contract (spec 013
+   §7.2): the per-band designed growth in ticks, 0 from 665 up where
+   the columns never grow. The --fnav-extra-* numbers arrive inline
+   from footer-nav.tsx; the --open-* height mechanics are unchanged. */
 .fnav-group[data-open] {
+  --drawer-extra: var(--fnav-extra-rm);
   height: calc(var(--t) * var(--_open) + 1px);
   background: var(--color-bg-100);
   box-shadow: var(--shadow-hard-square-md);
@@ -492,6 +497,9 @@
     padding: calc(var(--t) - 12px) 32px 0;
     --_open: var(--open-rs);
   }
+  .fnav-group[data-open] {
+    --drawer-extra: var(--fnav-extra-rs);
+  }
   .fnav-dot {
     width: 8px;
     height: 8px;
@@ -535,6 +543,8 @@
     overflow: visible;
     background: none;
     box-shadow: none;
+    /* static columns never grow (the §7.2 contract publishes 0) */
+    --drawer-extra: 0;
   }
   .fnav-group + .fnav-group {
     margin-top: 0;

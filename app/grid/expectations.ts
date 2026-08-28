@@ -28,6 +28,14 @@ export interface GridExpectations {
   /** Designed section boundaries, matched against the page's `.sec`
    * flow children in DOM order (spec 010 §3.2). */
   sections: SectionExpectation[];
+  /** Landmark kinds allowed to intersect exposed lattice — designed
+   * overlaps are declared, never tolerated silently (spec 013 §7.3). */
+  clearanceExceptions?: string[];
+  /** Landmark kinds whose boxes are designed content offsets, not tick
+   * geometry — the half-tick landmark audit skips them (spec 013 §9
+   * build record: the 011/012 designed off-lattice landmarks — px
+   * header tops, chat rows, the tag-carrying cards). */
+  latticeExempt?: string[];
 }
 
 const [GALLERY_FX, FOOTER_FX] = FIXTURES;
