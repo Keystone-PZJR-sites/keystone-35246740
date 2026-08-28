@@ -23,7 +23,7 @@ before the gates below can close.
 | page | spec(s) | status |
 |---|---|---|
 | Home | 006–009 (sections) · 010 (assembly) | **built + verified 2026-08-27** |
-| Pricing | — (next, owner decision 2026-08-27) | not started |
+| Pricing | 011 (offer) · 012 (price scale + personas) · 013 (FAQ + assembly) | **011 built + audited 2026-08-27**, incl. the designed 576 frame (011 §9 R15); 012–013 not started; page sweep leg lands with 013 |
 | Our Work | — | not started |
 | Solutions | — | not started |
 | Company | — | not started |

@@ -201,6 +201,59 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   the remaining pages, **Pricing next**; several old paths (like
   `/pricing`) return as rebuilt pages, and whatever never returns
   stays a 404.
+- **Spec 011 is approved and built** (same day): the token layer
+  re-extracted first (001 rule — the three teal stops 150/450/650
+  landed, no other drift across primitives, semantics, effects, and
+  text styles); every §1/§2 value re-verified from rendered bounds at
+  build; the `PricingButton` primitive, the seven list icons, the
+  pricing-offer section (zero islands, born settled), and the
+  `v2/pricing.tsx` composition on `/pricing` + `/pricing-fixture`
+  landed; the cell-slide grammar promoted to tokens/motion.css at its
+  second consumer. The audit sweep passed at the four designed anchors
+  and ten slice widths (landmarks whole-tick, wrap counts
+  band-constant). Two §9 build records: the rm mosaic circle's fill
+  reads 100% (the draft's 80% amended in place) and the rs derived
+  band's built totals (37t; list 10t) await design's manual
+  evaluation — the one open item, plus the standing F2 hygiene flag.
+  Same-day design review of the built section landed seven revisions
+  (011 §9 R13, all re-read from the file): revised button hover
+  states on a re-inked `teal/450` and the new `teal/550` (replacing
+  650), lattices behind content, the button circle joining the
+  cell-slide, the slide triggering on the button only, the container
+  hard shadow, the material chat label, and left-box-only list
+  shadows with the right box behind. Two further review passes the
+  same evening: the button lattice re-architected tick-riding so it
+  registers with the page grid (R14), then the whole button made
+  proportional — drawn in cell units, scaling with the tick (R16);
+  the list boxes went line-inclusive to kill doubled hairlines
+  (R17). **Design then drew the 576 frame** (`634:33130`) — the rs
+  band is designed, not derived (011 §1 amendment, §9 R15): a new
+  layout (card 6–11 over a 22t section, the list pair 8t/7t at +2t,
+  one chat row) and a new `size=sm` button in the set; built and
+  audited from fresh reads the same day.
+- **The Pricing page is planned as specs 011–013** (owner review
+  2026-08-27, from fresh reads of the Pricing section `619:26832`):
+  011 the offer (header · $50 card · included list · chat rows), 012
+  the price scale + persona carousel (one spec — the slider and the
+  carousel are two-way linked), 013 the FAQ. The composition module
+  (`v2/pricing.tsx`) mounts on `/pricing` plus the noindexed
+  `/pricing-fixture`; the page-level expectations and sweep leg land
+  with 013. Design supplies **four anchors** here — 384 · 768 · 960
+  (drawn 2026-08-27) · 1344 — and **the 576 anchor is derived** from
+  the 384 design (011 §1.1) and evaluated manually on the built page;
+  persona image exports gain their new size tiers now that 960 is
+  drawn. Behavior decisions on record: the slider is three states
+  with a gentle snap; the carousel also moves by click/swipe and the
+  slider follows; both Start-today CTAs go to the checkout link (one
+  named constant); the talk-to-us buttons toggle the **chat widget —
+  an unbuilt dependency** that ships inert on the 006 `open-chat`
+  contract until its own spec lands; the card-mosaic circles shift
+  one cell on the nav card grammar (promoted at this second
+  consumer); FAQ drawers reuse the footer draw-down grammar. Six
+  file flags from the planning review were fixed by design and
+  re-read the same day (011 §9), and the pricing lattice inks were
+  bound to three new file variables — `color/teal/150` · `450` ·
+  `650` — through the console bridge.
 
 ## Phasing
 
@@ -225,8 +278,12 @@ acceptance criteria are checked at every anchor and at mid-band widths.
 - **Phase 6 — Homepage assembly**: page-level stack-sum self-test, performance
   pass, launch checklist (delivered, not executed — launch is big-bang
   after all pages).
+- **Phase 7 — Pricing, section by section, top-down** (specs 011–013):
+  the offer (011) · the price scale + persona carousel (012) · the FAQ
+  and page assembly (013). Four designed anchors; the 576 band derives
+  per 011 §1.1 and is evaluated manually at build.
 
-Subsequent pages (Our Work, Solutions, Pricing, Company, Resources) follow the
+Subsequent pages (Our Work, Solutions, Company, Resources) follow the
 same per-section pattern once the homepage is done — **Pricing first**
 (owner decision 2026-08-27). Launch is big-bang after all pages are built.
 
@@ -334,6 +391,20 @@ values and would need editing later — which spec immutability forbids.
   gates, not the build: the testimonials content pass (009), the
   pre-launch metadata wipe (010 §7 F2), and sign-off on the assembled
   page.
+- Phase 7 (Pricing): the Pricing anchor frames at 384/768/1344 plus
+  the 960 frame drawn 2026-08-27 (no 576 — derived, 011 §1.1); the
+  component sets `pricing-button` (incl. the xs added at flag review)
+  · `slider` · `faq-question` · `persona-card` · `pricing-tag`, all
+  with the lg sizes added with the 960 frame; the nine pricing icons
+  on the sheet (519:5431); the persona exports (multiply overlay
+  baked; new size tiers arriving now that 960 is drawn — needed for
+  012, not 011); motion and behavior intent received 2026-08-27
+  (slider snap, two-way carousel link, mosaic cell-shift, FAQ
+  draw-down reuse, CTA and chat-widget decisions). 011 is specced
+  from post-fix reads; six file flags fixed and re-read the same day
+  (011 §9). Still open for later specs: nothing for 012 except the
+  new persona tiers; the chat widget is future work outside the
+  pricing phase.
 
 ## Special cells — ornament and function on the lattice
 

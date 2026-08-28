@@ -54,3 +54,9 @@
 
 /* The assembled homepage (spec 010) */
 @import "./home.css";
+
+/* Primitives (spec 011) */
+@import "./primitives/pricing-button.css";
+
+/* Sections (spec 011) */
+@import "./sections/pricing-offer.css";
