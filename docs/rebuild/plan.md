@@ -404,7 +404,10 @@ values and would need editing later — which spec immutability forbids.
   from post-fix reads; six file flags fixed and re-read the same day
   (011 §9). Still open for later specs: nothing for 012 except the
   new persona tiers; the chat widget is future work outside the
-  pricing phase.
+  pricing phase. For 013: the page expectations gain an
+  **exposed-cell clearance assertion** — the sweep audits vertical
+  stacks only, and the footer's rail collision hid in that gap until
+  the 011 review (rules.md "Audits at rest", 2026-08-27).
 
 ## Special cells — ornament and function on the lattice
 

@@ -40,6 +40,19 @@ Figma verification digest (full protocol in `docs/rules/rules.md`):
  ("Specs Are Immutable", rebuild amendment protocol) — never silent
  edits, never a new spec for a same-day fix.
 
+Grid digest (the full laws in `docs/rules/rules.md`, "Grid & Type
+Laws" — learned the hard way in the pricing build, 2026-08-27):
+
+- A band-constant designed value rides the weights —
+ `calc((wA + wB) * V)`, never `Vpx` — so the compressed slices zoom
+ it with the tick. Fixed px breaks wraps and clearances off-anchor.
+- A bordered content box whose edge lies on exposed lattice is sized
+ `k·t + 1px` (line-inclusive), or it doubles the page hairline.
+- The grid sweep audits vertical stacks only. Check horizontal
+ clearance against exposed cells manually at compressed-slice widths
+ (below each anchor, above each gate) until the harness gains the
+ assertion (spec 013).
+
 Do not commit, stage, or push unless the human asks in that turn.
 Completing a spec or passing checks is not permission to commit. Leave
 the working tree dirty and report what is ready. When asked to commit,
