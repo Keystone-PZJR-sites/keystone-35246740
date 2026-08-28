@@ -60,3 +60,7 @@
 
 /* Sections (spec 011) */
 @import "./sections/pricing-offer.css";
+
+/* Primitives (spec 012) */
+@import "./primitives/slider.css";
+@import "./primitives/persona-card.css";

@@ -88,6 +88,19 @@ export function IconArrowRight({ size = 24, className }: Props) {
   );
 }
 
+/** IconSliderArrow — the slider label-row arrow (spec 012 §4), exported
+ * verbatim from the slider set 613:21217 (its 13×10 geometry differs
+ * from IconArrowRight's 24×24 cut, so it ships as its own export) —
+ * currentColor. Non-square: `size` is the width; height rides the
+ * intrinsic 13:10 ratio. */
+export function IconSliderArrow({ size = 13, className }: Props) {
+  return (
+    <svg width={size} height={(size * 10) / 13} viewBox="0 0 13 10" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.8569 4.65105C13.0476 4.84359 13.0477 5.15647 12.8569 5.34895L8.24627 10L7.55444 9.30211L10.663 6.16627C10.9093 5.91781 10.7349 5.49299 10.3866 5.49299H0V4.50701H10.3866C10.7349 4.50701 10.9093 4.08219 10.663 3.83373L7.55444 0.697894L8.24627 0L12.8569 4.65105Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** IconArrowLeft (519:6634) — currentColor. */
 export function IconArrowLeft({ size = 24, className }: Props) {
   return (

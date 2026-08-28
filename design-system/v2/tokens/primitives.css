@@ -2,7 +2,10 @@
    Source: Figma `ks-MarketingSite` variables, collection "00 primitives".
    Extracted via figma-console MCP on 2026-08-22; re-extracted 2026-08-27
    for the Phase 7 build (spec 011) — three new teal stops, no other
-   drift. Do not edit values by hand — re-extract from Figma (see
+   drift; re-extracted 2026-08-28 for the 012 build — zero drift across
+   primitives, text styles, and effects (the file's new `alpha/black-20`
+   variable resolves to the standing semantic token's value). Do not
+   edit values by hand — re-extract from Figma (see
    docs/rebuild/specs/001_foundations.md).
    Nothing outside the token layers may reference these directly; consume
    the semantic layer instead. */

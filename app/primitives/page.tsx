@@ -7,12 +7,17 @@ import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primiti
 import { GridButton } from "@/design-system/v2/primitives/grid-button";
 import { GraderInput } from "@/design-system/v2/primitives/grader";
 import { PricingButton } from "@/design-system/v2/primitives/pricing-button";
+import { PersonaCard } from "@/design-system/v2/primitives/persona-card";
+import { PricingTag } from "@/design-system/v2/primitives/pricing-tag";
+import { Slider } from "@/design-system/v2/primitives/slider";
 import { Text } from "@/design-system/v2/primitives/text";
+import { PERSONAS } from "@/design-system/v2/sections/pricing-scale-data";
 import {
   IconAiChat,
   IconApproach,
   IconArrowLeft,
   IconArrowRight,
+  IconSliderArrow,
   IconCaseStudies,
   IconChat,
   IconLoadingCircle,
@@ -293,6 +298,58 @@ export default function PrimitivesPage() {
       </section>
 
       <section className="pv-section">
+        <h2>slider</h2>
+        {/* the designed sizes bare (spec 012 §4); the three states with
+            the set's own hues (less has no visible fill) */}
+        {(["lg", "md", "sm"] as const).map((size) => (
+          <div key={size}>
+            <h3>{size}</h3>
+            <div className="pv-row">
+              <Slider size={size} label="Price scale" forceState="less" forceHue="pink" />
+              <Slider size={size} label="Price scale" forceState="middle" forceHue="blue" />
+              <Slider size={size} label="Price scale" forceState="more" forceHue="purple" />
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="pv-section">
+        <h2>persona-card</h2>
+        {/* the designed anchor sizes bare (spec 012 §5) */}
+        {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+          <div key={size}>
+            <h3>{size}</h3>
+            <div className="pv-row">
+              <PersonaCard persona={PERSONAS[0]} size={size} state="active" />
+            </div>
+          </div>
+        ))}
+        <div>
+          <h3>states · md</h3>
+          <div className="pv-row">
+            <PersonaCard persona={PERSONAS[1]} size="md" state="active" />
+            <PersonaCard persona={PERSONAS[1]} size="md" state="inactive" />
+            <PersonaCard persona={PERSONAS[2]} size="md" state="inactive" />
+          </div>
+        </div>
+      </section>
+
+      <section className="pv-section">
+        <h2>pricing-tag</h2>
+        <div className="pv-row">
+          {(["xs", "md", "lg", "xl"] as const).map((size) => (
+            <div key={size} className="pv-cell">
+              <span>{size}</span>
+              <PricingTag size={size}>Reviews &amp; Listings</PricingTag>
+              <PricingTag size={size} muted>
+                Reviews &amp; Listings
+              </PricingTag>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="pv-section">
         <h2>grid-button</h2>
         {(["forward", "back"] as const).map((direction) => (
           <div key={direction}>
@@ -340,6 +397,7 @@ export default function PrimitivesPage() {
           <IconSparkle />
           <IconArrowLeft />
           <IconArrowRight />
+          <IconSliderArrow />
           <IconNavTrigger variant="chevron" />
           <IconNavTrigger variant="arrow" />
           <IconNavTrigger variant="hover" />

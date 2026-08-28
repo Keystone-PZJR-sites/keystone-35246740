@@ -1,0 +1,204 @@
+/* v2 primitives — slider (spec 012 §4, set 613:21217).
+
+   The control is PROPORTIONAL over its width (the 011 R16 taxonomy):
+   --_u is the ratio of the mounted width (--sldr-w, a weight-riding
+   section constant) to the size's designed width, and every interior
+   value is calc(--_u × designed px). The bare primitive (no --sldr-w)
+   renders the designed size — at the anchors every value equals the
+   set's px. All three sizes share one designed anatomy (45 tall: an
+   18 thumb row, an 11 gap, a 16 label row); only the width differs
+   (sm 160 · md 192 · lg 224).
+
+   The rest position rides data-state (less 0 · middle ½ · more 1);
+   the island overrides it live through --sldr-f during a drag (with
+   data-dragging killing the transition) and the snap runs on release —
+   thumb and progress move on the section's one snap clock (§7.1).
+   The progress gradient cannot transition ("CSS Transition
+   Constraints"), so the three hue layers crossfade opacity on the
+   same clock, driven by data-hue.
+
+   The focus ring and the ≥44px hit extension are material a11y
+   chrome — they never ride the proportion. */
+
+.sldr {
+  display: inline-flex;
+  flex-direction: column;
+  gap: calc(var(--_u) * 11);
+  --_W0: 224;
+  --_u: calc(var(--sldr-w, calc(var(--_W0) * 1px)) / var(--_W0));
+  width: calc(var(--_u) * var(--_W0));
+}
+.sldr[data-size="sm"] {
+  --_W0: 160;
+}
+.sldr[data-size="md"] {
+  --_W0: 192;
+}
+
+/* rest fraction per snap state */
+.sldr[data-state="less"] {
+  --_kf: 0;
+}
+.sldr[data-state="middle"] {
+  --_kf: 0.5;
+}
+.sldr[data-state="more"] {
+  --_kf: 1;
+}
+
+/* ---- the thumb row (18 designed) ---- */
+
+.sldr-row {
+  position: relative;
+  height: calc(var(--_u) * 18);
+  touch-action: pan-y;
+}
+/* the ≥44px touch target — padding above the drawn control, never
+   geometry (§10): the pseudo extends the pointer surface only when the
+   drawn row is shorter than 44px */
+.sldr-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+  bottom: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+}
+
+/* track — full width, 6 high, radius-full, lightgray/300 → 500 stops
+   (bound in the file, §9 F4 — bg/300 → bg/500 in the semantic layer),
+   the inset top hairline riding the enumerated bevel constant */
+.sldr-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--_u) * 6);
+  height: calc(var(--_u) * 6);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-bg-300), var(--color-bg-500));
+  box-shadow: var(--sldr-track-bevel);
+}
+
+/* center notch — 1×3 on the track at half width (the middle snap
+   target), alpha/black-20 (the new file variable, §9 F4) */
+.sldr-notch {
+  position: absolute;
+  top: calc(var(--_u) * 6);
+  left: calc(50% - var(--_u) * 0.5);
+  width: calc(var(--_u) * 1);
+  height: calc(var(--_u) * 3);
+  background: var(--color-alpha-black-20);
+}
+
+/* progress fill — left edge to the thumb center: width 0 at less,
+   half at middle, full at more (the set's own states); the hue layers
+   carry the 200 → 400 persona gradients and crossfade on the snap
+   clock */
+.sldr-progress {
+  position: absolute;
+  left: 0;
+  top: calc(var(--_u) * 6);
+  height: calc(var(--_u) * 6);
+  width: calc(var(--sldr-f, var(--_kf)) * 100%);
+  border-radius: var(--radius-full);
+  overflow: clip;
+  transition: width var(--ps-snap-dur) var(--ps-snap-ease);
+}
+/* each hue layer carries its own inset bevel — an inset shadow on the
+   parent would paint under the layers and the fill would lose its
+   depth (found at build review 2026-08-28) */
+.sldr-p {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--sldr-track-bevel);
+  opacity: 0;
+  transition: opacity var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.sldr-p[data-hue="pink"] {
+  background: linear-gradient(90deg, var(--color-pink-200), var(--color-pink-400));
+}
+.sldr-p[data-hue="blue"] {
+  background: linear-gradient(90deg, var(--color-blue-200), var(--color-blue-400));
+}
+.sldr-p[data-hue="purple"] {
+  background: linear-gradient(90deg, var(--color-purple-200), var(--color-purple-400));
+}
+.sldr[data-hue="pink"] .sldr-p[data-hue="pink"],
+.sldr[data-hue="blue"] .sldr-p[data-hue="blue"],
+.sldr[data-hue="purple"] .sldr-p[data-hue="purple"] {
+  opacity: 1;
+}
+
+/* thumb — an 18 circle, text/300, the set's bevel (enumerated
+   constants, §9 F4); left edge at less, centered at middle, right
+   edge at more */
+.sldr-thumb {
+  position: absolute;
+  top: 0;
+  width: calc(var(--_u) * 18);
+  height: calc(var(--_u) * 18);
+  left: calc(var(--sldr-f, var(--_kf)) * (100% - var(--_u) * 18));
+  border-radius: var(--radius-full);
+  background: var(--color-text-300);
+  box-shadow: var(--sldr-thumb-bevel);
+  transition: left var(--ps-snap-dur) var(--ps-snap-ease);
+}
+
+/* a drag tracks the pointer with no transition (§7.1) */
+.sldr[data-dragging] .sldr-thumb,
+.sldr[data-dragging] .sldr-progress {
+  transition: none;
+}
+
+/* the native range input — semantics and keyboard only; the island
+   owns the pointer (it enables the input on mount, §7.3). The box
+   matches the extended hit area so an AT touch target is ≥44px. */
+.sldr-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+  bottom: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+/* the ring is material a11y chrome (the gray-chrome ring, spec 003
+   construction) drawn on the thumb the input controls */
+.sldr:has(.sldr-input:focus-visible) .sldr-thumb {
+  box-shadow:
+    var(--sldr-thumb-bevel),
+    0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* ---- the label row (16 designed, 11 below the thumb row) ---- */
+
+.sldr-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-400);
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc(var(--_u) * 12);
+  line-height: calc(var(--_u) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  white-space: nowrap;
+}
+.sldr-glyph {
+  width: calc(var(--_u) * 13);
+  height: calc(var(--_u) * 10);
+  color: var(--color-bg-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sldr-thumb,
+  .sldr-progress,
+  .sldr-p {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
