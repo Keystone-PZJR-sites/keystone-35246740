@@ -18,6 +18,14 @@ the old site ships from `main` until then). Before doing anything:
 4. The old-brand spec series (`docs/specs/001–056`) is a frozen
  historical record. Never edit it; never build from it.
 5. Never delete pages or routes without explicit instruction.
+6. **Never start your own dev server.** The owner keeps `npm run dev`
+ running on port 3000 — verify against `http://localhost:3000`. Two
+ dev servers share one `.next` directory and corrupt each other's
+ chunks (the page half-loads; this happened 2026-08-29). If port 3000
+ is not answering, say so and ask — do not launch a replacement.
+ Run the grid sweep against the owner's server too:
+ `GRID_URL=http://localhost:3000 npm run test:grid` (without GRID_URL
+ it spawns its own `next dev` and hits the same conflict).
 
 All geometry, type, and token values come from the live Figma file
 `ks-MarketingSite` through the Figma MCP — never from screenshots, memory, or
