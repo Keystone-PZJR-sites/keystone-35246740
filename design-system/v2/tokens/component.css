@@ -328,9 +328,11 @@
      duration for the slider thumb, the progress fill, and the strip
      translate — a user gesture, so the duration is this section's own
      (the hero's 900ms slide is an ambient auto-advance); the ease
-     aliases the slide grammar — reuse, never fork. */
-  --ps-snap-dur: 450ms;
-  --ps-snap-ease: var(--motion-slide-ease);
+     aliases the slide grammar — reuse, never fork. Promoted to
+     tokens/motion.css 2026-08-28 at the second consumer (the 015
+     gallery strip); these names are aliases, values unchanged. */
+  --ps-snap-dur: var(--motion-snap-dur);
+  --ps-snap-ease: var(--motion-snap-ease);
   /* the F4-sanctioned enumerated constants (§9 F4, design decision
      2026-08-28): the inactive cost-card fill (#eae8e0 at 50% — the
      set's raw value, deliberately off-ramp) and the slider bevels
@@ -344,6 +346,12 @@
      built as a 4px paint-in-place left offset (the 003 glyph
      doctrine). */
   --btn-inline-advance: 4px;
+
+  /* work-gallery (spec 015 §7.2): the ghost opacity — born promoted
+     (the 012 persona ghost is the grammar's other consumer, fixed in
+     the same build); this name is the section alias of the motion
+     token, value 0.5 (the §9 F7 canon). */
+  --wg-ghost-opacity: var(--motion-ghost-opacity);
   --sldr-track-bevel: inset 0 1px 0 rgba(0, 0, 0, 0.25);
   --sldr-thumb-bevel:
     inset -1px -1px 0 rgba(0, 0, 0, 0.3),

@@ -81,6 +81,25 @@
      close the extension fades with the collapse, no stagger. */
   --motion-rail-stagger: 40ms;
 
+  /* The carousel snap (born in the pricing scale, spec 012 §7;
+     promoted 2026-08-28 when the gallery strip became the second
+     consumer — spec 015 §6.1, values unchanged; the 012 --ps-snap-*
+     names are aliases now): a released, clicked, or keyed carousel
+     translates to slide k's designed inset over this clock;
+     mid-gesture the track follows the pointer with no transition.
+     The ease aliases the carousel slide grammar — never fork. */
+  --motion-snap-dur: 450ms;
+  --motion-snap-ease: var(--motion-slide-ease);
+
+  /* The translucent ghost (born in the persona cards, spec 012 §5;
+     promoted 2026-08-28 when the gallery strip's off-slides became
+     the second consumer — spec 015 §5/§9 F7, the 0.5 canon by owner
+     ruling): an off-active carousel item's image paints at this
+     opacity under a luminosity blend, so the exposed lattice reads
+     through the ghost. The dressing swaps state-to-state as the
+     active item changes — the blend is not animatable (012 law). */
+  --motion-ghost-opacity: 0.5;
+
   /* The entrance gate and stagger (born in the portfolio, spec 007
      §9 R20/R22; promoted 2026-08-26 at their second consumer — spec
      009 §7.1/§8.3, values unchanged): a section's entrance fires the
