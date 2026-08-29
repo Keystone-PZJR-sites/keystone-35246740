@@ -346,7 +346,12 @@ the persona color filled, `color/base/white` ink, bottom corners
 - **inactive** — a ghost on the lattice: no box shadow; the cost card
   fill drops to the set's translucent grey (`#eae8e0` at 50% — an
   off-ramp value, §9 F4) so the exposed staircase reads through it;
-  the image renders desaturated and lightened — luminosity blend over
+  the image renders desaturated and lightened — **image paint at 0.5
+  opacity under a luminosity blend** *(amended 2026-08-28 — the set
+  draws the image fill at opacity 0.5; the draft transcribed the
+  blend only and the build followed; found at the 015 prep review,
+  canon 0.5 by owner ruling, fixed on the promoted ghost-opacity
+  token — §9 erratum)* over
   the page, per the set (`mix-blend-mode: luminosity` on the image;
   the band has no backing fill, and no ancestor paint transitions
   behind it, so the 007 filter directive is not triggered; the baked
@@ -600,6 +605,18 @@ residuals below.
   healthy server the ghost sliver measures 1.000t at 384/768/960/
   1344 and 0t at 576, exactly the file's design (the rs frame
   places card 2 at column 12, on the page edge).
+- **Erratum, 2026-08-28 (found at the 015 prep review).** The §5
+  inactive dressing missed the set's image-fill **opacity 0.5** under
+  the luminosity blend — all fifteen inactive variants read
+  0.5/luminosity through the bridge; the draft transcribed the blend
+  only, and the build followed (blend-only, so the built ghosts
+  rendered darker than the file). The owner ruled the ghost grammar
+  one-in-all-ways with the canon at **0.5** (015 §9 F7 — the 015
+  strip frames were fixed to it file-side the same evening).
+  `persona-card.css` amended with the 015 build: the inactive image
+  adds `opacity: 0.5` beside the blend, the value on the promoted
+  `--motion-ghost-opacity` token (born `--wg-ghost-opacity` in 015
+  §7; one grammar, one token). §5 carries the amended truth.
 
 ## 10 · Acceptance criteria
 

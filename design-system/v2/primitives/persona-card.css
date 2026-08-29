@@ -137,10 +137,15 @@
   object-fit: cover;
 }
 /* the inactive image reads desaturated and lightened over the page —
-   the set's luminosity blend; not animatable, swaps state-to-state
-   (§7.2). No ancestor paint transitions behind it, so the 007 filter
+   the set's image paint at 0.5 opacity under the luminosity blend
+   (012 §5 as amended 2026-08-28: the draft transcribed the blend only
+   and the first build missed the drawn fill opacity — the 012 §9
+   erratum, found at the 015 prep review; the value is the promoted
+   ghost-opacity canon). Not animatable, swaps state-to-state (§7.2).
+   No ancestor paint transitions behind it, so the 007 filter
    directive is not triggered (§5). */
 .pcard[data-state="inactive"] .pcard-image img {
+  opacity: var(--motion-ghost-opacity);
   mix-blend-mode: luminosity;
 }
 
