@@ -267,6 +267,42 @@ export function caseStudySrc(site: CaseStudySiteId, cut: CaseStudyTier["cut"]): 
   return `/media/case-studies/casestudy-${site}-${cut}.webp`;
 }
 
+/* ---- Our Work gallery (spec 015 §7.1) ----
+ * 27 verbatim WebP exports (supplied 2026-08-28 in the Dropbox
+ * ourwork/export folder): nine gallery images in three width tiers,
+ * each exactly 2× its band's rendered frame (sm the rm strip slide ·
+ * md the rs slide · lg the rd2 mosaic feature). Design's tier
+ * direction: sm serves the 384 band, md the 576 band, lg 768–1344 —
+ * the lg tier serves every mosaic slot (the small tiles crop the 13:9
+ * cut to 3:2 under cover, as the file's fills do; recorded as design's
+ * direction, not a defect). Meaningful alt — the images are the
+ * customers' sites ("The {name} website", threaded from the section's
+ * data module). All below the fold: every image lazy. */
+
+export const GALLERY_IMAGE_COUNT = 9;
+
+export interface GalleryTier {
+  cut: "sm" | "md" | "lg";
+  /** null on the sm tier — it is the <img> fallback, not a <source>. */
+  media: string | null;
+  width: number;
+  height: number;
+}
+
+/** Largest-first, ready for <source> order; the last entry is the
+ * sm fallback. The media cuts follow the nearest-anchor structural
+ * gates (spec 002.r1): lg from the rt gate, md from the rs gate. */
+export const GALLERY_TIERS: GalleryTier[] = [
+  { cut: "lg", media: "(min-width: 665px)", width: 1456, height: 1008 },
+  { cut: "md", media: "(min-width: 470px)", width: 864, height: 576 },
+  { cut: "sm", media: null, width: 608, height: 384 },
+];
+
+/** gallery-{sm|md|lg}-{01–09}.webp under public/media/gallery. */
+export function gallerySrc(image: number, cut: GalleryTier["cut"]): string {
+  return `/media/gallery/gallery-${cut}-${String(image).padStart(2, "0")}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
