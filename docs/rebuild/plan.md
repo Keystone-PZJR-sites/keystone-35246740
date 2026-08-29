@@ -573,6 +573,134 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   module updated in step). Dated amendments + resolution entries:
   006 §9, 010 §7 R9, 011 §9 R24. A 960 Grid-layer 1t overrun found
   at the read was fixed by design and re-read clean the same evening.
+- **Spec 015 is drafted** (late evening, from fresh reads of the five
+  anchor frames' gallery headers, gallery frames, Grid layers, and the
+  `button-fill` set — every landmark, mosaic cell, strip slide, and
+  lattice cell verified against rendered bounds; image slot identity
+  hash-verified across the anchors). The section reads clean and
+  simple: tick-height header blocks (4/3/3/2/2t) with a designed
+  two-line "The Gallery" and a View-fullscreen CTA that is the
+  **standing ButtonFill gray chrome** (the set carries a full
+  `chrome=gray` axis; the built primitive already implements it — no
+  new primitive, one `action`-prop extension); the rt/rd1/rd2 mosaic
+  is a uniform **3×5 grid of 3t×2t cells on t/2 gutters** in a
+  10t×12t box with two 2×2 features; the rm/rs strip is the nine
+  images as a carousel (9.5t/9t × 6t slides, 1t gaps, off-slides the
+  012 translucent-ghost grammar — 60% luminosity, hash-verified);
+  the exposure map is the east rail plus a pre-footer full-lattice
+  row (ornaments ■[11,86] rm · ○[10,63] rs). The strip machine is
+  the 012 one-axis reduction (swipe/ghost-clicks/keys writing k; the
+  012 pointer lessons; the 450ms snap promoting to motion.css at its
+  second consumer). The 27 gallery tiers verified at 2× (sm 608×384 ·
+  md 864×576 · lg 1456×1008; lg serves 768–1344 per design's tier
+  direction). Six draft flags went out (015 §9) and **five resolved
+  the same evening**: the rd2 CTA re-drawn as a gray-lg `button-fill`
+  instance (re-read post-fix), the forced two-line title decided as
+  intent (the trailing-space residue is not canon), the export
+  numbering confirmed as the strip order, **the nine canonical site
+  names received** (meaningful alt, "The {name} website"; one
+  spelling query — the received "Izakai" vs the site's own "IZAKALI"
+  wordmark), and the owner confirm on the CTAs shipping inert on the
+  `open-gallery` action contract until 016 wires the overlay (the
+  006 open-chat precedent). The sixth closed later the same evening:
+  **F2 — the Lune Bodywork feature image's missing 1px `border/000`
+  stroke at rd1/rd2 landed and re-read** (the first fix pass had
+  touched feature A, which was already stroked — both features are
+  728×504 at rd2; the second pass hit the right node; the rd1
+  weight's 1.25 residue is the standing artifact class, transcribed
+  as 1px). **All six 015 flags are resolved; the spec awaits
+  approval.** The spelling query closed at the same-evening prep
+  review (owner): the canonical name is **Izakali** — the wordmark's
+  spelling. The same review ruled the ghost grammar **verbatim in
+  all ways**, and the file reads surfaced a divergence (015 §9 F7,
+  with design): the strip's ghosts draw image-fill 0.6 under
+  luminosity, the persona set's inactive variants 0.5 — and **the
+  built 012 renders blend-only** (its §5 transcription missed the
+  drawn 0.5 fill opacity; a 012 erratum regardless of the canon).
+  The canon landed **0.5** the same evening (owner): design fixed
+  the strip frames file-side, both re-read 0.5/luminosity through
+  the bridge; 015 §5/§7 amended at approval, and the 012 erratum is
+  recorded (012 §5/§9) with the `persona-card.css` fix riding the
+  015 build on the promoted `--motion-ghost-opacity` token.
+- **Spec 015 is approved and built** (owner approval at the prep
+  review, then the build the same night). The token layer
+  re-extracted first (001 rule) — **zero drift** across every layer
+  (the `noise` style still absent, no consumer). Every §1–§5 value
+  re-verified from rendered bounds pre-build — all exact; one file
+  observation, no deviation (the rt/rd1 headers now mount real
+  gray-md `button-fill` instances where the draft read detached
+  equal-value frames). Landed: the 27 gallery tiers into
+  `public/media/gallery/` + the registry (`gallerySrc`, the tier set
+  on the 470/665 gates); the work-gallery section (one server
+  component, the one-DOM mosaic/strip switch on the band gate) with
+  **one client island** — the §5.1 strip machine (k ∈ 1…9, the 012
+  pointer lessons verbatim, band-gated by container measurement);
+  `ButtonFill` gained the `action` prop and the CTA ships inert on
+  `open-gallery` (016 wires it); **two promotions at their second
+  consumers** — the carousel snap (`--motion-snap-dur/-ease`, the
+  012 `--ps-snap-*` names now aliases) and the translucent ghost
+  (`--motion-ghost-opacity: 0.5`); the 012 persona-ghost erratum
+  fixed in step (`persona-card.css` gains the opacity; `/pricing`
+  reads 0.5/luminosity). No build errata — every value built as
+  specced. Acceptance checked at the five anchors + nine slice
+  widths (headless audits: landmarks exact at all fourteen widths,
+  the mosaic line-inclusive on the rail and row lines, the strip
+  machine through every input incl. capture/dragstart/click-swallow,
+  k inert above the gate, the 014 choreography byte-identical at six
+  animations, reduced-motion and no-JS settled at k=1); renders
+  compared against the file at rm and rd2 — identical. tsc/lint
+  zero; the full sweep green; the production build static —
+  `/our-work` 1.97 kB route JS · 107 kB first load (+0.8 kB for the
+  island), `/` and `/pricing` byte-unchanged. 016 (the fullscreen
+  overlay + page assembly) is the remaining Our Work spec; its F3
+  design inputs are now due.
+
+## Decision log — 2026-08-29
+
+- **The case-study card interaction reworked** (owner direction,
+  morning — the 011 R13 cadence; dated amendments in 014 §4/§6/§8,
+  the full record in 014 §9). Design updated the file first: the
+  card set gained a **state axis** (sixteen variants), the resting
+  image shadow was removed, and the `button-inline` states re-inked
+  (default `text/300` · hover ink-up `text/100` · focus wash
+  `bg/300`) — read through the official MCP (the console bridge was
+  down; no geometry changed, so no rendered-bounds dependency). The
+  **whole card is the link** now (an overlay `<a>` on the 012
+  card-overlay pattern, named "View the {name} case study"; the
+  inline button demoted to presentational dressing); hovering
+  anywhere on the card grows `hard-shadow-square` on the card box
+  (the promoted card-shadow grammar borrowed unchanged at its third
+  consumer — 450/300ms on the drawer ease), darkens the profile
+  hairline `border/000 → border/200` resolving sooner on both sides
+  (350/250ms, the two new enumerated constants), and fires the
+  button's hover; keyboard focus gets the same dressing plus the
+  `bg/300` wash. The load choreography reshaped in step: the shadow
+  beat retired — **five animations**, the settle on card 1's rise
+  (the orchestrator's standing `finalSelector` hook). Verified
+  2026-08-29: the drawn values at the hover pair, five beats
+  settling, reduced-motion/no-JS settled, the landmark audit at all
+  fourteen widths, the sweep green, budgets byte-identical. A
+  same-morning second pass extended the hover darken to the
+  **site-image outline** (all eight hover variants re-read
+  `border/200` on the image; built on the one border clock — both
+  hairlines together), and a third added a **subtle image zoom**
+  inside the clipped frame (owner intent; 1.04 on the shadow's
+  clocks, built paint-in-place per the 003 doctrine — 014 §9 carries
+  the construction facts). One file flag with design (014 §9): the xs
+  hover variant carries a **stray image-level `hard-shadow-square`**
+  where every sibling draws the block shadow at the card level —
+  read as a leftover of the shadow move; the build renders the
+  card-level shadow at every arrangement, nothing builds from the
+  stray.
+- **The gallery crop anchored top** (owner decision, late morning —
+  015 §9 amendment). The 015 §7.1 tier direction (one 13:9 lg cut
+  for every mosaic slot) crops ~4% of the height in the 3:2 small
+  cells; centered cover clipped the screenshots' top-hugging navs
+  (owner report with built-vs-export comparisons). Built as
+  `object-position: top` — inert on the aspect-exact strip and
+  features; per-slot 3:2 exports stay open as the deeper option.
+  Design re-exported the **sm tier** the same pass (separate export
+  issue; nine files, dimensions unchanged) — a byte-only asset swap.
 
 ## Phasing
 
