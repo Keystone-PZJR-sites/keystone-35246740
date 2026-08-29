@@ -1,17 +1,24 @@
-/* v2 primitives — button-inline (spec 014 §4, set 648:41368).
-   One size at every band: label text/md/Regular 16/22 in text/100, the
-   10px trigger glyph on a 4 gap — all material (the set's box is
-   135×22 at every card size).
+/* v2 primitives — button-inline (spec 014 §4, set 648:41368; state
+   re-inks amended 2026-08-29 from the updated set — 014 §9).
+   One size at every band: label text/md/Regular 16/22, the 10px
+   trigger glyph on a 4 gap — all material (the set's box is 135×22 at
+   every card size).
 
-   Hover (§6.1): the glyph slides exactly 4px right (the set's hover
-   variant reads gap 4 → 8) and back on mouse-out, both on the hover
-   pair — animated as paint-in-place `left`, never translate (the 003
-   glyph doctrine: starting a translate transition promotes the glyph
-   to a compositor layer whose creation re-rasters the ancestor mid
+   States (the 2026-08-29 set): default inks the label text/300; hover
+   inks it up to text/100 AND slides the glyph exactly 4px right (the
+   set's hover variant reads gap 4 → 8) — both on the hover pair, the
+   glyph as paint-in-place `left`, never translate (the 003 glyph
+   doctrine: starting a translate transition promotes the glyph to a
+   compositor layer whose creation re-rasters the ancestor mid
    paint-transition). Geometry never changes; the label never moves.
 
-   Focus: the row's bg/400 wash (the set's focus variant — the visible
-   focus style; read with its variable binding 2026-08-28).
+   Focus: the row's bg/300 wash (the set's focus variant — re-inked
+   from bg/400 in the same update; read with its variable binding).
+
+   The card mount (014 §5 as amended 2026-08-29) renders this as a
+   presentational span and drives the same hover dressing from the
+   card's own link — those rules live in case-study-card.css and
+   reference the same tokens.
 
    State forcing: the /primitives QA matrix renders non-default states
    statically via data-state; interactive selectors are paired with
@@ -24,11 +31,13 @@
   position: relative;
   text-decoration: none;
   white-space: nowrap;
-  color: var(--color-text-100);
+  color: var(--color-text-300);
   font: var(--ts-text-md-regular-font);
   letter-spacing: var(--ts-text-md-regular-ls);
   font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
   font-optical-sizing: none;
+  /* on the resting rule so mouse-out reverses on the same curve */
+  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
 }
 /* the 22px row is under the 44px touch floor — the hit area extends
    vertically by a pseudo anchored to the row box (the 007 grid-button
@@ -49,9 +58,15 @@
 }
 
 @media (hover: hover) {
+  .btn-inline:hover {
+    color: var(--color-text-100);
+  }
   .btn-inline:hover .btn-inline-glyph {
     left: var(--btn-inline-advance);
   }
+}
+.btn-inline[data-state="hover"] {
+  color: var(--color-text-100);
 }
 .btn-inline[data-state="hover"] .btn-inline-glyph {
   left: var(--btn-inline-advance);
@@ -60,12 +75,14 @@
 .btn-inline:focus-visible,
 .btn-inline[data-state="focus"] {
   outline: none;
-  background: var(--color-bg-400);
+  background: var(--color-bg-300);
+  color: var(--color-text-100);
 }
 
-/* reduced motion (§6.2): state-to-state — the advanced state still
-   applies while hovered, the transition is off */
+/* reduced motion (§6.2): state-to-state — the dressed state still
+   applies while hovered, the transitions are off */
 @media (prefers-reduced-motion: reduce) {
+  .btn-inline,
   .btn-inline-glyph {
     transition-duration: 0s;
     transition-delay: 0s;

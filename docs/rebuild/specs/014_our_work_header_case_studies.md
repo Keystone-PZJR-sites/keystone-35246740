@@ -217,9 +217,17 @@ art-directed export — §7) and the **profile card** (a `bg/000` box,
 arrangements at md/lg/xl put them side by side (`left-image` /
 `right-image`); sm/xs stack the image over the profile (`centered`).
 
-**Shadow and z-order.** The site image carries the
+**Shadow and z-order.** ~~The site image carries the
 `hard-shadow-square` token (read from the effect style on every
-variant); the profile card carries **no** effect. *Amended 2026-08-28
+variant)~~ *amended 2026-08-29 (the whole-card interaction rework,
+§9): design removed the resting image shadow and gave the set a
+**state axis** (default/hover, sixteen variants) — at rest no box
+carries an effect; on hover the **whole card** carries
+`hard-shadow-square` and **both hairlines darken** `border/000 →
+border/200` — the profile's and the site-image's outline (the
+same-day outline addendum, read from all eight hover variants). The
+z-order and line-inclusive laws below are unchanged*; the profile
+card carries **no** effect. *Amended 2026-08-28
 (evening, design addition): the site image also carries a **1px
 `border/000` stroke** — read from all eight variants and the section
 instances with its variable binding (first through the official MCP
@@ -267,13 +275,21 @@ their size like the siblings (24/32; 28/36 at xl) — fixed by design
 and re-read at every anchor 2026-08-28 (§9 F5).
 
 **The inline button** (`button-inline`, a new primitive): label
-**View Case Study** in `text/md/Regular` 16/22, `text/100`, the 10px
-trigger glyph (`IconNavTrigger`, the 005 vocabulary) on a 4 gap — one
-size at every band. Hover: the glyph advances 4px right (gap 4 → 8 in
-the set's hover variant) on `--motion-hover-duration` /
-`--motion-hover-ease`, paint-in-place `left` (the 003 glyph doctrine),
-and returns on mouse-out. Focus: `:focus-visible` paints the row's
-`bg/400` wash (the set's focus variant — the visible focus style).
+**View Case Study** in `text/md/Regular` 16/22, the 10px trigger
+glyph (`IconNavTrigger`, the 005 vocabulary) on a 4 gap — one size at
+every band. *State re-inks amended 2026-08-29 from the updated set
+(§9): default ink `text/300` (was `text/100`); hover inks the label
+up to `text/100` **and** advances the glyph (both on the hover
+pair); the focus wash re-inked `bg/300` (was `bg/400`).* Hover: the
+glyph advances 4px right (gap 4 → 8 in the set's hover variant) on
+`--motion-hover-duration` / `--motion-hover-ease`, paint-in-place
+`left` (the 003 glyph doctrine), and returns on mouse-out. Focus:
+`:focus-visible` paints the row's wash (the set's focus variant — the
+visible focus style). *Amended 2026-08-29: in the card the button is
+**presentational dressing** — the whole card is the link (an overlay
+`<a>`, the 012 card-overlay pattern) and hovering anywhere on the
+card fires the button's hover; the primitive renders a real `<a>`
+only when mounted with an `href` (the /primitives rows).*
 Destination: each card's **case-study page, `/case-studies/{slug}`**
 (owner decision 2026-08-28 — §9 F9); the slugs are §5's. The routes
 404 on this branch until the rebuilt case-studies surface lands (the
@@ -341,11 +357,16 @@ elements ride the shared fade-rise (`hx-rise`,
 | rect | card 1 | 620ms |
 
 Cards 2–3 are below the fold at every band and stay born settled.
-Card 1's hard shadow never paints while its box moves (the shadow
+~~Card 1's hard shadow never paints while its box moves (the shadow
 law): it grows from the `--shadow-hard-square-0` origin over
 `--motion-card-shadow-dur` on the drawer ease-out after the rise
 lands — and that growth is the choreography's **final beat**: the
-orchestrator settles the page on its `animationend`.
+orchestrator settles the page on its `animationend`.~~ *Amended
+2026-08-29 (the interaction rework, §9): the shadow beat retired with
+the resting image shadow — the run is **five fade-rises**, and card
+1's rise (the last to end on the shared clock) is the final beat the
+orchestrator settles on (`finalAnimation="hx-rise"`,
+`finalSelector=".csc"`).*
 
 Mechanics: the 006 orchestrator generalized at this second consumer
 (`load-orchestrator.tsx`, the final beat parameterized; `HeroLoad`
@@ -358,14 +379,54 @@ island** (the orchestrator — the homepage pattern); both sections
 stay island-free. `v2:replay` re-runs; reduced motion and no-JS
 render the settled page (the §6.2 contract unchanged).
 
-### 6.1 · The inline-button glyph advance
+### 6.1 · The card hover (amended 2026-08-29 — the whole-card
+interaction; the glyph advance stands within it)
 
-While the pointer rests on the button (hover-capable media), the
-trigger glyph slides exactly 4px right and slides back on mouse-out,
-both on `--motion-hover-duration` / `--motion-hover-ease` — the 003
-button-glyph grammar at its designed distance; animated as
-paint-in-place `left` (the 003 doctrine). Geometry never changes; the
-label never moves.
+*Owner direction 2026-08-29, drawn as the set's hover variants:*
+while the pointer rests **anywhere on the card** (hover-capable
+media; the overlay link spans the card, so link hover is card hover),
+three things dress together and reverse on mouse-out:
+
+- **The block shadow** — `hard-shadow-square` grows on the card box
+  from its 0,0 origin token, borrowing the promoted card-shadow
+  grammar unchanged (the nav feature cards, the grammar's third
+  consumer): grow `--motion-card-shadow-dur` (450ms), reverse
+  `--motion-card-shadow-out-dur` (300ms), both on the drawer ease.
+  The box never moves, so the shadow law is idle here.
+- **Both hairlines** — the profile border AND the site-image outline
+  darken `border/000 → border/200` together (the outline joined the
+  same day — the outline addendum), resolving a little sooner than
+  the shadow on both sides (owner intent): `--csc-border-dur` 350ms
+  in, `--csc-border-out-dur` 250ms out, the same ease, one clock for
+  both.
+- **The image zoom** (the same-day zoom addendum — owner intent in
+  prose, values chosen at build; tuned the same session, owner:
+  **2% → 1% per side**, and the ease-out declared explicitly on the
+  zoom): a subtle cover zoom inside the clipped site-image frame —
+  **1.02** (`--csc-img-zoom: 1%` per side), riding the shadow's
+  clocks (450ms in / 300ms out) on the grammar's ease-out (the
+  drawer ease, aliased — never forked) so zoom and shadow settle
+  together while the hairlines resolve sooner. Built as a
+  **paint-in-place box grow**
+  (top/left/width/height), never `scale` — the 003 doctrine:
+  starting a transform transition inside elements whose paint is
+  transitioning (the borders, the shadow) re-rasters them
+  mid-transition. Two build facts the construction pinned: an
+  absolutely positioned replaced element keeps its intrinsic size
+  rather than stretching to its insets (explicit width/height, not
+  inset sizing), and the base reset's `max-width: 100%` clamps the
+  grow (overridden inside the clipped frame). The frame box never
+  moves; the landmark audit is untouched.
+- **The inline button's hover** — the label inks up to `text/100` and
+  the trigger glyph slides exactly 4px right, both on
+  `--motion-hover-duration` / `--motion-hover-ease` — the 003
+  button-glyph grammar at its designed distance; animated as
+  paint-in-place `left` (the 003 doctrine). Geometry never changes;
+  the label never moves.
+
+Keyboard parity: `:focus-visible` on the card link fires the same
+dressing plus the button's `bg/300` wash — the card's visible focus
+style.
 
 ### 6.2 · Reduced motion
 
@@ -419,8 +480,11 @@ no-JS render is the settled section; nothing here needs JavaScript.
 2. **Primitives** `design-system/v2/primitives/case-study-card.tsx` +
    `.css` (size × arrangement per §4, content prop-driven, the star an
    opt-in per stat) and `button-inline.tsx` + `.css` (states
-   CSS-driven, `href` mandatory, `forceState` for the catalog). The
-   `/primitives` catalog gains both sets in the same commit.
+   CSS-driven, ~~`href` mandatory~~ *amended 2026-08-29: `href`
+   optional — without one the button renders a presentational `<span>`
+   for the card mount*, `forceState` for the catalog). The
+   `/primitives` catalog gains both sets in the same commit *(and the
+   card's forced-hover row with the 2026-08-29 state axis)*.
 3. **Icons** — `IconStar` into `design-system/v2/icons.tsx` (§7.2);
    `IconNavTrigger` and `IconChat` exist — never re-exported.
 4. **Routes** — the composition module `design-system/v2/our-work.tsx`
@@ -437,10 +501,16 @@ no-JS render is the settled section; nothing here needs JavaScript.
    case study is an `<article>` with an `<h2>` (the customer name);
    the stats are a `<dl>` (value `<dd>`, label `<dt>`); the star is
    `aria-hidden` beside its numeral (the label "Average rating"
-   carries the meaning); the site image has meaningful alt; the View
-   Case Study CTA is a real `<a>`; the chat ghost a real `<button>`.
-   Lattice, ornament cells, and dividers are presentation
-   (`aria-hidden` where SVG; CSS borders otherwise).
+   carries the meaning); the site image has meaningful alt; ~~the
+   View Case Study CTA is a real `<a>`~~ *amended 2026-08-29: the
+   card's link is an **overlay `<a>` spanning the card** (the 012
+   card-overlay pattern — the positioned profile box blocks a
+   stretched pseudo on the inline button), named "View the {name}
+   case study" (which also disambiguates the three otherwise-identical
+   labels); the inline button demotes to `aria-hidden` dressing (its
+   copy duplicates the overlay's name — no second tab stop)*; the
+   chat ghost a real `<button>`. Lattice, ornament cells, and dividers
+   are presentation (`aria-hidden` where SVG; CSS borders otherwise).
 6. Docs in the same commits: plan.md's Our Work record and the launch
    checklist's per-page row.
 
@@ -572,6 +642,66 @@ amendments, §4 and §6.0):
   motion and no-JS render settled, and the landmark audit passes at
   rest at all nine re-checked widths (the audit waits for
   `v2-settled` — the audits-at-rest law).
+
+**Revision, 2026-08-29 — the whole-card interaction** (owner
+direction; design updated the file first — the card set gained a
+**state axis** (default/hover, sixteen variants: the eight hover
+variants `671:12049` · `12085` · `12121` · `12157` · `12193` ·
+`12229` · `12265` · `12301`), the resting image shadow was removed,
+and the `button-inline` set's states were re-inked. Read through the
+official MCP (`get_design_context` on the set, the xl default/hover
+pair, and the button set — the console bridge was down this session;
+the change carries no geometry, so no rendered-bounds dependency).
+Landed as dated amendments in §4, §5-adjacent copy in §4's button
+block, §6.0, §6.1, and §8; this entry is the record:
+
+- **The whole card is the link.** An overlay `<a>` spans the card
+  (the 012 card-overlay pattern — the positioned profile box blocks a
+  stretched pseudo on the inline button), named "View the {name}
+  case study"; the inline button demotes to `aria-hidden`
+  presentational dressing (`ButtonInline` renders a `<span>` when
+  mounted without `href` — a one-line primitive extension). Clicking
+  anywhere on the card navigates to `/case-studies/{slug}`.
+- **The hover dressing** (drawn in the hover variants, §6.1 as
+  amended): `hard-shadow-square` on the whole card on the borrowed
+  card-shadow grammar (450/300ms, drawer ease — the grammar's third
+  consumer, tokens referenced, never forked); the profile hairline
+  `border/000 → border/200` resolving sooner on both sides
+  (`--csc-border-dur` 350ms / `--csc-border-out-dur` 250ms, owner
+  intent — the two new enumerated constants); the button's hover
+  (ink-up + glyph advance) fires with them. Keyboard parity on
+  `:focus-visible` plus the `bg/300` wash.
+- **The button re-inks** (the updated set): default `text/300`,
+  hover/focus ink `text/100`, the focus wash `bg/300` (was `bg/400`).
+  The /primitives rows re-render the new values; the catalog gains a
+  forced-hover card row.
+- **The choreography reshaped:** the shadow beat retired with the
+  resting shadow — **five animations** now, the settle on card 1's
+  rise (`finalSelector` pins it; the orchestrator API already carried
+  the hook). Verified 2026-08-29: five rises exactly
+  (80/190/330/490/620 × 800ms), the run settles, nav and lattice
+  never animate, reduced motion renders every transition at 0s, a
+  no-JS render is settled; hover verified at the drawn values
+  (shadow 4/4 at 450/300ms, border/200 at 350/250ms, ink `text/100`,
+  glyph +4px); the whole-card click navigates; the landmark audit
+  re-passed at all fourteen widths, the full sweep green, and the
+  production budgets are byte-identical (`/our-work` 1.97 kB · 107
+  kB, `/` and `/pricing` unchanged).
+- **The outline addendum (same morning, second pass):** design
+  extended the hover darken to the **site-image outline** — all eight
+  hover variants re-read `border/200` on the image (xl `671:12050` ·
+  sm `671:12194` · xs `671:12158` read directly; the profile and
+  button dressing unchanged). Built on the one border clock
+  (350/250ms — both hairlines darken and resolve together); §4 and
+  §6.1 carry the amended truth. **One file flag with design:** the
+  **xs hover variant carries a stray `hard-shadow-square` on its
+  site-image node** (`671:12158`) and none on its root — every other
+  hover variant draws the block shadow at the card level (xl root
+  read directly; the sm render shows the whole-card shadow). Read as
+  a leftover of the shadow move, not intent; the build renders the
+  card-level shadow at every arrangement (the stated whole-card
+  intent). Pending design's file-side cleanup; nothing builds from
+  the stray.
 
 ## 10 · Acceptance criteria
 

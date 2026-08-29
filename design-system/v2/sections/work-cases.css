@@ -186,37 +186,19 @@
   }
 }
 
-/* ---------------- the entrance (§6 as amended 2026-08-28) ----------------
+/* ---------------- the entrance (§6 as amended 2026-08-28; the shadow
+   beat retired 2026-08-29) ----------------
 
    Card 1 rides the page's rises-only load choreography (owner
    direction — the homepage sequence minus the nav beat, the lattice
    sweep, and the highlight pass; our-work.css carries the page guard).
    The card enters on the shared fade-rise at the hero rhythm's image
-   beat; its hard shadow never paints while the box moves (the shadow
-   law) — it grows from the 0,0 origin token after the rise lands, and
-   that growth is the choreography's final beat (the orchestrator
-   settles on its animationend). */
+   beat — the choreography's final beat (the orchestrator settles on
+   its animationend; five animations page-wide). The 2026-08-28 shadow
+   beat left with the resting image shadow (the 2026-08-29 interaction
+   rework — the shadow is the card's hover dressing now, 014 §9): the
+   run has no shadow to grow, and card 1's rise settles it. */
 
 .v2-wkc .csc.hx-rise {
   --_d: var(--hx-d-rect);
-}
-.v2-load .csc.hx-rise .csc-img {
-  animation: wk-shadow-in var(--motion-card-shadow-dur) var(--motion-drawer-ease) backwards;
-  animation-delay: calc(var(--hx-d-rect) + var(--motion-rise-duration));
-}
-@keyframes wk-shadow-in {
-  from {
-    box-shadow: var(--shadow-hard-square-0);
-  }
-}
-.page.v2-settled .csc.hx-rise .csc-img {
-  animation: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .v2-load .csc.hx-rise .csc-img {
-    animation: none;
-  }
-}
-.page[data-motion="reduce"] .csc.hx-rise .csc-img {
-  animation: none;
 }

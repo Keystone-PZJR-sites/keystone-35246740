@@ -394,8 +394,9 @@ export default function PrimitivesPage() {
 
       <section className="pv-section">
         <h2>button-inline</h2>
-        {/* the set's three states (spec 014 §4): default, the 4px glyph
-            advance, the bg/400 focus wash */}
+        {/* the set's three states (spec 014 §4 as amended 2026-08-29):
+            text/300 default, the hover ink-up + 4px glyph advance, the
+            bg/300 focus wash */}
         <div className="pv-row">
           <ButtonInline href="/case-studies/palm-coast-zivel">View Case Study</ButtonInline>
           <ButtonInline href="/case-studies/palm-coast-zivel" forceState="hover">
@@ -409,8 +410,12 @@ export default function PrimitivesPage() {
 
       <section className="pv-section">
         <h2>case-study-card</h2>
-        {/* the set's eight variants (spec 014 §4): size × arrangement —
-            left/right rows at md/lg/xl, the centered stacks at sm/xs */}
+        {/* the set's variants (spec 014 §4 as amended 2026-08-29):
+            size × arrangement × state — left/right rows at md/lg/xl,
+            the centered stacks at sm/xs; the whole card is the link
+            and hover dresses it (block shadow, darkened profile
+            hairline, the inline button's hover) — the md hover row
+            renders the state statically */}
         {(["xl", "lg", "md"] as const).map((size) => (
           <div key={size}>
             <h3>{size}</h3>
@@ -422,6 +427,12 @@ export default function PrimitivesPage() {
             </div>
           </div>
         ))}
+        <div>
+          <h3>md · hover</h3>
+          <div className="pv-row">
+            <CaseStudyCard study={CASE_STUDIES[0]} size="md" arrangement="left-image" forceState="hover" />
+          </div>
+        </div>
         <div className="pv-row">
           {(["sm", "xs"] as const).map((size) => (
             <div key={size} className="pv-cell">

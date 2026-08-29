@@ -347,6 +347,21 @@
      doctrine). */
   --btn-inline-advance: 4px;
 
+  /* case-study-card hover (014 §6.1 as amended 2026-08-29): the card
+     shadow borrows the promoted card-shadow grammar unchanged (450ms
+     grow / 300ms reverse on the drawer ease — the nav feature cards);
+     both hairlines' darken resolves a little sooner than that clock
+     on both sides (owner intent), same ease. The image zoom (the
+     same-day addendum; tuned 2% → 1% the same session, owner): a
+     subtle cover zoom inside the clipped frame, built as a
+     paint-in-place box grow (1% per side = 1.02 — the 003 doctrine:
+     never start a transform transition inside elements whose paint
+     is transitioning), riding the shadow clock on the grammar's
+     ease-out so zoom and shadow settle together. */
+  --csc-border-dur: 350ms;
+  --csc-border-out-dur: 250ms;
+  --csc-img-zoom: 1%;
+
   /* work-gallery (spec 015 §7.2): the ghost opacity — born promoted
      (the 012 persona ghost is the grammar's other consumer, fixed in
      the same build); this name is the section alias of the motion

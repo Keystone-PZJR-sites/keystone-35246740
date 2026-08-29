@@ -12,21 +12,115 @@
    (work-cases.css); [data-size] carries the designed boxes so a bare
    card also renders its set variant.
 
-   Shadow and z-order (§4): the site image carries hard-shadow-square
-   (read from the effect style on every variant); the profile carries
-   no effect. At left-image and centered the image sits above the
-   profile in z, so its shadow paints over the card where they touch;
-   at right-image the profile sits above and the image's shadow falls
-   east and south. The profile is a bg/000 box with a 1px border/000,
-   line-inclusive per the 011 R17 law: its trailing edges extend 1px
-   past the whole-tick card box so the border lands on the lattice
-   line's canonical pixel — the touching edge shares its pixel and z
-   decides whose ink paints. */
+   Shadow, states, and z-order (§4 as amended 2026-08-29 — the set
+   gained a state axis; the resting image shadow is gone): at rest no
+   box carries an effect. The whole card is the link (the .csc-link
+   overlay — the interaction rework, 014 §9); hovering anywhere on the
+   card dresses it: hard-shadow-square grows on the CARD box, the
+   profile hairline darkens border/000 → border/200, and the inline
+   button's hover fires (ink up + glyph advance — the same tokens
+   button-inline.css consumes). The shadow borrows the promoted
+   card-shadow grammar (the nav feature cards — grow 450ms, reverse
+   300ms, both on the drawer ease; this card is the grammar's third
+   consumer); the border resolves a little sooner on both sides
+   (--csc-border-dur/-out-dur, owner intent 2026-08-29). Keyboard
+   parity: focus-visible on the overlay fires the same dressing plus
+   the button's bg/300 focus wash — the card's visible focus style.
+
+   The profile is a bg/000 box with a 1px border/000, line-inclusive
+   per the 011 R17 law: its trailing edges extend 1px past the
+   whole-tick card box so the border lands on the lattice line's
+   canonical pixel — the touching edge shares its pixel and z decides
+   whose ink paints. */
 
 .csc {
   --_u: var(--csc-u, 1px);
   position: relative;
   isolation: isolate;
+  /* the hover block shadow, born at its 0,0 origin token; the resting
+     side carries the out duration (the nav-card construction) */
+  box-shadow: var(--shadow-hard-square-0);
+  transition: box-shadow var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+
+/* the whole-card link — a real <a> above both boxes (the 012
+   card-overlay pattern); its name is the card's action */
+.csc-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+.csc-link:focus-visible {
+  /* the dressing below is the visible focus style */
+  outline: none;
+}
+
+/* the hover/focus dressing, keyed on the card (the overlay spans it,
+   so link hover IS card hover); data-state twins render it statically
+   for the /primitives matrix */
+@media (hover: hover) {
+  .csc:hover {
+    box-shadow: var(--shadow-hard-square);
+    transition-duration: var(--motion-card-shadow-dur);
+  }
+  /* both hairlines darken together — the profile AND the site-image
+     outline (the 2026-08-29 outline addendum, read from all eight
+     hover variants) — on the one border clock */
+  .csc:hover .csc-profile,
+  .csc:hover .csc-img {
+    border-color: var(--color-border-200);
+    transition-duration: var(--csc-border-dur);
+  }
+  .csc:hover .btn-inline {
+    color: var(--color-text-100);
+  }
+  .csc:hover .btn-inline-glyph {
+    left: var(--btn-inline-advance);
+  }
+  /* the subtle image zoom, on the shadow's in clock, decelerating on
+     the grammar's ease-out */
+  .csc:hover .csc-img img {
+    top: calc(-1 * var(--csc-img-zoom));
+    left: calc(-1 * var(--csc-img-zoom));
+    width: calc(100% + 2 * var(--csc-img-zoom));
+    height: calc(100% + 2 * var(--csc-img-zoom));
+    transition-duration: var(--motion-card-shadow-dur);
+    transition-timing-function: var(--motion-drawer-ease);
+  }
+}
+.csc:has(.csc-link:focus-visible),
+.csc[data-state="hover"] {
+  box-shadow: var(--shadow-hard-square);
+  transition-duration: var(--motion-card-shadow-dur);
+}
+.csc:has(.csc-link:focus-visible) .csc-profile,
+.csc:has(.csc-link:focus-visible) .csc-img,
+.csc[data-state="hover"] .csc-profile,
+.csc[data-state="hover"] .csc-img {
+  border-color: var(--color-border-200);
+  transition-duration: var(--csc-border-dur);
+}
+.csc:has(.csc-link:focus-visible) .btn-inline,
+.csc[data-state="hover"] .btn-inline {
+  color: var(--color-text-100);
+}
+.csc:has(.csc-link:focus-visible) .btn-inline-glyph,
+.csc[data-state="hover"] .btn-inline-glyph {
+  left: var(--btn-inline-advance);
+}
+.csc:has(.csc-link:focus-visible) .csc-img img,
+.csc[data-state="hover"] .csc-img img {
+  top: calc(-1 * var(--csc-img-zoom));
+  left: calc(-1 * var(--csc-img-zoom));
+  width: calc(100% + 2 * var(--csc-img-zoom));
+  height: calc(100% + 2 * var(--csc-img-zoom));
+  transition-duration: var(--motion-card-shadow-dur);
+  transition-timing-function: var(--motion-drawer-ease);
+}
+/* keyboard focus adds the button's wash (the set's focus variant) —
+   the ring-equivalent signal on the card */
+.csc:has(.csc-link:focus-visible) .btn-inline {
+  background: var(--color-bg-300);
 }
 
 /* ---------------- the site image (§7.1) ---------------- */
@@ -39,19 +133,45 @@
      amended). The stroke makes the image a bordered box, so its
      trailing edges take the same line-inclusive +1px treatment as the
      profile — the seam and the lattice lines stay single hairlines,
-     shared pixels, z deciding whose ink paints (011 R17). */
+     shared pixels, z deciding whose ink paints (011 R17). The resting
+     hard shadow left with the 2026-08-29 interaction rework — the
+     shadow is the card's hover dressing now (§4 as amended). The
+     outline darkens with the profile's on card hover (the same-day
+     outline addendum), on the same sooner-resolving border clock.
+     The frame clips the hover zoom (the file's own overflow-clip). */
   border: 1px solid var(--color-border-000);
-  box-shadow: var(--shadow-hard-square);
+  overflow: hidden;
+  transition: border-color var(--csc-border-out-dur) var(--motion-drawer-ease);
 }
 .csc-img picture {
   position: absolute;
   inset: 0;
 }
+/* the hover zoom is a paint-in-place box grow (+1% per side = a 1.02
+   cover zoom), never a scale — the 003 doctrine: starting a transform
+   transition inside elements whose paint is transitioning (the
+   borders, the card shadow) re-rasters them mid-transition. Explicit
+   width/height, not inset sizing: an absolutely positioned replaced
+   element keeps its intrinsic/attribute size instead of stretching to
+   its insets. On the resting rule with the shadow's out clock, on the
+   grammar's ease-out (the drawer ease — aliased, never forked), so
+   mouse-out reverses with the shadow. */
 .csc-img img {
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  /* the base reset clamps images at max-width 100% — the zoom must
+     grow past it; the frame clips, so nothing escapes */
+  max-width: none;
   object-fit: cover;
+  transition:
+    top var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    left var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    width var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    height var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
 }
 
 /* ---------------- the profile card ---------------- */
@@ -67,6 +187,9 @@
   justify-content: space-between;
   background: var(--color-bg-000);
   border: 1px solid var(--color-border-000);
+  /* the hairline darkens on card hover; the resting side carries the
+     sooner-resolving out duration (§6.1 as amended 2026-08-29) */
+  transition: border-color var(--csc-border-out-dur) var(--motion-drawer-ease);
   padding:
     calc(var(--_u) * var(--csc-pt, 16))
     calc(var(--_u) * var(--csc-px, 16))
@@ -352,4 +475,17 @@
   right: -1px;
   bottom: -1px;
   z-index: 1;
+}
+
+/* reduced motion: the hover dressing swaps state-to-state (last in
+   the file — the base rules' transition shorthands must not outrank
+   the kill by order) */
+@media (prefers-reduced-motion: reduce) {
+  .csc,
+  .csc-profile,
+  .csc-img,
+  .csc-img img {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
 }

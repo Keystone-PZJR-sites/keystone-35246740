@@ -14,13 +14,14 @@ import { LoadOrchestrator } from "@/design-system/v2/sections/load-orchestrator"
  * assembly) lands last. The page carries two islands: the
  * orchestrator and the 015 strip machine (the gallery's own).
  *
- * The entrance (014 §6 as amended 2026-08-28, owner direction): the
- * rises-only load choreography — `v2-choreo-rise` opts the page into
- * the rises-only cold-load guard (our-work.css; the nav never reloads,
+ * The entrance (014 §6 as amended 2026-08-28; the shadow beat retired
+ * 2026-08-29 with the whole-card interaction rework): the rises-only
+ * load choreography — `v2-choreo-rise` opts the page into the
+ * rises-only cold-load guard (our-work.css; the nav never reloads,
  * the lattice never sweeps, there is no highlight pass) and the
- * orchestrator island settles the run on the card shadow beat, the
- * choreography's final animation. Social URLs come from the retained
- * Keystone data layer.
+ * orchestrator island settles the run on card 1's fade-rise, the
+ * choreography's final animation (five beats). Social URLs come from
+ * the retained Keystone data layer.
  *
  * `qa` is /our-work-fixture's dev-only self-test mount slot (the 013
  * §7 pattern; the Our Work expectations module lands with 016). It
@@ -45,7 +46,11 @@ export async function OurWorkPage({ qa }: { qa?: React.ReactNode }) {
           youtube: companyInfo?.youtube_url,
         }}
       />
-      <LoadOrchestrator finalAnimation="wk-shadow-in" />
+      {/* card 1's rise is the choreography's final beat (the shadow
+          beat retired 2026-08-29 with the resting image shadow — 014
+          §9); the selector pins the settle to the card's own hx-rise,
+          the last to end on the shared clock */}
+      <LoadOrchestrator finalAnimation="hx-rise" finalSelector=".csc" />
       {qa}
     </div>
   );
