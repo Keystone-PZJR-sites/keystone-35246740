@@ -74,12 +74,17 @@ own spec's record. This table supersedes the 2026-08-22 page totals in
 plan.md (the 768/960 1t card reductions of 2026-08-26 stand) and is
 the current record.
 
+*Amended 2026-08-28 — the page-load streamline (006 §9): the rd1 hero
+compressed 1t, so the whole rd1 column rides up one tick (total 51t →
+50t; was 0–13 hero · 13–22 · 22–31 · 31–39 · 39–51). Re-read from the
+960 frame and rendered-bounds verified; the other bands' rows stand.*
+
 | band | hero (006) | portfolio (007) | engine (008) | testimonials (009) | row 40 | footer (004) | page total |
 |---|---|---|---|---|---|---|---|
 | rm (384) | 0–26 (26t) | 26–45 (19t) | 45–66 (21t) | 66–77 (11t) | — | 77–101 (24t) | **101t** |
 | rs (576) | 0–20 (20t) | 20–31 (11t) | 31–44 (13t) | 44–53 (9t) | — | 53–74 (21t) | **74t** |
 | rt (768) | 0–13 (13t) | 13–22 (9t) | 22–31 (9t) | 31–38 (7t) | — | 38–53 (15t) | **53t** |
-| rd1 (960) | 0–13 (13t) | 13–22 (9t) | 22–31 (9t) | 31–39 (8t) | — | 39–51 (12t) | **51t** |
+| rd1 (960) | 0–12 (12t) | 12–21 (9t) | 21–30 (9t) | 30–38 (8t) | — | 38–50 (12t) | **50t** |
 | rd2 (1344) | 0–12 (12t) | 12–21 (9t) | 21–29 (8t) | 29–40 (11t) | 40–41 (1t) | 41–52 (11t) | **52t** |
 
 - The **nav** is overlay chrome (44px material at every anchor) and
@@ -90,8 +95,10 @@ the current record.
   row, clear of content). It is the only page-owned exposure; every
   other cell belongs to a section.
 - The page **Grid layers** measure exactly the lattice-above-footer
-  totals (77 · 53 · 38 · 39 · 41t), which pins each footer top
-  independently of the section sums.
+  totals (77 · 53 · 38 · 38 · 41t *(amended 2026-08-28 — the 960
+  layer re-read 38t after the streamline; a 1t overrun found at the
+  read was fixed by design the same evening, 006 §9)*), which pins
+  each footer top independently of the section sums.
 - This table is data, not prose: it ships as the expectation module
   the self-test reads (§3.2, §6).
 
@@ -447,6 +454,13 @@ review and the same-day purge; open flags gate launch (§5.4).
   steps, rollback, the F2 metadata-wipe inventory, and the F5
   decision note). §5 carries the dated amendment and stays the
   frozen Phase 6 record.
+- **R9 — the rd1 page column re-read after the page-load streamline**
+  (2026-08-28; 006 §9 carries the section-level record). Design
+  compressed the rd1 hero 1t, so the rd1 stack rides up one tick and
+  the page total reads 50t. §2 carries the dated amendment; the
+  expectations module and the /home-fixture sweep were updated in the
+  same change. The 960 Grid layer's 1t overrun found at the read was
+  fixed by design and re-read 3040 (38t) through the bridge.
 
 ## 8 · Acceptance criteria
 

@@ -88,6 +88,12 @@ card top 2t, list top 8t, section end **15t**, frame total 43t; the
 §2 staircase and ornaments rise with it. Re-read from rendered
 bounds the same evening.)**
 
+**Amended 2026-08-28 — the site-wide page-load streamline (§9 R24):
+the rt header top re-read 80 (80/64·t, was 96), aligning the three
+built pages' header lines at 768. The tops are now 100 · 112 · 80 ·
+112 · 174; every other landmark and frame total stands, verified
+against rendered bounds.**
+
 **Amended 2026-08-27 — the rs column (design drew the 576 frame
 `634:33130`, superseding §1.1's derivation; §9 R15; read from rendered
 bounds the same day, frame total 3072 = 64t):** header top 112
@@ -743,6 +749,14 @@ post-fix; rendered bounds re-verified through the console bridge.
   compression the material icon rows press the hug a few px into the
   box pads (11px at the 1130 edge, inside the 24px pad); the boxes
   clip ("the tick wins" — slack compresses padding).
+- **R24 — the rt header top re-tuned at the page-load streamline
+  (design, 2026-08-28), re-read from the 768 frame and verified
+  against rendered bounds:** the header lands at **80** (was 96),
+  putting the three built pages' 768 headers on one line (the hero
+  and work headers open at 80). The `.page` ratio updated in place
+  (`--po-head-top-rt: 80/64·t`); every other landmark, the section
+  ends, and the frame totals are unchanged at all five anchors —
+  re-read the same session. §1 carries the dated amendment.
 
 ## 10 · Acceptance criteria
 

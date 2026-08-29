@@ -23,7 +23,9 @@
 @container (min-width: 665px) {
   .v2-hero { height: calc(var(--t) * 13); }
 }
-@container (min-width: 1130px) {
+/* 12t at rd1 since the 2026-08-28 page-load streamline (was 13t) —
+   rd2 shares it, so one gate carries both bands */
+@container (min-width: 860px) {
   .v2-hero { height: calc(var(--t) * 12); }
 }
 
@@ -149,6 +151,9 @@
 }
 @container (min-width: 860px) {
   .hx-sub {
+    /* 32 above the block at rd1 since the 2026-08-28 streamline
+       (was rt's 40); rd2 keeps 48 below */
+    margin-top: 32px;
     --fs0: 20; --fs1: 24; --lh0: 26; --lh1: 32;
     --clh0: 26; --clh1: 32;
     /* 6/20 and 6/20 at the rd1 anchor */
@@ -274,7 +279,8 @@
 }
 @container (min-width: 860px) {
   .hx-cta-b { display: none; }
-  .hx-cta-c { display: flex; margin-top: var(--space-7xl); }
+  /* 48 at rd1 since the 2026-08-28 streamline (was 64); rd2 keeps 64 */
+  .hx-cta-c { display: flex; margin-top: var(--space-6xl); }
 }
 @container (min-width: 1130px) {
   .hx-cta-c { display: none; }
@@ -300,7 +306,8 @@
 @container (min-width: 665px) {
   .hx-carousel { height: calc(var(--t) * 5); }
 }
-@container (min-width: 1130px) {
+/* top 6t from rd1 up since the 2026-08-28 streamline (was rd2-only) */
+@container (min-width: 860px) {
   .hx-carousel { top: calc(var(--t) * 6); }
 }
 

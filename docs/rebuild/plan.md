@@ -555,9 +555,24 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   animations exactly, nav/lattice never animate, settle · replay ·
   reduced-motion · no-JS all green, landmarks re-pass at rest; the
   full sweep green after the orchestrator refactor (the homepage
-  settle intact); budgets re-measured — `/our-work` 1.17 kB route
+  settle intact); budgets re-measured —   `/our-work` 1.17 kB route
   JS · 106 kB first load, still static, `/` and `/pricing`
   unchanged.
+- **The page-load streamline** (owner direction, evening — design
+  re-tuned how every page opens on the y axis before more pages are
+  added; all fifteen anchor frames re-read, changes verified against
+  rendered bounds). The header lines align across the three built
+  pages: the homepage measures from the **H1** at rm/rs (not the
+  wordmark above it) — hero header tops 69/73/80/112/160 (were
+  67/99/88/144/152), putting the H1 on 100/112 at rm/rs and the
+  rt/rd1 headers on the pricing/our-work line; the pricing rt header
+  re-read **80** (was 96); Our Work is the reference and did not
+  change. At the homepage 960 anchor the hero compressed 1t (carousel
+  top 6t, tightened header gaps) and the whole rd1 stack rides up one
+  tick — page total **51t → 50t** (010 §2 amended; the expectations
+  module updated in step). Dated amendments + resolution entries:
+  006 §9, 010 §7 R9, 011 §9 R24. A 960 Grid-layer 1t overrun found
+  at the read was fixed by design and re-read clean the same evening.
 
 ## Phasing
 

@@ -36,14 +36,21 @@ first row. Section totals are whole-tick at every anchor and feed the page
 stack-sum self-test. The nav (spec 005) overlays the first rows; it is not
 part of the hero's DOM.
 
+*Amended 2026-08-28 — the page-load streamline (§9): design re-tuned
+the header tops at every anchor so the pages open on one optical line
+(the H1 top lands at 100/112 at rm/rs — the site-wide header position;
+the wordmark floats above), and the rd1 hero compressed 1t (carousel
+top 7t → 6t, total 13t → 12t). Header tops were 67/99/88/144/152; the
+table carries the re-read values, rendered-bounds verified.*
+
 | | rm (384) | rs (576) | rt (768) | rd1 (960) | rd2 (1344) |
 |---|---|---|---|---|---|
-| header block top (px from page top) | 67 | 99 | 88 | 144 | 152 |
-| carousel top | 8t (256) | 7t (336) | 7t (448) | 7t (560) | 6t (672) |
+| header block top (px from page top) | 69 | 73 | 80 | 112 | 160 |
+| carousel top | 8t (256) | 7t (336) | 7t (448) | 6t (480) | 6t (672) |
 | carousel height | 8t | 6t | 5t | 5t | 5t |
 | subhead block top | 18t (576) | 14t (672) | (in header) | (in header) | (in header) |
 | CTA row top | 738 | 834 | (in header) | (in header) | (in header) |
-| **section total** | **26t** | **20t** | **13t** | **13t** | **12t** |
+| **section total** | **26t** | **20t** | **13t** | **12t** | **12t** |
 
 - **Band-structural switch at 768.** Below 768 the carousel sits *between*
   the H1 and the subhead: wordmark + H1 · carousel · subhead · CTA. At 768
@@ -53,14 +60,17 @@ part of the hero's DOM.
 - Header block left inset: 16 (= t/2) at rm; 1t at rs/rt/rd1/rd2. The
   header y offsets in the table are content-layer constants (the blocks
   float on the field); at rm/rs the header block's *bottom* lands on a
-  tick (7t at 384, 6t at 576).
+  tick (7t at 384, 6t at 576). *(Amended 2026-08-28 — the streamline
+  anchors the H1 top instead; the block bottoms read 226/262 and are
+  no longer tick-bound.)*
 - At rm/rs a `ks-Wordmark` (72×15, the spec 001 wordmark asset) sits above
   the H1 — gap 16 (rm) / 24 (rs) — because the nav at those bands does not
   carry the mark. Absent at rt+.
 - Whole-tick joints around the carousel: at rm it spans rows 8–15 with a
   2t gap to the subhead row (16t→18t); at rs rows 7–12 with a 1t gap
-  (13t→14t); at rt/rd1 it ends exactly at 12t with a 1t clear row before
-  the portfolio (13t); at rd2 it ends at 11t with a 1t clear row (12t).
+  (13t→14t); at rt it ends exactly at 12t with a 1t clear row before
+  the portfolio (13t); at rd1 *(amended 2026-08-28 — was rt's joint)*
+  and rd2 it ends at 11t with a 1t clear row (12t).
 
 ## 2 · Exposure map
 
@@ -109,7 +119,7 @@ DOM). See §9 F8.
 | chip padding-x | 4 | 4 | 4 | 6 | 8 |
 | inline gap | 6 | 6 | **5** | 6 | 6 |
 | row gap | 6 | 6 | 4 | 8 | 8 |
-| h1 → subhead gap | (carousel between) | (carousel between) | 40 | 40 | 48 |
+| h1 → subhead gap | (carousel between) | (carousel between) | 40 | 32 *(amended 2026-08-28 — was 40; the streamline)* | 48 |
 
 Subhead type holds 20 across the base band and rs, drops to 18 with the
 768 structure switch (the same hold-then-switch pattern as the footer
@@ -159,8 +169,9 @@ Two actions side by side; the row is `question-container` at rt+
   but is geometrically the md ghost. Build one ghost-with-icon variant
   of the spec 003 button-ghost.
 - CTA top gap: 40 above the row at rm/rs (from the subhead block), 56 at
-  rt, 64 (`spacing-7xl`) at rd1/rd2. Button gap 24 (`spacing-3xl`) at
-  rm/rs, 40 (`spacing-5xl`) at rt+.
+  rt, 48 (`spacing-6xl`) at rd1 *(amended 2026-08-28 — was 64; the
+  streamline)*, 64 (`spacing-7xl`) at rd2. Button gap 24 (`spacing-3xl`)
+  at rm/rs, 40 (`spacing-5xl`) at rt+.
 
 ## 5 · The carousel
 
@@ -325,7 +336,9 @@ the exports — no code constant; §5, §9.)
 *Amended 2026-08-26 (spec 002.r1's four units — §9):* several of these
 constants were geometry or typography in disguise and now scale, as
 exact anchor ratios that render identically at the anchors: the header
-y offsets ride the tick (67/32 · 99/48 · 88/64 · 144/80 · 152/112);
+y offsets ride the tick (67/32 · 99/48 · 88/64 · 144/80 · 152/112;
+*amended 2026-08-28 — the streamline re-reads make the ratios
+69/32 · 73/48 · 80/64 · 112/80 · 160/112*);
 the rm inset and the header wordmark's gap are `t/2` (16 at rm and 24
 at rs collapse into one rule); the rm header right inset is 1t; the
 subhead wrap box (384) and the CTA drop's 122 text height ride the
@@ -442,14 +455,35 @@ Pre-approval decisions, 2026-08-25 (build-prep review):
   so ghost chrome can serve real links; the hero's own "Talk to us"
   uses the button form.
 
+Post-approval amendment, 2026-08-28 (the page-load streamline; owner
+direction, all values re-read from the frames and rendered-bounds
+verified through the bridge):
+
+- **Header tops re-tuned at every anchor** — 69/73/80/112/160 (were
+  67/99/88/144/152). Design streamlined how each page opens on the
+  y axis: the H1 top now lands on the site-wide header line (100 at
+  384, 112 at 576 — the same line the pricing and our-work headers
+  open on; the hero measures from the H1, not the wordmark, which
+  floats above at 69/73). §1 and §7 carry the amendments.
+- **The rd1 hero compressed 1t** (total 13t → 12t; page total 51t →
+  50t): the carousel top moved 7t → 6t, the H1→subhead gap 40 → 32,
+  and the subhead→CTA gap 64 → 48 (`spacing-6xl`). §1/§3/§4 carry
+  the amendments; spec 010 §2's page table amends in step, and the
+  expectations module is the running record.
+- **File anomaly found and fixed at the read**: the 960 frame's Grid
+  lattice layer ran 3120 tall — 1t past the new 3040 footer top (the
+  same class as the our-work 576 F1 flag). Design resized it the
+  same evening; re-read 3040 through the bridge.
+
 ## 10 · Acceptance criteria
 
 At each of the five anchors and one arbitrary mid-band width per band,
 scrollbar forced on:
 
-- [ ] Section height ÷ t equals 26/20/13/13/12 exactly; the carousel top
-      and height land on §1's ticks; stack sum and landmark audit pass
-      with the hero mounted above the portfolio placeholder on
+- [ ] Section height ÷ t equals 26/20/13/12/12 exactly *(amended
+      2026-08-28 — rd1 was 13t before the streamline)*; the carousel
+      top and height land on §1's ticks; stack sum and landmark audit
+      pass with the hero mounted above the portfolio placeholder on
       `/home-fixture`.
 - [ ] The hero field renders fully exposed through the spec 002
       vocabulary — one region per band, correct interior line counts, no

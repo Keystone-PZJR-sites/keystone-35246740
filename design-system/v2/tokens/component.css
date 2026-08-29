@@ -360,13 +360,15 @@
    the box tracks the type and the designed rag holds in every zone.
    True material (buttons, icons, marks) stays px above. */
 .page {
-  /* hero header y offsets (67/99/88/144/152 at their anchors) and the
+  /* hero header y offsets (69/73/80/112/160 at their anchors — the
+     2026-08-28 page-load streamline, re-read from the frames: the H1
+     top lands on the site-wide header line, 100/112 at rm/rs) and the
      rm inset (16 = t/2) */
-  --hx-head-top-rm: calc(var(--t) * 67 / 32);
-  --hx-head-top-rs: calc(var(--t) * 99 / 48);
-  --hx-head-top-rt: calc(var(--t) * 88 / 64);
-  --hx-head-top-rd1: calc(var(--t) * 144 / 80);
-  --hx-head-top-rd2: calc(var(--t) * 152 / 112);
+  --hx-head-top-rm: calc(var(--t) * 69 / 32);
+  --hx-head-top-rs: calc(var(--t) * 73 / 48);
+  --hx-head-top-rt: calc(var(--t) * 80 / 64);
+  --hx-head-top-rd1: calc(var(--t) * 112 / 80);
+  --hx-head-top-rd2: calc(var(--t) * 160 / 112);
   --hx-inset-rm: calc(var(--t) / 2);
   /* the rm/rs subhead wrap box (a designed 384, nodes 500:24680 ·
      506:4396) — a text column, carried by the weights */
@@ -425,10 +427,11 @@
      compressed slices (wA collapses to t/T0). */
   /* header tops re-read 2026-08-27 after design streamlined them:
      100 · 112 · 96 · 112 · 174 at the anchors (the 960 value fixed
-     1t up the same evening and re-read) */
+     1t up the same evening and re-read); the rt value re-read 80 at
+     the 2026-08-28 page-load streamline (aligning the three pages) */
   --po-head-top-rm: calc(var(--t) * 100 / 32);
   --po-head-top-rs: calc(var(--t) * 112 / 48);
-  --po-head-top-rt: calc(var(--t) * 96 / 64);
+  --po-head-top-rt: calc(var(--t) * 80 / 64);
   --po-head-top-rd1: calc(var(--t) * 112 / 80);
   --po-head-top-rd2: calc(var(--t) * 174 / 112);
   --po-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
