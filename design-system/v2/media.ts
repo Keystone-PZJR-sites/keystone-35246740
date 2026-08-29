@@ -228,6 +228,45 @@ export function personaSrc(persona: PersonaId, cut: PersonaTier["cut"]): string 
   return `/media/personas/persona-${persona}-${cut}.webp`;
 }
 
+/* ---- case studies (spec 014 §7.1) ----
+ * 15 verbatim WebP exports (supplied 2026-08-28 in the Dropbox
+ * ourwork/export folder): three case-study sites in five width tiers,
+ * each exactly 2× its band's rendered image slot. Art direction, not
+ * resolution steps (aspect changes per band): the card image renders
+ * as <picture> with one media-gated <source> per tier, largest-first,
+ * the 384 file as the <img> fallback. The media cuts follow the
+ * nearest-anchor structural gates (spec 002.r1). Meaningful alt — the
+ * images are the customers' sites, not ambient ("The {name} website",
+ * threaded from the section's data module). */
+
+export const CASE_STUDY_SITE_IDS = ["zivel", "yhs", "barelux"] as const;
+
+export type CaseStudySiteId = (typeof CASE_STUDY_SITE_IDS)[number];
+
+export interface CaseStudyTier {
+  cut: 384 | 576 | 768 | 960 | 1344;
+  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
+  media: string | null;
+  width: number;
+  height: number;
+}
+
+/** Largest-first, ready for <source> order; the last entry is the
+ * 384 fallback. */
+export const CASE_STUDY_TIERS: CaseStudyTier[] = [
+  { cut: 1344, media: "(min-width: 1130px)", width: 1344, height: 896 },
+  { cut: 960, media: "(min-width: 860px)", width: 800, height: 800 },
+  { cut: 768, media: "(min-width: 665px)", width: 640, height: 768 },
+  { cut: 576, media: "(min-width: 470px)", width: 960, height: 576 },
+  { cut: 384, media: null, width: 672, height: 384 },
+];
+
+/** casestudy-{zivel|yhs|barelux}-{tier}.webp under
+ * public/media/case-studies. */
+export function caseStudySrc(site: CaseStudySiteId, cut: CaseStudyTier["cut"]): string {
+  return `/media/case-studies/casestudy-${site}-${cut}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
