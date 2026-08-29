@@ -338,6 +338,12 @@
      plus its drop). Everything else this section paints is a bound
      token. */
   --ps-cost-inactive: rgba(234, 232, 224, 0.5);
+
+  /* button-inline (spec 014 §4/§6.1): the glyph's designed hover
+     advance — the set's hover variant reads the label→glyph gap 4 → 8,
+     built as a 4px paint-in-place left offset (the 003 glyph
+     doctrine). */
+  --btn-inline-advance: 4px;
   --sldr-track-bevel: inset 0 1px 0 rgba(0, 0, 0, 0.25);
   --sldr-thumb-bevel:
     inset -1px -1px 0 rgba(0, 0, 0, 0.3),
@@ -479,4 +485,28 @@
   --faq-head-w-rt: calc((var(--wA) + var(--wB)) * 160);
   --faq-head-w-rd1: calc((var(--wA) + var(--wB)) * 240);
   --faq-head-w-rd2: calc((var(--wA) + var(--wB)) * 320);
+
+  /* work-header constants (spec 014 §1/§3/§7.3): the tick-riding
+     header tops (100/32 · 112/48 · 80/64 · 112/80 · 174/112 at their
+     anchors) and the weight-riding H1/subhead wrap boxes — band
+     constants per the grid-digest law (constant through each band's
+     interpolation zone, the anchor zoom in the compressed slices, so
+     the designed wrap counts hold by construction). The header flow
+     gaps ride the same unit inline in work-header.css; the card
+     interiors ride it through --csc-u (case-study-card.css). */
+  --wk-head-top-rm: calc(var(--t) * 100 / 32);
+  --wk-head-top-rs: calc(var(--t) * 112 / 48);
+  --wk-head-top-rt: calc(var(--t) * 80 / 64);
+  --wk-head-top-rd1: calc(var(--t) * 112 / 80);
+  --wk-head-top-rd2: calc(var(--t) * 174 / 112);
+  --wk-h1-w-rm: calc((var(--wA) + var(--wB)) * 304);
+  --wk-h1-w-rs: calc((var(--wA) + var(--wB)) * 336);
+  --wk-h1-w-rt: calc((var(--wA) + var(--wB)) * 480);
+  --wk-h1-w-rd1: calc((var(--wA) + var(--wB)) * 560);
+  --wk-h1-w-rd2: calc((var(--wA) + var(--wB)) * 896);
+  --wk-sub-w-rm: calc((var(--wA) + var(--wB)) * 240);
+  --wk-sub-w-rs: calc((var(--wA) + var(--wB)) * 336);
+  --wk-sub-w-rt: calc((var(--wA) + var(--wB)) * 480);
+  --wk-sub-w-rd1: calc((var(--wA) + var(--wB)) * 560);
+  --wk-sub-w-rd2: calc((var(--wA) + var(--wB)) * 560);
 }
