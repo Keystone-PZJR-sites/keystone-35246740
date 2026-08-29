@@ -1,0 +1,295 @@
+/* v2 sections — work-gallery (spec 015 §1/§3/§4/§5/§6). All five
+   anchors designed. The un-gated rules are the 384 design; @container
+   blocks override upward at the 002.r1 gates (470 · 665 · 860 · 1130).
+
+   Structure is ticks throughout (§1 units): the section total
+   (12/11/16/15/15t — the page rows from the gallery-header top to the
+   footer top), the header block heights (4/3/3/2/2t), the mosaic
+   template (3×5 cells of 3t×2t on t/2 gutters in a 10t box), and the
+   strip slides (9.5t/9t × 6t on 1t gaps). The title and the CTA are
+   material per band, vertically centered in the tick-height block
+   (§1); the title's tick insets and the CTA's per-band offsets are
+   tick constructions (§3). No weight-riding values in this section.
+
+   Tick-riding custom properties are declared on section elements
+   (inside .page — the 002.r1 scope rule; never :root). */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.v2-wg {
+  width: 100%;
+  height: calc(var(--t) * 12);
+}
+@container (min-width: 470px) {
+  .v2-wg { height: calc(var(--t) * 11); }
+}
+@container (min-width: 665px) {
+  .v2-wg { height: calc(var(--t) * 16); }
+}
+@container (min-width: 860px) {
+  .v2-wg { height: calc(var(--t) * 15); }
+}
+
+/* ---------------- the gallery header (§3) ---------------- */
+
+/* the block spans ticks 0 → 11 and carries the section's own top
+   hairline (§2 — the lattice draws no full row line at the header
+   top; where the 014 staircase's cells end on the same row line the
+   hairline shares the line's canonical pixel) */
+.wg-head {
+  position: relative;
+  box-sizing: border-box;
+  width: calc(var(--t) * 11);
+  height: calc(var(--t) * 4);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+}
+@container (min-width: 470px) {
+  .wg-head { height: calc(var(--t) * 3); }
+}
+@container (min-width: 860px) {
+  .wg-head { height: calc(var(--t) * 2); }
+}
+
+/* the title: the designed two-line break is forced at every band and
+   width (§9 F3 — the <br> in the markup); the rm inset is t/2 (the
+   standing rm rule), 1t everywhere else */
+.wg-title {
+  margin: 0 0 0 calc(var(--t) / 2);
+  color: var(--color-text-100);
+  font: var(--ts-display-serif-xs-extralight-font);
+  letter-spacing: var(--ts-display-serif-xs-extralight-ls);
+}
+@container (min-width: 470px) {
+  .wg-title { margin-left: var(--t); }
+}
+@container (min-width: 665px) {
+  .wg-title {
+    font: var(--ts-display-serif-xs-plus-extralight-font);
+    letter-spacing: var(--ts-display-serif-xs-plus-extralight-ls);
+  }
+}
+@container (min-width: 1130px) {
+  .wg-title {
+    font: var(--ts-display-serif-md-plus-thin-font);
+    letter-spacing: var(--ts-display-serif-md-plus-thin-ls);
+  }
+}
+
+/* the CTA mounts (§3/§3.1): the built ButtonFill gray at sm/sm/md/md/
+   lg — band-gated mounts (the 011 po-cardbtn pattern). Placement:
+   right edge at tick 10 (rm/rs, a 1t inset in the 11t block) · right
+   edge 0.5t west of tick 11 (rt) · centered in ticks 8–11 (rd1/rd2 —
+   the fractional rendered offset is the designed centering, §9
+   note). */
+.wg-cta {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+.wg-cta-md,
+.wg-cta-lg {
+  display: none;
+}
+.wg-cta-sm {
+  right: var(--t);
+}
+@container (min-width: 665px) {
+  .wg-cta-sm { display: none; }
+  .wg-cta-md {
+    display: block;
+    right: calc(var(--t) / 2);
+  }
+}
+@container (min-width: 860px) {
+  .wg-cta-md {
+    right: 0;
+    width: calc(var(--t) * 3);
+    display: flex;
+    justify-content: center;
+  }
+}
+@container (min-width: 1130px) {
+  .wg-cta-md { display: none; }
+  .wg-cta-lg {
+    right: 0;
+    width: calc(var(--t) * 3);
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* the viewport group's focus ring (§8.4 — the strip is the keyboard
+   path's target below the gate; the island grants tabIndex there) */
+.wg-view:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* ---------------- the strip — rm/rs (§5, base rules) ---------------- */
+
+.wg-island {
+  width: 100%;
+}
+
+/* the viewport clips the strip at the page's edges; the next slide's
+   1t sliver at tick 11 is design */
+.wg-view {
+  width: 100%;
+  overflow: clip;
+  touch-action: pan-y;
+}
+
+/* the track: the active slide at the band's designed inset; the
+   translate rides the promoted snap clock and follows the pointer
+   through --wg-drag-dx mid-gesture (the island kills the transition
+   with data-dragging). k is 1-based (§5.1). */
+.wg-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--t);
+  width: max-content;
+  /* a swipe must never start a text selection (the 012 precedent);
+     the island suppresses the images' native drag the same way */
+  user-select: none;
+  margin-left: calc(var(--t) / 2);
+  --wg-pitch: calc(var(--t) * 10.5);
+  translate: calc(var(--wg-drag-dx, 0px) + (1 - var(--wg-k, 1)) * var(--wg-pitch)) 0;
+  transition: translate var(--motion-snap-dur) var(--motion-snap-ease);
+}
+.wg-list[data-dragging] {
+  transition: none;
+}
+@container (min-width: 470px) {
+  .wg-list {
+    margin-left: var(--t);
+    --wg-pitch: calc(var(--t) * 10);
+  }
+}
+
+.wg-slide {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: calc(var(--t) * 9.5);
+  height: calc(var(--t) * 6);
+  border: 1px solid var(--line);
+}
+@container (min-width: 470px) {
+  .wg-slide { width: calc(var(--t) * 9); }
+}
+
+.wg-slide picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.wg-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* the crop anchors to the top edge (owner decision 2026-08-29 —
+     015 §9): the images are site screenshots whose nav chrome hugs
+     the top, and the lg cut (13:9, the feature frame) loses ~4% of
+     its height in the 3:2 small mosaic cells — centered cover was
+     decapitating the navs. Inert wherever slot and cut aspects match
+     (the strip, the features). */
+  object-position: top;
+}
+
+/* off-active slides are ghosts (§5): the promoted ghost grammar —
+   image paint at the canon opacity under a luminosity blend, so the
+   col-11 rail cells read through (§2 declared overlap). Swaps
+   state-to-state under the move (the blend is not animatable, the
+   012 law). Safe here: no ancestor paint transitions behind the
+   strip (the 007 filter directive's carve-out). */
+.wg-slide:not([data-active]) img {
+  opacity: var(--wg-ghost-opacity);
+  mix-blend-mode: luminosity;
+}
+
+/* a visible off-active slide is a real button writing k (§5.1); the
+   active slide's overlay leaves the tree's interactive surface */
+.wg-show {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.wg-slide[data-active] .wg-show {
+  display: none;
+}
+.wg-show:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* ---------------- the mosaic — rt/rd1/rd2 (§4) ---------------- */
+
+/* the same nine list items on the designed grid: 3×5 cells of 3t×2t
+   on t/2 gutters in the 10t box (ticks 1–11); the two features span
+   2×2 on explicit areas. The strip's island state is inert here: the
+   translate resets, the ghosts undress, the overlays leave. */
+@container (min-width: 665px) {
+  .wg-view {
+    overflow: visible;
+    touch-action: auto;
+    margin-left: var(--t);
+    width: calc(var(--t) * 10);
+  }
+  .wg-list {
+    display: grid;
+    grid-template-columns: repeat(3, calc(var(--t) * 3));
+    grid-template-rows: repeat(5, calc(var(--t) * 2));
+    gap: calc(var(--t) / 2);
+    width: auto;
+    margin-left: 0;
+    translate: none;
+    transition: none;
+  }
+  .wg-slide {
+    width: auto;
+    height: auto;
+    grid-area: var(--wg-area);
+  }
+  .wg-slide:not([data-active]) img {
+    opacity: 1;
+    mix-blend-mode: normal;
+  }
+  .wg-show {
+    display: none;
+  }
+  /* line-inclusive trailing edges (011 R17): tiles on the mosaic's
+     east edge share the rail line's pixel, tiles on its south edge
+     the full-lattice row's line — sized 1px past the whole-tick area
+     so seams stay single hairlines */
+  .wg-slide[data-east] {
+    width: calc(100% + 1px);
+    justify-self: start;
+  }
+  .wg-slide[data-south] {
+    height: calc(100% + 1px);
+    align-self: start;
+  }
+}
+
+/* ---------------- reduced motion (§6.3) ---------------- */
+
+/* state-to-state: the snap at 0s; the ghost dressing already swaps
+   without transition. A no-JS render is the settled strip at k=1. */
+@media (prefers-reduced-motion: reduce) {
+  .wg-list {
+    transition: none;
+  }
+}
+.page[data-motion="reduce"] .wg-list {
+  transition: none;
+}
