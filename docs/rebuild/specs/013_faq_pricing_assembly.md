@@ -306,6 +306,12 @@ No load choreography — the section is born settled, like 011/012.
   rows, the gap row, the footer) moves down in flow. No shadow beat —
   the rows carry no effects (unlike the footer's `bg/100` drawers,
   these are transparent hairline rows; there is no shadow to grow).
+  *(Amended 2026-08-28, owner review of the built page — the open
+  direction sweeps the answer's own top-down clip on the open curve,
+  in step with the height; the instant unclip popped the answer's
+  in-box first pixels ahead of the box edge and read as a stutter.
+  The same in-box-pixels geometry that required the close's sweep;
+  §9 build record.)*
 - **The chevron** rotates 180° at the height's duration and curve in
   each direction (the 004 construction; the set's open variants draw
   the flipped rest state).
@@ -583,6 +589,19 @@ from the nodes post-fix.
     kinds — declared per the §7.3 amendment (`clearanceExceptions`
     grew; `latticeExempt` added), every citation in the amendment;
     nothing silent, nothing built around.
+  - **The open's clip sweep, found at owner review (same day, after
+    the close fix):** the open direction had the mirror defect — the
+    answer's clip snapped off instantly (`transition: none`) while
+    the box height was still easing open, so the first pixels the
+    closed row contains popped into view ahead of the box edge: an
+    instant partial reveal, then the sweep continuing from partway —
+    a stutter against the choreographed close. (The footer's open
+    never shows this because its list sits wholly below the closed
+    box edge.) Fixed symmetric to the close: the answer sweeps its
+    top-down clip on the open curve and duration, in step with the
+    height; visibility still flips at once on open, after the clock
+    on close. Paint-only — the R7 measurement and every audit are
+    untouched; §6 carries the dated amendment.
   - **The close's wrap sweep, found at owner review (same day):**
     the built close ran the box edge and the delayed visibility flip
     but missed the 004 construction's third piece — the wrap's own

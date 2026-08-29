@@ -90,13 +90,18 @@
 /* The answer stays in layout when closed — clipped by the row box,
    visibility-hidden off the accessibility tree, measurable by the
    island (§4 R7; clip-path is paint-only, so the R7 measurement sees
-   the full box). The close is the 004 listwrap construction verbatim:
-   the closed row legitimately contains the answer's first pixels
-   (the designed pads leave room above the tick edge), so the box's
-   moving edge cannot hide everything — the answer sweeps its own
-   bottom-up clip on the same curve and visibility flips after
-   (found at owner review 2026-08-28 — 013 §9 build record; the
-   footer hit the identical residue before the sweep existed). */
+   the full box). Both directions sweep the answer's own clip on the
+   height's clock, because the closed row legitimately contains the
+   answer's first pixels (the designed pads leave room above the tick
+   edge), so the box's moving edge alone can neither hide nor reveal
+   cleanly. Close (found at owner review 2026-08-28 — 013 §9 build
+   record; the footer hit the identical residue before its sweep
+   existed): the bottom-up clip sweeps on the close curve, visibility
+   flips after. Open (found at owner review 2026-08-28, the §6
+   amendment): an instant unclip popped those first pixels before the
+   box edge caught up — a stutter against the smooth close — so the
+   clip sweeps top-down on the open curve, in step with the height;
+   visibility flips at once. */
 .fq-answer {
   margin-top: var(--fq-gap);
   padding-right: var(--fq-a-inset);
@@ -111,7 +116,7 @@
   visibility: visible;
   pointer-events: auto;
   clip-path: inset(0 0 0 0);
-  transition: none;
+  transition: clip-path var(--motion-drawer-duration) var(--motion-drawer-ease-open);
 }
 
 .fq-a {
@@ -223,7 +228,8 @@
   .fq[data-open],
   .fq-chevron,
   .fq[data-open] .fq-chevron,
-  .fq-answer {
+  .fq-answer,
+  .fq[data-open] .fq-answer {
     transition: none;
   }
 }
