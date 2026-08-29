@@ -4,6 +4,8 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import { MEDIA_V2 } from "@/design-system/v2/media";
 import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primitives/buttons";
+import { ButtonInline } from "@/design-system/v2/primitives/button-inline";
+import { CaseStudyCard } from "@/design-system/v2/primitives/case-study-card";
 import { FaqQuestion } from "@/design-system/v2/primitives/faq-question";
 import { GridButton } from "@/design-system/v2/primitives/grid-button";
 import { GraderInput } from "@/design-system/v2/primitives/grader";
@@ -14,6 +16,7 @@ import { Slider } from "@/design-system/v2/primitives/slider";
 import { Text } from "@/design-system/v2/primitives/text";
 import { FAQ_ITEMS } from "@/design-system/v2/sections/faq-data";
 import { PERSONAS } from "@/design-system/v2/sections/pricing-scale-data";
+import { CASE_STUDIES } from "@/design-system/v2/sections/work-cases-data";
 import {
   IconAiChat,
   IconApproach,
@@ -31,6 +34,7 @@ import {
   IconReviews,
   IconSearch,
   IconSparkle,
+  IconStar,
   IconTokens,
   IconWebsite,
 } from "@/design-system/v2/icons";
@@ -389,6 +393,46 @@ export default function PrimitivesPage() {
       </section>
 
       <section className="pv-section">
+        <h2>button-inline</h2>
+        {/* the set's three states (spec 014 §4): default, the 4px glyph
+            advance, the bg/400 focus wash */}
+        <div className="pv-row">
+          <ButtonInline href="/case-studies/palm-coast-zivel">View Case Study</ButtonInline>
+          <ButtonInline href="/case-studies/palm-coast-zivel" forceState="hover">
+            View Case Study
+          </ButtonInline>
+          <ButtonInline href="/case-studies/palm-coast-zivel" forceState="focus">
+            View Case Study
+          </ButtonInline>
+        </div>
+      </section>
+
+      <section className="pv-section">
+        <h2>case-study-card</h2>
+        {/* the set's eight variants (spec 014 §4): size × arrangement —
+            left/right rows at md/lg/xl, the centered stacks at sm/xs */}
+        {(["xl", "lg", "md"] as const).map((size) => (
+          <div key={size}>
+            <h3>{size}</h3>
+            <div className="pv-row">
+              <CaseStudyCard study={CASE_STUDIES[0]} size={size} arrangement="left-image" />
+            </div>
+            <div className="pv-row">
+              <CaseStudyCard study={CASE_STUDIES[1]} size={size} arrangement="right-image" />
+            </div>
+          </div>
+        ))}
+        <div className="pv-row">
+          {(["sm", "xs"] as const).map((size) => (
+            <div key={size} className="pv-cell">
+              <span>{size}</span>
+              <CaseStudyCard study={CASE_STUDIES[2]} size={size} arrangement="centered" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="pv-section">
         <h2>grid-button</h2>
         {(["forward", "back"] as const).map((direction) => (
           <div key={direction}>
@@ -450,6 +494,7 @@ export default function PrimitivesPage() {
           <IconReception />
           <IconReviews />
           <IconTokens />
+          <IconStar />
         </div>
       </section>
 
