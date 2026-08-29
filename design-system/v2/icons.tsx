@@ -101,6 +101,20 @@ export function IconSliderArrow({ size = 13, className }: Props) {
   );
 }
 
+/** IconStar — the case-study stat star (spec 014 §7.2), exported
+ * verbatim from the card set's stat3-container slot via the console
+ * bridge 2026-08-28 (15×14, one path; the export's #989281 fill is
+ * text/500 — normalized to currentColor, inked at the mount).
+ * Non-square: `size` is the width; height rides the intrinsic 15:14
+ * ratio. */
+export function IconStar({ size = 15, className }: Props) {
+  return (
+    <svg width={size} height={(size * 14) / 15} viewBox="0 0 15 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.81693 4.60799L15 5.34781L11.2488 8.93447L12.1347 14L7.49921 11.6076L2.86456 14L3.7496 8.93447L0 5.34781L5.18149 4.60799L7.5 0L9.81693 4.60799Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** IconArrowLeft (519:6634) — currentColor. */
 export function IconArrowLeft({ size = 24, className }: Props) {
   return (
