@@ -400,6 +400,164 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   snaps state-to-state; a no-JS render is the settled closed section
   with all six answers in the HTML. Remaining for Pricing: launch
   gates only (G9 content pass, G6 sign-off).
+- **The Our Work page is planned as specs 014–016** (owner direction,
+  afternoon, from fresh reads of the Our Work section `647:41297`):
+  014 the header + case studies (slug · h1 · subhead · CTA row · the
+  three case-study cards) · 015 the gallery (the "The Gallery" header
+  row · the nine-image mosaic at rt/rd1/rd2 · the horizontal strip at
+  rm/rs) · 016 the fullscreen gallery overlay + page assembly (the
+  expectations module and the fixture sweep leg). The composition
+  module (`v2/our-work.tsx`) mounts on `/our-work` — the route the
+  nav, footer, and the 007/008 button bars already target — plus the
+  noindexed `/our-work-fixture`. **All five anchors are designed**
+  (384 `454:23319` · 576 `648:43608` · 768 `447:21642` · 960
+  `648:42365` · 1344 `429:10937`); the metadata reads are whole-tick —
+  page totals **111 · 85 · 60 · 53 · 48**, every section top on a
+  tick (case studies 17/11/8/8/7t · gallery header 75/53/29/26/22t ·
+  gallery 79/56/32/28/24t · footer 87/64/45/41/37t) — with
+  rendered-bounds verification at spec writing per the protocol (the
+  console bridge was down during this planning pass). New sets in the
+  section: `case-study-card` (`648:41389`, size xl/lg/md/sm/xs ×
+  arrangement — alternating left/right image at md and up, centered
+  stack at sm/xs; 8 variants, tick-true at 4/5/6/13/18t with 1t stack
+  gaps) and `button-inline` (`648:41368`, default/hover/focus — the
+  View-Case-Study CTA); the gallery-header CTA is the `_nav-button`
+  grammar at rt/rd1/rd2 and a sm `button-fill` at rm/rs; the gallery
+  mosaic interiors ride half-tick gutters (read at every drawn
+  anchor — a designed interior, not an artifact). Behavior decisions
+  on record: **the Get Started CTAs go to `/pricing`**; **the
+  View-fullscreen CTAs open the fullscreen gallery overlay** — an
+  updated, new-brand version of the v1 site's `/gallery` site-frame
+  takeover (`main`, old spec 054: fullscreen takeover on a scrim,
+  slim header with visit/close, Escape and the close control restore
+  scroll) — the old `/gallery` URL itself stays a 404 per 010 §7 F3
+  unless the owner says otherwise; the header's ghost-button +
+  "Got a question?" pair reads as the 011 chat-row grammar (the
+  inert `open-chat` contract) — confirmed at spec writing. **The
+  asset exports landed** (`~/Dropbox/01-work/00-projects/01-keystone/
+  03-website/03-newsite/ourwork`): the three case studies (zivel ·
+  yhs · barelux) at all five anchor tiers, and the nine gallery
+  images at three tiers — `gallery-lg` serving 768–1344, `gallery-md`
+  576, `gallery-sm` 384 (design's tier direction). Planning flags,
+  with design before the specs are written (the future 014 §9 records
+  resolutions): **F1 — the 576 Grid lattice frame runs 10t past its
+  footer top** (3552 vs 3072; every other anchor's lattice ends at
+  its footer) — the frame fix is needed first; F2 — the exports are
+  PNG (rules: WebP only) — re-export or convert at build; F3 — **no
+  overlay frames exist in the file** — the fullscreen overlay needs
+  design inputs (frames, or explicit intent to derive from the v1
+  behavior under new-brand chrome); F4 — motion/behavior intent not
+  yet received (gallery strip behavior at rm/rs — swipe/controls,
+  card entrances, overlay open/close); F5 — the 768 header carries a
+  hidden "Got a question?" layer (stale or per-band intent — verify
+  at spec writing).
+- **Four of the five Our Work planning flags closed** (same
+  afternoon; fixes verified from the nodes and the export folder):
+  **F1** — the 576 Grid lattice re-read 576×3072, ending at its
+  footer top (rendered bounds through the bridge); **F2** — the WebP
+  exports landed in `…/ourwork/export` (all 42 tiers: three case
+  studies × five anchors, nine gallery images × three tiers); **F4**
+  — gallery-strip intent received: the rm/rs strip behaves like the
+  site's other carousels — swipe/drag with a snap to the active slot
+  (the 012 pointer lessons apply); no card-entrance choreography
+  supplied — 014 defaults to born-settled (the 011 §9 R10 precedent)
+  and flags it at draft; **F5** — the hidden 768 "Got a question?"
+  layer is gone (the node reads deleted from the live file). The
+  bridge returned the same session and **every planning landmark was
+  re-verified against rendered bounds at all five anchors** — the
+  metadata tables stand unchanged (the 576 footer's x 0.5 / w 577
+  read is the standing stroke artifact, read as 0/576). **F3 stays
+  open by design's cadence** (owner, same session): the overlay
+  files arrive after the page sections are built — needed only
+  before 016 is written, from fresh reads then; the 014/015 builds
+  do not block. Overlay open/close motion intent rides with that
+  delivery.
+- **Spec 014 is drafted** (afternoon, from fresh reads of the header
+  and case-studies nodes at all five anchors, the two component sets,
+  and the Grid layers — every landmark, card box, and lattice cell
+  verified against rendered bounds; all fifteen card instances read
+  for variants and copy). The section reads clean: tick-true card
+  boxes (18/13/6/5/4t on 1t stack gaps), whole-tick image/profile
+  splits, one copy set across the anchors, the `hard-shadow-square`
+  effect style on every site image; the lattice is the pricing
+  east-edge staircase (the 011 §2 construction), with the runs
+  passing behind the cards as declared overlaps (the 013
+  expectations pattern). Nine draft flags went to design/owner and
+  **seven closed the same afternoon** (014 §9, every fix re-read
+  post-fix): the rm "Talk to Us" casing, the H1 rag (intent — natural
+  wrap in tick-padded boxes; two residual double spaces pend file
+  cleanup), the "100k+" canon, the starred numerals' size stepping,
+  the four east-rail holes, the paintless circles (owner: stay in
+  the file, never built), and F8 withdrawn (a spec-author misread of
+  the drawn-map convention — §2 rewritten to the 011 shape). The last
+  two closed the same evening: **F1** — the rt slug weight re-fixed
+  (the first fix hadn't landed) and re-read Medium; **F9** — the View
+  Case Study CTAs link to **`/case-studies/{slug}`** (owner: the URLs
+  live on the old site today and return as rebuilt pages — **a
+  case-studies page design is ready and follows the Our Work and
+  gallery work**; until it lands the routes 404 per the 010 F1
+  precedent; slugs verified against `main`'s data modules). One
+  hygiene residual: the rd2 H1's double space (nothing builds from
+  it). **All nine 014 flags are resolved; the spec awaits
+  approval.**
+- **Spec 014 is approved and built** (owner approval, then the build
+  the same evening). The token layer re-extracted first (001 rule) —
+  **zero drift** across every layer (one observation: the `noise`
+  effect style no longer returns from the file; no consumer). Every
+  §1/§3/§4/§5 value re-verified from rendered bounds at build; the
+  file had moved since the afternoon's draft reads — the rm/rs/rt
+  case-studies frames were recreated under new node IDs (identical
+  geometry) — and the §2 re-read surfaced two deviations amended in
+  place (014 §9 build record): the rm r24/r33 widened cells read
+  unpainted (the run is uniform 10–11) and **rt gained its closing
+  square ■[11,28]**, completing the section-run pattern. One build
+  erratum: the stat labels' two-line rag — natural wrap in the full
+  cell width holds one line at the wide cells, so the labels wrap in
+  a **min-content box**, which reproduces the file's per-word rag at
+  every size with the canonical copy. Landed: the fifteen case-study
+  tiers into `public/media/case-studies/` + the registry builder;
+  the verbatim `IconStar` export; two new primitives —
+  `ButtonInline` (the 4px paint-in-place glyph advance, the bg/400
+  focus wash) and `CaseStudyCard` (size × arrangement, prop-driven,
+  var-driven interiors riding the band restatements — the 012
+  persona-card architecture) — plus their `/primitives` rows; the
+  work-header and work-cases sections (**zero client islands** —
+  hover is CSS, the CTAs links, the chat ghost inert on the 006
+  contract); the `v2/our-work.tsx` interim composition on
+  `/our-work` + the noindexed `/our-work-fixture` (nav · header ·
+  cases · footer; 015/016 splice in as they land; placeholder
+  title, the G4 wipe covers final copy). Acceptance checked at the
+  five anchors + nine slice widths (every landmark whole-tick, wrap
+  counts 4/4/3/3/3 and 5/4/3/3/3 holding across the slices, tiers
+  media-gated per band); header and card renders compared against
+  the file at every anchor — identical, incl. the rd1/rd2 CTA-row
+  gaps and the two starred stats. tsc/lint zero; the full sweep
+  green post-build (homepage and pricing untouched); the production
+  build static — `/our-work` 832 B route JS · 105 kB first load.
+  015 (the gallery) is next; the page expectations and sweep leg
+  land with 016.
+- **Two same-evening 014 revisions** (owner direction at the built
+  page's review — the 011 R13 cadence; dated amendments in 014 §4 /
+  §6.0, resolutions in the §9 build record): **the site-image
+  stroke** (design added a 1px `border/000` stroke to the card set's
+  image on all eight variants — read with its binding, built with
+  line-inclusive trailing edges; seam scans verified single shared
+  hairlines, and the pass corrected a first-build R17 miss on the
+  row-mode profile's bottom border) and **the rises-only entrance**
+  (the homepage load sequence minus the nav beat, the lattice sweep,
+  and the highlight pass: the header elements and card 1 fade-rise
+  on the 006 delays; card 1's shadow grows after its box lands — the
+  shadow law — and that beat settles the run). The 006 orchestrator
+  **generalized at its second consumer**
+  (`load-orchestrator.tsx`, the final beat parameterized; `HeroLoad`
+  wraps it, homepage untouched); the page opts in via its own
+  `v2-choreo-rise` guard and gains its one island. Verified: six
+  animations exactly, nav/lattice never animate, settle · replay ·
+  reduced-motion · no-JS all green, landmarks re-pass at rest; the
+  full sweep green after the orchestrator refactor (the homepage
+  settle intact); budgets re-measured — `/our-work` 1.17 kB route
+  JS · 106 kB first load, still static, `/` and `/pricing`
+  unchanged.
 
 ## Phasing
 
@@ -428,10 +586,19 @@ acceptance criteria are checked at every anchor and at mid-band widths.
   the offer (011) · the price scale + persona carousel (012) · the FAQ
   and page assembly (013). Four designed anchors; the 576 band derives
   per 011 §1.1 and is evaluated manually at build.
+- **Phase 8 — Our Work, section by section, top-down** (specs 014–016):
+  the header + case studies (014) · the gallery (015) · the fullscreen
+  gallery overlay and page assembly (016). All five anchors designed
+  (decision log 2026-08-28); the overlay's design inputs are the one
+  open dependency (F3).
 
-Subsequent pages (Our Work, Solutions, Company, Resources) follow the
-same per-section pattern once the homepage is done — **Pricing first**
-(owner decision 2026-08-27). Launch is big-bang after all pages are built.
+Subsequent pages (Solutions, Company, Resources) follow the same
+per-section pattern — **Pricing first** (owner decision 2026-08-27),
+**Our Work second** (owner direction 2026-08-28). A **Case Studies
+page** joins the queue directly after the Our Work phase: its design
+is ready (owner, 2026-08-28), and the 014 View-Case-Study CTAs
+already target its `/case-studies/{slug}` routes. Launch is big-bang
+after all pages are built.
 
 ## Spec cadence — just-in-time, never batched
 
@@ -554,6 +721,19 @@ values and would need editing later — which spec immutability forbids.
   **exposed-cell clearance assertion** — the sweep audits vertical
   stacks only, and the footer's rail collision hid in that gap until
   the 011 review (rules.md "Audits at rest", 2026-08-27).
+- Phase 8 (Our Work): the five anchor frames — all drawn (384
+  `454:23319` · 576 `648:43608` · 768 `447:21642` · 960 `648:42365` ·
+  1344 `429:10937`); the component sets `case-study-card` (8
+  variants) · `button-inline` (3 states), plus the standing
+  `_nav-button` / `button-fill` / `button-ghost` reuse — received
+  with the frames; the asset exports — received 2026-08-28 as WebP
+  in the Dropbox `ourwork/export` folder (three case studies at five
+  tiers, nine gallery images at three tiers — all 42 verified);
+  gallery-strip behavior intent received 2026-08-28 (swipe/drag,
+  snap to the active slot). F1/F2/F4/F5 closed the same day
+  (decision log). Still open: **the fullscreen-overlay inputs (F3)**
+  — design shares them after the page sections are built; needed
+  before 016 is written. 014/015 have everything they need.
 
 ## Special cells — ornament and function on the lattice
 
