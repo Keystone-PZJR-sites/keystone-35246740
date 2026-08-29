@@ -17,6 +17,10 @@ interface ButtonFillProps {
   /** Renders the same chrome as a link (the nav's Get Started / Login,
    * spec 005 §4). States stay CSS-driven either way. */
   href?: string;
+  /** Behavior hook rendered as data-action — e.g. the gallery's inert
+   * "open-gallery" (spec 015 §3.1, mirroring ButtonGhost's spec 006
+   * extension), wired when the feature lands. */
+  action?: string;
   forceState?: ForceableState;
   children: ReactNode;
 }
@@ -27,6 +31,7 @@ export function ButtonFill({
   shape = "pill",
   type = "button",
   href,
+  action,
   forceState,
   children,
 }: ButtonFillProps) {
@@ -47,6 +52,7 @@ export function ButtonFill({
         data-chrome={chrome}
         data-shape={shape}
         data-state={forceState}
+        data-action={action}
       >
         {label}
       </a>
@@ -60,6 +66,7 @@ export function ButtonFill({
       data-chrome={chrome}
       data-shape={shape}
       data-state={forceState}
+      data-action={action}
     >
       {label}
     </button>
