@@ -25,8 +25,13 @@ import {
   IconSliderArrow,
   IconCaseStudies,
   IconChat,
+  IconChevronLeftSm,
+  IconChevronRightSm,
+  IconDesktopView,
+  IconGalleryClose,
   IconLoadingCircle,
   IconMaps,
+  IconMobileView,
   IconNavMenu,
   IconNavTrigger,
   IconProjects,
@@ -35,6 +40,7 @@ import {
   IconSearch,
   IconSparkle,
   IconStar,
+  IconTabletView,
   IconTokens,
   IconWebsite,
 } from "@/design-system/v2/icons";
@@ -506,6 +512,12 @@ export default function PrimitivesPage() {
           <IconReviews />
           <IconTokens />
           <IconStar />
+          <IconChevronLeftSm />
+          <IconChevronRightSm />
+          <IconDesktopView />
+          <IconTabletView />
+          <IconMobileView />
+          <IconGalleryClose />
         </div>
       </section>
 

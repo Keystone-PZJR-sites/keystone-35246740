@@ -304,6 +304,73 @@ export function IconTokens({ size = 20, className }: Props) {
   );
 }
 
+/* ---- the gallery viewer's rail icons (spec 016 §2.1/§5.1) ----
+ * Six verbatim console-bridge exports from the gallery icon components
+ * (661:9454–9458 · 661:9471), 2026-08-29: 14-grid flattened-fill
+ * vectors, mounted at 16 in the gallery-button (fills scale cleanly on
+ * resize, unlike the 013 R8 stroke case). Ink normalized to
+ * currentColor — the button state supplies it (text/200; text/600
+ * disabled). File note (016 §9 build record): the desktop-view
+ * component's fills read bound text/100 where every sibling reads
+ * text/200 — flagged to design; nothing builds from it (the ink here
+ * is the mount's). */
+
+/** icons/left-chevron (661:9454) — the viewer's previous-site glyph. */
+export function IconChevronLeftSm({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.11475 3.04434L4.16016 6.99961L4.46914 7.30928L8.42441 11.2646L9.04307 10.6459L8.73408 10.3362L5.39746 6.99961L8.73408 3.66367L9.04307 3.354L8.42441 2.73535L8.11475 3.04434Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/right-chevron (661:9455) — the viewer's next-site glyph. */
+export function IconChevronRightSm({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M5.85117 3.04434L9.80576 6.99961L9.49678 7.30928L5.5415 11.2646L4.92285 10.6459L5.23184 10.3362L8.56846 6.99961L5.23184 3.66367L4.92285 3.354L5.5415 2.73535L5.85117 3.04434Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/desktop-view (661:9458) — the viewer's desktop-mode glyph. */
+export function IconDesktopView({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.25 1.75V10.2081H1.75V1.75H12.25ZM2.625 9.33311H11.375V2.625H2.625V9.33311Z" fill="currentColor" />
+      <path d="M13.4161 9.33301V12.2499H0.583008V9.33301H13.4161ZM1.45801 11.3749H12.5411V10.208H1.45801V11.3749Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/tablet-view (661:9456) — the viewer's tablet-mode glyph. */
+export function IconTabletView({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.6661 1.16699V12.8339H2.33301V1.16699H11.6661ZM3.20801 11.9589H10.7911V2.04199H3.20801V11.9589Z" fill="currentColor" />
+      <path d="M9.33389 10.208V11.083H4.66699V10.208H9.33389Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/mobile-view (661:9457) — the viewer's mobile-mode glyph. */
+export function IconMobileView({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.0839 0.583008V13.4161H2.91699V0.583008H11.0839ZM3.79199 12.5411H10.2089V1.45801H3.79199V12.5411ZM8.16699 2.04111V2.91611H5.83389V2.04111H8.16699Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** icons/gallery-close (661:9471) — the viewer's close glyph. */
+export function IconGalleryClose({ size = 16, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M10.9728 3.646L10.6638 3.95566L7.61904 6.99971L10.9728 10.3541L10.3541 10.9728L6.99971 7.61904L3.95566 10.6638L3.646 10.9728L3.02734 10.3541L6.38105 6.99971L3.33633 3.95566L3.02734 3.646L3.646 3.02734L3.95566 3.33633L6.99971 6.38105L10.3541 3.02734L10.9728 3.646Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** IconLoadingCircle (button-arrow loading glyph) — track stays the
  * alpha-ink token; the head is currentColor per chrome. */
 export function IconLoadingCircle({ size = 24, className }: Props) {
