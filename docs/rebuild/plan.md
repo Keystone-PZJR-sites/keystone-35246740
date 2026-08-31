@@ -701,6 +701,108 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   features; per-slot 3:2 exports stay open as the deeper option.
   Design re-exported the **sm tier** the same pass (separate export
   issue; nine files, dimensions unchanged) — a byte-only asset swap.
+- **The fullscreen-overlay inputs landed and spec 016 is drafted**
+  (the F3 dependency closed; the prep review, the owner's six
+  resolutions, and the draft all the same day). Design delivered the
+  Gallery overlay section (`660:8898`): seven takeover frames
+  (384/576/768/960 + three 1344 view states) and two new sets —
+  `gallery-navRail` (56px, size xs–xl: logo · "Keystone Gallery" ·
+  site name · prev/next · a desktop/tablet/mobile **view switcher** ·
+  close) and `gallery-button` (default/hover/active) — the site below
+  on a `text/050` scrim. Every frame, rail override, and set variant
+  verified against rendered bounds through the bridge. The owner
+  resolved all six prep flags: **the viewer embeds the live sites**
+  (the v1 054 behavior; the nine URLs received — three had no `main`
+  record), **one name set** (the rail label derives from the embedded
+  site's 015 canon name), the Mobile-view rail override and the hidden
+  mock/placeholder hygiene **fixed and re-read**, desktop mode at
+  narrow widths **a scaled-down desktop site**, and the open targets —
+  the CTAs open site 1 and **the gallery thumbnails become triggers**
+  opening the viewer on their own site (a 016-owned extension of the
+  built 015 section; ghosts keep the 012 select grammar at rm/rs).
+  The same afternoon (016 §9): **the active-button shadow tokenized**
+  — the fourth effect style, `hard-shadow-square-xs` (1px 1px 0 at
+  the drawn 0.2 alpha), created in the file and bound through the
+  bridge at owner direction, `--shadow-hard-square-xs` landing in
+  `tokens/semantic.css`; and **the site-5 canon renamed** to
+  **Jesse's Barbershop & Tattoo** — the site's own title (the
+  Izakali precedent; the received "State College Barbershops &
+  Tattoo" superseded; 015 §4/§9 amended, the built
+  `work-gallery-data.ts` updated in step). The last three closed
+  early afternoon (016 §9): **the mobile stage confirmed 384 × 832**
+  (the phone-proportion recommendation approved; the Mobile-view
+  frame's box trued through the bridge, re-read whole-px at
+  480/124); **the chevron clamp confirmed with a drawn end state**
+  (design added `state=disabled` to the `gallery-button` set — fill
+  `bg/300`, ink `text/600`; re-read the same hour); and **the rm/rs
+  CTA opens on the strip's active slide** (owner reversal of the
+  draft's site-1-always rule — the strip island publishes `data-k`,
+  the viewer's open handler reads it at the click; the islands
+  otherwise stay independent). No open/close motion
+  intent arrived — 016 §6 carries the spec's values (a fade on the
+  drawer clock, asymmetric; paging state-to-state) for approval. The
+  page-assembly half follows the 013 shape: the expectations module
+  (totals 111 · 85 · 60 · 53 · 48), the `/our-work-fixture` sweep leg
+  with the viewer drives (non-localhost requests blocked in CI), and
+  the 014/015 declared overlaps as clearance exceptions. **The spec
+  awaits approval.**
+- **Spec 016 is approved and built** (owner approval — covering §6's
+  motion values — then the build, the same afternoon; the Our Work
+  page is complete pending its launch gates). The token layer
+  re-extracted first (001 rule) — **zero drift** across every layer
+  (the file's four effect styles confirmed; `noise` still absent, no
+  consumer). Every §1/§2/§3 value re-verified from rendered bounds
+  through the bridge pre-build — all exact, incl. the trued
+  Mobile-view box and the per-frame active buttons behind §3's
+  default-mode table. Landed: the six verbatim rail icons into
+  `v2/icons.tsx` (+ catalog rows); the `--gv-*` material constants;
+  the **gallery-overlay island** (the §4 machine — the delegated
+  `open-gallery` wiring, the strip's `data-k` handoff at rm/rs, the
+  clamped chevrons with the drawn disabled state, the radiogroup
+  switcher, the §3 stage math on the overlay's own measured width,
+  scroll lock and focus in/out, the §6 fades); the 015 section
+  extension (urls in the one data module, the §4.4 tile triggers,
+  the island publishing `data-k`); the Our Work expectations module
+  and the `/our-work-fixture` sweep leg with hermetic viewer drives.
+  One §7.1 amendment at build (016 §9): the **`cta` clearance
+  exception** — the assertion's first run on this page read the 014
+  header CTA row's hugging box over the staircase at the drawn
+  anchors, ink 1.5–2t clear (the head exception's class). Two
+  construction facts (016 §9): the close fade is its own keyframes
+  name (a reversed finished animation never restarts — the
+  animationend the unmount rides would never fire), and the iframe
+  is keyed by s (src-swapping a live iframe pushes history entries).
+  One file flag with design: the desktop-view icon binds `text/100`
+  where its five siblings bind `text/200` — nothing builds from it
+  (currentColor; the state supplies the ink). The sweep runs all
+  four routes green in one run (445 checks; anchors, ten slices,
+  every rest state incl. the viewer drives; live embeds never
+  loaded). Budgets: every route static, six islands on the page,
+  `/our-work` 133 B route JS · 108 kB first load; **one recorded
+  deviation** — the shared icons chunk grew ~1 kB with the six
+  exports, so `/` and `/pricing` first load read 112/108 kB against
+  the byte-unchanged acceptance line (016 §9; owner ruling open —
+  splitting the icons out of the registry would trade the one-home
+  rule for the bytes). Reduced-motion and no-JS verified after the
+  dev-server restart (the budget build invalidated the running
+  server's dev chunks — the standing .next cohabitation hazard;
+  future budget passes should coordinate the build with the owner):
+  reduce renders the takeover settled with every input working and
+  an instant close; a no-JS render carries the ten inert triggers
+  and never mounts the viewer. Every 016 acceptance box is checked
+  except the byte-unchanged deviation awaiting the owner. Three
+  same-day review fixes at the built viewer (owner report — the 011
+  R13 cadence; 016 §9): the button glyph re-centered (the padded
+  grid track had landed it at 6,6, not the drawn 4,4 — the pad
+  constant retired), the rail labels gained the standing GT Standard
+  opsz mount they had omitted, and the rail gained a 1px border/050
+  bottom hairline (owner direction, amended into 016 §2). The same
+  session the owner re-inked the `gallery-button` fills in the file
+  (default/disabled bg/400, hover bg/600 — one step darker; active
+  unchanged), zeroed the set's declared pad, and re-bound the divider
+  to border/050 — re-read through the bridge with propagation
+  confirmed, 016 §2/§2.1 amended, the build following the new
+  bindings (contrast still past the floors: 6.2:1 / 4.9:1).
 
 ## Phasing
 
@@ -874,9 +976,18 @@ values and would need editing later — which spec immutability forbids.
   tiers, nine gallery images at three tiers — all 42 verified);
   gallery-strip behavior intent received 2026-08-28 (swipe/drag,
   snap to the active slot). F1/F2/F4/F5 closed the same day
-  (decision log). Still open: **the fullscreen-overlay inputs (F3)**
-  — design shares them after the page sections are built; needed
-  before 016 is written. 014/015 have everything they need.
+  (decision log). **The fullscreen-overlay inputs (F3) — received
+  2026-08-29**: the Gallery overlay section (`660:8898`, seven
+  frames + the `gallery-navRail` / `gallery-button` sets), the nine
+  live-site URLs, and the owner's behavior decisions (live embeds,
+  one name set, scaled desktop mode, CTA → site 1 + thumbnail
+  triggers). Open/close motion intent did not ride with the
+  delivery — 016 §6 carries the spec's values for approval. Every
+  016 flag is closed (F7 tokenized, F8 confirmed 384 × 832 and trued,
+  the disabled chevron state drawn, the k handoff decided —
+  2026-08-29). **Nothing is open for Phase 8**; 016 approved and
+  built 2026-08-29 (decision log) — one file flag rides with design
+  (the desktop-view icon's ink binding, 016 §9 build record).
 
 ## Special cells — ornament and function on the lattice
 
