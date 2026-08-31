@@ -164,7 +164,13 @@ export function WorkGallerySection() {
           tabIndex below the gate); the ghost-click overlays are real
           buttons, present only in strip mode (CSS). Slide 1 is the
           server-rendered active slide (a no-JS render is the settled
-          strip at k=1). */}
+          strip at k=1). Every image is also a viewer trigger (016
+          §4.4, the owner's F5 extension, on the 012 card-overlay
+          pattern): each tile carries a .wg-open button on the inert
+          open-gallery contract passing its own site — shown on every
+          mosaic tile at rt+ and on the active slide at rm/rs, while
+          the ghosts keep writing k (the 012 select grammar — select,
+          then open). Inert until 016's delegated listener hydrates. */}
       <WorkGalleryIsland>
         <div className="wg-view" role="group" aria-label="Gallery" data-landmark="gallery">
           <ul className="wg-list">
@@ -197,6 +203,13 @@ export function WorkGallerySection() {
                   />
                 </picture>
                 <button type="button" className="wg-show" aria-label={`Show ${site.name}`} />
+                <button
+                  type="button"
+                  className="wg-open"
+                  data-action="open-gallery"
+                  data-gallery-site={i + 1}
+                  aria-label={`View ${site.name} fullscreen`}
+                />
               </li>
             ))}
           </ul>

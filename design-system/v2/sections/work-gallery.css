@@ -232,6 +232,29 @@
   box-shadow: inset 0 0 0 var(--ring-w) var(--color-border-200);
 }
 
+/* the viewer triggers (016 §4.4 — the 012 card-overlay pattern): in
+   strip mode only the active slide opens the viewer (the ghosts keep
+   the select grammar above); the whole tile is the target (≥44px at
+   every audited width) */
+.wg-open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: none;
+}
+.wg-slide[data-active] .wg-open {
+  display: block;
+}
+.wg-open:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
 /* ---------------- the mosaic — rt/rd1/rd2 (§4) ---------------- */
 
 /* the same nine list items on the designed grid: 3×5 cells of 3t×2t
@@ -266,6 +289,11 @@
   }
   .wg-show {
     display: none;
+  }
+  /* in the mosaic every tile opens the viewer on its own site (016
+     §4.4) */
+  .wg-open {
+    display: block;
   }
   /* line-inclusive trailing edges (011 R17): tiles on the mosaic's
      east edge share the rail line's pixel, tiles on its south edge

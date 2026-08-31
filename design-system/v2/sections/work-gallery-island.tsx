@@ -31,6 +31,14 @@
  * inert — the mosaic rendering never reads it (choreographies
  * settle: there is no entrance to replay). k is re-derived from the
  * DOM on mount so an HMR remount never resets a live section.
+ *
+ * In strip mode the island also publishes k as data-k on the section
+ * root (spec 016 §4.1 — the owner's k handoff, 2026-08-29): the 016
+ * viewer's open handler reads it at the click so the rm/rs CTA opens
+ * on the strip's active slide. One-way, at open time only — the DOM
+ * is the one shared source and the two islands stay otherwise
+ * independent (paging the viewer never moves the strip). Above the
+ * gate the attribute is absent and the CTA opens on site 1.
  * Reduced motion needs nothing here: the writes are state-to-state
  * and the CSS transition kill renders them instantly. A no-JS render
  * is the settled strip at k=1. */
@@ -58,6 +66,10 @@ export function WorkGalleryIsland({ children }: { children: ReactNode }) {
     /* re-derive k from the rendered state (HMR-safe, the 012 pattern) */
     let k = Math.max(1, slides.findIndex((s) => s.dataset.active !== undefined) + 1);
 
+    /* the 016 §4.1 handoff surface: k published on the section root in
+       strip mode only (at rt+ there is no k and the attribute leaves) */
+    const sec = root.closest<HTMLElement>(".sec");
+
     /* strip mode rides the container width; the section spans the
        page container, so the island's own width is the gate's input */
     let strip = false;
@@ -65,8 +77,10 @@ export function WorkGalleryIsland({ children }: { children: ReactNode }) {
       strip = root.clientWidth < RT_GATE;
       if (strip) {
         view.tabIndex = 0;
+        if (sec) sec.dataset.k = String(k);
       } else {
         view.removeAttribute("tabindex");
+        if (sec) delete sec.dataset.k;
       }
     };
     const ro = new ResizeObserver(measure);
@@ -77,6 +91,7 @@ export function WorkGalleryIsland({ children }: { children: ReactNode }) {
       const clamped = Math.max(1, Math.min(COUNT, next));
       if (clamped === k) return;
       k = clamped;
+      if (strip && sec) sec.dataset.k = String(k);
       list.style.setProperty("--wg-k", String(k));
       slides.forEach((s, i) => {
         if (i === k - 1) {
@@ -181,6 +196,7 @@ export function WorkGalleryIsland({ children }: { children: ReactNode }) {
       view.removeEventListener("dragstart", onDragStart);
       view.removeEventListener("keydown", onKeyDown);
       view.removeAttribute("tabindex");
+      if (sec) delete sec.dataset.k;
       delete list.dataset.dragging;
       list.style.removeProperty("--wg-drag-dx");
     };

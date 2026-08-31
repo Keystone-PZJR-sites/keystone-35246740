@@ -215,7 +215,7 @@ export set §7; the site names are the owner's canon, received
 | col 3, row 1 | 02 | House of Aesthetics |
 | col 3, row 2 | 03 | DreFadez Barber |
 | col 1, row 3 | 04 | Ora Medical Clinic |
-| col 2, row 3 | 05 | State College Barbershops & Tattoo |
+| col 2, row 3 | 05 | ~~State College Barbershops & Tattoo~~ Jesse’s Barbershop & Tattoo⁶ |
 | col 3, row 3 | 06 | X2Talent Recruiting |
 | col 1, row 4 | 07 | Davin Security |
 | **feature B — cols 2–3, rows 4–5** | **09** | Lune Bodywork |
@@ -223,6 +223,11 @@ export set §7; the site names are the owner's canon, received
 
 ⁵ received as "Izakai"; resolved 2026-08-28 (owner) — the canonical
 name is **Izakali**, matching the site's own wordmark (§9 F5).
+⁶ *amended 2026-08-29 (owner, at the 016 prep review — §9): the
+canon follows the site's own title, the Izakali precedent — the
+received "State College Barbershops & Tattoo" is superseded by
+**Jesse's Barbershop & Tattoo** (the live site's brand); the built
+data module, alt, and ghost-button name carry the new canon.*
 
 Every image: an image fill (`object-fit: cover`), a **1px
 `border/000` stroke** (read with its binding), **no effect** (zero
@@ -489,6 +494,16 @@ re-read from the node post-fix), one open:
 - **Note** — the strip island's k state is section-internal; the 016
   overlay opens on its own state and does not read k (the overlay
   spec owns any handoff decision).
+- **Amendment, 2026-08-29 — the site-5 canon (owner, at the 016 prep
+  review).** The 016 live-embed delivery exposed that site 5's own
+  title is **Jesse's Barbershop & Tattoo** (the served page's brand);
+  the owner ruled the canon follows the site's own branding — the F5
+  list's "State College Barbershops & Tattoo" is superseded (the
+  Izakali precedent, where the wordmark's spelling won). §4 carries
+  the strikethrough amendment; the built `work-gallery-data.ts` name
+  updated in step (a copy-only change — the alt "The Jesse's
+  Barbershop & Tattoo website" and the ghost button's name flow from
+  the one module). The 016 §4.2 URL table carries the same canon.
 - **Amendment, 2026-08-29 — the crop anchor (owner).** The §7.1
   direction (one 13:9 lg cut serving every mosaic slot) crops ~4% of
   the height in the 3:2 small cells; centered cover split it across

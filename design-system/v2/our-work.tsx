@@ -3,6 +3,8 @@ import { NavChrome } from "@/design-system/v2/sections/nav";
 import { WorkHeaderSection } from "@/design-system/v2/sections/work-header";
 import { WorkCasesSection } from "@/design-system/v2/sections/work-cases";
 import { WorkGallerySection } from "@/design-system/v2/sections/work-gallery";
+import { GALLERY_SITES } from "@/design-system/v2/sections/work-gallery-data";
+import { GalleryOverlay } from "@/design-system/v2/sections/gallery-overlay";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 import { LoadOrchestrator } from "@/design-system/v2/sections/load-orchestrator";
 
@@ -10,9 +12,13 @@ import { LoadOrchestrator } from "@/design-system/v2/sections/load-orchestrator"
  * `/our-work` and under the QA readout by `/our-work-fixture` (spec
  * 014 §8.4, the spec 010 §6.3 pattern). The composition: the header
  * (014), the case studies (014), and the gallery (015 — spliced
- * 2026-08-28) over the footer; 016 (the fullscreen overlay + page
- * assembly) lands last. The page carries two islands: the
- * orchestrator and the 015 strip machine (the gallery's own).
+ * 2026-08-28) over the footer, plus the fullscreen gallery viewer
+ * (016 — spliced 2026-08-29): a portal-mounted overlay island fed the
+ * §4.2 site data from the one 015 data module; it wires the standing
+ * open-gallery contract, so the 015 CTAs and tile triggers go live
+ * with no markup change. The page carries three islands of its own —
+ * the orchestrator, the 015 strip machine, and the viewer (six on the
+ * page with the nav pair and footer-nav, the 016 §7.3 budget).
  *
  * The entrance (014 §6 as amended 2026-08-28; the shadow beat retired
  * 2026-08-29 with the whole-card interaction rework): the rises-only
@@ -51,6 +57,9 @@ export async function OurWorkPage({ qa }: { qa?: React.ReactNode }) {
           §9); the selector pins the settle to the card's own hx-rise,
           the last to end on the shared clock */}
       <LoadOrchestrator finalAnimation="hx-rise" finalSelector=".csc" />
+      {/* the 016 viewer: renders nothing until an open-gallery trigger
+          fires; the name/url pairs are the §4.2 canon (one module) */}
+      <GalleryOverlay sites={GALLERY_SITES.map(({ name, url }) => ({ name, url }))} />
       {qa}
     </div>
   );
