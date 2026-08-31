@@ -85,5 +85,8 @@
 /* Sections (spec 015) */
 @import "./sections/work-gallery.css";
 
+/* Sections (spec 016) */
+@import "./sections/gallery-overlay.css";
+
 /* The assembled Our Work page (spec 014 §6 as amended) */
 @import "./our-work.css";
