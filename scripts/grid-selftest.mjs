@@ -1,10 +1,12 @@
-// Grid self-test sweep (spec 002 §3.3, extended by specs 010 §3 and
-// 013 §7.4) — runs the in-page checks (window.__GRID_SELFTEST__, see
-// app/grid/grid-devtools.tsx) on the three audited routes:
+// Grid self-test sweep (spec 002 §3.3, extended by specs 010 §3,
+// 013 §7.4, and 016 §7.2) — runs the in-page checks
+// (window.__GRID_SELFTEST__, see app/grid/grid-devtools.tsx) on the
+// four audited routes:
 //
-//   /grid             — the fixture harness (spec 002)
-//   /home-fixture     — the real assembled homepage (spec 010 §3.2)
-//   /pricing-fixture  — the real assembled pricing page (spec 013 §7)
+//   /grid              — the fixture harness (spec 002)
+//   /home-fixture      — the real assembled homepage (spec 010 §3.2)
+//   /pricing-fixture   — the real assembled pricing page (spec 013 §7)
+//   /our-work-fixture  — the real assembled Our Work page (spec 016 §7)
 //
 // at all five anchors and one width per structural slice (spec 010
 // §3.1 — stretched and compressed, 002.r1 nearest-anchor gates), with a
@@ -20,8 +22,16 @@
 // unchanged). Pricing (spec 013 §7.4): the 012 machine on each k
 // (card-overlay clicks to k = 1 and 2, arrow keys back to 0), an FAQ
 // drawer open, a second (the single-open handoff), then closed, the
-// footer drawer at the accordion bands, and the mobile nav. Exits
-// nonzero on any failure, so CI can gate on it.
+// footer drawer at the accordion bands, and the mobile nav. Our Work
+// (spec 016 §7.2): the 015 strip machine at rm/rs (a ghost click to
+// k=2, keys back with the clamp), the footer drawer and mobile nav,
+// and the 016 viewer — open (s = the strip's k at rm/rs, 1 at rt+),
+// paged, view-switched, closed, focus restored — an overlay on
+// --z-modal: the stack beneath is unchanged in every state. During
+// the Our Work leg every non-localhost request is blocked (puppeteer
+// request interception), so CI never touches the nine live embeds —
+// the iframe's src is asserted as a URL, never loaded. Exits nonzero
+// on any failure, so CI can gate on it.
 //
 // Usage:
 //   node scripts/grid-selftest.mjs            # starts `next dev` itself
@@ -294,14 +304,91 @@ async function main() {
       await driveMobileNav(assertState);
     }
 
+    // Our Work rest-state drives (spec 016 §7.2), asserted per state.
+    async function driveWorkStates(route, width, band) {
+      const assertState = makeAssert(route, width);
+
+      // the 015 strip machine at rm/rs: a ghost click to k=2, arrow
+      // keys back, clamped at the west end
+      if (band === "rm" || band === "rs") {
+        if (await clickVisible(".wg-slide:nth-child(2) .wg-show")) {
+          await sleep(SETTLE_MS);
+          await assertState("gallery strip k=2");
+          await page.evaluate(() => {
+            document.querySelector(".wg-view")?.focus();
+          });
+          await page.keyboard.press("ArrowLeft");
+          await page.keyboard.press("ArrowLeft"); // the second clamps at 1
+          await sleep(SETTLE_MS);
+          await assertState("gallery strip k=1 (keys, clamped)");
+        }
+      }
+
+      await driveFooterDrawer(assertState, band);
+      await driveMobileNav(assertState);
+
+      // the 016 viewer: open → paged → view-switched → closed. An
+      // overlay on --z-modal outside the page flow — the stack beneath
+      // is unchanged in every state. The embed's src is asserted as a
+      // URL, never loaded (non-localhost requests are blocked for this
+      // route). The first visible open-gallery match is the header CTA;
+      // at rm/rs it opens on the strip's published k (1 at rest here).
+      if (await clickVisible('[data-action="open-gallery"]')) {
+        await sleep(SETTLE_MS);
+        const src1 = await page.evaluate(
+          () => document.querySelector(".gv-embed")?.getAttribute("src") ?? null,
+        );
+        if (!src1 || !/^https:\/\//.test(src1)) {
+          fail(`${route} ${width} · viewer embed src missing or not a URL (${src1})`);
+        }
+        await assertState("viewer open (s=1)");
+        await clickVisible('.gv-btn[aria-label="Next site"]');
+        await sleep(SETTLE_MS);
+        const src2 = await page.evaluate(
+          () => document.querySelector(".gv-embed")?.getAttribute("src") ?? null,
+        );
+        if (src2 === src1) fail(`${route} ${width} · viewer paging did not swap the embed src`);
+        await assertState("viewer paged (s=2)");
+        // switch to any off view mode (the drawn default varies by band)
+        await page.evaluate(() => {
+          [...document.querySelectorAll(".gv-switch .gv-btn")]
+            .find((b) => b.getAttribute("aria-checked") === "false")
+            ?.click();
+        });
+        await sleep(SETTLE_MS);
+        await assertState("viewer view-switched");
+        await clickVisible('.gv-btn[aria-label="Close gallery"]');
+        await sleep(SETTLE_MS);
+        await assertState("viewer closed");
+        const focusRestored = await page.evaluate(
+          () => document.activeElement?.matches('[data-action="open-gallery"]') ?? false,
+        );
+        if (!focusRestored) fail(`${route} ${width} · viewer close did not restore focus`);
+      }
+    }
+
     const ROUTES = [
       { path: "/grid", drives: null },
       { path: "/home-fixture", drives: driveHomeStates },
       { path: "/pricing-fixture", drives: drivePricingStates },
+      // hermetic: the 016 viewer's live embeds never load in CI
+      { path: "/our-work-fixture", drives: driveWorkStates, blockRemote: true },
     ];
 
-    for (const { path: route, drives } of ROUTES) {
+    // spec 016 §7.2: during a blockRemote leg every non-localhost
+    // request aborts, so the sweep never touches the nine live sites
+    const interceptor = (req) => {
+      const { hostname } = new URL(req.url());
+      if (hostname === "localhost" || hostname === "127.0.0.1") req.continue();
+      else req.abort();
+    };
+
+    for (const { path: route, drives, blockRemote } of ROUTES) {
       console.log(`\n=== ${route} ===`);
+      if (blockRemote) {
+        await page.setRequestInterception(true);
+        page.on("request", interceptor);
+      }
       await page.goto(`${base}${route}`, { waitUntil: "networkidle0" });
 
       // the audits run at rest: wait out the load choreography (002.r1
@@ -358,6 +445,11 @@ async function main() {
               `PASS ${route} joint ${joint} · sample ${below.toFixed(3)} → ${at.toFixed(3)} → ${above.toFixed(3)}`,
             );
         }
+      }
+
+      if (blockRemote) {
+        page.off("request", interceptor);
+        await page.setRequestInterception(false);
       }
     }
   } finally {
