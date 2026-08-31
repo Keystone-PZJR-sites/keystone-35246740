@@ -127,6 +127,10 @@
   --shadow-hard-round: 3px 4px 0 0 rgba(85, 77, 68, 0.15);
   --shadow-hard-square: 4px 4px 0 0 rgba(85, 77, 68, 0.15);
   --shadow-hard-square-md: 3px 3px 0 0 rgba(85, 77, 68, 0.15);
+  /* the 1px chrome-scale step — created and bound in Figma 2026-08-29
+     (spec 016 §9 F7: the gallery-button active state; alpha 0.2 is
+     that style's drawn value, not the 0.15 of the larger steps) */
+  --shadow-hard-square-xs: 1px 1px 0 0 rgba(85, 77, 68, 0.2);
   /* origin states of the hard shadows: zero offset paints nothing but
      gives transitions a same-structure start value, so the offset can
      grow 0,0 → 3,3 (spec 004 §5) and 0,0 → 4,4 (spec 005 §6) */
