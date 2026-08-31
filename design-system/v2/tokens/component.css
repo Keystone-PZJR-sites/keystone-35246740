@@ -367,6 +367,34 @@
      the same build); this name is the section alias of the motion
      token, value 0.5 (the §9 F7 canon). */
   --wg-ghost-opacity: var(--motion-ghost-opacity);
+
+  /* gallery viewer constants (spec 016 §5.2) — the takeover is overlay
+     chrome (the 002.r1 taxonomy): every value material px, so a plain
+     block (nothing here references --t or the weights). The rail
+     reuses the 005 nav vocabulary's --knav-bar-h / --knav-logomark for
+     the 44px logo box and 18px mark. The three view reference widths
+     and the mobile float height are unitless: the island reads them
+     from computed style for the §3 stage math, so these tokens are
+     their single source. The button's drawn 6px pad is a set
+     declaration the 16px icon overflows (rendered at 4,4 — read
+     2026-08-29); the build centers the glyph in the 24px box with no
+     pad (a padded grid track lands it at 6,6 — 016 §9 build record),
+     so no pad constant ships. */
+  --gv-rail-h: 56px;
+  --gv-logo-box-w: 56px;
+  --gv-logo-box-h: 48px;
+  --gv-divider-w: 1px;
+  --gv-divider-h: 24px;
+  --gv-rail-pad: 16px;
+  --gv-group-gap: 24px;
+  --gv-chevron-gap: 8px;
+  --gv-btn: 24px;
+  --gv-switch-pad: 4px;
+  --gv-switch-gap: 8px;
+  --gv-ref-mobile: 384;
+  --gv-ref-tablet: 768;
+  --gv-ref-desktop: 1344;
+  --gv-mobile-float-h: 832;
   --sldr-track-bevel: inset 0 1px 0 rgba(0, 0, 0, 0.25);
   --sldr-thumb-bevel:
     inset -1px -1px 0 rgba(0, 0, 0, 0.3),
