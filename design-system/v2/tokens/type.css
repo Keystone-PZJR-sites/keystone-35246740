@@ -1,5 +1,5 @@
 /* v2 tokens — type styles. GENERATED FILE, do not edit.
-   Source: type-styles.json (Figma text styles, extracted 2026-08-27).
+   Source: type-styles.json (Figma text styles, extracted 2026-08-31).
    Regenerate: node scripts/generate-v2-type-css.mjs
 
    Per style: -font is a CSS font shorthand (weight size/lh family);
@@ -115,6 +115,8 @@
   --ts-display-serif-xs-regular-ls: -0.01em;
   --ts-display-serif-xs-medium-font: 500 24px/30px var(--font-serif);
   --ts-display-serif-xs-medium-ls: -0.01em;
+  --ts-display-serif-2xs-plus-extralight-font: 200 20px/24px var(--font-serif);
+  --ts-display-serif-2xs-plus-extralight-ls: -0.01em;
   --ts-display-serif-2xs-plus-light-font: 300 20px/24px var(--font-serif);
   --ts-display-serif-2xs-plus-light-ls: -0.01em;
   --ts-display-serif-2xs-plus-regular-font: 400 20px/24px var(--font-serif);
