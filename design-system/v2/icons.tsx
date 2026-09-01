@@ -371,6 +371,111 @@ export function IconGalleryClose({ size = 16, className }: Props) {
   );
 }
 
+/* ---- the case-study page's glyphs (spec 017 §5.4) ----
+ * Verbatim console-bridge exports from the Case Study section's rd2
+ * frame, 2026-08-31. The six stack icons are hue-toned two-tone cuts
+ * (glyph on the hue's 400 step, sparkle on its dark step) at per-icon
+ * intrinsic boxes (32/28/32/28/26/30) — distinct draws from the gray
+ * 011 list family, so they ship as their own exports; the smaller
+ * bands mount them scaled (fills scale cleanly). Layer-name note
+ * (017 §9): the rm/rs/rt cells carry stale names ("website" on the
+ * ads cell, "listings2" on reviews) — glyph identity was verified
+ * against the rd2 draws; nothing builds from the names. */
+
+/** IconDoubleCheckmark (017 §3.3) — the checklist glyph: two checks on
+ * the teal/400 + teal/500 pair (intrinsic two-tone; the strokes are
+ * outlined fills, so the 20-box Shift mount scales cleanly). */
+export function IconDoubleCheckmark({ size = 24, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.5559 7.91013L7.53438 17.0777L3.4375 12.9808L4.49805 11.9203L5.02891 12.45L7.46055 14.8816L13.934 7.48708L14.4273 6.92224L15.5559 7.91013Z" fill="var(--color-teal-400, #5bc3b3)" />
+      <path d="M20.5574 7.91013L12.5699 17.039L11.4414 16.0511L19.4289 6.92224L20.5574 7.91013Z" fill="var(--color-teal-500, #4aac9d)" />
+    </svg>
+  );
+}
+
+/** IconStarLg (017 §3.2) — the intro-stat star. Its own 25×24 cut
+ * (non-uniform proportions vs IconStar's 15×14 — not a glyph match,
+ * so it ships verbatim per the reuse rule); single color, normalized
+ * to currentColor (inked yellow/400 at the mount). Non-square:
+ * `size` is the width; height rides the intrinsic 25:24 ratio. */
+export function IconStarLg({ size = 25, className }: Props) {
+  return (
+    <svg width={size} height={(size * 24) / 25} viewBox="0 0 25 24" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.3616 7.89941L25 9.16767L18.748 15.3162L20.2244 24L12.4987 19.8987L4.77426 24L6.24934 15.3162L0 9.16767L8.63581 7.89941L12.5 0L16.3616 7.89941Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** stack/website (017 §3.7 cell 1) — teal two-tone, 32-grid. */
+export function IconStackWebsite({ size = 32, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.125 10.375C9.125 11.0654 8.56535 11.625 7.875 11.625C7.18465 11.625 6.625 11.0654 6.625 10.375C6.625 9.68465 7.18465 9.125 7.875 9.125C8.56535 9.125 9.125 9.68465 9.125 10.375Z" fill="var(--color-teal-400, #5bc3b3)" />
+      <path d="M12.875 10.375C12.875 11.0654 12.3153 11.625 11.625 11.625C10.9346 11.625 10.375 11.0654 10.375 10.375C10.375 9.68465 10.9346 9.125 11.625 9.125C12.3153 9.125 12.875 9.68465 12.875 10.375Z" fill="var(--color-teal-400, #5bc3b3)" />
+      <path d="M15.375 11.625C16.0654 11.625 16.625 11.0654 16.625 10.375C16.625 9.68465 16.0654 9.125 15.375 9.125C14.6846 9.125 14.125 9.68465 14.125 10.375C14.125 11.0654 14.6846 11.625 15.375 11.625Z" fill="var(--color-teal-400, #5bc3b3)" />
+      <path d="M2.875 5.375V25.375H15.625V23.5H4.75V7.25H26V13.125H27.875V5.375H2.875Z" fill="var(--color-teal-400, #5bc3b3)" />
+      <path d="M18.6259 22.1625C20.3528 22.1625 21.4163 22.5447 22.0613 23.1896C22.7063 23.8346 23.0885 24.8982 23.0885 26.625H24.6635C24.6635 24.8982 25.0457 23.8346 25.6906 23.1896C26.3356 22.5447 27.3991 22.1625 29.126 22.1625V20.5875C27.3991 20.5875 26.3356 20.2053 25.6906 19.5604C25.0457 18.9154 24.6635 17.8518 24.6635 16.125H23.0885C23.0885 17.8518 22.7063 18.9154 22.0613 19.5604C21.4163 20.2053 20.3528 20.5875 18.6259 20.5875V22.1625Z" fill="var(--color-teal-600, #318175)" />
+    </svg>
+  );
+}
+
+/** stack/meta-ads (017 §3.7 cell 2) — orange two-tone, 28-grid. */
+export function IconStackAds({ size = 28, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M23.4404 8.90479H23.4626C25.7609 8.90488 27.6239 10.7679 27.624 13.0662C27.6238 15.3643 25.7608 17.2274 23.4626 17.2275H23.4404V23.7251L15.374 19.8132V25.593H9.14307V18.4221H7.92627C6.28911 18.422 4.82296 17.6859 3.8418 16.5303L5.1748 15.3989C5.83767 16.1795 6.82444 16.672 7.92627 16.6721H11.8313V8.03662L23.4404 2.40723V8.90479ZM10.8931 23.843H13.624V18.9639L12.5046 18.4221H10.8931V23.843ZM13.5813 9.13037V16.9985L21.6904 20.9309V5.19971L13.5813 9.13037ZM23.4404 15.4775H23.4626C24.7943 15.4774 25.8738 14.3978 25.874 13.0662C25.8739 11.7344 24.7944 10.6549 23.4626 10.6548H23.4404V15.4775Z" fill="var(--color-orange-400, #f57e56)" />
+      <path d="M0.382812 9.44005C1.89379 9.44005 2.8244 9.77448 3.38879 10.3388C3.95308 10.9032 4.28751 11.8338 4.28751 13.3448H5.66564C5.66564 11.8338 6.00007 10.9032 6.56436 10.3388C7.12875 9.77448 8.05936 9.44005 9.57034 9.44005V8.06193C8.05936 8.06193 7.12875 7.7275 6.56436 7.1632C6.00007 6.59881 5.66564 5.66821 5.66564 4.15723H4.28751C4.28751 5.66821 3.95308 6.59881 3.38879 7.1632C2.8244 7.7275 1.89379 8.06193 0.382812 8.06193V9.44005Z" fill="var(--color-orange-600, #a03722)" />
+    </svg>
+  );
+}
+
+/** stack/front-desk (017 §3.7 cell 3) — blue two-tone, 32-grid. */
+export function IconStackFrontDesk({ size = 32, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M26.3125 24.125V26H3.8125V24.125H26.3125Z" fill="var(--color-blue-400, #3393ff)" />
+      <path d="M14.125 20.6875H16V25.063H14.125V20.6875Z" fill="var(--color-blue-400, #3393ff)" />
+      <path d="M18.8125 6V7.875H11.3125V6H18.8125Z" fill="var(--color-blue-400, #3393ff)" />
+      <path d="M16 7.25V11.312H15.0625C9.73234 11.312 6.11703 15.2209 5.72559 20.375H26.3125V22.25H3.8125V21.3125C3.8125 15.1418 7.81293 9.94446 14.125 9.4751V7.25H16Z" fill="var(--color-blue-400, #3393ff)" />
+      <path d="M18.1875 13.625C19.8321 13.625 20.845 13.989 21.4593 14.6032C22.0735 15.2175 22.4375 16.2304 22.4375 17.875H23.9375C23.9375 16.2304 24.3015 15.2175 24.9157 14.6032C25.53 13.989 26.5429 13.625 28.1875 13.625V12.125C26.5429 12.125 25.53 11.761 24.9157 11.1468C24.3015 10.5325 23.9375 9.51958 23.9375 7.87497H22.4375C22.4375 9.51958 22.0735 10.5325 21.4593 11.1468C20.845 11.761 19.8321 12.125 18.1875 12.125V13.625Z" fill="var(--color-blue-700, #24509e)" />
+    </svg>
+  );
+}
+
+/** stack/content (017 §3.7 cell 4) — yellow two-tone, 28-grid. */
+export function IconStackContent({ size = 28, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.4688 8.9021C12.4687 7.35304 11.2401 6.125 9.7583 6.125H1.96875V22.0271H9.7583C10.81 22.0271 11.7318 22.2586 12.4688 22.7295V8.9021ZM14.2188 22.7295C14.9557 22.2586 15.8775 22.0271 16.9292 22.0271H24.7188V12.25H26.4688V23.7771H16.9292C15.8937 23.7771 15.2432 24.0634 14.8528 24.4453C14.4639 24.8259 14.2188 25.4134 14.2188 26.25H12.4688C12.4688 25.4134 12.2236 24.8259 11.8347 24.4453C11.4443 24.0634 10.7938 23.7771 9.7583 23.7771H0.21875V4.375H9.7583C11.2364 4.375 12.5339 5.10403 13.3438 6.21729C14.1536 5.10403 15.4511 4.375 16.9292 4.375V6.125C15.4474 6.125 14.2188 7.35304 14.2188 8.9021V22.7295Z" fill="var(--color-yellow-400, #f5b83d)" />
+      <path d="M24.0313 1.75C24.0313 3.19262 24.3508 4.0893 24.8965 4.63519C25.4424 5.18106 26.3388 5.50036 27.7817 5.50037V6.75006C26.3389 6.75007 25.4424 7.06937 24.8965 7.61523C24.3507 8.16112 24.0313 9.05767 24.0313 10.5004H22.7816C22.7816 9.05767 22.4622 8.16112 21.9164 7.61523C21.3705 7.0695 20.4738 6.75006 19.0312 6.75006V5.50037C20.474 5.50037 21.3706 5.18106 21.9164 4.63519C22.4622 4.08932 22.7816 3.1928 22.7816 1.75H24.0313Z" fill="var(--color-yellow-700, #70531a)" />
+    </svg>
+  );
+}
+
+/** stack/reviews (017 §3.7 cell 5) — pink two-tone, 26-grid. */
+export function IconStackReviews({ size = 26, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 26 26" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M13.7163 6.29541C13.7163 7.94412 14.0815 8.9689 14.7051 9.59277C15.3289 10.2166 16.3535 10.5815 18.0024 10.5815V12.0098C16.3535 12.0098 15.3289 12.3747 14.7051 12.9985C14.0813 13.6224 13.7163 14.647 13.7163 16.2959H12.2881C12.2881 14.647 11.9231 13.6224 11.2993 12.9985C10.6754 12.3748 9.65062 12.0098 8.00195 12.0098V10.5815C9.65086 10.5815 10.6754 10.2166 11.2993 9.59277C11.9231 8.96892 12.2881 7.94432 12.2881 6.29541H13.7163Z" fill="var(--color-pink-700, #783551)" />
+      <path fillRule="evenodd" clipRule="evenodd" d="M24.25 21.2954H17.1089L12.9941 24.7041L8.92773 21.2954H1.75V1.2959H24.25V21.2954ZM3.625 19.4204H9.61035L9.87109 19.6401L13 22.2622L16.1714 19.6357L16.4321 19.4204H22.375V3.1709H3.625V19.4204Z" fill="var(--color-pink-400, #f38bb0)" />
+    </svg>
+  );
+}
+
+/** stack/reporting (017 §3.7 cell 6) — purple two-tone, 30-grid. */
+export function IconStackReporting({ size = 30, className }: Props) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.5141 21.25H17.5146V19.375H24.3891V26.2495H22.5141V21.25Z" fill="var(--color-purple-400, #9c69ea)" />
+      <path d="M4.375 3.75H6.25V8.74951H11.2495V10.6245H4.375V3.75Z" fill="var(--color-purple-400, #9c69ea)" />
+      <path d="M3.125 15V14.0625H5V15C5 20.1776 9.19733 24.375 14.375 24.375C17.4221 24.375 20.1932 22.9226 21.9219 20.6777L22.4946 19.9351L23.98 21.0791L23.4087 21.8218C21.3346 24.5153 18.0194 26.25 14.375 26.25C8.16179 26.25 3.125 21.2131 3.125 15Z" fill="var(--color-purple-400, #9c69ea)" />
+      <path d="M15.3116 3.75V5.625H14.3742C11.3273 5.62519 8.55573 7.07751 6.82728 9.32227L6.25599 10.0649L4.76917 8.9209L5.34192 8.17822C7.41582 5.48485 10.7301 3.75019 14.3742 3.75H15.3116Z" fill="var(--color-purple-400, #9c69ea)" />
+      <path d="M16.874 10.75C18.5186 10.75 19.5315 11.114 20.1458 11.7282C20.76 12.3425 21.124 13.3554 21.124 15H22.6241C22.6241 13.3554 22.9881 12.3425 23.6023 11.7282C24.2166 11.114 25.2295 10.75 26.8741 10.75V9.24997C25.2295 9.24997 24.2166 8.88597 23.6023 8.27177C22.9881 7.65746 22.6241 6.64456 22.6241 4.99995H21.124C21.124 6.64456 20.76 7.65746 20.1458 8.27177C19.5315 8.88597 18.5186 9.24997 16.874 9.24997V10.75Z" fill="var(--color-purple-700, #4f2573)" />
+    </svg>
+  );
+}
+
 /** IconLoadingCircle (button-arrow loading glyph) — track stays the
  * alpha-ink token; the head is currentColor per chrome. */
 export function IconLoadingCircle({ size = 24, className }: Props) {
