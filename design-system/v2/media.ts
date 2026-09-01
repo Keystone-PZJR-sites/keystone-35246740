@@ -268,6 +268,54 @@ export function caseStudySrc(site: CaseStudySiteId, cut: CaseStudyTier["cut"]): 
   return `/media/case-studies/casestudy-${site}-${cut}.webp`;
 }
 
+/* ---- case-study pages (spec 017 §5.4) ----
+ * Per-study photograph tiers (three images × five width tiers,
+ * received 2026-08-31 for Zivel and renamed at intake from Figma's
+ * dedup numbering). Art direction, not resolution steps (crops and
+ * aspects differ per band): each image renders as <picture> with one
+ * media-gated <source> per tier, largest-first, the 384 file as the
+ * <img> fallback; the media cuts follow the nearest-anchor structural
+ * gates (spec 002.r1). The header and studio (quote) exports are
+ * composited — hard-shadow-square / hard-shadow-square-md plus the
+ * header's 10% multiply tint baked at export (+4px / +3px canvas at
+ * 1×) — so the <img> mounts at canvas size anchored to the drawn
+ * box's top-left with no CSS shadow or blend (the §5.4 mount rule;
+ * the 012 persona baked-wash precedent). The result tiers are exact
+ * 2× with no dressing. Meaningful alt from the study's data module.
+ * Intrinsic tier dimensions are per-study content and live in the
+ * data module (sections/case-study-data.ts) beside the copy. */
+
+export const CASE_STUDY_PAGE_IMAGES = ["header", "studio", "result"] as const;
+
+export type CaseStudyPageImage = (typeof CASE_STUDY_PAGE_IMAGES)[number];
+
+export interface CaseStudyPageTier {
+  cut: 384 | 576 | 768 | 960 | 1344;
+  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
+  media: string | null;
+}
+
+/** Largest-first, ready for <source> order; the last entry is the
+ * 384 fallback. */
+export const CASE_STUDY_PAGE_TIERS: CaseStudyPageTier[] = [
+  { cut: 1344, media: "(min-width: 1130px)" },
+  { cut: 960, media: "(min-width: 860px)" },
+  { cut: 768, media: "(min-width: 665px)" },
+  { cut: 576, media: "(min-width: 470px)" },
+  { cut: 384, media: null },
+];
+
+/** casestudy-{slug-short}-{header|studio|result}-{tier}.webp under
+ * public/media/case-studies (beside the 014 card tiers). `study` is
+ * the study's short asset id (Zivel: "zivel"), not the route slug. */
+export function caseStudyPageSrc(
+  study: string,
+  image: CaseStudyPageImage,
+  cut: CaseStudyPageTier["cut"],
+): string {
+  return `/media/case-studies/casestudy-${study}-${image}-${cut}.webp`;
+}
+
 /* ---- Our Work gallery (spec 015 §7.1) ----
  * 27 verbatim WebP exports (supplied 2026-08-28 in the Dropbox
  * ourwork/export folder): nine gallery images in three width tiers,
