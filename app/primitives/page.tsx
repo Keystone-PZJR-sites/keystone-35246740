@@ -5,6 +5,7 @@ import Image from "next/image";
 import { MEDIA_V2 } from "@/design-system/v2/media";
 import { ButtonArrow, ButtonFill, ButtonGhost } from "@/design-system/v2/primitives/buttons";
 import { ButtonInline } from "@/design-system/v2/primitives/button-inline";
+import { CaseStudyButton } from "@/design-system/v2/primitives/case-study-button";
 import { CaseStudyCard } from "@/design-system/v2/primitives/case-study-card";
 import { FaqQuestion } from "@/design-system/v2/primitives/faq-question";
 import { GridButton } from "@/design-system/v2/primitives/grid-button";
@@ -412,6 +413,38 @@ export default function PrimitivesPage() {
             View Case Study
           </ButtonInline>
         </div>
+      </section>
+
+      <section className="pv-section">
+        <h2>case-study-button</h2>
+        {/* the set's six variants (spec 017 §5.3): state × size — the
+            underlined view-the-live-site link on the 014 glyph-advance
+            grammar (hover ink-up + the 4px gap advance; the bg/300
+            focus wash; the icon holds text/500 through every state) */}
+        {(["lg", "sm"] as const).map((size) => (
+          <div key={size}>
+            <h3>{size}</h3>
+            <div className="pv-row">
+              <CaseStudyButton
+                label="View the Palm Coast Zivel website"
+                href="https://palm-coast-zivel-35621640.rahul-0b6.workers.dev/"
+                size={size}
+              />
+              <CaseStudyButton
+                label="View the Palm Coast Zivel website"
+                href="https://palm-coast-zivel-35621640.rahul-0b6.workers.dev/"
+                size={size}
+                forceState="hover"
+              />
+              <CaseStudyButton
+                label="View the Palm Coast Zivel website"
+                href="https://palm-coast-zivel-35621640.rahul-0b6.workers.dev/"
+                size={size}
+                forceState="focus"
+              />
+            </div>
+          </div>
+        ))}
       </section>
 
       <section className="pv-section">
