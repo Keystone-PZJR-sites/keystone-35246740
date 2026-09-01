@@ -1,12 +1,13 @@
 // Grid self-test sweep (spec 002 §3.3, extended by specs 010 §3,
-// 013 §7.4, and 016 §7.2) — runs the in-page checks
+// 013 §7.4, 016 §7.2, and 017 §7.2) — runs the in-page checks
 // (window.__GRID_SELFTEST__, see app/grid/grid-devtools.tsx) on the
-// four audited routes:
+// five audited routes:
 //
-//   /grid              — the fixture harness (spec 002)
-//   /home-fixture      — the real assembled homepage (spec 010 §3.2)
-//   /pricing-fixture   — the real assembled pricing page (spec 013 §7)
-//   /our-work-fixture  — the real assembled Our Work page (spec 016 §7)
+//   /grid                — the fixture harness (spec 002)
+//   /home-fixture        — the real assembled homepage (spec 010 §3.2)
+//   /pricing-fixture     — the real assembled pricing page (spec 013 §7)
+//   /our-work-fixture    — the real assembled Our Work page (spec 016 §7)
+//   /case-study-fixture  — the assembled case-study page (spec 017 §7)
 //
 // at all five anchors and one width per structural slice (spec 010
 // §3.1 — stretched and compressed, 002.r1 nearest-anchor gates), with a
@@ -19,7 +20,13 @@
 // strip scrolled, the testimonial strip on each offset, a footer
 // drawer open and closed at the accordion bands, and the mobile nav
 // open and closed (an overlay — the assertion is that the stack is
-// unchanged). Pricing (spec 013 §7.4): the 012 machine on each k
+// unchanged). Case study (spec 017 §7.2): the sticky TOC at the rd2
+// widths — resting above the sticky line, fixed at 1t mid-page with
+// the active item tracking the §4 rule (The Shift's range), an
+// anchor click landing its target with the hash updated — and absent
+// from view below the rd2 gate; the §3.8 live-site link and the §3.9
+// Get Started href asserted as attributes, never loaded (the 016
+// hermetic precedent). Pricing (spec 013 §7.4): the 012 machine on each k
 // (card-overlay clicks to k = 1 and 2, arrow keys back to 0), an FAQ
 // drawer open, a second (the single-open handoff), then closed, the
 // footer drawer at the accordion bands, and the mobile nav. Our Work
@@ -367,12 +374,115 @@ async function main() {
       }
     }
 
+    // Case-study rest-state drives (spec 017 §7.2), asserted per state.
+    async function driveCaseStudyStates(route, width, band) {
+      const assertState = makeAssert(route, width);
+
+      // the §3.8 live-site link and §3.9 CTA resolve as attributes
+      // (the 016 hermetic precedent — the external URL never loads)
+      const hrefs = await page.evaluate(() => ({
+        live: document.querySelector(".csb")?.getAttribute("href") ?? null,
+        started: [...document.querySelectorAll('.csc-ctas a.btn-fill')].find(
+          (e) => e.getClientRects().length > 0,
+        )?.getAttribute("href") ?? null,
+      }));
+      if (!hrefs.live || !/^https:\/\//.test(hrefs.live)) {
+        fail(`${route} ${width} · live-site link missing or not a URL (${hrefs.live})`);
+      }
+      if (hrefs.started !== "/pricing") {
+        fail(`${route} ${width} · Get Started href ${hrefs.started} ≠ /pricing`);
+      }
+
+      // the sticky TOC (§4): rd2-only
+      const tocVisible = await page.evaluate(
+        () => (document.querySelector(".toc")?.getClientRects().length ?? 0) > 0,
+      );
+      if (band === "rd2") {
+        if (!tocVisible) {
+          fail(`${route} ${width} · TOC hidden at rd2`);
+        } else {
+          // resting: above the sticky line, Overview active
+          const resting = await page.evaluate(() => {
+            const toc = document.querySelector(".toc");
+            const t = document.querySelector(".page").getBoundingClientRect().width / 12;
+            return {
+              top: toc.getBoundingClientRect().top,
+              active: toc.getAttribute("data-active"),
+              t,
+            };
+          });
+          if (resting.top <= resting.t + 1) {
+            fail(`${route} ${width} · TOC already stuck at rest (top ${resting.top.toFixed(1)})`);
+          }
+          if (resting.active !== "overview") {
+            fail(`${route} ${width} · TOC resting active ${resting.active} ≠ overview`);
+          }
+          await assertState("toc resting");
+
+          // scrolled: drive The Shift's top past the one-third line;
+          // the rail fixes at exactly 1t and the active id follows
+          await page.evaluate(() => {
+            const shift = document.getElementById("shift");
+            const y = shift.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: y - window.innerHeight / 3 + 8, behavior: "instant" });
+          });
+          await sleep(SETTLE_MS);
+          const scrolled = await page.evaluate(() => {
+            const toc = document.querySelector(".toc");
+            const t = document.querySelector(".page").getBoundingClientRect().width / 12;
+            return {
+              top: toc.getBoundingClientRect().top,
+              active: toc.getAttribute("data-active"),
+              t,
+            };
+          });
+          if (Math.abs(scrolled.top - scrolled.t) > 1.5) {
+            fail(
+              `${route} ${width} · TOC not fixed at 1t (top ${scrolled.top.toFixed(1)} vs t ${scrolled.t.toFixed(1)})`,
+            );
+          }
+          if (scrolled.active !== "shift") {
+            fail(`${route} ${width} · TOC scrolled active ${scrolled.active} ≠ shift`);
+          }
+          await assertState("toc fixed mid-page");
+
+          // anchor click: land the target with the hash updated
+          await clickVisible('.toc a[href="#funnel"]');
+          await sleep(SETTLE_MS);
+          const anchored = await page.evaluate(() => ({
+            hash: window.location.hash,
+            top: document.getElementById("funnel").getBoundingClientRect().top,
+          }));
+          if (anchored.hash !== "#funnel") {
+            fail(`${route} ${width} · anchor hash ${anchored.hash} ≠ #funnel`);
+          }
+          if (Math.abs(anchored.top) > 2) {
+            fail(`${route} ${width} · anchor target top ${anchored.top.toFixed(1)} ≠ 0`);
+          }
+          await assertState("toc anchor landed");
+
+          // restore (clear the hash scroll state for the next widths)
+          await page.evaluate(() => {
+            history.replaceState(null, "", window.location.pathname);
+            window.scrollTo({ top: 0, behavior: "instant" });
+          });
+          await sleep(SETTLE_MS);
+        }
+      } else if (tocVisible) {
+        fail(`${route} ${width} · TOC visible below the rd2 gate`);
+      }
+
+      await driveFooterDrawer(assertState, band);
+      await driveMobileNav(assertState);
+    }
+
     const ROUTES = [
       { path: "/grid", drives: null },
       { path: "/home-fixture", drives: driveHomeStates },
       { path: "/pricing-fixture", drives: drivePricingStates },
       // hermetic: the 016 viewer's live embeds never load in CI
       { path: "/our-work-fixture", drives: driveWorkStates, blockRemote: true },
+      { path: "/case-study-fixture", drives: driveCaseStudyStates },
     ];
 
     // spec 016 §7.2: during a blockRemote leg every non-localhost
@@ -392,12 +502,16 @@ async function main() {
       await page.goto(`${base}${route}`, { waitUntil: "networkidle0" });
 
       // the audits run at rest: wait out the load choreography (002.r1
-      // §5; pages with no choreography are born settled)
+      // §5; pages with no choreography are born settled). Any
+      // v2-choreo* guard marks a choreographed page (prefix-matched —
+      // the rise pages' guards too; 017 §7.2)
       await page.waitForFunction(
         () => {
           const p = document.querySelector(".page");
           return (
-            p && (!p.classList.contains("v2-choreo") || p.classList.contains("v2-settled"))
+            p &&
+            (![...p.classList].some((c) => c.startsWith("v2-choreo")) ||
+              p.classList.contains("v2-settled"))
           );
         },
         { timeout: 30000 },
