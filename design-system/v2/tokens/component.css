@@ -563,4 +563,48 @@
   --wk-sub-w-rt: calc((var(--wA) + var(--wB)) * 480);
   --wk-sub-w-rd1: calc((var(--wA) + var(--wB)) * 560);
   --wk-sub-w-rd2: calc((var(--wA) + var(--wB)) * 560);
+
+  /* case-study page constants (spec 017 §5.4.3). --cs-u is the weight
+     sum every §3 interior multiplies as a band constant (the
+     grid-digest law). The header tops ride the tick at their anchor
+     ratios (80/32 · 112/48 · 80/64 · 112/80 · 174/112 — §1); the
+     baked-shadow canvases ride --cs-u so the composited exports land
+     where the token shadow would (§5.4 mount rule: header +4px
+     right/bottom at 1×, studio +3px). The funnel bars are material px
+     (§3.6 — only bar 1 rides the width): 130/60/40 over per-band
+     heights 48/56 and label columns 80/104. The TOC block is the §4
+     material chrome; its sticky top rides the tick. The Wow tag is
+     the 012 bottom-tag grammar (52×28, bottom corners 6). The §6 img
+     beat extends the 006 delay ladder (80/190/330 + the new 440). */
+  --cs-u: calc(var(--wA) + var(--wB));
+  --cs-head-top-rm: calc(var(--t) * 80 / 32);
+  --cs-head-top-rs: calc(var(--t) * 112 / 48);
+  --cs-head-top-rt: calc(var(--t) * 80 / 64);
+  --cs-head-top-rd1: calc(var(--t) * 112 / 80);
+  --cs-head-top-rd2: calc(var(--t) * 174 / 112);
+  --cs-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
+  --cs-h1-w-rs: calc((var(--wA) + var(--wB)) * 384);
+  --cs-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
+  --cs-h1-w-rd1: calc((var(--wA) + var(--wB)) * 320);
+  --cs-h1-w-rd2: calc((var(--wA) + var(--wB)) * 448);
+  --cs-shadow-pad: calc((var(--wA) + var(--wB)) * 4);
+  --cs-shadow-pad-md: calc((var(--wA) + var(--wB)) * 3);
+  --cs-bar-2: 130px;
+  --cs-bar-3: 60px;
+  --cs-bar-4: 40px;
+  --cs-bar-h: 48px;
+  --cs-bar-h-d: 56px;
+  --cs-bar-label: 80px;
+  --cs-bar-label-d: 104px;
+  --cs-toc-top: calc(var(--t));
+  --cs-toc-item-h: 30px;
+  --cs-toc-gap: 8px;
+  --cs-toc-pad-l: 16px;
+  --cs-toc-pad-r: 8px;
+  --cs-toc-pad-y: 4px;
+  --cs-toc-rule: 2px;
+  --cs-tag-w: 52px;
+  --cs-tag-h: 28px;
+  --cs-tag-r: var(--radius-sm);
+  --cs-d-img: 440ms;
 }

@@ -90,3 +90,22 @@
 
 /* The assembled Our Work page (spec 014 §6 as amended) */
 @import "./our-work.css";
+
+/* Primitives (spec 017) */
+@import "./primitives/case-study-button.css";
+
+/* The case-study page's shared vocabulary + page contract (spec 017) —
+   before the sections so their per-band overrides win the cascade */
+@import "./case-study.css";
+
+/* Sections (spec 017) */
+@import "./sections/case-study-header.css";
+@import "./sections/case-study-intro.css";
+@import "./sections/case-study-overview.css";
+@import "./sections/case-study-business.css";
+@import "./sections/case-study-shift.css";
+@import "./sections/case-study-funnel.css";
+@import "./sections/case-study-stack.css";
+@import "./sections/case-study-result.css";
+@import "./sections/case-study-cta.css";
+@import "./sections/case-study-toc.css";

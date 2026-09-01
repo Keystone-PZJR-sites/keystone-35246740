@@ -1,0 +1,95 @@
+/* v2 sections — the sticky TOC (spec 017 §4). rd2-only (the ≥1130
+   display gate). The rail: an absolute col-1 column beside the
+   section stack, from the Overview's interior content line (the §4
+   resting-line ruling — the section's 10t top + the drawn 64px
+   interior pad) to The Result's end; the nav inside it is CSS
+   sticky at 1t (the offset rides the tick — --cs-toc-top). Items:
+   30px rows on an 8 gap, pad 16/8/4, a 1px border/000 left rail on
+   the list; the active item's 2px teal/400 rule replaces the
+   hairline over its row, ink text/200 Medium. The handoff is
+   state-to-state (§6 — no slide); the item hover inks up on the
+   standing hover clock. */
+
+/* the rail lives in the composition's .cs-body wrapper (top = the
+   Overview's resting line relative to the wrapper: 3t + 64u; height
+   runs to the CTA top at 52t) */
+.toc-rail {
+  display: none;
+}
+@container (min-width: 1130px) {
+  .toc-rail {
+    display: block;
+    position: absolute;
+    left: var(--t);
+    top: calc(var(--t) * 3 + (var(--wA) + var(--wB)) * 64);
+    height: calc(var(--t) * 49 - (var(--wA) + var(--wB)) * 64);
+    /* the drawn fixed item width (re-read 2026-09-01 — widened from
+       the hugging 119 so "The Business" holds one line) */
+    width: calc((var(--wA) + var(--wB)) * 176);
+    /* over the lattice field, under the nav */
+    z-index: var(--z-sticky);
+    pointer-events: none;
+  }
+}
+
+.toc {
+  position: sticky;
+  top: var(--cs-toc-top);
+  pointer-events: auto;
+}
+
+.toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-toc-gap);
+  /* the 1px border/000 left rail sits on the col-1 lattice line */
+  border-left: 1px solid var(--color-border-000);
+}
+
+.toc-item a {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--cs-toc-item-h);
+  padding: var(--cs-toc-pad-y) var(--cs-toc-pad-r) var(--cs-toc-pad-y) var(--cs-toc-pad-l);
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  text-decoration: none;
+  color: var(--color-text-400);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  /* item hover: ink-up on the standing hover clock (§6) */
+  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+@media (hover: hover) {
+  .toc-item a:hover {
+    color: var(--color-text-200);
+  }
+}
+.toc-item a:focus-visible {
+  outline: none;
+  background: var(--color-bg-300);
+  color: var(--color-text-200);
+}
+
+/* the active item: the 2px teal/400 rule replaces the hairline over
+   its 30px, ink text/200 Medium — state-to-state (§6) */
+.toc-item a[aria-current="true"] {
+  border-left: var(--cs-toc-rule) solid var(--color-teal-400);
+  padding-left: calc(var(--cs-toc-pad-l) - var(--cs-toc-rule) + 1px);
+  color: var(--color-text-200);
+  font: var(--ts-text-md-medium-font);
+  letter-spacing: var(--ts-text-md-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-medium-opsz), var(--font-sans-slnt);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc-item a {
+    transition-duration: 0s;
+  }
+}

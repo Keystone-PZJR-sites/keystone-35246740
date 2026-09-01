@@ -1,0 +1,248 @@
+/* v2 sections — case-study-intro (spec 017 §3.2). Head row 2t/1t;
+   the stat grid in per-band shapes, cells stroked line-inclusive on
+   shared hairlines (the 011 R17 law — cells sized +1px, overlapped
+   −1px). Cell pads ride the band (12/12/20/16/24 — §5.4 constants,
+   as drawn); numerals sit above the pill labels, both bottom-anchored
+   at the pad; the disclaimer pill is wrap-pinned per band and
+   bottom-left anchored. */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.csi-sec {
+  height: calc(var(--t) * 14);
+}
+@container (min-width: 470px) {
+  .csi-sec { height: calc(var(--t) * 7); }
+}
+@container (min-width: 665px) {
+  .csi-sec { height: calc(var(--t) * 8); }
+}
+@container (min-width: 860px) {
+  .csi-sec { height: calc(var(--t) * 4); }
+}
+@container (min-width: 1130px) {
+  .csi-sec { height: calc(var(--t) * 3); }
+}
+
+/* ---------------- the head row ---------------- */
+
+/* the head ramp (the 2026-09-01 type revision, re-read from the
+   nodes): text/xl in a 2t row at rm · xl in 1t at rs · 2xl at rt ·
+   2xl centered at rd1 · display-sans/2xs centered at rd2 */
+.csi-head {
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  height: calc(var(--t) * 2);
+  color: var(--color-text-100);
+  font: var(--_f, var(--ts-text-xl-regular-font));
+  font-size: calc((var(--wA) + var(--wB)) * var(--_fs, 20));
+  line-height: calc((var(--wA) + var(--wB)) * var(--_lh, 26));
+  letter-spacing: var(--_ls, var(--ts-text-xl-regular-ls));
+  font-variation-settings: "opsz" var(--_opsz, var(--ts-text-xl-regular-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .csi-head {
+    height: var(--t);
+  }
+}
+@container (min-width: 665px) {
+  .csi-head {
+    --_f: var(--ts-text-2xl-regular-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-regular-ls);
+    --_opsz: var(--ts-text-2xl-regular-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .csi-head { align-items: center; }
+}
+@container (min-width: 1130px) {
+  .csi-head {
+    --_f: var(--ts-display-sans-2xs-regular-font);
+    --_fs: 28;
+    --_lh: 36;
+    --_ls: var(--ts-display-sans-2xs-regular-ls);
+    --_opsz: var(--ts-display-sans-2xs-regular-opsz);
+  }
+}
+
+/* ---------------- the stat grid ---------------- */
+
+/* Shared hairlines, the uniform construction: every cell is sized
+   +1px (line-inclusive) and offset −1px both axes; the container's
+   1px top/left padding re-seats the first row and column, so every
+   touching pair overlaps into one shared pixel at every band and the
+   flex wrap still fits the drawn rows exactly. */
+.csi-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 1px 0 0 1px;
+  --cell-w: calc(var(--t) * 5.25 + 1px);
+  --cell-h: calc(var(--t) * 4 + 1px);
+  --cs-cell-pad: 12px;
+  --cs-pill-f: var(--ts-text-sm-regular-font);
+  --cs-pill-fs: 14;
+  --cs-pill-lh: 18;
+  --cs-pill-ls: var(--ts-text-sm-regular-ls);
+  --cs-pill-opsz: var(--ts-text-sm-regular-opsz);
+}
+.csi-grid > * {
+  margin: -1px 0 0 -1px;
+  width: var(--cell-w);
+  height: var(--cell-h);
+}
+/* the disclaimer row: full width, 2t at rm / 1t at rs; a grid cell
+   from rt up */
+.csi-grid .cs-cell-disclaimer {
+  width: calc(var(--t) * 10.5 + 1px);
+  height: calc(var(--t) * 2 + 1px);
+}
+
+@container (min-width: 470px) {
+  .csi-grid {
+    --cell-w: calc(var(--t) * 5 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+    --cs-pill-f: var(--ts-text-xs-regular-font);
+    --cs-pill-fs: 12;
+    --cs-pill-lh: 16;
+    --cs-pill-ls: var(--ts-text-xs-regular-ls);
+    --cs-pill-opsz: var(--ts-text-xs-regular-opsz);
+  }
+  .csi-grid .cs-cell-disclaimer {
+    width: calc(var(--t) * 10 + 1px);
+    height: calc(var(--t) * 1 + 1px);
+  }
+}
+@container (min-width: 665px) {
+  /* 3+2: three across, cells 4 and the disclaimer in row 2, the
+     third slot open (the natural wrap of five 3t cells in the 10t
+     column) */
+  .csi-grid {
+    --cell-w: calc(var(--t) * 3 + 1px);
+    --cell-h: calc(var(--t) * 3 + 1px);
+    --cs-cell-pad: 20px;
+    --cs-pill-f: var(--ts-text-sm-regular-font);
+    --cs-pill-fs: 14;
+    --cs-pill-lh: 18;
+    --cs-pill-ls: var(--ts-text-sm-regular-ls);
+    --cs-pill-opsz: var(--ts-text-sm-regular-opsz);
+  }
+  .csi-grid .cs-cell-disclaimer {
+    width: var(--cell-w);
+    height: var(--cell-h);
+  }
+}
+@container (min-width: 860px) {
+  /* five across */
+  .csi-grid {
+    --cell-w: calc(var(--t) * 2 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+    --cs-cell-pad: 16px;
+    --cs-pill-f: var(--ts-text-md-light-font);
+    --cs-pill-fs: 16;
+    --cs-pill-lh: 22;
+    --cs-pill-ls: var(--ts-text-md-light-ls);
+    --cs-pill-opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .csi-grid { --cs-cell-pad: 24px; }
+}
+
+/* ---------------- cell interiors ---------------- */
+
+/* numerals: display-sans Light — sm/xs/lg/md/3xl (§3.2) */
+.csi-grid .cs-cell-value {
+  font: var(--ts-display-sans-sm-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 36);
+  line-height: calc((var(--wA) + var(--wB)) * 42);
+  letter-spacing: var(--ts-display-sans-sm-light-ls);
+  font-variation-settings: "opsz" var(--ts-display-sans-sm-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  /* the numeral→label gap (column-reverse: the margin faces the pill
+     below) */
+  margin-bottom: var(--space-xs);
+}
+@container (min-width: 470px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-xs-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 32);
+    line-height: calc((var(--wA) + var(--wB)) * 38);
+    letter-spacing: var(--ts-display-sans-xs-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 665px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-lg-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 48);
+    line-height: calc((var(--wA) + var(--wB)) * 56);
+    letter-spacing: var(--ts-display-sans-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 40);
+    line-height: calc((var(--wA) + var(--wB)) * 48);
+    letter-spacing: var(--ts-display-sans-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-md-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-3xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 72);
+    line-height: calc((var(--wA) + var(--wB)) * 78);
+    letter-spacing: var(--ts-display-sans-3xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-3xl-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* the star rides the numeral row: heights 12/12/18/18/24 as drawn */
+.csi-grid .cs-cell-star svg {
+  width: auto;
+  height: calc((var(--wA) + var(--wB)) * 12);
+}
+@container (min-width: 665px) {
+  .csi-grid .cs-cell-star svg { height: calc((var(--wA) + var(--wB)) * 18); }
+}
+@container (min-width: 1130px) {
+  .csi-grid .cs-cell-star svg { height: calc((var(--wA) + var(--wB)) * 24); }
+}
+
+/* the pill labels ride the grid's per-band step; the disclaimer pill
+   is text/xs/Regular at every band (§3.2), wrap-pinned as drawn */
+.csi-grid .cs-pill {
+  font: var(--cs-pill-f);
+  font-size: calc((var(--wA) + var(--wB)) * var(--cs-pill-fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--cs-pill-lh));
+  letter-spacing: var(--cs-pill-ls);
+  font-variation-settings: "opsz" var(--cs-pill-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.csi-grid .cs-cell-disclaimer .cs-pill {
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  max-width: calc((var(--wA) + var(--wB)) * 196);
+}
+@container (min-width: 470px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: none; }
+}
+@container (min-width: 665px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 152); }
+}
+@container (min-width: 860px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 124); }
+}
+@container (min-width: 1130px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 160); }
+}

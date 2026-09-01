@@ -1,0 +1,299 @@
+/* v2 — the assembled Case Study page (spec 017). Page-level contract
+   plus the shared section vocabulary; per-section geometry lives in
+   the sections' own files.
+
+   The entrance (§6, owner direction 2026-08-31): the page rises like
+   Our Work — the 014 rises-only choreography through the generalized
+   orchestrator at its third consumer, opted in by the page's own
+   `v2-choreo-cs` guard (the v2-choreo-rise pattern; the homepage and
+   Our Work untouched). Four beats exactly: slug · H1 · the metadata
+   column · the header photo (delays in case-study-header.css; the img
+   beat's 440ms is --cs-d-img, extending the 006 ladder). Everything
+   below the header is born settled and never animates; the nav never
+   reloads; the lattice never sweeps. */
+
+/* Cold-load guard, rises only (the our-work.css construction): with a
+   cold font cache the settled page painted before the orchestrator's
+   class landed, then reset and re-animated. When scripting is enabled
+   and motion is allowed, the rise elements hold their hidden
+   from-state from first paint until `v2-load` arrives. No-JS renders
+   and reduced motion stay settled. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .page.v2-choreo-cs:not(.v2-load):not([data-motion="reduce"]) .hx-rise {
+    opacity: 0;
+  }
+}
+
+/* The homepage's sweep and nav-drop rules key on the shared `v2-load`
+   class page-wide (hero.css, by design); on this page they are
+   suppressed — no lattice sweep, no nav beat. */
+.page.v2-choreo-cs.v2-load :is(.grid-region, .decor, .knav-bar, .knav-mbar),
+.page.v2-choreo-cs.v2-load .grid-region :is(i.v, i.h) {
+  animation: none;
+}
+
+/* The TOC rail's containing block (§4): the section stack from the
+   intro to the CTA band. */
+.cs-stack {
+  position: relative;
+  width: 100%;
+}
+
+/* Anchor scroll (§6): smooth under motion-ok, instant under reduce —
+   scoped to this page's document. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.v2-choreo-cs) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------------- the section frame vocabulary ---------------- */
+
+/* Every case-study section: full width, whole-tick height (§1 — the
+   next section's top absorbs any hugging slack, "the tick wins").
+   Heights live in the sections' files. */
+.cs-sec {
+  width: 100%;
+}
+
+/* The content column (§1): rm the 0.5t column, 1t at rs+; the rd2
+   narrow-column sections override in their own files. The wrapper is
+   the section's landmark box — full tick height, so the audit reads
+   tick geometry; interiors hug inside it. */
+.cs-content {
+  position: relative;
+  height: 100%;
+  margin-left: calc(var(--t) / 2);
+  width: calc(var(--t) * 10.5 + 1px);
+}
+@container (min-width: 470px) {
+  .cs-content {
+    margin-left: var(--t);
+    width: calc(var(--t) * 10 + 1px);
+  }
+}
+
+/* ---------------- shared type mounts (§3 ink discipline) ---------- */
+
+/* The weight-riding band-constant construction (the 011/014 header
+   pattern): each mount sets --_f/--_fs/--_lh per band; sizes collapse
+   to the anchor zoom in the compressed slices. */
+.cs-type {
+  font: var(--_f);
+  font-size: calc((var(--wA) + var(--wB)) * var(--_fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* Section heads (§3.3–§3.8, one ramp): text/xl/Regular at rm/rs ·
+   text/2xl/Regular at rt/rd1 · display-sans/2xs/Regular at rd2 (the
+   2026-09-01 type revision — re-read from the nodes; the drafted
+   display-sans/xs stepped down one). Ink text/100 (§3 discipline —
+   the rt stack subhead's file /100 outlier is a binding slip; the
+   build renders the pattern, §9). */
+.cs-h2 {
+  margin: 0;
+  color: var(--color-text-100);
+  --_f: var(--ts-text-xl-regular-font);
+  --_fs: 20;
+  --_lh: 26;
+  --_ls: var(--ts-text-xl-regular-ls);
+  --_opsz: var(--ts-text-xl-regular-opsz);
+}
+@container (min-width: 665px) {
+  .cs-h2 {
+    --_f: var(--ts-text-2xl-regular-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-regular-ls);
+    --_opsz: var(--ts-text-2xl-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .cs-h2 {
+    --_f: var(--ts-display-sans-2xs-regular-font);
+    --_fs: 28;
+    --_lh: 36;
+    --_ls: var(--ts-display-sans-2xs-regular-ls);
+    --_opsz: var(--ts-display-sans-2xs-regular-opsz);
+  }
+}
+
+/* Section prose (§3.3/§3.4 bodies; §3.6/§3.7 subheads): text/md/Light
+   at rm/rs/rt · text/lg/Light at rd1/rd2. Ink per mount. */
+.cs-body {
+  margin: 0;
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 860px) {
+  .cs-body {
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* Pull-quotes (§3.4/§3.8): display-serif ExtraLight, per-band steps
+   set by the owning section (the rt step differs between the two). */
+.cs-quote {
+  margin: 0;
+  color: var(--color-text-100);
+}
+.cs-quote-attrib {
+  margin: 0;
+  color: var(--color-text-400);
+}
+
+/* ---------------- the stat-cell vocabulary (§3.2/§3.3) ------------ */
+
+/* Stroked line-inclusive boxes on shared hairlines: each cell is
+   sized +1px and overlaps its neighbor by 1px (the 011 R17 law), so
+   touching cells share the edge pixel. The grids set the overlap via
+   negative gaps in their own files. */
+.cs-cell {
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-000);
+  display: flex;
+  flex-direction: column-reverse; /* numeral above the pill label */
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--cs-cell-pad, 12px);
+}
+.cs-cell-value {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-200);
+}
+.cs-cell-label {
+  margin: 0;
+}
+.cs-cell-star {
+  display: inline-flex;
+  margin-left: var(--space-md);
+  color: var(--color-yellow-400);
+}
+.cs-cell-disclaimer {
+  justify-content: flex-end; /* not reversed — the pill sits alone */
+  flex-direction: column;
+}
+
+/* The pill label — the standing _nav-item chrome (r 9999,
+   presentational): ink text/400, type per band set by the grid. */
+.cs-pill {
+  display: inline-block;
+  border-radius: var(--radius-full);
+  color: var(--color-text-400);
+}
+
+/* ---------------- the checklist (§3.3/§3.5) ---------------- */
+
+.cs-check {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.cs-check li {
+  display: flex;
+  align-items: flex-start;
+}
+.cs-check svg {
+  flex: none;
+}
+
+/* ---------------- the tag chips (§3.1) ---------------- */
+
+/* The homepage chip vocabulary: {color}/300 fill with the /700 ink —
+   Sales calls on the standing orange/600 (§3.1). Radius 2 at rm, 4
+   from rs (the drawn per-band step — the 012 radius class, §9). */
+/* the vertical rhythm rides item margins, not row-gap: a forced
+   break line would double a flex row-gap (found at build — the §9
+   record), so rows carry margin-bottom (4 rm · 8 rs+) and the
+   zero-height breaks contribute nothing */
+.cs-tags {
+  margin: 0 0 calc(-1 * var(--space-xs));
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cs-tag {
+  border-radius: var(--radius-2xs);
+  background: var(--tag-fill);
+  color: var(--tag-ink);
+  margin-bottom: var(--space-xs);
+}
+@container (min-width: 470px) {
+  .cs-tags {
+    margin-bottom: calc(-1 * var(--space-md));
+  }
+  .cs-tag {
+    border-radius: var(--radius-xs);
+    margin-bottom: var(--space-md);
+  }
+}
+.cs-tag[data-color="pink"] { --tag-fill: var(--color-pink-300); --tag-ink: var(--color-pink-700); }
+.cs-tag[data-color="orange"] { --tag-fill: var(--color-orange-300); --tag-ink: var(--color-orange-600); }
+.cs-tag[data-color="yellow"] { --tag-fill: var(--color-yellow-300); --tag-ink: var(--color-yellow-700); }
+.cs-tag[data-color="teal"] { --tag-fill: var(--color-teal-300); --tag-ink: var(--color-teal-700); }
+.cs-tag[data-color="blue"] { --tag-fill: var(--color-blue-300); --tag-ink: var(--color-blue-700); }
+.cs-tag[data-color="purple"] { --tag-fill: var(--color-purple-300); --tag-ink: var(--color-purple-700); }
+
+/* forced wrap items (the drawn rag, §3.1): full-width zero-height,
+   zero-margin flex breaks — they add no vertical rhythm of their
+   own; the second exists for the rt 3+2+1 rows */
+.cs-tagbr {
+  width: 100%;
+  height: 0;
+  margin: 0;
+}
+.cs-tagbr-b {
+  display: none;
+}
+@container (min-width: 665px) and (max-width: 859.98px) {
+  /* the rt drawn order: Phone answering joins row 1 before Social */
+  .cs-tag { order: var(--tag-order); }
+  .cs-tagbr-a { order: 4; }
+  .cs-tagbr-b { display: block; order: 8; }
+}
+
+/* ---------------- the photo mount (§5.4) ---------------- */
+
+/* The wrapper owns the drawn tick box; the composited canvas anchors
+   to its top-left and overflows by the baked-shadow pad (--cs-pad-x /
+   --cs-pad-y — u-riding lengths set per image kind by the owning
+   section from the §5.4 component constants: 4/4 header · 3/3
+   studio — 0/3 where its right shadow clips at the page edge · 0/0
+   result). The image edge rides the grid; the baked shadow hangs
+   past it. No CSS shadow or blend on these images; max-width unsets
+   the reset so the canvas never squeezes into the box. */
+.cs-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cs-photo picture,
+.cs-photo img {
+  display: block;
+}
+.cs-photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  width: calc(100% + var(--cs-pad-x, 0px));
+  height: calc(100% + var(--cs-pad-y, 0px));
+}

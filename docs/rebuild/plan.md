@@ -804,6 +804,131 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   confirmed, 016 §2/§2.1 amended, the build following the new
   bindings (contrast still past the floors: 6.2:1 / 4.9:1).
 
+## Decision log — 2026-08-31
+
+- **The Case Studies page is planned as spec 017** (owner direction,
+  afternoon — the page directly after the Our Work phase, as queued
+  2026-08-28; drafted the same day from fresh reads of the Case Study
+  section `684:13645`). Design delivered **all five anchor frames**
+  (384 `473:31550` · 576 `707:29574` · 768 `464:28882` · 960
+  `689:15295` · 1344 `434:13594`), a **scrolled-state frame**
+  (`713:49098` — the sticky TOC drawn fixed with a mid-page active
+  item), and the **`case-study-button` set** (`715:50431`, state ×
+  size — the underlined view-the-live-site link with the 014
+  glyph-advance hover). Every frame, cell, fill, and text style
+  verified against rendered bounds and bindings through the bridge at
+  writing. Page totals **227 · 154 · 110 · 89 · 74** ticks (the rt
+  total after the same-evening 768 spacing revision — 017 §9); the
+  exposure construction is new — a **full-field lattice behind the
+  whole page** (the 011 lattices-behind-content law generalized) with
+  an east ornament rail per band. Owner behavior decisions on record:
+  **the sticky TOC** scrolls with the page until **1t from the
+  viewport top, then fixes**, renders **only in the rd2 band**, and
+  its drawn states carry scrollspy (the scrolled frame's active item
+  tracks the section in view); **the page is a template** — multiple
+  case studies ship on it, **Palm Coast Zivel first**, the others
+  populated after this version is built (their routes stay 404). The
+  three live-site URLs are on record from the 2026-08-29 016 delivery
+  (017 §5.2). Eleven draft flags went to design/owner (017 §9):
+  **F1 — the rd2 Overview/TheBusiness tops read off-tick** (10t+64 /
+  17t+64; bottoms whole-tick — fix or intent); F2 — the rm
+  Result/CTA columns read x 12 against the page's 0.5t column; F3 —
+  the rs/rt slug weight reads Regular (the 011 R3 / 014 F1 class,
+  third recurrence); F4 — the copy canon set, headed by **the intro's
+  "first three months" against the built 014 card's "first four
+  months"** (owner call) and the stack subhead duplicating the
+  funnel's; F5 — per-band shadow/hairline splits (the quote image's
+  `hard-shadow-square-md` at rm/rs only); F6/F7 — unbound hex and
+  text-style hygiene; **F8 — the fifteen image tiers are not yet
+  exported (the build gate)**; F9 — confirm the unpopulated slugs
+  404; F10 — entrance choreography decision (spec ships born-settled);
+  F11 — file hygiene. **The spec awaits the flag resolutions and
+  approval.**
+- **The 017 flag pass landed the same evening** (owner responses +
+  design fixes; every fix re-read from the nodes — 017 §9 is the
+  record). Resolved: **F1** — the rd2 Overview/TheBusiness frames
+  re-boxed whole-tick (10t–17t · 17t–26t; the 64px now a drawn
+  interior pad); **F3** — the slug weights re-read Medium; **F4
+  a/d/f** — the intro head is "In the first four months:" (matching
+  the 014 card), the disclaimer and Reporting strings one canon, the
+  Reviews rm/rs shortening ruled designed; **F4g** — the H1 double
+  spaces ruled **designed per-viewport rag** (the build renders the
+  drawn breaks explicitly); **F5** — the quote image's
+  `hard-shadow-square-md` re-read at all five anchors, the rm
+  missing hairline ruled correct; **F6 decoded** — the header
+  photos' `#5a0b0b` is a designed **10% multiply tint**, baked into
+  the exports with the shadows; **F7** — the CTA band follows the
+  built hero's subhead treatment; **F8 — the fifteen Zivel image
+  tiers landed** (`…/case-studies/zivel/export`; shadows/tint baked,
+  017 §5.4 carries the suffix map and mount rule); **F9** — 404s
+  confirmed and **the delivery phased**: Phase A template + Zivel
+  built and QA'd, Phase B the remaining studies as content-only
+  passes; **F10 — the page rises like Our Work** (four beats, settle
+  on the header photo; the orchestrator's third consumer); **F11** —
+  the rd2 Grid trued, the button set gained a `label` prop. **Still
+  open before approval:** F2 (the rm Result/CTA x 12 — re-verified
+  against the 0.5t column, awaiting the ruling), F4b (the stack
+  subhead copy, TK), F4c (the overview item-3 canon), and the small
+  residuals (the rs/rt "Hot leads" double space, the rm "8,000+",
+  the rs Business body style, the rt header image at 324 vs 5t, the
+  TOC resting line after the F1 re-box). **A late-evening second
+  pass** (fixes re-read): F4c resolved on the owner's **5-star**
+  ruling (one item-3 canon at every anchor), the six F11 degenerate
+  frames deleted, and a **768 spacing revision** — the CTA→footer
+  gap grew to 2t (footer 95t, the rt page total **110t**, the
+  pre-footer ornament now ■[11,94]); 017 §1/§2/§7.1 amended. **A
+  third pass (late night) closed everything else** (each fix
+  re-read): F2 — the rm columns on the 0.5t line; **F4b — the stack
+  subhead copy landed** ("How Zivel looks, who answers, and what
+  people are saying about it all handled from one platform."); the
+  copy/style residuals fixed ("Hot leads flagged" · "8,000" · the rs
+  body md); the rt header image trued **5t**; and the TOC's resting
+  line ruled **aligned with `overview-content`**. **Every 017 flag
+  is resolved — the spec awaits approval.** Riding with design, not
+  blockers: the rm `result-image` 340 → 336 and the two stale export
+  tiers that re-cut with the resizes (017 §5.4).
+- **Spec 017 is approved and built** (owner approval — covering the
+  §6 motion values and the 336 build ruling — then the build the
+  same night; Phase A of the Case Studies page is complete pending
+  its gates). The token layer re-extracted first (001 rule) — one
+  drift, this page's own: the new `display-serif/2xs+/ExtraLight`
+  quote step landed in the snapshot and type.css. Every §1–§5 value
+  re-verified from rendered bounds pre-build; the rm `result-image`
+  336 fix landed file-side during the build. Two §2-class errata
+  amended in place (017 §9 build record): the **rs run below The
+  Business rode down 1t** (the F5c body normalization's knock-on;
+  footer and total unchanged, the ornaments moved with it), and the
+  **§2 "full-field lattice" was the presence read** — per-cell
+  stroke visibility shows the painted exposure is the standing
+  east-staircase + col-11 rail + stat-row widenings + one
+  full-lattice pre-footer row (the hero §2 erratum class; four of
+  the draft's ○ cells are invisible — the pricing hygiene class).
+  Landed: the fifteen page tiers + the registry builder, eight
+  verbatim icon exports, the `CaseStudyButton` primitive, nine
+  server sections rendering wholly from the typed Zivel record (the
+  template law), the **rd2 sticky-TOC island** (CSS sticky at 1t in
+  the col-1 rail; scrollspy on the §4 one-third rule via one
+  IntersectionObserver; drawn resting state in SSR), the §6
+  four-beat rise (the orchestrator's third consumer, the page's own
+  `v2-choreo-cs` guard), `/case-studies/palm-coast-zivel` (static
+  params — unpopulated slugs 404) + the noindexed
+  `/case-study-fixture`, and the harness leg. **Two harness errata
+  found by this page's 227t stack, fixed in step:** the devtools'
+  assertion tick came from the probe box (1/64px browser rounding —
+  1.3px over 133 rows failed a correct build at 620; assertions now
+  ride the exact container ÷ 12) and the settle waits now
+  prefix-match `v2-choreo*`. The sweep runs **five routes green in
+  one run (499 checks)** incl. the TOC drives; renders compared
+  against the file at rm and rd2 — identical (the drawn
+  two-paragraph bodies, bullet list, uppercase card labels, square
+  funnel bars, and wrap-pinned pills all built from build-time
+  re-reads); reduced-motion and no-JS render the settled page with
+  the TOC's drawn resting state. **Open:** the production-build
+  budget pass (owner coordination — the standing .next hazard), G6,
+  the two byte-only re-cuts, and the 017 §9 file flags (the rt
+  stack-subhead ink, the rs funnel double space, the button set's
+  post-F11 dropped underline, the four invisible ○ cells).
+
 ## Phasing
 
 Each phase covers **all five anchors** and is done only when its spec's
@@ -836,14 +961,23 @@ acceptance criteria are checked at every anchor and at mid-band widths.
   gallery overlay and page assembly (016). All five anchors designed
   (decision log 2026-08-28); the overlay's design inputs are the one
   open dependency (F3).
+- **Phase 9 — Case Studies** (spec 017, one spec for the whole page):
+  the case-study template (header · intro stats · Overview · The
+  Business · The Shift · The Funnel · The Stack · The Result · CTA
+  band), the rd2 sticky-TOC island, the Palm Coast Zivel content, and
+  the page assembly. All five anchors + the scrolled-state frame
+  designed (decision log 2026-08-31). **Phase A approved + built +
+  verified 2026-08-31** (the decision log; pending the budget pass
+  and G6). The remaining studies (Your Health Solutions · Bare Lúx
+  Studio) land later as content passes on the built template; their
+  routes 404 until then.
 
 Subsequent pages (Solutions, Company, Resources) follow the same
 per-section pattern — **Pricing first** (owner decision 2026-08-27),
-**Our Work second** (owner direction 2026-08-28). A **Case Studies
-page** joins the queue directly after the Our Work phase: its design
-is ready (owner, 2026-08-28), and the 014 View-Case-Study CTAs
-already target its `/case-studies/{slug}` routes. Launch is big-bang
-after all pages are built.
+**Our Work second** (owner direction 2026-08-28), **Case Studies
+third** (owner direction 2026-08-28; specced 2026-08-31 — the 014
+View-Case-Study CTAs already target its `/case-studies/{slug}`
+routes). Launch is big-bang after all pages are built.
 
 ## Spec cadence — just-in-time, never batched
 
@@ -988,6 +1122,20 @@ values and would need editing later — which spec immutability forbids.
   2026-08-29). **Nothing is open for Phase 8**; 016 approved and
   built 2026-08-29 (decision log) — one file flag rides with design
   (the desktop-view icon's ink binding, 016 §9 build record).
+- Phase 9 (Case Studies): the five anchor frames + the scrolled
+  sticky-TOC frame + the `case-study-button` set — received and read
+  2026-08-31 (decision log; 017 is specced from post-verification
+  reads). Behavior intent received the same day (the 1t sticky TOC,
+  rd2-only, the template/populate-after direction); the three live
+  URLs stand from the 2026-08-29 delivery; **the fifteen Zivel image
+  tiers landed 2026-08-31** (shadows and the multiply tint baked —
+  017 §5.4); the entrance decision landed the same evening (rise
+  like Our Work, 017 §6).   **Every 017 flag resolved 2026-08-31** (three same-day passes,
+  every fix re-read — 017 §9); riding with design, not blockers: the
+  rm `result-image` width residual and the two stale export tiers
+  (017 §5.4). Phase B (Your Health Solutions · Bare Lúx
+  Studio) needs only per-study copy + image tiers after Zivel is
+  QA'd — no new design inputs.
 
 ## Special cells — ornament and function on the lattice
 

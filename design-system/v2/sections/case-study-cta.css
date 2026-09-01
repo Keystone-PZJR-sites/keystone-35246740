@@ -1,0 +1,213 @@
+/* v2 sections — case-study-cta (spec 017 §3.9). The top-hairline
+   band on the content column (1px border/000; the section fills the
+   remaining rows to the footer — the drawn CTA→footer gaps ride the
+   section height). The boilerplate is the hero's chip vocabulary at
+   the band's subhead step (lg/xl/lg/xl/2xl Light — the §9 F7
+   homepage-precedent binding: the style lives here, not in the
+   file's unbound layers); the chips keep the hero's fill/ink pairs
+   verbatim (006 §3 — website on teal/250, social's orange/600 ink).
+   The wordmark is the standing inline cut on the em construction
+   (the --hx-wm-* component tokens; the values are shared, not
+   forked). Drawn line structure: 4 lines at rm/rs, 2 at rt+ (forced
+   flex breaks). Buttons: gray fill + brown ghost md/md/lg/lg/xl on
+   the material 24 gaps; the label drops at rm. */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.csc-sec {
+  height: calc(var(--t) * 10);
+}
+@container (min-width: 470px) {
+  .csc-sec { height: calc(var(--t) * 7); }
+}
+@container (min-width: 665px) {
+  .csc-sec { height: calc(var(--t) * 5); }
+}
+@container (min-width: 860px) {
+  .csc-sec { height: calc(var(--t) * 5); }
+}
+@container (min-width: 1130px) {
+  .csc-sec { height: calc(var(--t) * 4); }
+}
+
+/* the band hugs its drawn box inside the whole-tick section (the
+   drawn CTA→footer gap rides the section height), so its clearance
+   against the pre-footer full-lattice row stays a real assertion */
+.csc-band {
+  border-top: 1px solid var(--color-border-000);
+  height: auto;
+}
+@container (min-width: 1130px) {
+  .csc-band {
+    margin-left: calc(var(--t) * 3);
+    width: calc(var(--t) * 8 + 1px);
+  }
+}
+
+/* ---------------- the boilerplate ---------------- */
+
+/* top pads (drawn): 48/48/43/64/72; the subhead step per band */
+.csc-boiler {
+  margin: 0;
+  padding-top: calc((var(--wA) + var(--wB)) * 48);
+  color: var(--color-text-200);
+  font: var(--ts-text-lg-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 18);
+  line-height: calc((var(--wA) + var(--wB)) * 26);
+  letter-spacing: var(--ts-text-lg-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .csc-boiler {
+    font: var(--ts-text-xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 20);
+    line-height: calc((var(--wA) + var(--wB)) * 26);
+    letter-spacing: var(--ts-text-xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 665px) {
+  .csc-boiler {
+    padding-top: calc((var(--wA) + var(--wB)) * 43);
+    font: var(--ts-text-lg-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 18);
+    line-height: calc((var(--wA) + var(--wB)) * 26);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .csc-boiler {
+    padding-top: calc((var(--wA) + var(--wB)) * 64);
+    font: var(--ts-text-xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 20);
+    line-height: calc((var(--wA) + var(--wB)) * 26);
+    letter-spacing: var(--ts-text-xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .csc-boiler {
+    padding-top: calc((var(--wA) + var(--wB)) * 72);
+    font: var(--ts-text-2xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 24);
+    line-height: calc((var(--wA) + var(--wB)) * 32);
+    letter-spacing: var(--ts-text-2xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* the visual flow: words and chips on the hero's inline rhythm */
+.csc-vis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.3em;
+  row-gap: var(--space-xs);
+}
+
+/* forced breaks (the drawn line structure): full-width zero-height
+   items; the rm/rs-only pair collapses from rt */
+.csc-br {
+  width: 100%;
+  height: 0;
+}
+@container (min-width: 665px) {
+  .csc-br-a { display: none; }
+}
+
+/* the wordmark: the standing inline cut on the em construction (the
+   hero's --hx-wm-* tokens; baseline drop per the component-token
+   note) */
+.csc-wm {
+  position: relative;
+  top: calc(var(--hx-wm-h) * var(--hx-wm-drop));
+  display: inline-block;
+  width: var(--hx-wm-w);
+  height: var(--hx-wm-h);
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-wordmark-inline.svg") 0 0 / 100% 100% no-repeat;
+  mask: url("/media/brand/ks-wordmark-inline.svg") 0 0 / 100% 100% no-repeat;
+}
+
+/* the chips: the hero pairs verbatim (006 §3), radius-xs, the em
+   x-pads on a 2 bottom pad, settled ink (no wipe on this page) */
+.csc-chip {
+  display: inline-block;
+  padding: 0 0.25em var(--space-2xs);
+  border-radius: var(--radius-xs);
+  background: var(--chip-fill);
+  color: var(--chip-ink);
+}
+.csc-chip[data-chip="website"] { --chip-fill: var(--color-teal-250); --chip-ink: var(--color-teal-700); }
+.csc-chip[data-chip="ads"] { --chip-fill: var(--color-pink-300); --chip-ink: var(--color-pink-700); }
+.csc-chip[data-chip="social"] { --chip-fill: var(--color-orange-300); --chip-ink: var(--color-orange-600); }
+.csc-chip[data-chip="reviews"] { --chip-fill: var(--color-yellow-300); --chip-ink: var(--color-yellow-700); }
+.csc-chip[data-chip="content"] { --chip-fill: var(--color-blue-300); --chip-ink: var(--color-blue-700); }
+.csc-chip[data-chip="follow-ups"] { --chip-fill: var(--color-purple-300); --chip-ink: var(--color-purple-700); }
+
+/* ---------------- the CTA row ---------------- */
+
+/* boilerplate→buttons (drawn): 55/48/48/64/64 */
+.csc-ctas {
+  margin-top: calc((var(--wA) + var(--wB)) * 55);
+}
+@container (min-width: 470px) {
+  .csc-ctas { margin-top: calc((var(--wA) + var(--wB)) * 48); }
+}
+@container (min-width: 860px) {
+  .csc-ctas { margin-top: calc((var(--wA) + var(--wB)) * 64); }
+}
+
+.csc-cta-row {
+  align-items: center;
+}
+.csc-cta-row > * + * {
+  margin-left: var(--space-3xl);
+}
+
+/* band-gated per button size (md rm/rs · lg rt/rd1 · xl rd2) */
+.csc-cta-md {
+  display: flex;
+}
+.csc-cta-lg,
+.csc-cta-xl {
+  display: none;
+}
+@container (min-width: 665px) {
+  .csc-cta-md { display: none; }
+  .csc-cta-lg { display: flex; }
+}
+@container (min-width: 1130px) {
+  .csc-cta-lg { display: none; }
+  .csc-cta-xl { display: flex; }
+}
+
+/* the material label — dropped at rm (§3.9); md/lg/lg/xl Light,
+   text/400 */
+.csc-q {
+  display: none;
+  color: var(--color-text-400);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .csc-q { display: inline; }
+}
+@container (min-width: 665px) {
+  .csc-q {
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .csc-q {
+    font: var(--ts-text-xl-light-font);
+    letter-spacing: var(--ts-text-xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+  }
+}
