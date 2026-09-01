@@ -116,13 +116,19 @@ function runSelfTests(
     probesLeft;
 
   // 1 · tick: --t must read container width ÷ 12 (not viewport width).
-  const t = probe("t");
-  const tExpected = containerW / 12;
+  const tProbe = probe("t");
+  // The exact tick for the row assertions below: the probe box's
+  // rendered width rounds to 1/64px, and on a tall page that rounding
+  // scales past the ±1.1px row tolerance (found at 620 on the 227t
+  // case-study stack — spec 017 §9: 0.0104px × 133 rows = 1.39px on a
+  // correct build). The probe still verifies the engine's resolution;
+  // the assertions ride the exact ratio.
+  const t = containerW / 12;
   results.push({
     id: "tick",
     label: "tick = container ÷ 12",
-    pass: Math.abs(t - tExpected) <= 0.05,
-    detail: `t ${t.toFixed(3)}px · expected ${tExpected.toFixed(3)}px`,
+    pass: Math.abs(tProbe - t) <= 0.05,
+    detail: `t ${tProbe.toFixed(3)}px · expected ${t.toFixed(3)}px`,
   });
 
   // 2 · weights, per structural slice (002.r1 §3). Stretched slices and
@@ -355,8 +361,12 @@ function runSelfTests(
       : `${clearChecks} landmarks × ${exposure.length} cells clear`,
   });
 
+  // any v2-choreo* guard marks a page with a load choreography (the
+  // homepage's v2-choreo, Our Work's v2-choreo-rise, the case study's
+  // v2-choreo-cs — prefix-matched so rise pages wait too; 017 §7.2)
   const settled =
-    !page.classList.contains("v2-choreo") || page.classList.contains("v2-settled");
+    ![...page.classList].some((c) => c.startsWith("v2-choreo")) ||
+    page.classList.contains("v2-settled");
   const meta: Meta = { band, containerW, t, rows: Math.round(pageH / t), settled };
   return { meta, results, pass: results.every((r) => r.pass) };
 }
