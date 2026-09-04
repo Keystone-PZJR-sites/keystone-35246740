@@ -26,6 +26,12 @@
 import "./devtools.css";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { BAND_ANCHORS, INTERP_LADDER, bandForWidth, type Band } from "./fixtures";
+import {
+  FIELD_COLS,
+  FIELD_ROWS,
+  fieldCellClass,
+  type FieldSide,
+} from "@/design-system/v2/grid/field-hash";
 import type { GridExpectations } from "./expectations";
 
 interface Result {
@@ -115,7 +121,10 @@ function runSelfTests(
     (probes.querySelector(`[data-probe="${name}"]`) as HTMLElement).getBoundingClientRect().left -
     probesLeft;
 
-  // 1 · tick: --t must read container width ÷ 12 (not viewport width).
+  // 1 · tick: --t must read container width ÷ 12 (not viewport width),
+  // capped at the rd2 anchor's 112px above a 1344 container (002.r2
+  // §2 — without the cap here, the exact formula fails a correct
+  // capped build at every wide width: the 002.r1 R7 class in reverse).
   const tProbe = probe("t");
   // The exact tick for the row assertions below: the probe box's
   // rendered width rounds to 1/64px, and on a tall page that rounding
@@ -123,10 +132,10 @@ function runSelfTests(
   // case-study stack — spec 017 §9: 0.0104px × 133 rows = 1.39px on a
   // correct build). The probe still verifies the engine's resolution;
   // the assertions ride the exact ratio.
-  const t = containerW / 12;
+  const t = Math.min(containerW / 12, 112);
   results.push({
     id: "tick",
-    label: "tick = container ÷ 12",
+    label: "tick = min(container ÷ 12, 112)",
     pass: Math.abs(tProbe - t) <= 0.05,
     detail: `t ${tProbe.toFixed(3)}px · expected ${t.toFixed(3)}px`,
   });
@@ -360,6 +369,128 @@ function runSelfTests(
       ? clearFails.join(" · ")
       : `${clearChecks} landmarks × ${exposure.length} cells clear`,
   });
+
+  // 10 · the wide-viewport side fields (spec 002.r2 §4/§6): hidden at
+  // and below a 1344 container; above it, both strips' inner borders
+  // coincide with the page's col-0/col-12 line pixels (one geometry),
+  // rows sit in global page phase, coverage exceeds the live stack,
+  // and the ornaments reproduce the field hash exactly — position and
+  // shape (deterministic population, §4.2). The field's own classes
+  // keep it out of the choreographies and the clearance exposure set.
+  const gfield = page.querySelector<HTMLElement>(".gfield");
+  const fieldVisible = !!gfield && gfield.getClientRects().length > 0;
+  if (containerW <= 1344) {
+    results.push({
+      id: "field",
+      label: "side fields hidden at ≤ 1344",
+      pass: !fieldVisible,
+      detail: fieldVisible ? "gfield visible below the cap" : "hidden",
+    });
+  } else {
+    const fieldFails: string[] = [];
+    const pr = page.getBoundingClientRect();
+    if (!fieldVisible) {
+      fieldFails.push("gfield missing or hidden above the cap");
+    } else {
+      if (getComputedStyle(gfield).pointerEvents !== "none")
+        fieldFails.push("pointer-events ≠ none");
+      // paint-order guard: the field's z:-1 must resolve against the
+      // page's own stacking context — in the root's context the paper
+      // buries it and the field lays out but never paints (the 002.r2
+      // build-review erratum; geometry assertions alone missed it)
+      if (getComputedStyle(page).isolation !== "isolate")
+        fieldFails.push(".page not isolated — the field cannot paint");
+      const west = gfield.querySelector<HTMLElement>(".gf-strip.gf-w");
+      const east = gfield.querySelector<HTMLElement>(".gf-strip.gf-e");
+      if (!west || !east) {
+        fieldFails.push("strip missing");
+      } else {
+        const wr = west.getBoundingClientRect();
+        const er = east.getBoundingClientRect();
+        // inner-edge coincidence (line-inclusive: the west strip's right
+        // border shares the col-0 pixel; the east strip's left border
+        // shares the col-12 pixel)
+        if (Math.abs(wr.right - 1 - pr.left) > 0.1)
+          fieldFails.push(`west edge ${(wr.right - 1 - pr.left).toFixed(2)}px off col-0`);
+        if (Math.abs(er.left - pr.right) > 0.1)
+          fieldFails.push(`east edge ${(er.left - pr.right).toFixed(2)}px off col-12`);
+        // full height, both strips (they stretch with the live page)
+        for (const [name, r] of [
+          ["west", wr],
+          ["east", er],
+        ] as const) {
+          if (Math.abs(r.top - pr.top) > 0.1 || Math.abs(r.bottom - pr.bottom) > 0.1)
+            fieldFails.push(`${name} strip not full height`);
+        }
+        // coverage: the rendered rows must reach the live stack (open
+        // drawers included — they grow by whole ticks, 013 §7.2)
+        if (FIELD_ROWS * t < pageH - 1)
+          fieldFails.push(`coverage ${FIELD_ROWS}t < page ${(pageH / t).toFixed(1)}t`);
+        // row phase: sampled interior h-lines land on k·t from the page
+        // top (children measure from the padding box — rendered top is
+        // exactly k·t; one geometry makes three samples sufficient)
+        const hLines = west.querySelectorAll<HTMLElement>("i.h");
+        const lastRow = Math.min(Math.floor(pageH / t), FIELD_ROWS - 1);
+        for (const k of [1, Math.max(1, Math.floor(lastRow / 2)), lastRow]) {
+          const line = hLines[k - 1];
+          if (!line) {
+            fieldFails.push(`h-line ${k} missing`);
+            continue;
+          }
+          const top = line.getBoundingClientRect().top - pr.top;
+          if (Math.abs(top - k * t) > 0.1)
+            fieldFails.push(`row ${k} at ${(top / t).toFixed(3)}t`);
+        }
+        // ornaments: exact hash reproduction, both strips
+        for (const [side, strip] of [
+          [1, west],
+          [2, east],
+        ] as [FieldSide, HTMLElement][]) {
+          const expected: { gx: number; gy: number; shape: string }[] = [];
+          for (let col = 1; col <= FIELD_COLS; col++) {
+            for (let row = 0; row < FIELD_ROWS; row++) {
+              const shape = fieldCellClass(side, col, row);
+              if (shape)
+                expected.push({
+                  gx: side === 1 ? FIELD_COLS - col : col - 1,
+                  gy: row,
+                  shape,
+                });
+            }
+          }
+          const cells = [...strip.querySelectorAll<HTMLElement>(".gf-cell")];
+          const label = side === 1 ? "west" : "east";
+          if (cells.length !== expected.length) {
+            fieldFails.push(`${label} ornaments ${cells.length} ≠ ${expected.length}`);
+            continue;
+          }
+          // DOM order is col-major then row, matching the render loop
+          expected.sort((a, b) =>
+            (side === 1 ? b.gx - a.gx : a.gx - b.gx) || a.gy - b.gy,
+          );
+          for (let i = 0; i < expected.length; i++) {
+            const e = expected[i];
+            const c = cells[i];
+            const gx = parseFloat(c.style.getPropertyValue("--gx"));
+            const gy = parseFloat(c.style.getPropertyValue("--gy"));
+            const shape = c.firstElementChild?.className ?? "";
+            if (gx !== e.gx || gy !== e.gy || shape !== e.shape) {
+              fieldFails.push(
+                `${label} cell ${i}: (${gx},${gy}) "${shape}" ≠ (${e.gx},${e.gy}) "${e.shape}"`,
+              );
+              break;
+            }
+          }
+        }
+      }
+    }
+    results.push({
+      id: "field",
+      label: "side fields: edges, phase, hash",
+      pass: fieldFails.length === 0,
+      detail: fieldFails.length ? fieldFails.slice(0, 4).join(" · ") : "strips + ornaments exact",
+    });
+  }
 
   // any v2-choreo* guard marks a page with a load choreography (the
   // homepage's v2-choreo, Our Work's v2-choreo-rise, the case study's

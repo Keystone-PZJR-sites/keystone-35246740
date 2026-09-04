@@ -4,6 +4,7 @@ import {
   GridDecor,
   type GridBand,
 } from "@/design-system/v2/grid/region";
+import { GridField } from "@/design-system/v2/grid/field";
 import { BANDS, FIXTURES, type Fixture } from "./fixtures";
 import { FIXTURE_EXPECTATIONS } from "./expectations";
 import DevtoolsMount from "./devtools-mount";
@@ -47,6 +48,8 @@ const [GALLERY, FOOTER] = FIXTURES;
 export default function GridHarnessPage() {
   return (
     <div className="page">
+      {/* the wide-viewport side fields (002.r2 §4.3) */}
+      <GridField />
       <section className="sec fx-gallery" data-fixture="gallery" data-landmark="sec">
         <FixtureOverlay fixture={GALLERY} />
         <div className="hscroll fx-strip" data-landmark="strip">

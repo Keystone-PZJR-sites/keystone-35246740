@@ -1,4 +1,5 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
+import { GridField } from "@/design-system/v2/grid/field";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { PricingOfferSection } from "@/design-system/v2/sections/pricing-offer";
 import { PricingScaleSection } from "@/design-system/v2/sections/pricing-scale";
@@ -23,6 +24,8 @@ export async function PricingPage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page">
+      {/* the wide-viewport side fields (002.r2 §4.3) — never choreographed */}
+      <GridField />
       <NavChrome />
       <main>
         <PricingOfferSection />

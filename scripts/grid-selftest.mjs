@@ -56,8 +56,11 @@ const ANCHORS = [384, 576, 768, 960, 1344];
 // One width per structural slice (spec 010 §3.1): 369 below-384
 // extrapolation · 420 rm stretched · 520 rs compressed · 620 rs
 // stretched · 700 rt compressed · 810 rt stretched · 900 rd1
-// compressed · 1050 rd1 stretched · 1200 rd2 compressed · 1600 rd2 zoom.
-const SLICES = [369, 420, 520, 620, 700, 810, 900, 1050, 1200, 1600];
+// compressed · 1050 rd1 stretched · 1200 rd2 compressed — plus the
+// capped wide widths (spec 002.r2 §6, replacing the uncapped 1600
+// "rd2 zoom" leg): 1456 just past the cap (half-column gutters) and
+// 1920 deep (the side fields ~2.6 columns a side).
+const SLICES = [369, 420, 520, 620, 700, 810, 900, 1050, 1200, 1456, 1920];
 // Continuity joints: the anchors, where a compressed slice hands over
 // to its band's designed interpolation line.
 const JOINTS = [576, 768, 960, 1344];

@@ -1,4 +1,5 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
+import { GridField } from "@/design-system/v2/grid/field";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { WorkHeaderSection } from "@/design-system/v2/sections/work-header";
 import { WorkCasesSection } from "@/design-system/v2/sections/work-cases";
@@ -38,6 +39,8 @@ export async function OurWorkPage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page v2-choreo-rise">
+      {/* the wide-viewport side fields (002.r2 §4.3) — never choreographed */}
+      <GridField />
       <NavChrome />
       <main>
         <WorkHeaderSection />

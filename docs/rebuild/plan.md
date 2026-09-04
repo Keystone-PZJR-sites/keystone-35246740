@@ -929,6 +929,68 @@ re-verified from node data: the 768 footer is now whole-tick (15t) and the
   stack-subhead ink, the rs funnel double space, the button set's
   post-F11 dropped underline, the four invisible ○ cells).
 
+## Decision log — 2026-09-03
+
+- **The wide-viewport cap is decided and spec 002.r2 is drafted** (owner
+  decisions at the wide-viewport review; 002.r2 §9 is the record). Above
+  1344 the tick caps at the rd2 anchor (`--t: min(100cqw/12, 112px)`) —
+  the 1344 design renders byte-exact at every wider width, superseding
+  v5 §2's uncapped over-zoom (the 2026-08-22 "pure zoom above 1344"
+  line) — and the freed width becomes **centered side fields**: the page
+  box caps at 12t and centers on a whole-pixel offset; full-height
+  lattice strips paint both gutters, randomly populated with the
+  standing ornament vocabulary at low density (a deterministic
+  server-side hash — zero islands, never animated, born settled),
+  columns clipping mid-cell at the viewport edge; the footer spans 12t
+  and stops by construction. No Figma frame exists above 1344 — the
+  field derives by law from the owner rulings (002.r2 §9 R2, the 011
+  §1.1 precedent); a wide frame drawn later supersedes it. The harness
+  moves with the revision: the devtools' assertion tick gains the cap
+  (the 017 `container ÷ 12` formula would fail a correct capped build —
+  the 002.r1 R7 class in reverse, caught at spec writing) and 1456/1920
+  join the sweep. Two flags ride to the review (002.r2 §9): **F1** —
+  the density (4%) and shape mix (○ 2 : ■ 1 : ● 1) are the spec's
+  proposed values; **F2** — the nav is assumed to cap with the page
+  (col-1 line; the ruling named only the footer). The rules.md
+  "Responsive-Native" amendment ("uncapped") rides the build. **The
+  spec awaits the two flag rulings and approval.**
+- **Spec 002.r2 is approved and built** (the owner ruled both flags
+  the same day — F1 "fine to start", F2 "correct" — then the build).
+  Landed: the capped tick (`min(100cqw/12, 112px)` — one line caps
+  geometry, type, and text columns together, the rd2 weights pinning
+  at exactly 0/1); the centered page box on the whole-pixel
+  `--page-x`; the `GridField` server component (zero islands, the
+  deterministic hash in `grid/field-hash.ts`) mounted by all four
+  compositions and `/grid`; the nav bar/drawer carrying `--page-x`;
+  the harness realignment (the devtools' assertion tick capped, the
+  new field check — edges, phase, exact hash reproduction — and the
+  wide sweep widths 1456/1920 replacing the uncapped 1600 leg); the
+  rules.md Responsive-Native revision. One build amendment (002.r2
+  §9): the draft's hash mix left a structured run at simulation and
+  was replaced with an avalanche mix (density ~3.8%, no runs). A
+  deliberate construction: the field carries its **own class
+  vocabulary** (`.gf-*`), so the 006 choreography selectors
+  (`.grid-region`/`.decor`, page-wide) can never catch it — "never
+  animates" holds by construction. Verified: tsc/lint zero; the full
+  sweep green in one run against the owner's dev server — **524
+  checks** (was 499) across five routes, five anchors, and eleven
+  slices through every rest state; the 1905-container render
+  inspected in the browser (page lattice and fields read as one
+  continuous grid). **One build-review erratum, same day** (owner
+  report: the lattice not painting past 1344): the field's `z: -1`
+  resolved against the root's stacking context and the paper buried
+  it — the layer laid out, passed every geometry assertion, and
+  never painted. Fixed with the section idiom at page level —
+  `.page` gains `isolation: isolate` (002.r2 §4.1 amendment, §9
+  build record; overlay portals and in-page order unaffected); the
+  field check now asserts the page's isolation as the paint-order
+  guard (geometry assertions cannot see paint — the audit lesson on
+  record). The sweep re-ran green post-fix and both gutters render
+  from the stylesheet. **Open:** the production-budget pass (owner
+  coordination — the standing `.next` hazard; expected unchanged,
+  the field is server HTML), and a field-density review once the
+  owner sees it wide (F1 ruled "to start").
+
 ## Phasing
 
 Each phase covers **all five anchors** and is done only when its spec's

@@ -87,7 +87,10 @@
 .knav-bar {
   position: fixed;
   top: 0;
-  left: var(--t);
+  /* fixed offsets are viewport-relative: above the wide-viewport cap
+     the page centers, so the bar carries the page's left offset to sit
+     on its col-1 line (002.r2 §5); --page-x is 0px below the cap */
+  left: calc(var(--page-x) + var(--t));
   z-index: var(--z-nav);
   display: flex;
   align-items: stretch;
@@ -195,7 +198,8 @@
 .knav-drawer {
   position: fixed;
   top: calc(var(--knav-bar-h) + var(--space-xs));
-  left: var(--t);
+  /* the bar's page offset (002.r2 §5) — 0px below the cap */
+  left: calc(var(--page-x) + var(--t));
   z-index: var(--z-nav);
   box-sizing: border-box;
   width: var(--knav-drawer-md);

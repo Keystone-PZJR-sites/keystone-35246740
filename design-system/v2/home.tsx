@@ -1,4 +1,5 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
+import { GridField } from "@/design-system/v2/grid/field";
 import { GridRegion } from "@/design-system/v2/grid/region";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { HeroSection } from "@/design-system/v2/sections/hero";
@@ -21,6 +22,8 @@ export async function HomePage({ qa }: { qa?: React.ReactNode }) {
   return (
     /* v2-choreo opts the page into the cold-load guard (see hero.css) */
     <div className="page v2-choreo">
+      {/* the wide-viewport side fields (002.r2 §4.3) — never choreographed */}
+      <GridField />
       <NavChrome />
       <main>
         <HeroSection />

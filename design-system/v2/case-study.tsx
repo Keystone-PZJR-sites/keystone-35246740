@@ -1,4 +1,5 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
+import { GridField } from "@/design-system/v2/grid/field";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { CaseStudyHeaderSection } from "@/design-system/v2/sections/case-study-header";
 import { CaseStudyIntroSection } from "@/design-system/v2/sections/case-study-intro";
@@ -40,6 +41,8 @@ export async function CaseStudyPage({ study, qa }: { study: CaseStudy; qa?: Reac
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page v2-choreo-cs">
+      {/* the wide-viewport side fields (002.r2 §4.3) — never choreographed */}
+      <GridField />
       <NavChrome />
       <main>
         <CaseStudyHeaderSection study={study} />

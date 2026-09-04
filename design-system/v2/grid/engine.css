@@ -26,9 +26,29 @@
 
 .page {
   position: relative;
-  --t: calc(100cqw / 12);
+  /* isolation is load-bearing here exactly as on .sec (v5 §3): the
+     side-field layer rides z:-1 and must resolve against the PAGE's
+     stacking context. Without this it falls to the root's context,
+     where the paper buries it — the field laid out but never painted
+     (found at the 002.r2 build's owner review; §9 build record). */
+  isolation: isolate;
+  /* The tick caps at the rd2 anchor (spec 002.r2 §2): below a 1344
+     container the min() is inert and the tick is fluid as before; at
+     and above it the tick is exactly 112px, the rd2 weights pin at
+     0/1 through this same value, and the 1344 design renders
+     byte-exact at every wider width. */
+  --t: min(calc(100cqw / 12), 112px);
   --c: var(--space-xl);
   --line: var(--color-border-000);
+
+  /* The page box (002.r2 §3): 12t wide — the full container below the
+     cap, 1344 centered above it. The left offset is snapped to a whole
+     pixel (every hairline derives from the page's left edge; a
+     half-pixel origin rasterizes the lattice fuzzy at 1× DPR — the v5
+     §5 crispness law); the right gutter absorbs the odd pixel. */
+  --page-x: max(0px, round(down, calc((100cqw - 1344px) / 2), 1px));
+  width: calc(12 * var(--t));
+  margin-left: var(--page-x);
 
   /* base band (< 576) interpolates 384 → 576 (T0 32, T1 48); below 384
      the same line extrapolates downward (v5 §2). */
@@ -90,8 +110,10 @@
 
 @container (min-width: 1130px) {
   .page {
-    /* the 1344 design: zooming down to 1130 and up without bound —
-       one rule covers the compressed slice and the v5 §2 over-zoom */
+    /* the 1344 design: zooming down to 1130, up to the anchor, and
+       exact above it — the capped tick (002.r2 §2) pins wB at 1 from
+       1344 up, so one rule covers the compressed slice, the anchor,
+       and the capped wide range (the v5 §2 over-zoom is superseded) */
     --wA: 0px;
     --wB: calc(var(--t) / 112);
   }
@@ -193,6 +215,82 @@
 .decor {
   position: absolute;
   z-index: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) + 1px);
+  height: calc(var(--t) + 1px);
+}
+
+/* ---- wide-viewport side fields (spec 002.r2 §4) ---- */
+
+/* The field layer: spans the full container behind the page, exists
+   only where a gutter exists (>1344 container), clips its strips at
+   the container edge (columns cut mid-cell — §9 R1e). z:-1 in the
+   root's stacking context puts it below every section (the sections'
+   isolation contexts stack above negative siblings). Deliberately its
+   own vocabulary — the choreographies animate .grid-region/.decor
+   page-wide and the field never animates (002.r2 §4.2). */
+.gfield {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(0px - var(--page-x));
+  width: 100cqw;
+  z-index: -1;
+  pointer-events: none;
+  overflow: clip;
+  display: none;
+}
+@container (min-width: 1345px) {
+  .gfield {
+    display: block;
+  }
+}
+
+/* A strip: the region mechanic verbatim (line-inclusive border box,
+   interior 1px lines at k·t − 1px inside the border), stretched to the
+   live page height so drawer growth (whole ticks by law, 013 §7.2)
+   unclips slack rows in phase. Inner edges are positioned so the inner
+   border shares the page's col-0/col-12 line pixel — one geometry. */
+.gf-strip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: calc(12 * var(--t) + 1px);
+  border: 1px solid var(--line);
+}
+.gf-strip.gf-w {
+  right: calc(100% - var(--page-x) - 1px);
+}
+.gf-strip.gf-e {
+  left: calc(var(--page-x) + 12 * var(--t));
+}
+.gf-strip i {
+  position: absolute;
+  background: var(--line);
+}
+.gf-strip i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: calc(var(--t) * var(--n) - 1px);
+}
+.gf-strip i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  top: calc(var(--t) * var(--n) - 1px);
+}
+
+/* A populated field cell: the .decor geometry, hosting the standing
+   .f-cell ornament shapes — its own class so no choreography or audit
+   selector ever collects it. */
+.gf-cell {
+  position: absolute;
   pointer-events: none;
   display: grid;
   place-items: center;

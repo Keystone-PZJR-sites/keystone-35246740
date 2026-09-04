@@ -42,7 +42,8 @@ export const BAND_FLOORS: Record<Band, number> = {
  * Between a band's gate floor and its anchor the engine renders a
  * compressed pure zoom of the anchor: --wA collapses to t ÷ (anchor ÷ 12)
  * and --wB to 0px (002.r1 §3; rd2 carries the same construction on --wB
- * for its compressed slice and the above-1344 over-zoom alike). */
+ * for its compressed slice — and above 1344 the capped tick pins it at
+ * exactly 1, the anchor render, spec 002.r2 §2). */
 export const BAND_ANCHORS: Record<Band, number> = {
   rm: 384,
   rs: 576,
@@ -230,9 +231,10 @@ export const FIXTURES = [GALLERY, FOOTER];
 /** Engine test ladder for the interpolation probe: an arbitrary value
  * designed at every anchor (384→36 · 576→42 · 768→48 · 960→56 · 1344→64),
  * so each band interpolates its own pair and neighbors share the switch
- * anchor — the v5 §2 continuity contract. Above 1344 it rides pure zoom
- * (wA is 0, so [0, 64] resolves to wB·64 = t/112·64). Probe widths are
- * band-gated in harness.css from the same numbers. */
+ * anchor — the v5 §2 continuity contract. Above 1344 the capped tick
+ * (002.r2 §2) pins wB at 1, so [0, 64] holds the anchor's 64 at every
+ * wide width. Probe widths are band-gated in harness.css from the same
+ * numbers. */
 export const INTERP_LADDER: Record<Band, [number, number]> = {
   rm: [36, 42],
   rs: [42, 48],
