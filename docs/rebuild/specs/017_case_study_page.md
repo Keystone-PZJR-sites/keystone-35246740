@@ -1089,6 +1089,18 @@ else moved; the four effect styles confirmed, `noise` still absent).**
   ("$3.50" · "$25k" · "100k+") crowd the rd2 2t cell at 3xl. §3.2
   amended in place; the grid sweep re-ran green at the anchors and
   slices.
+- **Erratum — the stack's doubled header seam (owner-found
+  2026-09-04, fixed same day).** The §3.7 header-block→cell-grid seam
+  rendered **two** stacked hairlines at every band (measured −2px
+  cell-top→header-bottom against the −1px shared-edge construction):
+  the `.cst-table` −1px already seats the grid on the header's bottom
+  border, but the cells container carried its own −1px at rm/rs, and
+  the rt+ block zeroed the compensating 1px padding so the row-1 −1px
+  margin rode above the border. Both removed; the seam re-measured
+  **one shared pixel at all five anchors** and the logo-cell top now
+  aligns exactly with the cell row (it had sat 1px below the grid's
+  top line — the visible misalignment in the owner's screenshot). The
+  011 R17 doubled-hairline class, inside one table unit.
 - **Acceptance evidence:** all five anchors + ten slices green in the
   in-page audit (stack sums 227 · 154 · 110 · 89 · 74; landmarks,
   band gates, seams, clearance); renders compared against the file

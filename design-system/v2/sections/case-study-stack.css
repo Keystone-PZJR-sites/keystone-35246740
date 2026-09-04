@@ -127,7 +127,12 @@
   .cst-logomark { width: 24px; height: 24px; }
 }
 
-/* the service cells: the uniform shared-hairline construction */
+/* the service cells: the uniform shared-hairline construction. The
+   container adds no upward shift of its own — the .cst-table −1px
+   already seats the grid on the header's bottom border; the 1px
+   padding + the li −1px margins net zero on row 1 and overlap the
+   interior seams (a second container −1px doubled the header seam at
+   every band — owner-found erratum, fixed 2026-09-04). */
 .cst-cells {
   margin: 0;
   padding: 1px 0 0 1px;
@@ -139,7 +144,6 @@
   --cell-h: calc(var(--t) * 5 + 1px);
   --cell-pad: 16px;
   width: calc(var(--t) * 10.5 + 2px);
-  margin-top: -1px;
 }
 .cst-cells > li {
   margin: -1px 0 0 -1px;
@@ -154,16 +158,15 @@
   }
 }
 @container (min-width: 665px) {
-  /* the logo cell leads; the grid shares its left edge with it */
+  /* the logo cell leads; the grid shares its left edge with it (the
+     base 1px padding-top stays — zeroing it let the row-1 −1px margin
+     ride above the header's border, the doubled-seam erratum) */
   .cst-cells {
-    margin-top: 0;
     margin-left: -1px;
-    padding-top: 0;
     --cell-w: calc(var(--t) * 3 + 1px);
     --cell-h: calc(var(--t) * 3 + 1px);
     width: calc(var(--t) * 9 + 2px);
   }
-  .cst-cells > li { margin-top: -1px; }
 }
 @container (min-width: 860px) {
   .cst-cells { --cell-pad: 20px; }
