@@ -5,7 +5,10 @@
  * The H1 renders each band's drawn break explicitly (§9 F4g — designed
  * per-viewport rag: rt breaks after seg1, rs/rd2 after seg2; rm/rd1
  * wrap naturally in their weight-riding boxes). The accessible string
- * is the single-spaced canon (a <br> reads as whitespace).
+ * is the single-spaced canon (a <br> reads as whitespace). A break
+ * renders only before a non-empty segment — a study without drawn
+ * breaks carries its whole H1 in seg1 and wraps naturally at every
+ * band (Your Health Solutions, owner direction 2026-09-04).
  *
  * The tags are one real <ul> (§8.7 — decorative color, real text) in
  * the canonical order; the drawn per-band wrap and the rt-only
@@ -57,9 +60,9 @@ export function CaseStudyHeaderSection({ study }: { study: CaseStudy }) {
           </p>
           <h1 className="csh-h1 hx-rise">
             {study.h1.seg1}
-            <br className="csh-br-rt" aria-hidden="true" />
+            {study.h1.seg2 && <br className="csh-br-rt" aria-hidden="true" />}
             {study.h1.seg2}
-            <br className="csh-br-rsd2" aria-hidden="true" />
+            {study.h1.seg3 && <br className="csh-br-rsd2" aria-hidden="true" />}
             {study.h1.seg3}
           </h1>
 
