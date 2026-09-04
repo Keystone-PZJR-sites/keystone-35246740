@@ -7,13 +7,23 @@
 
 import { CaseStudyButton } from "../primitives/case-study-button";
 import type { CaseStudy } from "./case-study-data";
-import { CaseStudyLattice } from "./case-study-lattice";
+import { CaseStudyLattice, extraTickVars } from "./case-study-lattice";
 import { CaseStudyPhoto } from "./case-study-photo";
 
 export function CaseStudyResultSection({ study }: { study: CaseStudy }) {
+  /* the clearance law: per-study whole-tick growth — the section
+     height rides the --csx-* vars so the flowed interior (through the
+     CTA) regains its end clearance and the CTA band starts on the
+     next tick */
+  const extra = study.extraTicks?.result;
   return (
-    <section className="sec cs-sec csr-sec" id="result" aria-labelledby="result-h">
-      <CaseStudyLattice section="result" />
+    <section
+      className="sec cs-sec csr-sec"
+      id="result"
+      aria-labelledby="result-h"
+      style={extraTickVars(extra)}
+    >
+      <CaseStudyLattice section="result" extra={extra} />
       <div className="cs-content csr-content" data-landmark="result">
         <div className="csr-img">
           <CaseStudyPhoto study={study} image="result" />

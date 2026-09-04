@@ -8,20 +8,23 @@
 
 /* ---------------- section frame (§1) ---------------- */
 
+/* heights ride the per-study --csx-* growth vars (the clearance law
+   — rules.md "Content clears the lattice"; 0 when unset renders the
+   drawn frame) */
 .cso-sec {
-  height: calc(var(--t) * 29);
+  height: calc(var(--t) * (29 + var(--csx-rm, 0)));
 }
 @container (min-width: 470px) {
-  .cso-sec { height: calc(var(--t) * 17); }
+  .cso-sec { height: calc(var(--t) * (17 + var(--csx-rs, 0))); }
 }
 @container (min-width: 665px) {
-  .cso-sec { height: calc(var(--t) * 11); }
+  .cso-sec { height: calc(var(--t) * (11 + var(--csx-rt, 0))); }
 }
 @container (min-width: 860px) {
-  .cso-sec { height: calc(var(--t) * 9); }
+  .cso-sec { height: calc(var(--t) * (9 + var(--csx-rd1, 0))); }
 }
 @container (min-width: 1130px) {
-  .cso-sec { height: calc(var(--t) * 7); }
+  .cso-sec { height: calc(var(--t) * (7 + var(--csx-rd2, 0))); }
 }
 
 /* rd2: the narrow content column (cols 3–11) */
@@ -32,23 +35,25 @@
   }
 }
 
-/* the drawn frame: whole-tick, the stat row bottom-anchored to it */
+/* the drawn frame: whole-tick, the stat row bottom-anchored to it;
+   grows with the section (the --csx-* vars) so the anchored stat row
+   slides down whole-tick and the below-frame gap holds */
 .cso-frame {
   position: relative;
-  height: calc(var(--t) * 27);
+  height: calc(var(--t) * (27 + var(--csx-rm, 0)));
 }
 @container (min-width: 470px) {
-  .cso-frame { height: calc(var(--t) * 16); }
+  .cso-frame { height: calc(var(--t) * (16 + var(--csx-rs, 0))); }
 }
 @container (min-width: 665px) {
-  .cso-frame { height: calc(var(--t) * 10); }
+  .cso-frame { height: calc(var(--t) * (10 + var(--csx-rt, 0))); }
 }
 @container (min-width: 860px) {
-  .cso-frame { height: calc(var(--t) * 8); }
+  .cso-frame { height: calc(var(--t) * (8 + var(--csx-rd1, 0))); }
 }
 @container (min-width: 1130px) {
   .cso-frame {
-    height: calc(var(--t) * 7);
+    height: calc(var(--t) * (7 + var(--csx-rd2, 0)));
     /* the drawn 64px interior top pad (§1 F1; the TOC resting line) */
     padding-top: calc((var(--wA) + var(--wB)) * 64);
   }

@@ -12,7 +12,7 @@
 
 import type { CaseStudy, CaseStudyStat } from "./case-study-data";
 import { CaseStudyChecklist } from "./case-study-checklist";
-import { CaseStudyLattice } from "./case-study-lattice";
+import { CaseStudyLattice, extraTickVars } from "./case-study-lattice";
 
 function StatPair({ stats }: { stats: CaseStudyStat[] }) {
   /* the rd1/rd2 1px bg/500 divider between the halves is the second
@@ -32,9 +32,18 @@ function StatPair({ stats }: { stats: CaseStudyStat[] }) {
 }
 
 export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
+  /* the clearance law: per-study whole-tick growth — the section and
+     the after card (the variable-length checklist interior) ride the
+     --csx-* vars; the before card keeps the drawn box */
+  const extra = study.extraTicks?.shift;
   return (
-    <section className="sec cs-sec csft-sec" id="shift" aria-labelledby="shift-h">
-      <CaseStudyLattice section="shift" />
+    <section
+      className="sec cs-sec csft-sec"
+      id="shift"
+      aria-labelledby="shift-h"
+      style={extraTickVars(extra)}
+    >
+      <CaseStudyLattice section="shift" extra={extra} />
       <h2 className="hx-sr" id="shift-h">
         The Shift
       </h2>

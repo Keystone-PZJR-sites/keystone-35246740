@@ -8,20 +8,23 @@
 
 /* ---------------- section frame (§1) ---------------- */
 
+/* heights ride the per-study --csx-* growth vars (the clearance law
+   — rules.md "Content clears the lattice"; the after card below grows
+   with the section) */
 .csft-sec {
-  height: calc(var(--t) * 22);
+  height: calc(var(--t) * (22 + var(--csx-rm, 0)));
 }
 @container (min-width: 470px) {
-  .csft-sec { height: calc(var(--t) * 13); }
+  .csft-sec { height: calc(var(--t) * (13 + var(--csx-rs, 0))); }
 }
 @container (min-width: 665px) {
-  .csft-sec { height: calc(var(--t) * 7); }
+  .csft-sec { height: calc(var(--t) * (7 + var(--csx-rt, 0))); }
 }
 @container (min-width: 860px) {
-  .csft-sec { height: calc(var(--t) * 6); }
+  .csft-sec { height: calc(var(--t) * (6 + var(--csx-rd1, 0))); }
 }
 @container (min-width: 1130px) {
-  .csft-sec { height: calc(var(--t) * 5); }
+  .csft-sec { height: calc(var(--t) * (5 + var(--csx-rd2, 0))); }
 }
 
 @container (min-width: 1130px) {
@@ -60,6 +63,25 @@
   /* drawn at rest (§3.5) — not a hover state */
   box-shadow: var(--shadow-hard-square);
   margin-top: -1px;
+}
+/* the variable-length interior (the checklist) — grows with the
+   per-study --csx-* vars while the before card keeps the drawn box;
+   the bottom-anchored body slides down with it. The compound selector
+   outweighs the .csft-card band rules below at every gate. */
+.csft-card.csft-after-card {
+  height: calc(var(--t) * (10 + var(--csx-rm, 0)) + 1px);
+}
+@container (min-width: 470px) {
+  .csft-card.csft-after-card { height: calc(var(--t) * (6 + var(--csx-rs, 0)) + 1px); }
+}
+@container (min-width: 665px) {
+  .csft-card.csft-after-card { height: calc(var(--t) * (6 + var(--csx-rt, 0)) + 1px); }
+}
+@container (min-width: 860px) {
+  .csft-card.csft-after-card { height: calc(var(--t) * (5 + var(--csx-rd1, 0)) + 1px); }
+}
+@container (min-width: 1130px) {
+  .csft-card.csft-after-card { height: calc(var(--t) * (4 + var(--csx-rd2, 0)) + 1px); }
 }
 @container (min-width: 470px) {
   .csft-card {

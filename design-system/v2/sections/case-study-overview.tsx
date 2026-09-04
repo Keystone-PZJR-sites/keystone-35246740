@@ -8,13 +8,23 @@
 
 import type { CaseStudy } from "./case-study-data";
 import { CaseStudyChecklist } from "./case-study-checklist";
-import { CaseStudyLattice } from "./case-study-lattice";
+import { CaseStudyLattice, extraTickVars } from "./case-study-lattice";
 import { CaseStudyStatCell } from "./case-study-stat-cell";
 
 export function CaseStudyOverviewSection({ study }: { study: CaseStudy }) {
+  /* the clearance law: per-study whole-tick growth where the copy runs
+     longer than the drawn frame — the section and frame heights ride
+     the --csx-* vars, the stat row slides down with the frame bottom,
+     the east rail extends in the lattice */
+  const extra = study.extraTicks?.overview;
   return (
-    <section className="sec cs-sec cso-sec" id="overview" aria-labelledby="overview-h">
-      <CaseStudyLattice section="overview" />
+    <section
+      className="sec cs-sec cso-sec"
+      id="overview"
+      aria-labelledby="overview-h"
+      style={extraTickVars(extra)}
+    >
+      <CaseStudyLattice section="overview" extra={extra} />
       <div className="cs-content cso-content" data-landmark="overview">
         <div className="cso-frame">
           <h2 className="cs-h2 cs-type" id="overview-h">

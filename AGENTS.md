@@ -60,6 +60,17 @@ Laws" — learned the hard way in the pricing build, 2026-08-27):
  clearance against exposed cells manually at compressed-slice widths
  (below each anchor, above each gate) until the harness gains the
  assertion (spec 013).
+- Content clears the lattice (owner ruling 2026-09-04): flowed
+ content never touches a tick line and keeps ≥ half a tick of
+ vertical clearance from the next section or a bottom-anchored
+ block. When populating a fixed-frame template (the case-study
+ pages), grow an overrunning frame by whole ticks — per-study
+ `extraTicks` in the data module — so the next block starts on the
+ next tick. Never let copy compress the gap. The painted lattice
+ rides the growth: cells drawn against content (the widenings
+ beside stat rows, tail rails, their ornaments) shift down with the
+ frame bottom while the leading rail extends — a painted cell left
+ on its drawn row while content moves is a defect.
 
 Do not commit, stage, or push unless the human asks in that turn.
 Completing a spec or passing checks is not permission to commit. Leave

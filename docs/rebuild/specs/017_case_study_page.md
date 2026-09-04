@@ -612,6 +612,28 @@ widths + disclaimer) · stack (cells) · result (quote, head, body) ·
 the live URL · image alts. The §3 copy above is the Zivel canon
 (single-spaced, curly apostrophes).
 
+*Amended 2026-09-04 (owner ruling — the clearance law, rules.md
+"Content clears the lattice"):* the record also carries optional
+**`extraTicks`** (overview · shift · result, per band) — per-study
+whole-tick growth on the template's fixed frames where a study's copy
+runs longer than the drawn Zivel interior. Flowed content keeps ≥
+half a tick of vertical clearance from the next section or a
+bottom-anchored block; an overrunning frame grows to the next tick so
+the anchored block (the overview stat row) and everything below slide
+down whole-tick. The heights ride `--csx-*` vars set inline from the
+data (0 when unset — Zivel renders byte-identical); the shift growth
+lands on the section + the after card (the variable-length checklist
+interior; the before card keeps the drawn box). **The painted
+lattice rides the growth** (amended 2026-09-04, second pass — the
+owner's grid–content relationship ruling): each growable section's
+map is [leading col-11 rail, …bottom-anchored regions] per band —
+the leading rail extends by the extra rows; the widenings drawn
+beside the stat rows and the tail rails shift down with the frame
+bottom; ornament cells at or below the bottom-anchored run shift
+with it (`grownBand` in `case-study-lattice.tsx`). A break in the H1
+renders only before a non-empty segment, so a study without drawn
+breaks carries its whole H1 in seg1 (the same pass).
+
 ### 5.2 · The live URLs (owner delivery 2026-08-29, with the 016 list)
 
 | study | slug | URL |
@@ -1089,6 +1111,39 @@ else moved; the four effect styles confirmed, `noise` still absent).**
   ("$3.50" · "$25k" · "100k+") crowd the rd2 2t cell at 3xl. §3.2
   amended in place; the grid sweep re-ran green at the anchors and
   slices.
+- **Revision — the clearance law and per-study frame growth (owner
+  ruling, 2026-09-04, in-chat; the rules.md "Content clears the
+  lattice" law landed in the same pass).** Found on the Phase B
+  drafts: the Bare Lúx overview checklist touched the bottom-anchored
+  stat row (rd2 −7px, rm −38px overlap), the shift after card and
+  the rm Result overran their drawn boxes on both new studies. The
+  owner ruled content never touches a tick line and keeps ≥ half a
+  tick before the next section; the template gained per-study
+  `extraTicks` (§5.1 as amended) with the audited values in the two
+  draft records (YHS overview rm+1/rd2+1 · shift rm+1 · result
+  rm+2/rd1+1; Bare Lúx overview rm+2/rt+1/rd1+1/rd2+1 · shift rm+1 ·
+  result rm+3/rd1+1/rd2+1). Zivel carries none and renders
+  byte-identical; the clearance probe re-ran green at the ten sweep
+  widths on all three pages, and the grid sweep stays green (the
+  fixture's Zivel geometry unchanged). The H1 break render went
+  conditional in the same pass (a break only before a non-empty
+  segment — the YHS title wraps naturally, owner direction). **One
+  flag to design:** the drawn Zivel rm Result leaves only ~5px
+  between the §5.3 button and the section end (the CTA band's top
+  hairline) — under the new half-tick law but drawn that way in the
+  file; riding as-drawn pending a design ruling (the
+  never-build-a-known-error protocol).
+- **Revision — the lattice rides the growth (owner, 2026-09-04,
+  second clearance pass).** The first growth build extended the east
+  rail from the drawn section end but left the widenings beside the
+  stat rows (and their ■ ornaments) on their drawn rows — on the
+  grown Bare Lúx and YHS overviews the painted cells sat a row above
+  the stat row they were drawn against (the owner's screenshots).
+  Replaced with the anchored model in §5.1 as amended: leading rail
+  extends, bottom-anchored regions and their ornaments shift with
+  the frame bottom. Verified: the widening top re-measured level
+  with the stat-row top on both grown pages at every grown band;
+  Zivel (no growth) byte-identical.
 - **Erratum — the stack's doubled header seam (owner-found
   2026-09-04, fixed same day).** The §3.7 header-block→cell-grid seam
   rendered **two** stacked hairlines at every band (measured −2px

@@ -9,20 +9,23 @@
 
 /* ---------------- section frame (§1) ---------------- */
 
+/* heights ride the per-study --csx-* growth vars (the clearance law
+   — rules.md "Content clears the lattice"; the flowed interior regains
+   its end clearance and the CTA band starts on the next tick) */
 .csr-sec {
-  height: calc(var(--t) * 31);
+  height: calc(var(--t) * (31 + var(--csx-rm, 0)));
 }
 @container (min-width: 470px) {
-  .csr-sec { height: calc(var(--t) * 23); }
+  .csr-sec { height: calc(var(--t) * (23 + var(--csx-rs, 0))); }
 }
 @container (min-width: 665px) {
-  .csr-sec { height: calc(var(--t) * 21); }
+  .csr-sec { height: calc(var(--t) * (21 + var(--csx-rt, 0))); }
 }
 @container (min-width: 860px) {
-  .csr-sec { height: calc(var(--t) * 17); }
+  .csr-sec { height: calc(var(--t) * (17 + var(--csx-rd1, 0))); }
 }
 @container (min-width: 1130px) {
-  .csr-sec { height: calc(var(--t) * 14); }
+  .csr-sec { height: calc(var(--t) * (14 + var(--csx-rd2, 0))); }
 }
 
 @container (min-width: 1130px) {

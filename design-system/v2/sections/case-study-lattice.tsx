@@ -208,30 +208,77 @@ export type CaseStudySectionId = keyof typeof MAP;
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
-export function CaseStudyLattice({ section }: { section: CaseStudySectionId }) {
+/** The painted lattice rides a grown section (the clearance law,
+ * rules.md "Content clears the lattice"): the map's **first region**
+ * is the leading col-11 rail, anchored to the section top — it
+ * extends by the extra rows. Every **later region** (the widenings
+ * drawn beside the stat rows, the tail rails) is anchored to the
+ * frame bottom and shifts down with the growth, staying beside the
+ * content it was drawn against. Ornament cells at or below the
+ * bottom-anchored run (the second region's top row) shift with it;
+ * ornaments above it hold their drawn rows. Sections that accept
+ * growth (overview · shift · result) all carry this
+ * [leading rail, …bottom-anchored] shape per band. */
+function grownBand(map: SectionMap, band: GridBand, extra: number) {
+  const regions = map.regions[band] ?? [];
+  if (!extra) {
+    return { regions, orn: (cells: Orn[]) => cells };
+  }
+  const shiftFrom = regions.length > 1 ? regions[1].gy : Infinity;
+  return {
+    regions: regions.map((r, i) =>
+      i === 0 ? { ...r, gh: (r.gh ?? 1) + extra } : { ...r, gy: r.gy + extra },
+    ),
+    orn: (cells: Orn[]) =>
+      cells.map(([gx, gy]) => (gy >= shiftFrom ? ([gx, gy + extra] as Orn) : ([gx, gy] as Orn))),
+  };
+}
+
+/** The per-band `--csx-*` growth vars a grown section sets inline —
+ * consumed by the section's height calcs and threaded to the lattice
+ * so the painted cells move with the content. */
+export function extraTickVars(extra?: Partial<Record<GridBand, number>>): React.CSSProperties | undefined {
+  if (!extra) return undefined;
+  return {
+    "--csx-rm": extra.rm ?? 0,
+    "--csx-rs": extra.rs ?? 0,
+    "--csx-rt": extra.rt ?? 0,
+    "--csx-rd1": extra.rd1 ?? 0,
+    "--csx-rd2": extra.rd2 ?? 0,
+  } as React.CSSProperties;
+}
+
+export function CaseStudyLattice({
+  section,
+  extra,
+}: {
+  section: CaseStudySectionId;
+  extra?: Partial<Record<GridBand, number>>;
+}) {
   const map: SectionMap = MAP[section];
   return (
     <div className="gx" aria-hidden="true">
-      {BANDS.map((band) => [
-        ...(map.regions[band] ?? []).map((r, i) => (
-          <GridRegion key={`${band}-r${i}`} band={band} {...r} />
-        )),
-        ...(map.circles?.[band] ?? []).map(([gx, gy]) => (
-          <GridDecor key={`${band}-o${gx}-${gy}`} band={band} gx={gx} gy={gy}>
-            <span className="f-cell round" />
-          </GridDecor>
-        )),
-        ...(map.fillCircles?.[band] ?? []).map(([gx, gy]) => (
-          <GridDecor key={`${band}-fo${gx}-${gy}`} band={band} gx={gx} gy={gy}>
-            <span className="f-cell fill round" />
-          </GridDecor>
-        )),
-        ...(map.squares?.[band] ?? []).map(([gx, gy]) => (
-          <GridDecor key={`${band}-f${gx}-${gy}`} band={band} gx={gx} gy={gy}>
-            <span className="f-cell fill" />
-          </GridDecor>
-        )),
-      ])}
+      {BANDS.map((band) => {
+        const { regions, orn } = grownBand(map, band, extra?.[band] ?? 0);
+        return [
+          ...regions.map((r, i) => <GridRegion key={`${band}-r${i}`} band={band} {...r} />),
+          ...orn(map.circles?.[band] ?? []).map(([gx, gy]) => (
+            <GridDecor key={`${band}-o${gx}-${gy}`} band={band} gx={gx} gy={gy}>
+              <span className="f-cell round" />
+            </GridDecor>
+          )),
+          ...orn(map.fillCircles?.[band] ?? []).map(([gx, gy]) => (
+            <GridDecor key={`${band}-fo${gx}-${gy}`} band={band} gx={gx} gy={gy}>
+              <span className="f-cell fill round" />
+            </GridDecor>
+          )),
+          ...orn(map.squares?.[band] ?? []).map(([gx, gy]) => (
+            <GridDecor key={`${band}-f${gx}-${gy}`} band={band} gx={gx} gy={gy}>
+              <span className="f-cell fill" />
+            </GridDecor>
+          )),
+        ];
+      })}
     </div>
   );
 }
