@@ -155,7 +155,8 @@
 
 /* ---------------- cell interiors ---------------- */
 
-/* numerals: display-sans Light — sm/xs/lg/md/3xl (§3.2) */
+/* numerals: display-sans Light — sm/xs/lg/md/2xl (§3.2; the rd2 step
+   3xl → 2xl, owner direction 2026-09-04) */
 .csi-grid .cs-cell-value {
   font: var(--ts-display-sans-sm-light-font);
   font-size: calc((var(--wA) + var(--wB)) * 36);
@@ -196,11 +197,11 @@
 }
 @container (min-width: 1130px) {
   .csi-grid .cs-cell-value {
-    font: var(--ts-display-sans-3xl-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 72);
-    line-height: calc((var(--wA) + var(--wB)) * 78);
-    letter-spacing: var(--ts-display-sans-3xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-display-sans-3xl-light-opsz), var(--font-sans-slnt);
+    font: var(--ts-display-sans-2xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 64);
+    line-height: calc((var(--wA) + var(--wB)) * 72);
+    letter-spacing: var(--ts-display-sans-2xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-2xl-light-opsz), var(--font-sans-slnt);
   }
 }
 

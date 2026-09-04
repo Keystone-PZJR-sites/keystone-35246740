@@ -252,7 +252,7 @@ cell a 1px `border/000` line-inclusive box.
 | head row | 2t | 1t | 1t | 1t | 1t |
 | cell grid | 2×2 + 2t disclaimer row | 2×2 + 1t disclaimer row | 3+2 (disclaimer in row 2) | 5 across | 5 across |
 | cell box | 5.25t × 4t³ | 5t × 2t | 3t × 3t | 2t × 2t | 2t × 2t |
-| numeral style (`display-sans/*/Light`) | sm | xs | lg | md | 3xl |
+| numeral style (`display-sans/*/Light`) | sm | xs | lg | md | 2xl *(amended 2026-09-04 — owner direction: the drawn 3xl stepped down; see §9)* |
 | label style | `text/sm/Regular` | `text/xs/Regular` | `text/sm/Regular` | `text/md/Light` | `text/md/Light` |
 
 ³ at rm the grid is the 0.5t column halved — the cell edges between
@@ -1079,6 +1079,16 @@ else moved; the four effect styles confirmed, `noise` still absent).**
   as lengths). Verified: image top on its tick row at all fifteen
   widths; the tag rows at the drawn 724/743 · 848/878 · 568/598/628
   · 572/602 · 648/682.
+- **Revision — the intro numeral step (owner direction, 2026-09-04,
+  in-chat; no file re-read — the direction is the source).** The §3.2
+  rd2 numeral stepped `display-sans/3xl/Light` (72/78) →
+  **`display-sans/2xl/Light`** (64/72); the smaller bands' ramp
+  (sm/xs/lg/md) unchanged. Landed in `case-study-intro.css` (the rd2
+  container block); template-wide — every case-study page rides it.
+  Prompted alongside the Phase B draft records, whose longer metrics
+  ("$3.50" · "$25k" · "100k+") crowd the rd2 2t cell at 3xl. §3.2
+  amended in place; the grid sweep re-ran green at the anchors and
+  slices.
 - **Acceptance evidence:** all five anchors + ten slices green in the
   in-page audit (stack sums 227 · 154 · 110 · 89 · 74; landmarks,
   band gates, seams, clearance); renders compared against the file
