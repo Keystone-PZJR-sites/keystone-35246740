@@ -15,6 +15,7 @@ import { PersonaCard } from "@/design-system/v2/primitives/persona-card";
 import { PricingTag } from "@/design-system/v2/primitives/pricing-tag";
 import { Slider } from "@/design-system/v2/primitives/slider";
 import { Text } from "@/design-system/v2/primitives/text";
+import { NoiseDuo } from "@/design-system/v2/lib/noise";
 import { FAQ_ITEMS } from "@/design-system/v2/sections/faq-data";
 import { PERSONAS } from "@/design-system/v2/sections/pricing-scale-data";
 import { CASE_STUDIES } from "@/design-system/v2/sections/work-cases-data";
@@ -518,6 +519,26 @@ export default function PrimitivesPage() {
             <GraderInput size={size} defaultValue="yourbusiness.com" loading />
           </div>
         ))}
+      </section>
+
+      <section className="pv-section">
+        <h2>noise-duo</h2>
+        {/* the shared feTurbulence grain (spec 019 §7, lib/noise.tsx):
+            the defaults carry the file's noise-duo constants (size 0.5
+            · density 0.8 · black/white 15%) — over the page paper,
+            over an engine fill, and clipped (the 019 petal-cluster
+            mechanism, objectBoundingBox fractions) */}
+        <div className="pv-row">
+          <div className="pv-noise">
+            <NoiseDuo className="pv-noise-fill" />
+          </div>
+          <div className="pv-noise pv-noise-orange">
+            <NoiseDuo className="pv-noise-fill" />
+          </div>
+          <div className="pv-noise">
+            <NoiseDuo className="pv-noise-fill" clip={<circle cx={0.5} cy={0.5} r={0.4} />} />
+          </div>
+        </div>
       </section>
 
       <section className="pv-section">
