@@ -110,4 +110,34 @@
   --motion-enter-frac: 0.25;
   --motion-enter-frac-rm: 0.18;
   --motion-enter-stagger: 120ms;
+
+  /* The Bloom grammar (spec 019 §6 as amended 2026-09-05 — the
+     owner's revised timing table at build QA, 019 §9 B8): the ring
+     fades in while easing up from scale .94; the five engines launch
+     from the shared centre clockwise from Brand — a fast fade inside
+     a longer travel+growth (offset centre→position, scale .12→1) —
+     each label resolves behind its engine with a whisper of scale,
+     and the intersect mark fades in last. One clock at every band,
+     total ≈1.38s; the grammar's ceiling is 1.6s — past that the
+     section feels gated behind the animation (owner). No rotation,
+     no overshoot (both curves settle under 1); plays once per page
+     load; the settled render is the server HTML. */
+  --motion-bloom-ring-fade-dur: 700ms;
+  --motion-bloom-ring-move-dur: 900ms;
+  --motion-bloom-ring-ease: cubic-bezier(0.2, 0.72, 0.18, 1);
+  --motion-bloom-ring-scale: 0.94;
+  --motion-bloom-engine-delay: 150ms;
+  --motion-bloom-stagger: 120ms;
+  --motion-bloom-engine-fade-dur: 400ms;
+  --motion-bloom-engine-move-dur: 750ms;
+  --motion-bloom-engine-ease: cubic-bezier(0.16, 0.78, 0.24, 1);
+  --motion-bloom-engine-seed: 0.12;
+  --motion-bloom-label-delay: 340ms;
+  --motion-bloom-label-dur: 350ms;
+  --motion-bloom-label-scale: 0.96;
+  --motion-bloom-mark-delay: 950ms;
+  --motion-bloom-mark-dur: 400ms;
+  /* labels and the mark resolve on the standard ease keyword (the
+     table's choice) */
+  --motion-bloom-resolve-ease: ease;
 }

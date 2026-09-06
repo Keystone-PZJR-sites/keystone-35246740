@@ -661,21 +661,28 @@
   --hx2-cta-top-rt: calc((var(--wA) + var(--wB)) * 348);
   --hx2-cta-top-rd: calc(var(--t) * 534 / 112);
 
-  /* system-section constants (spec 019 §1/§3/§4). Three drawn anchors
-     (the hero-v2 construction exactly): below the rt gate every drawn
-     px rides the tick at its 384 anchor ratio (the derived rs band is
-     the 384 design zoomed); the rt band holds the 768 drawn values as
-     band constants (hold-then-switch — the 860 gate is structural);
-     from the rd1 gate the 1344 design zooms on the tick. The ring
-     diameters are the §1 drawn values (8t · 6t · 3t). The headline
-     wrap boxes are the drawn text columns (304 · 495 · 504 — the 1344
-     box re-read 504 at the build's fresh-read pass, §9 build record);
-     the slug→headline gaps are the drawn 12 · 24 · 40. */
+  /* system-section constants (spec 019 §1/§3/§4, as amended — the
+     hero-v2 construction exactly, including the 018 §9 R9 rs
+     derivation split adopted at the 019 build: GEOMETRY below the rt
+     gate re-lays the 384 design on the tick; TYPE and wrap boxes
+     derive the undrawn 576 anchor as the linear midpoint of the
+     drawn 384/768 values and ride the standard band pairs (the pure
+     zoom blew the type up mid-band — 019 §9 B7). The rt band holds
+     the 768 drawn values as band constants (hold-then-switch — the
+     860 gate is structural); from the rd1 gate the 1344 design zooms
+     on the tick. The ring diameters are the §1 drawn values (8t ·
+     6t · 3t). The slug→headline gap keeps t·12/32: its 384/768
+     midpoint (18) equals the zoom line, so the constructions agree. */
   --sys-r-rm: calc(var(--t) * 8);
   --sys-r-rt: calc(var(--t) * 6);
   --sys-r-rd: calc(var(--t) * 3);
   --sys-h2-gap-rm: calc(var(--t) * 12 / 32);
-  --sys-h2-w-rm: calc(var(--t) * 304 / 32);
+  /* headline wrap boxes: 304 drawn at 384 · 495 drawn at 768 (the
+     1344 box re-read 504 at the build's fresh-read pass, §9 B1) ·
+     derived 576 midpoint 399.5 — the box rides the same line as the
+     type, so the drawn rag holds through the walk */
+  --sys-h2-w-rm: calc(var(--wA) * 304 + var(--wB) * 399.5);
+  --sys-h2-w-rs: calc(var(--wA) * 399.5 + var(--wB) * 495);
   --sys-h2-w-rt: calc((var(--wA) + var(--wB)) * 495);
   --sys-h2-w-rd: calc(var(--t) * 504 / 112);
   --sys-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
