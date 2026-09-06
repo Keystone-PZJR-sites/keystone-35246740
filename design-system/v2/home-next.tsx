@@ -4,11 +4,13 @@ import { NavChrome } from "@/design-system/v2/sections/nav";
 import { HeroV2Section } from "@/design-system/v2/sections/hero-v2";
 import { SystemSection } from "@/design-system/v2/sections/system";
 import { EnginesSection } from "@/design-system/v2/sections/engines";
+import { WorkDeckSection } from "@/design-system/v2/sections/work-deck";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 
 /** The homepage v2 composition (spec 018 §8) — the Phase 10 parallel
  * build: nav · hero-v2 · system (spec 019) · engines (spec 020) ·
- * footer for now; 021–022 splice their sections in as they land.
+ * work (spec 021) · footer for now; 022 splices its section in as it
+ * lands.
  * Mounted bare by the noindexed /home-next and under
  * /home-next-fixture; `/` and `/home-fixture` keep mounting v1 until
  * the spec 023 cutover.
@@ -28,6 +30,7 @@ export async function HomeNextPage({ qa }: { qa?: React.ReactNode }) {
         <HeroV2Section />
         <SystemSection />
         <EnginesSection />
+        <WorkDeckSection />
       </main>
       <FooterSection
         social={{

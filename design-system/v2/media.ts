@@ -430,6 +430,29 @@ export function engineV2PlaceholderSrc(
   return `/media/engines-v2/placeholder-${engine}-${state}${suffix}.webp`;
 }
 
+/* ---- work-cascade deck (spec 021 §7 as amended §9 R4) ----
+ * 18 verbatim WebP exports (supplied 2026-09-06): one cut per site per
+ * tier, each 2× its band's site-image box. The tiers are art direction
+ * (the boxes' aspects differ per band: 548/336 · 640/400 · 320/192), so
+ * cards render as <picture> with viewport-gated <source>s. The gates
+ * (R4): the 1344 cut from the rd1 gate, the 768 cut from the rs gate
+ * down to it (its ≈4% cover-crop inside the rs band is accepted), the
+ * 384 cut below. The file numbering is reversed against the cascade
+ * order (owner-recorded, §7) — work-deck-data.ts maps slug → file. */
+
+export type WorkCascadeCut = 1344 | 768 | 384;
+
+export const WORK_CASCADE_RD1_GATE_MEDIA = "(min-width: 860px)";
+export const WORK_CASCADE_RS_GATE_MEDIA = "(min-width: 470px)";
+
+/** The 384 fallback cut's intrinsic size (the <img> width/height). */
+export const WORK_CASCADE_FALLBACK = { width: 640, height: 384 };
+
+/** work-cascade-{tier}-{01..06}.webp under public/media/work-cascade. */
+export function workCascadeSrc(file: number, cut: WorkCascadeCut): string {
+  return `/media/work-cascade/work-cascade-${cut}-${String(file).padStart(2, "0")}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */

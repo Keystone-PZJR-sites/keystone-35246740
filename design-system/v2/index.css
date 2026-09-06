@@ -121,3 +121,7 @@
 /* Sections (spec 020) — the engine section (the interactive stage and
    the static stack; the island only drives attributes and vars) */
 @import "./sections/engines.css";
+
+/* Sections (spec 021) — the work section (the website deck; the island
+   only flips data-slot, the reorder is CSS) */
+@import "./sections/work-deck.css";
