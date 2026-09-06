@@ -1,0 +1,476 @@
+/* v2 sections — the system section (spec 019). Anchors 384 · 768 ·
+   1344 (plan.md three-anchor policy — the hero-v2 construction
+   exactly, including the 018 §9 R9 rs derivation split adopted at
+   this build, 019 §9 B7): GEOMETRY below the rt gate is the 384
+   design re-laid on the tick; TYPE and wrap boxes derive the undrawn
+   576 anchor as the linear midpoint of the drawn 384/768 values and
+   ride the standard band pairs, meeting the compressed 768 design at
+   the rt gate. The rt band holds the 768 drawn values as band
+   constants (hold-then-switch: the 860 gate is structural). From the
+   rd1 gate the 1344 design zooms on the tick — one declaration serves
+   860 → ∞ (the capped wide range included).
+
+   The diagram is one proportional construction on the ring diameter
+   --sys-r (§4): every petal, the grain clip, and the intersect mark
+   ride ratios of it, so the derived bands reproduce the drawn diagram
+   by construction. The petal center ratios arrive as inline vars from
+   system.tsx (one table also drives the grain clip); the tag centers
+   and ring sizes are the component-layer constants.
+
+   Bloom (§6) is all CSS keyed off the section's data-bloom attribute —
+   the island only flips it. Absent attribute = the settled render (the
+   server HTML, the no-JS and reduced-motion state). */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.v2-system {
+  width: 100%;
+  height: calc(var(--t) * 17);
+  --sys-r: var(--sys-r-rm);
+}
+@container (min-width: 665px) {
+  .v2-system {
+    height: calc(var(--t) * 12);
+    --sys-r: var(--sys-r-rt);
+  }
+}
+@container (min-width: 860px) {
+  .v2-system {
+    height: calc(var(--t) * 6);
+    --sys-r: var(--sys-r-rd);
+  }
+}
+
+/* ---------------- header (§3) ---------------- */
+
+/* 384: top-anchored — the slug row (the marker in its own 1t column
+   left of the text stack) then the headline on the drawn 12 gap.
+   768: the header box is rows 0–4 (pl 1t), content v-centered.
+   1344: the header column v-centers in the 6t section (pl 1t). */
+.sys-head {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@container (min-width: 665px) {
+  .sys-head {
+    left: var(--t);
+    height: calc(var(--t) * 5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--sys-head-gap-rt);
+  }
+}
+@container (min-width: 860px) {
+  .sys-head {
+    height: auto;
+    bottom: 0;
+    gap: var(--sys-head-gap-rd);
+  }
+}
+
+.sys-slug {
+  display: flex;
+  align-items: center;
+  height: var(--t);
+  color: var(--color-text-400);
+  /* both drawn anchors carry 12/16 (§3), so the R9 midpoint walk is
+     flat below the rt gate — one declaration serves rm and rs */
+  --fs0: 12;
+  --fs1: 12;
+  --lh0: 16;
+  --lh1: 16;
+}
+/* the square marker: 6px bg/400 (7 from the rd1 gate — material);
+   at 384 its 1t cell IS the gap construction, above it the drawn 12px
+   gap rides the type (12/12 = 1em at 768 · 12/14 at 1344) */
+.sys-marker {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--t);
+  height: var(--t);
+}
+.sys-marker::before {
+  content: "";
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
+}
+@container (min-width: 665px) {
+  .sys-slug {
+    height: auto;
+    gap: 1em;
+    /* the 768 anchor steps to Regular (§3) — alias the mounted style's
+       font token over the InterpText inline reference (alias, never
+       fork; the hero H1's ls construction) */
+    --ts-text-xs-medium-font: var(--ts-text-xs-regular-font);
+    --fs0: 12;
+    --fs1: 12;
+    --lh0: 16;
+    --lh1: 16;
+  }
+  .sys-marker {
+    width: auto;
+    height: auto;
+  }
+}
+@container (min-width: 860px) {
+  .sys-slug {
+    gap: 0.8571em;
+    /* the 1344 anchor's style is text/sm/Regular (§3) — alias the
+       mounted style's font and opsz tokens over the InterpText inline
+       references (alias, never fork); ls is −1% on both */
+    --ts-text-xs-medium-font: var(--ts-text-sm-regular-font);
+    --ts-text-xs-medium-opsz: var(--ts-text-sm-regular-opsz);
+    --fs0: 10;
+    --fs1: 14;
+    --lh0: 12.8571;
+    --lh1: 18;
+  }
+  .sys-marker::before {
+    width: var(--sys-marker-rd);
+    height: var(--sys-marker-rd);
+  }
+}
+
+/* the headline: PP Kyoto, ink text/100, natural wrap in the drawn
+   per-band box (304 · 495 · 504); weight steps Extralight → Thin at
+   the rd1 gate with the 1344 style (§3); tracking is −2% at every
+   anchor so no ls alias is needed */
+.sys-h2 {
+  color: var(--color-text-100);
+  margin-top: var(--sys-h2-gap-rm);
+  margin-left: var(--t);
+  max-width: var(--sys-h2-w-rm);
+  /* the R9 walk: 24/30 drawn at 384 → the derived 576 midpoint 30/36 */
+  --fs0: 24;
+  --fs1: 30;
+  --lh0: 30;
+  --lh1: 36;
+}
+@container (min-width: 470px) {
+  .sys-h2 {
+    max-width: var(--sys-h2-w-rs);
+    /* midpoint 30/36 → the drawn 768 values 36/42 */
+    --fs0: 30;
+    --fs1: 36;
+    --lh0: 36;
+    --lh1: 42;
+  }
+}
+@container (min-width: 665px) {
+  .sys-h2 {
+    margin: 0;
+    max-width: var(--sys-h2-w-rt);
+    --fs0: 36;
+    --fs1: 36;
+    --lh0: 42;
+    --lh1: 42;
+  }
+}
+@container (min-width: 860px) {
+  .sys-h2 {
+    /* the 1344 anchor's style is lg+/Thin (§3) — the weight steps
+       Extralight → Thin with the band; alias the mounted style's font
+       token over the InterpText inline reference */
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-lg-plus-thin-font);
+    max-width: var(--sys-h2-w-rd);
+    --fs0: 35.7143;
+    --fs1: 50;
+    --lh0: 42.8571;
+    --lh1: 60;
+  }
+}
+
+/* ---------------- the diagram (§1/§4) ---------------- */
+
+/* the diagram box (the Bloom observer's target): full width rows 6–16
+   at 384 · rows 5–11 at 768 · the 5t square at cols 7–12, v-centered,
+   from the rd1 gate */
+.sys-diagram {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--t) * 6);
+  height: calc(var(--t) * 11);
+  pointer-events: none;
+}
+@container (min-width: 665px) {
+  .sys-diagram {
+    top: calc(var(--t) * 5);
+    height: calc(var(--t) * 7);
+  }
+}
+@container (min-width: 860px) {
+  .sys-diagram {
+    left: calc(var(--t) * 7);
+    right: auto;
+    width: calc(var(--t) * 5);
+    top: calc(var(--t) / 2);
+    height: calc(var(--t) * 5);
+  }
+}
+
+/* the stage: the ring's drawn box — center (6t, 12t) · (6t, 9t) ·
+   (9.5t, 3t) section-local (§1); tags position from the same center */
+.sys-stage {
+  position: absolute;
+  width: calc(var(--sys-r) + 1px);
+  height: calc(var(--sys-r) + 1px);
+  left: calc(var(--t) * 2);
+  top: calc(var(--t) * 2);
+}
+@container (min-width: 665px) {
+  .sys-stage {
+    left: calc(var(--t) * 3);
+    top: var(--t);
+  }
+}
+@container (min-width: 860px) {
+  .sys-stage {
+    left: var(--t);
+    top: var(--t);
+  }
+}
+
+/* the ring: the boundary of the business (§4) — line-inclusive box
+   (its perimeter kisses exposed lattice at the anchors), bg/100 fill,
+   1px border/000. isolation scopes the petals' multiply accumulation
+   to the ring; overflow clips the grain layer's rect to the circle. */
+.sys-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-100);
+  border: 1px solid var(--color-border-000);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* the petals: five true circles, d = the petal ratio of R, centers at
+   the §4 ratios (inline vars from system.tsx), real multiply blend —
+   the core darkens by accumulation, never by opacity. The Bloom
+   entrance launches each from the shared centre (§6 as amended —
+   offset centre→position while scaling from the seed). */
+.sys-petal {
+  position: absolute;
+  width: calc(var(--sys-r) * var(--sys-petal-d));
+  height: calc(var(--sys-r) * var(--sys-petal-d));
+  left: calc(var(--sys-r) * (0.5 + var(--px) - var(--sys-petal-d) / 2));
+  top: calc(var(--sys-r) * (0.5 + var(--py) - var(--sys-petal-d) / 2));
+  border-radius: var(--radius-full);
+  background: var(--_pc);
+  mix-blend-mode: multiply;
+}
+/* the engine canon (§4) — fills bound from the node reads */
+.sys-petal[data-engine="brand"] { --_pc: var(--color-orange-400); }
+.sys-petal[data-engine="visibility"] { --_pc: var(--color-yellow-400); }
+.sys-petal[data-engine="ads"] { --_pc: var(--color-pink-400); }
+.sys-petal[data-engine="engagement"] { --_pc: var(--color-purple-300); }
+.sys-petal[data-engine="reception"] { --_pc: var(--color-blue-300); }
+
+/* the grain (§7): the shared feTurbulence primitive over the petal
+   group, clipped to the petal cluster by the objectBoundingBox circles
+   system.tsx passes from the same table */
+.sys-grain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* the intersect mark (§4/§7): the verbatim export on text/050,
+   multiply, sized and centered as ratios of R with the small drawn
+   y offset */
+.sys-mark {
+  position: absolute;
+  width: calc(var(--sys-r) * var(--sys-mark-w));
+  height: calc(var(--sys-r) * var(--sys-mark-h));
+  left: calc(var(--sys-r) * (0.5 - var(--sys-mark-w) / 2));
+  top: calc(var(--sys-r) * (0.5 + var(--sys-mark-dy) - var(--sys-mark-h) / 2));
+  color: var(--color-text-050);
+  mix-blend-mode: multiply;
+}
+.sys-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------------- the tags (§4) ---------------- */
+
+/* bg/300 chips centered on the per-band read tables (component layer),
+   measured from the ring center; the label's paddings ride the type in
+   em at the anchor ratios (px 8 · pt 2 · pb 3 over type 12 at 384,
+   over 16 above the rt gate — the four units). Presentational only:
+   the diagram subtree is aria-hidden and inert (§5). */
+.sys-tag {
+  position: absolute;
+  left: calc(var(--sys-r) / 2 + var(--_tx));
+  top: calc(var(--sys-r) / 2 + var(--_ty));
+  transform: translate(-50%, -50%);
+}
+.sys-tag-label {
+  display: block;
+  background: var(--color-bg-300);
+  color: var(--color-text-200);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  padding: 0.1667em 0.6667em 0.25em;
+  /* the R9 walk: 12/16 drawn at 384 → the derived 576 midpoint 14/19 */
+  --fs0: 12;
+  --fs1: 14;
+  --lh0: 16;
+  --lh1: 19;
+}
+.sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rm); --_ty: var(--sys-tag-ads-y-rm); }
+.sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rm); --_ty: var(--sys-tag-engagement-y-rm); }
+.sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rm); --_ty: var(--sys-tag-reception-y-rm); }
+.sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rm); --_ty: var(--sys-tag-brand-y-rm); }
+.sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rm); --_ty: var(--sys-tag-visibility-y-rm); }
+@container (min-width: 470px) {
+  .sys-tag-label {
+    /* midpoint 14/19 → the drawn 768 values 16/22 */
+    --fs0: 14;
+    --fs1: 16;
+    --lh0: 19;
+    --lh1: 22;
+  }
+}
+@container (min-width: 665px) {
+  .sys-tag-label {
+    /* the 768/1344 anchors carry text/md/Regular (§4) — alias the
+       mounted xs style's font and opsz tokens (alias, never fork);
+       ls is −1% on both */
+    --ts-text-xs-regular-font: var(--ts-text-md-regular-font);
+    --ts-text-xs-regular-opsz: var(--ts-text-md-regular-opsz);
+    padding: 0.125em 0.5em 0.1875em;
+    --fs0: 16;
+    --fs1: 16;
+    --lh0: 22;
+    --lh1: 22;
+  }
+  .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rt); --_ty: var(--sys-tag-ads-y-rt); }
+  .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rt); --_ty: var(--sys-tag-engagement-y-rt); }
+  .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rt); --_ty: var(--sys-tag-reception-y-rt); }
+  .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rt); --_ty: var(--sys-tag-brand-y-rt); }
+  .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rt); --_ty: var(--sys-tag-visibility-y-rt); }
+}
+@container (min-width: 860px) {
+  .sys-tag-label {
+    --fs0: 11.4286;
+    --fs1: 16;
+    --lh0: 15.7143;
+    --lh1: 22;
+  }
+  .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rd); --_ty: var(--sys-tag-ads-y-rd); }
+  .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rd); --_ty: var(--sys-tag-engagement-y-rd); }
+  .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rd); --_ty: var(--sys-tag-reception-y-rd); }
+  .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rd); --_ty: var(--sys-tag-brand-y-rd); }
+  .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rd); --_ty: var(--sys-tag-visibility-y-rd); }
+}
+
+/* ---------------- Bloom (§6) ---------------- */
+
+/* The island owns data-bloom: absent = settled (the server render, the
+   no-JS and reduced-motion state) · "armed" = pre-fire (the page
+   loaded above the trigger; the diagram holds hidden) · "run" = the
+   entrance playing · "settled" = the run's explicit end on the last
+   beat's animationend (the choreographies-settle law: the animations
+   key on "run" only, so a settled section has nothing to restart when
+   band-gated elements re-enter display). The headline never animates;
+   nothing here touches .sys-head. */
+
+.v2-choreo-bloom[data-bloom="armed"] .sys-ring,
+.v2-choreo-bloom[data-bloom="armed"] .sys-tag {
+  opacity: 0;
+}
+
+/* the owner's timing table (§6 as amended 2026-09-05, §9 B8) — one
+   clock at every band, total ≈1.38s (the last engine's travel ends at
+   1380ms; the mark at 1350ms), under the grammar's 1.6s ceiling.
+   Opacity and transform ride separate durations per the table, so
+   each element is two comma-joined animations sharing one delay. */
+
+/* the ring: opacity 0→1 over 700ms inside a 900ms ease-up from .94 */
+.v2-choreo-bloom[data-bloom="run"] .sys-ring {
+  animation:
+    sys-bloom-fade var(--motion-bloom-ring-fade-dur) var(--motion-bloom-ring-ease) backwards,
+    sys-bloom-ring-move var(--motion-bloom-ring-move-dur) var(--motion-bloom-ring-ease) backwards;
+}
+/* the engines, clockwise from Brand (--_bi is the entrance index):
+   a 400ms fade inside a 750ms travel from the shared centre to the
+   drawn position, scaling .12 → 1 */
+.v2-choreo-bloom[data-bloom="run"] .sys-petal {
+  animation:
+    sys-bloom-fade var(--motion-bloom-engine-fade-dur) var(--motion-bloom-engine-ease) backwards,
+    sys-bloom-engine-move var(--motion-bloom-engine-move-dur) var(--motion-bloom-engine-ease) backwards;
+  animation-delay: calc(var(--motion-bloom-engine-delay) + var(--_bi) * var(--motion-bloom-stagger));
+}
+/* the labels: opacity with a whisper of scale, staggered behind their
+   engines */
+.v2-choreo-bloom[data-bloom="run"] .sys-tag {
+  animation: sys-bloom-label var(--motion-bloom-label-dur) var(--motion-bloom-resolve-ease) backwards;
+  animation-delay: calc(var(--motion-bloom-label-delay) + var(--_bi) * var(--motion-bloom-stagger));
+}
+/* the grain fades with the last engine (the table is silent on the
+   grain; §6's fades-with-the-last-petal role carries on the new
+   clock) */
+.v2-choreo-bloom[data-bloom="run"] .sys-grain {
+  animation: sys-bloom-fade var(--motion-bloom-engine-fade-dur) var(--motion-bloom-engine-ease) backwards;
+  animation-delay: calc(var(--motion-bloom-engine-delay) + 4 * var(--motion-bloom-stagger));
+}
+/* the mark fades in last — opacity only */
+.v2-choreo-bloom[data-bloom="run"] .sys-mark {
+  animation: sys-bloom-fade var(--motion-bloom-mark-dur) var(--motion-bloom-resolve-ease) backwards;
+  animation-delay: var(--motion-bloom-mark-delay);
+}
+
+@keyframes sys-bloom-fade {
+  from { opacity: 0; }
+}
+@keyframes sys-bloom-ring-move {
+  from { transform: scale(var(--motion-bloom-ring-scale)); }
+}
+/* launch from the shared centre: the from-state translates the petal's
+   center onto the ring center (the negative of its §4 offset) at the
+   seed scale — nothing originates outside the ring */
+@keyframes sys-bloom-engine-move {
+  from {
+    transform: translate(calc(var(--sys-r) * var(--px) * -1), calc(var(--sys-r) * var(--py) * -1))
+      scale(var(--motion-bloom-engine-seed));
+  }
+}
+/* the label's rest transform is the centering translate — the keyframe
+   carries it so the animation composes over it */
+@keyframes sys-bloom-label {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(var(--motion-bloom-label-scale));
+  }
+}
+
+/* reduced motion is site law (§6, R2): the settled render, no beats.
+   The island never arms under reduce; the belt here neutralizes any
+   state the dev toggle flips mid-session. */
+@media (prefers-reduced-motion: reduce) {
+  .v2-choreo-bloom[data-bloom] .sys-ring,
+  .v2-choreo-bloom[data-bloom] .sys-petal,
+  .v2-choreo-bloom[data-bloom] .sys-grain,
+  .v2-choreo-bloom[data-bloom] .sys-tag,
+  .v2-choreo-bloom[data-bloom] .sys-mark {
+    animation: none;
+    opacity: 1;
+  }
+}
+.page[data-motion="reduce"] .v2-choreo-bloom[data-bloom] .sys-ring,
+.page[data-motion="reduce"] .v2-choreo-bloom[data-bloom] .sys-petal,
+.page[data-motion="reduce"] .v2-choreo-bloom[data-bloom] .sys-grain,
+.page[data-motion="reduce"] .v2-choreo-bloom[data-bloom] .sys-tag,
+.page[data-motion="reduce"] .v2-choreo-bloom[data-bloom] .sys-mark {
+  animation: none;
+  opacity: 1;
+}

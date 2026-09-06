@@ -1,0 +1,13 @@
+/* /system-next QA styles (spec 019 §8) — route-local, never shipped in
+   the design-system layers. The runway keeps the section below the
+   viewport at load so the island arms and QA can observe the pre-fire
+   rest state before scrolling into the trigger. */
+
+.sysdev-runway {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-400);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+}

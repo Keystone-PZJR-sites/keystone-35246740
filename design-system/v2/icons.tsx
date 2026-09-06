@@ -476,6 +476,20 @@ export function IconStackReporting({ size = 30, className }: Props) {
   );
 }
 
+/** icons/system-intersect (799:60946) — the system diagram's drawn
+ * five-circle boolean (spec 019 §7), exported verbatim through the
+ * bridge 2026-09-05 and normalized to currentColor. The viewBox is the
+ * export's rendered bounds (26.64 × 25.91); the mount binds text/050
+ * and sizes the box as ratios of the ring diameter, so one export
+ * scales with R at every band. */
+export function IconSystemIntersect({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 26.6445 25.9062" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M13.3223 0C15.7186 1.28047 18.0561 2.73965 20.3164 4.38184C22.5764 6.0238 24.6864 7.79561 26.6445 9.67871C26.1673 12.3533 25.5029 15.0277 24.6396 17.6846C23.7764 20.3415 22.7426 22.8956 21.5566 25.3398C18.8656 25.7124 16.1168 25.9062 13.3232 25.9062C10.5292 25.9062 7.78034 25.7125 5.08887 25.3398C3.90306 22.8958 2.87102 20.3412 2.00781 17.6846C1.14434 15.0271 0.477298 12.3529 0 9.67773C1.95797 7.79478 4.06833 6.02369 6.32812 4.38184C8.58833 2.7397 10.926 1.28044 13.3223 0Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** IconLoadingCircle (button-arrow loading glyph) — track stays the
  * alpha-ink token; the head is currentColor per chrome. */
 export function IconLoadingCircle({ size = 24, className }: Props) {

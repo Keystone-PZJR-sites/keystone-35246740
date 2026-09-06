@@ -113,3 +113,7 @@
 /* Sections (spec 018) — after hero.css: hero-v2 shares the hx- machine
    grammar and its restatements win the cascade */
 @import "./sections/hero-v2.css";
+
+/* Sections (spec 019) — the shared grain primitive (lib/noise.tsx) has
+   no stylesheet of its own; consumers position it */
+@import "./sections/system.css";

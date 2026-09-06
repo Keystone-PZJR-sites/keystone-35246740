@@ -2,13 +2,14 @@ import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { GridField } from "@/design-system/v2/grid/field";
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { HeroV2Section } from "@/design-system/v2/sections/hero-v2";
+import { SystemSection } from "@/design-system/v2/sections/system";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 
 /** The homepage v2 composition (spec 018 §8) — the Phase 10 parallel
- * build: nav · hero-v2 · footer for now; 019–022 splice their sections
- * in as they land. Mounted bare by the noindexed /home-next and under
- * /home-next-fixture; `/` and `/home-fixture` keep mounting v1 until
- * the spec 023 cutover.
+ * build: nav · hero-v2 · system (spec 019) · footer for now; 020–022
+ * splice their sections in as they land. Mounted bare by the noindexed
+ * /home-next and under /home-next-fixture; `/` and `/home-fixture`
+ * keep mounting v1 until the spec 023 cutover.
  *
  * `qa` is the fixture route's devtools mount point — the page-level
  * expectations module and sweep leg land with 023; until then the
@@ -23,6 +24,7 @@ export async function HomeNextPage({ qa }: { qa?: React.ReactNode }) {
       <NavChrome />
       <main>
         <HeroV2Section />
+        <SystemSection />
       </main>
       <FooterSection
         social={{
