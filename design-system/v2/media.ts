@@ -49,6 +49,41 @@ export function heroCarouselSrc(frame: number, cut: HeroCarouselTier["cut"]): st
   return `/media/hero-carousel/hero-${String(frame).padStart(2, "0")}-${cut}.webp`;
 }
 
+/* ---- hero carousel v2 (spec 018 §6/§7) ----
+ * 12 verbatim WebP exports (supplied 2026-09-05): eight slides — odd
+ * rectangle, even circle (radius-full clip) — in the two-cut tier set
+ * (018 §9 R3): the wide cut (1344×896 = 2× the rd2 672×448 rectangle)
+ * and the square cut (896×896 = 2× the 448 circle and the 384 square).
+ * Odd slides render as <picture> with one wide <source> from the rt
+ * gate (665) and the square file as the <img> fallback; even slides
+ * mount the square cut everywhere — their square file IS the 1344
+ * export, and the byte-identical 384 even exports are not committed
+ * (018 §9 R5). The 10% multiply tint is baked into the exports (018
+ * §9 R2) — no overlay layer. Ambient photography: the strip is
+ * aria-hidden with empty alts (018 §9 R6); the photo inventory in
+ * 018 §7 is documentation, not alt text. */
+
+export const HERO_V2_CAROUSEL_FRAMES = 8;
+
+/** The rt structural gate (spec 002.r1) — where odd slides swap the
+ * square cut for the wide cut. */
+export const HERO_V2_RT_GATE_MEDIA = "(min-width: 665px)";
+
+export const HERO_V2_WIDE = { width: 1344, height: 896 };
+export const HERO_V2_SQUARE = { width: 896, height: 896 };
+
+/** hero-carousel-{1344|384}-{01–08}.webp under
+ * public/media/hero-carousel-v2. Odd frames: `wide` is the 1344 file,
+ * `square` the 384 file. Even frames are square-only — the 1344 file
+ * is the square cut (018 §9 R5). */
+export function heroV2CarouselSrc(frame: number, cut: "wide" | "square"): string {
+  const n = String(frame).padStart(2, "0");
+  if (cut === "wide" || frame % 2 === 0) {
+    return `/media/hero-carousel-v2/hero-carousel-1344-${n}.webp`;
+  }
+  return `/media/hero-carousel-v2/hero-carousel-384-${n}.webp`;
+}
+
 /* ---- portfolio gallery (spec 007 §5) ----
  * 40 verbatim WebP exports (supplied 2026-08-26): eight sites in five
  * width tiers, each exactly 2× its anchor's thumbnail interior. Art

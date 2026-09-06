@@ -109,3 +109,7 @@
 @import "./sections/case-study-result.css";
 @import "./sections/case-study-cta.css";
 @import "./sections/case-study-toc.css";
+
+/* Sections (spec 018) — after hero.css: hero-v2 shares the hx- machine
+   grammar and its restatements win the cascade */
+@import "./sections/hero-v2.css";

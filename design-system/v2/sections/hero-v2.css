@@ -1,0 +1,228 @@
+/* v2 sections — hero v2 (spec 018). Anchors 384 · 768 · 1344 (plan.md
+   three-anchor policy): the un-gated rules are the 384 design, which
+   the derived rs band renders zoomed on its tick — so below the rt
+   gate every drawn px rides the tick at its 384 anchor ratio and the
+   type pairs are the same line (V, 1.5V → t·V/32). The rt band holds
+   the 768 drawn values as band constants (hold-then-switch: the 860
+   gate is structural). From the rd1 gate the 1344 design zooms on the
+   tick — pairs (V·80/112, V) resolve to t·V/112 through the rd1
+   compressed slice, the 960→1344 interpolation zone, and the capped
+   wide range alike, so no 1130 restatement exists.
+
+   The shared hx- grammar (rises, chips, knockout, rows, the track
+   contract, the load choreography, settled, reduced motion) carries
+   from hero.css; this file restates only what the v2 design changes,
+   scoped under .v2-hero-next where it must override a shared class.
+   When v1 retires (spec 023), the shared rules fold in here. */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.v2-hero-next {
+  width: 100%;
+  height: calc(var(--t) * 24);
+}
+@container (min-width: 665px) {
+  .v2-hero-next { height: calc(var(--t) * 13); }
+}
+@container (min-width: 860px) {
+  .v2-hero-next { height: calc(var(--t) * 12); }
+}
+
+/* choreography indirection (the 006 grammar): below 768 the cascade
+   follows the band's visual order (h1 · images · subhead · CTA); at
+   the rt gate and up it is the 006 §6 table. Same tokens as v1. */
+.v2-hero-next {
+  --_d-rect: var(--hx-d-rect-m);
+  --_d-circle: var(--hx-d-circle-m);
+  --_d-sub1: var(--hx-d-sub1-m);
+  --_d-sub2: var(--hx-d-sub2-m);
+  --_d-cta: var(--hx-d-cta-m);
+}
+@container (min-width: 665px) {
+  .v2-hero-next {
+    --_d-rect: var(--hx-d-rect);
+    --_d-circle: var(--hx-d-circle);
+    --_d-sub1: var(--hx-d-sub1);
+    --_d-sub2: var(--hx-d-sub2);
+    --_d-cta: var(--hx-d-cta);
+  }
+}
+/* the single-span H1 rides the first beat (v1's copy-switch spans
+   carried this via their own classes) */
+.v2-hero-next .hx2-h1 .hx-rise { --_d: var(--hx-d-h1a); }
+
+/* ---------------- header block (§1 as amended) ---------------- */
+
+/* Anchored at the H1 line (96 = 3t at 384 · 98 at 768 · 192 at 1344);
+   insets from the drawn frames: left t/2 · 1t · 1t, right 1t · 2t · 1t. */
+.hx2-head {
+  position: absolute;
+  top: var(--hx2-head-top-rm);
+  left: calc(var(--t) / 2);
+  right: var(--t);
+}
+@container (min-width: 665px) {
+  .hx2-head { top: var(--hx2-head-top-rt); left: var(--t); right: calc(2 * var(--t)); }
+}
+@container (min-width: 860px) {
+  .hx2-head { top: var(--hx2-head-top-rd); right: var(--t); }
+}
+
+/* The 384-only wordmark (72×15 material, the 001 asset) hangs above
+   the H1 line: drawn 65 = 96 − 15px mark − t/2 gap. Size, mask, and
+   the 665+ display gate carry from hero.css. */
+.v2-hero-next .hx-wm-head {
+  position: absolute;
+  top: calc(-1 * (var(--t) / 2 + 15px));
+  margin: 0;
+}
+
+/* ---- H1 (§3 as amended): PP Kyoto Thin, ink text/100, natural wrap
+   in the per-band box. Type zooms below the rt gate (t·32/32 …
+   t·32/32×2), holds 48 across rt, rides t·72/112 from the rd1 gate. ---- */
+
+.hx2-h1 {
+  color: var(--color-text-100);
+  max-width: var(--hx2-h1-w-rm);
+  --fs0: 32; --fs1: 48; --lh0: 38; --lh1: 57;
+}
+@container (min-width: 470px) {
+  .hx2-h1 { --fs0: 48; --fs1: 64; --lh0: 57; --lh1: 76; }
+}
+@container (min-width: 665px) {
+  .hx2-h1 {
+    max-width: var(--hx2-h1-w-rt);
+    --fs0: 48; --fs1: 48; --lh0: 56; --lh1: 56;
+    /* the 384 anchor's style is sm/Thin (−2%); the 768/1344 anchors
+       carry −3% — alias the mounted style's tracking var over the
+       InterpText inline reference (alias, never fork) */
+    --ts-display-serif-sm-thin-ls: var(--ts-display-serif-lg-thin-ls);
+  }
+}
+@container (min-width: 860px) {
+  .hx2-h1 {
+    max-width: var(--hx2-h1-w-rd);
+    --fs0: 51.4286; --fs1: 72; --lh0: 55.7143; --lh1: 78;
+  }
+}
+
+/* ---------------- subhead (§4) ---------------- */
+
+/* Prose ink text/200; the 006 knockout construction (rows, chips, the
+   inline wordmark) carries from hero.css — only the drawn values
+   restate. Positioned at the drawn top at every band (§1 as amended),
+   head-relative so both offsets ride the same unit. Line-internal
+   spacing rides the type in em at exact anchor ratios (002.r1 units);
+   in the zoom regimes the em values carry the rag by construction. */
+.hx2-sub {
+  position: absolute;
+  top: calc(var(--hx2-sub-top-rm) - var(--hx2-head-top-rm));
+  left: 0;
+  right: 0;
+  max-width: var(--hx2-sub-w-rm);
+  color: var(--color-text-200);
+  --fs0: 20; --fs1: 30; --lh0: 26; --lh1: 39;
+  --clh0: 26; --clh1: 39;
+  /* 6/20 inline and line-group, 4/20 chip px at the 384 anchor */
+  --hx-gap-inline: 0.3em;
+  --hx-gap-row: 0.3em;
+  --hx-chip-px: 0.2em;
+}
+/* the derived rs band continues the 384 zoom line (t·20/32, t·26/32);
+   the em gaps ride the type unchanged */
+@container (min-width: 470px) {
+  .hx2-sub {
+    --fs0: 30; --fs1: 40; --lh0: 39; --lh1: 52;
+    --clh0: 39; --clh1: 52;
+  }
+}
+@container (min-width: 665px) {
+  .hx2-sub {
+    top: calc(var(--hx2-sub-top-rt) - var(--hx2-head-top-rt));
+    /* no wrap pin above the rs gate: the drawn rt/rd2 line-groups are
+       single lines that hug (the §1 520/712 widths are hug results);
+       a pinned box re-wraps them on font-metric differences */
+    max-width: none;
+    --fs0: 18; --fs1: 18; --lh0: 26; --lh1: 26;
+    --clh0: 24; --clh1: 24;
+    /* 5/18 inline (the §9 F2 designed 5), 4/18 line-group and chip px */
+    --hx-gap-inline: 0.2778em;
+    --hx-gap-row: 0.2222em;
+    --hx-chip-px: 0.2222em;
+  }
+}
+@container (min-width: 860px) {
+  .hx2-sub {
+    top: calc(var(--hx2-sub-top-rd) - var(--hx2-head-top-rd));
+    --fs0: 17.1429; --fs1: 24; --lh0: 22.8571; --lh1: 32;
+    --clh0: 22.8571; --clh1: 32;
+    /* 6/24 inline and line-group, 8/24 chip px at the 1344 anchor */
+    --hx-gap-inline: 0.25em;
+    --hx-gap-row: 0.25em;
+    --hx-chip-px: 0.3333em;
+  }
+}
+
+/* ---------------- CTA row (§5) ---------------- */
+
+/* All three rows position absolutely at their drawn tops (§1 as
+   amended), head-relative. Display gating, gaps (24 · 40 · 40), and
+   the rise delay carry from hero.css; the d row opens at the rd1
+   gate here (the derived band rides the 1344 set — v1 opened it at
+   1130 after its own c row). */
+.v2-hero-next .hx-cta {
+  position: absolute;
+  top: calc(var(--hx2-cta-top-rm) - var(--hx2-head-top-rm));
+  left: 0;
+  margin: 0;
+}
+@container (min-width: 665px) {
+  .v2-hero-next .hx-cta {
+    top: calc(var(--hx2-cta-top-rt) - var(--hx2-head-top-rt));
+  }
+}
+@container (min-width: 860px) {
+  .v2-hero-next .hx-cta {
+    top: calc(var(--hx2-cta-top-rd) - var(--hx2-head-top-rd));
+  }
+  .v2-hero-next .hx-cta-b { display: none; }
+  .v2-hero-next .hx-cta-d { display: flex; }
+}
+
+/* ---------------- carousel (§6) ---------------- */
+
+/* Full-bleed strip: rows 7–12 (6t) at 384 · 8–11 (4t) at 768 ·
+   7–10 (4t) from the rd1 gate. The window/track/frame machine carries
+   from hero.css; the v2 slide geometry restates — rectangles 6t wide
+   at every band, circles 6t below the rt gate and 4t above it. */
+.hx2-carousel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--t) * 7);
+  height: calc(var(--t) * 6);
+  overflow: hidden;
+}
+@container (min-width: 665px) {
+  .hx2-carousel { top: calc(var(--t) * 8); height: calc(var(--t) * 4); }
+}
+@container (min-width: 860px) {
+  .hx2-carousel { top: calc(var(--t) * 7); }
+}
+
+/* the track transform resolves the island's leaving-frame tallies in
+   ticks — v2 rectangles are 6t (v1's were 8t) */
+.v2-hero-next .hx-track {
+  --hc-ct: 6;
+  transform: translateX(calc(var(--t) * (var(--hc-r, 0) * 6 + var(--hc-c, 0) * var(--hc-ct)) * -1));
+}
+@container (min-width: 665px) {
+  .v2-hero-next .hx-track { --hc-ct: 4; }
+}
+
+.v2-hero-next .hx-frame {
+  width: calc(var(--t) * 6);
+}
+@container (min-width: 665px) {
+  .v2-hero-next .hx-frame[data-shape="circle"] { width: calc(var(--t) * 4); }
+}
