@@ -608,28 +608,39 @@
   --cs-tag-r: var(--radius-sm);
   --cs-d-img: 440ms;
 
-  /* hero-v2 constants (spec 018 §1 as amended, §9 R7). Three drawn
-     anchors (plan.md three-anchor policy): below the rt gate the
-     section renders the 384 design zoomed on the tick (rs derives
-     from 384), so every drawn px rides the tick at its 384 anchor
-     ratio. The rt band holds the 768 drawn values as band constants
-     (hold-then-switch — the 860 gate is structural: 13t → 12t, the
-     H1 re-wraps). From the rd1 gate the 1344 design zooms on the
-     tick (rd1 derives from 1344): t·V/112 is at once the rd1
-     compressed slice, the 960→1344 interpolation line, and the
-     capped wide range — one declaration serves 860 → ∞. */
+  /* hero-v2 constants (spec 018 §1 as amended, §9 R7/R9). Three drawn
+     anchors (plan.md three-anchor policy). GEOMETRY below the rt gate
+     re-lays the 384 design on the tick (rs derives from 384): the
+     tops ride t at their 384 anchor ratios. TYPE and wrap boxes
+     derive the undrawn 576 anchor as the linear midpoint of the
+     drawn 384/768 values and ride the standard band pairs (§9 R9 —
+     the built-page evaluation replaced the pure zoom, which blew the
+     type up against the material controls). The rt band holds the
+     768 drawn values as band constants (hold-then-switch — the 860
+     gate is structural: 13t → 12t, the H1 re-wraps). From the rd1
+     gate the 1344 design zooms on the tick (rd1 derives from 1344):
+     t·V/112 is at once the rd1 compressed slice, the 960→1344
+     interpolation line, and the capped wide range — one declaration
+     serves 860 → ∞. */
   --hx2-head-top-rm: calc(var(--t) * 96 / 32);
   --hx2-head-top-rt: calc((var(--wA) + var(--wB)) * 98);
   --hx2-head-top-rd: calc(var(--t) * 192 / 112);
-  --hx2-h1-w-rm: calc(var(--t) * 304 / 32);
+  /* H1 wrap boxes: 304 drawn at 384 · 512 drawn at 768 · derived 576
+     midpoint 408 — the box rides the same line as the type, so the
+     drawn break after "marketing" holds through the walk */
+  --hx2-h1-w-rm: calc(var(--wA) * 304 + var(--wB) * 408);
+  --hx2-h1-w-rs: calc(var(--wA) * 408 + var(--wB) * 512);
   --hx2-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
   --hx2-h1-w-rd: calc(var(--t) * 784 / 112);
   --hx2-sub-top-rm: calc(var(--t) * 480 / 32);
   --hx2-sub-top-rt: calc((var(--wA) + var(--wB)) * 242);
   --hx2-sub-top-rd: calc(var(--t) * 396 / 112);
-  /* the 384 subhead box pins its drawn wraps; the rt/rd2 line-groups
-     are single drawn lines that hug — no wrap pin above the rs gate */
-  --hx2-sub-w-rm: calc(var(--t) * 336 / 32);
+  /* subhead wrap boxes: 336 drawn at 384 · 520 hug at 768 · derived
+     midpoint 428; rows unwrap progressively as the box outgrows them.
+     The rt/rd2 line-groups are single drawn lines that hug — no wrap
+     pin above the rs gate. */
+  --hx2-sub-w-rm: calc(var(--wA) * 336 + var(--wB) * 428);
+  --hx2-sub-w-rs: calc(var(--wA) * 428 + var(--wB) * 520);
   --hx2-cta-top-rm: calc(var(--t) * 640 / 32);
   --hx2-cta-top-rt: calc((var(--wA) + var(--wB)) * 348);
   --hx2-cta-top-rd: calc(var(--t) * 534 / 112);

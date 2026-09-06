@@ -277,3 +277,14 @@ F5 mobile-LCP gate against the new hero.
   derived bands, and mid-band slices; the standing grid sweep green;
   tsc/lint zero. The route-JS measurement rides to 023. Working tree
   left uncommitted per the git rule.
+- **The hero's derived rs band was evaluated on the built page and
+  re-ruled** (owner, at build QA; 018 §9 R9 — the evaluation the
+  three-anchor policy reserves): the pure zoom blew the type up
+  against the material CTAs mid-band. For the hero, geometry keeps
+  the 384 re-lay on the tick; **type and wrap boxes derive the
+  undrawn 576 anchor as the linear midpoint of the drawn 384/768
+  values** and ride the standard band pairs, meeting the compressed
+  768 design at the rt gate within ~2px. Candidate refinement for
+  the policy's default when 019+ hit the same evaluation. (The same
+  session also re-walked the CTA sizes — md · md · lg · xl, 018
+  §9 R8.)

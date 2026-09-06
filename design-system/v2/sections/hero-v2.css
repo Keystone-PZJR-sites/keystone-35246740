@@ -1,13 +1,17 @@
 /* v2 sections — hero v2 (spec 018). Anchors 384 · 768 · 1344 (plan.md
-   three-anchor policy): the un-gated rules are the 384 design, which
-   the derived rs band renders zoomed on its tick — so below the rt
-   gate every drawn px rides the tick at its 384 anchor ratio and the
-   type pairs are the same line (V, 1.5V → t·V/32). The rt band holds
-   the 768 drawn values as band constants (hold-then-switch: the 860
-   gate is structural). From the rd1 gate the 1344 design zooms on the
-   tick — pairs (V·80/112, V) resolve to t·V/112 through the rd1
-   compressed slice, the 960→1344 interpolation zone, and the capped
-   wide range alike, so no 1130 restatement exists.
+   three-anchor policy): the un-gated rules are the 384 design. Below
+   the rt gate, GEOMETRY re-lays the 384 design on the tick (tops and
+   the carousel ride t at 384 ratios), while TYPE and wrap boxes ride
+   the standard band pairs against a derived 576 anchor — the linear
+   midpoint of the drawn 384/768 values (§9 R9: the built-page
+   evaluation replaced the pure zoom, which blew the type up against
+   the material controls; the walk meets the compressed 768 design at
+   the gate within ~2px). The rt band holds the 768 drawn values as
+   band constants (hold-then-switch: the 860 gate is structural).
+   From the rd1 gate the 1344 design zooms on the tick — pairs
+   (V·80/112, V) resolve to t·V/112 through the rd1 compressed slice,
+   the 960→1344 interpolation zone, and the capped wide range alike,
+   so no 1130 restatement exists.
 
    The shared hx- grammar (rises, chips, knockout, rows, the track
    contract, the load choreography, settled, reduced motion) carries
@@ -77,17 +81,21 @@
   margin: 0;
 }
 
-/* ---- H1 (§3 as amended): PP Kyoto Thin, ink text/100, natural wrap
-   in the per-band box. Type zooms below the rt gate (t·32/32 …
-   t·32/32×2), holds 48 across rt, rides t·72/112 from the rd1 gate. ---- */
+/* ---- H1 (§3 as amended, §9 R9): PP Kyoto Thin, ink text/100,
+   natural wrap in the per-band box. Below the rt gate the type walks
+   the drawn 32 → 48 through the derived 576 midpoint (40); it holds
+   48 across rt and rides t·72/112 from the rd1 gate. ---- */
 
 .hx2-h1 {
   color: var(--color-text-100);
   max-width: var(--hx2-h1-w-rm);
-  --fs0: 32; --fs1: 48; --lh0: 38; --lh1: 57;
+  --fs0: 32; --fs1: 40; --lh0: 38; --lh1: 47;
 }
 @container (min-width: 470px) {
-  .hx2-h1 { --fs0: 48; --fs1: 64; --lh0: 57; --lh1: 76; }
+  .hx2-h1 {
+    max-width: var(--hx2-h1-w-rs);
+    --fs0: 40; --fs1: 48; --lh0: 47; --lh1: 56;
+  }
 }
 @container (min-width: 665px) {
   .hx2-h1 {
@@ -121,19 +129,21 @@
   right: 0;
   max-width: var(--hx2-sub-w-rm);
   color: var(--color-text-200);
-  --fs0: 20; --fs1: 30; --lh0: 26; --lh1: 39;
-  --clh0: 26; --clh1: 39;
+  --fs0: 20; --fs1: 19; --lh0: 26; --lh1: 26;
+  --clh0: 26; --clh1: 25;
   /* 6/20 inline and line-group, 4/20 chip px at the 384 anchor */
   --hx-gap-inline: 0.3em;
   --hx-gap-row: 0.3em;
   --hx-chip-px: 0.2em;
 }
-/* the derived rs band continues the 384 zoom line (t·20/32, t·26/32);
-   the em gaps ride the type unchanged */
+/* the walk to the drawn 768 values through the derived 576 midpoint
+   (§9 R9 — 20 → 18, chip lh 26 → 24, body lh constant at the drawn
+   26); the em gaps ride the type */
 @container (min-width: 470px) {
   .hx2-sub {
-    --fs0: 30; --fs1: 40; --lh0: 39; --lh1: 52;
-    --clh0: 39; --clh1: 52;
+    max-width: var(--hx2-sub-w-rs);
+    --fs0: 19; --fs1: 18; --lh0: 26; --lh1: 26;
+    --clh0: 25; --clh1: 24;
   }
 }
 @container (min-width: 665px) {

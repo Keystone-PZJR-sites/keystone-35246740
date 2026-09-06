@@ -35,7 +35,12 @@ this section mounts in the new `v2/home-next.tsx` composition on its own
 dev routes; nothing here edits the v1 hero. Three anchors are drawn
 (384 · 768 · 1344); the **rs band derives from the 384 design and rd1
 derives from the 1344 design** (plan.md, three-anchor policy — evaluated
-manually on the built page).
+manually on the built page). *Amended 2026-09-05 at that evaluation
+(owner, §9 R9): the rs derivation splits by unit — geometry re-lays
+the 384 design on the tick as before, but type and wrap boxes derive
+the undrawn 576 anchor as the linear midpoint of the drawn 384/768
+values and ride the standard band pairs. The pure zoom blew the type
+up against the material controls mid-band.*
 
 ---
 
@@ -117,6 +122,13 @@ this canon).
 | style | display-serif/sm/Thin 32/38 *(amended 2026-09-05, §9 R7; was sm+/Thin 36/42)* | display-serif/lg/Thin 48/56 | display-serif/3xl/Thin 72/78 |
 | tracking | −0.64 (−2%) *(amended 2026-09-05, §9 R7)* | −1.44 | −2.16 |
 
+*Derived-band walk (amended 2026-09-05, §9 R9): below the rt gate the
+H1 walks 32 → 48 (lh 38 → 56) through the derived 576 midpoint
+(40/47), its wrap box walking 304 → 512 through 408 on the same
+pairs, so the break after "marketing" holds; the walk meets the
+compressed 768 design at the gate within ~2px. Tracking holds each
+band's constant and switches at the gates, per the law.*
+
 PP Kyoto, `ital` 100, ink `text/100` — the built 006 H1 mount carries.
 At 384 only, the `ksWordmark` (72×15) sits above the H1 on a 16px gap
 (the 001 asset).
@@ -148,6 +160,12 @@ Per-band restatements:
 |---|---|---|---|
 | type | text/xl/Light 20/26, all M Light | text/lg 18/26 — plain runs L Light, chip labels M Light 18/24 | text/2xl/Light 24/32, all M Light |
 | chip px | 4 | 4 | 8 |
+
+*Derived-band walk (amended 2026-09-05, §9 R9): below the rt gate the
+subhead walks 20 → 18 (chip lh 26 → 24; body lh constant at the drawn
+26) through the derived 576 midpoints (19 · 25), its wrap box walking
+336 → 520 through 428 on the same pairs — rows unwrap progressively
+as the box outgrows them. The em gaps ride the walking type.*
 | inline gap | 6 | 5 — designed intent (§9 F2), enumerated constant | 6 |
 | line-group gap | 6 | 4 | 6 |
 
@@ -335,6 +353,20 @@ responses + design fixes; fixes re-read from the nodes):
   md · md · lg · xl) on the standing band gating. §1 (the 384 row
   height, now 40) and §5 amended; gaps and targets unchanged. File
   fix rides with design — the 384 frame still draws lg.
+- **R9 (owner, 2026-09-05, at the derived-band evaluation, in-chat) —
+  the rs derivation splits by unit.** The plan's default ("the 384
+  design on its tick") zoomed the type toward 62px H1 / 34px subhead
+  mid-band while the CTA controls stayed material — the proportion
+  broke on the built page (the evaluation the plan reserved).
+  Ruling: geometry keeps the 384 re-lay on the tick (tops, carousel
+  rows, the exposure map — unchanged); **type and wrap boxes derive
+  the undrawn 576 anchor as the linear midpoint of the drawn 384/768
+  values** and ride the standard band pairs — H1 32 → 48 in the
+  304 → 512 box, subhead 20 → 18 in 336 → 520, meeting the
+  compressed 768 design at the rt gate within ~2px (the pure zoom
+  jumped ~20px there). Preamble, §3, and §4 amended. The construction
+  is the band system's native two-anchor interpolation with a
+  synthesized middle anchor; no new machinery.
 
 ## 10 · Acceptance criteria
 
