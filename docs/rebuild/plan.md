@@ -277,6 +277,44 @@ F5 mobile-LCP gate against the new hero.
   derived bands, and mid-band slices; the standing grid sweep green;
   tsc/lint zero. The route-JS measurement rides to 023. Working tree
   left uncommitted per the git rule.
+- **019 approved and built the same night** (owner approval in-chat —
+  the build instruction; 019 §9 is the build record). The build's
+  fresh-read pass re-read every §1–§4 value against rendered bounds
+  through the bridge: one post-approval change (the 1344 headline box
+  re-read 504; §1 amended on the 018 R7 precedent — the file is the
+  latest intent), one read-artifact class recorded (the petal vectors'
+  bounding boxes inflate under their rotational-copy transforms; the
+  node widths confirm the 0.3542 ratio — §9 B2, so later reads don't
+  flag it as drift), and one stale draft parenthetical amended (the
+  384 slug gap; §9 B5). Deliverables: `sections/system.tsx` /
+  `system.css` (settled server render; the diagram one proportional
+  construction on the ring), the `system-bloom.tsx` island (scroll-
+  armed, plays once, settles on the last beat; reduced motion, no-JS,
+  and at-or-past-trigger loads render the server's settled HTML), the
+  **Bloom** grammar tokens in `tokens/motion.css` (re-ruled at build
+  QA — the owner's revised timing table, 019 §9 B8: one overlapping
+  ≈1.38s clock at every band, engines launching centre→position,
+  a standing 1.6s ceiling on the grammar), the shared grain primitive
+  `lib/noise.tsx` (feTurbulence duotone with a scaled-group size
+  lever — §9 B4; a `/primitives` catalog row; the 020 visibility
+  engine is the known second consumer), `IconSystemIntersect` (the
+  verbatim bridge export), the noindexed **`/system-next`** route,
+  and the `home-next.tsx` splice after the hero. **The 018 R9 rs
+  derivation split was adopted** (019 §9 B7 — the candidate default
+  hit its predicted evaluation: the pure zoom rendered the slug 18px
+  at 576 where both drawn anchors carry 12): geometry keeps the 384
+  re-lay; type and wrap boxes ride the 384/768-midpoint walk, meeting
+  the compressed 768 at the rt gate within ~1.6px. Acceptance
+  verified at the three drawn anchors (byte-exact), the derived
+  576/960, and mid-band slices; exposure maps cell-for-cell; real
+  multiply accumulation confirmed by pixel sample; the grain accepted
+  at the rd2 side-by-side; the standing sweep green against the
+  owner's server; tsc/lint zero. The route-JS measurement rides to
+  023. Working tree left uncommitted per the git rule. (Note: the
+  parallel 018-fix session's 23:05 commit swept this build's
+  in-flight component-layer constants into `fix(hero-v2): wrap the
+  subhead as one flow` — the 019 tokens are committed there, ahead of
+  the 019 build commit.)
 - **The hero's derived rs band was evaluated on the built page and
   re-ruled** (owner, at build QA; 018 §9 R9 — the evaluation the
   three-anchor policy reserves): the pure zoom blew the type up

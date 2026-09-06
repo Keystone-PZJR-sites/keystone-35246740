@@ -1,7 +1,11 @@
 # Spec 019 — Homepage v2: the system section (five-engine diagram + Bloom)
 
-**Status:** Draft 2026-09-05 — all §9 flags resolved the same evening
-(fixes re-read from the nodes); awaiting approval
+**Status:** Approved 2026-09-05 (owner, in-chat — the build
+instruction). **Built 2026-09-05** — acceptance verified on
+`/system-next` and `/home-next` the same night (§10; the route-JS
+measurement rides to 023's sweep leg); the build's fresh-read pass
+re-read every value matching except one post-approval change (the 1344
+headline box), amended per the 018 R7 precedent — §9 build record
 **Depends on:** spec 018 (the `home-next` composition and route pattern this
 section splices into) · spec 002.r1/.r2 (bands, gates, the wide cap) ·
 spec 001 (tokens; the new display-serif steps arrive via the pre-build
@@ -40,8 +44,8 @@ reproduce it by construction.
 | base 384 (t=32) | 24–40 (17t) | local rows 0–4 (160px, w 352) · gap 32 | rows 6–16 (352 tall, full width) | d 256 (8t), center (192, +16 below box center) = (6t, 36t); box 2t–10t × 32t–40t |
 | rs 576 (t=48, derived) | the 384 design at t=48 — section rows 24–40 (17t) | local rows 0–4 (240 = 5t) · gap 1.5t | rows 6–16 (528 = 11t, full width) | d 384 (8t), center (6t, 36t + 24); box 2t–10t × 32t–40t |
 | rt 768 (t=64) | 13–24 (12t) | local rows 0–4 (320 = 5t, w 639, pl 64 pr 80) | rows 5–11 (448 = 7t, full width) | d 384 (6t), center (384, +32) = (6t, 22t); box 3t–9t × 19t–25t, bottom flush with the section end |
-| rd1 960 (t=80, derived) | the 1344 design at t=80 — section rows 12–17 (6t) | x 0–560 (pl 80 pr ~103, riding the zoom) | x 560–960, 400 × 400, v-centered | d 240 (3t), centered = (9.5t, 15t); box 8t–11t × 13.5t–16.5t |
-| rd2 1344 (t=112) | 12–17 (6t) | x 0–784 (pl 112 pr 144), v-centered h 560 | x 784–1344, 560 × 560, v-centered | d 336 (3t), centered = (9.5t, 15t); box 8t–11t × 13.5t–16.5t |
+| rd1 960 (t=80, derived) | the 1344 design at t=80 — section rows 12–17 (6t) | x 0–560 (pl 80 pr ~120, riding the zoom) *(amended 2026-09-05, build fresh-read — §9 B1)* | x 560–960, 400 × 400, v-centered | d 240 (3t), centered = (9.5t, 15t); box 8t–11t × 13.5t–16.5t |
+| rd2 1344 (t=112) | 12–17 (6t) | x 0–784 (pl 112 pr 168 — the headline box 504) *(amended 2026-09-05, build fresh-read; §9 B1 — the draft read pr 144)* | x 784–1344, 560 × 560, v-centered | d 336 (3t), centered = (9.5t, 15t); box 8t–11t × 13.5t–16.5t |
 
 The derived rows carry no drawn values: a derived band renders its
 source anchor's tick geometry verbatim at its own tick (the plan's
@@ -71,7 +75,10 @@ No ornament circles in this section; no controls on the lattice.
 ## 3 · The header
 
 **Slug:** `A complete marketing system` — square marker on `bg/400`
-(7px at 1344 · 6px at 768/384), gap 12 (8 at 384); text `text/400`.
+(7px at 1344 · 6px at 768/384), gap 12 *(at 384 the marker-column
+construction below governs, not a gap value — amended 2026-09-05; the
+draft's "8 at 384" matched neither the nodes nor the column; §9 B5)*;
+text `text/400`.
 **Headline (one canon, confirmed — §9 F3):**
 `Five engines that deeply understand your business working together.`
 Ink `text/100`, PP Kyoto `ital` 100, natural wrap in the padded boxes.
@@ -85,6 +92,17 @@ The weight steps Thin → Extralight down the bands as drawn (distinct
 file text styles; they ride the token re-extraction). At 384 the marker
 sits in its own 32px column left of the text stack (the drawn header
 row construction); headline pr 16.
+
+*Derived-band walk (amended 2026-09-05, §9 B7 — the 018 §9 R9 rs
+derivation split, adopted at this build): geometry keeps the 384
+re-lay on the tick; type and wrap boxes derive the undrawn 576 anchor
+as the linear midpoint of the drawn 384/768 values and ride the
+standard band pairs. The headline walks 24/30 → 36/42 through the 576
+midpoint 30/36, its wrap box 304 → 495 through 399.5 on the same
+pairs (three lines hold through the walk); the tags walk 12/16 →
+16/22 through 14/19; the slug's midpoint is flat (both anchors draw
+12/16). The walk meets the compressed 768 design at the rt gate
+within ~1.6px.*
 
 ## 4 · The diagram
 
@@ -162,23 +180,29 @@ overshoot, full strength at rest.
   back-navigation) renders the settled section — the standing
   choreographies-settle contract (`v2-choreo-bloom` guard, settled
   attribute on the last beat).
-- **Sequence.** (1) The ring fades in alone — opacity only, no travel,
-  no scale. (2) The five petals grow **clockwise from Brand**: Brand →
-  Visibility → Ads → Engagement → Reception. Each petal's wrapper
-  scales 0.06 → 1 with **transform-origin at the ring center**, so
-  growth originates on the shared core and the petal expands into its
-  drawn position — no translation, no rotation, ease-out settling (the
-  drawer ease family), no overshoot. The multiply accumulation in the
-  core is the real blend darkening as petals land. (3) Each tag
-  resolves in place — opacity 0 → 1 with a slight blur → sharp — one
-  beat after its petal lands; tags never travel. (4) The grain fades
-  in with the last petal. (5) The intersect mark lands last — opacity
-  + scale 0.85 → 1 in place, after all five petals rest.
-- **Values** (tokens in `tokens/motion.css`, `--motion-bloom-*`):
-  rd2/rd1 — ring 400ms; petal stagger 400ms, each petal 700ms; tag
-  resolve 300ms at petal + 250ms; mark 350ms at last petal + 300ms
-  (total ≈ 3.0s — the headline-reading class). rt/rs/base — stagger
-  250ms, petal 550ms, total ≈ 2.0s (the brief's single-scroll rule).
+- **Sequence and values** *(amended 2026-09-05 — the owner's revised
+  timing table at build QA supersedes the draft's sequence and both
+  band clocks; §9 B8. Superseded: the solo ring beat (opacity only),
+  the petals' no-translation scale-from-origin at 0.06, the tags' blur
+  resolve, the mark's scale landing, and the ~3.0s/~2.0s full/compact
+  clocks)*. One clock at every band; the order stays clockwise from
+  Brand (R1); the multiply accumulation in the core is the real blend
+  darkening as engines land; the grain (below) rides the last engine:
+
+  | element | delay | duration | ease | animates |
+  |---|---|---|---|---|
+  | ring | 0 | 700ms opacity / 900ms transform | cubic-bezier(.2,.72,.18,1) | opacity 0→1 · scale .94→1 |
+  | engines ×5 | 150ms + 120ms·i | 400ms opacity / 750ms transform | cubic-bezier(.16,.78,.24,1) | opacity 0→1 · scale .12→1 · offset centre→position |
+  | labels ×5 | 340ms + 120ms·i | 350ms | ease | opacity 0→1 · scale .96→1 |
+  | intersect mark | 950ms | 400ms | ease | opacity 0→1 |
+  | grain | 150ms + 4·120ms | 400ms | the engine ease | opacity 0→1 (the table is silent; the fades-with-the-last-engine role carries) |
+
+  Total ≈ **1.38s** (the fifth engine's travel is the last-ending
+  beat, 30ms past the mark); the grammar's ceiling is **1.6s** —
+  past that the section feels gated behind the animation (owner).
+  Tokens in `tokens/motion.css`, `--motion-bloom-*`. Nothing
+  originates outside the ring (engines launch from the shared
+  centre); no rotation; no overshoot (both curves settle under 1).
 - **Reduced motion: site law** (owner ruling) — the settled section
   renders with no animation, superseding the brief's gentle-assembly
   suggestion. **No-JS** renders the settled section (the island only
@@ -194,8 +218,11 @@ overshoot, full strength at rest.
   consumer is the 020 visibility engine): an SVG **feTurbulence**
   duotone grain — `design-system/v2/lib/noise.tsx` (or the filter-def
   equivalent), prop-driven (scale, density, dark/light inks and
-  alphas). The 019 instance carries the file's `noise-duo` constants:
-  size 0.5 · density 0.8 · black 15% / white 15%. Acceptance is a
+  alphas). The 019 instance carries size 0.5 with **density 0.7 ·
+  black 10% / white 10%** *(amended 2026-09-05 — owner tune at build
+  QA, lighter than the file's 0.8/15%; §9 B9. The primitive's
+  defaults stay the file's `noise-duo` constants: size 0.5 · density
+  0.8 · black 15% / white 15%)*. Acceptance is a
   side-by-side against the file render at rd2 — grain character and
   weight match; exact pixels are not reproducible and not required.
 - **Proportional constants** (component token layer): petal ratio
@@ -258,33 +285,167 @@ the system section's slug + the old-word-order headline; 768 (inside
 double-space residual. Flagged to design 2026-09-05; the fix rides
 before 022 is written.
 
+**Build record (2026-09-05, the build's fresh-read pass — every §1–§4
+value re-read against rendered bounds through the bridge before
+implementation):**
+
+- **B1 — the 1344 headline box changed post-draft; the file is the
+  latest intent (the 018 R7 precedent).** The headline text node
+  (`799:60943`, fixed-width, hug-height) re-read **504** wide (pr 168),
+  against the draft's 528/pr 144; 384 (304) and 768 (495) re-read
+  matching. §1 amended; the build pins the wrap boxes at 304 · 495 ·
+  504 and the canon wraps 3 · 3 · 4 lines. Everything else re-read
+  byte-matching: section placement in the page frames (rows 24–40 ·
+  13–24 · 12–17), the §2 exposure cell-for-cell (138 · 94 · 30 painted
+  cells, no doubles — the F2 fix holds; ■[11,24] fill re-resolved
+  `bg/200` + `border/000`), ring boxes, petal ratio and centers, tag
+  tables and chip internals, the intersect ratios, the noise
+  parameters, and the five text styles.
+- **B2 — the petal vectors' bounding boxes are a rotation artifact,
+  not drift.** The Repeat-group petals are rotational copies; their
+  `absoluteBoundingBox` reads inflated (≈0.4932 · R — the AABB of the
+  rotated layout box). The nodes' own width (119.015 = 0.3542 · R) and
+  a verbatim SVG export confirmed true circles at the §4 ratio.
+  Recorded so a later read does not flag the AABBs as a size change.
+- **B3 — build constructions within the spec's language.** The petal
+  centers build as one ratio table (the §4 1344 canon / 336) in
+  `system.tsx` — it drives the petal CSS vars, the grain clip circles,
+  and the sr-only sentence ("Five engines working together: Brand,
+  Visibility, Ads, Engagement, and Reception.") — verified within
+  ±0.9px of every drawn per-anchor center (§4's ±1px bound; the
+  residual is the half-hairline class of the line-inclusive ring box).
+  The tag chip's px 8 / pt 2 / pb 3 ride the type in em at the anchor
+  ratios (the four units); the tag center tables are per-band
+  component-layer constants. The type steps (slug Medium → Regular →
+  sm/Regular; headline Extralight → lg+/Thin) land by aliasing the
+  mounted style's font token over the InterpText inline reference —
+  the hero H1's ls construction, extended to the font shorthand.
+- **B4 — the grain's size lever renders through a scaled group.** The
+  file's noiseSize 0.5 is sub-CSS-pixel; feTurbulence's baseFrequency
+  alone bottoms out at ~1px cells, so `lib/noise.tsx` renders the
+  grain rect inside a `scale(size)` group (over-sized rect, user-space
+  filter) and the speckle lands at 0.5 CSS px. Accepted at the rd2
+  side-by-side against the file render — character and weight match;
+  the earlier 1px build read visibly coarser.
+- **B5 — the draft's 384 slug gap parenthetical was stale.** §3's
+  "gap 12 (8 at 384)": at 384 the marker sits centered in its own 1t
+  column and the text stack starts at 1t — the §3 construction, which
+  the nodes read (marker at 13,13 in the 32 cell; text at 32). No
+  drawn 8px gap exists; the build renders the column. §3 amended.
+- **B6 — beat arithmetic, the built reading.** §6's "tag resolve
+  300ms at petal + 250ms; mark 350ms at last petal + 300ms" is built
+  as offsets from each petal's **land** (the only reading consistent
+  with "one beat after its petal lands" and "after all five petals
+  rest"), making the full clock ≈ 3.35s and the compact ≈ 2.25s — the
+  §6 totals were approximations. Each petal also ramps opacity 0 → 1
+  over the first 12% of its growth, so the backwards-fill seeds stay
+  invisible through the ring's solo beat (nothing shows before its
+  beat; nothing originates outside the ring).
+- **B7 — the 018 R9 rs derivation split, adopted (2026-09-05, the
+  same evening).** While this section was building, the hero's
+  derived rs band was evaluated on the built page and re-ruled
+  (owner, 018 §9 R9): the pure zoom blew the type up mid-band;
+  geometry keeps the 384 re-lay, type and wrap boxes ride the
+  384/768-midpoint walk. The plan records the ruling as the candidate
+  default when 019+ hit the same evaluation — and this section hit it
+  exactly (the pure zoom rendered the slug 18px at 576 where both
+  drawn anchors carry 12, and the tags 18px against drawn 12/16). §3
+  amended with the walk; the drawn anchors and the diagram (geometry,
+  chip em internals) are unchanged; verified meeting the compressed
+  768 at the rt gate within ~1.6px, three headline lines holding
+  through the walk.
+- **B8 — the Bloom clock re-ruled (owner, 2026-09-05, at build QA —
+  the revised timing table).** The draft's two-band clock (~3.0s full
+  / ~2.0s compact) read as gating the section; the owner supplied a
+  single overlapping table (§6 as amended): the ring eases up from
+  .94 while fading, the engines launch **from the shared centre to
+  their drawn positions** (superseding the brief's no-translation
+  scale-from-origin), labels resolve with a .96 scale whisper
+  (superseding the blur), the mark is opacity-only, total ≈1.38s with
+  a standing **1.6s ceiling** on the grammar. The settle contract
+  moved to the run's last-ending animation (the fifth engine's
+  travel, 1380ms — the mark ends at 1350ms). B6's beat-arithmetic
+  reading is historical — it documented the superseded clock.
+- **B9 — the grain tuned lighter (owner, 2026-09-05, at build QA).**
+  The 019 mount passes density 0.7 and 10% ink alphas (the file's
+  noise-duo reads 0.8/15%); the grain size stays the file's 0.5. The
+  tune lives on the instance in `system.tsx`; `lib/noise.tsx` keeps
+  the file's constants as its defaults, so the 020 consumer starts
+  from the extracted values. §7 amended.
+
 ## 10 · Acceptance criteria
 
 *At the three drawn anchors, the two derived-band anchors (576/960 as
 derived renders), and one arbitrary mid-band width per band, scrollbar
 forced on.*
 
-- [ ] Section rows tick-true per §1 (384: 24–40 · 768: 13–24 · 1344:
+- [x] Section rows tick-true per §1 (384: 24–40 · 768: 13–24 · 1344:
       12–17); the ring lands on its §1 box at each drawn anchor.
-- [ ] The exposure map renders exactly per §2 — rails, fields,
+      *(2026-09-05: section heights 17t · 12t · 6t and the /home-next
+      splice tops 24t · 13t · 12t at the three anchors; ring boxes
+      (2t,8t)+8t · (3t,6t)+6t · (8t,1.5t)+3t line-inclusive; the
+      derived 576/960 render their source geometry at t=48/80 with rs
+      type/wrap boxes on the §9 B7 midpoint walk (h2 30/36 in 399.5,
+      three lines; tags 14/19; slug 12/16); slices 445 · 685 · 1050
+      ride the zoom/interpolation lines exactly, and the rs walk meets
+      the compressed 768 at the rt gate within ~1.6px.)*
+- [x] The exposure map renders exactly per §2 — rails, fields,
       ■[11,24] `bg/200` at 384 — and nothing else; single hairlines
       everywhere (the F2 fix verified).
-- [ ] Petal diameters, centers, and fills match §4 within ±1px at each
+      *(2026-09-05: DOM audit per band — rm/rs rail [11,0]×6 +
+      ■[11,0] `bg/200` + field [0,6]12×11; rt [10,0]2×5 + field
+      [0,5]12×7; rd1/rd2 [7,0]5×6 only; exactly one band visible per
+      width; the file re-read 138/94/30 painted cells, no doubles.)*
+- [x] Petal diameters, centers, and fills match §4 within ±1px at each
       drawn anchor; the core darkens by real multiply accumulation (no
       opacity simulation); the intersect mark is the verbatim export on
       `text/050`.
-- [ ] The grain reads as the file's noise-duo at rd2 side-by-side; it
+      *(2026-09-05: petal d 90.67 · 136.01 · 119.01 at the anchors;
+      every petal and tag center within 0.9px of drawn (the
+      half-hairline class); pixel sample of the core reads the exact
+      product of the five fills × the text/050 mark under multiply;
+      fills are the §4 token bindings.)*
+- [x] The grain reads as the file's noise-duo at rd2 side-by-side; it
       clips to the petal cluster and fades with the entrance.
-- [ ] Bloom: arms on the §6 threshold, plays once, never re-fires on
+      *(2026-09-05: 2× side-by-side against the `799:60945` render
+      after the §9 B4 size lever — character and weight match; the
+      clip circles are the petal table's ratios; the grain rides the
+      last petal's beat.)*
+- [x] Bloom: arms on the §6 threshold, plays once, never re-fires on
       scroll or resize; order Brand → Visibility → Ads → Engagement →
-      Reception; ring first, labels resolve in place a beat behind,
-      mark last; no element originates outside the ring; no rotation,
-      no overshoot; all five petals at full strength at rest.
-- [ ] Reduced motion and no-JS render the settled section (site law);
+      Reception; ring first, labels resolve behind their engines,
+      mark fades in last *(criterion as amended 2026-09-05 — the §9
+      B8 table)*; no element originates outside the ring; no
+      rotation, no overshoot; all five petals at full strength at
+      rest.
+      *(2026-09-05, re-verified on the B8 clock: armed → run at the
+      0.55 trigger → settled at ~1.4s on the fifth engine's travel
+      end (the table's 1380ms last beat; under the 1.6s ceiling);
+      the engines' centre→position travel observed mid-run (Brand
+      sampled at 106px/(−24,34) in flight toward 119px/(−27,39));
+      scroll away/back after settle never re-fires; zero running
+      animations at rest and opacity 1 on every participant.)*
+- [x] Reduced motion and no-JS render the settled section (site law);
       a load below the trigger renders it settled.
-- [ ] Inert after settle: no pointer targets inside the diagram; the
+      *(2026-09-05: the SSR HTML carries no data-bloom — the settled
+      render is the document; the island never arms under the media
+      query or the dev toggle (verified: state cleared, opacity 1,
+      zero animations); a reload scrolled at the section stays
+      settled and never arms.)*
+- [x] Inert after settle: no pointer targets inside the diagram; the
       sr-only sentence carries the five engine names.
-- [ ] One client island; `/system-next` route JS in the section-island
+      *(2026-09-05: the diagram subtree is aria-hidden with
+      pointer-events none and zero interactive elements; the §9 B3
+      sentence reads the five names in the accessibility tree.)*
+- [x] One client island; `/system-next` route JS in the section-island
       class; every value traces to a token or a §7 enumerated constant.
-- [ ] tsc/lint zero; the standing sweep stays green (v1 routes
+      *(2026-09-05: one island (`system-bloom.tsx`, attribute flips
+      only); every value traces to the token layers, the component-
+      layer §7 constants, or the system.tsx ratio table — the
+      route-JS measurement waits for a deploy-verification build,
+      with 023's sweep leg, the 018 precedent.)*
+- [x] tsc/lint zero; the standing sweep stays green (v1 routes
       byte-untouched).
+      *(2026-09-05: `tsc --noEmit` and lint zero; the full grid
+      self-test suite passed against the owner's server with the 019
+      section in the tree; no v1 section file modified.)*
