@@ -4,9 +4,11 @@
    for the Phase 7 build (spec 011) — three new teal stops, no other
    drift; re-extracted 2026-08-28 for the 012 build — zero drift across
    primitives, text styles, and effects (the file's new `alpha/black-20`
-   variable resolves to the standing semantic token's value). Do not
-   edit values by hand — re-extract from Figma (see
-   docs/rebuild/specs/001_foundations.md).
+   variable resolves to the standing semantic token's value);
+   re-extracted 2026-09-05 for the Phase 10 018 build — zero drift, six
+   new hue stops landed (orange/pink/yellow 250 · blue 250/350 ·
+   purple 350; nothing binds them yet). Do not edit values by hand —
+   re-extract from Figma (see docs/rebuild/specs/001_foundations.md).
    Nothing outside the token layers may reference these directly; consume
    the semantic layer instead. */
 
@@ -43,6 +45,7 @@
   /* hues (100 light -> 800 dark) */
   --color-orange-100: #fff5ec;
   --color-orange-200: #ffebd9;
+  --color-orange-250: #ffcaa3;
   --color-orange-300: #ffbb8a;
   --color-orange-400: #f57e56;
   --color-orange-500: #cf5330;
@@ -61,6 +64,7 @@
 
   --color-yellow-100: #fdf5e3;
   --color-yellow-200: #fceac6;
+  --color-yellow-250: #fadb9e;
   --color-yellow-300: #f7ca6f;
   --color-yellow-400: #f5b83d;
   --color-yellow-500: #dc9c19;
@@ -96,7 +100,9 @@
 
   --color-blue-100: #edf8ff;
   --color-blue-200: #dbf1ff;
+  --color-blue-250: #b2d6ff;
   --color-blue-300: #a3ceff;
+  --color-blue-350: #8fc3ff;
   --color-blue-400: #3393ff;
   --color-blue-500: #307be8;
   --color-blue-600: #2566d0;
@@ -106,6 +112,7 @@
   --color-purple-100: #f8f3ff;
   --color-purple-200: #f0e8ff;
   --color-purple-300: #d8c2ff;
+  --color-purple-350: #cbadff;
   --color-purple-400: #9c69ea;
   --color-purple-500: #8552c9;
   --color-purple-600: #6e3ca7;
@@ -114,6 +121,7 @@
 
   --color-pink-100: #fceef2;
   --color-pink-200: #f9dce4;
+  --color-pink-250: #fec3d8;
   --color-pink-300: #feaac8;
   --color-pink-400: #f38bb0;
   --color-pink-500: #da749b;

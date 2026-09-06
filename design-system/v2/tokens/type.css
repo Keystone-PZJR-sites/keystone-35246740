@@ -95,6 +95,8 @@
   --ts-display-serif-sm-plus-regular-ls: -0.02em;
   --ts-display-serif-sm-plus-medium-font: 500 36px/42px var(--font-serif);
   --ts-display-serif-sm-plus-medium-ls: -0.02em;
+  --ts-display-serif-sm-thin-font: 100 32px/38px var(--font-serif);
+  --ts-display-serif-sm-thin-ls: -0.02em;
   --ts-display-serif-sm-extralight-font: 200 32px/38px var(--font-serif);
   --ts-display-serif-sm-extralight-ls: -0.02em;
   --ts-display-serif-sm-light-font: 300 32px/38px var(--font-serif);
