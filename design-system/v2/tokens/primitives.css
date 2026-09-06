@@ -7,7 +7,10 @@
    variable resolves to the standing semantic token's value);
    re-extracted 2026-09-05 for the Phase 10 018 build — zero drift, six
    new hue stops landed (orange/pink/yellow 250 · blue 250/350 ·
-   purple 350; nothing binds them yet). Do not edit values by hand —
+   purple 350; nothing binds them yet); re-extracted 2026-09-06 for the
+   020 build — zero drift across primitives, spacing, radii, and text
+   styles (the snapshot gained the already-landed display-serif/sm/Thin
+   entry). Do not edit values by hand —
    re-extract from Figma (see docs/rebuild/specs/001_foundations.md).
    Nothing outside the token layers may reference these directly; consume
    the semantic layer instead. */
