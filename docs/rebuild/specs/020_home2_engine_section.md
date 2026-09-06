@@ -41,6 +41,9 @@ build-QA tuning.
 The most complex section on the page. Five marketing engines, each with
 two visualization states — ten states, `01a → 05b`. The left column is
 the narrative; the right stage is the proof; scroll is the only control.
+*(Re-ruled 2026-09-06, the sixth build review — §9 R19: scroll moves
+between engines only; each engine's a↔b swap rides a 5000ms carousel
+timer, not scroll. The runways and their scroll budget are deleted.)*
 
 ---
 
@@ -62,8 +65,11 @@ free inter-engine travels of 6t (the column rises one panel-height each)
 plus five a→b runways of 4t (§6) —
 
 > section document height at rd2 = 8t + 4·6t + 5·4t = **52t**
+> *(amended 2026-09-06 — §9 R19: the runway terms are deleted with the
+> carousel re-ruling; the budget is the natural flow height —
+> 8t + 4·6t = **32t**)*
 
-carried as the expectations module's runway constants (the 017
+carried as the expectations module's tick constants (the 017
 `extraTicks` pattern; every term whole-tick). The stage viewport is
 672 × 672 at x 672, sticky on the pin line *(amended 2026-09-06 —
 §9 R14; was 44 + 1t)*; the slug row is sticky above it
@@ -199,12 +205,57 @@ the ruling; the set carries `-02` at xs/md, verified). No a/b
 indicator (none drawn in the stack boxes), no interaction, born settled
 (the 011 R10 precedent), zero islands in this variant.
 
+*(Re-ruled 2026-09-06, the eighth build review — §9 R21, the owner's
+stack-carousel brief; the redrawn anchor frames and the `engine-visual`
+set (`791:36057`) are the source, read fresh at rendered bounds. The
+stacks are no longer static: each panel's visual is a **two-state
+carousel resting on the `a` drawing** — R1's b-mount is superseded (the
+frames now mount `-01` with the `slide1-finish` breadcrumb; the file is
+the latest intent). At **rt** the illustration **auto-progresses on the
+§6 carousel clock** (5000ms per state, the one blur + rise grammar, the
+a↔b loop; a panel's clock counts only while its visual is substantially
+in view) with the indicator drawn **vertical** (§6.2). At **base/rs**
+the user **swipes** the visual between the two states — a pointer drag
+with a horizontal intent lock follows the finger 1:1 (`touch-action:
+pan-y` keeps vertical scroll native), the release commits past the
+swipe threshold or on a flick, and the horizontal indicator's b fill
+rides the drag progress *(re-ruled the same day — §9 R22: the swipe is
+a **blur + slight lateral wipe** on the stage grammar, never a
+full-width slide, and the b track rests **empty** with no minimum
+floor below the gate)*. The same §8 island drives both (the zero-
+islands line is superseded); no-JS renders the drawn rest — slide `a`,
+track one full. Reduced motion: the rt timer runs with instant swaps
+and quantized fill; the swipe's fill still follows the finger (direct
+manipulation) with the drawings state-to-state (§9 R22).)*
+
 Type restatements: rt — header `display-serif/sm+/Extralight`, body
 `text/xl/Light`, container (24, 97) 488 × 254; base — header
 `display-serif/xs/Extralight`, body `text/md/Light`, container (0, 54)
 320 × 244.
 
 ## 6 · Motion — the scroll paradigm
+
+*(Re-ruled 2026-09-06, the sixth build review — §9 R19, the owner's
+carousel brief, superseding the runway constructs below at their
+values. The paradigm is now an **auto-transitioning carousel**: once
+the section pins and an engine settles on its rest, a **5000ms timer**
+runs; at expiry the stage swaps to the other illustration on the
+standing §6 blur + rise grammar and the cycle **loops** (a → b → a → …)
+until the user scrolls. Scroll moves **between engines only** — free
+native travel with a **gentle gesture-end snap** to the nearest engine
+rest (big flicks sail through several engines; the ElevenLabs feel
+stands) *(the snap re-ruled the same day — §9 R20: **paged**, one
+gesture moves one engine; flicks no longer sail)*; when an engine
+settles, the stage transitions from the previous engine and its timer
+starts fresh. An engine change always
+resets its cycle to `a` — revisits never resume a completed `b`. The
+timer counts only at a settled rest (mid-travel, the pre-pin approach,
+and the released tail pause it) and pauses off-screen. The runways,
+their 4t plateaus, the swap triggers/hysteresis (R14/R17), the handoff
+lead (R18), and the R15 compositor window are all deleted — with no
+plateaus the scroll mapping is 1:1 everywhere, so the column is plain
+native flow and no transform exists to race the compositor. The
+breadcrumb is re-drawn as the timer's visualization — §6.2 below.)*
 
 **The mapping contract (rd2/rd1).** The section consumes 52t of
 document scroll (§1). The left column's position is a **piecewise
@@ -235,7 +286,15 @@ counter-transform. The mapping contract above is unchanged.)*
   R15, the fluid ruling: the stop-always clamp is **dropped**; big
   flicks sail through several states with everything scrubbing (the
   ElevenLabs behavior). The gesture-end directional completion is
-  the only snap.)*
+  the only snap. Superseded 2026-09-06 — §9 R19: with the runways
+  deleted the snap is the gesture-end glide to the **nearest engine
+  rest**, anywhere in the section's travel (± the edge margin);
+  mid-gesture scroll is native and free. Re-ruled the same day — §9
+  R20, the owner's paging brief: the snap is **paged** — one gesture
+  moves at most one engine (the burst clamps at the adjacent rest and
+  its end commits in the gesture's direction past a small threshold);
+  entry catches decisively at the boundary rest; both ends exit
+  free.)*
 - **Engine handoff (free segments).** As the incoming panel's top
   crosses the stage's top line, the stage fires its swap to that
   engine's `a` drawing (b→a when reversing). Keyed to the column's
@@ -246,7 +305,11 @@ counter-transform. The mapping contract above is unchanged.)*
   handoff leads the rest by **2t**, so the crossfade starts while the
   incoming panel is still two ticks from settling and the stage
   resolves with the column, not after it; the dot lights on the same
-  beat. Symmetric on reverse.)*
+  beat. Symmetric on reverse. Superseded 2026-09-06 — §9 R19: the
+  handoff fires as the scroll crosses the midpoint between rests (the
+  nearest-rest resolution, lead 0); the incoming engine always enters
+  at `a` with a fresh timer, which starts counting once the engine
+  settles.)*
 - **The swap treatment — blur + rise, one grammar for every swap**
   (§9 R3; a→b, b→a, and engine handoffs identical — never
   special-cased): incoming — opacity 0→1, blur 8→0, translateY
@@ -267,14 +330,45 @@ counter-transform. The mapping contract above is unchanged.)*
   rest of R15 are unchanged. Trigger raised the same day — §9 R17:
   the swap fires past **0.65 of the runway** (symmetric on reverse)
   with a hysteresis band between the triggers, so arriving at a rest
-  never auto-advances.)*
+  never auto-advances. Superseded 2026-09-06 — §9 R19: no runways,
+  no triggers; every swap — timer expiries and engine handoffs alike
+  — is the one timed grammar, fired entirely at its beat.)*
 - **The a/b indicator** (§6.2): the four drawn keyframes
   (`877:98990`) — a base track (24 pill + 7 dot, both `bg/500`) with a
   `text/300` overlay pill that grows 7 → 14 → 24 across the runway's
   progress, continuously (scroll-linked, not stepped — the owner's
   "progresses smoothly"); at the b rest the slots swap arrangement
   (dot 7 at x0, pill 24 at x15 — the drawn `second-slide-start`).
-  Reversing runs it backward.
+  Reversing runs it backward. *(Superseded 2026-09-06 — §9 R19: the
+  set was redrawn as six keyframes
+  (`slide1-start/-mid/-finish · slide2-start/-mid/-finish`, read fresh
+  at rendered bounds) and the indicator is now the **timer's
+  visualization** — a scrubber without drag or click. Geometry: 56 × 6
+  — two 24 × 6 full-radius `bg/500` tracks, gap 8, one track per
+  illustration; a `text/300` full-radius fill inside the active track
+  grows continuously from the drawn **6 minimum to the full 24** as
+  the 5000ms clock runs. Track one holds full while b's clock runs;
+  the b track carries no fill until its clock starts (the drawn
+  slide1 variants); the loop back to a resets both. Resting and
+  upcoming panels hold the drawn `slide1-start` (the minimum dot on
+  track one). Placement verified in the redrawn 01a frame: flush at
+  the container's bottom edge (y 522, height 6), left on the text
+  column line — the old anchoring. Reduced motion quantizes the fill
+  state-to-state. Amended the same day — §9 R21: the **fill law is
+  the drawn `max(6, 24·f)`** (the mid keyframe is 12 = 24 × 0.5; the
+  first build's linear 6 + 18f was a misread, corrected in the shared
+  vocabulary). The set also carries a **vertical orientation** for the
+  rt stack (the `engine-visual` md variant mounts the component
+  rotated −90°): 6 × 56 — two 6 × 24 tracks stacked, gap 8, the fill
+  growing downward;   drawn at left 29 / bottom 32 in the 768 visual
+  (the xs horizontal sits at left 32 / bottom 29 — the mirrored 29/32
+  reads like a rotation-pivot artifact, flagged with design, built as
+  drawn). The track/thickness/gap/minimum (24/6/8/6) are identical at
+  both drawn anchors — material constants below the rd gate; the rd2
+  card indicator keeps riding the zoom. The floored law is **timer
+  vocabulary only** (amended the same day — §9 R22): the base/rs
+  swipe fill carries no minimum — the b track rests empty (the
+  owner's mock) and fills from nothing under the drag.)*
 - **The last state holds.** After 05b's runway the section releases;
   the empty sliver row (drawn — the 05 frames' `inactive-engine` is
   empty) shows bare lattice *(amended 2026-09-06, §9 R14 — the
@@ -282,12 +376,19 @@ counter-transform. The mapping contract above is unchanged.)*
   is the boxes' own borders, and no pinned rule ever crosses a moving
   panel)*; the column parks on Engagement after
   exactly **four panel-heights of travel**; nothing advances past 05b.
+  *(Amended 2026-09-06 — §9 R19: while parked and settled the
+  Engagement cycle keeps looping; once the scroll passes the release
+  the timer pauses and the stage holds its current state.)*
 - **Short viewports** (§9 R4): the stage top-anchors and the fold
   crops its tail passively — no height gate, no fallback layout; the
   mapping stays document-keyed so swaps fire normally.
 - **Reduced motion** (§9 R5): the structure (pin, snap, mapping)
   stands — it is navigation, not decoration; every swap and the
   indicator go state-to-state instantly (no blur, rise, or travel).
+  *(Amended 2026-09-06 — §9 R19, owner ruling: the carousel timer
+  keeps running under reduced motion — the stage is decorative and
+  the copy never moves; swaps render instantly, the fill quantizes,
+  snap glides land instantly.)*
 - **No-JS** (§9 R6): the column renders in normal flow with the stage
   holding 01a; all five engines' copy is in the document; the runway
   plateaus collapse (no spacers without the island — the section
@@ -302,10 +403,24 @@ counter-transform. The mapping contract above is unchanged.)*
   static stacks (five each). **Placeholders by owner direction
   2026-09-06** — a native/production visual pass replaces them later
   (tracked on the launch checklist; the 019 grain primitive's second
-  consumer arrives with that pass).
+  consumer arrives with that pass). *(Amended 2026-09-06 — §9 R21: the
+  **md and xs `-01` cuts joined** (ten more files — the stack
+  carousels mount both states; 1416/704, the exports' 1–2px raster
+  bound inflation cropped to canon at conversion) — thirty files
+  total.)*
 - **Non-token constants** (component token layer, per band): pin top
-  44; runway 4t; the swap values (§6); the indicator geometry
-  (39 × 7 · pill 24 · dot 7 · x 32 / x 15) and its inks
+  44; runway 4t *(deleted 2026-09-06 — §9 R19)*; the swap values (§6);
+  the **carousel timer 5000ms** (island constant, the R7 QA-tunable
+  class — added 2026-09-06, §9 R19);   the **paging capture margin 1.5t
+  and commit threshold 0.25t** (island constants, the same class —
+  added 2026-09-06, §9 R20); the **stack-carousel constants** (island
+  constants, the same class — added 2026-09-06, §9 R21: the swipe
+  intent lock 8px · commit fraction 0.15 · flick velocity 0.3 px/ms;
+  the stack indicator's material 24/6/8/6 and its drawn 29/32
+  offsets); the indicator geometry
+  (39 × 7 · pill 24 · dot 7 · x 32 / x 15) *(superseded 2026-09-06 —
+  §9 R19, the redrawn keyframes: 56 × 6 — two 24 × 6 tracks · gap 8 ·
+  fill minimum 6)* and its inks
   (`bg/500` track, `text/300` fill); panel container boxes (§3/§5);
   stage pads — top/left 64 (xl) · 64 (md, 4px clipped bottom-right) ·
   32 (xs), flush bottom-right *(amended 2026-09-06, §9 R12 — drawn
@@ -326,11 +441,15 @@ counter-transform. The mapping contract above is unchanged.)*
   slug, lattice cells); **one client island** (`engines-scroll.tsx`)
   owning the §6 mapping, snap, swaps, and indicator on one rAF clock,
   with the runway spacers mounted by the island (no-JS never sees
-  them).
+  them). *(Amended 2026-09-06 — §9 R19: the island owns the carousel
+  timer, the gesture-end snap, the swaps, and the indicator fills;
+  the column is plain flow with or without it — no spacers, no ready
+  construction, the JS and no-JS documents identical.)*
 - Splices into `v2/home-next.tsx` after the system section; permanent
   noindexed dev route **`/engines-next`**.
-- The expectations module gains the section's runway constants (52t at
-  rd2 interactive; 96t/127t static stacks at rt/base per §1); the
+- The expectations module gains the section's tick constants (52t at
+  rd2 interactive *(amended 2026-09-06 — §9 R19: 32t)*; 96t/127t
+  static stacks at rt/base per §1); the
   sweep leg lands with 023 — until then the section audits on
   `/engines-next` through the standing devtools at every rest state
   (each of the ten states is a rest).
@@ -566,12 +685,210 @@ All flags resolved 2026-09-06, the same morning:
   Symmetric on reverse (the stage holds the resolved a for the first
   2t of upward departure, then crossfades back to the prior b).
   Verified at 1344 both ways; tsc/lint zero.
+- **R19 (owner re-ruling at the sixth build review, 2026-09-06 — the
+  carousel brief).** The owner rejected the two-panel scroll-jack and
+  re-ruled the paradigm to the **auto-transitioning carousel** (§0/§6
+  amendments at their values): no scroll-driven a→b — once the
+  section pins and an engine settles on its rest, a **5000ms timer**
+  runs and at expiry the stage swaps on the standing blur + rise
+  grammar; scroll moves between engines only, free native travel with
+  a gentle gesture-end snap. Four rulings at the review: **(1) the b
+  expiry loops** — a → b → a → … repeats until the user scrolls;
+  **(2) revisits reset** — an engine change always enters at `a` with
+  a fresh timer and an empty breadcrumb, never resuming a completed
+  b; **(3) the snap is gesture-end to the nearest rest** — big flicks
+  sail through several engines (the R15 fluid feel stands; no paging,
+  no stop-always); **(4) reduced motion keeps the timer** — the stage
+  is decorative and the copy never moves; swaps render instantly, the
+  fill quantizes, glides land instantly. The **breadcrumb was
+  redrawn as the timer's visualization** (`877:98990`, six keyframes,
+  read fresh at rendered bounds this session): 56 × 6 — two 24 × 6
+  full-radius `bg/500` tracks, gap 8, one per illustration; the
+  `text/300` fill grows from the drawn 6 minimum to the full 24 over
+  the clock; the b track carries no fill until its clock starts;
+  placement re-verified in the redrawn 01a (flush at the container's
+  bottom edge, y 522, left on the text column line — the old anchor).
+  **Construction consequence — the machinery deleted:** the runways,
+  plateaus, swap triggers/hysteresis (R14/R17), the handoff lead
+  (R18), and the R15 compositor window all go; with no plateaus the
+  mapping is 1:1 everywhere, so the column is **plain native flow**
+  and nothing exists to race the compositor. The budget drops
+  52t → **32t** (the natural flow height; the ready construction, the
+  explicit body height, and the scroll-restoration compensation are
+  gone — the JS and no-JS documents are identical). The island is
+  reduced to the timer, the gesture-end glide, the swaps, the
+  indicator fills, and the dots on one rAF clock; the timer
+  accumulates clamped frame deltas (≤100ms), so it pauses off-screen
+  and a backgrounded tab never jumps a swap. One file residual with
+  design (the R9 class): the state frames' **sliver panels still
+  carry the old 39 × 7 breadcrumb instance** (the active panels carry
+  the new set); the build follows the keyframe canon — resting and
+  upcoming panels hold the drawn `slide1-start`. Verified at the
+  capped 1920 (the 1344 zoom, t=112): geometry exact (body 31t + 1 =
+  3473, rail 30t + 1, column transform none; stage 89 / slug bottom
+  90 shared-pixel at every rest); the timer walkthrough (fill 0.89 at
+  ~4.5s → the swap at the beat → the b fill riding → the loop back
+  with both fills reset); the snap both ways (a 300px park settles
+  back to the rest with the timer resumed — same engine, no reset; a
+  370px park crosses the midpoint, hands off to 02a, and glides to
+  the rest); a 2.4-panel jump crossfades to the resolved engine only;
+  the revisit reset exact (fresh `a`, fill 0.003 on the first frame
+  back, the prior engine's indicator cleared; dots un-lit
+  symmetrically); the release pixel-exact at the Engagement rest with
+  the state holding past it; reduced motion — instant snap landing,
+  quantized fill (the bar holds the 6 minimum between beats), stage
+  transitions 0s; tsc/lint zero (every reported lint finding
+  pre-existing in other files); the standing sweep green against the
+  owner's server.
+- **R20 (owner re-ruling at the seventh build review, 2026-09-06 —
+  the paging brief).** R19's nearest-rest gesture-end snap is
+  superseded: the snap is **paged** — a more pronounced catch at the
+  first rest, then **one gesture moves exactly one engine**. The
+  mechanism: every burst of scroll activity (a wheel gesture with its
+  momentum, a trackpad flick, a PgDn, a scrollbar drag) has an
+  **origin rest** (−1 above the section · 0–4 · 5 below); while the
+  burst runs, the scroll **clamps at the adjacent rest** in each
+  direction (the R13 stop-always semantics, re-ruled back for the
+  carousel — one write per rAF frame), and the burst's end glides to
+  the adjacent rest in the gesture's direction — net travel past the
+  **commit threshold (0.25t)** advances (the R14 no-bounce ruling
+  stands: direction completes, never glides backward), under it the
+  gesture settles back to its origin. **Entry is pronounced**: a
+  scroll-through from either side catches at the boundary rest (the
+  clamp), and a gesture ending within the **capture margin (1.5t)**
+  outside the section pulls in. **Both ends exit free** — from Brand
+  scrolling up and from Engagement scrolling down the window is
+  open-ended, so the section never traps the scroll; a gesture ending
+  beyond the capture margin re-origins with no glide. **Teleports**
+  (anchor jumps, find-in-page, a restored position — a frame delta
+  past one panel) re-origin without clamping, never fought. The stage
+  handoff (the nearest-rest midpoint crossing, R19) is unchanged —
+  under the clamp at most one boundary away, so the stage crossfades
+  once per gesture, mid-glide; the timer, loop, reset, indicator, and
+  reduced-motion posture all stand (a reduced-motion glide lands
+  instantly; the clamp is instant by nature). `CAPTURE_T` and
+  `COMMIT_T` are named island constants (the R7 QA-tunable class).
+  Known caveat, accepted at the ruling: a scrollbar drag is one long
+  burst and therefore also moves one engine per drag (inherent to
+  paging; the R13 build carried the same). Verified at the capped
+  1920 (the 1344 zoom) with input-synthesized gestures: a 900px
+  scroll-through from above catches exactly at the Brand rest (one
+  clamp write, settle 1215); a 1500px gesture from Brand lands
+  exactly on Visibility (one engine, never two); a 20px nudge settles
+  back and a 100px flick commits forward; reverse paging one rest per
+  gesture from Reception; free exits at both ends (no snap-back at
+  615 above / 4503 below); the pull-in from below catches at the
+  Engagement rest; teleports to any position re-origin cleanly with
+  the island writing nothing; tsc clean. One test artifact recorded
+  for future QA: **instant programmatic `scrollBy` steps each fire
+  their own `scrollend`** in Chromium, so a step-scripted "burst"
+  reads as many one-step gestures and walks the origin — paged
+  behavior must be exercised with real or input-synthesized gestures,
+  never `scrollBy` loops.
+- **R21 (owner re-ruling at the eighth build review, 2026-09-06 —
+  the stack-carousel brief).** The static stacks become carousels
+  (§5 amendments at their values; the redrawn 384/768 anchor frames
+  and the `engine-visual` set `791:36057` are the source, every
+  geometry fact read fresh at rendered bounds through the bridge):
+  **(1) rt auto-progresses like rd** — each panel's visual runs the
+  5000ms clock (a↔b loop, the one blur + rise grammar), counting only
+  while the visual is substantially in view; the indicator is the
+  drawn **vertical** breadcrumb (the same component rotated −90°:
+  6 × 56, two 6 × 24 tracks, gap 8, fill growing downward, at the
+  drawn left 29 / bottom 32 of the visual). **(2) base/rs swipes** —
+  the visual is a two-cell horizontal track under a pointer drag with
+  a horizontal intent lock (8px; `touch-action: pan-y` keeps vertical
+  scroll native); the track and the horizontal indicator's b fill
+  follow the finger 1:1, the release commits past **0.15 of the
+  stride** or a **0.3 px/ms flick** (direction-committed, the R14
+  posture) and settles on the carousel-snap clock. **(3) the rest
+  state is the `a` drawing** — the frames now mount `-01` with the
+  `slide1-finish` breadcrumb; R1's b-mount is superseded (the 018 R7
+  precedent — the file is the latest intent), and no-JS renders that
+  drawn rest. Fresh-read corrections and records: the **fill law is
+  the drawn `max(6, 24·f)`** (the mid keyframe reads 12 = 24 × 0.5;
+  the first build's linear 6 + 18f corrected in the shared
+  vocabulary); the indicator's 24/6/8/6 are **material constants at
+  both drawn anchors** (the rd2 card indicator keeps the zoom); the
+  mirrored **29/32 offsets** (md left 29 / bottom 32 · xs left 32 /
+  bottom 29) read like a rotation-pivot artifact — flagged with
+  design, built as drawn. Build rulings recorded: after the first
+  swipe engagement the b track rests at its drawn minimum dot (the
+  `slide2-start` vocabulary; the pristine render carries none); the
+  rt fill resets from full (the drawn sample) to the riding clock
+  when a visual first arms — momentary, the timer grammar. Assets:
+  **ten `-01` md/xs cuts exported through the bridge** (1416/704,
+  bounds cropped to canon; thirty placeholder files total; the
+  engagement pair carries the G10 stub — **the stub now rests
+  visible below the rd gate**, raising G10's priority with the
+  native-visual pass). The §8 one-island contract holds — the same
+  island drives all three modes off the container width (never
+  matchMedia); a mode change re-arms the stacks at the drawn rest.
+  Verified under 768 and 384 emulation against the owner's server:
+  rt — the vertical indicator at its drawn geometry (6 × 56, tracks
+  6 × 24), the clock pausing off-view and riding in view, the swap
+  to b on the beat with track one full and track two riding; 384 —
+  the horizontal indicator at its drawn geometry, the track
+  following a drag 1:1 (fill 0.26 at 100px of the 385 stride), a
+  41% release committing to b (track settled at exactly one stride,
+  fill full), the swipe back returning with the fill draining, and
+  a slow 32px nudge settling back uncommitted; tsc/lint clean (the
+  standing `<img>` warning only); the standing sweep green against
+  the owner's server.
+- **R22 (owner rulings at the ninth build review, 2026-09-06 — the
+  swipe refinements; the owner's rest-state mock).** Two same-day
+  refinements on R21's base/rs swipe: **(1) the b track rests
+  EMPTY** — at slide 1 the indicator is the full first pill beside a
+  bare second track (the owner's mock; R21's "minimum dot persists
+  after engagement" ruling is superseded). Below the rt gate the b
+  fill carries **no minimum floor**: it rides the swipe from nothing
+  (24 · f) and drains back to nothing, so the settle animates
+  continuously to the drawn rest. The rd2 card and the rt vertical
+  indicator keep the timer grammar's floored law (max(6, 24 · f)) —
+  the minimum dot is timer vocabulary, not swipe vocabulary. **(2)
+  the swipe transition is a blur + slight lateral wipe**, not a
+  full-width slide — kin to the larger bands' blur + rise (the R3
+  one-grammar posture, axis per band): the two drawings stack at
+  every band (the R21 200%-slide track is superseded) and swap on
+  the stage values turned horizontal — incoming from
+  rise(24) · direction, outgoing to drop(−12) · direction, blur 8,
+  the direction following the gesture (forward from a, backward
+  from b; `--e2-sdir` carries it for the CSS settle). Mid-drag the
+  island scrubs the values inline with the drag's away-ness; the
+  release clears the scrub and the CSS stage clock (500ms) settles
+  the drawings and the fill together — the fill's settle moved from
+  the snap clock to the stage clock on the same beat. Reduced
+  motion: no mid-drag scrub (the resting drawing holds), the fill
+  still rides the finger (direct-manipulation feedback), the commit
+  renders state-to-state. Verified under 384 emulation against the
+  owner's server: the pristine rest reads track one 24 / track two
+  0 wide with b hidden at translateX +24 blur 8; mid-drag at
+  q 0.31 — a at opacity 0.69 / blur 2.5 / x −3.7 (drop · q), b at
+  opacity 0.31 / blur 5.5 / x +16.5 (rise · (1 − q)), fill 7.5 =
+  24 · p; the release commits to b (fill 24/24) and the return
+  swipe mirrors on the left axis, draining the fill to the empty
+  rest; tsc clean; the standing sweep green.
 
 ## 10 · Acceptance criteria
 
 *At the three drawn anchors, the two derived-band anchors, and one
 arbitrary mid-band width per band, scrollbar forced on; the interactive
 checks at rd2/rd1, the static checks at rt/rs/base.*
+
+*(Re-verified 2026-09-06 under the §9 R19 carousel re-ruling. The
+runway-dependent language below reads per its R19 supersessions: the
+mapping item's runway rests and one-gesture semantics are superseded
+by the timer beats and the gesture-end snap — **paged** since the
+same-day R20 re-ruling: one gesture, one engine, pronounced entry,
+free exits; the anatomy item's 52t reads 32t (31t body + the slug
+row); the indicator item reads the two-track timer scrubber; the
+spacer line is moot — no spacers exist and the JS/no-JS documents are
+identical. Since the same-day R21 stack re-ruling, the copy-canon
+item's "-02 visuals / no indicator in the stacks" reads per §5 as
+re-ruled: the stacks rest on the `a` visuals with the drawn indicator
+(vertical at rt, horizontal at base/rs) and their carousels run on the
+same island. The R19–R21 entries carry the full re-verification
+records.)*
 
 - [x] The stage and slug hold sticky top 44 through the section at
       every scroll position; the stage never drifts at short viewport

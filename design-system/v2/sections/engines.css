@@ -11,14 +11,18 @@
 
    Two constructions, both rendered, CSS-gated at 860 (engines.tsx):
    the static stack (base/rs/rt — §5, born settled, zero islands) and
-   the interactive scroll stage (rd1/rd2 — §1/§4/§6). The interactive
-   structure is pure CSS: the slug row and the stage are sticky; the
-   pinned lattice rides a sticky assembly behind the flow column. The
-   island (engines-scroll.tsx) only adds the runway plateaus (the
-   column transform), the snap, the swaps, and the indicator fill —
-   no-JS renders the flow with the stage holding 01a (§9 R6), and
-   reduced motion keeps the structure with state-to-state swaps
-   (§9 R5; the media query below kills the stage transitions).
+   the interactive carousel stage (rd1/rd2 — §1/§4/§6 as re-ruled
+   2026-09-06, §9 R19). The interactive structure is pure CSS: the
+   slug row and the stage are sticky; the pinned lattice rides a
+   sticky assembly behind the flow column; the column itself is plain
+   native flow (the R15 compositor window left with the runways — the
+   scroll mapping is 1:1 everywhere, so there is nothing to
+   counter-transform). The island (engines-scroll.tsx) only adds the
+   illustration timer (the a↔b loop), the gesture-end snap, the
+   swaps, and the indicator fills — no-JS renders the same document
+   with the stage holding 01a (§9 R6), and reduced motion keeps the
+   structure with state-to-state swaps (§9 R5; the media query below
+   kills the stage transitions).
 
    The §7 constants live in tokens/component.css (--e2-*); the swap
    grammar in tokens/motion.css (--motion-stage-*). */
@@ -183,7 +187,48 @@
   background: var(--color-bg-400);
 }
 
-/* ================= the static stack (base/rs/rt — §5) ================= */
+/* ---------------- the indicator vocabulary (§6.2 as re-read — §9
+   R19/R21, the 877:98990 keyframes): two full-radius bg/500 tracks,
+   one per illustration; the text/300 fill grows on the drawn law
+   max(min, track · f) — the mid keyframe is 12 = 24 × 0.5 (the fill
+   floors at the 6 minimum; §9 R21 corrected the first build's linear
+   read). One vocabulary, two orientations: horizontal (rd2 card,
+   base/rs stack) and vertical (rt stack — the drawn −90° rotation,
+   fill growing downward). Contexts set the size vars and the fill
+   defaults; the island writes --e2-fill-a/-b and --e2-fb-on. ---- */
+
+.e2-bc {
+  position: absolute;
+  display: flex;
+  gap: var(--_bcgap);
+  --_fa: var(--e2-fill-a, 0);
+  --_fb: var(--e2-fill-b, 0);
+  --_fbon: var(--e2-fb-on, 0);
+}
+.e2-bc-track {
+  position: relative;
+  flex: none;
+  width: var(--_bctr);
+  height: var(--_bch);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-500);
+}
+.e2-bc-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-text-300);
+}
+.e2-bc-track:first-child .e2-bc-fill {
+  width: max(var(--_bcmin), calc(var(--_bctr) * var(--_fa)));
+}
+.e2-bc-track:last-child .e2-bc-fill {
+  width: calc(max(var(--_bcmin), var(--_bctr) * var(--_fb)) * var(--_fbon));
+}
+
+/* ================= the stack (base/rs/rt — §5 as re-ruled, §9 R21) ================= */
 
 .e2-stack {
   width: 100%;
@@ -288,9 +333,15 @@
   }
 }
 
-/* the visual: full-bleed bg/100 with the -02 drawing at its drawn
-   mount — 1t top/left, flush/clipped bottom-right (§1/§4 as amended,
-   §9 R12); side borders drop at the page edges at 384 (drawn) */
+/* the visual: full-bleed bg/100 carousel (§5 as re-ruled 2026-09-06,
+   §9 R21/R22) — the drawing at its drawn mount, 1t top/left,
+   flush/clipped bottom-right (§1/§4 as amended, §9 R12); side borders
+   drop at the page edges at 384 (drawn). The two drawings stack at
+   every band and swap on the one blur grammar (§9 R3), only the
+   travel axis differs: vertical rise at rt (the timer), a slight
+   LATERAL wipe below the rt gate (§9 R22 — the swipe; --e2-sdir
+   carries the gesture's direction, touch-action pan-y keeps vertical
+   scroll native, and the island scrubs the values inline mid-drag). */
 .e2-svisual {
   position: relative;
   box-sizing: border-box;
@@ -301,22 +352,117 @@
   border-bottom: 1px solid var(--line);
   background: var(--color-bg-100);
   overflow: clip;
+  touch-action: pan-y;
 }
-.e2-svisual img {
+.e2-strack {
+  position: absolute;
+  inset: 0;
+}
+.e2-sdrawing {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  filter: blur(var(--motion-stage-blur));
+  transform: translateX(calc(var(--motion-stage-rise) * var(--e2-sdir, 1)));
+  transition:
+    opacity var(--motion-stage-dur) var(--motion-stage-ease),
+    filter var(--motion-stage-dur) var(--motion-stage-ease),
+    transform var(--motion-stage-dur) var(--motion-stage-ease);
+}
+.e2-sdrawing[data-active] {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+.e2-sdrawing[data-leaving] {
+  opacity: 0;
+  filter: blur(var(--motion-stage-blur));
+  transform: translateX(calc(var(--motion-stage-drop) * var(--e2-sdir, 1)));
+}
+.e2-svisual[data-drag] .e2-sdrawing {
+  transition: none;
+}
+.e2-sdrawing img {
   position: absolute;
   left: var(--t);
   top: var(--t);
   width: calc(var(--t) * 11);
   height: calc(var(--t) * 11);
 }
+
+/* the stack's indicator — the drawn material construction (24 track ·
+   6 thick · 8 gap · 6 minimum at both drawn anchors); horizontal at
+   base/rs, left 1t on the tick, the drawn 29 bottom offset. The rest
+   is the drawn slide1-finish: track one full (--_fa default 1),
+   track two EMPTY (§9 R22 — the b fill carries no minimum below the
+   rt gate: it rides the swipe from nothing, 24 · f, and drains back
+   to nothing). The release settles it on the stage clock with the
+   drawings (killed mid-drag; the rt scrub writes per frame, so no
+   transition there). */
+.e2-sbc {
+  left: var(--t);
+  bottom: 29px;
+  --_bch: 6px;
+  --_bctr: 24px;
+  --_bcgap: 8px;
+  --_bcmin: 6px;
+  --_fa: var(--e2-fill-a, 1);
+}
+.e2-sbc .e2-bc-track:last-child .e2-bc-fill {
+  width: calc(var(--_bctr) * var(--_fb));
+}
+.e2-sbc .e2-bc-fill {
+  transition: width var(--motion-stage-dur) var(--motion-stage-ease);
+}
+.e2-svisual[data-drag] .e2-bc-fill {
+  transition: none;
+}
+
 @container (min-width: 665px) {
   .e2-svisual {
     height: calc(var(--t) * 12 + 1px);
     border: 1px solid var(--line);
   }
-  .e2-svisual img {
+  /* rt: the same stacked grammar on the drawn VERTICAL axis (the
+     timer's blur + rise — §6/§9 R3) */
+  .e2-sdrawing {
+    transform: translateY(var(--motion-stage-rise));
+  }
+  .e2-sdrawing[data-active] {
+    transform: none;
+  }
+  .e2-sdrawing[data-leaving] {
+    transform: translateY(var(--motion-stage-drop));
+  }
+  .e2-sdrawing img {
     width: var(--e2-det-s-rt);
     height: var(--e2-det-s-rt);
+  }
+  /* the vertical indicator (§6.2 as re-read, §9 R21 — the drawn −90°
+     rotation): tracks stacked, the fill growing downward; the drawn
+     29 left / 32 bottom offsets. The rt fill rides the timer per
+     frame — no transition. */
+  .e2-sbc {
+    flex-direction: column;
+    left: 29px;
+    bottom: 32px;
+  }
+  .e2-sbc .e2-bc-track {
+    width: var(--_bch);
+    height: var(--_bctr);
+  }
+  .e2-sbc .e2-bc-fill {
+    height: auto;
+    width: 100%;
+    transition: none;
+  }
+  .e2-sbc .e2-bc-track:first-child .e2-bc-fill {
+    width: 100%;
+    height: max(var(--_bcmin), calc(var(--_bctr) * var(--_fa)));
+  }
+  .e2-sbc .e2-bc-track:last-child .e2-bc-fill {
+    width: 100%;
+    height: calc(max(var(--_bcmin), var(--_bctr) * var(--_fb)) * var(--_fbon));
   }
 }
 
@@ -362,6 +508,12 @@
     --lh1: 18;
   }
 
+  /* the body (§1 as amended 2026-09-06, §9 R19 — the runways
+     deleted): the natural flow height IS the scroll budget — the 30t
+     column plus the trailing empty sliver row's 1t = 31t. The sticky
+     children release together exactly at the Engagement rest: the 7t
+     pinned lattice travels 24t against the body; the 6t stage travels
+     24t against its 30t rail. */
   .e2-body {
     position: relative;
     display: flex;
@@ -369,16 +521,6 @@
     /* the trailing empty sliver row's flow height (§6 — the 05
        frames' drawn empty inactive-engine) */
     padding-bottom: var(--t);
-  }
-  /* the ready construction (§6 as amended, §9 R15): the body carries
-     the whole scroll budget explicitly — 7t assembly + 4 free travels
-     of 6t + 5 runways of 4t = 51t (+ the hairline). The sticky
-     children release together exactly at the 05b rest: the 7t window
-     and the pinned lattice travel 44t against the body; the 6t stage
-     travels 44t against its 50t rail. */
-  .v2-engines[data-e2-ready] .e2-body {
-    height: calc(var(--t) * 51 + 1px);
-    padding-bottom: 0;
   }
 
   /* the pinned viewport assembly (§2): the lattice field, the two ○
@@ -396,32 +538,23 @@
     height: calc(var(--t) * 7 + 1px);
   }
 
-  /* the column's window — plain flow by default (no-JS: every
-     engine's copy reachable); sticky once the island is ready, so
-     the compositor owns the panels' position while pinned and a
-     runway can never jitter them (§9 R15 — the bounce fix). The
-     window does NOT clip (§9 R16 — the redraw's intent): the
-     inactive card runs to the viewport's edge; the column's overflow
-     above the pin line hides under the slug row's mask. */
+  /* the column's wrapper — plain native flow (§9 R19: with the
+     runways gone the mapping is 1:1, so the R15 sticky window and its
+     transform are deleted). The panels scroll past the pinned stage;
+     the overflow above the pin line hides under the slug row's mask
+     and the inactive cards run to the viewport's edge (§9 R16). */
   .e2-vp {
     flex: none;
     width: calc(var(--t) * 6 + 1px);
   }
-  .v2-engines[data-e2-ready] .e2-vp {
-    position: sticky;
-    top: var(--e2-pin-line);
-    height: calc(var(--t) * 7 + 1px);
-  }
 
-  /* the left column — five contiguous line-inclusive panels; the
-     island translates it inside the window through the free travels
-     (§6 as amended; runways hold it by not translating) */
+  /* the left column — five contiguous line-inclusive panels in
+     normal flow */
   .e2-col {
     list-style: none;
     margin: 0;
     padding: 0;
     width: 100%;
-    will-change: transform;
   }
   .e2-panel {
     box-sizing: border-box;
@@ -452,64 +585,28 @@
     padding-left: var(--e2-text-pl-rd);
   }
 
-  /* the a/b indicator (§6.2): bg/500 track (radius-full pill + the
-     drawn square dot), text/300 overlay growing 7 → 24 across the
-     runway (the island writes --e2-fill on the active panel); the
-     slots swap arrangement at the b rest (data-bc="b" — the drawn
-     second-slide-start) */
-  .e2-bc {
-    position: absolute;
-    display: block;
+  /* the card's timer indicator (§6.2 as re-read 2026-09-06 — §9 R19):
+     the shared vocabulary at the rd sizes (riding the zoom), on the
+     text column line, flush at the container's bottom; resting panels
+     hold the drawn slide1-start (the minimum dot on track one) */
+  .e2-card .e2-bc {
     left: var(--e2-text-pl-rd);
     bottom: 0;
-    width: var(--e2-bc-w);
-    height: var(--e2-bc-h);
-  }
-  .e2-bc i {
-    position: absolute;
-    top: 0;
-    height: 100%;
-  }
-  .e2-bc-pill {
-    left: 0;
-    width: var(--e2-bc-pill);
-    border-radius: var(--radius-full);
-    background: var(--color-bg-500);
-  }
-  .e2-bc-dot {
-    left: var(--e2-bc-dot-x);
-    width: var(--e2-bc-dot);
-    background: var(--color-bg-500);
-  }
-  .e2-bc-fill {
-    left: 0;
-    width: calc(var(--e2-bc-dot) + (var(--e2-bc-pill) - var(--e2-bc-dot)) * var(--e2-fill, 0));
-    border-radius: var(--radius-full);
-    background: var(--color-text-300);
-  }
-  .e2-panel[data-bc="b"] .e2-bc-pill {
-    left: var(--e2-bc-pill-xb);
-  }
-  .e2-panel[data-bc="b"] .e2-bc-dot {
-    left: 0;
-  }
-  .e2-panel[data-bc="b"] .e2-bc-fill {
-    left: var(--e2-bc-pill-xb);
-    width: var(--e2-bc-dot);
+    --_bch: var(--e2-bc-h);
+    --_bctr: var(--e2-bc-track);
+    --_bcgap: var(--e2-bc-gap);
+    --_bcmin: var(--e2-bc-min);
   }
 
-  /* the stage — sticky one tick under the slug row; bg/100 fill on
-     the drawn border; exactly one drawing visible (§4) */
+  /* the stage — sticky on the pin line; bg/100 fill on the drawn
+     border; exactly one drawing visible (§4). The rail holds the
+     column height (30t) so the stage's release coincides with the
+     pinned lattice's, exactly at the Engagement rest (§9 R19). */
   .e2-rail {
     width: calc(var(--t) * 6 + 1px);
     margin-left: -1px;
-    align-self: stretch;
-  }
-  /* ready: the rail holds the column height (50t) so the stage's
-     release coincides with the window's (§9 R15) */
-  .v2-engines[data-e2-ready] .e2-rail {
     align-self: flex-start;
-    height: calc(var(--t) * 50 + 1px);
+    height: calc(var(--t) * 30 + 1px);
   }
   .e2-stage {
     position: sticky;
@@ -572,11 +669,17 @@
    pattern) — both selectors carry the same kill. */
 @media (prefers-reduced-motion: reduce) {
   .e2-drawing,
+  .e2-sdrawing,
+  .e2-strack,
+  .e2-sbc .e2-bc-fill,
   .e2-io .e2-dot {
     transition: none;
   }
 }
 .page[data-motion="reduce"] .e2-drawing,
+.page[data-motion="reduce"] .e2-sdrawing,
+.page[data-motion="reduce"] .e2-strack,
+.page[data-motion="reduce"] .e2-sbc .e2-bc-fill,
 .page[data-motion="reduce"] .e2-io .e2-dot {
   transition: none;
 }

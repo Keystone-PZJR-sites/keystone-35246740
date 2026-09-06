@@ -148,8 +148,8 @@
      blur 0→8, translateY 0→−12. The ease aliases the drawer family's
      ease-out (the gentle settle) — never fork. Reduced motion renders
      every swap state-to-state (engines.css kills the transitions).
-     The snap glide to a runway rest reuses the carousel snap grammar
-     (--motion-snap-dur/-ease) on the island's rAF clock. */
+     The gesture-end glide to an engine rest reuses the carousel snap
+     grammar (--motion-snap-dur/-ease) on the island's rAF clock. */
   --motion-stage-dur: 500ms;
   --motion-stage-ease: var(--motion-drawer-ease);
   --motion-stage-blur: 8px;

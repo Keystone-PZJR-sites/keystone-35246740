@@ -14,11 +14,14 @@ export default function EnginesNextDevPage() {
       <NavChrome />
       <main>
         <div className="engdev-runway">
-          <p>Scroll down — the section pins at the nav and scroll drives the ten states.</p>
+          <p>
+            Scroll down — the section pins at the nav; the carousel timer cycles each
+            engine&rsquo;s two illustrations and scroll snaps between engines.
+          </p>
         </div>
         <EnginesSection />
         <div className="engdev-tail">
-          <p>Past the section — the pin has released on 05b.</p>
+          <p>Past the section — the pin has released on the Engagement rest.</p>
         </div>
       </main>
       <HeroDevControls />

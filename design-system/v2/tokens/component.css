@@ -750,13 +750,13 @@
   --e2-ps-rd: calc(var(--t) * 12 / 112); /* the styles' drawn ps 12 */
   --e2-det-pad-rd: calc(var(--t) * 64 / 112); /* §4 as amended — top/left */
   --e2-det-s-rd: calc(var(--t) * 608 / 112);
-  /* the a/b indicator (§6.2 — the drawn keyframe geometry) */
-  --e2-bc-w: calc(var(--t) * 39 / 112);
-  --e2-bc-h: calc(var(--t) * 7 / 112);
-  --e2-bc-pill: calc(var(--t) * 24 / 112);
-  --e2-bc-dot: calc(var(--t) * 7 / 112);
-  --e2-bc-dot-x: calc(var(--t) * 32 / 112);
-  --e2-bc-pill-xb: calc(var(--t) * 15 / 112);
+  /* the timer indicator (§6.2 as re-read 2026-09-06 — §9 R19, the
+     877:98990 keyframes): two 24 × 6 tracks, gap 8; the fill grows
+     from the drawn 6 minimum to the full track */
+  --e2-bc-h: calc(var(--t) * 6 / 112);
+  --e2-bc-track: calc(var(--t) * 24 / 112);
+  --e2-bc-gap: calc(var(--t) * 8 / 112);
+  --e2-bc-min: calc(var(--t) * 6 / 112);
   /* static stack — the R9 walk pairs (drawn 384 · midpoint · drawn
      768): desc 288 · 368 · 448 — the drawn rag holds through the
      walk; header→description gap 12 · 22 · 32; dot 7 · 11.5 · 16 */

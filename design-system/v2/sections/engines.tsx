@@ -1,25 +1,34 @@
 /** v2 sections — the engine section (spec 020). Server component.
  *
  * Five marketing engines, two visualization states each — ten states,
- * 01a → 05b; scroll is the only control (§0). Two constructions, both
- * in this render, CSS-gated at the rd1 structural gate (860):
+ * 01a → 05b; scroll moves between engines, the carousel timer cycles
+ * each engine's two illustrations (§6 as re-ruled 2026-09-06, §9 R19).
+ * Two constructions, both in this render, CSS-gated at the rd1
+ * structural gate (860):
  *
- * - **Interactive (rd1/rd2)** — the fluid paradigm (§6): a normal-flow
- *   left column of five 6t panels drives a top-stuck 6t stage; the
- *   sticky slug row rides at pin top (§9 R2) and the stage one tick
- *   under it. The pinned lattice (§2) and the sliver-row outline ride
- *   a sticky assembly behind the flow content, so the drawn viewport's
- *   cells never move through the ten states. The one client island
- *   (EnginesScroll) owns the §6 scroll mapping, the runway plateaus,
- *   the snap, the swaps, and the indicator on one rAF clock; the 20t
- *   runway spacer is flow height only when the island marks the
- *   section ready, so no-JS renders the pure flow with the stage
+ * - **Interactive (rd1/rd2)** — the auto-transitioning carousel (§6 as
+ *   re-ruled 2026-09-06, §9 R19): a normal-flow left column of five 6t
+ *   panels rides past a pinned 6t stage; the sticky slug row pins
+ *   above the line (§9 R14) and masks the passing panels. The pinned
+ *   lattice (§2) rides a sticky assembly behind the flow content, so
+ *   the drawn viewport's cells never move through the ten states. The
+ *   one client island (EnginesScroll) owns the illustration timer
+ *   (5000ms per state, a↔b looping at each settled rest), the
+ *   gesture-end snap to the engine rests, the swaps, and the timer
+ *   indicator on one rAF clock; the column is plain flow with or
+ *   without it, so no-JS renders the same document with the stage
  *   holding 01a (§9 R6).
  *
- * - **Static stack (base/rs/rt)** — the drawn stack (§5): slug row (rt
- *   only, §9 R8), five panels of engine-box over full-bleed visual,
- *   mounting the `-02` drawings (§9 R1), born settled, no indicator,
- *   zero islands in this variant.
+ * - **Stack (base/rs/rt)** — the drawn stack (§5 as re-ruled
+ *   2026-09-06, §9 R21): slug row (rt only, §9 R8), five panels of
+ *   engine-box over full-bleed visual. Each visual is now a two-state
+ *   carousel resting on the `a` drawing (the redrawn frames — R1's b
+ *   canon superseded): at rt the illustration auto-progresses on the
+ *   rd carousel timer (blur + rise, a↔b loop) with the indicator
+ *   drawn vertical; at base/rs the user swipes between the two
+ *   states (a horizontal slide track) with the horizontal indicator's
+ *   b fill riding the swipe. The same island drives both; no-JS
+ *   renders the drawn rest (slide a, track one full).
  *
  * The left column carries all meaning; the stage subtree and the stack
  * visuals are decorative (aria-hidden, empty alt — the 018 R6
@@ -126,18 +135,12 @@ export function EnginesSection() {
             </div>
           </div>
 
-          {/* the column's sticky window (§6 as amended, §9 R15/R16):
-              once the island marks the section ready, this wrapper
-              pins with the assembly — the compositor holds it, so a
-              runway can never jitter the panels; the island
-              translates the column inside it through the free travels
-              only. Unclipped (R16): the inactive card runs to the
-              viewport's edge; the slug row's mask hides the overflow
-              above the pin line. Without the island it is a plain
-              flow wrapper (the no-JS render keeps every engine's copy
-              reachable). Panel 0 is born lit (the drawn 01a rest);
-              the island lights each panel as it reaches the active
-              slot. */}
+          {/* the column's wrapper — plain native flow (§9 R19: the
+              R15 sticky window left with the runways). The inactive
+              cards run to the viewport's edge (§9 R16); the slug
+              row's mask hides the overflow above the pin line. Panel
+              0 is born lit (the drawn 01a rest); the island lights
+              each panel as it reaches the active slot. */}
           <div className="e2-vp">
             <ul className="e2-col">
               {ENGINES_V2.map((engine, i) => (
@@ -150,13 +153,17 @@ export function EnginesSection() {
                   <div className="e2-card">
                     <span className="e2-dot" aria-hidden="true" />
                     <EngineCopyBlock engine={engine} />
-                    {/* the a/b indicator (§6.2) — track pill + square
-                        dot on bg/500, the growing text/300 overlay;
-                        arrangement swaps at the b rest */}
+                    {/* the timer indicator (§6.2 as re-read — §9 R19,
+                        the 877:98990 keyframes): two bg/500 tracks,
+                        one per illustration; the active track's
+                        text/300 fill rides the carousel timer */}
                     <span className="e2-bc" aria-hidden="true">
-                      <i className="e2-bc-pill" />
-                      <i className="e2-bc-dot" />
-                      <i className="e2-bc-fill" />
+                      <i className="e2-bc-track">
+                        <b className="e2-bc-fill" />
+                      </i>
+                      <i className="e2-bc-track">
+                        <b className="e2-bc-fill" />
+                      </i>
                     </span>
                   </div>
                 </li>
@@ -207,23 +214,47 @@ export function EnginesSection() {
                   <EngineCopyBlock engine={engine} />
                 </div>
               </div>
+              {/* the visual carousel (§5 as re-ruled, §9 R21): a
+                  two-state track resting on `a` — rt crossfades it on
+                  the timer, base/rs slides it under the swipe; the
+                  indicator is the drawn 24/6/8 material construction,
+                  vertical at rt (rotated −90°, fill growing down),
+                  horizontal at base/rs */}
               <div className="e2-svisual" aria-hidden="true">
-                <picture>
-                  <source
-                    media={ENGINE_V2_MD_MEDIA}
-                    srcSet={engineV2PlaceholderSrc(engine.id, "02", "md")}
-                    width={ENGINE_V2_CUTS.md.width}
-                    height={ENGINE_V2_CUTS.md.height}
-                  />
-                  <img
-                    src={engineV2PlaceholderSrc(engine.id, "02", "xs")}
-                    width={ENGINE_V2_CUTS.xs.width}
-                    height={ENGINE_V2_CUTS.xs.height}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
+                <div className="e2-strack">
+                  {(["01", "02"] as const).map((state) => (
+                    <div
+                      className="e2-sdrawing"
+                      key={state}
+                      data-active={state === "01" ? "" : undefined}
+                    >
+                      <picture>
+                        <source
+                          media={ENGINE_V2_MD_MEDIA}
+                          srcSet={engineV2PlaceholderSrc(engine.id, state, "md")}
+                          width={ENGINE_V2_CUTS.md.width}
+                          height={ENGINE_V2_CUTS.md.height}
+                        />
+                        <img
+                          src={engineV2PlaceholderSrc(engine.id, state, "xs")}
+                          width={ENGINE_V2_CUTS.xs.width}
+                          height={ENGINE_V2_CUTS.xs.height}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+                <span className="e2-bc e2-sbc">
+                  <i className="e2-bc-track">
+                    <b className="e2-bc-fill" />
+                  </i>
+                  <i className="e2-bc-track">
+                    <b className="e2-bc-fill" />
+                  </i>
+                </span>
               </div>
             </li>
           ))}

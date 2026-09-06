@@ -473,3 +473,112 @@ F5 mobile-LCP gate against the new hero.
   before the panel settles and lands with it; the dot lights on the
   same beat; symmetric on reverse. Verified at 1344 both ways;
   tsc/lint zero.
+- **Sixth build review, same day — the engine section re-ruled to an
+  auto-transitioning carousel** (020 §9 R19; the owner's simplification
+  brief at the review of the built section). The scroll-jacked a→b
+  runways are deleted: once the section pins and an engine settles on
+  its rest, a **5000ms timer** drives the a→b swap (the standing
+  blur + rise grammar) and the cycle **loops** until the user scrolls;
+  scroll moves between engines only — free native travel with a gentle
+  gesture-end snap to the nearest rest (big flicks sail; no paging);
+  an engine change always resets to `a` with a fresh timer (revisits
+  never resume a completed b); reduced motion keeps the timer with
+  instant swaps and quantized fill. The **breadcrumb was redrawn as
+  the timer's visualization** (`877:98990`, six keyframes read fresh
+  at rendered bounds): two 24 × 6 `bg/500` tracks (gap 8), one per
+  illustration, the `text/300` fill growing 6 → 24 over the clock —
+  a scrubber without drag or click. Construction consequence: with no
+  plateaus the scroll mapping is 1:1 everywhere, so the R15 compositor
+  window, the column transform, the swap triggers (R17), the handoff
+  lead (R18), and the ready construction are all deleted — the column
+  is plain native flow, the JS and no-JS documents identical, and the
+  rd2 budget drops **52t → 32t** (the expectations constants follow).
+  One file residual with design: the state frames' sliver panels still
+  carry the old 39 × 7 breadcrumb instance (active panels carry the
+  new set). Verified at the capped 1920 (the 1344 zoom): geometry,
+  the timer walkthrough with the loop, the snap both ways, the
+  midpoint handoff, the revisit reset, the pixel-exact release, and
+  reduced motion — the record in 020 §9 R19; tsc/lint zero; the
+  standing sweep against the owner's server. Working tree left
+  uncommitted per the git rule.
+- **Seventh build review, same day — the engine snap re-ruled to
+  paged** (020 §9 R20; the owner's paging brief, superseding R19's
+  nearest-rest glide). One gesture moves exactly one engine: every
+  scroll burst has an origin rest and clamps at the adjacent rest
+  until it ends (the R13 stop-always semantics, re-ruled back for the
+  carousel); the burst's end commits one engine in the gesture's
+  direction past a 0.25t threshold (no bounce) or settles back under
+  it. Entry is pronounced — a scroll-through catches at the boundary
+  rest and a gesture ending within 1.5t outside pulls in; both ends
+  exit free, so the section never traps the scroll; teleports
+  re-origin without clamping. The timer, loop, reset, indicator, and
+  reduced-motion posture stand; the stage still crossfades once per
+  gesture at the midpoint crossing. Known caveat accepted: a
+  scrollbar drag is one burst — one engine per drag. Verified at the
+  capped 1920 with input-synthesized gestures (catch, one-engine
+  paging both ways, commit/settle-back, free exits, pull-ins,
+  teleports); tsc clean. One QA note recorded: instant `scrollBy`
+  loops fire per-step `scrollend`s and cannot exercise paging — test
+  with real gestures. Working tree left uncommitted per the git rule.
+- **Eighth build review, same day — the engine stacks re-ruled to
+  carousels** (020 §9 R21; the owner's brief, the redrawn anchor
+  frames and the `engine-visual` set read fresh at rendered bounds).
+  The static stacks are no longer static: every panel's visual is a
+  two-state carousel resting on the **`a` drawing** (R1's b-mount
+  superseded — the frames mount `-01` with the `slide1-finish`
+  breadcrumb). At **rt** the illustration auto-progresses on the same
+  5000ms clock (a↔b loop, the one blur + rise grammar; counts only
+  in view) with the indicator drawn **vertical** (the component
+  rotated −90°: 6 × 56, fill growing downward). At **base/rs** the
+  user **swipes** between the states — a pointer drag with a
+  horizontal intent lock follows 1:1, commits past 0.15 of the
+  stride or a 0.3 px/ms flick, and the horizontal indicator's b fill
+  rides the drag. The same one island drives all three modes off the
+  container width. Fresh-read corrections: the indicator fill law is
+  the drawn **max(6, 24·f)** (the linear first read corrected); the
+  24/6/8/6 geometry is material at both drawn anchors; the mirrored
+  29/32 offsets flagged with design (rotation-pivot artifact class),
+  built as drawn. Ten `-01` md/xs placeholder cuts exported through
+  the bridge (thirty files total); **G10 rises** — the engagement
+  stub now rests visible below the rd gate. Verified under 768/384
+  emulation (timer, swap beat, drag/commit/return/nudge, drawn
+  geometry exact); tsc/lint clean; the standing sweep green. Working
+  tree left uncommitted per the git rule.
+- **Ninth build review, same day — two swipe refinements** (020 §9
+  R22; the owner's rest-state mock). The base/rs **b track rests
+  empty** (the full first pill beside a bare second track; R21's
+  persistent minimum dot superseded — the floored fill law is timer
+  vocabulary only, and the swipe fill rides 24·f from nothing,
+  draining back to nothing). And the swipe transition is a **blur +
+  slight lateral wipe** on the stage grammar — kin to the larger
+  bands' blur + rise, never a full-width slide: the two drawings
+  stack at every band, the axis is the band's (vertical rise at rt,
+  lateral below the gate), the direction follows the gesture, the
+  island scrubs the values inline mid-drag, and the release settles
+  drawings and fill together on the stage clock. Reduced motion
+  keeps the fill on the finger with state-to-state drawings.
+  Verified under 384 emulation (rest exact to the mock; the scrub
+  values exact mid-drag both directions; commit and drain exact);
+  tsc/lint clean; the standing sweep green. Working tree left
+  uncommitted per the git rule.
+- **Spec 021 is drafted** (morning, from fresh reads of the work-section
+  nodes at all three drawn anchors and the `website-stack` set — every
+  geometry fact, binding, and per-cell exposure verified against
+  rendered bounds through the bridge; 021 §9 is the record). The
+  section: a header (slug canon **"Work that creates demand"** — the
+  draft's split copy fixed by design and re-read at all three anchors)
+  and a six-card **website deck** — colored chrome swatches on the
+  `web-swatch` effect style (NOISE + hairline shadow — **the 019 grain
+  primitive's second consumer**, owner direction), material px
+  constants at every band, bare paper behind it at rd2 (a first), east
+  rails at rt/base. Motion: the owner's deck brief verbatim — click
+  anywhere = next, one 300ms ease-out clock for all six cards, no
+  stagger, the front card straight to the back slot, nothing else
+  animates, rapid clicks riffle (retarget, never queue); reduced motion
+  instant; no-JS static. **The roster received** (front → back): Your
+  Health Solutions · Lune Bodywork · X20 Studio · DreFadez · Ora
+  Medical Clinic · Miriam Merim — matching the drawn deck; **the 18
+  asset cuts landed and verified** (three tiers × six sites, 2×; the
+  export numbering is reversed against the cascade order — recorded,
+  the registry maps it, no re-cut). Dev route fixed: `/work-next`.
+  **The spec awaits approval.**

@@ -94,19 +94,19 @@ export const ENGINES_V2_SLUG = "Designed to drive growth";
 export const ENGINES_V2_TICKS = {
   /** the leading full-lattice seam row (r18/r25/r41) */
   seam: 1,
-  /** rd2/rd1 interactive: 8t drawn viewport + 4·6t free travels +
-   * 5·4t runways (§1) */
-  interactive: 52,
+  /** rd2/rd1 interactive: 8t drawn viewport + 4·6t inter-engine
+   * travels (§1 as re-ruled 2026-09-06, §9 R19 — the a→b runways
+   * left with the carousel timer) */
+  interactive: 32,
   /** rt static stack: slug 1t + five 19t panels */
   rt: 96,
   /** 384/rs static stack: five 25t panels + the 2t tail gap */
   rm: 127,
-  /** one engine panel in the interactive column */
+  /** one engine panel in the interactive column — also one engine's
+   * scroll stride */
   panel: 6,
-  /** one a→b runway plateau (§6, §9 R7) */
-  runway: 4,
-  /** free inter-engine travels (the column rises one panel each) */
-  freeTravels: 4,
+  /** inter-engine travels (the column rises one panel each) */
+  travels: 4,
   /** interactive states 01a → 05b */
   states: 10,
 } as const;
