@@ -1156,6 +1156,16 @@ else moved; the four effect styles confirmed, `noise` still absent).**
   aligns exactly with the cell row (it had sat 1px below the grid's
   top line — the visible misalignment in the owner's screenshot). The
   011 R17 doubled-hairline class, inside one table unit.
+- **Revision — hanging punctuation on the pull-quotes (owner
+  direction, 2026-09-05, in-chat).** The §3.4/§3.8 quotes hang their
+  opening “ outside the wrap box (`hanging-punctuation: first` where
+  supported; elsewhere a −0.434em first-line indent — the measured “
+  advance in the quote face, em-riding across the band steps). Every
+  study's quote canon opens with “, so the fallback indent never
+  shifts an unquoted line. Accepted consequence, recorded: the first
+  line gains the glyph's width, so its rag may re-break against the
+  drawn Zivel render (the owner directed the treatment over the
+  drawn rag).
 - **Acceptance evidence:** all five anchors + ten slices green in the
   in-page audit (stack sums 227 · 154 · 110 · 89 · 74; landmarks,
   band gates, seams, clearance); renders compared against the file

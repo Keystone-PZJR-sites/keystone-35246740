@@ -142,10 +142,23 @@
 }
 
 /* Pull-quotes (§3.4/§3.8): display-serif ExtraLight, per-band steps
-   set by the owning section (the rt step differs between the two). */
+   set by the owning section (the rt step differs between the two).
+   Hanging punctuation (owner direction 2026-09-05): the opening “
+   hangs outside the wrap box so the first letter sits on the text
+   edge. Native where supported; elsewhere a negative indent of the
+   measured “ advance in the quote face (0.434em — em-riding, one
+   value serves every band step). Every study's quote canon opens
+   with “, so the indent never shifts an unquoted first line. */
 .cs-quote {
   margin: 0;
   color: var(--color-text-100);
+  text-indent: -0.434em;
+}
+@supports (hanging-punctuation: first) {
+  .cs-quote {
+    text-indent: 0;
+    hanging-punctuation: first;
+  }
 }
 .cs-quote-attrib {
   margin: 0;
