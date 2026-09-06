@@ -582,3 +582,106 @@ F5 mobile-LCP gate against the new hero.
   export numbering is reversed against the cascade order — recorded,
   the registry maps it, no re-cut). Dev route fixed: `/work-next`.
   **The spec awaits approval.**
+- **021 pre-approval review rulings** (owner, afternoon, at the build
+  agent's preparation review; 021 §9 R3–R6, landed as dated body
+  amendments). **R3** — the deck scales as **one proportional unit**:
+  it floats in its box, only the box rides the ticks, and the §4 px
+  are the drawn-anchor values riding the band-constant construction
+  (the draft's "material, fixed px" wording superseded — a fixed deck
+  overflowed every below-anchor width, worst at rd1's 480-wide panel
+  against 548). **R4** — the 768 asset tier re-gated to serve
+  **470–860** (the rs density fix; the ≈4% cover-crop from the tiers'
+  proportion mismatch accepted; no re-export, all 18 files unchanged).
+  **R5** — Ora reads name-only in the sr-only roster (the category is
+  in the name). **R6** — the section's files take the `work-deck-*`
+  prefix (`work-deck.tsx` · `work-deck.css` · `work-deck-island.tsx` ·
+  `work-deck-data.ts`), keeping clear of the Our Work page's `work-*`
+  family. The preparation pass also verified the 18 cuts on disk at
+  the §7 dimensions, the ten chrome color stops in the token layer,
+  and the `web-swatch` effect style in the file (NOISE duotone 0.5 /
+  0.6 density, black 10% / white 15%, shadow 0/1/2 `#6C6860` 5%) —
+  the style is new since the last extraction and lands with the
+  pre-build re-extraction. **Approval still pending.**
+- **021 approved and built the same day** (owner approval in-chat after
+  the review rulings; 021 §9 B1–B6 the build record). The build's
+  fresh-read pass re-read every §1–§4 value against rendered bounds:
+  zero token drift; the `web-swatch` shadow extracted to
+  `--shadow-web-swatch` (its NOISE leg — 0.5 / 0.6 / 10% / 15% — rides
+  the NoiseDuo instance per the 019 B9 pattern); the CTAs read gray
+  pill lg·md·md; one **new read-artifact class recorded** (B2): the
+  swatch's stored per-corner radii read inverted against the render —
+  the rendered truth (chrome 14.25 top, image 12 bottom) governs.
+  Deliverables: the 18 cuts under `public/media/work-cascade/` with
+  the media-registry tier set re-gated per R4; `work-deck.tsx` /
+  `work-deck.css` (header, band chrome, exposure rails, the settled
+  deck) with **one island** `work-deck-island.tsx` (the §6 click
+  machine — CSS transitions on width/top/radius, one 300ms clock,
+  native retargeting; the advance a functional update after batched
+  clicks collapsed at QA, B5) and `work-deck-data.ts` (roster + the
+  reversed file map); the deck unit `--wd-u-*` and header walk tokens
+  in `component.css`; the deck grammar `--motion-deck-dur/-ease` in
+  `motion.css` (the ease aliases the drawer ease-out); the
+  `home-next.tsx` splice after the engine section; the noindexed
+  **`/work-next`** route. Acceptance verified at the three drawn
+  anchors (byte-exact), the derived 576/960 (the R3 proportional unit:
+  ×1.5 and ×80/112 exact — the rd1 deck 391.42 fits its 480
+  half-panel), compressed slices 738/1200 and the capped 1920; the
+  R4 re-gate serves the 768 cut at rs; reduced motion, no-JS, the
+  riffle, and the six-click cycle verified; tsc/lint zero; the
+  standing sweep green against the owner's server; route JS rides to
+  023. Working tree left uncommitted per the git rule.
+- **The website-browser rebuild landed post-build, same day** (owner;
+  the new set `813:89840`, one `size` axis; 021 §9 B7, §4/§7 amended
+  from fresh bridge reads). The card is bar + image with nothing
+  behind them — the chrome (fill, top/left/right stroke, the
+  web-swatch grain + shadow) rides the **bar**, square-cornered; the
+  image box keeps border/000 left/bottom/right with the bottom radius
+  re-drawn 12/12/**8**. The build followed the same day and
+  re-verified at 1344; tsc/lint zero. **Two file residuals with
+  design** (B7): the **xl variant's total height reads 336** (image
+  312 — an aspect no export matches; md/xs kept their totals) and the
+  drawn 1344 stack is a broken mid-edit state (the front instance at
+  y −79, stale back-instance boxes) — the build keeps the approved
+  548×360 card / 548×404 stack until design re-heights the variant or
+  rules the trim; and the bar instance stacks a scale-artifact second
+  shadow atop the style's — the build paints the one token shadow.
+- **The B7 residuals fixed file-side and the deck review rulings
+  landed, same day** (owner; 021 §9 B8; re-read through the bridge —
+  the xl variant is 548×360 again, the 1344 stack repaired, one
+  shadow). Rulings from the built-deck review: the screenshot clips
+  to the image box's rounded corner (the unclipped img painted square
+  over the curve — hidden corner on dark shots, cut stroke on light
+  ones); the bottom radii are **material** — 12 at 1344/768 · 8 at
+  384, fixed px at every slot and mid-band width (the slot-scaled
+  radius superseded); the 1px borders hold at 1px through all
+  scaling; X20's and DreFadez's **site-image borders** re-inked
+  **text/100** and **border/200** (the ruling as corrected
+  in-session — the build's first pass wrongly re-inked the bar
+  lines, which stay derivative of their fills; §4 amended). The
+  Miriam re-exports (three tiers) replaced verbatim under
+  `public/media/work-cascade/`. Re-verified on the built page;
+  tsc/lint zero.
+- **Spec 022 is drafted** (afternoon, from fresh reads of the
+  case-study sections at all three drawn anchors and the
+  `casestudy-preview-card` set — every geometry fact, binding, style,
+  and per-cell exposure verified against rendered bounds through the
+  bridge; 022 §9 is the record). The section reuses **the 012
+  persona-carousel machine minus the slider**: three preview cards
+  (strip order Zivel → YHS → Bare Lúx, identities confirmed from the
+  drawn stats), one k resting on Zivel, whole-card links to
+  `/case-studies/{slug}` (YHS/Bare Lúx 404 until Phase B), the
+  promoted 450ms snap, and the ghost grammar on the site-canon 0.5
+  (the drawn 0.6 superseded — owner ruling). **All six draft flags
+  resolved the same afternoon** (022 §9, every fix re-read): the
+  long-standing **1344 +1px fixed** (a mis-painted carousel top
+  border; the section re-read 896/448), the headline rag re-built as
+  single-space canon in right-padded boxes, the 384 slug pair located
+  (a draft misread), descriptions ship as the Zivel string **for now**
+  (owner: updated per-study copy lands as a data-only content pass —
+  a G-class gate), the image filters confirmed baked in the exports,
+  and the active shadow reads the bound `hard-shadow-square-md`. Six
+  of the nine asset files commit (the 768 tier is byte-duplicate of
+  the 1344 tier — the 018 R5 dedup; gate at 665). Dev route fixed:
+  `/case-carousel-next`. **The spec awaits approval.** With it, every
+  Phase 10 section spec (018–022) is written; 023 (assembly + cutover)
+  remains.
