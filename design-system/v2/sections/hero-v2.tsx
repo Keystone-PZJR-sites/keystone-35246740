@@ -120,13 +120,13 @@ function words(text: string) {
   return text.split(" ").map((w, i) => <span key={`${w}${i}`}>{w}</span>);
 }
 
-/* ---- CTA row (§5) — one row per designed size set, band-gated
-   (a: 384/rs · b: rt · d: rd1/rd2 — the derived rd1 rides the 1344
-   set, so there is no c row). Targets carry from the built v1 hero:
-   the fill links to /pricing, the ghost carries the inert open-chat
-   hook. ---- */
+/* ---- CTA row (§5 as amended 2026-09-05, §9 R8) — one row per band
+   set (a: 384/rs · b: rt · c: rd1 · d: rd2), md · md · lg · xl; the
+   band gating carries from hero.css unchanged. Targets carry from the
+   built v1 hero: the fill links to /pricing, the ghost carries the
+   inert open-chat hook. ---- */
 
-function CtaRow({ variant, size }: { variant: "a" | "b" | "d"; size: "xl" | "lg" | "md" }) {
+function CtaRow({ variant, size }: { variant: "a" | "b" | "c" | "d"; size: "xl" | "lg" | "md" }) {
   return (
     <div className={`hx-cta hx-rise hx-cta-${variant}`}>
       <ButtonFill size={size} chrome="gray" shape="pill" href="/pricing">
@@ -241,9 +241,10 @@ export function HeroV2Section() {
           </span>
         </InterpText>
 
-        {/* §5 sizes per band: lg / md / xl (xl from the rd1 gate) */}
-        <CtaRow variant="a" size="lg" />
+        {/* §5 sizes per band (as amended, §9 R8): md / md / lg / xl */}
+        <CtaRow variant="a" size="md" />
         <CtaRow variant="b" size="md" />
+        <CtaRow variant="c" size="lg" />
         <CtaRow variant="d" size="xl" />
       </div>
 

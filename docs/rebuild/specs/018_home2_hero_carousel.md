@@ -68,7 +68,7 @@ CTA 386/566 at rt/rd2.*
 | header (wordmark + H1) | 16, 65 · 336w | 64, 98 · 576w | 112, 192 · 1120w |
 | H1 top | 96 (3t) | 98 | 192 |
 | subhead | 16, 480 · 336w | 64, 242 · 520w | 112, 396 · 712w |
-| CTA row | 16, 640 · h 48 | 64, 348 · h 40 | 112, 534 · h 48 |
+| CTA row | 16, 640 · h 40 *(amended 2026-09-05, §9 R8; drawn h 48)* | 64, 348 · h 40 | 112, 534 · h 48 |
 | carousel strip | 0, 224 · full-bleed | 0, 512 · full-bleed | 0, 784 · full-bleed |
 
 At 384 the subhead and CTA sit **below** the carousel (the v1 rm
@@ -157,11 +157,17 @@ The standing 003 set instances; no new primitives. Targets carry from the
 built v1 hero (code is the source of truth): the fill button's link and
 the ghost's inert `open-chat` contract.
 
-| | 384 | 768 | 1344 |
-|---|---|---|---|
-| button-fill | lg — h 48, label 18 L Light, pl 20 pr 16 | md — h 40, label 16 M Light, pl 16 pr 12 | xl — h 48, label 20 M Light, pl 24 pr 20 |
-| button-ghost | h 48, px 16 py 12, label 18 | h 40, px 12 py 8, label 16 | h 48, px 20 py 12, label 20 |
-| gap | 24 | 40 | 40 |
+*Amended 2026-09-05 (owner direction at build QA, §9 R8): the 384/rs
+bands ride the md set (the drawn 384 lg is superseded), and the rd1
+band mounts its own lg set instead of deriving the 1344 xl — the size
+walk is md · md · lg · xl across the four gated rows. Gaps and targets
+unchanged.*
+
+| | 384 *(amended — md, was lg)* | 768 | rd1 band *(amended — lg)* | 1344 |
+|---|---|---|---|---|
+| button-fill | md — h 40, label 16 M Light, pl 16 pr 12 | md — h 40, label 16 M Light, pl 16 pr 12 | lg — h 48, label 18 L Light, pl 20 pr 16 | xl — h 48, label 20 M Light, pl 24 pr 20 |
+| button-ghost | h 40, px 12 py 8, label 16 | h 40, px 12 py 8, label 16 | h 48, px 16 py 12, label 18 | h 48, px 20 py 12, label 20 |
+| gap | 24 | 40 | 40 | 40 |
 
 Labels: "Get Started" (with the 10px `_nav-trigger-icon`) · "Talk to us"
 (with `icons/chat` at 20/18/20).
@@ -322,6 +328,13 @@ responses + design fixes; fixes re-read from the nodes):
   committed type layer (newer than the last extraction) — landed at
   the build's re-extraction, which read zero drift elsewhere and six
   new unused hue stops (primitives.css).
+- **R8 (owner, 2026-09-05, at build QA, in-chat) — the CTA sizes
+  re-walked: md at 384 through the rt band, lg in the rd1 band, xl
+  at rd2.** Supersedes the drawn 384 lg set and the derived rd1 xl;
+  the section now mounts the four gated rows (a · b · c · d =
+  md · md · lg · xl) on the standing band gating. §1 (the 384 row
+  height, now 40) and §5 amended; gaps and targets unchanged. File
+  fix rides with design — the 384 frame still draws lg.
 
 ## 10 · Acceptance criteria
 

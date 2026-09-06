@@ -185,8 +185,6 @@
   .v2-hero-next .hx-cta {
     top: calc(var(--hx2-cta-top-rd) - var(--hx2-head-top-rd));
   }
-  .v2-hero-next .hx-cta-b { display: none; }
-  .v2-hero-next .hx-cta-d { display: flex; }
 }
 
 /* ---------------- carousel (§6) ---------------- */
