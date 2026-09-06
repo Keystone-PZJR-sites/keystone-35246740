@@ -191,3 +191,89 @@ F5 mobile-LCP gate against the new hero.
   mirrors the frozen spec series. `plan.md` stays the living plan for all
   remaining work; the archive cut is repeatable when the next era
   completes.
+- **The F1–F3 fixes landed and were re-read the same evening** (design
+  fixes; verification against rendered bounds through the bridge). **F1**
+  — `brand-engine` exists at 384 (`866:98781`, 42t–67t, flush to
+  `visibility-engine`), **with one residual: its x reads 13.02 at
+  rendered bounds** (siblings sit at 0) — a real misplacement, with
+  design; blocks 020, not 018. **F2** — the 384 section re-read
+  whole-tick (704, carousel 512, a 1t pre-footer gap); **the 1344 +1px
+  persists** (897 at rendered bounds) — with design; blocks 022. **F3**
+  — the typo fixed at both anchors and the 1344 Grid re-read 43t, ending
+  at the footer top.
+- **Spec 018 is drafted** (evening, from fresh reads of the hero and
+  carousel nodes at all three drawn anchors — every §1–§6 value verified
+  against rendered bounds and the per-cell exposure read through the
+  bridge; 018 §9 is the record). The hero exposure is a descending east
+  staircase with one ○ ornament per anchor into a full-lattice field
+  opening one row above the carousel; lattice ink `border/000` at every
+  anchor. The 16 hero exports landed and verified (WebP, 2×, two cuts —
+  wide 1344×896 · square 896×896). Owner rulings at the draft (018 §9):
+  **the exports are the strip canon** — the drawn 384 strip (ten slides,
+  four photos without exports) is outdated; eight slides at every band
+  in export order, all-square at 384; **the multiply tint is baked** in
+  the exports (the 017 precedent); **768 rides the 1344 cuts** (the
+  two-cut tier set). **All four draft flags resolved the same evening**
+  (018 §9; fixes re-read from the nodes): the 768 H1 reworked to the
+  single canon string wrapping naturally in a right-padded box (pad 64,
+  the 1344 construction; period restored, drawn break removed),
+  the 768 subhead's 5px inline gap ruled intent (enumerated
+  constant), the 1344 slide-04 stale under-layer ruled won't-fix
+  (nothing builds from it), and the `question-container` naming fixed
+  and re-read. Route names fixed: `/home-next` · `/home-next-fixture` ·
+  `/hero-next`. **The spec awaits approval** (sent to the build agent
+  the same evening).
+- **Spec 019 is drafted** (late evening, from fresh reads of the
+  system-section nodes at all three drawn anchors — every geometry
+  fact, binding, noise parameter, and per-cell exposure verified
+  against rendered bounds through the bridge; 019 §9 is the record).
+  The diagram is one proportional construction (petal d = 0.3542 ·
+  ring at every anchor; engine fills bound — Brand `orange/400` ·
+  Visibility `yellow/400` · Ads `pink/400` · Engagement `purple/300` ·
+  Reception `blue/300`; the intersect boolean bound `text/050`; the
+  `noise-duo` DUOTONE effect rides the petal group). Motion intent
+  received: the owner's **Bloom** brief (growth from the shared
+  centre, clockwise, labels resolve, mark last, play once,
+  scroll-armed) with four same-day rulings (019 §9 R1–R4): the
+  entrance starts at **Brand** (the drawn Ads-top rotation is optical
+  balance); reduced motion follows **site law** (settled render); the
+  section is **inert** after settle; the grain builds on **SVG
+  feTurbulence as a shared primitive** (the 020 visibility engine is
+  the known second consumer). **Both 019 flags resolved the same
+  evening** (019 §9): the doubled lattice cell at 768 [7,13] deleted
+  and re-read (immaterial to the build — the slot was unpainted), and
+  the headline canon confirmed ("Five engines that deeply understand
+  your business working together."). One **022-scope flag stays with
+  design**: the 384/768 case-study headers carry neighbors' copy (the
+  system and work sections' pairs); the 1344 header is correct with a
+  double-space residual. Dev route fixed: `/system-next`. **The spec
+  awaits approval.**
+- **018 pre-approval review rulings** (owner, late evening; 018 §9
+  R5–R6): **twelve carousel files ship, not sixteen** — the 384
+  even-slide exports are byte-identical to the 1344 squares, so even
+  slides mount the 1344 square file at every band and the four
+  duplicates are not committed; **the strip keeps v1's ambient
+  accessibility posture** (`aria-hidden`, empty alt) — the draft's §8
+  had cited a live-region contract the built island does not have.
+  Both landed as dated §7/§8 amendments. Approval still pending.
+- **018 approved (owner, in-chat); the build's fresh-read pass found
+  the hero headers changed post-approval** (018 §9 R7): the three
+  header blocks moved up, the 384 H1 downsized to
+  `display-serif/sm/Thin` 32/38 in a 304 box, and the 1344 H1 wraps
+  two lines. Owner ruling: **the file is the latest intent** — §1/§3
+  amended from the bridge re-reads; the 384 text's residual double
+  space is not built (canon single-space, natural wrap). The build's
+  token re-extraction read zero drift, six new unused hue stops, and
+  the `display-serif/sm/Thin` style newer than the last extraction —
+  all landed in the token layers.
+- **The 018 build landed the same night**: `hero-v2.tsx`/`hero-v2.css`
+  (the fork-vs-parameterize call: fork the section, reuse the 006
+  carousel island and orchestrator byte-identical, share the hx-
+  machine grammar in the cascade), the `home-next.tsx` composition
+  (nav · hero-v2 · footer), routes `/home-next` ·
+  `/home-next-fixture` · `/hero-next` (noindexed), twelve carousel
+  exports under `hero-carousel-v2/` with the registry's two-cut
+  mapping. Acceptance verified at the three drawn anchors, the two
+  derived bands, and mid-band slices; the standing grid sweep green;
+  tsc/lint zero. The route-JS measurement rides to 023. Working tree
+  left uncommitted per the git rule.
