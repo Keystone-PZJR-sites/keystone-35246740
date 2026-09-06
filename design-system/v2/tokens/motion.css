@@ -155,4 +155,16 @@
   --motion-stage-blur: 8px;
   --motion-stage-rise: 24px;
   --motion-stage-drop: -12px;
+
+  /* The deck reorder (spec 021 §6 — the owner's deck brief verbatim):
+     one clock for all six cards, no stagger — each card FLIPs to its
+     next slot's box (width + position + radius), the front card
+     straight to the backmost slot (its z flips at swap start), and
+     nothing else animates. Ease-out — starts fast, settles — aliasing
+     the drawer family's close curve (never fork). Rapid clicks
+     retarget every card from its current interpolated position
+     (overlapping clocks read as a riffle; never a queued backlog);
+     reduced motion reorders state-to-state. */
+  --motion-deck-dur: 300ms;
+  --motion-deck-ease: var(--motion-drawer-ease);
 }

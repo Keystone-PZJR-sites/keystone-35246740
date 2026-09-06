@@ -774,4 +774,33 @@
   --e2-ps-sub: calc((var(--wA) + var(--wB)) * 12); /* ps 12 at both anchors */
   --e2-det-s-rt: calc(var(--t) * 708 / 64); /* the drawn 708 rides the tick;
      the visual clips its 4px bottom-right overflow (§1 as amended) */
+
+  /* work-section constants (spec 021 §1/§3/§4 as amended §9 R3). The
+     deck's band unit: the §4 design-px constants multiply --wd-u, so
+     they render as drawn at each anchor and the whole cascade zooms
+     off-anchor as one proportional unit (base/rs the 384 re-lay on the
+     tick; rt the 768 band constants on the weight pair — hold above
+     the anchor, zoom below it; rd1+ the 1344 design on the tick, one
+     declaration to ∞). The §4 slot tables ride the unit in
+     work-deck.css (the 019 petal-table precedent). */
+  --wd-u-rm: calc(var(--t) / 32);
+  --wd-u-rt: calc(var(--wA) + var(--wB));
+  --wd-u-rd: calc(var(--t) / 112);
+  /* header (§3): the slug→headline gap (drawn 12 at 384 on the marker
+     column · 24 at 768 · 40 at 1344) and the headline→CTA gap (drawn
+     48 at 1344); wrap boxes 304 · 471 · 448 with the derived 576
+     midpoint 387.5 — the box rides the same line as the type so the
+     drawn rag holds through the walk */
+  --wd-h2-gap-rm: calc(var(--t) * 12 / 32);
+  --wd-h2-w-rm: calc(var(--wA) * 304 + var(--wB) * 387.5);
+  --wd-h2-w-rs: calc(var(--wA) * 387.5 + var(--wB) * 471);
+  --wd-h2-w-rt: calc((var(--wA) + var(--wB)) * 471);
+  --wd-h2-w-rd: calc(var(--t) * 448 / 112);
+  --wd-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
+  --wd-head-gap-rd: calc(var(--t) * 40 / 112);
+  --wd-cta-gap-rd: calc(var(--t) * 48 / 112);
+  /* the cascade band's stack→CTA gap (§1: drawn 32 at 384 · 40 at
+     768) */
+  --wd-band-gap-rm: calc(var(--t) * 32 / 32);
+  --wd-band-gap-rt: calc((var(--wA) + var(--wB)) * 40);
 }

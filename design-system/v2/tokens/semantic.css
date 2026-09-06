@@ -140,4 +140,12 @@
      primitive; consumers implement it with a texture asset that reads
      this opacity. */
   --noise-opacity: 0.06;
+  /* the web-swatch hairline shadow (extracted 2026-09-06 at the 021
+     pre-build re-extraction — the effect style's DROP_SHADOW leg; its
+     NOISE leg rides the NoiseDuo instance per 019 §9 B9). The ink is
+     darkgray/200 (#6c6860) at 5% — a palette member, unlike the hard
+     shadows' --shadow-ink literal. The file's product and vis-cards
+     styles carry the same shadow (unconsumed here; they arrive with
+     the 020 native-visual pass). */
+  --shadow-web-swatch: 0 1px 2px 0 rgba(108, 104, 96, 0.05);
 }
