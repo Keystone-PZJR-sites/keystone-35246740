@@ -30,7 +30,9 @@ const BLOOM_THRESHOLD = 0.55;
  * the fifth engine's travel (§6 as amended, §9 B8: it outlasts the
  * mark's fade by 30ms on the table's clock). */
 const FINAL_ANIMATION = "sys-bloom-engine-move";
-const FINAL_ENGINE = "reception";
+/* "engagement" since the 019 §9 R6 re-label (2026-09-06) — the fifth
+ * beat's petal (bottom-right) carries the Engagement identity now */
+const FINAL_ENGINE = "engagement";
 
 export function SystemBloom() {
   const ref = useRef<HTMLSpanElement>(null);

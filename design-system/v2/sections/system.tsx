@@ -100,8 +100,11 @@ const ENGINES: Engine[] = [
   { id: "brand", label: "Brand", x: -0.08244, y: 0.113988 },
   { id: "visibility", label: "Visibility", x: -0.136012, y: -0.044643 },
   { id: "ads", label: "Ads", x: -0.003571, y: -0.14375 },
-  { id: "engagement", label: "Engagement", x: 0.132738, y: -0.048214 },
-  { id: "reception", label: "Reception", x: 0.083929, y: 0.111012 },
+  /* the right and bottom-right identities swapped 2026-09-06 (019 §9
+     R6 — the labels were the error; positions, colors, and the beat
+     order are positional and unchanged) */
+  { id: "reception", label: "Reception", x: 0.132738, y: -0.048214 },
+  { id: "engagement", label: "Engagement", x: 0.083929, y: 0.111012 },
 ];
 
 export function SystemSection() {

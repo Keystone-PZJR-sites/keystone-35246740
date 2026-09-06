@@ -114,16 +114,18 @@ ring diameter **R** (the §1 per-band values):
 - **The petals** — five true circles, **d = 0.3542 · R** (read 119.0 ·
   136.0 · 90.66), each on `mix-blend-multiply`, fills bound to the
   engine canon: **Brand `color/orange/400` · Visibility
-  `color/yellow/400` · Ads `color/pink/400` · Engagement
-  `color/purple/300` · Reception `color/blue/300`**. Centers (px from
+  `color/yellow/400` · Ads `color/pink/400` · Reception
+  `color/purple/300` · Engagement `color/blue/300`** *(the two names
+  amended 2026-09-06 — the §9 R6 re-label; hues and positions
+  unchanged)*. Centers (px from
   ring center, read exact at each anchor; the build derives them as
   ratios of R and must land within ±1px of these at the drawn anchors):
 
   | petal | 384 | 768 | 1344 |
   |---|---|---|---|
   | Ads | −0.6, −37 | −1, −55.5 | −1.2, −48.3 |
-  | Engagement | +34.3, −12.5 | +51.4, −18.8 | +44.6, −16.2 |
-  | Reception | +21.8, +28.2 | +32.7, +42.3 | +28.2, +37.3 |
+  | Reception | +34.3, −12.5 | +51.4, −18.8 | +44.6, −16.2 |
+  | Engagement | +21.8, +28.2 | +32.7, +42.3 | +28.2, +37.3 |
   | Brand | −20.8, +29 | −31.2, +43.5 | −27.7, +38.3 |
   | Visibility | −34.5, −11.6 | −51.7, −17.4 | −45.7, −15 |
 
@@ -143,13 +145,16 @@ ring diameter **R** (the §1 per-band values):
   | tag | 384 | 768 | 1344 |
   |---|---|---|---|
   | Ads | 0, −129.5 | 0, −192.5 | 0, −168 |
-  | Engagement | +128, −31.5 | +181, −60.05 | +168, −35.55 |
-  | Reception | +96, +90.5 | +139, +131 | +104.76, +136.5 |
+  | Reception | +128, −31.5 | +181, −60.05 | +168, −35.55 |
+  | Engagement | +96, +90.5 | +139, +131 | +104.76, +136.5 |
   | Brand | −96.5, +90.5 | −142.5, +131 | −104.77, +136.5 |
   | Visibility | −128, −34.5 | −181, −60.05 | −168, −35.55 |
 
-  The 768 Ads x +0.5 is the artifact class, transcribed 0. The 384
-  engagement/visibility y asymmetry (−31.5 vs −34.5) is drawn — built
+  *(The Reception/Engagement rows swapped names 2026-09-06 — the §9
+  R6 re-label; the positions are the drawn right / bottom-right
+  slots, unchanged.)* The 768 Ads x +0.5 is the artifact class,
+  transcribed 0. The 384
+  reception/visibility y asymmetry (−31.5 vs −34.5) is drawn — built
   as read. Composition note (owner, 2026-09-05): the pentagon is
   rotated so the short "Ads" label sits top — optical balance of the
   resolved composition; the entrance order is independent of it.
@@ -263,7 +268,8 @@ All flags resolved 2026-09-05, the same evening:
 **Resolved at draft (owner, 2026-09-05):**
 
 - **R1 — the entrance starts at Brand**, clockwise: Brand → Visibility
-  → Ads → Engagement → Reception. The drawn composition's rotation
+  → Ads → Reception → Engagement *(names amended 2026-09-06 — the R6
+  re-label; the beat positions are unchanged)*. The drawn composition's rotation
   (Ads top) is optical balance of the resolved frame, independent of
   the entrance order.
 - **R2 — reduced motion follows site law** (settled render),
@@ -372,6 +378,30 @@ implementation):**
   tune lives on the instance in `system.tsx`; `lib/noise.tsx` keeps
   the file's constants as its defaults, so the 020 consumer starts
   from the extracted values. §7 amended.
+- **R6 — the Reception/Engagement labels ruled wrong, 2026-09-06 (the
+  020 planning pass; owner ruling at the 020 F6 flag).** The engine
+  section's dot bindings surfaced the mismatch: this diagram labeled
+  the purple petal Engagement and the blue petal Reception, the
+  reverse of the engine canon (Reception purple · Engagement blue —
+  the 020 §3 dots). **The labels were the error; the petal colors and
+  positions are correct.** Design swapped the two label texts in the
+  file the same morning, re-read at all three anchors. **The built
+  section's re-label is a pending surgical fix** (owner: after 020's
+  spec) — the two tag texts, the petal identities, and the §5 sr-only
+  sentence swap; positions, colors, and the Bloom beat sequence are
+  positional and unchanged, so the entrance is visually identical.
+  The §4 tag table's name column and the R1 name-order statement
+  update with that fix (the body carries the built truth until it
+  lands). The tag node names now lag their texts (`engagement-tag`
+  holds "Reception") — file hygiene, immaterial. **Landed 2026-09-06**
+  (the 020 build session, first deliverable): the two identities
+  swapped in `system.tsx`'s engine table, the petal fills and the tag
+  position tokens swapped names (`system.css` / `component.css` —
+  every position value byte-unchanged), the bloom island's final-beat
+  id follows the fifth slot's new identity, and the sr-only sentence
+  rides the table (it now reads "… Ads, Reception, and Engagement" —
+  the B3 quotation is historical). §4, R1, and the acceptance
+  criterion carry the dated name amendments.
 
 ## 10 · Acceptance criteria
 
@@ -412,8 +442,9 @@ forced on.*
       clip circles are the petal table's ratios; the grain rides the
       last petal's beat.)*
 - [x] Bloom: arms on the §6 threshold, plays once, never re-fires on
-      scroll or resize; order Brand → Visibility → Ads → Engagement →
-      Reception; ring first, labels resolve behind their engines,
+      scroll or resize; order Brand → Visibility → Ads → Reception →
+      Engagement *(names amended 2026-09-06 — the R6 re-label)*;
+      ring first, labels resolve behind their engines,
       mark fades in last *(criterion as amended 2026-09-05 — the §9
       B8 table)*; no element originates outside the ring; no
       rotation, no overshoot; all five petals at full strength at

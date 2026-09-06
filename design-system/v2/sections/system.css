@@ -268,8 +268,8 @@
 .sys-petal[data-engine="brand"] { --_pc: var(--color-orange-400); }
 .sys-petal[data-engine="visibility"] { --_pc: var(--color-yellow-400); }
 .sys-petal[data-engine="ads"] { --_pc: var(--color-pink-400); }
-.sys-petal[data-engine="engagement"] { --_pc: var(--color-purple-300); }
-.sys-petal[data-engine="reception"] { --_pc: var(--color-blue-300); }
+.sys-petal[data-engine="reception"] { --_pc: var(--color-purple-300); }
+.sys-petal[data-engine="engagement"] { --_pc: var(--color-blue-300); }
 
 /* the grain (§7): the shared feTurbulence primitive over the petal
    group, clipped to the petal cluster by the objectBoundingBox circles

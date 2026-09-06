@@ -689,34 +689,37 @@
   --sys-head-gap-rd: calc(var(--t) * 40 / 112);
   /* the tag centers (spec 019 §4) — px from the ring center, the
      per-band read tables verbatim: the 768 Ads +0.5 x is the artifact
-     class transcribed 0; the 384 engagement/visibility y asymmetry
-     (−31.5 vs −34.5) is drawn and built as read. */
+     class transcribed 0; the 384 reception/visibility y asymmetry
+     (−31.5 vs −34.5) is drawn and built as read. The reception and
+     engagement values swapped names 2026-09-06 (019 §9 R6 re-label
+     — the positions are the drawn right / bottom-right slots,
+     unchanged). */
   --sys-tag-ads-x-rm: 0px;
   --sys-tag-ads-y-rm: calc(var(--t) * -129.5 / 32);
-  --sys-tag-engagement-x-rm: calc(var(--t) * 128 / 32);
-  --sys-tag-engagement-y-rm: calc(var(--t) * -31.5 / 32);
-  --sys-tag-reception-x-rm: calc(var(--t) * 96 / 32);
-  --sys-tag-reception-y-rm: calc(var(--t) * 90.5 / 32);
+  --sys-tag-reception-x-rm: calc(var(--t) * 128 / 32);
+  --sys-tag-reception-y-rm: calc(var(--t) * -31.5 / 32);
+  --sys-tag-engagement-x-rm: calc(var(--t) * 96 / 32);
+  --sys-tag-engagement-y-rm: calc(var(--t) * 90.5 / 32);
   --sys-tag-brand-x-rm: calc(var(--t) * -96.5 / 32);
   --sys-tag-brand-y-rm: calc(var(--t) * 90.5 / 32);
   --sys-tag-visibility-x-rm: calc(var(--t) * -128 / 32);
   --sys-tag-visibility-y-rm: calc(var(--t) * -34.5 / 32);
   --sys-tag-ads-x-rt: 0px;
   --sys-tag-ads-y-rt: calc((var(--wA) + var(--wB)) * -192.5);
-  --sys-tag-engagement-x-rt: calc((var(--wA) + var(--wB)) * 181);
-  --sys-tag-engagement-y-rt: calc((var(--wA) + var(--wB)) * -60.05);
-  --sys-tag-reception-x-rt: calc((var(--wA) + var(--wB)) * 139);
-  --sys-tag-reception-y-rt: calc((var(--wA) + var(--wB)) * 131);
+  --sys-tag-reception-x-rt: calc((var(--wA) + var(--wB)) * 181);
+  --sys-tag-reception-y-rt: calc((var(--wA) + var(--wB)) * -60.05);
+  --sys-tag-engagement-x-rt: calc((var(--wA) + var(--wB)) * 139);
+  --sys-tag-engagement-y-rt: calc((var(--wA) + var(--wB)) * 131);
   --sys-tag-brand-x-rt: calc((var(--wA) + var(--wB)) * -142.5);
   --sys-tag-brand-y-rt: calc((var(--wA) + var(--wB)) * 131);
   --sys-tag-visibility-x-rt: calc((var(--wA) + var(--wB)) * -181);
   --sys-tag-visibility-y-rt: calc((var(--wA) + var(--wB)) * -60.05);
   --sys-tag-ads-x-rd: 0px;
   --sys-tag-ads-y-rd: calc(var(--t) * -168 / 112);
-  --sys-tag-engagement-x-rd: calc(var(--t) * 168 / 112);
-  --sys-tag-engagement-y-rd: calc(var(--t) * -35.55 / 112);
-  --sys-tag-reception-x-rd: calc(var(--t) * 104.76 / 112);
-  --sys-tag-reception-y-rd: calc(var(--t) * 136.5 / 112);
+  --sys-tag-reception-x-rd: calc(var(--t) * 168 / 112);
+  --sys-tag-reception-y-rd: calc(var(--t) * -35.55 / 112);
+  --sys-tag-engagement-x-rd: calc(var(--t) * 104.76 / 112);
+  --sys-tag-engagement-y-rd: calc(var(--t) * 136.5 / 112);
   --sys-tag-brand-x-rd: calc(var(--t) * -104.77 / 112);
   --sys-tag-brand-y-rd: calc(var(--t) * 136.5 / 112);
   --sys-tag-visibility-x-rd: calc(var(--t) * -168 / 112);
