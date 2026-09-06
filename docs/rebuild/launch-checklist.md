@@ -47,6 +47,7 @@ dead-URL surface as they land; whatever never returns stays a 404
 | G7 | **Accessibility review** — assembled-site pass against the rules.md Accessibility Baseline once every page is built; see the note below | **open** |
 | G8 | **Loading-animation audit** — timing, hydration, and settle of every page's load choreography (006 §6 · 002.r1 §5); the start clock follows the G5 decision; see the note below | **open** |
 | G9 | **FAQ answer content pass** (013 §9 F1, owner decision 2026-08-28): answer 1's copy ships as the designed placeholder under all six pricing-FAQ questions; the five real answers land as a copy-only change to the FAQ data module before cutover | **open — design** |
+| G10 | **Engine-section native visual pass** (020 §7, owner direction 2026-09-06): the twenty placeholder exports under `engines-v2/` are replaced by native/production visuals (the 019 grain primitive's second consumer arrives with this pass). The file's **engagement `engine-detail` variants are drawn as empty stubs** (020 §9 R13) — the drawings themselves are with design | **open — design** |
 
 ## Punch list — auxiliary to-dos
 

@@ -1,0 +1,582 @@
+/* v2 sections — the engine section (spec 020). Three drawn anchors
+   (384 · 768 · 1344, the plan's three-anchor policy) with the standing
+   derivation split (018 §9 R9 / 019 §9 B7): GEOMETRY below the rt gate
+   is the 384 design re-laid on the tick; TYPE, text columns, and flow
+   gaps derive the undrawn 576 anchor as the linear midpoint of the
+   drawn 384/768 values and ride the standard band pairs; the rt band
+   holds the 768 drawn values as band constants (hold-then-switch —
+   the 860 gate is structural). From the rd1 gate the section is the
+   INTERACTIVE construction — the 1344 design zooming on the tick
+   (t·V/112), one declaration serving 860 → ∞.
+
+   Two constructions, both rendered, CSS-gated at 860 (engines.tsx):
+   the static stack (base/rs/rt — §5, born settled, zero islands) and
+   the interactive scroll stage (rd1/rd2 — §1/§4/§6). The interactive
+   structure is pure CSS: the slug row and the stage are sticky; the
+   pinned lattice rides a sticky assembly behind the flow column. The
+   island (engines-scroll.tsx) only adds the runway plateaus (the
+   column transform), the snap, the swaps, and the indicator fill —
+   no-JS renders the flow with the stage holding 01a (§9 R6), and
+   reduced motion keeps the structure with state-to-state swaps
+   (§9 R5; the media query below kills the stage transitions).
+
+   The §7 constants live in tokens/component.css (--e2-*); the swap
+   grammar in tokens/motion.css (--motion-stage-*). */
+
+/* ---------------- section frame and the seam row (§1/§2) ---------------- */
+
+.v2-engines {
+  width: 100%;
+}
+
+/* the leading full-lattice seam row (r18/r25/r41 — §1/§9 R12); the
+   gx regions paint it, this spacer carries its flow height */
+.e2-seam {
+  height: var(--t);
+}
+
+/* engine hue bindings (§3, the F6 canon) — one rule for every dot */
+.v2-engines [data-engine="brand"] { --_e2c: var(--color-orange-400); }
+.v2-engines [data-engine="visibility"] { --_e2c: var(--color-yellow-400); }
+.v2-engines [data-engine="ads"] { --_e2c: var(--color-pink-400); }
+.v2-engines [data-engine="reception"] { --_e2c: var(--color-purple-400); }
+.v2-engines [data-engine="engagement"] { --_e2c: var(--color-blue-400); }
+
+/* ---------------- shared copy vocabulary (§3/§5) ---------------- */
+
+.e2-dot {
+  display: block;
+  border-radius: var(--radius-full);
+  background: var(--_e2c);
+  width: var(--e2-dot-rm);
+  height: var(--e2-dot-rm);
+}
+@container (min-width: 470px) {
+  .e2-dot {
+    width: var(--e2-dot-rs);
+    height: var(--e2-dot-rs);
+  }
+}
+@container (min-width: 665px) {
+  .e2-dot {
+    width: var(--e2-dot-rt);
+    height: var(--e2-dot-rt);
+  }
+}
+@container (min-width: 860px) {
+  .e2-dot {
+    width: var(--e2-dot-rd);
+    height: var(--e2-dot-rd);
+  }
+}
+
+/* the engine name — Kyoto Extralight at every anchor (xs → sm+ → md+
+   are one family/weight/tracking, so no style alias is needed); the
+   R9 walk below the gate, the 1344 zoom line from it */
+.e2-name {
+  color: var(--color-text-100);
+  --fs0: 24;
+  --fs1: 30;
+  --lh0: 30;
+  --lh1: 36;
+}
+@container (min-width: 470px) {
+  .e2-name {
+    --fs0: 30;
+    --fs1: 36;
+    --lh0: 36;
+    --lh1: 42;
+  }
+}
+@container (min-width: 665px) {
+  .e2-name {
+    --fs0: 36;
+    --fs1: 36;
+    --lh0: 42;
+    --lh1: 42;
+  }
+}
+@container (min-width: 860px) {
+  .e2-name {
+    --fs0: 30;
+    --fs1: 42;
+    --lh0: 35.7143;
+    --lh1: 50;
+  }
+}
+
+/* the description — mounted as the 384 anchor's style (text/md/Light);
+   the 768/1344 anchors carry text/xl/Light: alias the mounted style's
+   tokens over the InterpText references from the rt gate (alias,
+   never fork — the 019 slug construction). Ink text/400 (the drawn
+   darkgray/100); paragraph gaps are the styles' drawn ps 12 riding
+   the band constructions. */
+.e2-desc {
+  color: var(--color-text-400);
+  margin-top: var(--e2-hd-gap-rm);
+  width: var(--e2-desc-w-rm);
+}
+.e2-desc .v2-interp {
+  --fs0: 16;
+  --fs1: 18;
+  --lh0: 22;
+  --lh1: 24;
+}
+.e2-desc .v2-interp + .v2-interp {
+  margin-top: var(--e2-ps-sub);
+}
+@container (min-width: 470px) {
+  .e2-desc {
+    margin-top: var(--e2-hd-gap-rs);
+    width: var(--e2-desc-w-rs);
+  }
+  .e2-desc .v2-interp {
+    --fs0: 18;
+    --fs1: 20;
+    --lh0: 24;
+    --lh1: 26;
+  }
+}
+@container (min-width: 665px) {
+  .e2-desc {
+    margin-top: var(--e2-hd-gap-rt);
+    width: var(--e2-desc-w-rt);
+    --ts-text-md-light-font: var(--ts-text-xl-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+  }
+  .e2-desc .v2-interp {
+    --fs0: 20;
+    --fs1: 20;
+    --lh0: 26;
+    --lh1: 26;
+  }
+}
+@container (min-width: 860px) {
+  .e2-desc {
+    margin-top: var(--e2-hd-gap-rd);
+    width: var(--e2-desc-w-rd);
+  }
+  .e2-desc .v2-interp {
+    --fs0: 14.2857;
+    --fs1: 20;
+    --lh0: 18.5714;
+    --lh1: 26;
+  }
+  .e2-desc .v2-interp + .v2-interp {
+    margin-top: var(--e2-ps-rd);
+  }
+}
+
+/* the slug construction (§3) — the standing square marker (7px
+   material, bg/400) beside a text/400 label; the inline gap rides the
+   type in em at the anchor ratios (12/12 at rt · 12/14 at rd2) */
+.e2-slug {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 var(--t);
+  color: var(--color-text-400);
+}
+.e2-marker {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--color-bg-400);
+}
+
+/* ================= the static stack (base/rs/rt — §5) ================= */
+
+.e2-stack {
+  width: 100%;
+  /* the drawn 2t tail gap before the work section (384/rs — §1) */
+  padding-bottom: calc(var(--t) * 2);
+}
+@container (min-width: 665px) {
+  .e2-stack {
+    /* no tail gap at rt (§1) */
+    padding-bottom: 0;
+  }
+}
+@container (min-width: 860px) {
+  .e2-stack {
+    display: none;
+  }
+}
+
+/* the stack's slug row — rt only (§9 R8: the 384 frame draws none) */
+.e2-stackslug {
+  display: none;
+}
+@container (min-width: 665px) {
+  .e2-stackslug {
+    display: flex;
+    align-items: center;
+    height: var(--t);
+  }
+  .e2-stackslug .e2-slug {
+    gap: 1em;
+    --fs0: 12;
+    --fs1: 12;
+    --lh0: 16;
+    --lh1: 16;
+  }
+}
+
+.e2-stacklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* a stack panel: the bordered engine box over the full-bleed visual,
+   line-inclusive (k·t + 1px) so every seam is a single hairline */
+.e2-spanel + .e2-spanel {
+  margin-top: -1px;
+}
+.e2-sbox {
+  box-sizing: border-box;
+  display: flex;
+  width: calc(var(--t) * 11 + 1px);
+  height: calc(var(--t) * 11 + 1px);
+  border: 1px solid var(--line);
+}
+@container (min-width: 665px) {
+  .e2-sbox {
+    width: calc(var(--t) * 12 + 1px);
+    height: calc(var(--t) * 7 + 1px);
+  }
+}
+
+/* the copy card hugs its content and centers on the box's vertical
+   midline (drawn — §9 R12; the §3/§5 boxes are archetypes) */
+.e2-scard {
+  position: relative;
+  width: 100%;
+  margin: auto 0;
+}
+/* 384: the dot centered in its own 1t marker column, on the header's
+   first line (the 019 marker-column construction); the text stack
+   indents one tick */
+.e2-scard .e2-dot {
+  position: absolute;
+  left: calc((var(--t) - var(--e2-dot-rm)) / 2);
+  top: calc((var(--wA) * 30 + var(--wB) * 36 - var(--e2-dot-rm)) / 2);
+}
+.e2-scard .e2-text {
+  padding-left: var(--t);
+}
+@container (min-width: 470px) {
+  .e2-scard .e2-dot {
+    left: calc((var(--t) - var(--e2-dot-rs)) / 2);
+    top: calc((var(--wA) * 36 + var(--wB) * 42 - var(--e2-dot-rs)) / 2);
+  }
+}
+@container (min-width: 665px) {
+  /* 768: the dot column construction — dot flush left, centered in
+     its drawn 48 row; the text stack clears dot 16 + gap 24 */
+  .e2-scard {
+    /* the drawn container x (24 at 768) — a designed flow gap, riding
+       the weights as a band constant */
+    margin-left: calc((var(--wA) + var(--wB)) * 24);
+    width: auto;
+  }
+  .e2-scard .e2-dot {
+    left: 0;
+    top: calc((var(--e2-dotrow-rt) - var(--e2-dot-rt)) / 2);
+  }
+  .e2-scard .e2-text {
+    padding-left: var(--e2-text-pl-rt);
+  }
+}
+
+/* the visual: full-bleed bg/100 with the -02 drawing at its drawn
+   mount — 1t top/left, flush/clipped bottom-right (§1/§4 as amended,
+   §9 R12); side borders drop at the page edges at 384 (drawn) */
+.e2-svisual {
+  position: relative;
+  box-sizing: border-box;
+  margin-top: -1px;
+  width: calc(var(--t) * 12 + 1px);
+  height: calc(var(--t) * 14 + 1px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--color-bg-100);
+  overflow: clip;
+}
+.e2-svisual img {
+  position: absolute;
+  left: var(--t);
+  top: var(--t);
+  width: calc(var(--t) * 11);
+  height: calc(var(--t) * 11);
+}
+@container (min-width: 665px) {
+  .e2-svisual {
+    height: calc(var(--t) * 12 + 1px);
+    border: 1px solid var(--line);
+  }
+  .e2-svisual img {
+    width: var(--e2-det-s-rt);
+    height: var(--e2-det-s-rt);
+  }
+}
+
+/* ============ the interactive construction (rd1/rd2 — §1/§4/§6) ============ */
+
+.e2-io {
+  display: none;
+}
+
+@container (min-width: 860px) {
+  .e2-io {
+    display: block;
+    width: 100%;
+  }
+
+  /* the slug row — sticky for the section's duration, pinned so its
+     BOTTOM edge sits on the pin line (amended 2026-09-06, §9 R14 —
+     the 883:99636 redraw: the row rides up behind the nav, the label
+     hidden behind the opaque rail, only its bottom strip showing).
+     Its bottom border is the drawn active-engine top rule — always
+     present while the column scrolls; the bg/100 fill masks the
+     passing panels all the way to the viewport top. Line-inclusive
+     (t + 1px, −1px margin) so the rule shares the resting panel's
+     top-border pixel. */
+  .e2-slugrow {
+    position: sticky;
+    top: calc(var(--e2-pin-line) - var(--t));
+    z-index: 2;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: calc(var(--t) + 1px);
+    margin-bottom: -1px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--color-bg-100);
+  }
+  .e2-slugrow .e2-slug {
+    gap: 0.8571em; /* 12/14 em — the drawn 12 riding text/sm */
+    --fs0: 10;
+    --fs1: 14;
+    --lh0: 12.8571;
+    --lh1: 18;
+  }
+
+  .e2-body {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    /* the trailing empty sliver row's flow height (§6 — the 05
+       frames' drawn empty inactive-engine) */
+    padding-bottom: var(--t);
+  }
+  /* the ready construction (§6 as amended, §9 R15): the body carries
+     the whole scroll budget explicitly — 7t assembly + 4 free travels
+     of 6t + 5 runways of 4t = 51t (+ the hairline). The sticky
+     children release together exactly at the 05b rest: the 7t window
+     and the pinned lattice travel 44t against the body; the 6t stage
+     travels 44t against its 50t rail. */
+  .v2-engines[data-e2-ready] .e2-body {
+    height: calc(var(--t) * 51 + 1px);
+    padding-bottom: 0;
+  }
+
+  /* the pinned viewport assembly (§2): the lattice field, the two ○
+     ornaments, and the sliver-row outline ride one sticky element
+     behind the flow content — static through all ten states */
+  .e2-pinhost {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .e2-pin {
+    position: sticky;
+    top: var(--e2-pin-line);
+    height: calc(var(--t) * 7 + 1px);
+  }
+
+  /* the column's window — plain flow by default (no-JS: every
+     engine's copy reachable); sticky once the island is ready, so
+     the compositor owns the panels' position while pinned and a
+     runway can never jitter them (§9 R15 — the bounce fix). The
+     window does NOT clip (§9 R16 — the redraw's intent): the
+     inactive card runs to the viewport's edge; the column's overflow
+     above the pin line hides under the slug row's mask. */
+  .e2-vp {
+    flex: none;
+    width: calc(var(--t) * 6 + 1px);
+  }
+  .v2-engines[data-e2-ready] .e2-vp {
+    position: sticky;
+    top: var(--e2-pin-line);
+    height: calc(var(--t) * 7 + 1px);
+  }
+
+  /* the left column — five contiguous line-inclusive panels; the
+     island translates it inside the window through the free travels
+     (§6 as amended; runways hold it by not translating) */
+  .e2-col {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    will-change: transform;
+  }
+  .e2-panel {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: calc(var(--t) * 6 + 1px);
+    border: 1px solid var(--line);
+  }
+  .e2-panel + .e2-panel {
+    margin-top: -1px;
+  }
+
+  /* the drawn engine-container: fixed 528-zoom box centered in the
+     panel, copy at its top, the indicator on its bottom edge (§3) */
+  .e2-card {
+    position: relative;
+    box-sizing: border-box;
+    height: var(--e2-cont-h-rd);
+    margin-left: var(--e2-cont-x-rd);
+    width: calc(var(--e2-text-pl-rd) + var(--e2-desc-w-rd));
+  }
+  .e2-card .e2-dot {
+    position: absolute;
+    left: 0;
+    top: calc((var(--e2-dotrow-rd) - var(--e2-dot-rd)) / 2);
+  }
+  .e2-card .e2-text {
+    padding-left: var(--e2-text-pl-rd);
+  }
+
+  /* the a/b indicator (§6.2): bg/500 track (radius-full pill + the
+     drawn square dot), text/300 overlay growing 7 → 24 across the
+     runway (the island writes --e2-fill on the active panel); the
+     slots swap arrangement at the b rest (data-bc="b" — the drawn
+     second-slide-start) */
+  .e2-bc {
+    position: absolute;
+    display: block;
+    left: var(--e2-text-pl-rd);
+    bottom: 0;
+    width: var(--e2-bc-w);
+    height: var(--e2-bc-h);
+  }
+  .e2-bc i {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+  .e2-bc-pill {
+    left: 0;
+    width: var(--e2-bc-pill);
+    border-radius: var(--radius-full);
+    background: var(--color-bg-500);
+  }
+  .e2-bc-dot {
+    left: var(--e2-bc-dot-x);
+    width: var(--e2-bc-dot);
+    background: var(--color-bg-500);
+  }
+  .e2-bc-fill {
+    left: 0;
+    width: calc(var(--e2-bc-dot) + (var(--e2-bc-pill) - var(--e2-bc-dot)) * var(--e2-fill, 0));
+    border-radius: var(--radius-full);
+    background: var(--color-text-300);
+  }
+  .e2-panel[data-bc="b"] .e2-bc-pill {
+    left: var(--e2-bc-pill-xb);
+  }
+  .e2-panel[data-bc="b"] .e2-bc-dot {
+    left: 0;
+  }
+  .e2-panel[data-bc="b"] .e2-bc-fill {
+    left: var(--e2-bc-pill-xb);
+    width: var(--e2-bc-dot);
+  }
+
+  /* the stage — sticky one tick under the slug row; bg/100 fill on
+     the drawn border; exactly one drawing visible (§4) */
+  .e2-rail {
+    width: calc(var(--t) * 6 + 1px);
+    margin-left: -1px;
+    align-self: stretch;
+  }
+  /* ready: the rail holds the column height (50t) so the stage's
+     release coincides with the window's (§9 R15) */
+  .v2-engines[data-e2-ready] .e2-rail {
+    align-self: flex-start;
+    height: calc(var(--t) * 50 + 1px);
+  }
+  .e2-stage {
+    position: sticky;
+    top: var(--e2-pin-line);
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(var(--t) * 6 + 1px);
+    border: 1px solid var(--line);
+    background: var(--color-bg-100);
+    overflow: clip;
+  }
+  .e2-drawing {
+    position: absolute;
+    left: var(--e2-det-pad-rd);
+    top: var(--e2-det-pad-rd);
+    width: var(--e2-det-s-rd);
+    height: var(--e2-det-s-rd);
+    opacity: 0;
+    filter: blur(var(--motion-stage-blur));
+    transform: translateY(var(--motion-stage-rise));
+    transition:
+      opacity var(--motion-stage-dur) var(--motion-stage-ease),
+      filter var(--motion-stage-dur) var(--motion-stage-ease),
+      transform var(--motion-stage-dur) var(--motion-stage-ease);
+  }
+  .e2-drawing img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .e2-drawing[data-active] {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+  .e2-drawing[data-leaving] {
+    opacity: 0;
+    filter: blur(var(--motion-stage-blur));
+    transform: translateY(var(--motion-stage-drop));
+  }
+
+  /* the interactive column's dots (§3 as amended, §9 R16 — the
+     redraw's gray-ellipse): an upcoming panel's dot is bg/400; it
+     transitions to its engine hue on the stage clock as the panel
+     scrolls up into the active slot (data-lit, island-driven;
+     symmetric on reverse) */
+  .e2-io .e2-dot {
+    background: var(--color-bg-400);
+    transition: background-color var(--motion-stage-dur) var(--motion-stage-ease);
+  }
+  .e2-io .e2-panel[data-lit] .e2-dot {
+    background: var(--_e2c);
+  }
+}
+
+/* reduced motion: the structure (pin, snap, mapping) stands — it is
+   navigation; every swap goes state-to-state (§9 R5). The island
+   quantizes the indicator and lands snaps instantly. The page root's
+   data-motion attribute is the dev-route simulation (the standing
+   pattern) — both selectors carry the same kill. */
+@media (prefers-reduced-motion: reduce) {
+  .e2-drawing,
+  .e2-io .e2-dot {
+    transition: none;
+  }
+}
+.page[data-motion="reduce"] .e2-drawing,
+.page[data-motion="reduce"] .e2-io .e2-dot {
+  transition: none;
+}

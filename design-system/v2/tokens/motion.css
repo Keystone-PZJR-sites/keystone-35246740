@@ -140,4 +140,19 @@
   /* labels and the mark resolve on the standard ease keyword (the
      table's choice) */
   --motion-bloom-resolve-ease: ease;
+
+  /* The stage swap (spec 020 §6, owner ruling §9 R3): blur + rise
+     with a gentle settle — one grammar for every stage transition
+     (a→b, b→a, engine handoffs; never special-cased). Incoming:
+     opacity 0→1, blur 8→0, translateY +24→0; outgoing: opacity 1→0,
+     blur 0→8, translateY 0→−12. The ease aliases the drawer family's
+     ease-out (the gentle settle) — never fork. Reduced motion renders
+     every swap state-to-state (engines.css kills the transitions).
+     The snap glide to a runway rest reuses the carousel snap grammar
+     (--motion-snap-dur/-ease) on the island's rAF clock. */
+  --motion-stage-dur: 500ms;
+  --motion-stage-ease: var(--motion-drawer-ease);
+  --motion-stage-blur: 8px;
+  --motion-stage-rise: 24px;
+  --motion-stage-drop: -12px;
 }

@@ -724,4 +724,54 @@
   --sys-tag-brand-y-rd: calc(var(--t) * 136.5 / 112);
   --sys-tag-visibility-x-rd: calc(var(--t) * -168 / 112);
   --sys-tag-visibility-y-rd: calc(var(--t) * -35.55 / 112);
+
+  /* engine-section v2 constants (spec 020 §1/§3–§7 as amended, §9
+     R11/R12). The interactive construction exists from the rd1 gate
+     only and is the 1344 design zooming on the tick (t·V/112 — the
+     zoom line the rd1 derivation and the capped wide range share).
+     Below the gate the static stack: GEOMETRY (panel frames, drawing
+     mounts, the 1t indents) rides the tick; TEXT COLUMNS and flow
+     gaps ride the weights through the R9 midpoint walk (384 drawn →
+     576 midpoint → 768 drawn, held as band constants through rt —
+     the 018 R9 / 019 B7 split, the working default). */
+  /* the pin line (§1 as amended 2026-09-06, §9 R14 — the 883:99636
+     redraw): the active row's top edge sits the drawn 45 below the
+     nav bottom (riding the zoom); the 1t slug row pins ABOVE it, its
+     label sliding up behind the opaque nav rail */
+  --e2-pin-line: calc(var(--knav-bar-h) + var(--t) * 45 / 112);
+  /* interactive rd1+ */
+  --e2-cont-x-rd: calc(var(--t) * 64 / 112);
+  --e2-cont-h-rd: calc(var(--t) * 528 / 112);
+  --e2-text-pl-rd: calc(var(--t) * 48 / 112); /* dot col 20 + gap 28 */
+  --e2-dot-rd: calc(var(--t) * 20 / 112);
+  --e2-dotrow-rd: calc(var(--t) * 48 / 112);
+  --e2-desc-w-rd: calc(var(--t) * 432 / 112);
+  --e2-hd-gap-rd: calc(var(--t) * 32 / 112);
+  --e2-ps-rd: calc(var(--t) * 12 / 112); /* the styles' drawn ps 12 */
+  --e2-det-pad-rd: calc(var(--t) * 64 / 112); /* §4 as amended — top/left */
+  --e2-det-s-rd: calc(var(--t) * 608 / 112);
+  /* the a/b indicator (§6.2 — the drawn keyframe geometry) */
+  --e2-bc-w: calc(var(--t) * 39 / 112);
+  --e2-bc-h: calc(var(--t) * 7 / 112);
+  --e2-bc-pill: calc(var(--t) * 24 / 112);
+  --e2-bc-dot: calc(var(--t) * 7 / 112);
+  --e2-bc-dot-x: calc(var(--t) * 32 / 112);
+  --e2-bc-pill-xb: calc(var(--t) * 15 / 112);
+  /* static stack — the R9 walk pairs (drawn 384 · midpoint · drawn
+     768): desc 288 · 368 · 448 — the drawn rag holds through the
+     walk; header→description gap 12 · 22 · 32; dot 7 · 11.5 · 16 */
+  --e2-desc-w-rm: calc(var(--wA) * 288 + var(--wB) * 368);
+  --e2-desc-w-rs: calc(var(--wA) * 368 + var(--wB) * 448);
+  --e2-desc-w-rt: calc((var(--wA) + var(--wB)) * 448);
+  --e2-hd-gap-rm: calc(var(--wA) * 12 + var(--wB) * 22);
+  --e2-hd-gap-rs: calc(var(--wA) * 22 + var(--wB) * 32);
+  --e2-hd-gap-rt: calc((var(--wA) + var(--wB)) * 32);
+  --e2-dot-rm: calc(var(--wA) * 7 + var(--wB) * 11.5);
+  --e2-dot-rs: calc(var(--wA) * 11.5 + var(--wB) * 16);
+  --e2-dot-rt: calc((var(--wA) + var(--wB)) * 16);
+  --e2-dotrow-rt: calc((var(--wA) + var(--wB)) * 48);
+  --e2-text-pl-rt: calc((var(--wA) + var(--wB)) * 40); /* dot 16 + gap 24 */
+  --e2-ps-sub: calc((var(--wA) + var(--wB)) * 12); /* ps 12 at both anchors */
+  --e2-det-s-rt: calc(var(--t) * 708 / 64); /* the drawn 708 rides the tick;
+     the visual clips its 4px bottom-right overflow (§1 as amended) */
 }

@@ -326,3 +326,150 @@ F5 mobile-LCP gate against the new hero.
   the policy's default when 019+ hit the same evaluation. (The same
   session also re-walked the CTA sizes — md · md · lg · xl, 018
   §9 R8.)
+
+## Decision log — 2026-09-06
+
+- **Spec 020 is drafted** (morning, from fresh reads of the ten
+  engine-state frames, the breadcrumb keyframe set, the `engine-detail`
+  set, and the three anchors' stacked sections — every geometry fact,
+  binding, copy string, and per-cell exposure verified against rendered
+  bounds through the bridge; 020 §9 is the record). **The interaction
+  model was revised at the planning review** (owner, same morning — the
+  ElevenLabs articulation): a normal-flow left column drives a
+  top-stuck stage that swaps by **blur + rise**; the only hijack is
+  each engine's a→b micro-pin (a 4t snap-stopped runway; the column
+  holds still — both drawn rests show the sliver at one line); engine
+  handoffs fire on the column's document position with no pin; short
+  viewports clip the stage's tail passively; reduced motion keeps the
+  structure with instant swaps; no-JS renders the flow at 01a. Section
+  document height at rd2 = 52t over the drawn 8t viewport (the runway
+  constants ride the expectations). Below the rd1 gate the section is
+  the drawn static stack with the **b** visuals (owner ruling; the
+  drawn `-01` instances are stale — the set carries `-02` at every
+  size, verified). Five planning flags were fixed by design and
+  re-read the same morning (the 05 frame names, the 02b copy, the
+  sliver copy, the 384 `brand-engine` x, the 01a crop). Copy canon:
+  five engines × three drawn paragraphs, order Brand → Visibility →
+  Ads → Reception → Engagement (Bloom's start). Assets are
+  **placeholder exports from the `engine-detail` nodes** (owner
+  direction; the native-visual pass lands later and brings the 019
+  grain primitive its second consumer). **F6 resolved the same
+  morning** (owner): the section's engine dots are canon — Reception
+  `purple/400` · Engagement `blue/400`; the built 019 diagram's
+  *labels* were the error. Design swapped the two label texts
+  file-side, re-read at all three anchors (with the swap, the
+  diagram's clockwise walk from Brand reads the engine narrative
+  order); **the built 019 section's re-label is a pending surgical
+  fix** (019 §9 R6 — label texts, petal identities, and the sr-only
+  sentence; positions, colors, and the beat sequence unchanged). Dev
+  route fixed: `/engines-next`. **The spec awaits approval.**
+- **020 approved and built the same day** (owner approval in-chat
+  after the pre-approval review; 020 §9 R11–R13 are the record). The
+  review landed three body edits before approval (R11): the stale §7
+  F6 parenthetical removed, the §3 copy structure clarified against a
+  fresh node read (each description is one drawn three-paragraph
+  `text/xl/Light` node — the tagline plus **two** body paragraphs;
+  the serif header is the engine-name node), and the stage loading
+  posture added to §7 (all ten drawings mount, the Brand pair eager,
+  the island decode-primes neighbors). **The 019 re-label landed
+  first as its own surgical fix** (019 §9 R6 record): the two
+  identities swapped in the engine table, the petal fills and tag
+  position tokens swapped names with every position value
+  byte-unchanged, the bloom island's final beat follows, and the
+  sr-only sentence now reads the narrative order — verified on the
+  rendered page. The build's fresh-read pass (R12) re-read every
+  §1–§5 value against rendered bounds: zero token drift (the
+  type-styles snapshot gained the already-built
+  `display-serif/sm/Thin` entry); three §2 amendments (the two ○
+  ornament cells at 1344, the filled ○ on the 384 seam row the draft
+  missed) and the `engine-detail` mount amendment (64/64/32 top-left
+  pads, flush bottom-right — never centered); the drawn container
+  centering, dot sizes (20/16/7), per-side strokes, and the seam-row
+  ownership recorded; two file residuals with design (the 05b
+  breadcrumb unswapped; the brand/engagement-02 xs width 358.1,
+  clipped to 352 at export). Deliverables: twenty placeholder exports
+  under `engines-v2/` with the registry block; `sections/engines.tsx`
+  / `engines.css` (both constructions CSS-gated at 860 — the
+  interactive fluid stage and the static stack); the one island
+  `engines-scroll.tsx` (the §6 mapping, plateaus, stop-always snap,
+  swaps, and indicator on one rAF clock — mechanism record in R13);
+  the runway constants exported from `engines-data.ts` for the 023
+  expectations; the `--e2-*` component tokens and the
+  `--motion-stage-*` blur + rise grammar; the `home-next.tsx` splice
+  after the system section (flush on page row 18) and the noindexed
+  **`/engines-next`** route. Acceptance verified at the three drawn
+  anchors (768/384 byte-exact), the derived 576/960 (the R9 split and
+  the 1344 zoom, both exact), compressed slices at 738/1200 and the
+  capped 1920; reduced motion, no-JS, and the scroll-restoration
+  compensation verified; the standing sweep green against the owner's
+  server; tsc/lint zero; route JS rides to 023. **One new flag with
+  design** (launch gate G10): the file's **engagement `engine-detail`
+  variants are drawn as empty stubs** at all three sizes — the
+  placeholder exports faithfully carry the stub; the drawings arrive
+  with the native-visual pass. Working tree left uncommitted per the
+  git rule.
+- **Three owner rulings at the 020 build review landed the same day**
+  (020 §9 R14; the `883:99636` redraw, read fresh through the
+  bridge): **(1) the pin line** — the construction pins so the slug
+  row's bottom edge sits the drawn 45 below the nav bottom (the
+  active row's drawn top rule; the slug label rides up behind the
+  opaque nav rail and its bg/100 mask reaches the viewport top, so no
+  content peeks beside the nav; the freed 67px goes to the panels;
+  R2's top-44 superseded); **(2) no occluding rules** — the redraw
+  drops the sliver-row outline, so the pinned assembly paints no rule
+  that crosses a moving panel (the sliver look is the boxes' own
+  borders; the only pinned rule is the active-top line); **(3) no
+  bounce** — a gesture ending inside a runway completes to the rest
+  in the gesture's direction, never gliding backward, even under the
+  midpoint threshold (the island's direction-aware snap; direction is
+  tracked on scroll events, not the rAF clock — scrollend can beat
+  the frame). Re-verified: rests pin at the new line with the release
+  exact; forward/reverse under-threshold gestures complete without
+  bounce; free segments carry no snap; tsc/lint zero.
+- **The bounce persisted and was re-ruled the same day** (020 §9 R15):
+  the stutter was structural — the column sat in native flow while
+  pinned, and compositor-thread scroll paints a frame ahead of the
+  island's main-thread counter-transform, so every scroll event moved
+  the column and pulled it back. The construction changed to the
+  compositor window: the column rides inside a sticky, clipped 7t
+  wrapper (locked while a runway runs — no element left that can
+  jitter), translated only through the free travels; the body carries
+  the 51t budget explicitly and the runway spacer is gone. With it,
+  the owner's fluid ruling landed: the a→b transition is a **scroll
+  scrubber** (the blur + rise values ride the runway position,
+  reversible, resolved at the ends; handoffs keep the timed grammar),
+  and the stop-always wheel clamp is dropped — the gesture-end
+  directional completion is the only snap. The window also clips the
+  sliver exactly as the drawn frames crop it. Verified at 1344: every
+  pinned element static to the pixel through a runway, scrub at p 0.5
+  mid-plateau, free travel 1:1, parks/release/completions exact,
+  no-JS copy reachable; tsc/lint zero.
+- **Third build review, same day** (020 §9 R16): the scrubber stalled
+  mid-transition under slow scrolls and felt stodgy — superseded; the
+  **timed midpoint swap stands everywhere** on the compositor window
+  (a started transition fires entirely; the directional completion
+  and the dropped clamp stay). Two redraw values landed with it: the
+  upcoming panel's dot is the drawn **bg/400 gray** (the redraw's
+  `gray-ellipse`), taking its engine hue on the stage clock as the
+  panel reaches the active slot (symmetric on reverse; the stacks
+  keep colored dots); and the window **does not clip** — the inactive
+  card runs to the viewport's edge as the redraw crops it, the slug
+  mask hiding the overflow above the pin line. Verified at 1344;
+  tsc/lint zero.
+- **Fourth build review, same day** (020 §9 R17): the b state fired
+  the moment a resolved (any overshoot past a fresh rest read as
+  "heading to b"). The swap trigger is raised to **0.65 of the
+  runway, hysteretic** (symmetric on reverse; the current state holds
+  between the triggers), and the gesture-end completion parks at the
+  trigger-resolved state's rest, derived from the live scroll
+  position (the scrollend-beats-the-frame race, found again). A
+  within-runway settle is invisible — the column is
+  compositor-locked. Verified at 1344 in all four cases; tsc/lint
+  zero.
+- **Fifth build review, same day** (020 §9 R18): the engine handoff
+  fired only as the incoming panel arrived (the crossing is the
+  arrival), so the crossfade trailed the column. `HANDOFF_LEAD_T` —
+  the R7 tunable — set to **2t**: the b→a crossfade starts two ticks
+  before the panel settles and lands with it; the dot lights on the
+  same beat; symmetric on reverse. Verified at 1344 both ways;
+  tsc/lint zero.

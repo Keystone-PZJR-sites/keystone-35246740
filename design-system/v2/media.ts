@@ -387,6 +387,46 @@ export function gallerySrc(image: number, cut: GalleryTier["cut"]): string {
   return `/media/gallery/gallery-${cut}-${String(image).padStart(2, "0")}.webp`;
 }
 
+/* ---- engine section v2 (spec 020 §7) ----
+ * 20 placeholder WebP exports, cut by the build from the engine-detail
+ * component set (771:18256) through the bridge 2026-09-06 — a native/
+ * production visual pass replaces them later (owner direction; the
+ * launch checklist tracks it). Three cuts, each exactly 2× its drawn
+ * mount: xl 1216 (the rd2 608 stage drawing — ten files, five engines
+ * × 01/02) · md 1416 (the rt stack's 708, `-02` only) · xs 704 (the
+ * 384 stack's 352, `-02` only). The drawn mount is 64 top/left pads,
+ * flush bottom-right (32 at xs; md clips 4px — 020 §4/§7 as amended,
+ * §9 R12); the brand/engagement xs variants' 6px width residual was
+ * clipped to the set's 352 canon at export (§9 R12). The stage
+ * drawings are decorative (aria-hidden, empty alt — the 018 R6
+ * posture); the stack visuals share it. */
+
+export type EngineV2State = "01" | "02";
+export type EngineV2Cut = "xl" | "md" | "xs";
+
+export const ENGINE_V2_CUTS: Record<EngineV2Cut, { width: number; height: number }> = {
+  xl: { width: 1216, height: 1216 },
+  md: { width: 1416, height: 1416 },
+  xs: { width: 704, height: 704 },
+};
+
+/** The rt structural gate (spec 002.r1) — where the static stack's
+ * <picture> swaps the xs cut for the md cut. */
+export const ENGINE_V2_MD_MEDIA = "(min-width: 665px)";
+
+/** placeholder-{engine}-{01|02}[-{md|xs}].webp under
+ * public/media/engines-v2 (the xl cut carries no suffix). Only the
+ * `-02` state ships md/xs cuts (the static stacks are the b visuals —
+ * 020 §5, §9 R1). */
+export function engineV2PlaceholderSrc(
+  engine: string,
+  state: EngineV2State,
+  cut: EngineV2Cut = "xl",
+): string {
+  const suffix = cut === "xl" ? "" : `-${cut}`;
+  return `/media/engines-v2/placeholder-${engine}-${state}${suffix}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */
