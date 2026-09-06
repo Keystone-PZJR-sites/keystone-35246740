@@ -54,6 +54,9 @@
 /* the single-span H1 rides the first beat (v1's copy-switch spans
    carried this via their own classes) */
 .v2-hero-next .hx2-h1 .hx-rise { --_d: var(--hx-d-h1a); }
+/* the one-flow subhead rises on the first sub beat (§9 R10 — v1's
+   two-row stagger collapses to one beat; the chip pass unchanged) */
+.v2-hero-next .hx-row { --_d: var(--_d-sub1); }
 
 /* ---------------- header block (§1 as amended) ---------------- */
 
@@ -149,9 +152,10 @@
 @container (min-width: 665px) {
   .hx2-sub {
     top: calc(var(--hx2-sub-top-rt) - var(--hx2-head-top-rt));
-    /* no wrap pin above the rs gate: the drawn rt/rd2 line-groups are
-       single lines that hug (the §1 520/712 widths are hug results);
-       a pinned box re-wraps them on font-metric differences */
+    /* unpinned across rt: the drawn 768 first line (520) is wider than
+       the H1's 512 box — pinning it there orphans "convert." on a
+       third line. The H1-column pin applies from the rd1 gate (§9
+       R11). */
     max-width: none;
     --fs0: 18; --fs1: 18; --lh0: 26; --lh1: 26;
     --clh0: 24; --clh1: 24;
@@ -164,6 +168,9 @@
 @container (min-width: 860px) {
   .hx2-sub {
     top: calc(var(--hx2-sub-top-rd) - var(--hx2-head-top-rd));
+    /* the one-flow subhead wraps in the H1 column minus half a tick
+       from the rd1 gate (owner direction + tune 2026-09-05, §9 R11) */
+    max-width: var(--hx2-sub-w-rd);
     --fs0: 17.1429; --fs1: 24; --lh0: 22.8571; --lh1: 32;
     --clh0: 22.8571; --clh1: 32;
     /* 6/24 inline and line-group, 8/24 chip px at the 1344 anchor */

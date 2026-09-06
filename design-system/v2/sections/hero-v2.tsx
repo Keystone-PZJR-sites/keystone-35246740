@@ -222,14 +222,16 @@ export function HeroV2Section() {
             keystone powers your website and everything that runs through
             it: ads social reviews content and follow-ups that convert.
           </span>
+          {/* one continuous flow (amended 2026-09-05, §9 R10) — the
+              drawn line-groups are superseded: words and chips wrap
+              as a single stream, so no line is forced to end at the
+              colon and the chips fill lines naturally at every width */}
           <span className="hx-vis" aria-hidden="true">
-            <span className="hx-row hx-row1 hx-rise">
+            <span className="hx-row hx-rise">
               <span className="hx-wm" />
               {words("powers your")}
               <Chip id="website">website</Chip>
               {words("and everything that runs through it:")}
-            </span>
-            <span className="hx-row hx-row2 hx-rise">
               <Chip id="ads">ads</Chip>
               <Chip id="social">social</Chip>
               <Chip id="reviews">reviews</Chip>

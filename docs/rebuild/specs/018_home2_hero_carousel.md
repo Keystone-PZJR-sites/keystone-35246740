@@ -137,8 +137,12 @@ At 384 only, the `ksWordmark` (72×15) sits above the H1 on a 16px gap
 
 The 006 knockout construction carries: the leading "keystone " renders in
 `bg/100` (invisible on paper) with the wordmark vector mounted over it;
-plain runs in `text/200`. Two drawn line-groups; the 384 groups
-flex-wrap. Copy (one canon):
+plain runs in `text/200`. One continuous flex-wrap flow — words and
+chips wrap as a single stream, so no line is forced to end at the
+colon mid-band *(amended 2026-09-05, owner direction at build QA, §9
+R10 — was "two drawn line-groups; the 384 groups flex-wrap"; the
+anchor rags re-flow to the natural wrap, an accepted consequence)*.
+Copy (one canon):
 
 > keystone powers your [website] and everything that runs through it:
 > [ads] [social] [reviews] [content] and [follow-ups] that convert.
@@ -323,7 +327,17 @@ responses + design fixes; fixes re-read from the nodes):
   in the built island — the clause described semantics that were never
   built, and building them would contradict §6's "the machine carries
   verbatim". The §7 photo inventory stays as documentation, not alt
-  text. §8 amended.
+  text. §8   amended.
+- **R11 (owner, 2026-09-05, at build QA, in-chat) — the one-flow
+  subhead wraps in the H1's column from the rd1 gate, tuned the same
+  session to the column minus half a tick** (6.5t — 728 at the 1344
+  anchor; the full 784 column left the ads chip hanging on the first
+  line, and the owner directed it down to the chip line). The
+  rt band stays unpinned: the drawn 768 first line (520) is wider
+  than the H1's 512 box there, and pinning it orphaned "convert." on
+  a third line at the anchor — the drawn two-line rag holds
+  naturally instead. Below the rt gate the §9 R9 walk boxes carry
+  unchanged.
 
 **Resolved at build (2026-09-05):**
 
@@ -367,6 +381,18 @@ responses + design fixes; fixes re-read from the nodes):
   jumped ~20px there). Preamble, §3, and §4 amended. The construction
   is the band system's native two-anchor interpolation with a
   synthesized middle anchor; no new machinery.
+- **R10 (owner, 2026-09-05, at build QA, in-chat) — the subhead is
+  one continuous flow.** The two drawn line-groups forced every
+  width to end a line at the colon; mid-band the second group
+  orphaned ("that runs through it:" stranded above the chip line).
+  Ruling: the sentence renders as a single flex-wrap stream — words
+  and chips fill lines naturally at every width, chips joining text
+  lines where they fit. The drawn anchor line-groups are superseded
+  and the anchor rags re-flow (accepted consequence; file fix rides
+  with design). The knockout construction, chip bindings, em gaps,
+  and the §8 sr sentence carry unchanged; the load choreography's
+  two subhead beats collapse to one (the chip pass unchanged). §4
+  amended.
 
 ## 10 · Acceptance criteria
 
