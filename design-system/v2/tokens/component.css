@@ -158,14 +158,23 @@
   --hx-d-cta: 490ms;
   --hx-d-rect: 620ms;
   --hx-d-circle: 760ms;
+  /* the third frame's beat (2026-09-06 erratum, 018 §9 R13): the v2
+     hero's frame sizes expose slide 3's leading edge at the right
+     bleed, so it joins the entrance on the next beat of the image
+     rhythm. Base values continue the 006 cadence; the craft preview
+     overrides them with the rest. */
+  --hx-d-img3: 900ms;
   --hx-d-pass: 1450ms;
   /* Below 768 the visual order differs (§1), and the cascade follows
      it — h1 · images · subhead · CTA · highlight pass (design owner
      amendment 2026-08-25, superseding §6's "same delays by element"
      bullet for rm/rs). Same rhythm, reordered; the pass still starts
-     after the last rise settles (570 + 800 ≤ 1450). */
+     after the last rise settles (570 + 800 ≤ 1450). Homepage load
+     overrides these on `.page.v2-choreo` (hero.css, 2026-09-06
+     craft preview). */
   --hx-d-rect-m: 190ms;
   --hx-d-circle-m: 330ms;
+  --hx-d-img3-m: 470ms;
   --hx-d-sub1-m: 410ms;
   --hx-d-sub2-m: 490ms;
   --hx-d-cta-m: 570ms;

@@ -25,8 +25,8 @@
 }
 
 /* The homepage's sweep and nav-drop rules key on the shared `v2-load`
-   class page-wide (hero.css, by design); on this page they are
-   suppressed — no lattice sweep, no nav beat. */
+   class (hero.css; sweep is hero-scoped as of 2026-09-06); on this
+   page they are suppressed — no lattice sweep, no nav beat. */
 .page.v2-choreo-rise.v2-load :is(.grid-region, .decor, .knav-bar, .knav-mbar),
 .page.v2-choreo-rise.v2-load .grid-region :is(i.v, i.h) {
   animation: none;

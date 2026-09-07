@@ -143,12 +143,14 @@ function CtaRow({ variant, size }: { variant: "a" | "b" | "c" | "d"; size: "xl" 
    export order. Odd slides carry the wide cut from the rt gate over
    the square fallback; even slides are square everywhere (their
    square file is the 1344 export — §9 R5). The tint is baked (§9 R2).
-   The first rectangle and circle are priority-loaded (the §6 load
-   beats need pixels); the island primes the rest a dwell ahead. ---- */
+   The first three frames are priority-loaded (the §6 load beats need
+   pixels — the third frame's leading edge is exposed at the right
+   bleed in this section's sizes, 018 §9 R13); the island primes the
+   rest a dwell ahead. ---- */
 
 function Frame({ frame, clone = false }: { frame: number; clone?: boolean }) {
   const shape = frame % 2 === 1 ? "rect" : "circle";
-  const priority = !clone && frame <= 2;
+  const priority = !clone && frame <= 3;
   const img = (
     <img
       src={heroV2CarouselSrc(frame, "square")}

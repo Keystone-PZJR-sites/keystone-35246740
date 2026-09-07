@@ -868,3 +868,38 @@ F5 mobile-LCP gate against the new hero.
   25/75 triggers by pixel, the parked no-flip, the 101px Engagement
   trigger, the ordered walk); tsc/lint zero. Working tree left
   uncommitted per the git rule.
+- **Homepage load clock preview** (review-animations on the 006
+  choreography; pending keep/revert). Overrides on `.page.v2-choreo`
+  only: rise 8px / 300ms, nav 250ms, sweep 350ms hero-scoped, chip
+  stagger 60ms, wipe ease-out, last beat ~1470ms. Our Work / case
+  studies keep the `:root` 26px / 800ms grammar. 006 §6/§9 and 018
+  §6/§9 R12 amended. Visualize on `/hero-next` (Replay) or
+  `/home-next`.
+- **The preview revised to the 019 Bloom character, same evening**
+  (owner request: the entrance — at least the highlight pass — should
+  feel like the system-diagram bloom in pacing and character). The
+  homepage rises take the Bloom two-clock construction (a 400ms fade
+  inside a 750ms travel — the H1 rides the ring pair, 700 in 900),
+  14px travel, beats and chip pass at the bloom stagger (120ms), the
+  wipe/nav on the engine ease, the sweep on the ring ease; the pass
+  start rides the band (750ms at rt+ / 950ms below — the rm/rs
+  cascade runs deeper). Last wipe ~1770/~1970ms — above the 019 1.6s
+  ceiling; the owner judges by eye (dials: pass start, stagger). The
+  bloom tokens are referenced directly, no promotion — the tokens
+  promote to shared entrance names only if the preview is kept (the
+  hero would be the bloom grammar's second consumer). Verified on
+  `/hero-next` against the owner's server: cascade end times match
+  the 006 §6 table (follow-ups wipe 1779ms), reduced motion settled,
+  `v2-settled` lands, the below-gate 950ms pass resolves.
+- **Preview tuning + a found erratum, same evening** (owner, in-chat).
+  Tuning: travel 14 → 12px; the image group opens exactly on the CTA
+  beat (390, frames staggered 120 inside the group). Erratum (018 §9
+  R13): the v2 hero's frame sizes expose the third frame's leading
+  edge at the right bleed, but the 006 entrance covered frames 1–2 —
+  frame 3 now rides the entrance on the next image beat
+  (`--hx-d-img3`/`-m`, base 900/470 on the 006 cadence so the fix
+  survives a preview revert), is priority-loaded, and every
+  choreography list widened to `-n + 3`. Verified on `/hero-next`:
+  frame 1 fires with the CTA, frame 3 animates eager, frame 4 stays
+  offscreen unanimated, reduced motion settled, the run settles
+  (1796ms).

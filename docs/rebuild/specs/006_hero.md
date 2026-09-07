@@ -231,65 +231,87 @@ gates (470 · 665 · 860 · 1130) so each band's crop shows wherever its
 design renders; the 1152 mid-cut serves the compressed rd2 slice. The
 scrollbar-lag caveat stands.* `object-fit: cover;
 object-position: center`, explicit width/height, `decoding="async"`.
-The first rectangle and first circle are priority-loaded (§6 needs
-pixels at +620/+760ms); later frames lazy-load.
+The first three frames are priority-loaded (§6 needs pixels at
++390/+510/+630ms — the third joined 2026-09-06, 018 §9 R13); later
+frames lazy-load.
 
 ## 6 · Motion
 
 Intent supplied by design 2026-08-25; values below are the spec. Two new
 global grammars join `tokens/motion.css` (the drawer grammar carries over
-unchanged): the **fade-rise** and the **carousel slide**. Constants: rise
-distance 26px · rise duration 800ms · rise ease `cubic-bezier(0.22, 1,
-0.36, 1)` (the existing ease-out curve — alias, do not fork) · wipe
-duration 420ms · wipe ease `cubic-bezier(0.76, 0, 0.24, 1)` · chip stagger
-150ms · slide duration 900ms · slide ease `cubic-bezier(0.45, 0.05, 0.15,
-1)` · dwell 3500ms · first-advance delay 4500ms.
+unchanged): the **fade-rise** and the **carousel slide**. Shared `:root`
+fade-rise tokens stay 26px · 800ms for Our Work, case studies, and scroll
+entrances. *Amended 2026-09-06 — craft preview on `.page.v2-choreo`
+(review-animations on the homepage load; revised the same evening to the
+019 Bloom character, owner request; pending keep/revert): the homepage
+rises take the Bloom two-clock construction — opacity on a shorter clock
+inside a longer travel, two comma-joined animations sharing the element's
+delay. The H1 rides the ring pair (700ms fade in a 900ms ease-up on the
+ring ease `cubic-bezier(0.2, 0.72, 0.18, 1)`); every other beat rides the
+engine pair (400ms fade in a 750ms travel on the engine ease
+`cubic-bezier(0.16, 0.78, 0.24, 1)`); travel distance 12px (14 at the
+first cut; owner tuning); beats at the bloom stagger (120ms); the image
+group opens exactly on the CTA beat (owner direction) with the 120ms
+stagger inside the group; the wipe and nav-drop ease alias the engine ease;
+the hero-scoped sweep (350ms) rides the ring ease. The bloom tokens are
+referenced directly (alias, never fork); promotion to shared entrance
+tokens happens only if the preview is kept.* Carousel constants
+unchanged: wipe duration 420ms · slide duration 900ms · slide ease
+`cubic-bezier(0.45, 0.05, 0.15, 1)` · dwell 3500ms · first-advance delay
+4500ms.
 
-**Load choreography** — one cascade, one motion language. Every entry is
-the same fade-rise: opacity 0→1 with translateY(26px)→0, 800ms, ease-out,
-`both` fill. Delays from page ready (fonts loaded, first frame after
-hydration):
+**Load choreography** — one cascade, one motion language (the Bloom
+grammar's, per the preview). Delays from page ready (fonts loaded, first
+frame after hydration):
 
 | t (ms) | element | motion |
 |---|---|---|
-| 0 | lattice verticals | scaleY 0→1, origin top, 700ms, ease-out |
-| 120 | lattice horizontals | scaleX 0→1, origin left, 700ms, ease-out |
-| 0 | nav rail | fade + translateY(−8px)→0, 600ms |
-| 80 | H1 line 1 | fade-rise |
-| 190 | H1 line 2 | fade-rise |
-| 330 | subhead row 1 | fade-rise — chips in the **neutral state** (§3) |
-| 410 | subhead row 2 | fade-rise — neutral chips |
-| 490 | CTA row | fade-rise |
-| 620 | rectangle image | fade-rise (nothing image-specific) |
-| 760 | circle image | fade-rise |
-| ~1450 | highlight pass | see below |
+| 0 | lattice verticals (hero-scoped) | scaleY 0→1, origin top, 350ms, ring ease |
+| 120 | lattice horizontals (hero-scoped) | scaleX 0→1, origin left, 350ms, ring ease |
+| 0 | nav rail | fade + translateY(−8px)→0, 250ms, engine ease |
+| 0 | hero ornaments | engine-pair rise |
+| 0 | H1 line 1 (+ the rm/rs wordmark) | ring-pair rise |
+| 120 | H1 line 2 | ring-pair rise |
+| 150 | subhead row 1 | engine-pair rise — chips in the **neutral state** (§3) |
+| 270 | subhead row 2 | engine-pair rise — neutral chips |
+| 390 | CTA row | engine-pair rise |
+| 390 | rectangle image (with the CTA) | engine-pair rise (nothing image-specific) |
+| 510 | circle image | engine-pair rise |
+| 630 | third frame (exposed at the right bleed — 018 §9 R13) | engine-pair rise |
+| 750 (950 below the rt gate) | highlight pass | see below |
 
 - The lattice sweep animates the exposure region's interior line elements
-  (§2 — they are real elements by spec 002 construction); the region's
-  edges fade with the vertical sweep. The sweep is page-wide, not
-  hero-scoped; 006 owns the orchestrator, later sections inherit it.
+  (§2 — they are real elements by spec 002 construction). The lines are
+  the reveal — region boxes do not fade. The sweep is **hero-scoped**;
+  below-fold lattice is born settled. 006 owns the orchestrator; later
+  sections inherit the class flip, not the sweep.
 - The nav's participation is one class the orchestrator sets on the nav
   root; nav internals (spec 005) are unchanged.
 - H1 lines animate separately only where the break is designed (rt+). At
-  rm/rs the H1 rises as one unit at +80ms — natural wrap must not be
+  rm/rs the H1 rises as one unit at 0ms — natural wrap must not be
   re-broken for motion (decision at draft; approval covers it).
-- At rm/rs the visual order differs (§1): the same delays apply by
-  element, not by position — the carousel images still enter at
-  +620/+760ms between the H1 and the subhead.
+- At rm/rs the visual order differs (§1), and the cascade follows it —
+  h1 · images · subhead · CTA · highlight pass. Images enter at
+  +150/+270/+390ms (the third frame joins the image rhythm), the subhead
+  rows at +390/+510, the CTA at +630; the pass moves to +950 (the chips'
+  rows must ink before the wipe: 510 + 400 ≤ 950).
 - At rm only the first ~1.5 frames are visible; the rectangle and the
   visible circle sliver are the two image entries.
 
-**Highlight pass** — the signature moment, strictly after all fade-rises
-settle (~1450ms). In reading order — website, ads, social, reviews,
-content, follow-ups — 150ms apart, each chip:
+**Highlight pass** — the signature moment, after every fade clock lands
+(750ms at rt+; 950ms below — travels may still be resolving, the Bloom
+mark's own overlap). In reading order — website, ads, social, reviews,
+content, follow-ups — 120ms apart, each chip:
 
 - wipes its brand fill (§3 table) left→right over the neutral base:
   `clip-path: inset(0 100% 0 0)` → `inset(0 0 0 0)`, 420ms, wipe ease, on
   a color layer above the neutral fill;
 - cross-fades its label ink `text/200` → the brand ink, 420ms, ease.
 
-Last chip lands ~2620ms. The neutral base never animates position — the
-wipe is purely chromatic.
+Last chip lands ~1770ms at rt+ (~1970 below the gate) — above the 019
+1.6s ceiling; the owner judges by eye at the preview (the pass start and
+the stagger are the dials). The neutral base never animates position —
+the wipe is purely chromatic.
 
 **Carousel** (post-load). Auto-advance right→left: the track translates
 by the width of the leaving frame (frame widths alternate, §5) so the
@@ -475,6 +497,52 @@ verified through the bridge):
   same class as the our-work 576 F1 flag). Design resized it the
   same evening; re-read 3040 through the bridge.
 
+Post-approval amendment, 2026-09-06 (craft preview of the homepage
+load clock; review-animations; pending keep/revert):
+
+- **Homepage load durations and travel cut** — first pass: rise
+  8px / 300ms (was 26px / 800ms), nav drop 250ms (was 600ms), sweep
+  350ms (was 700ms), chip stagger 60ms (was 150ms), wipe ease aliases
+  the rise ease-out (was a symmetric ease-in-out); last wipe ~1470ms
+  (was ~2620ms).
+- **Lattice sweep is hero-scoped** — below-fold cells are born
+  settled; region boxes no longer fade (the lines are the reveal);
+  hero ornaments rise with the copy. Shared `:root` fade-rise
+  tokens stay 26px / 800ms for Our Work, case studies, and scroll
+  entrances. Overrides live on `.page.v2-choreo`. §6 carries the
+  built table.
+- **Revised the same evening to the 019 Bloom character** (owner
+  request: the entrance should feel like the system-diagram bloom).
+  Two-clock rises (a shorter fade inside a longer travel, two
+  comma-joined animations, one delay): the H1 takes the bloom ring
+  pair (700/900, ring ease), everything else the engine pair
+  (400/750, engine ease); travel 14px; beats and the chip pass at the
+  bloom stagger (120ms); the wipe and nav drop on the engine ease,
+  the sweep on the ring ease. The pass start rides the band (750ms at
+  rt+, 950ms below — the rm/rs cascade runs deeper). Last wipe
+  ~1770/~1970ms — above the 019 1.6s ceiling, owner judges by eye.
+  The bloom tokens are referenced directly (alias, never fork);
+  promotion to shared entrance tokens only if the preview is kept.
+  Verified on `/hero-next` 2026-09-06: the full cascade end times
+  match the table (follow-ups wipe 1779ms measured), reduced motion
+  renders settled, the run settles (`v2-settled`), the below-gate
+  band resolves the 950ms pass.
+- **Owner tuning at the preview, same evening**: travel 14 → 12px;
+  the image group opens exactly on the CTA beat (rect +390 with the
+  CTA, circle +510) with the 120ms stagger inside the group. **And a
+  found erratum (018 §9 R13)**: the v2 hero's frame sizes expose the
+  third frame's leading edge at the right bleed (left edge ~1400 in a
+  1920 viewport, measured), but the entrance covered frames 1–2 only
+  — built when frame 3 sat offscreen. Frame 3 joins the entrance on
+  the next image beat (+630; +390 in the rm/rs order, `--hx-d-img3` /
+  `-m`), is priority-loaded (the beat needs pixels), and rides every
+  choreography list (cold-load guard, settled, reduced-motion kills —
+  all widened to `-n + 3`). The non-preview base tokens carry the 006
+  cadence (900/470ms) so the fix survives a preview revert. Verified:
+  frame 1 delay equals the CTA's (390ms), frame 3 animates two-clock
+  eager/high-priority, frame 4 stays offscreen unanimated, reduced
+  motion renders frame 3 settled, the run settles at 1796ms.
+
 ## 10 · Acceptance criteria
 
 At each of the five anchors and one arbitrary mid-band width per band,
@@ -505,10 +573,10 @@ scrollbar forced on:
       the first two frames are priority-loaded and painted before their
       choreography slots.
 - [ ] Load choreography matches §6's table: computed delays, durations,
-      curves, and the neutral chip state before ~1450ms; the highlight
-      pass wipes in reading order at 150ms spacing after every fade-rise
-      completes; the lattice sweep hits verticals-then-horizontals at
-      the 120ms offset.
+      curves, and the neutral chip state before the band's pass start;
+      the highlight pass wipes in reading order at 120ms spacing after
+      every fade clock lands; the lattice sweep hits
+      verticals-then-horizontals at the 120ms offset, hero-scoped.
 - [ ] Carousel behavior: first advance ≥4500ms from load start, then
       3500ms dwell; 900ms slides on the slide ease; the wrap snap is
       invisible (no flash, no reverse travel); the timer pauses when the

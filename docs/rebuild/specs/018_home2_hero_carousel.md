@@ -221,8 +221,13 @@ hidden-tab pause, lazy frames primed a dwell ahead. Only the per-band
 slide-size variables restate. Reduced motion and no-JS hold the first
 frames — the settled state is slide 1 leftmost.
 
-**The load choreography carries** — the 006 orchestration unchanged
-(same beats, same settle contract, `v2-settled` on the last beat); the
+**The load choreography carries** — the 006 orchestration (same settle
+contract, `v2-settled` on the last beat); *amended 2026-09-06 — the
+homepage-load clock on `.page.v2-choreo` (006 §6/§9 craft preview,
+revised the same evening to the 019 Bloom character): two-clock rises
+(ring pair for the H1, engine pair elsewhere), 14px travel, bloom
+stagger 120ms, engine-ease wipe, hero-scoped 350ms sweep, pass at
+750/950 by band, last beat ~1770/~1970ms. Pending keep/revert.* The
 new section swaps in with new content only. The 010 §7 F5 mobile-LCP
 gate rides to 023's re-evaluation.
 
@@ -393,6 +398,30 @@ responses + design fixes; fixes re-read from the nodes):
   and the §8 sr sentence carry unchanged; the load choreography's
   two subhead beats collapse to one (the chip pass unchanged). §4
   amended.
+- **R12 (craft preview, 2026-09-06, pending keep/revert)** — the
+  homepage load clock on `.page.v2-choreo` follows the
+  review-animations recommendations (006 §6 as amended): shorter
+  rises, hero-scoped sweep, tighter chip stagger, ease-out wipe.
+  Revised the same evening to the 019 Bloom character (owner
+  request): two-clock rises on the bloom ring/engine pairs, 14px
+  travel, bloom stagger, band-resolved pass start (750/950). Last
+  beat ~1770/~1970ms. The bloom tokens are referenced directly;
+  promotion only if the preview is kept. Shared `:root` fade-rise
+  tokens unchanged. Verified on `/hero-next` (006 §9 carries the
+  measurement record). Owner tuning same evening: travel 12px; the
+  image group opens on the CTA beat (390/510/630).
+- **R13 (erratum, found at the craft preview 2026-09-06)** — this
+  section's frame sizes expose the **third frame's leading edge** at
+  the right bleed (left edge ~1400 in a 1920 viewport, measured), but
+  the 006 entrance covered frames 1–2 only, built when frame 3 sat
+  offscreen. Frame 3 joins the load entrance on the next image beat
+  (`--hx-d-img3`/`-m`; base 900/470ms carries the 006 cadence so the
+  fix survives a preview revert) and is priority-loaded
+  (`hero-v2.tsx` `frame <= 3` — the beat needs pixels). Every
+  choreography list (cold-load guard, settled, reduced-motion kills)
+  widened to `-n + 3`. Verified on `/hero-next`: frame 3 animates
+  eager/high-priority, frame 4 stays offscreen unanimated, reduced
+  motion renders it settled.
 
 ## 10 · Acceptance criteria
 

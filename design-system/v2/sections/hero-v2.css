@@ -38,6 +38,7 @@
 .v2-hero-next {
   --_d-rect: var(--hx-d-rect-m);
   --_d-circle: var(--hx-d-circle-m);
+  --_d-img3: var(--hx-d-img3-m);
   --_d-sub1: var(--hx-d-sub1-m);
   --_d-sub2: var(--hx-d-sub2-m);
   --_d-cta: var(--hx-d-cta-m);
@@ -46,6 +47,7 @@
   .v2-hero-next {
     --_d-rect: var(--hx-d-rect);
     --_d-circle: var(--hx-d-circle);
+    --_d-img3: var(--hx-d-img3);
     --_d-sub1: var(--hx-d-sub1);
     --_d-sub2: var(--hx-d-sub2);
     --_d-cta: var(--hx-d-cta);

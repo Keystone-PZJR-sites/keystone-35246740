@@ -378,6 +378,7 @@
 .v2-hero {
   --_d-rect: var(--hx-d-rect-m);
   --_d-circle: var(--hx-d-circle-m);
+  --_d-img3: var(--hx-d-img3-m);
   --_d-sub1: var(--hx-d-sub1-m);
   --_d-sub2: var(--hx-d-sub2-m);
   --_d-cta: var(--hx-d-cta-m);
@@ -386,9 +387,79 @@
   .v2-hero {
     --_d-rect: var(--hx-d-rect);
     --_d-circle: var(--hx-d-circle);
+    --_d-img3: var(--hx-d-img3);
     --_d-sub1: var(--hx-d-sub1);
     --_d-sub2: var(--hx-d-sub2);
     --_d-cta: var(--hx-d-cta);
+  }
+}
+
+/* Craft preview 2026-09-06 — homepage load clock (review-animations;
+   revised the same evening to the 019 Bloom character, owner request:
+   the entrance should feel like the system-diagram bloom). Scoped to
+   `.page.v2-choreo` so Our Work / case-study pages keep the 006 :root
+   grammar until this preview is kept or reverted.
+
+   The Bloom construction (019 §6): opacity rides a shorter clock
+   inside a longer travel — two comma-joined animations sharing the
+   element's delay — so the copy inks early and the settle is felt.
+   The H1 is the hero's "ring" (700ms fade in a 900ms ease-up); every
+   other beat is an "engine" (400ms fade in a 750ms travel); beats at
+   the bloom stagger (120ms). The bloom tokens are referenced directly
+   (alias, never fork); if the preview is kept they promote to shared
+   entrance tokens (the second-consumer pattern).
+
+   The chip pass starts at 750ms (950ms below the rt gate — the rm/rs
+   cascade places the subhead rows deeper in the run); the last wipe
+   lands ~1.77s (~1.97s below rt) — above the 019 1.6s ceiling; the
+   pass start and the stagger are the dials if it reads gated. */
+.page.v2-choreo {
+  --load-sweep-duration: 350ms;
+  --load-nav-duration: 250ms;
+  --motion-wipe-ease: var(--motion-bloom-engine-ease);
+  --motion-chip-stagger: var(--motion-bloom-stagger);
+  --hx-d-h1a: 0ms;
+  --hx-d-h1b: 120ms;
+  --hx-d-sub1: 150ms;
+  --hx-d-sub2: 270ms;
+  --hx-d-cta: 390ms;
+  /* the image group opens exactly on the CTA beat (owner direction
+     2026-09-06); the frames keep the 120ms stagger inside the group */
+  --hx-d-rect: 390ms;
+  --hx-d-circle: 510ms;
+  --hx-d-img3: 630ms;
+  --hx-d-pass: 750ms;
+  --hx-d-pass-m: 950ms;
+  --hx-d-rect-m: 150ms;
+  --hx-d-circle-m: 270ms;
+  --hx-d-img3-m: 390ms;
+  --hx-d-sub1-m: 390ms;
+  --hx-d-sub2-m: 510ms;
+  --hx-d-cta-m: 630ms;
+  /* the engine pair is the default rise voice */
+  --_rise-fade-dur: var(--motion-bloom-engine-fade-dur);
+  --_rise-move-dur: var(--motion-bloom-engine-move-dur);
+  --_rise-ease: var(--motion-bloom-engine-ease);
+}
+/* the H1 (and the rm/rs wordmark above it) is the hero's ring — the
+   big statement takes the longer pair */
+.page.v2-choreo :is(.hx-wm-head, .hx-copy-lo, .hx-line1, .hx-line2, .hx2-h1 .hx-rise) {
+  --_rise-fade-dur: var(--motion-bloom-ring-fade-dur);
+  --_rise-move-dur: var(--motion-bloom-ring-move-dur);
+  --_rise-ease: var(--motion-bloom-ring-ease);
+}
+/* felt travel under the longer clock (8px vanished over 750ms;
+   14 → 12px, owner tuning 2026-09-06) */
+.page.v2-choreo :is(.hx-rise, .hx-frame:nth-child(-n + 3), .v2-hero .decor, .v2-hero-next .decor) {
+  --motion-rise-distance: 12px;
+}
+/* the pass start rides the band (chips must ink before the wipe) */
+.page.v2-choreo :is(.v2-hero, .v2-hero-next) {
+  --_dp: var(--hx-d-pass-m);
+}
+@container (min-width: 665px) {
+  .page.v2-choreo :is(.v2-hero, .v2-hero-next) {
+    --_dp: var(--hx-d-pass);
   }
 }
 
@@ -400,16 +471,27 @@
    motion stay settled — the §8 contract. Only pages that mount the
    orchestrator opt in via `v2-choreo` on the page root, so lattice-only
    dev pages (/grid, /footer, /nav) are untouched. Browsers without the
-   scripting media feature just keep the brief settled flash. */
+   scripting media feature just keep the brief settled flash.
+   Lattice and ornaments are hero-scoped — below-fold cells are born
+   settled (amended 2026-09-06). */
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   .page.v2-choreo:not(.v2-load):not([data-motion="reduce"])
-    :is(.hx-rise, .hx-frame:nth-child(-n + 2), .grid-region, .decor, .knav-bar, .knav-mbar) {
+    :is(.hx-rise, .hx-frame:nth-child(-n + 3), .knav-bar, .knav-mbar) {
+    opacity: 0;
+  }
+  .page.v2-choreo:not(.v2-load):not([data-motion="reduce"])
+    :is(.v2-hero, .v2-hero-next) :is(.grid-region, .decor) {
     opacity: 0;
   }
 }
 
 @keyframes hx-rise {
   from { opacity: 0; transform: translateY(var(--motion-rise-distance)); }
+}
+/* craft preview — the travel half of the two-clock rise (the fade
+   half reuses hx-fade) */
+@keyframes hx-rise-move {
+  from { transform: translateY(var(--motion-rise-distance)); }
 }
 @keyframes hx-fade {
   from { opacity: 0; }
@@ -431,27 +513,27 @@
   from { color: var(--color-text-200); }
 }
 
-/* the lattice sweep — page-wide: verticals draw down, horizontals draw
-   right at the offset, the region edges fade with the vertical sweep;
-   ornament cells ride the same fade */
-.v2-load .grid-region,
-.v2-load .decor {
-  animation: hx-fade var(--load-sweep-duration) var(--motion-rise-ease) backwards;
-}
-.v2-load .grid-region i.v {
+/* the lattice sweep — hero-scoped: verticals draw down, horizontals
+   draw right at the offset. Region boxes do not fade (the lines are
+   the reveal). Ornaments ride the engine-pair rise (preview block
+   below). Below-fold lattice is born settled (amended 2026-09-06).
+   Craft preview: the sweep resolves on the bloom ring ease (softer
+   tail than the drawer ease-out). */
+.v2-load :is(.v2-hero, .v2-hero-next) .grid-region i.v {
   transform-origin: top;
-  animation: hx-sweep-v var(--load-sweep-duration) var(--motion-rise-ease) backwards;
+  animation: hx-sweep-v var(--load-sweep-duration) var(--motion-bloom-ring-ease) backwards;
 }
-.v2-load .grid-region i.h {
+.v2-load :is(.v2-hero, .v2-hero-next) .grid-region i.h {
   transform-origin: left;
-  animation: hx-sweep-h var(--load-sweep-duration) var(--motion-rise-ease) backwards;
+  animation: hx-sweep-h var(--load-sweep-duration) var(--motion-bloom-ring-ease) backwards;
   animation-delay: var(--load-sweep-offset);
 }
 
-/* the nav rides the same class; internals unchanged (§6) */
+/* the nav rides the same class; internals unchanged (§6). Craft
+   preview: the drop resolves on the bloom engine ease. */
 .v2-load .knav-bar,
 .v2-load .knav-mbar {
-  animation: hx-nav-drop var(--load-nav-duration) var(--motion-rise-ease) backwards;
+  animation: hx-nav-drop var(--load-nav-duration) var(--motion-bloom-engine-ease) backwards;
 }
 
 /* fade-rises, per-element delays */
@@ -467,8 +549,10 @@
 .hx-row2 { --_d: var(--_d-sub2); }
 .hx-cta { --_d: var(--_d-cta); }
 
-/* the first rectangle and circle enter as plain fade-rises (§6 —
-   nothing image-specific); later frames are offscreen and simply exist */
+/* the first three frames enter as plain fade-rises (§6 — nothing
+   image-specific); later frames are offscreen and simply exist. The
+   third joined 2026-09-06 (018 §9 R13 erratum): the v2 hero's frame
+   sizes expose slide 3's leading edge at the right bleed. */
 .v2-load .hx-frame:nth-child(1) {
   animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
   animation-delay: var(--_d-rect);
@@ -476,6 +560,50 @@
 .v2-load .hx-frame:nth-child(2) {
   animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
   animation-delay: var(--_d-circle);
+}
+.v2-load .hx-frame:nth-child(3) {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d-img3);
+}
+
+/* Craft preview — the Bloom construction on the homepage rises: the
+   fade lands early inside the longer travel (019 §6's two comma-joined
+   animations sharing one delay). These rules out-rank the generic
+   single-clock rules above on the homepage only; the media guard and
+   the two :not()s hand reduced motion (either source) and settled
+   pages back to their kill rules, which the higher specificity here
+   would otherwise defeat. */
+@media (prefers-reduced-motion: no-preference) {
+  .page.v2-choreo.v2-load:not(.v2-settled):not([data-motion="reduce"]) .hx-rise {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d, 0ms);
+  }
+  .page.v2-choreo.v2-load:not(.v2-settled):not([data-motion="reduce"]) .hx-frame:nth-child(1) {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d-rect);
+  }
+  .page.v2-choreo.v2-load:not(.v2-settled):not([data-motion="reduce"]) .hx-frame:nth-child(2) {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d-circle);
+  }
+  .page.v2-choreo.v2-load:not(.v2-settled):not([data-motion="reduce"]) .hx-frame:nth-child(3) {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d-img3);
+  }
+  .page.v2-choreo.v2-load:not(.v2-settled):not([data-motion="reduce"])
+    :is(.v2-hero, .v2-hero-next) .decor {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+  }
 }
 
 /* the highlight pass — strictly after the fade-rises settle: each chip
@@ -489,12 +617,15 @@
   animation: hx-chip-ink var(--motion-wipe-duration) ease backwards;
   animation-delay: var(--_cd);
 }
-.hx-chip[data-chip="website"] { --_cd: var(--hx-d-pass); }
-.hx-chip[data-chip="ads"] { --_cd: calc(var(--hx-d-pass) + var(--motion-chip-stagger)); }
-.hx-chip[data-chip="social"] { --_cd: calc(var(--hx-d-pass) + 2 * var(--motion-chip-stagger)); }
-.hx-chip[data-chip="reviews"] { --_cd: calc(var(--hx-d-pass) + 3 * var(--motion-chip-stagger)); }
-.hx-chip[data-chip="content"] { --_cd: calc(var(--hx-d-pass) + 4 * var(--motion-chip-stagger)); }
-.hx-chip[data-chip="follow-ups"] { --_cd: calc(var(--hx-d-pass) + 5 * var(--motion-chip-stagger)); }
+/* --_dp is the band-resolved pass start (craft preview: the rm/rs
+   cascade places the chips' rows deeper in the run, so the pass moves
+   with the band); the fallback keeps the pre-preview single token */
+.hx-chip[data-chip="website"] { --_cd: var(--_dp, var(--hx-d-pass)); }
+.hx-chip[data-chip="ads"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + var(--motion-chip-stagger)); }
+.hx-chip[data-chip="social"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 2 * var(--motion-chip-stagger)); }
+.hx-chip[data-chip="reviews"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 3 * var(--motion-chip-stagger)); }
+.hx-chip[data-chip="content"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 4 * var(--motion-chip-stagger)); }
+.hx-chip[data-chip="follow-ups"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 5 * var(--motion-chip-stagger)); }
 
 /* ---- settled (the orchestrator's end-of-run mark): once the last
    beat lands, the choreography animations turn off so band-gated
@@ -510,7 +641,7 @@
 .page.v2-settled .knav-bar,
 .page.v2-settled .knav-mbar,
 .page.v2-settled .hx-rise,
-.page.v2-settled .hx-frame:nth-child(-n + 2),
+.page.v2-settled .hx-frame:nth-child(-n + 3),
 .page.v2-settled .hx-chip::before,
 .page.v2-settled .hx-chip-label {
   animation: none;
@@ -528,8 +659,7 @@
   .v2-load .knav-bar,
   .v2-load .knav-mbar,
   .v2-load .hx-rise,
-  .v2-load .hx-frame:nth-child(1),
-  .v2-load .hx-frame:nth-child(2),
+  .v2-load .hx-frame:nth-child(-n + 3),
   .v2-load .hx-chip::before,
   .v2-load .hx-chip-label {
     animation: none;
@@ -543,8 +673,7 @@
 .page[data-motion="reduce"] .knav-bar,
 .page[data-motion="reduce"] .knav-mbar,
 .page[data-motion="reduce"] .hx-rise,
-.page[data-motion="reduce"] .hx-frame:nth-child(1),
-.page[data-motion="reduce"] .hx-frame:nth-child(2),
+.page[data-motion="reduce"] .hx-frame:nth-child(-n + 3),
 .page[data-motion="reduce"] .hx-chip::before,
 .page[data-motion="reduce"] .hx-chip-label {
   animation: none;
