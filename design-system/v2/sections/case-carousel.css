@@ -59,6 +59,29 @@
   display: contents;
 }
 
+/* the section top rule (§2 as amended, §9 B13): the drawn 1344
+   section frame carries a visible 1px border/000 top stroke — the
+   full-width rule over the header; the 768/384 frames carry none, so
+   it mounts from the rd1 gate (the 1344 derivation). A paint overlay
+   on the section's top row line (line-inclusive — it shares the
+   canonical pixel with the east field's region edge), never a box
+   border: the section's tick height stays untouched. */
+.v2-cc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border-000);
+  display: none;
+}
+@container (min-width: 860px) {
+  .v2-cc::before {
+    display: block;
+  }
+}
+
 /* ---------------- header (§3) ---------------- */
 
 /* 384: top-anchored — the slug row (text-only as drawn; no marker at
