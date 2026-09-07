@@ -685,3 +685,95 @@ F5 mobile-LCP gate against the new hero.
   `/case-carousel-next`. **The spec awaits approval.** With it, every
   Phase 10 section spec (018–022) is written; 023 (assembly + cutover)
   remains.
+- **022 pre-approval review rulings** (owner, afternoon, at the build
+  agent's preparation review; 022 §9 R3–R7, landed as dated body
+  amendments). **R3** — the §4 drawn stats are **the cross-surface
+  per-study canon**: they land in the shared `work-cases-data.ts` and
+  the Our Work cards follow (Zivel `22 Consults booked` → `1 New sales
+  hire`; YHS's rating stat → `$25k Monthly revenue`, `Per lead` →
+  `Cost per lead`; Bare Lúx `109` → `100+`); 014 §5 is superseded on
+  those values (recorded in 022 §9, 014 unedited); the carousel data
+  module imports the studies — the plan's preferred single-source
+  direction holds. **R4** — the Bare Lúx rating stat carries a drawn
+  star **at xl only** (owner pointer; instance slot content the
+  draft's set-read missed — verified through the bridge: 17×16,
+  `text/600`, gap 4; the 768/384 sections carry none). **R5** — the
+  768 asset tier's ≈11% cover trim accepted (the tier files are the
+  1344 cut, checksum-verified; the 021 R4 precedent) — six files
+  commit. **R6** — keyboard semantics: arrows move k with focus
+  inside the strip; an inactive card's link selects, the active
+  card's navigates. **R7** — the 2026-09-05 log's "the 1344 +1px
+  persists — blocks 022" is resolved (022 §9 F1, owner reconfirmed).
+  The preparation pass also verified the nine exports on disk at the
+  §7 dimensions, the dedup checksums, the promoted snap/ghost tokens,
+  the bound `--shadow-hard-square-md` (3/3/0, 15%), and every §3/§4
+  type style in the token layer. **Approval still pending.**
+- **022 approved and built the same day** (owner approval in-chat after
+  the R3–R7 rulings; 022 §9 B1–B9 the build record). The build's
+  fresh-read pass re-read every §1–§4 value against rendered bounds:
+  zero token drift; the F1 fix holds (the 2026-09-05 log's "+1px
+  persists — blocks 022" is resolved, §9 R7); the drawn frame ruled
+  the pre-footer full-lattice row into the section (exactly 1t to the
+  footer top — the section builds 23t · 12t · 9t). Five fresh-read
+  findings landed as dated body amendments: the **md/xs cards carry
+  the first two stats only** (systematic, all nine drawn cards — §9
+  B4); the **inactive dressing is the full 012 translucent-ghost
+  grammar** (the 012 cost-wash constant verbatim, inks to text/600,
+  dividers border/050 — the draft's "info panel unchanged" superseded;
+  the wash and inks cross on the snap clock, §9 B3); the **headline
+  wrap boxes are the header frames' interiors** (288 · 439 · 560, §9
+  B5); the **asset numbering is reversed against the strip order**
+  (01 Bare Lúx · 03 Zivel, verified from the drawn fills at both
+  tiers — the 021 export class, the data module maps it, §9 B2); and
+  the **384 slug is text-only as drawn**. The star mounts the standing
+  IconStar stretched to the drawn 17×16 (the 15×14 glyph under a ~1%
+  non-uniform scale — no new cut, §9 B6). Two file residuals with
+  design (§9 B1): the 384 YHS card's stale Zivel stat overrides and
+  the 384 cards' Light stat labels (the build renders the canon). One
+  content-pass watch (§9 B7): the canon 3-word labels wrap three lines
+  in the min-content boxes where the drawn residual double-space reads
+  two. One record (§9 B8): the §5 "YHS/Bare Lúx 404" premise was
+  overtaken by the 2026-09-04 draft Phase B passes — the routes
+  resolve; the carousel links are canonical either way. Deliverables:
+  six §7 cuts under `public/media/case-carousel/` + the registry
+  block; the R3 cross-surface stats in `work-cases-data.ts` (the Our
+  Work cards follow, data-driven, no code change);
+  `case-carousel-data.ts` · `case-carousel.tsx` · `case-carousel.css`
+  · the one island `case-carousel-island.tsx` (the 012 machine minus
+  the slider + the R6 select/arrow semantics); the `--cc-*` tokens;
+  the `home-next.tsx` splice after the work deck — **the Phase 10
+  content stack is complete**; the noindexed `/case-carousel-next`
+  route. Acceptance verified against the owner's server: the three
+  drawn anchors byte-exact, the derived 576/960 (the R9 split and the
+  1344 zoom), compressed 738/1200, the capped 1920; the machine, the
+  clamp, reduced motion, no-JS; tsc/lint zero; the standing sweep
+  green. Route JS rides to 023 — only 023 (assembly + cutover)
+  remains. Working tree left uncommitted per the git rule.
+- **Four owner rulings at the 022 built review landed the same day**
+  (022 §9 B10; dated §4/§5 amendments): **the strip loops** (arrows
+  wrap modulo; the swipe gains a half-stride overhang past each end
+  whose release commits the wrap — with a rounding fix, since
+  `Math.round(−0.5)` rounds toward zero and the backward wrap could
+  never fire); **the clipped shadow fixed** (the viewport clip sat
+  flush on the card bottom — 4px of interior bottom pad restores the
+  border + shadow room over the transparent pre-footer row);
+  **a 1px border/000 on every card size and state**, line-inclusive
+  against the full-lattice field (paint overlay, the 011 R17 law —
+  no doubled hairlines); and **the active card's image zooms on
+  hover** (the Our Work card's `--csc-img-zoom` grammar verbatim —
+  the paint-in-place 1.02 cover grow on the shadow clocks; ghosts
+  don't zoom, their hover is the select affordance; focus-visible
+  parity). Verified at 1344 on the rendered page; tsc/lint zero.
+  Working tree left uncommitted per the git rule. **The loop ruling
+  clarified twice and built circular the same evening** (022 §9
+  B10–B12): the review's report was that no loop had ever existed —
+  the ask was always the circular strip. After a modulo snap-back
+  (B10) and a mistaken no-loop reversion (B11), the island now runs
+  one virtual K ∈ ℤ with per-slot revolution shifts keeping the
+  window [K, K+2] alive: the first card slots in to the right of the
+  last (and the last to the left of the first), every advance one
+  stride, teleports scheduled off-canvas only, swipe clamped to ±1
+  stride, inactive selects walking the shortest way. Verified at
+  1344 through a full cycle forward and backward past the start;
+  tsc/lint zero. B10's other three rulings (shadow room, the
+  line-inclusive border, the hover zoom) stand.
