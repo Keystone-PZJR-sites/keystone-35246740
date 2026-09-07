@@ -1,0 +1,13 @@
+/* /case-carousel-next QA styles (spec 022 §8) — route-local, never
+   shipped in the design-system layers. Short runway and tail blocks
+   give the section's rows scrollable context above and below. */
+
+.ccdev-runway,
+.ccdev-tail {
+  height: 50vh;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-400);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+}

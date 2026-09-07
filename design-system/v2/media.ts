@@ -453,6 +453,38 @@ export function workCascadeSrc(file: number, cut: WorkCascadeCut): string {
   return `/media/work-cascade/work-cascade-${cut}-${String(file).padStart(2, "0")}.webp`;
 }
 
+/* ---- case-study carousel (spec 022 §7) ----
+ * 6 verbatim WebP exports (supplied 2026-09-05; committed 2026-09-06):
+ * two cuts per study at exactly 2× their drawn mounts — the portrait
+ * cut (672×896 = 2× the rd2 336×448 image box) serving from the rt
+ * gate, the landscape cut (576×448 = 2× the 384 288×224 box) below it.
+ * The supplied 768 tier is byte-duplicate of the 1344 tier (022 §9 R2;
+ * the 018 R5 dedup — not committed; the registry maps both bands to
+ * the portrait cut). The rt anchor's 2:3 image box cover-trims ≈11%
+ * of the portrait cut's width — accepted (022 §9 R5, the 021 R4
+ * precedent). The drawn image filters are baked into the exports (022
+ * §9 F6) — the files mount plain, no CSS filter or blend layer.
+ * The file numbering is REVERSED against the strip order (01 Bare Lúx
+ * · 02 YHS · 03 Zivel — found at the build's mount QA, the 021 §7
+ * export class; 022 §9 B) — case-carousel-data.ts maps strip index →
+ * file. Meaningful alt — the images are the customers' sites ("The
+ * {name} website", threaded from the shared data module). */
+
+/** The rt structural gate (spec 002.r1) — where the card image swaps
+ * the landscape cut for the portrait cut. */
+export const CASE_CAROUSEL_RT_GATE_MEDIA = "(min-width: 665px)";
+
+export const CASE_CAROUSEL_PORTRAIT = { width: 672, height: 896 };
+export const CASE_CAROUSEL_LANDSCAPE = { width: 576, height: 448 };
+
+/** case-study-{1344|384}-{01..03}.webp under public/media/case-carousel
+ * (the received names; the directory keeps the family clear of the
+ * case-studies folders). `file` is the strip position, 1-based. */
+export function caseCarouselSrc(file: number, cut: "portrait" | "landscape"): string {
+  const tier = cut === "portrait" ? 1344 : 384;
+  return `/media/case-carousel/case-study-${tier}-${String(file).padStart(2, "0")}.webp`;
+}
+
 export const MEDIA_V2 = {
   brand: {
     /** Logomark + wordmark side by side. */

@@ -125,3 +125,6 @@
 /* Sections (spec 021) — the work section (the website deck; the island
    only flips data-slot, the reorder is CSS) */
 @import "./sections/work-deck.css";
+
+/* homepage v2 — the case-study carousel (spec 022) */
+@import "./sections/case-carousel.css";
