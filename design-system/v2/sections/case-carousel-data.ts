@@ -13,12 +13,12 @@
  * the 021 §7 export class; §9 B records it, no re-cut): a study's
  * file number is 3 − its strip index.
  *
- * Descriptions — the F2 placeholder ruling (owner, 022 §9 F2): all
- * three cards carry Zivel's drawn description for now; updated
- * per-study copy lands as a data-only content pass here (tracked with
- * the G-class content gates). The string is the canon single-spaced
- * transcription; the leading "keystone" renders as the inline wordmark
- * (the 006 construction — the component splits the prefix). */
+ * Descriptions — the F2 content pass LANDED (owner copy, 2026-09-06
+ * evening; 022 §9 B13): YHS and Bare Lúx carry their own strings;
+ * Zivel's drawn description was always its own. Every string is the
+ * canon single-spaced transcription; the leading "keystone" renders
+ * as the inline wordmark (the 006 construction — the component splits
+ * the prefix). */
 
 import type { CaseStudySiteId } from "../media";
 import { CASE_STUDIES, type CaseStudy } from "./work-cases-data";
@@ -31,13 +31,11 @@ export function caseCarouselFile(stripIndex: number): number {
   return CAROUSEL_STUDIES.length - stripIndex;
 }
 
-const ZIVEL_DESCRIPTION =
-  "keystone helped a Florida-based recovery and wellness studio turn increased lead generation into a new sales hire to meet the demand.";
-
-/** Per-study card descriptions — the F2 placeholder: Zivel's drawn
- * string on every card until the content pass swaps the values. */
+/** Per-study card descriptions (the F2 pass, owner copy 2026-09-06). */
 export const CAROUSEL_DESCRIPTIONS: Record<CaseStudySiteId, string> = {
-  zivel: ZIVEL_DESCRIPTION,
-  yhs: ZIVEL_DESCRIPTION,
-  barelux: ZIVEL_DESCRIPTION,
+  zivel:
+    "keystone helped a Florida-based recovery and wellness studio turn increased lead generation into a new sales hire to meet the demand.",
+  yhs: "keystone supported a newly opened MedSpa in Connecticut fill their calendar and hit $25k monthly revenue in 7 months.",
+  barelux:
+    "keystone enabled a MedSpa in New Jersey expand their reach and capture demand in two languages on a lean budget.",
 };
