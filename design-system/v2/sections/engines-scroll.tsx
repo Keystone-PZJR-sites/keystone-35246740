@@ -1,112 +1,104 @@
 "use client";
 
 /** v2 sections — the engine section's carousel island (spec 020 §6, as
- * re-ruled 2026-09-06 — §9 R19: the auto-transitioning carousel).
+ * re-ruled 2026-09-06 — §9 R24: the DISTANCE-MAPPED free scroll).
  *
  * The section's one client island. The server render is the complete
  * structure — sticky slug, sticky stage holding 01a, the left column
- * in plain native flow (the R15 compositor window is deleted with the
- * runways; with no plateaus the scroll mapping is 1:1 everywhere and
- * the column needs no transform, so no-JS and JS render the same
- * document). The island drives the §6 contract on one rAF clock:
+ * in plain native flow. The island NEVER writes scroll (§9 R24: the
+ * R20 paged clamp, the gesture-end snap glide, and all their input
+ * listeners are deleted — scroll is native and free through the whole
+ * section, the ElevenLabs contract). It drives the §6 mapping on one
+ * rAF clock:
  *
- * - **The timer (§9 R19).** Once the section pins and an engine is
- *   settled at its rest, a CAROUSEL_MS clock runs; at expiry the
- *   stage swaps to the other illustration on the standing blur + rise
- *   grammar, and the cycle LOOPS (a → b → a → …) until the user
- *   scrolls. The clock pauses while the engine is off its rest (and
- *   while the section is off-screen — the rAF gate) and accumulates
- *   frame deltas, never wall-clock stamps, so a backgrounded tab
- *   cannot jump a swap.
+ * - **The distance mapping (§9 R24).** The stage has TEN scroll
+ *   stops, one per drawing: state = round(s / halfStride) over the
+ *   ten states, where halfStride is half an engine's 6t panel. Each
+ *   engine's `a` shows while its copy is aligned with the stage
+ *   (s ≈ k·panel) and its `b` shows mid-travel to the next engine,
+ *   so one pass plays all ten drawings as a stepped sequence on the
+ *   standing blur + rise grammar (§9 R3 — one grammar, never
+ *   special-cased). Hysteresis commits a neighbor only past 0.6 of a
+ *   half-stride from the current state's center, so resting near a
+ *   boundary never flutters; a jump past 1.5 half-strides (teleport,
+ *   anchor jump, fast flick) goes straight to the nearest state.
  *
- * - **States and swaps.** The active engine is the nearest rest
- *   (midpoint crossing — under the paged clamp at most one boundary
- *   away, so the stage crossfades once per gesture, mid-glide). An
- *   engine change always resets its cycle to the `a` illustration
- *   with a fresh timer (§9 R19 — revisits reset, one behavior
- *   everywhere).
- *   The swap itself is CSS (the --motion-stage-* grammar); the island
- *   only moves data-active/data-leaving, clearing the leaving state
- *   on transitionend (events, not timers). Adjacent states
- *   decode-prime so a swap never reveals an undecoded drawing (§7).
- *   The island also lights each panel's dot (data-lit) as it reaches
- *   the active slot — upcoming panels hold the drawn bg/400 gray
- *   (§9 R16); the hue transition itself is CSS.
+ * - **The idle timer (§9 R24, carrying R19's clock).** While the
+ *   scroll is idle the a↔b cycle continues from whatever state the
+ *   mapping chose — flip within the current engine's pair every
+ *   CAROUSEL_MS. The clock accumulates frame deltas, never
+ *   wall-clock stamps (a backgrounded tab cannot jump a swap), and
+ *   pauses off-screen (the rAF gate). Distance mapping runs only on
+ *   moving frames, so a timer flip is not immediately reverted; the
+ *   first moving frame hands control back to distance.
  *
- * - **Snap (paged — §9 R20, superseding R19's nearest-rest glide).**
- *   One gesture moves at most one engine. Every burst of scroll
- *   activity has an origin rest; the scroll clamps at the adjacent
- *   rest in each direction until the burst ends (the R13 stop-always
- *   semantics, re-ruled back for the carousel), and the burst's end
- *   glides to the adjacent rest in the gesture's direction — any
- *   travel past the small commit threshold advances (no bounce,
- *   §9 R14) — or back to the origin under it. Entry is pronounced:
- *   a scroll-through catches at the first rest (the clamp) and a
- *   gesture ending within the capture margin above the pin glides
- *   in. Both ends exit free (Brand up, Engagement down) — the
- *   section never traps the scroll. The glide runs on the
- *   carousel-snap clock (--motion-snap-dur/-ease — alias, never
- *   fork) and cedes to any external scroll; a teleport (anchor jump,
- *   find-in-page — a frame delta past one panel) re-origins without
- *   clamping.
+ * - **The geometry (§9 R23 carried forward, per-frame).** s derives
+ *   from rendered positions every frame — the pin line prefers the
+ *   stage's rendered sticky pixel whenever it is pinned (Safari
+ *   renders the pinned calc a pixel off its computed value); the
+ *   computed top is the flow-state fallback. Per-frame reads replace
+ *   R23's gesture-end re-measure (the free contract has no gesture
+ *   ends), so late layout settling above the section can never leave
+ *   the mapping on a stale origin.
  *
- * - **The indicator (§6.2 as re-read — the 877:98990 keyframes).**
+ * - **States and swaps.** The swap itself is CSS (the
+ *   --motion-stage-* grammar); the island only moves
+ *   data-active/data-leaving, clearing the leaving state on
+ *   transitionend (events, not timers). Adjacent states decode-prime
+ *   so a swap never reveals an undecoded drawing (§7). The island
+ *   also lights each panel's dot (data-lit) as its engine becomes
+ *   active (§9 R16); the hue transition itself is CSS.
+ *
+ * - **The indicator (§6.2 as re-read — the redrawn keyframes).**
  *   Two tracks per panel, one per illustration; the active track's
- *   fill rides the timer continuously from the drawn 6px minimum to
- *   the full 24 (--e2-fill-a/-b; --e2-fb-on mounts the b fill — the
- *   drawn slide1-* variants carry none). Resting panels hold the
- *   drawn slide1-start (the minimum dot on track one).
+ *   fill rides the idle clock continuously from the drawn 6px
+ *   minimum to the full 24 (--e2-fill-a/-b; --e2-fb-on mounts the b
+ *   fill). Resting panels hold the drawn slide1-start.
  *
- * - **Reduced motion (§9 R5/R19).** The structure stands and the
- *   timer keeps running — the stage is decorative and the copy never
- *   moves. Swaps and dot hues render instantly (CSS kills the
- *   transitions), the fill quantizes state-to-state, and snap glides
- *   land instantly.
+ * - **Reduced motion (§9 R5/R19).** The structure stands — swaps and
+ *   dot hues render instantly (CSS kills the transitions) and the
+ *   fill quantizes state-to-state. With no snap there is nothing
+ *   else to still.
  *
  * Short viewports need nothing here (§9 R4): the stage top-anchors
  * and the fold crops passively.
  *
- * - **The stacks (base/rs/rt — §5 as re-ruled, §9 R21).** Below the
- *   rd1 gate the same island drives the stack visuals' two-state
- *   carousels. At rt each panel's illustration auto-progresses on the
- *   same CAROUSEL_MS clock (a↔b loop, the blur + rise grammar, the
- *   vertical indicator riding the timer) — a panel's clock counts
- *   only while its visual is substantially in view. At base/rs the
- *   user swipes the visual between the two states: a pointer drag
- *   with a horizontal intent lock (touch-action pan-y keeps vertical
- *   scroll native) scrubs the stage grammar LATERALLY (§9 R22 — the
- *   blur + slight lateral wipe, kin to the larger bands' rise; never
- *   a full-width slide), the b track's fill rides the drag progress
- *   from an empty rest (no minimum dot below the gate — §9 R22), and
- *   the release commits past the swipe threshold (or a flick), the
- *   CSS stage clock settling the drawings and the fill together. The
- *   mode is the container's width (never matchMedia — the container
- *   is the truth), re-armed by the ResizeObserver.
+ * - **The stacks (base/rs/rt — §5 as re-ruled, §9 R21/R22).** Below
+ *   the rd1 gate the same island drives the stack visuals' two-state
+ *   carousels, unchanged by R24. At rt each panel's illustration
+ *   auto-progresses on the CAROUSEL_MS clock (a↔b loop, the blur +
+ *   rise grammar, the vertical indicator riding the timer) — a
+ *   panel's clock counts only while its visual is substantially in
+ *   view. At base/rs the user swipes the visual between the two
+ *   states: a pointer drag with a horizontal intent lock scrubs the
+ *   stage grammar LATERALLY (§9 R22), the b track's fill rides the
+ *   drag from an empty rest, and the release commits past the swipe
+ *   threshold (or a flick), the CSS stage clock settling the
+ *   drawings and the fill together. The mode is the container's
+ *   width (never matchMedia), re-armed by the ResizeObserver.
  */
 
 import { useEffect, useRef } from "react";
 
 /* ---- §6 constants (§9 R7 marks the QA-tunable ones) ---- */
 
-/** one panel height, ticks (§1) — also one engine's scroll stride */
+/** one panel height, ticks (§1) — one engine's scroll stride */
 const PANEL_T = 6;
 const ENGINE_COUNT = 5;
 const STATE_COUNT = 10;
-/** the illustration timer — each state holds this long at a settled
- * rest before the swap fires (§9 R19, owner ruling) */
+/** the idle-cycle timer — while the scroll is idle the shown state
+ * flips within its engine pair on this clock (§9 R19/R24) */
 const CAROUSEL_MS = 5000;
-/** how far off its rest an engine may sit while the timer still
- * counts, px (§9 R7) */
-const SETTLE_EPS_PX = 2;
-/** the capture margin past the section's two ends, ticks — a gesture
- * ending inside it snaps (the pronounced entry pull; §9 R7/R20) */
-const CAPTURE_T = 1.5;
-/** the gesture-end commit threshold, ticks — net travel past it
- * advances one engine in the gesture's direction; under it the
- * gesture settles back to its origin rest (§9 R7/R20) */
-const COMMIT_T = 0.25;
-/** scroll-idle gap that ends a gesture where scrollend is unsupported */
-const SCROLL_IDLE_MS = 120;
+/** per-frame scroll delta under which the page counts as idle and the
+ * timer runs (§9 R24) */
+const IDLE_EPS_PX = 0.5;
+/** hysteresis, in half-stride units — a neighbor state commits only
+ * past this distance from the current state's center (§9 R24; the
+ * 40/60 bands — QA-tunable) */
+const HYST = 0.6;
+/** raw-index distance past which the mapping jumps straight to the
+ * nearest state — teleports, anchor jumps, fast flicks (§9 R24) */
+const JUMP = 1.5;
 /** rAF delta clamp — a resumed tab never jumps the timer */
 const DT_MAX_MS = 100;
 /** the rt structural gate (spec 002.r1) — above it the stack runs the
@@ -119,32 +111,6 @@ const SWIPE_LOCK_PX = 8;
 const SWIPE_COMMIT_FRAC = 0.15;
 /** the flick velocity that commits regardless of distance, px/ms */
 const SWIPE_FLICK_VX = 0.3;
-
-/** cubic-bezier solver for the snap glide (the token's curve, applied
- * to document scroll, which CSS transitions cannot drive) */
-function cubicBezier(x1: number, y1: number, x2: number, y2: number) {
-  const cx = 3 * x1;
-  const bx = 3 * (x2 - x1) - cx;
-  const ax = 1 - cx - bx;
-  const cy = 3 * y1;
-  const by = 3 * (y2 - y1) - cy;
-  const ay = 1 - cy - by;
-  const xAt = (u: number) => ((ax * u + bx) * u + cx) * u;
-  const yAt = (u: number) => ((ay * u + by) * u + cy) * u;
-  return (x: number) => {
-    let lo = 0;
-    let hi = 1;
-    let u = x;
-    for (let i = 0; i < 24; i++) {
-      const cur = xAt(u);
-      if (Math.abs(cur - x) < 1e-4) break;
-      if (cur < x) lo = u;
-      else hi = u;
-      u = (lo + hi) / 2;
-    }
-    return yAt(u);
-  };
-}
 
 export function EnginesScroll() {
   const ref = useRef<HTMLSpanElement>(null);
@@ -180,19 +146,9 @@ export function EnginesScroll() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       page?.dataset.motion === "reduce";
 
-    /* the snap clock — the carousel snap grammar's tokens (alias) */
-    const styles = getComputedStyle(section);
-    const snapDur = parseFloat(styles.getPropertyValue("--motion-snap-dur")) || 450;
-    const easeMatch = styles
-      .getPropertyValue("--motion-snap-ease")
-      .match(/cubic-bezier\(([^)]+)\)/);
-    const easeArgs: [number, number, number, number] = easeMatch
-      ? (easeMatch[1].split(",").map(parseFloat) as [number, number, number, number])
-      : [0.45, 0.05, 0.15, 1];
-    const snapEase = cubicBezier(...easeArgs);
-
     /* the stage grammar's values — the swipe scrubs them laterally
        (§9 R22; the CSS carries the settled states) */
+    const styles = getComputedStyle(section);
     const stageBlur = parseFloat(styles.getPropertyValue("--motion-stage-blur")) || 8;
     const stageRise = parseFloat(styles.getPropertyValue("--motion-stage-rise")) || 24;
     const stageDrop = parseFloat(styles.getPropertyValue("--motion-stage-drop")) || -12;
@@ -293,15 +249,14 @@ export function EnginesScroll() {
       }
     };
 
-    /* ---- geometry and mode (re-measured on resize) ---- */
+    /* ---- geometry and mode (re-measured on resize; s itself derives
+       per frame — §9 R23/R24) ---- */
     let active = false;
     /** which construction the island drives (§9 R21) — the container
      * is the truth */
     let mode: "io" | "timer" | "swipe" = "io";
-    let t = 0;
-    let panelP = 0;
-    let travelP = 0; // four inter-engine travels — the section's budget
-    let d0 = 0; // scrollY at the engine-1 rest
+    let halfP = 0; // one stage stop — half an engine stride
+    let cssPin = 0; // the computed pin line (the flow-state fallback)
     let strideS = 0; // one swipe slide — the stack visual's width
 
     const measure = () => {
@@ -314,22 +269,23 @@ export function EnginesScroll() {
           : "swipe";
       if (mode !== prev) resetStack();
       if (active) {
-        t = section.clientWidth / 12;
-        panelP = PANEL_T * t;
-        travelP = (ENGINE_COUNT - 1) * panelP;
-        /* the pin line: prefer the stage's RENDERED position whenever
-           it is pinned — the browser's own resolved sticky pixel is
-           the truth the rests must align to (§9 R23 corrected:
-           Safari renders the pinned calc a pixel off its computed
-           value, landing every rest 1px low against the frame); the
-           computed value is the fallback while the stage is in flow */
-        const cssPin = parseFloat(getComputedStyle(stage).top) || 0;
-        const stageTop = stage.getBoundingClientRect().top;
-        const pinLine = Math.abs(stageTop - cssPin) <= 2 ? stageTop : cssPin;
-        d0 = body.getBoundingClientRect().top + window.scrollY - pinLine;
+        halfP = (PANEL_T * (section.clientWidth / 12)) / 2;
+        cssPin = parseFloat(getComputedStyle(stage).top) || 0;
       } else {
         strideS = svisuals[0]?.clientWidth || 0;
       }
+    };
+
+    /** the column's travel past the engine-1 rest, from RENDERED
+     * positions (§9 R23 carried into R24, per-frame): the pin line
+     * prefers the stage's rendered sticky pixel whenever it is
+     * pinned — Safari renders the pinned calc a pixel off its
+     * computed value; the computed top is the flow-state fallback.
+     * Per-frame reads make stale-geometry drift impossible. */
+    const readS = () => {
+      const stageTop = stage.getBoundingClientRect().top;
+      const pinLine = Math.abs(stageTop - cssPin) <= 2 ? stageTop : cssPin;
+      return pinLine - body.getBoundingClientRect().top;
     };
 
     /* ---- states and swaps ---- */
@@ -337,10 +293,7 @@ export function EnginesScroll() {
     if (state < 0) state = 0;
     /** the drawing currently holding data-active */
     let shown: number | null = state;
-    /** the active engine (nearest rest) and its a/b sub-state */
-    let engine = Math.floor(state / 2);
-    let sub = state % 2;
-    /** the timer — accumulated settled milliseconds toward the swap */
+    /** the idle-cycle timer — accumulated idle ms toward the flip */
     let elapsed = 0;
     const primed = new Set<number>([0]);
 
@@ -360,11 +313,14 @@ export function EnginesScroll() {
     };
     drawings.forEach((d) => d.addEventListener("transitionend", onLeaveEnd));
 
-    /* every swap — timer expiries and engine handoffs — is the one
+    /* every swap — mapping steps and timer flips — is the one
        blur + rise grammar (§9 R3) */
     const setState = (next: number) => {
+      if (shown === next) {
+        state = next;
+        return;
+      }
       state = next;
-      if (shown === next) return;
       const outgoing = shown !== null ? drawings[shown] : null;
       const incoming = drawings[next];
       shown = next;
@@ -384,7 +340,7 @@ export function EnginesScroll() {
     };
 
     /* ---- the lit dots (§9 R16): a panel's dot takes its engine hue
-       as it reaches the active slot; upcoming panels hold the drawn
+       as its engine becomes active; upcoming panels hold the drawn
        bg/400 gray; symmetric on reverse ---- */
     const lits = new Array<boolean | null>(ENGINE_COUNT).fill(null);
 
@@ -396,9 +352,10 @@ export function EnginesScroll() {
     };
 
     /* ---- the indicator (§6.2 as re-read — §9 R19): two tracks per
-       panel; the fills ride the timer. fa/fb ∈ [0,1] map to the drawn
-       6 → 24 growth; fbOn mounts the b fill (the drawn slide1-*
-       variants carry none). Resting panels hold slide1-start. ---- */
+       panel; the fills ride the idle clock. fa/fb ∈ [0,1] map to the
+       drawn 6 → 24 growth; fbOn mounts the b fill (the drawn
+       slide1-* variants carry none). Resting panels hold
+       slide1-start. ---- */
     const fas = new Array<number>(ENGINE_COUNT).fill(-1);
     const fbs = new Array<number>(ENGINE_COUNT).fill(-1);
     const fbOns = new Array<number>(ENGINE_COUNT).fill(-1);
@@ -418,129 +375,6 @@ export function EnginesScroll() {
         panel.style.setProperty("--e2-fill-b", String(fb));
       }
     };
-
-    /* ---- the snap glide (burst end — §9 R20) ---- */
-    let snapRaf = 0;
-
-    const cancelSnap = () => {
-      if (snapRaf) cancelAnimationFrame(snapRaf);
-      snapRaf = 0;
-    };
-
-    const glideTo = (targetY: number) => {
-      cancelSnap();
-      if (reduced()) {
-        window.scrollTo(0, targetY);
-        return;
-      }
-      const fromY = window.scrollY;
-      if (Math.abs(targetY - fromY) < 1) {
-        /* a sub-pixel correction — write the exact rest instead of
-           gliding (§9 R23 corrected: Safari momentum ends on
-           fractional scroll positions, and a rest even half a pixel
-           off the pin doubles the frame's hairlines — the flow column
-           against the pinned rules) */
-        window.scrollTo(0, targetY);
-        return;
-      }
-      const start = performance.now();
-      let lastWritten = fromY;
-      const step = (now: number) => {
-        /* an external actor moved the scroll (anchor jump, keyboard,
-           find-in-page) — cede immediately, never fight it */
-        if (Math.abs(window.scrollY - lastWritten) > 2) {
-          snapRaf = 0;
-          return;
-        }
-        const p = Math.min(1, (now - start) / snapDur);
-        lastWritten = fromY + (targetY - fromY) * snapEase(p);
-        window.scrollTo(0, lastWritten);
-        snapRaf = p < 1 ? requestAnimationFrame(step) : 0;
-      };
-      snapRaf = requestAnimationFrame(step);
-    };
-
-    /* ---- the paged gesture model (§9 R20): every burst of scroll
-       activity has an ORIGIN rest (−1 above the section · 0–4 ·
-       5 below); the clamp window is one engine each way, open-ended
-       past the section's two ends (free exits) ---- */
-    let origin = -1;
-    let burst = false;
-    let s0 = 0; // s at the burst's start
-    let lastS = 0; // previous frame's s (teleport detection, burst s0)
-
-    const originFor = (s: number) =>
-      s < -SETTLE_EPS_PX
-        ? -1
-        : s > travelP + SETTLE_EPS_PX
-          ? ENGINE_COUNT
-          : Math.max(0, Math.min(ENGINE_COUNT - 1, Math.round(s / panelP)));
-
-    /* a user input begins a burst and cancels any running glide */
-    const onGestureStart = () => {
-      cancelSnap();
-      if (!burst) {
-        burst = true;
-        s0 = window.scrollY - d0;
-      }
-    };
-
-    /* the burst's end: commit one engine in the gesture's direction
-       (past the threshold; no bounce — §9 R14/R20), settle back to
-       the origin under it, or exit free past the section's ends */
-    const onGestureEnd = () => {
-      if (!burst) return;
-      burst = false;
-      if (snapRaf) return;
-      /* re-measure at every gesture end: late layout settling above
-         the section (fonts, media) would leave d0 stale and park the
-         rests off the pin line by the shift (§9 R23 corrected) */
-      measure();
-      if (!active) return;
-      const s = window.scrollY - d0;
-      const capture = CAPTURE_T * t;
-      if (s < -capture || s > travelP + capture) {
-        origin = originFor(s);
-        return;
-      }
-      const net = s - s0;
-      const dir = Math.abs(net) < COMMIT_T * t ? 0 : Math.sign(net);
-      let target: number | null;
-      if (origin === -1) {
-        target = dir > 0 ? 0 : null; // pull in from above; free exit up
-      } else if (origin === ENGINE_COUNT) {
-        target = dir < 0 ? ENGINE_COUNT - 1 : null; // pull in from below
-      } else {
-        const next = origin + dir;
-        target = next >= 0 && next < ENGINE_COUNT ? next : null; // free exits
-      }
-      if (target === null) {
-        origin = originFor(s);
-        return;
-      }
-      origin = target;
-      const ty = target * panelP;
-      /* any measurable offset corrects — a rest must land on the
-         exact pixel or the frame's hairlines double (§9 R23) */
-      if (Math.abs(ty - s) > 0.05) glideTo(d0 + ty);
-    };
-
-    /* burst delimiting: native scrollend where present, idle-debounce
-     * fallback elsewhere (a debounce interval — not a sync wait); a
-     * scroll with no input event (scrollbar drag) opens a burst from
-     * the previous frame's position */
-    const hasScrollEnd = "onscrollend" in window;
-    let idleTimer = 0;
-    const onScroll = () => {
-      if (!burst && !snapRaf) {
-        burst = true;
-        s0 = lastS;
-      }
-      if (hasScrollEnd) return;
-      window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(onGestureEnd, SCROLL_IDLE_MS);
-    };
-    const onScrollEnd = () => onGestureEnd();
 
     /* ---- the rt stack timers (§9 R21): each visual's clock counts
        only while it is substantially in view; expiry swaps on the one
@@ -567,10 +401,10 @@ export function EnginesScroll() {
       }
     };
 
-    /* ---- the base/rs swipe (§9 R21): pointer drag with a horizontal
-       intent lock; the track and the b fill follow the finger 1:1;
-       the release commits past the threshold or on a flick, and the
-       CSS snap clock settles both ---- */
+    /* ---- the base/rs swipe (§9 R21/R22): pointer drag with a
+       horizontal intent lock; the track and the b fill follow the
+       finger 1:1; the release commits past the threshold or on a
+       flick, and the CSS stage clock settles both ---- */
     let sdrag: {
       k: number;
       x0: number;
@@ -676,10 +510,14 @@ export function EnginesScroll() {
       setSIndicator(d.k, 1, 1, target);
     };
 
-    /* ---- the rAF clock ---- */
+    /* ---- the rAF clock (§9 R24: distance mapping + idle cycle —
+       read-only on scroll, no writes ever) ---- */
     let raf = 0;
     let running = false;
     let lastTs = 0;
+    let lastS = 0;
+
+    const clampState = (v: number) => Math.max(0, Math.min(STATE_COUNT - 1, v));
 
     const update = (now: number) => {
       const dt = lastTs ? Math.min(DT_MAX_MS, now - lastTs) : 0;
@@ -689,52 +527,40 @@ export function EnginesScroll() {
         return;
       }
       if (!active) return;
-      let s = window.scrollY - d0;
-
-      /* a teleport (anchor jump, find-in-page, restored position) —
-         re-origin without clamping, never fight it (§9 R20) */
-      if (Math.abs(s - lastS) > panelP) {
-        burst = false;
-        origin = originFor(s);
-      } else if (burst && !snapRaf) {
-        /* the paged clamp (§9 R20): a burst holds inside its window —
-           one engine each way from the origin, open past the ends */
-        const lo = origin - 1 >= 0 ? (origin - 1) * panelP : -Infinity;
-        const hi = origin + 1 < ENGINE_COUNT ? (origin + 1) * panelP : Infinity;
-        if (s > hi) {
-          window.scrollTo(0, d0 + hi);
-          s = hi;
-        } else if (s < lo) {
-          window.scrollTo(0, d0 + lo);
-          s = lo;
-        }
-      }
+      const s = readS();
+      const moving = Math.abs(s - lastS) >= IDLE_EPS_PX;
       lastS = s;
 
-      /* the active engine is the nearest rest (midpoint crossing);
-         any engine change resets the cycle to `a` with a fresh timer
-         (§9 R19 — handoffs and revisits alike) */
-      const k = Math.max(0, Math.min(ENGINE_COUNT - 1, Math.round(s / panelP)));
-      if (k !== engine) {
-        engine = k;
-        sub = 0;
-        elapsed = 0;
-      }
-
-      /* the timer counts only while the engine is settled on its rest
-         (the pre-pin approach, mid-travel, and the released tail all
-         pause it); expiry swaps and loops (§9 R19) */
-      const settled = Math.abs(s - engine * panelP) <= SETTLE_EPS_PX;
-      if (settled) {
+      let next = state;
+      if (moving) {
+        /* the distance mapping (§9 R24): ten stops, one per drawing;
+           hysteresis holds the current state inside its 60% band; a
+           jump past 1.5 half-strides goes straight to the nearest
+           state */
+        const raw = s / halfP;
+        if (Math.abs(raw - state) > JUMP) {
+          next = clampState(Math.round(raw));
+        } else if (raw > state + HYST) {
+          next = clampState(state + 1);
+        } else if (raw < state - HYST) {
+          next = clampState(state - 1);
+        }
+        if (next !== state) elapsed = 0;
+      } else {
+        /* idle — the a↔b cycle continues from the mapped state
+           (§9 R19's clock riding R24's mapping) */
         elapsed += dt;
         if (elapsed >= CAROUSEL_MS) {
           elapsed -= CAROUSEL_MS;
-          sub = 1 - sub;
+          const engine = Math.floor(state / 2);
+          next = engine * 2 + (1 - (state % 2));
         }
       }
-      setState(engine * 2 + sub);
+      setState(next);
 
-      /* the dots and the indicator */
+      /* the dots and the indicator ride the state's engine/sub */
+      const engine = Math.floor(state / 2);
+      const sub = state % 2;
       let f = Math.max(0, Math.min(1, elapsed / CAROUSEL_MS));
       if (reduced()) f = 0; /* quantized — the fill jumps at the swap */
       for (let j = 0; j < ENGINE_COUNT; j++) {
@@ -779,16 +605,8 @@ export function EnginesScroll() {
     ro.observe(section);
 
     measure();
-    if (active) {
-      lastS = window.scrollY - d0;
-      origin = originFor(lastS);
-    }
+    if (active) lastS = readS();
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("scrollend", onScrollEnd);
-    window.addEventListener("wheel", onGestureStart, { passive: true });
-    window.addEventListener("touchstart", onGestureStart, { passive: true });
-    window.addEventListener("keydown", onGestureStart);
     sdrawings.forEach((pair) =>
       pair.forEach((el) => el.addEventListener("transitionend", onLeaveEnd)),
     );
@@ -801,15 +619,8 @@ export function EnginesScroll() {
 
     return () => {
       stop();
-      cancelSnap();
-      window.clearTimeout(idleTimer);
       observer.disconnect();
       ro.disconnect();
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("scrollend", onScrollEnd);
-      window.removeEventListener("wheel", onGestureStart);
-      window.removeEventListener("touchstart", onGestureStart);
-      window.removeEventListener("keydown", onGestureStart);
       drawings.forEach((d) => d.removeEventListener("transitionend", onLeaveEnd));
       sdrawings.forEach((pair) =>
         pair.forEach((el) => el.removeEventListener("transitionend", onLeaveEnd)),

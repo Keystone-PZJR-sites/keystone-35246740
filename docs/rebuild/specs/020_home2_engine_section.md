@@ -249,7 +249,12 @@ until the user scrolls. Scroll moves **between engines only** — free
 native travel with a **gentle gesture-end snap** to the nearest engine
 rest (big flicks sail through several engines; the ElevenLabs feel
 stands) *(the snap re-ruled the same day — §9 R20: **paged**, one
-gesture moves one engine; flicks no longer sail)*; when an engine
+gesture moves one engine; flicks no longer sail. Retired 2026-09-06 —
+§9 R24, the owner's free-scroll promotion: **no snap and no clamp**;
+the island never writes scroll. The ten states ride the scroll
+directly — a **distance mapping** of one stop per drawing at
+half-stride intervals with hysteresis, and the R19 timer runs as an
+**idle cycle** wherever the scroll parks)*; when an engine
 settles, the stage transitions from the previous engine and its timer
 starts fresh. An engine change always
 resets its cycle to `a` — revisits never resume a completed `b`. The
@@ -298,7 +303,9 @@ counter-transform. The mapping contract above is unchanged.)*
   moves at most one engine (the burst clamps at the adjacent rest and
   its end commits in the gesture's direction past a small threshold);
   entry catches decisively at the boundary rest; both ends exit
-  free.)*
+  free. Retired 2026-09-06 — §9 R24: **no snap of any kind**; scroll
+  is native and free through the whole section, and the stage follows
+  it on the ten-stop distance mapping.)*
 - **Engine handoff (free segments).** As the incoming panel's top
   crosses the stage's top line, the stage fires its swap to that
   engine's `a` drawing (b→a when reversing). Keyed to the column's
@@ -417,7 +424,11 @@ counter-transform. The mapping contract above is unchanged.)*
   the **carousel timer 5000ms** (island constant, the R7 QA-tunable
   class — added 2026-09-06, §9 R19);   the **paging capture margin 1.5t
   and commit threshold 0.25t** (island constants, the same class —
-  added 2026-09-06, §9 R20); the **stack-carousel constants** (island
+  added 2026-09-06, §9 R20; *deleted the same day — §9 R24, with the
+  whole paged apparatus*); the **distance-mapping constants** (island
+  constants, the R7 QA-tunable class — added 2026-09-06, §9 R24:
+  hysteresis 0.6 half-strides · jump threshold 1.5 half-strides ·
+  idle epsilon 0.5px/frame); the **stack-carousel constants** (island
   constants, the same class — added 2026-09-06, §9 R21: the swipe
   intent lock 8px · commit fraction 0.15 · flick velocity 0.3 px/ms;
   the stack indicator's material 24/6/8/6 and its drawn 29/32
@@ -450,13 +461,19 @@ counter-transform. The mapping contract above is unchanged.)*
   the column is plain flow with or without it — no spacers, no ready
   construction, the JS and no-JS documents identical.)*
 - Splices into `v2/home-next.tsx` after the system section; permanent
-  noindexed dev route **`/engines-next`**.
+  noindexed dev route **`/engines-next`**. *(Amended 2026-09-06 —
+  §9 R24: `/engines-next` is retired with the paged contract; the QA
+  route is **`/engines-free-2`** — born as the promotion experiment's
+  sandbox, kept as the section's permanent QA surface, mounting the
+  canonical section.)*
 - The expectations module gains the section's tick constants (52t at
   rd2 interactive *(amended 2026-09-06 — §9 R19: 32t)*; 96t/127t
   static stacks at rt/base per §1); the
   sweep leg lands with 023 — until then the section audits on
   `/engines-next` through the standing devtools at every rest state
-  (each of the ten states is a rest).
+  (each of the ten states is a rest). *(Route per the R24 amendment
+  above: `/engines-free-2`; under the distance mapping each of the
+  ten states is a scroll stop.)*
 
 ## 9 · Resolutions record
 
@@ -942,6 +959,55 @@ All flags resolved 2026-09-06, the same morning:
   Candidates for the next session: per-element sticky rounding
   divergence inside the frame, or Safari's flow-position rounding of
   the column against integer scroll.**
+- **R24 (owner re-ruling at the eleventh build review, 2026-09-06 —
+  the free-scroll promotion; supersedes R20's paged snap).** The
+  scroll contract is **free and distance-mapped**: the island never
+  writes scroll — the R20 paged clamp, the gesture-end snap glide,
+  the burst/origin model, the capture margin, the commit threshold,
+  and every input listener (wheel/touch/key/scroll/scrollend) are
+  deleted. The stage has **ten scroll stops, one per drawing**:
+  `state = round(s / halfStride)` over the ten states, halfStride =
+  half the 6t engine panel — each engine's `a` shows while its copy
+  is aligned with the stage and its `b` shows mid-travel toward the
+  next engine, so **one pass plays all ten drawings** as a stepped
+  sequence on the one R3 grammar. **Hysteresis 0.6** half-strides
+  from the current state's center (resting near a boundary never
+  flutters); a raw-index jump past **1.5** goes straight to the
+  nearest state (teleports, anchor jumps, fast flicks — the swaps
+  coalesce, CSS transitions retarget mid-fade). **The R19 timer
+  becomes the idle cycle**: distance mapping runs only on moving
+  frames (idle epsilon 0.5px/frame); on idle frames the a↔b flip
+  runs within the current engine's pair every 5000ms from whatever
+  state the mapping chose (the R19 reset-to-`a` rule is retired with
+  the rests it assumed). The R23 rendered-pin anchoring carries
+  forward **per-frame**: s derives from rendered positions every
+  frame (the pinned stage's rendered top preferred, computed top the
+  flow fallback), replacing R23's gesture-end re-measure — the free
+  contract has no gesture ends, and stale geometry can no longer
+  shift the mapping. R23's snap-specific hardenings (the sub-pixel
+  glide write, the ±1px dead-zone removal) die with the glide; the
+  **R23 OPEN FLAG (Safari 1px rest alignment) is mooted** — with no
+  rests and no scroll writes there is no rest-vs-frame contract to
+  misalign, only the sticky elements' own rendering. The paradigm
+  was proven on two sandbox routes first (the dwell-timer variant
+  showed the structural miss — free scroll removes the dwell, so a
+  pass-through never showed the `b` drawings; the distance-mapped
+  variant fixed it), promoted to the canonical island, and the
+  sandboxes deleted; `/engines-next` and `/engines-free` retired,
+  **`/engines-free-2`** kept as the QA route mounting the canonical
+  section (§8 amended). Stacks (R21/R22), the indicator grammar, the
+  lit dots, decode priming, reduced motion (quantized fill,
+  state-to-state swaps — nothing else remains to still), and the
+  no-JS document are unchanged. Verified against the owner's server
+  at 1344: the slow walk plays states 0→8 strictly in order across
+  the four travels (state 9 sits past the last rest, covered by the
+  idle cycle and reachable on the way out); a 3.4-panel jump holds
+  its exact landing for 80+ frames (no write-back) with the stage
+  following live; ±4px jiggle on a state boundary holds one state
+  for 60 frames; the idle flip fires at 5s on a parked rest;
+  tsc/lint zero. **Tuning pass pending (owner: "then we will tune a
+  little bit")** — the QA-tunable class: HYST, JUMP, IDLE_EPS_PX,
+  CAROUSEL_MS, and the last engine's `b` boundary bias.
 
 ## 10 · Acceptance criteria
 
@@ -962,7 +1028,10 @@ item's "-02 visuals / no indicator in the stacks" reads per §5 as
 re-ruled: the stacks rest on the `a` visuals with the drawn indicator
 (vertical at rt, horizontal at base/rs) and their carousels run on the
 same island. The R19–R21 entries carry the full re-verification
-records.)*
+records. Re-ruled again 2026-09-06 — §9 R24: the paged semantics are
+retired; the mapping and snap items read per R24 — ten distance stops
+riding free scroll, no snap points, no gesture clamp, the idle cycle
+replacing the settled-rest timer. R24 carries that re-verification.)*
 
 - [x] The stage and slug hold sticky top 44 through the section at
       every scroll position; the stage never drifts at short viewport

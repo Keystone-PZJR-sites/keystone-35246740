@@ -826,3 +826,30 @@ F5 mobile-LCP gate against the new hero.
   ruling designed; the G-class carousel-copy gate closes. Verified on
   the rendered page at 1344/768/384; tsc/lint zero. Working tree left
   uncommitted per the git rule.
+- **The engine section's scroll contract re-ruled: free +
+  distance-mapped** (owner, evening; 020 §9 R24, superseding R20's
+  paged snap; §6/§7/§8/§10 amended in place). Prompted by the owner's
+  ElevenLabs Studio audit (the free-scrolling left panel against the
+  sticky fading stage): two sandbox routes tested the contract in
+  isolation first — the dwell-timer variant exposed the structural
+  miss (free scroll removes the dwell the R19 carousel trades for; a
+  pass-through never showed the `b` drawings), the distance-mapped
+  variant fixed it (ten scroll stops, one per drawing — every `a`
+  and `b` on the scroll path; hysteresis 0.6 half-strides; the R19
+  timer re-cast as an idle cycle). The owner promoted the
+  distance-mapped contract to the canonical island
+  (`engines-scroll.tsx`): **no scroll writes** — the paged clamp,
+  snap glide, and all input listeners deleted; the R23 rendered-pin
+  anchoring carried forward per-frame (stale-geometry-proof with no
+  gesture ends); the R23 Safari 1px OPEN FLAG mooted (no rests, no
+  rest-vs-frame contract). The stacks, indicator, dots, reduced
+  motion, and the no-JS document are unchanged; `/home-next` carries
+  the new contract through the standing splice. Routes: `/engines-next`
+  and `/engines-free` retired (owner instruction), **`/engines-free-2`**
+  kept as the section's QA surface, mounting the canonical section.
+  Verified against the owner's server at 1344 (the ordered ten-state
+  walk, the no-write-back jump, boundary hysteresis, the idle flip);
+  tsc/lint zero. **The tuning pass is pending** (the R24 QA-tunable
+  constants). The two sandbox commits precede this change in the
+  branch history; the promotion itself left uncommitted per the git
+  rule.

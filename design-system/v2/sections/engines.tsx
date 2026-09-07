@@ -1,21 +1,23 @@
 /** v2 sections — the engine section (spec 020). Server component.
  *
  * Five marketing engines, two visualization states each — ten states,
- * 01a → 05b; scroll moves between engines, the carousel timer cycles
- * each engine's two illustrations (§6 as re-ruled 2026-09-06, §9 R19).
+ * 01a → 05b; the ten states ride the scroll directly (§6 as re-ruled
+ * 2026-09-06, §9 R24 — the distance-mapped free scroll) and the idle
+ * timer cycles a↔b wherever the scroll parks (§9 R19's clock).
  * Two constructions, both in this render, CSS-gated at the rd1
  * structural gate (860):
  *
- * - **Interactive (rd1/rd2)** — the auto-transitioning carousel (§6 as
- *   re-ruled 2026-09-06, §9 R19): a normal-flow left column of five 6t
+ * - **Interactive (rd1/rd2)** — the distance-mapped carousel (§6 as
+ *   re-ruled 2026-09-06, §9 R24): a normal-flow left column of five 6t
  *   panels rides past a pinned 6t stage; the sticky slug row pins
  *   above the line (§9 R14) and masks the passing panels. The pinned
  *   lattice (§2) rides a sticky assembly behind the flow content, so
  *   the drawn viewport's cells never move through the ten states. The
- *   one client island (EnginesScroll) owns the illustration timer
- *   (5000ms per state, a↔b looping at each settled rest), the
- *   gesture-end snap to the engine rests, the swaps, and the timer
- *   indicator on one rAF clock; the column is plain flow with or
+ *   one client island (EnginesScroll) owns the ten-stop distance
+ *   mapping (one stop per drawing, hysteresis at the boundaries), the
+ *   idle a↔b cycle (5000ms), the swaps, and the timer indicator on
+ *   one rAF clock — it never writes scroll (no clamp, no snap; the
+ *   R20 paged contract is retired); the column is plain flow with or
  *   without it, so no-JS renders the same document with the stage
  *   holding 01a (§9 R6).
  *
