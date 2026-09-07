@@ -1,0 +1,13 @@
+/* /engines-free-2 sandbox styles — route-local, never shipped in the
+   design-system layers. Distinct class names from engdev-* and
+   efdev-* so the QA stylesheets can never collide. */
+
+.efdev2-runway,
+.efdev2-tail {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-400);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+}
