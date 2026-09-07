@@ -59,6 +59,15 @@ The lattice reads through the inactive cards (the 012 translucent-ghost
 pattern); the full field behind the strip is the drawn intent at every
 anchor. 1px `border/000` throughout; no ornament cells.
 
+*Amended 2026-09-06 (owner report at the built review, §9 B13):* the
+**1344 section frame carries a visible 1px `border/000` top stroke** —
+the full-width rule on the section's top row line, over the entire
+section (not the header frame). The draft's exposure read checked the
+Grid cells and the child frames but not the section frame's own
+stroke. The 768/384 frames carry none, so the rule mounts from the
+rd1 gate (the 1344 derivation), line-inclusive — it shares its pixel
+with the east field's region edge.
+
 ## 3 · The header
 
 **Slug:** `Demand that turns into growth` — the standing marker
@@ -145,6 +154,14 @@ exists and lands as a content pass** before launch (tracked with the
 G-class content gates; the card-1 `Leads  tracked` double-space
 residual rides the same pass). The build renders the drawn copy from
 the data module so the pass is a data-only change.
+
+*Amended 2026-09-06 (the F2 pass landed — owner copy at the built
+review, §9 B13):* YHS — `keystone supported a newly opened MedSpa in
+Connecticut fill their calendar and hit $25k monthly revenue in 7
+months.`; Bare Lúx — `keystone enabled a MedSpa in New Jersey expand
+their reach and capture demand in two languages on a lean budget.`
+Zivel's drawn string was always its own copy and stands. The pass was
+data-only, as designed.
 
 **States:**
 
@@ -503,6 +520,23 @@ the fresh-read pass and the dated body amendments above):
   harness's lingering click-swallow eats the next scripted click —
   real input always leads with a pointerdown, which resets the
   flag.)
+- **B13 — two built-review items, late evening** (owner; the dated
+  §2/§4 amendments above). **(1) The section top rule**: the owner
+  reported it missing; the bridge located it as the 1344 section
+  frame's own visible 1px `border/000` top stroke (full section
+  width — the draft read the Grid cells and child frames, never the
+  section frame's stroke; the 768/384 frames carry none). Built as a
+  1px paint overlay on the section's top row line from the rd1 gate —
+  line-inclusive, no box-height change. The read also confirmed the
+  exposure encoding for later specs: the Grid layer draws the full
+  reference lattice everywhere and **exposure is the cells' stroke
+  VISIBILITY** — presence alone means nothing. **(2) The F2 content
+  pass landed**: the owner's YHS and Bare Lúx card copy replaced the
+  Zivel placeholder in the data module (data-only, as the F2 ruling
+  designed); the G-class carousel-copy gate closes. Verified on the
+  rendered page: the rule spans the full 1344 section width at rd2,
+  absent at 768/384; both new strings render with the wordmark
+  construction; tsc/lint zero.
 
 ## 10 · Acceptance criteria
 

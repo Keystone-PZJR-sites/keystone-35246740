@@ -810,3 +810,19 @@ F5 mobile-LCP gate against the new hero.
   1344 through a full cycle forward and backward past the start;
   tsc/lint zero. B10's other three rulings (shadow room, the
   line-inclusive border, the hover zoom) stand.
+- **Two late-evening 022 items** (owner, at the built review; 022 §9
+  B13). **(1) The section top rule**: reported missing; the bridge
+  located it as the 1344 case-study section FRAME's own visible 1px
+  `border/000` top stroke — full section width, absent at 768/384
+  (the draft read Grid cells and child frames, never the section
+  frame's stroke; the work section's twin stroke was already built by
+  the 020 R23 seam pass, 021 §9 B9 — no change there). Built as a
+  line-inclusive paint overlay from the rd1 gate. The diagnosis also
+  recorded the exposure encoding for later specs: the Figma Grid
+  layer draws the full reference lattice everywhere and **exposure is
+  the cells' stroke visibility**, not their presence. **(2) The F2
+  content pass landed** (owner copy): YHS and Bare Lúx carousel
+  descriptions replaced the Zivel placeholder — data-only, as the F2
+  ruling designed; the G-class carousel-copy gate closes. Verified on
+  the rendered page at 1344/768/384; tsc/lint zero. Working tree left
+  uncommitted per the git rule.
