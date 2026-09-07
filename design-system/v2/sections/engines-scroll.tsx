@@ -1,7 +1,8 @@
 "use client";
 
 /** v2 sections — the engine section's carousel island (spec 020 §6, as
- * re-ruled 2026-09-06 — §9 R24: the DISTANCE-MAPPED free scroll).
+ * re-ruled 2026-09-06 — §9 R24 distance-mapped free scroll, tuned the
+ * same evening — §9 R25: scroll-only at rd, the 25/75 lap).
  *
  * The section's one client island. The server render is the complete
  * structure — sticky slug, sticky stage holding 01a, the left column
@@ -18,19 +19,20 @@
  *   (s ≈ k·panel) and its `b` shows mid-travel to the next engine,
  *   so one pass plays all ten drawings as a stepped sequence on the
  *   standing blur + rise grammar (§9 R3 — one grammar, never
- *   special-cased). Hysteresis commits a neighbor only past 0.6 of a
- *   half-stride from the current state's center, so resting near a
- *   boundary never flutters; a jump past 1.5 half-strides (teleport,
- *   anchor jump, fast flick) goes straight to the nearest state.
+ *   special-cased). The boundaries sit at HYST from each state's
+ *   center (0.5 since §9 R25 — swaps fire at 25% and 75% of each
+ *   lap, symmetric both directions); a jump past 1.5 half-strides
+ *   (teleport, anchor jump, fast flick) goes straight to the
+ *   nearest state.
  *
- * - **The idle timer (§9 R24, carrying R19's clock).** While the
- *   scroll is idle the a↔b cycle continues from whatever state the
- *   mapping chose — flip within the current engine's pair every
- *   CAROUSEL_MS. The clock accumulates frame deltas, never
- *   wall-clock stamps (a backgrounded tab cannot jump a swap), and
- *   pauses off-screen (the rAF gate). Distance mapping runs only on
- *   moving frames, so a timer flip is not immediately reverted; the
- *   first moving frame hands control back to distance.
+ * - **No clock (§9 R25).** The rd construction has no auto
+ *   progression — R24's idle cycle is deleted and scroll is the
+ *   whole interaction. The 05a→05b boundary is biased early
+ *   (LAST_BOUNDARY) so the last b lands just past the Engagement
+ *   rest instead of deep in the release. The indicator reads the
+ *   drawn slide-start keyframes discretely — slide a is the minimum
+ *   dot on track one, slide b is track one full beside track two's
+ *   minimum dot; no fill ever animates a countdown.
  *
  * - **The geometry (§9 R23 carried forward, per-frame).** s derives
  *   from rendered positions every frame — the pin line prefers the
@@ -49,16 +51,18 @@
  *   also lights each panel's dot (data-lit) as its engine becomes
  *   active (§9 R16); the hue transition itself is CSS.
  *
- * - **The indicator (§6.2 as re-read — the redrawn keyframes).**
- *   Two tracks per panel, one per illustration; the active track's
- *   fill rides the idle clock continuously from the drawn 6px
- *   minimum to the full 24 (--e2-fill-a/-b; --e2-fb-on mounts the b
- *   fill). Resting panels hold the drawn slide1-start.
+ * - **The indicator (§6.2 as re-read — the redrawn keyframes, read
+ *   discretely since §9 R25).** Two tracks per panel, one per
+ *   illustration (--e2-fill-a/-b; --e2-fb-on mounts the b fill). At
+ *   slide a the active panel holds slide1-start (the minimum dot on
+ *   track one — the resting look; the lit dot carries the active
+ *   distinction); at slide b it holds slide2-start (track one full,
+ *   track two's minimum dot).
  *
  * - **Reduced motion (§9 R5/R19).** The structure stands — swaps and
- *   dot hues render instantly (CSS kills the transitions) and the
- *   fill quantizes state-to-state. With no snap there is nothing
- *   else to still.
+ *   dot hues render instantly (CSS kills the transitions). The
+ *   indicator is already discrete; with no snap and no clock there
+ *   is nothing else to still.
  *
  * Short viewports need nothing here (§9 R4): the stage top-anchors
  * and the fold crops passively.
@@ -86,16 +90,20 @@ import { useEffect, useRef } from "react";
 const PANEL_T = 6;
 const ENGINE_COUNT = 5;
 const STATE_COUNT = 10;
-/** the idle-cycle timer — while the scroll is idle the shown state
- * flips within its engine pair on this clock (§9 R19/R24) */
+/** the stack carousels' timer (rt — §9 R21). The rd construction has
+ * NO clock since §9 R25 — scroll is its whole interaction. */
 const CAROUSEL_MS = 5000;
-/** per-frame scroll delta under which the page counts as idle and the
- * timer runs (§9 R24) */
-const IDLE_EPS_PX = 0.5;
-/** hysteresis, in half-stride units — a neighbor state commits only
- * past this distance from the current state's center (§9 R24; the
- * 40/60 bands — QA-tunable) */
-const HYST = 0.6;
+/** hysteresis, in half-stride units — the boundary between neighbor
+ * states sits this far from the current state's center (§9 R24;
+ * tuned 0.6 → 0.5 by §9 R25 — the 25/75 lap: a→b fires a quarter of
+ * the way into the travel toward the next engine, the handoff at
+ * three quarters) */
+const HYST = 0.5;
+/** the 05a→05b boundary, in half-stride units past the Engagement
+ * rest (§9 R25) — biased early so the last b lands before the pin's
+ * release progresses (≈100px at 1344; the fraction rides the tick).
+ * One value both directions — the boundary moves, never inverts. */
+const LAST_BOUNDARY = 0.3;
 /** raw-index distance past which the mapping jumps straight to the
  * nearest state — teleports, anchor jumps, fast flicks (§9 R24) */
 const JUMP = 1.5;
@@ -293,8 +301,6 @@ export function EnginesScroll() {
     if (state < 0) state = 0;
     /** the drawing currently holding data-active */
     let shown: number | null = state;
-    /** the idle-cycle timer — accumulated idle ms toward the flip */
-    let elapsed = 0;
     const primed = new Set<number>([0]);
 
     const prime = (i: number) => {
@@ -351,11 +357,13 @@ export function EnginesScroll() {
       else panels[k].removeAttribute("data-lit");
     };
 
-    /* ---- the indicator (§6.2 as re-read — §9 R19): two tracks per
-       panel; the fills ride the idle clock. fa/fb ∈ [0,1] map to the
-       drawn 6 → 24 growth; fbOn mounts the b fill (the drawn
-       slide1-* variants carry none). Resting panels hold
-       slide1-start. ---- */
+    /* ---- the indicator (§6.2 as re-read — discrete since §9 R25):
+       two tracks per panel. fa/fb ∈ [0,1] map to the drawn 6 → 24
+       growth; fbOn mounts the b fill (the drawn slide1-* variants
+       carry none). At rd only the drawn slide-start keyframes render:
+       slide a = the minimum dot (the resting look), slide b = track
+       one full + track two's minimum dot. The rt stacks still ride
+       their timer through the same setter. ---- */
     const fas = new Array<number>(ENGINE_COUNT).fill(-1);
     const fbs = new Array<number>(ENGINE_COUNT).fill(-1);
     const fbOns = new Array<number>(ENGINE_COUNT).fill(-1);
@@ -510,14 +518,24 @@ export function EnginesScroll() {
       setSIndicator(d.k, 1, 1, target);
     };
 
-    /* ---- the rAF clock (§9 R24: distance mapping + idle cycle —
-       read-only on scroll, no writes ever) ---- */
+    /* ---- the rAF clock (§9 R24/R25: the distance mapping is the
+       whole rd interaction — read-only on scroll, no writes, no
+       auto progression) ---- */
     let raf = 0;
     let running = false;
     let lastTs = 0;
-    let lastS = 0;
 
     const clampState = (v: number) => Math.max(0, Math.min(STATE_COUNT - 1, v));
+
+    /* the boundary positions, in raw (half-stride) units: the
+       boundary between i and i+1 sits at i + HYST both directions
+       (the 25/75 lap, §9 R25); the last boundary (05a↔05b) is
+       biased early to LAST_BOUNDARY past the Engagement rest — the
+       boundary MOVES, it never inverts, so both directions agree */
+    const upAt = (i: number) =>
+      i === STATE_COUNT - 2 ? i + LAST_BOUNDARY : i + HYST;
+    const downAt = (i: number) =>
+      i === STATE_COUNT - 1 ? i - 1 + LAST_BOUNDARY : i - HYST;
 
     const update = (now: number) => {
       const dt = lastTs ? Math.min(DT_MAX_MS, now - lastTs) : 0;
@@ -528,46 +546,30 @@ export function EnginesScroll() {
       }
       if (!active) return;
       const s = readS();
-      const moving = Math.abs(s - lastS) >= IDLE_EPS_PX;
-      lastS = s;
 
+      /* the distance mapping (§9 R24, tuned §9 R25): ten stops, one
+         per drawing; a jump past 1.5 half-strides goes straight to
+         the nearest state */
+      const raw = s / halfP;
       let next = state;
-      if (moving) {
-        /* the distance mapping (§9 R24): ten stops, one per drawing;
-           hysteresis holds the current state inside its 60% band; a
-           jump past 1.5 half-strides goes straight to the nearest
-           state */
-        const raw = s / halfP;
-        if (Math.abs(raw - state) > JUMP) {
-          next = clampState(Math.round(raw));
-        } else if (raw > state + HYST) {
-          next = clampState(state + 1);
-        } else if (raw < state - HYST) {
-          next = clampState(state - 1);
-        }
-        if (next !== state) elapsed = 0;
-      } else {
-        /* idle — the a↔b cycle continues from the mapped state
-           (§9 R19's clock riding R24's mapping) */
-        elapsed += dt;
-        if (elapsed >= CAROUSEL_MS) {
-          elapsed -= CAROUSEL_MS;
-          const engine = Math.floor(state / 2);
-          next = engine * 2 + (1 - (state % 2));
-        }
+      if (Math.abs(raw - state) > JUMP) {
+        next = clampState(Math.round(raw));
+      } else if (raw > upAt(state)) {
+        next = clampState(state + 1);
+      } else if (raw < downAt(state)) {
+        next = clampState(state - 1);
       }
       setState(next);
 
-      /* the dots and the indicator ride the state's engine/sub */
+      /* the dots and the discrete indicator (§9 R25 — the drawn
+         slide-start keyframes; no fill ever animates a countdown) */
       const engine = Math.floor(state / 2);
       const sub = state % 2;
-      let f = Math.max(0, Math.min(1, elapsed / CAROUSEL_MS));
-      if (reduced()) f = 0; /* quantized — the fill jumps at the swap */
       for (let j = 0; j < ENGINE_COUNT; j++) {
         setLit(j, j <= engine);
         if (j !== engine) setIndicator(j, 0, 0, 0);
-        else if (sub === 0) setIndicator(j, f, 0, 0);
-        else setIndicator(j, 1, 1, f);
+        else if (sub === 0) setIndicator(j, 0, 0, 0);
+        else setIndicator(j, 1, 1, 0);
       }
     };
 
@@ -605,7 +607,6 @@ export function EnginesScroll() {
     ro.observe(section);
 
     measure();
-    if (active) lastS = readS();
 
     sdrawings.forEach((pair) =>
       pair.forEach((el) => el.addEventListener("transitionend", onLeaveEnd)),

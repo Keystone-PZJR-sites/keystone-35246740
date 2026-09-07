@@ -2,8 +2,8 @@
  *
  * Five marketing engines, two visualization states each — ten states,
  * 01a → 05b; the ten states ride the scroll directly (§6 as re-ruled
- * 2026-09-06, §9 R24 — the distance-mapped free scroll) and the idle
- * timer cycles a↔b wherever the scroll parks (§9 R19's clock).
+ * 2026-09-06, §9 R24 — the distance-mapped free scroll; tuned §9 R25 —
+ * scroll-only, no auto progression at rd).
  * Two constructions, both in this render, CSS-gated at the rd1
  * structural gate (860):
  *
@@ -14,12 +14,13 @@
  *   lattice (§2) rides a sticky assembly behind the flow content, so
  *   the drawn viewport's cells never move through the ten states. The
  *   one client island (EnginesScroll) owns the ten-stop distance
- *   mapping (one stop per drawing, hysteresis at the boundaries), the
- *   idle a↔b cycle (5000ms), the swaps, and the timer indicator on
- *   one rAF clock — it never writes scroll (no clamp, no snap; the
- *   R20 paged contract is retired); the column is plain flow with or
- *   without it, so no-JS renders the same document with the stage
- *   holding 01a (§9 R6).
+ *   mapping (one stop per drawing, the 25/75 lap boundaries — §9
+ *   R25), the swaps, and the discrete slide indicator on one rAF
+ *   clock — it never writes scroll and runs no auto progression (no
+ *   clamp, no snap, no clock; the R20 paged contract and R24's idle
+ *   cycle are retired); the column is plain flow with or without it,
+ *   so no-JS renders the same document with the stage holding 01a
+ *   (§9 R6).
  *
  * - **Stack (base/rs/rt)** — the drawn stack (§5 as re-ruled
  *   2026-09-06, §9 R21): slug row (rt only, §9 R8), five panels of

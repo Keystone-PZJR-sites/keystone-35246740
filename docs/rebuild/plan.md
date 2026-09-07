@@ -852,4 +852,19 @@ F5 mobile-LCP gate against the new hero.
   tsc/lint zero. **The tuning pass is pending** (the R24 QA-tunable
   constants). The two sandbox commits precede this change in the
   branch history; the promotion itself left uncommitted per the git
-  rule.
+  rule *(committed the same evening on the owner's instruction)*.
+- **The R24 contract dialed in, same evening** (owner tuning rulings
+  on the lap vocabulary; 020 §9 R25, §6/§7 amended in place).
+  Hysteresis 0.5 — the swaps fire at each lap's exact quarter points
+  (a→b at 25%, the handoff at 75%, symmetric); **the auto
+  progression removed at rd** — no clock, scroll is the whole
+  interaction, the indicator reads the drawn slide-start keyframes
+  discretely (the rt stack timer and base/rs swipe out of scope —
+  the 384/768 pass is deferred by owner instruction); the 05a→05b
+  boundary biased to 0.3 half-strides past the Engagement rest
+  (≈101px at 1344, riding the tick — the last `b` lands before the
+  release progresses; the boundary moves for both directions, never
+  inverts). Verified against the owner's server at 1344 (the
+  25/75 triggers by pixel, the parked no-flip, the 101px Engagement
+  trigger, the ordered walk); tsc/lint zero. Working tree left
+  uncommitted per the git rule.

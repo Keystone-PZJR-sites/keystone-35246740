@@ -18,12 +18,12 @@
    native flow (the R15 compositor window left with the runways — the
    scroll mapping is 1:1 everywhere, so there is nothing to
    counter-transform). The island (engines-scroll.tsx) only adds the
-   ten-stop distance mapping (§9 R24 — every a and b drawing on the
-   scroll path, no clamp, no snap), the idle a↔b cycle, the swaps,
-   and the indicator fills — no-JS renders the same document with the
-   stage holding 01a (§9 R6), and reduced motion keeps the structure
-   with state-to-state swaps (§9 R5; the media query below kills the
-   stage transitions).
+   ten-stop distance mapping (§9 R24/R25 — every a and b drawing on
+   the scroll path, no clamp, no snap, no auto progression), the
+   swaps, and the discrete slide indicator — no-JS renders the same
+   document with the stage holding 01a (§9 R6), and reduced motion
+   keeps the structure with state-to-state swaps (§9 R5; the media
+   query below kills the stage transitions).
 
    The §7 constants live in tokens/component.css (--e2-*); the swap
    grammar in tokens/motion.css (--motion-stage-*). */

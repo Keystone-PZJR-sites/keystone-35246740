@@ -254,7 +254,11 @@ gesture moves one engine; flicks no longer sail. Retired 2026-09-06 —
 the island never writes scroll. The ten states ride the scroll
 directly — a **distance mapping** of one stop per drawing at
 half-stride intervals with hysteresis, and the R19 timer runs as an
-**idle cycle** wherever the scroll parks)*; when an engine
+**idle cycle** wherever the scroll parks. Tuned the same evening —
+§9 R25: hysteresis 0.5 (the swaps fire at 25% and 75% of each lap),
+**the idle cycle deleted** — scroll is the rd construction's whole
+interaction — and the 05a→05b boundary biased early to 0.3
+half-strides past the Engagement rest)*; when an engine
 settles, the stage transitions from the previous engine and its timer
 starts fresh. An engine change always
 resets its cycle to `a` — revisits never resume a completed `b`. The
@@ -428,7 +432,10 @@ counter-transform. The mapping contract above is unchanged.)*
   whole paged apparatus*); the **distance-mapping constants** (island
   constants, the R7 QA-tunable class — added 2026-09-06, §9 R24:
   hysteresis 0.6 half-strides · jump threshold 1.5 half-strides ·
-  idle epsilon 0.5px/frame); the **stack-carousel constants** (island
+  idle epsilon 0.5px/frame; *tuned the same evening — §9 R25:
+  hysteresis **0.5**, the idle epsilon deleted with the idle cycle,
+  and the **last-boundary bias 0.3** half-strides past the Engagement
+  rest, riding the tick*); the **stack-carousel constants** (island
   constants, the same class — added 2026-09-06, §9 R21: the swipe
   intent lock 8px · commit fraction 0.15 · flick velocity 0.3 px/ms;
   the stack indicator's material 24/6/8/6 and its drawn 29/32
@@ -1007,7 +1014,39 @@ All flags resolved 2026-09-06, the same morning:
   for 60 frames; the idle flip fires at 5s on a parked rest;
   tsc/lint zero. **Tuning pass pending (owner: "then we will tune a
   little bit")** — the QA-tunable class: HYST, JUMP, IDLE_EPS_PX,
-  CAROUSEL_MS, and the last engine's `b` boundary bias.
+  CAROUSEL_MS, and the last engine's `b` boundary bias. *(The pass
+  landed the same evening — R25.)*
+- **R25 (owner tuning rulings, 2026-09-06 — the R24 dial-in, ruled
+  on the lap vocabulary).** Three rulings: **(1) hysteresis 0.6 →
+  0.5** — the boundaries sit at each lap's exact quarter points, so
+  a→b fires 25% into the travel toward the next engine and the
+  handoff at 75%, symmetric both directions (the 30/80–20/70 split's
+  dead band is gone; the strict-inequality boundary and the CSS
+  swaps' mid-fade retargeting absorb an exact-line crossing). **(2)
+  The auto progression is REMOVED at rd** — R24's idle cycle is
+  deleted (the idle epsilon with it); scroll is the rd
+  construction's whole interaction, no clock of any kind. The
+  indicator loses its countdown meaning and reads the drawn
+  slide-start keyframes **discretely**: slide a holds slide1-start
+  (the minimum dot on track one — the resting look; the lit dot
+  carries the active distinction), slide b holds slide2-start (track
+  one full beside track two's minimum dot). No fill animates. The
+  rt stack timer and the base/rs swipe are OUT OF SCOPE (owner:
+  "we'll deal with 384 and 768 later") — the stacks keep R21/R22
+  unchanged, CAROUSEL_MS now serves them alone. **(3) The 05a→05b
+  boundary biased 0.6 → 0.3 half-strides** past the Engagement rest
+  (≈202px → ≈101px at 1344; the fraction rides the tick) — the last
+  `b` lands just past the final rest instead of deep in the pin's
+  release. The boundary MOVES for both directions (up-commit and
+  down-commit agree at 0.3) — a one-sided bias would have inverted
+  the hysteresis into a per-frame flutter band. Verified against
+  the owner's server at 1344 on a 4px-step walk: the a→b swap
+  detected at s = 176 and the handoff at s = 512 — the 168/504
+  boundaries (25%/75% of the 672 lap) within step granularity
+  (previously ≈202/538); a 5.6s park on the Ads rest holds its
+  state (no flip — the clock is gone); the Engagement `b` detected
+  108px past the final rest against the 100.8 boundary;
+  tsc/lint zero.
 
 ## 10 · Acceptance criteria
 
