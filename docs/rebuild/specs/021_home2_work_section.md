@@ -42,6 +42,16 @@ click; nothing else moves.
 | rd1 960 (t=80, derived) | the 1344 design at t=80 | | |
 | rd2 1344 (t=112) | 27–33 (7t), py 1t | x 0–672 (px 112), v-centered; the CTA in the header | x 672–1344 (px 38 py 90, clip); stack 548 × 404; no band chrome |
 
+*(Amended 2026-09-06 — the `911:103458` scroll-state redraw, read at
+rendered bounds; 020 §9 R23 carries the cross-record: at rd1/rd2 the
+section carries a **1px `border/000` top rule across the frame** — the
+engines→work seam hairline, drawn as the section frame's INSIDE top
+stroke. Line-inclusive: the section holds its 7t flow height
+(border-box) and the content sits the drawn 1px lower (the redraw's
+header at y 113). The rule rides the flow and resolves flush under the
+engine section's sliver row at the carousel's apex. rt/base carry no
+drawn top rule — the engine stack's last visual draws that seam.)*
+
 The cascade bands' hairlines at rt/base sit against the lattice rails —
 line-inclusive edges at build (the standing law). The deck itself is
 **one proportional unit** *(amended 2026-09-06 — owner ruling at the
@@ -56,6 +66,8 @@ between cards stays congruent at every width.
 
 - **1344** (rows 27–33): **no painted cells** — the section sits on bare
   paper; the deck and header float with no lattice behind them.
+  *(Amended 2026-09-06 — 020 §9 R23: the frame-wide top rule per §1 as
+  amended; still no cells.)*
 - **768** (rows 122–137): the east rail cols 10–11, nothing else.
 - **384** (rows 169–188): the east rail col 11, nothing else.
 
@@ -396,6 +408,21 @@ the owner's dev server):
   1344), overflow hidden; the bar lines the §4 pairs; the two image
   borders computing to darkgray-600 / lightgray-600; the reorder
   unchanged; tsc/lint zero.
+- **B9 — the frame-wide top rule landed, same day** (the engines→work
+  seam pass; the ruling and the full record live in **020 §9 R23** —
+  the `911:103458` scroll-state redraw, read at rendered bounds). At
+  rd1/rd2 the section carries a 1px `border/000` top rule as its
+  drawn INSIDE stroke, line-inclusive via border-box: the 7t flow
+  height holds and the content sits the drawn 1px lower (the
+  redraw's header at 113). With it, the standing line-inclusive
+  collapse (`margin-top: −1px`, corrected at the owner's same-evening
+  hairline review): the rule shares the engine lattice's bottom-line
+  pixel instead of stacking under it (the doubled east-half hairline),
+  and the page returns to the tick. §1/§2 amended at their values.
+  Verified on the composition by document pixel: the rule spans the
+  frame at workTop = engBottom − 1 (the shared pixel) at rest and in
+  motion, resolving under the sliver row exactly at the engine
+  carousel's apex.
 
 ## 10 · Acceptance criteria
 

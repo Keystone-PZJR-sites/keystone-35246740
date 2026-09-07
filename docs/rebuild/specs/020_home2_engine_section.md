@@ -73,7 +73,11 @@ carried as the expectations module's tick constants (the 017
 `extraTicks` pattern; every term whole-tick). The stage viewport is
 672 × 672 at x 672, sticky on the pin line *(amended 2026-09-06 —
 §9 R14; was 44 + 1t)*; the slug row is sticky above it
-for the section's duration; the left column is the five 672-tall panels,
+for the section's duration *(amended 2026-09-06 — §9 R23: sticky
+until the carousel's **apex** — the slug rule releases at the
+Engagement rest together with the stage and the pinned lattice, the
+resolved frame departing whole; "the section's duration" held it 7t
+too long, the orphaned-rule defect)*; the left column is the five 672-tall panels,
 contiguous (the sliver line = active top + 6t, drawn identical in every
 state frame).
 
@@ -868,6 +872,76 @@ All flags resolved 2026-09-06, the same morning:
   24 · p; the release commits to b (fill 24/24) and the return
   swipe mirrors on the left axis, draining the fill to the empty
   rest; tsc clean; the standing sweep green.
+- **R23 (owner rulings at the tenth build review, 2026-09-06 — the
+  seam pass; the `911:103458` scroll-state redraw, read fresh at
+  rendered bounds through the bridge).** Two defects at the
+  engines→work seam: **(1) the seam hairline was missing** — the
+  redraw draws it as the **work section's frame-wide 1px `border/000`
+  top rule** (an INSIDE stroke; the work-header at the redraw's
+  y 113 = 1t + the line). It is a plain flow rule — never pinned —
+  riding up with the approaching work section and resolving flush
+  under the engine section's sliver row exactly at the carousel's
+  apex (the owner's articulation: hairline A is the active box's
+  bottom border riding the column; hairline B resolves at the seam
+  when the last box's bottom reaches A). Built work-side (021 §1/§2
+  amended, §9 B9): border-box + border-top at the rd gate, the 7t
+  flow height held, the content the drawn 1px lower. The engines'
+  sliver row stays strokeless (R14 holds); rt/base carry no drawn
+  top rule (the stack's last visual draws that seam). **(2) the slug
+  rule held 7t past the apex** — its sticky containment was the
+  whole section, so the frame's top rule stayed frozen at the pin
+  line while everything else departed (the orphaned rule over bare
+  paper). Re-scoped with the pinhost pattern: the slug row rides an
+  absolute host ending **exactly 7t** above the section's bottom,
+  with a 1t flow spacer keeping the document height. *(Corrected the
+  same evening at the owner's hairline review — the first cut's
+  7t + 1px "sync pixel" released the slug one scroll pixel EARLY,
+  stacking its border above the panel's for a doubled top rule from
+  the apex on; at 7t the release lands on the apex's pixel, where
+  the slug's bottom border and Engagement's top border share one
+  document pixel and depart merged.)* One release: at the apex the
+  resolved frame — the slug rule, Engagement's bottom on the sliver
+  line, the trailing cells, the seam rule — departs as one unit;
+  re-pinning on reverse is symmetric. A second doubling found at the
+  same review: the work top rule sat ADJACENT to the pinned
+  lattice's bottom line (its 1px directly below the cells' last
+  pixel — 2px on the east half); the standing line-inclusive
+  collapse (`margin-top: −1px` on the work section at the rd gate)
+  shares the pixel and returns the page to the tick. Verified on
+  the composition at the capped 1920, by document pixel: at the
+  apex slug border and panel-5 top border both read [89, 90] and
+  300px past both read [−211, −210] (merged through departure); the
+  work rule reads workTop = engBottom − 1 = the lattice line's
+  pixel at rest and in motion; the work top border 1px `#e9e7dd`
+  border-box, height exactly 7t; the reverse re-pin restores the
+  shared pixel; tsc clean; the standing sweep green against the
+  owner's server. A third correction the same evening (the owner's
+  Safari report — the Engagement rest resolving **1px too low**: the
+  doubled top rule and the stepped bottom-right seam): the island
+  derived the pin line from the computed `--e2-pin-line` calc, but
+  **Safari renders the pinned sticky a pixel off that computed
+  value**, so every rest target aligned the column to a line the
+  frame wasn't on. The rests now anchor to the stage's **rendered**
+  position whenever it is pinned (the browser's own resolved sticky
+  pixel is the truth; the computed value is the flow-state
+  fallback). Two hardenings landed with it: the snap's ±1px dead
+  zone is gone (a gesture end always corrects to the exact rest —
+  sub-pixel offsets write the target directly, covering Safari's
+  fractional momentum ends), and the island re-measures its
+  geometry at every gesture end so late layout settling above the
+  section cannot leave the rests on a stale origin. Verified in
+  Chromium (no regression: rendered pin = computed pin; the
+  fractional-end simulation corrects to the exact rest; the borders
+  read shared — 89/90 top, 762/762 bottom seam, 873/874 work rule).
+  **The owner's Safari re-check still read every left panel resting
+  1px low — the rendered-pin anchoring did not resolve it, and the
+  owner parked the chase (2026-09-06). OPEN FLAG, the build-QA
+  class: Safari resolves the rest-vs-frame alignment differently by
+  1px through a mechanism not yet isolated (the hardenings above
+  stand — they are correct in themselves and Chromium is exact).
+  Candidates for the next session: per-element sticky rounding
+  divergence inside the frame, or Safari's flow-position rounding of
+  the column against integer scroll.**
 
 ## 10 · Acceptance criteria
 

@@ -42,6 +42,22 @@
 @container (min-width: 860px) {
   .v2-work {
     height: calc(var(--t) * 7);
+    /* the section's drawn top rule (amended 2026-09-06 — the
+       911:103458 scroll-state redraw, read at rendered bounds; 020 §9
+       R23): a 1px border/000 INSIDE stroke across the frame — the
+       engines→work seam hairline. Line-inclusive via border-box: the
+       flow height holds 7t and the content sits the drawn 1px lower
+       (the redraw's header at y 113). It rides the flow, resolving
+       flush under the engine section's sliver row at the carousel's
+       apex. rt/base carry no drawn top rule (the stack's last visual
+       draws the seam). */
+    box-sizing: border-box;
+    border-top: 1px solid var(--line);
+    /* line-inclusive collapse (the standing law): the rule shares the
+       engine lattice's bottom-line pixel instead of stacking under it
+       — the section above is k·t + 1px tall, and the −1px returns the
+       page to the tick */
+    margin-top: -1px;
   }
 }
 

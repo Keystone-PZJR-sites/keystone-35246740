@@ -474,19 +474,41 @@
 
 @container (min-width: 860px) {
   .e2-io {
+    position: relative;
     display: block;
     width: 100%;
   }
 
-  /* the slug row — sticky for the section's duration, pinned so its
-     BOTTOM edge sits on the pin line (amended 2026-09-06, §9 R14 —
-     the 883:99636 redraw: the row rides up behind the nav, the label
-     hidden behind the opaque rail, only its bottom strip showing).
-     Its bottom border is the drawn active-engine top rule — always
-     present while the column scrolls; the bg/100 fill masks the
-     passing panels all the way to the viewport top. Line-inclusive
-     (t + 1px, −1px margin) so the rule shares the resting panel's
-     top-border pixel. */
+  /* the slug row's sticky host (amended 2026-09-06 — §9 R23): an
+     absolute rail over the section that stops 7t short of its bottom,
+     so the pinned slug rule releases exactly at the carousel's apex —
+     together with the stage and the pinned lattice — instead of
+     holding until the section's last pixel passes (the orphaned-rule
+     defect). The spacer below carries the row's 1t flow height. */
+  .e2-slughost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* exactly 7t: the slug releases on the apex's scroll pixel, where
+       its bottom border and the resting panel's top border share one
+       document pixel and depart merged (7t + 1px released it a pixel
+       early and doubled the line — §9 R23 as corrected) */
+    bottom: calc(var(--t) * 7);
+  }
+  .e2-slugspace {
+    height: var(--t);
+  }
+
+  /* the slug row — pinned so its BOTTOM edge sits on the pin line
+     (amended 2026-09-06, §9 R14 — the 883:99636 redraw: the row rides
+     up behind the nav, the label hidden behind the opaque rail, only
+     its bottom strip showing). Its bottom border is the drawn
+     active-engine top rule — present while the column scrolls; the
+     bg/100 fill masks the passing panels all the way to the viewport
+     top. Line-inclusive (t + 1px) so the rule shares the resting
+     panel's top-border pixel. Releases at the apex (§9 R23 — the
+     host's containment). */
   .e2-slugrow {
     position: sticky;
     top: calc(var(--e2-pin-line) - var(--t));
@@ -495,7 +517,6 @@
     display: flex;
     align-items: center;
     height: calc(var(--t) + 1px);
-    margin-bottom: -1px;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
     background: var(--color-bg-100);

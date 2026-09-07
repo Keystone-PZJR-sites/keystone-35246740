@@ -317,7 +317,15 @@ export function EnginesScroll() {
         t = section.clientWidth / 12;
         panelP = PANEL_T * t;
         travelP = (ENGINE_COUNT - 1) * panelP;
-        const pinLine = parseFloat(getComputedStyle(stage).top) || 0;
+        /* the pin line: prefer the stage's RENDERED position whenever
+           it is pinned — the browser's own resolved sticky pixel is
+           the truth the rests must align to (§9 R23 corrected:
+           Safari renders the pinned calc a pixel off its computed
+           value, landing every rest 1px low against the frame); the
+           computed value is the fallback while the stage is in flow */
+        const cssPin = parseFloat(getComputedStyle(stage).top) || 0;
+        const stageTop = stage.getBoundingClientRect().top;
+        const pinLine = Math.abs(stageTop - cssPin) <= 2 ? stageTop : cssPin;
         d0 = body.getBoundingClientRect().top + window.scrollY - pinLine;
       } else {
         strideS = svisuals[0]?.clientWidth || 0;
@@ -426,7 +434,15 @@ export function EnginesScroll() {
         return;
       }
       const fromY = window.scrollY;
-      if (Math.abs(targetY - fromY) < 1) return;
+      if (Math.abs(targetY - fromY) < 1) {
+        /* a sub-pixel correction — write the exact rest instead of
+           gliding (§9 R23 corrected: Safari momentum ends on
+           fractional scroll positions, and a rest even half a pixel
+           off the pin doubles the frame's hairlines — the flow column
+           against the pinned rules) */
+        window.scrollTo(0, targetY);
+        return;
+      }
       const start = performance.now();
       let lastWritten = fromY;
       const step = (now: number) => {
@@ -475,7 +491,12 @@ export function EnginesScroll() {
     const onGestureEnd = () => {
       if (!burst) return;
       burst = false;
-      if (!active || snapRaf) return;
+      if (snapRaf) return;
+      /* re-measure at every gesture end: late layout settling above
+         the section (fonts, media) would leave d0 stale and park the
+         rests off the pin line by the shift (§9 R23 corrected) */
+      measure();
+      if (!active) return;
       const s = window.scrollY - d0;
       const capture = CAPTURE_T * t;
       if (s < -capture || s > travelP + capture) {
@@ -499,7 +520,9 @@ export function EnginesScroll() {
       }
       origin = target;
       const ty = target * panelP;
-      if (Math.abs(ty - s) > 1) glideTo(d0 + ty);
+      /* any measurable offset corrects — a rest must land on the
+         exact pixel or the frame's hairlines double (§9 R23) */
+      if (Math.abs(ty - s) > 0.05) glideTo(d0 + ty);
     };
 
     /* burst delimiting: native scrollend where present, idle-debounce

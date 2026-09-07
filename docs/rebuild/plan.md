@@ -561,6 +561,39 @@ F5 mobile-LCP gate against the new hero.
   values exact mid-drag both directions; commit and drain exact);
   tsc/lint clean; the standing sweep green. Working tree left
   uncommitted per the git rule.
+- **Tenth build review, same evening — the engines→work seam pass**
+  (020 §9 R23 · 021 §9 B9; the `911:103458` scroll-state redraw read
+  fresh at rendered bounds). Two defects: the **seam hairline was
+  missing** — drawn as the work section's frame-wide 1px `border/000`
+  top rule (INSIDE stroke; line-inclusive border-box at the rd gate,
+  the 7t flow height held, content the drawn 1px lower), a plain flow
+  rule that resolves flush under the engines' sliver row at the
+  carousel's apex; and the **slug rule held 7t past the apex** (its
+  sticky containment was the whole section — the orphaned frozen rule)
+  — re-scoped via the pinhost pattern to an absolute host ending
+  exactly 7t above the section's bottom, so the resolved frame
+  releases as ONE unit at the Engagement rest and re-pins
+  symmetrically on reverse. Two hairline doublings caught at the
+  owner's follow-up review and corrected the same evening: the host's
+  first-cut 7t + 1px released the slug a pixel early (stacked borders
+  from the apex on — now the slug and Engagement borders share one
+  document pixel and depart merged), and the work rule stacked under
+  the engine lattice's bottom line (the −1px line-inclusive collapse
+  shares the pixel and returns the page to the tick).   A third, from
+  the owner's Safari report (the Engagement rest resolving 1px too
+  low): Safari renders the pinned sticky a pixel off the computed
+  pin-line calc the island derived its rests from — the rests now
+  anchor to the stage's RENDERED position while pinned (the
+  browser's resolved pixel is the truth), the snap's ±1px dead zone
+  is gone (gesture end always corrects to the exact rest, covering
+  Safari's fractional momentum ends), and the island re-measures at
+  every gesture end against stale layout.   Verified on the
+  composition at the capped 1920 by document pixel (no Chromium
+  regression) — but **the owner's Safari re-check still read the
+  panels 1px low and parked the chase: an OPEN FLAG** (020 §9 R23;
+  the hardenings stand, Chromium exact, the Safari mechanism not yet
+  isolated); tsc clean; the standing sweep green. Working tree left
+  uncommitted per the git rule.
 - **Spec 021 is drafted** (morning, from fresh reads of the work-section
   nodes at all three drawn anchors and the `website-stack` set — every
   geometry fact, binding, and per-cell exposure verified against

@@ -105,14 +105,23 @@ export function EnginesSection() {
 
       {/* ---- the interactive construction (rd1/rd2 — §1/§4/§6) ---- */}
       <div className="e2-io">
-        <div className="e2-slugrow">
-          <p className="e2-slug">
-            <span className="e2-marker" aria-hidden="true" />
-            <InterpText as="span" style="text-sm-medium" className="e2-sluglabel">
-              {ENGINES_V2_SLUG}
-            </InterpText>
-          </p>
+        {/* the slug row rides a shortened sticky host (amended
+            2026-09-06 — §9 R23): the host ends 7t above the section's
+            bottom, so the slug rule releases exactly at the carousel's
+            apex (the Engagement rest) with the stage and the lattice —
+            one release, the resolved frame departing whole. The spacer
+            keeps the row's 1t flow height. */}
+        <div className="e2-slughost">
+          <div className="e2-slugrow">
+            <p className="e2-slug">
+              <span className="e2-marker" aria-hidden="true" />
+              <InterpText as="span" style="text-sm-medium" className="e2-sluglabel">
+                {ENGINES_V2_SLUG}
+              </InterpText>
+            </p>
+          </div>
         </div>
+        <div className="e2-slugspace" aria-hidden="true" />
         <div className="e2-body">
           {/* the pinned viewport's lattice (§2) — sticky behind the
               flow content, static through all ten states. The sliver
