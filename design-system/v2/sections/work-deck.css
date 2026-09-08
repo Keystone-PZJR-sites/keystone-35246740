@@ -33,6 +33,16 @@
 .v2-work {
   width: 100%;
   height: calc(var(--t) * 20);
+  /* line-inclusive collapse at EVERY band (021 §2 as amended
+     2026-09-08, §9 B10 — found at the 022 built review as a doubled
+     rail hairline at the engines→work seam below the rd1 gate): the
+     engines section above ends k·t + 1px (its stack's line-inclusive
+     bottom border on the row line's pixel), so this section pulls up
+     1px to SHARE that pixel — its rail's top border and the engines'
+     bottom line paint the same ink on the same pixel, never stacking.
+     The rd1+ block below carried this since B9; base/rt were missing
+     it and every seam line under 860 read 2px. */
+  margin-top: -1px;
 }
 @container (min-width: 665px) {
   .v2-work {
@@ -53,11 +63,8 @@
        draws the seam). */
     box-sizing: border-box;
     border-top: 1px solid var(--line);
-    /* line-inclusive collapse (the standing law): the rule shares the
-       engine lattice's bottom-line pixel instead of stacking under it
-       — the section above is k·t + 1px tall, and the −1px returns the
-       page to the tick */
-    margin-top: -1px;
+    /* the line-inclusive collapse (margin-top −1px) rides the base
+       rule since 2026-09-08 — every band shares the seam pixel */
   }
 }
 
