@@ -111,6 +111,25 @@
   --motion-enter-frac-rm: 0.18;
   --motion-enter-stagger: 120ms;
 
+  /* The two-clock entrance (born as the 019 Bloom; promoted
+     2026-09-08 at its second consumer — the homepage load cascade,
+     spec 023 §9 F1, values unchanged): a fast fade inside a longer
+     travel, so the copy inks early and the settle is felt. Two
+     voices — the RING pair for the big statement (the diagram's
+     ring, the hero H1) and the ENGINE pair for every other beat —
+     at the shared stagger. The grammar's ceiling is 1.6s — past
+     that a section feels gated behind the animation (owner, 019);
+     the hero's ~1.77/1.97s last wipe stands as the owner's by-eye
+     acceptance over the ceiling (023 §9 F1 — the ceiling holds for
+     future consumers). */
+  --motion-entrance-ring-fade-dur: 700ms;
+  --motion-entrance-ring-move-dur: 900ms;
+  --motion-entrance-ring-ease: cubic-bezier(0.2, 0.72, 0.18, 1);
+  --motion-entrance-engine-fade-dur: 400ms;
+  --motion-entrance-engine-move-dur: 750ms;
+  --motion-entrance-engine-ease: cubic-bezier(0.16, 0.78, 0.24, 1);
+  --motion-entrance-stagger: 120ms;
+
   /* The Bloom grammar (spec 019 §6 as amended 2026-09-05 — the
      owner's revised timing table at build QA, 019 §9 B8): the ring
      fades in while easing up from scale .94; the five engines launch
@@ -118,19 +137,19 @@
      a longer travel+growth (offset centre→position, scale .12→1) —
      each label resolves behind its engine with a whisper of scale,
      and the intersect mark fades in last. One clock at every band,
-     total ≈1.38s; the grammar's ceiling is 1.6s — past that the
-     section feels gated behind the animation (owner). No rotation,
-     no overshoot (both curves settle under 1); plays once per page
-     load; the settled render is the server HTML. */
-  --motion-bloom-ring-fade-dur: 700ms;
-  --motion-bloom-ring-move-dur: 900ms;
-  --motion-bloom-ring-ease: cubic-bezier(0.2, 0.72, 0.18, 1);
+     total ≈1.38s; plays once per page load; the settled render is
+     the server HTML. The shared pairs alias the promoted entrance
+     names above (the second-consumer law — prior names become
+     aliases); the section-only tokens stay Bloom vocabulary. */
+  --motion-bloom-ring-fade-dur: var(--motion-entrance-ring-fade-dur);
+  --motion-bloom-ring-move-dur: var(--motion-entrance-ring-move-dur);
+  --motion-bloom-ring-ease: var(--motion-entrance-ring-ease);
   --motion-bloom-ring-scale: 0.94;
   --motion-bloom-engine-delay: 150ms;
-  --motion-bloom-stagger: 120ms;
-  --motion-bloom-engine-fade-dur: 400ms;
-  --motion-bloom-engine-move-dur: 750ms;
-  --motion-bloom-engine-ease: cubic-bezier(0.16, 0.78, 0.24, 1);
+  --motion-bloom-stagger: var(--motion-entrance-stagger);
+  --motion-bloom-engine-fade-dur: var(--motion-entrance-engine-fade-dur);
+  --motion-bloom-engine-move-dur: var(--motion-entrance-engine-move-dur);
+  --motion-bloom-engine-ease: var(--motion-entrance-engine-ease);
   --motion-bloom-engine-seed: 0.12;
   --motion-bloom-label-delay: 340ms;
   --motion-bloom-label-dur: 350ms;
