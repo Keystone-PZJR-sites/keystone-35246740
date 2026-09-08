@@ -1,4 +1,3 @@
-import "../hero/hero-page.css";
 import "./engines-free-2-page.css";
 import type { Metadata } from "next";
 

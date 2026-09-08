@@ -1,4 +1,3 @@
-import "../hero/hero-page.css";
 import "./work-page.css";
 import type { Metadata } from "next";
 

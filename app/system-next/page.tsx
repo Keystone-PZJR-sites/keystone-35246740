@@ -1,6 +1,6 @@
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { SystemSection } from "@/design-system/v2/sections/system";
-import { HeroDevControls } from "../hero/controls";
+import { HeroDevControls } from "../hero-next/controls";
 
 /** /system-next — the system section beneath the mounted nav, below a
  * viewport-tall runway so the Bloom entrance arms on load (spec 019

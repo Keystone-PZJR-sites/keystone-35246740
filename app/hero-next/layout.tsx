@@ -1,4 +1,3 @@
-import "../hero/hero-page.css";
 import type { Metadata } from "next";
 
 /** /hero-next — permanent, noindexed QA page for the v2 hero (spec

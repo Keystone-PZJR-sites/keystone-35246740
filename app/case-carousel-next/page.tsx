@@ -1,6 +1,6 @@
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { CaseCarouselSection } from "@/design-system/v2/sections/case-carousel";
-import { HeroDevControls } from "../hero/controls";
+import { HeroDevControls } from "../hero-next/controls";
 
 /** /case-carousel-next — the case-study carousel beneath the mounted
  * nav (spec 022 §8). No load orchestrator mounts here, so the page

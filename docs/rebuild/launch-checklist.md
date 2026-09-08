@@ -22,7 +22,7 @@ before the gates below can close.
 
 | page | spec(s) | status |
 |---|---|---|
-| Home | 006–009 (sections) · 010 (assembly) | **built + verified 2026-08-27** |
+| Home | v2: 018–022 (sections) · 023 (assembly + cutover) — v1 (006–010) retired at the 023 §4 cutover | **v2 built + cut over 2026-09-08** — `/` serves the v2 composition; the §5 retirement list executed (modules, routes, assets, the v1 expectations); the sweep green on `/home-fixture` with the 023 §2 drives; the budget record in 023 §9. **Open post-swap work: the checklist below** (owner ruling 2026-09-08 — swap now, finish after) |
 | Pricing | 011 (offer) · 012 (price scale + personas) · 013 (FAQ + assembly) | **built + verified 2026-08-28** — 011 built + audited 2026-08-27 (incl. the designed 576 frame, 011 §9 R15); 012 built + verified 2026-08-28; **013 approved + built 2026-08-28** (FAQ with content-derived drawer heights per §9 R7, page expectations, the exposed-cell clearance assertion, the `/pricing-fixture` sweep leg — three routes green in one run; five islands; `/pricing` 133 B route JS · 107 kB first load, static). **Pending gates:** G9 (the FAQ answer content pass) and G6 (owner sign-off on the assembled page) |
 | Our Work | 014 (header + case studies, **built 2026-08-28**) · 015 (gallery, **built 2026-08-28**) · 016 (overlay + assembly) | **in build** — **014 approved + built + verified 2026-08-28** (zero-drift re-extraction; every landmark rendered-bounds-re-verified at build; two §2 deviations + the label-wrap erratum amended in place — 014 §9 build record; verified at the five anchors + nine slice widths). Same-evening owner revisions (014 §4/§6.0): the site-image stroke and the **rises-only entrance** (no nav beat, no sweep, no highlights; the 006 orchestrator generalized at its second consumer; G8 audits this choreography with the rest). **2026-08-29 revision (014 §9): the whole-card interaction** — the card is the link, hover dresses it (block shadow on the borrowed card-shadow grammar, sooner-resolving hairline darken, the inline button's hover), the resting image shadow removed, the button states re-inked, and the choreography now settles on card 1's rise (**five beats** — G8 audits the reshaped run). **015 approved + built + verified 2026-08-28** (zero-drift re-extraction; every value rendered-bounds-re-verified pre-build, no build errata — 015 §9 build record; the gallery spliced into the composition, the strip machine the page's second island; the snap and ghost grammars promoted at their second consumers; the 012 persona-ghost erratum fixed in step; verified at the five anchors + nine slice widths, sweep green; `/our-work` 1.97 kB route JS · 107 kB first load, static). **016 approved + built 2026-08-29** (drafted, approved — §6 motion values covered — and built the same day; zero-drift re-extraction; every value rendered-bounds-re-verified pre-build): the fullscreen gallery viewer (live embeds under the `gallery-navRail`, site paging with the drawn disabled clamp, the view switcher, the §3 stage math, the rm/rs `data-k` handoff, the 015 thumbnails as triggers) + the page assembly (expectations module with the §9-amended `cta` clearance exception, the `/our-work-fixture` sweep leg with hermetic viewer drives — four routes green in one run, 445 checks). Budgets: static, six islands, `/our-work` 133 B route JS · 108 kB first load. Reduced-motion and no-JS verified 2026-08-29 (state-to-state open/close, inert triggers, no viewer chrome in the no-JS tree). **Open on the 016 acceptance:** the shared-icons-chunk ~1 kB first-load ripple on `/` and `/pricing` against the byte-unchanged line (owner ruling — 016 §9); one file flag with design (the desktop-view icon's `text/100` ink binding). **Pending gates:** G6 (owner sign-off on the assembled page); G8 audits the five-beat choreography with the rest |
 | Case Studies | 017 (template + Palm Coast Zivel + assembly; phased — A: template + Zivel, B: content passes) | **approved + built + verified 2026-08-31** (approved with the §6 motion values, built the same night — 017 §9 build record). One-drift re-extraction (the new `display-serif/2xs+/ExtraLight` quote step); every §1–§5 value re-verified from rendered bounds pre-build; the §2 exposure corrected at build (the "full-field" was the presence read — the painted map is the staircase + rail + widenings + the pre-footer full row; the hero §2 erratum class) and the rs run below The Business re-read +1t (the F5c knock-on) — both amended in place. Landed: the fifteen Zivel page tiers + the `caseStudyPageSrc` builder, eight verbatim icon exports (the double-checkmark, the six hue-toned stack glyphs, the 25×24 star cut), the `CaseStudyButton` primitive (+ `/primitives` rows), nine sections, the rd2 sticky-TOC island (scrollspy on the §4 one-third rule), the §6 four-beat entrance (the orchestrator's third consumer), `/case-studies/[slug]` (unpopulated slugs 404) + the noindexed `/case-study-fixture`, the expectations module and the sweep leg — **five routes green in one run, 499 checks**, incl. the TOC drives; renders compared against the file at rm/rd2 — identical. Two harness errata found by this page fixed in step (the probe-rounded assertion tick; the settle waits now prefix-match `v2-choreo*`). Reduced-motion/no-JS verified. **Pending:** the production-build budget pass (owner coordination — the .next hazard), G6 sign-off, the two byte-only export re-cuts (rt header 648 · rm result 672), and the file flags riding with design (017 §9: the rt stack-subhead ink, the rs funnel double space, the button set's dropped underline, the four invisible ○ cells). **Phase B landed 2026-09-04 as draft content passes** (YHS · Bare Lúx: records rewritten from the v1 case studies, per-band `extraTicks` growth under the clearance law, image tiers cut build-side from three single masters per study — 017 §5.1/§9 as amended). Pending on Phase B: owner copy approval, the owner-supplied $25k MRR figure verified against prod, and verbatim per-band exports if design wants them (the build-side tiers swap byte-only) |
@@ -48,6 +48,36 @@ dead-URL surface as they land; whatever never returns stays a 404
 | G8 | **Loading-animation audit** — timing, hydration, and settle of every page's load choreography (006 §6 · 002.r1 §5); the start clock follows the G5 decision; see the note below | **open** |
 | G9 | **FAQ answer content pass** (013 §9 F1, owner decision 2026-08-28): answer 1's copy ships as the designed placeholder under all six pricing-FAQ questions; the five real answers land as a copy-only change to the FAQ data module before cutover | **open — design** |
 | G10 | **Engine-section native visual pass** (020 §7, owner direction 2026-09-06): the thirty placeholder exports under `engines-v2/` are replaced by native/production visuals (the 019 grain primitive's second consumer arrives with this pass). The file's **engagement `engine-detail` variants are drawn as empty stubs** (020 §9 R13) — the drawings themselves are with design. *Priority raised 2026-09-06 (020 §9 R21): the stacks now rest on the `a` drawings, so the engagement stub is the resting visual below the rd gate — visible on every phone until the pass lands.* | **open — design** |
+
+## Homepage v2 — the post-swap checklist (023 §6, mirrored at the cutover commit)
+
+The owner's working list once `/` serves the v2 homepage (owner ruling
+2026-09-08 — swap now, finish after). None of these blocked the swap;
+items 1 and 4 carry owner decisions.
+
+1. **[owner review] The phone/tablet engine section.** It still runs
+   the earlier timer + swipe behavior while desktop carries the new
+   free-scroll contract (deferred 2026-09-06, 020 §9 R25). Review it
+   on `/` at phone width; decide whether aligning it jumps the queue.
+2. **[build, after item 1] The 384/768 engine pass** — whatever item 1
+   rules, executed.
+3. **[design → build] The engine native-visuals pass** (= G10). The
+   ten illustrations (+ thirty small-band cuts) are placeholder
+   exports; production art replaces them file-for-file through the
+   registry, and the grain primitive gains its engine consumer.
+4. **[owner ruling] Mobile headline speed (LCP)** (= G5, re-measured
+   on the v2 hero — the 023 §3/§9 budget record). Accept the number as
+   baseline, or rework the load entrance so the headline paints before
+   JavaScript (recommended before launch if the number stays ~5s;
+   never a swap blocker).
+5. **[owner ruling] The budget line.** Measured first (owner
+   2026-09-08); guide: within ~10–15% of the v1 112 kB first load
+   passes, above investigates. The measurement is in 023 §9.
+6. **[watch] The 022 stat-label wrap** (022 §9 B7) when the remaining
+   copy passes land.
+7. **[launch gate, unchanged] The pre-launch metadata wipe** (= G4),
+   plus the standing launch-checklist gates (sign-off, the big-bang
+   sequencing).
 
 ## Punch list — auxiliary to-dos
 

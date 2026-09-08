@@ -7,8 +7,8 @@
  * policy): the rs band derives from the 384 design and rd1 from the
  * 1344 design, so the rm/rs and rd1/rd2 band pairs share their maps.
  *
- * Homepage v1 is untouched: this section mounts only in the v2
- * composition (v2/home-next.tsx) and on /hero-next. The carousel
+ * The homepage hero since the spec 023 §4 cutover: mounts in the
+ * promoted composition (v2/home.tsx) and on /hero-next. The carousel
  * machine and the load orchestration are the built 006 islands reused
  * verbatim (HeroCarousel · HeroLoad — the 018 fork-vs-parameterize
  * call: fork the section, share the machine); the shared hx- grammar

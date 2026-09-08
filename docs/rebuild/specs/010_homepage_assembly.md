@@ -1,6 +1,9 @@
 # Spec 010 — Phase 6: homepage assembly, the page self-test, the performance pass, and the launch checklist
 
-**Status:** Approved 2026-08-27 · built and verified the same day —
+**Status:** Superseded by spec 023 (2026-09-08 — the homepage v2
+cutover: `/` serves the v2 composition, the v1 page and this spec's
+expectations retired; the §7 F5 mobile-LCP gate transferred to 023
+§3/§6). Approved 2026-08-27 · built and verified the same day —
 §8 evidence recorded; §3.1 carries a dated build amendment (the
 compressed-slice weights identity); §7 R5–R7 record the build
 findings, and F5 (the mobile-class LCP measurement vs the §4.2

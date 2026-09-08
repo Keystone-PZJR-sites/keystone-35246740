@@ -1,6 +1,6 @@
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { EnginesSection } from "@/design-system/v2/sections/engines";
-import { HeroDevControls } from "../hero/controls";
+import { HeroDevControls } from "../hero-next/controls";
 
 /** /engines-free-2 — the engine section's QA page (spec 020 §8 as
  * re-ruled §9 R24, tuned §9 R25; the successor to the retired

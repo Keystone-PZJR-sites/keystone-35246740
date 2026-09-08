@@ -1,15 +1,17 @@
 "use client";
 
-/** /portfolio QA controls (spec 007 §8.8): replay the curtain-reveal
- * entrance and simulate reduced motion. Replay dispatches v2:replay —
- * the gallery island resets to the at-rest state and re-runs the
- * entrance from the observer. The toggle mirrors the media query
- * through the page root's data-motion attribute, which both the CSS
- * and the islands honor. */
+/** Shared QA controls for the section dev routes (born on /hero, spec
+ * 006 §8; rehomed here when the v1 routes retired — spec 023 §4):
+ * replay the load choreography and simulate reduced motion. Replay
+ * dispatches v2:replay — the orchestrator re-flips the page class and
+ * the islands reset. The toggle mirrors the media query through the
+ * page root's data-motion attribute, which both the CSS and the
+ * islands honor. */
 
+import "./controls.css";
 import { useState } from "react";
 
-export function PortfolioDevControls() {
+export function HeroDevControls() {
   const [reduced, setReduced] = useState(false);
 
   const replay = () => {
@@ -22,13 +24,13 @@ export function PortfolioDevControls() {
     if (!page) return;
     if (next) page.dataset.motion = "reduce";
     else delete page.dataset.motion;
-    /* re-render the resulting state: settled when reduced, the full
-       entrance when restored */
+    /* re-render the resulting state: branded/settled when reduced,
+       full choreography when restored */
     window.dispatchEvent(new Event("v2:replay"));
   };
 
   return (
-    <div className="pf-devbar">
+    <div className="hx-devbar">
       <button type="button" onClick={replay}>
         Replay
       </button>

@@ -1,6 +1,6 @@
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { HeroV2Section } from "@/design-system/v2/sections/hero-v2";
-import { HeroDevControls } from "../hero/controls";
+import { HeroDevControls } from "./controls";
 
 /** /hero-next — the v2 hero beneath the mounted nav, so the load
  * choreography is complete (including the nav's t=0 entry). The

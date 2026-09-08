@@ -1,14 +1,7 @@
-/* /testimonials — page-local styles. The site base (v2/base.css)
-   carries the root styles. */
-
-/* the section starts beneath the nav bar on this page — on the fixture
-   the hero owns that offset */
-.v2-tst {
-  margin-top: var(--knav-bar-h);
-}
-
-/* the QA controls float above the section, outside the grid system */
-.tst-devbar {
+/* The shared QA dev-controls bar (controls.tsx — born on /hero, spec
+   006 §8; rehomed at the spec 023 cutover). The controls float above
+   the section, outside the grid system. */
+.hx-devbar {
   position: fixed;
   right: 16px;
   bottom: 16px;
@@ -22,7 +15,7 @@
   background: var(--color-bg-100);
   font: var(--ts-text-sm-regular-font);
 }
-.tst-devbar button {
+.hx-devbar button {
   appearance: none;
   border: 1px solid var(--color-border-100);
   border-radius: var(--radius-xs);
@@ -31,13 +24,9 @@
   font: inherit;
   cursor: pointer;
 }
-.tst-devbar label {
+.hx-devbar label {
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-}
-.tst-devtimer {
-  min-width: 96px;
-  font-variant-numeric: tabular-nums;
 }

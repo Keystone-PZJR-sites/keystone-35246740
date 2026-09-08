@@ -1,6 +1,6 @@
 import { NavChrome } from "@/design-system/v2/sections/nav";
 import { WorkDeckSection } from "@/design-system/v2/sections/work-deck";
-import { HeroDevControls } from "../hero/controls";
+import { HeroDevControls } from "../hero-next/controls";
 
 /** /work-next — the work section beneath the mounted nav (spec 021
  * §8). No load orchestrator mounts here, so the page renders

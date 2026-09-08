@@ -1,10 +1,12 @@
 // Grid self-test sweep (spec 002 §3.3, extended by specs 010 §3,
-// 013 §7.4, 016 §7.2, and 017 §7.2) — runs the in-page checks
+// 013 §7.4, 016 §7.2, 017 §7.2, and 023 §2) — runs the in-page checks
 // (window.__GRID_SELFTEST__, see app/grid/grid-devtools.tsx) on the
-// five audited routes:
+// audited routes:
 //
 //   /grid                — the fixture harness (spec 002)
-//   /home-fixture        — the real assembled homepage (spec 010 §3.2)
+//   /home-fixture        — the real assembled homepage (spec 023 §2 —
+//                          the v2 composition and drives since the §4
+//                          cutover; the 010 leg retired with its page)
 //   /pricing-fixture     — the real assembled pricing page (spec 013 §7)
 //   /our-work-fixture    — the real assembled Our Work page (spec 016 §7)
 //   /case-study-fixture  — the assembled case-study page (spec 017 §7)
@@ -16,11 +18,12 @@
 // downward step, not a continuity point). On the fixture routes the
 // sweep waits for any load choreography to settle (002.r1 §5), then
 // drives the page through its rest states and re-asserts at each.
-// Homepage (spec 010 §3.2): every engine row active, the portfolio
-// strip scrolled, the testimonial strip on each offset, a footer
-// drawer open and closed at the accordion bands, and the mobile nav
-// open and closed (an overlay — the assertion is that the stack is
-// unchanged). Case study (spec 017 §7.2): the sticky TOC at the rd2
+// Homepage (spec 023 §2): Bloom pre-fire and settled, the engine
+// section's ten distance-mapped stops and both parked ends, the deck
+// through a full six-click cycle, the circular carousel through a
+// full revolution both ways, a footer drawer open and closed at the
+// accordion bands, and the mobile nav open and closed (an overlay —
+// the assertion is that the stack is unchanged). Case study (spec 017 §7.2): the sticky TOC at the rd2
 // widths — resting above the sticky line, fixed at 1t mid-page with
 // the active item tracking the §4 rule (The Shift's range), an
 // anchor click landing its target with the hash updated — and absent
@@ -162,14 +165,6 @@ async function main() {
         return true;
       }, selector);
 
-    const clickEngineHit = (i) =>
-      page.evaluate((idx) => {
-        const hits = [...document.querySelectorAll(".eng-hit")];
-        if (!hits[idx]) return false;
-        hits[idx].click();
-        return true;
-      }, i);
-
     // Run the in-page checks after a paint and report compactly.
     const runChecks = () =>
       page.evaluate(
@@ -241,35 +236,6 @@ async function main() {
       await clickVisible(".knav-mtoggle");
       await sleep(SETTLE_MS);
       await assertState("mobile nav closed");
-    }
-
-    // Homepage rest-state drives (spec 010 §3.2), asserted per state.
-    async function driveHomeStates(route, width, band) {
-      const assertState = makeAssert(route, width);
-
-      // each engine row active, ending back on the first (008)
-      for (const i of [1, 2, 3, 4, 0]) {
-        if (!(await clickEngineHit(i))) continue;
-        await sleep(SETTLE_MS);
-        await assertState(`engine row ${i} active`);
-      }
-
-      // the portfolio strip scrolled (007)
-      for (let k = 1; k <= 2; k++) {
-        if (!(await clickVisible('.pf-ctrl .gbtn[data-direction="forward"]'))) break;
-        await sleep(SETTLE_MS);
-        await assertState(`portfolio strip +${k}`);
-      }
-
-      // the testimonial strip on each offset (009; rd2 is the static grid)
-      for (let k = 1; k <= 2; k++) {
-        if (!(await clickVisible('.tst-ctrl .gbtn[data-direction="forward"]'))) break;
-        await sleep(SETTLE_MS);
-        await assertState(`testimonials offset ${k}`);
-      }
-
-      await driveFooterDrawer(assertState, band);
-      await driveMobileNav(assertState);
     }
 
     // Pricing rest-state drives (spec 013 §7.4), asserted per state.
@@ -479,9 +445,162 @@ async function main() {
       await driveMobileNav(assertState);
     }
 
+    // Homepage v2 rest-state drives (spec 023 §2), asserted per state:
+    // Bloom pre-fire and settled; the engine section's ten
+    // distance-mapped stops and both parked ends (020 §9 R24/R25 — the
+    // mapping is read-only on scroll, so the drives position the real
+    // scroll: half-stride steps fire the hysteretic boundaries in
+    // order, larger jumps are the designed teleport class); the deck
+    // through one full six-click cycle; the circular carousel through
+    // a full revolution both ways (022 §9 B12); the standing footer
+    // drawer and mobile nav.
+    async function driveHomeV2States(route, width, band) {
+      const assertState = makeAssert(route, width);
+
+      // Bloom (019 §6): the island arms once per page load, only when
+      // the diagram loaded below the fold; the run is driven at the
+      // first audited width and the settled attribute then stands.
+      const bloom = await page.evaluate(
+        () => document.querySelector(".v2-system")?.dataset.bloom ?? "none",
+      );
+      if (bloom === "armed") {
+        await assertState("bloom pre-fire");
+        await page.evaluate(() => {
+          document
+            .querySelector(".sys-diagram")
+            ?.scrollIntoView({ block: "center", behavior: "instant" });
+        });
+        try {
+          await page.waitForFunction(
+            () => document.querySelector(".v2-system")?.dataset.bloom === "settled",
+            { timeout: 10000 },
+          );
+        } catch {
+          fail(`${route} ${width} · bloom did not settle`);
+        }
+        await sleep(SETTLE_MS);
+        await assertState("bloom settled");
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+        await sleep(SETTLE_MS);
+      }
+
+      // the engine stops — the interactive construction (rd1/rd2 only)
+      const io = await page.evaluate(() => {
+        const el = document.querySelector(".e2-io");
+        return !!el && el.offsetParent !== null;
+      });
+      if (io) {
+        // scroll so the column's travel past the engine-1 rest reads
+        // k half-strides (s = pinLine − body.top — the island's own
+        // mapping, 020 §6)
+        const scrollToStop = (k) =>
+          page.evaluate((kk) => {
+            const body = document.querySelector(".e2-body");
+            const stage = document.querySelector(".e2-stage");
+            const cssPin = parseFloat(getComputedStyle(stage).top) || 0;
+            const t = document.querySelector(".page").getBoundingClientRect().width / 12;
+            const halfP = (6 * t) / 2; // half an engine's 6t panel
+            const bodyTop = body.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+              top: Math.round(bodyTop - cssPin + kk * halfP),
+              behavior: "instant",
+            });
+          }, k);
+        const activeStage = () =>
+          page.evaluate(() =>
+            Number(
+              document.querySelector(".e2-drawing[data-active]")?.dataset.stageIndex ?? -1,
+            ),
+          );
+
+        // the parked top end: approached, the pin not yet engaged
+        await scrollToStop(-2);
+        await sleep(SETTLE_MS);
+        let active = await activeStage();
+        if (active !== 0) fail(`${route} ${width} · engine parked top shows ${active} ≠ 0`);
+        await assertState("engine parked top");
+
+        for (let k = 0; k < 10; k++) {
+          await scrollToStop(k);
+          await sleep(SETTLE_MS);
+          active = await activeStage();
+          if (active !== k) fail(`${route} ${width} · engine stop ${k} shows ${active}`);
+          await assertState(`engine stop ${k}`);
+        }
+
+        // the parked bottom end: past the release the last b stands
+        await scrollToStop(12);
+        await sleep(SETTLE_MS);
+        active = await activeStage();
+        if (active !== 9) fail(`${route} ${width} · engine parked bottom shows ${active} ≠ 9`);
+        await assertState("engine parked bottom");
+
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+        await sleep(SETTLE_MS);
+      }
+
+      // the deck: one full six-click cycle (021 §6 — the 300ms clock)
+      const deckSites = await page.evaluate(() =>
+        [...document.querySelectorAll(".wd-card")].map((c) => c.dataset.site),
+      );
+      if (deckSites.length > 0) {
+        for (let k = 1; k <= deckSites.length; k++) {
+          await clickVisible(".wd-deck");
+          await sleep(SETTLE_MS);
+          const front = await page.evaluate(
+            () => document.querySelector('.wd-card[data-slot="0"]')?.dataset.site,
+          );
+          const expected = deckSites[k % deckSites.length];
+          if (front !== expected)
+            fail(`${route} ${width} · deck front ${front} ≠ ${expected}`);
+          await assertState(`deck position ${k % deckSites.length}`);
+        }
+      }
+
+      // the circular carousel: a full revolution forward, then a full
+      // revolution backward through the start (022 §9 B12 — K is
+      // virtual, so the assertions are relative to the entry K)
+      const ccCount = await page.evaluate(
+        () => document.querySelectorAll(".cc-card").length,
+      );
+      if (ccCount > 1) {
+        const ccMod = (n) => ((n % ccCount) + ccCount) % ccCount;
+        const k0 = await page.evaluate(() => {
+          document
+            .querySelector('.cc-card[data-state="active"] .cc-link')
+            ?.focus({ preventScroll: true });
+          const v = parseInt(
+            document.querySelector(".cc-strip")?.style.getPropertyValue("--cc-k") ?? "",
+            10,
+          );
+          return Number.isInteger(v) ? v : 0;
+        });
+        const ccState = () =>
+          page.evaluate(() => ({
+            k: document.querySelector(".cc-strip")?.style.getPropertyValue("--cc-k"),
+            active: document.querySelector('.cc-card[data-state="active"]')?.dataset.index,
+          }));
+        const steps = [];
+        for (let s = 1; s <= ccCount; s++) steps.push(["ArrowRight", k0 + s]);
+        for (let s = 1; s <= 2 * ccCount; s++) steps.push(["ArrowLeft", k0 + ccCount - s]);
+        for (const [key, K] of steps) {
+          await page.keyboard.press(key);
+          await sleep(SETTLE_MS);
+          const st = await ccState();
+          if (st.k !== String(K)) fail(`${route} ${width} · carousel K ${st.k} ≠ ${K}`);
+          if (st.active !== String(ccMod(K)))
+            fail(`${route} ${width} · carousel active ${st.active} ≠ ${ccMod(K)}`);
+          await assertState(`carousel K=${K - k0 >= 0 ? "+" : ""}${K - k0}`);
+        }
+      }
+
+      await driveFooterDrawer(assertState, band);
+      await driveMobileNav(assertState);
+    }
+
     const ROUTES = [
       { path: "/grid", drives: null },
-      { path: "/home-fixture", drives: driveHomeStates },
+      { path: "/home-fixture", drives: driveHomeV2States },
       { path: "/pricing-fixture", drives: drivePricingStates },
       // hermetic: the 016 viewer's live embeds never load in CI
       { path: "/our-work-fixture", drives: driveWorkStates, blockRemote: true },

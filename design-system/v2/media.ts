@@ -12,43 +12,6 @@ export interface MediaAsset {
   alt: string;
 }
 
-/* ---- hero carousel (spec 006 §5) ----
- * 84 verbatim WebP exports (re-supplied 2026-08-25, post flag review):
- * fourteen frames — odd rectangle, even circle — in six width tiers,
- * each exactly 2× its cut width's rendered frame size. The tiers are
- * art direction (crops differ per band), so frames render as <picture>
- * with one media-gated <source> per tier and the 384 file as the <img>
- * fallback. Sources list largest-first (first match wins). */
-
-export const HERO_CAROUSEL_FRAMES = 14;
-
-export interface HeroCarouselTier {
-  cut: 384 | 576 | 768 | 960 | 1152 | 1344;
-  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
-  media: string | null;
-  rect: { width: number; height: number };
-  circle: { width: number; height: number };
-}
-
-/** Largest-first, ready for <source> order; the last entry is the
- * 384 fallback. The media cuts follow the nearest-anchor structural
- * gates (spec 002.r1 — amended 2026-08-26) so each band's crop shows
- * wherever its design renders; the 1152 mid-cut serves the compressed
- * rd2 slice. */
-export const HERO_CAROUSEL_TIERS: HeroCarouselTier[] = [
-  { cut: 1344, media: "(min-width: 1344px)", rect: { width: 1792, height: 1120 }, circle: { width: 1120, height: 1120 } },
-  { cut: 1152, media: "(min-width: 1130px)", rect: { width: 1536, height: 960 }, circle: { width: 960, height: 960 } },
-  { cut: 960, media: "(min-width: 860px)", rect: { width: 1280, height: 800 }, circle: { width: 800, height: 800 } },
-  { cut: 768, media: "(min-width: 665px)", rect: { width: 1024, height: 640 }, circle: { width: 640, height: 640 } },
-  { cut: 576, media: "(min-width: 470px)", rect: { width: 768, height: 576 }, circle: { width: 576, height: 576 } },
-  { cut: 384, media: null, rect: { width: 512, height: 512 }, circle: { width: 512, height: 512 } },
-];
-
-/** hero-{01–14}-{tier}.webp under public/media/hero-carousel. */
-export function heroCarouselSrc(frame: number, cut: HeroCarouselTier["cut"]): string {
-  return `/media/hero-carousel/hero-${String(frame).padStart(2, "0")}-${cut}.webp`;
-}
-
 /* ---- hero carousel v2 (spec 018 §6/§7) ----
  * 12 verbatim WebP exports (supplied 2026-09-05): eight slides — odd
  * rectangle, even circle (radius-full clip) — in the two-cut tier set
@@ -83,145 +46,6 @@ export function heroV2CarouselSrc(frame: number, cut: "wide" | "square"): string
   }
   return `/media/hero-carousel-v2/hero-carousel-384-${n}.webp`;
 }
-
-/* ---- portfolio gallery (spec 007 §5) ----
- * 40 verbatim WebP exports (supplied 2026-08-26): eight sites in five
- * width tiers, each exactly 2× its anchor's thumbnail interior. Art
- * direction, not resolution steps (crops differ per band): cards render
- * as <picture> with one media-gated <source> per tier, largest-first,
- * the 384 file as the <img> fallback. The 1344 tier serves down to 1152
- * (decision 2026-08-26 — no mid-rd1 cut). */
-
-/** Export order 01–08; index + 1 is the file number. The names ship as
- * the images' alt text (spec 007 §9 R12). */
-export const PORTFOLIO_SITES = [
-  "Palm Coast Zivel",
-  "Lune Bodywork",
-  "x2o Studio",
-  "DreFadez",
-  "Your Health Solutions",
-  "Miriam Merin, LCSW",
-  "House of Aesthetics",
-  "X2Talent",
-] as const;
-
-export interface PortfolioTier {
-  cut: 384 | 576 | 768 | 960 | 1344;
-  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
-  media: string | null;
-  width: number;
-  height: number;
-}
-
-/** Largest-first, ready for <source> order; the last entry is the
- * 384 fallback. The media cuts follow the nearest-anchor structural
- * gates (spec 002.r1 — amended 2026-08-26): the 1344 tier now serves
- * from the 1130 gate, superseding the 1152 line (spec 007 §5 as
- * amended). */
-export const PORTFOLIO_TIERS: PortfolioTier[] = [
-  { cut: 1344, media: "(min-width: 1130px)", width: 640, height: 1088 },
-  { cut: 960, media: "(min-width: 860px)", width: 448, height: 768 },
-  { cut: 768, media: "(min-width: 665px)", width: 352, height: 608 },
-  { cut: 576, media: "(min-width: 470px)", width: 352, height: 544 },
-  { cut: 384, media: null, width: 576, height: 736 },
-];
-
-/** portfolio-{01–08}-{tier}.webp under public/media/portfolio. */
-export function portfolioSrc(site: number, cut: PortfolioTier["cut"]): string {
-  return `/media/portfolio/portfolio-${String(site).padStart(2, "0")}-${cut}.webp`;
-}
-
-/* ---- engine accordion (spec 008 §5) ----
- * 25 verbatim WebP exports (supplied 2026-08-26): five engines in five
- * width tiers, each exactly 2× its band's visible image slot; the
- * engine wash is baked into the exports (008 §9 F3 — the build adds no
- * wash layer). Art direction, not resolution steps (crops differ per
- * band): the card image renders as <picture> with one media-gated
- * <source> per tier, largest-first, the 384 file as the <img>
- * fallback. Empty alt — ambient photography; the engine name is the
- * card's own text. */
-
-/** Canonical engine order (spec 005 §5 / 008 §4); index + 1 is the
- * file number. */
-export const ENGINE_IDS = [
-  "visibility",
-  "ads",
-  "brand",
-  "reception",
-  "engagement",
-] as const;
-
-export type EngineId = (typeof ENGINE_IDS)[number];
-
-export interface EngineTier {
-  cut: 384 | 576 | 768 | 960 | 1344;
-  /** null on the 384 tier — it is the <img> fallback, not a <source>. */
-  media: string | null;
-  width: number;
-  height: number;
-}
-
-/** Largest-first, ready for <source> order; the last entry is the
- * 384 fallback. The media cuts follow the nearest-anchor structural
- * gates (spec 002.r1; 008 §5 as amended 2026-08-26): the 1344 tier
- * serves from the 1130 gate. */
-export const ENGINE_TIERS: EngineTier[] = [
-  { cut: 1344, media: "(min-width: 1130px)", width: 672, height: 896 },
-  { cut: 960, media: "(min-width: 860px)", width: 480, height: 800 },
-  { cut: 768, media: "(min-width: 665px)", width: 384, height: 640 },
-  { cut: 576, media: "(min-width: 470px)", width: 432, height: 672 },
-  { cut: 384, media: null, width: 608, height: 512 },
-];
-
-/** {01–05}-{engine}-{tier}.webp under public/media/engines. */
-export function engineSrc(engine: EngineId, cut: EngineTier["cut"]): string {
-  const n = ENGINE_IDS.indexOf(engine) + 1;
-  return `/media/engines/${String(n).padStart(2, "0")}-${engine}-${cut}.webp`;
-}
-
-/* ---- testimonials (spec 009 §5) ----
- * Three 672×672 WebP placeholder exports, cut by the build from the
- * file 2026-08-26 (the fill hashes and crops are identical at every
- * band — hash-verified through the console bridge; crops baked at
- * export; the circle is a CSS radius-full mask, per the CSS-dot
- * doctrine). Placeholders by design decision: one export serves every
- * band through the tier-set markup (one <picture>, no <source>), so
- * the real art-directed tier set drops in additively. Empty alts —
- * ambient photography; the subjects here are descriptors, not alt
- * text. */
-
-export interface TestimonialImage {
-  src: string;
-  width: number;
-  height: number;
-  /** Subject descriptor — documentation only; the photos render with
-   * empty alts (ambient). */
-  subject: string;
-}
-
-/** Export order 01–03 = the strip's slide order (§4: green · brown ·
- * yellow). Cut at 672×672 — exactly 2× the largest slot (the rd2 336
- * circle). */
-export const TESTIMONIAL_IMAGES: TestimonialImage[] = [
-  {
-    src: "/media/testimonials/testimonial-01-672.webp",
-    width: 672,
-    height: 672,
-    subject: "pizzaiolo at a wood-fired oven",
-  },
-  {
-    src: "/media/testimonials/testimonial-02-672.webp",
-    width: 672,
-    height: 672,
-    subject: "owner taking a call at her laptop",
-  },
-  {
-    src: "/media/testimonials/testimonial-03-672.webp",
-    width: 672,
-    height: 672,
-    subject: "counter worker writing an order",
-  },
-];
 
 /* ---- persona carousel (spec 012 §5.2) ----
  * 15 verbatim WebP exports (supplied 2026-08-27, renamed from the
@@ -517,15 +341,6 @@ export const MEDIA_V2 = {
       src: "/media/brand/ks-wordmark-inline.svg",
       width: 79.1255,
       height: 16.0625,
-      alt: "Keystone",
-    },
-    /** The small header wordmark cut (hero rm/rs, spec 006 §1) —
-     * exported verbatim from node 230:13315, 2026-08-25. Its own cut;
-     * ink fills the 72×15 frame. */
-    wordmarkSm: {
-      src: "/media/brand/ks-wordmark-sm.svg",
-      width: 72,
-      height: 15,
       alt: "Keystone",
     },
   },

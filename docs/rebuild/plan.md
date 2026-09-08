@@ -945,3 +945,71 @@ F5 mobile-LCP gate against the new hero.
   rows 189–190 — one continuous 8-row run; only the flowed content
   and the full field clear the lead band). Verified at the 384
   anchor and at 768/1344 (unchanged); tsc/lint zero.
+- **Spec 023 is drafted** (afternoon — the Phase 10 closer: page
+  assembly and the cutover; no new design surface, every value defers
+  to the built sections). It carries: the homepage v2 expectations
+  module assembled from the built constants (§1) with the full
+  rest-state audit inventory (§2 — Bloom, the ten engine stops, the
+  deck cycle, the circular carousel); the **production budget pass**
+  where the 018–022 deferred route-JS measurements land, including
+  the **010 F5 mobile-LCP re-measurement** on the v2 hero (§3); the
+  **cutover commit** (§4) — `home-next.tsx` promotes to `home.tsx`
+  on `/` + `/home-fixture`, the section QA routes keep their names,
+  and **the v1 homepage retires on the §5 enumerated deletion list**
+  (modules, routes, assets, expectations — spec approval is the
+  explicit deletion instruction; shared survivors verified); and the
+  **open-gates ledger** (§6) riding post-cutover: the load-preview
+  keep/revert, the deferred 384/768 engine pass, the native-visuals
+  pass, F5, the metadata wipe. Cutover ≠ launch (§9 R3). The 019
+  Reception/Engagement re-label verified landed in the built section
+  (§9 R1 — the pending fix closes). **All six §9 owner asks resolved
+  the same afternoon** (023 §9): the **Bloom-character entrance is
+  kept and the bloom tokens promote to shared entrance names** (the
+  hero is the grammar's second consumer); **swap now** — the open
+  work rides the new **§6 post-swap checklist** (owner request; the
+  small-band engine review is its first item; mirrored onto the
+  launch checklist at the cutover commit); **measure-first** on both
+  the mobile-LCP ruling and the budget line (rulings land at the §3
+  budget record; ~10–15% over the v1 112 kB is the guide); the §5
+  deletion list approved; the build window granted (the owner
+  stopped the dev server at the ruling). **The spec awaits
+  approval.**
+- **023 approved, built, and the homepage cut over the same
+  afternoon** (owner approval in-chat with five sanctioned
+  preparation flags; 023 §9 B1–B4 the build record). **Phase 10 is
+  complete — `/` serves the homepage v2.** The v2 expectations
+  module landed per the per-fixture convention (totals 237 · 234 ·
+  165 · 79 · 78, the engine constants imported from
+  `engines-data.ts`) with one devtools extension: the v2 sections'
+  `.sec`-root landmarks are section identity under an opt-in
+  expectations flag — their exposure stays live for the clearance
+  assertion and the roots skip the content-box audit; the standing
+  legs are unchanged. The §2 drives landed in the sweep (Bloom
+  pre-fire/settled · the ten engine stops + both parked ends by real
+  scroll position · the six-click deck cycle · the circular carousel
+  through a full revolution both ways, all state-asserted per step).
+  **Pre-cutover sweep 896 checks green across six legs** (both
+  homepage legs side by side), then the cutover: `home-next.tsx`
+  promoted to `home.tsx` on `/` + `/home-fixture`; the §5 retirement
+  executed with tsc proving no surviving importer (plus two
+  same-basis additions recorded in §9 B3 — `v2/home.css` and the
+  `wordmarkSm` cut — and one rehoming: the QA routes' shared dev
+  controls moved from the retiring `/hero` to `/hero-next`); the
+  sanctioned hero.css split folded the shared hx- machinery into
+  hero-v2.css; **the Bloom pairs promoted to the shared
+  `--motion-entrance-*` names** (the bloom tokens now alias them —
+  023 §9 F1, the second-consumer law; the 1.6s ceiling note stays).
+  **Post-swap sweep 714 checks green across five legs.** The §3
+  production pass (the F6 window; Lighthouse local, the 010
+  method): **`/` 138 B route JS · 112 kB first load, static — the
+  F5 budget line met at Δ ≈ 0%**; nine islands (the §3 census
+  exactly); CLS 0.000 / TBT 0 ms everywhere; LCP 1.1 s at the
+  1344-class, **5.6 / 5.9 s at 384/768** — the v1 class, same
+  cold-load-guard mechanism, but the LCP element is now the
+  carousel's first frame (the 384 restructure) — the owner's F3
+  ruling rides §6 item 4. The retired routes 404, the QA routes
+  respond; the launch checklist carries the v2 Home row and the
+  mirrored §6 post-swap list; rules.md's route enumerations synced;
+  010's Status line carries the supersession note; tsc/lint zero.
+  Working tree left uncommitted per the git rule — the cutover
+  commit awaits the owner's instruction.

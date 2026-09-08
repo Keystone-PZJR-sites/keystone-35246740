@@ -37,23 +37,8 @@
 /* Sections (spec 005) */
 @import "./sections/nav.css";
 
-/* Sections (spec 006) */
-@import "./sections/hero.css";
-
 /* Primitives (spec 007) */
 @import "./primitives/grid-button.css";
-
-/* Sections (spec 007) */
-@import "./sections/portfolio.css";
-
-/* Sections (spec 008) */
-@import "./sections/engine.css";
-
-/* Sections (spec 009) */
-@import "./sections/testimonials.css";
-
-/* The assembled homepage (spec 010) */
-@import "./home.css";
 
 /* Primitives (spec 011) */
 @import "./primitives/pricing-button.css";
@@ -110,8 +95,8 @@
 @import "./sections/case-study-cta.css";
 @import "./sections/case-study-toc.css";
 
-/* Sections (spec 018) — after hero.css: hero-v2 shares the hx- machine
-   grammar and its restatements win the cascade */
+/* Sections (spec 018; the homepage hero since the 023 cutover — the
+   shared hx- machine folded in here when the v1 hero retired) */
 @import "./sections/hero-v2.css";
 
 /* Sections (spec 019) — the shared grain primitive (lib/noise.tsx) has
