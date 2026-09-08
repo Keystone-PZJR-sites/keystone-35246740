@@ -52,9 +52,14 @@ DOM. Content floats on the lattice (the 006 pattern) — the carousel rows
 are tick-true; the header/subhead/CTA y values are drawn px riding the
 weights.
 
+*Amended 2026-09-08 (§9 R16 — the 384 restructure; every value read
+fresh and verified at rendered bounds through the bridge the same
+afternoon). The base row was: hero rows 0–23 (24t) · carousel rows
+7–12 top 224 · system top 768 = 24t.*
+
 | band | hero rows | carousel rows | system top |
 |---|---|---|---|
-| base 384 (t=32) | 0–23 (24t) | 7–12 top 224, 192 tall (6t) | 768 = 24t |
+| base 384 (t=32) | 0–20 (21t) | 14–19 top 448, 192 tall (6t) | 672 = 21t |
 | rs 576 | derived from 384 | derived | derived |
 | rt 768 (t=64) | 0–12 (13t) | 8–11 top 512, 256 tall (4t) | 832 = 13t |
 | rd1 960 | derived from 1344 | derived | derived |
@@ -75,18 +80,25 @@ subhead 242, 520w · CTA 348; 1344 header 1120w · subhead 712w ·
 CTA 534. The 768 gaps are now drawn tokens (h1→subhead `spacing-4xl`
 32 · header→CTA `spacing-6xl` 48); the 1344 gaps read 48/64.*
 
+*Amended again 2026-09-08 (§9 R16 — the 384 restructure). The 384
+column re-carries the re-read values; superseded: header 16, 65 ·
+336w (with the wordmark above the H1) · subhead 16, 480 · 336w · CTA
+16, 640 · carousel 0, 224. The eyebrow wordmark is gone (§3), the
+head box is inset 1t/1t (x 32, w 320), and the H1 top holds 96 = 3t.*
+
 | block | 384 | 768 | 1344 |
 |---|---|---|---|
-| header (wordmark + H1) | 16, 65 · 336w | 64, 98 · 640w | 112, 192 · 1008w |
+| header (H1) *(384 wordmark removed 2026-09-08, §9 R16)* | 32, 96 · 320w | 64, 98 · 640w | 112, 192 · 1008w |
 | H1 top | 96 (3t) | 98 | 192 |
-| subhead | 16, 480 · 336w | 64, 250 · 640w | 112, 396 · 708w |
-| CTA row | 16, 640 · h 40 *(amended 2026-09-05, §9 R8; drawn h 48)* | 64, 355 · h 40 | 112, 529 · h 48 |
-| carousel strip | 0, 224 · full-bleed | 0, 512 · full-bleed | 0, 784 · full-bleed |
+| subhead | 32, 204 · 310w | 64, 250 · 640w | 112, 396 · 708w |
+| CTA row | 32, 357 · h 40 *(amended 2026-09-05, §9 R8; drawn h 48)* | 64, 355 · h 40 | 112, 529 · h 48 |
+| carousel strip | 0, 448 · full-bleed | 0, 512 · full-bleed | 0, 784 · full-bleed |
 
-At 384 the subhead and CTA sit **below** the carousel (the v1 rm
-arrangement); at 768/1344 the whole header block sits above it. The 1344
-nav x read 112.12 — the standing stroke-artifact class, transcribed 112
-(1t).
+At 384 the subhead and CTA now sit **above** the carousel like the
+larger anchors — the whole header block reads first at every band
+*(amended 2026-09-08, §9 R16; superseded: "below the carousel, the
+v1 rm arrangement")*. The 1344 nav x read 112.12 — the standing
+stroke-artifact class, transcribed 112 (1t).
 
 ## 2 · Exposure map
 
@@ -96,9 +108,16 @@ bound. Zero-based `col,row` from the page origin. The construction is a
 descending east staircase into a full-lattice field that opens one row
 above the carousel and runs through it:
 
-**384** — rows 0–4 bare · [11,5] · [10–11,6] with ○[11,6] · rows 7–13
-full field (12 cols) · rows 14–23 east rail col 11 only, down to the
-system section.
+*Amended 2026-09-08 (§9 R16 — the 384 restructure; per-cell stroke
+visibility re-read through the bridge). Superseded 384 map: rows 0–4
+bare · [11,5] · [10–11,6] with ○[11,6] · rows 7–13 full field ·
+rows 14–23 east rail col 11. The staircase now descends beside the
+lowered header block, the field opens ON the carousel's first row
+and runs one row past it, and the hero carries no east rail — the
+system section's rail (019 §2) takes over at row 21.*
+
+**384** — rows 0–11 bare · [11,12] · [10–11,13] with ○[11,13] ·
+rows 14–20 full field (12 cols) to the section bottom.
 
 **768** — rows 0–3 bare · [11,4] · [10–11,5] with ○[11,5] · [9–11,6] ·
 rows 7–12 full field, with ○[9,7] inside the field.
@@ -141,8 +160,10 @@ each band's constant and switches at the gates, per the law — with the
 base through rt and only the rd gate switches to the 3xl −3%.*
 
 PP Kyoto, `ital` 100, ink `text/100` — the built 006 H1 mount carries.
-At 384 only, the `ksWordmark` (72×15) sits above the H1 on a 16px gap
-(the 001 asset).
+~~At 384 only, the `ksWordmark` (72×15) sits above the H1 on a 16px gap
+(the 001 asset).~~ *(Amended 2026-09-08, §9 R16 — the eyebrow wordmark
+is removed at 384; no anchor carries a wordmark above the H1. The
+subhead's knockout wordmark (§4) is untouched.)*
 
 ## 4 · The subhead + chips
 
@@ -203,7 +224,9 @@ equivalent)*:
 §9 R14): with the 768 anchor re-drawn at the 384 type, the subhead
 type is **constant 20/26 from the base through the rt band** — no
 walk remains below the rd gate. The wrap box stays the R9 grammar
-with the new 768 endpoint: 336 → 640 through the 576 midpoint 488 —
+with the new 768 endpoint: 336 → 640 through the 576 midpoint 488
+*(re-anchored 2026-09-08, §9 R16 — the 384 restructure narrowed the
+drawn box to **310**: 310 → 640 through the 576 midpoint 475)* —
 lines unwrap progressively as the box outgrows them. Pill geometry
 rides the type in em (002.r1 units): h 1.2em · px 0.15em below the
 rd gate; h 1.25em · px 0.25em in the rd zoom (exact at both drawn
@@ -252,7 +275,7 @@ exports-canon ruling — §9 R1.
 
 | band | odd slides | even slides | strip |
 |---|---|---|---|
-| 384 | 6t × 6t square | 6t circle | all-square, top row 7 |
+| 384 | 6t × 6t square | 6t circle | all-square, top row 14 *(amended 2026-09-08, §9 R16; was row 7 — the strip moved below the subhead/CTA block)* |
 | 768 | 6t × 4t wide (384×256) | 4t circle (256) | the 1344 arrangement at t=64, top row 8 |
 | 1344 | 6t × 4t wide (672×448) | 4t circle (448) | top row 7 |
 
@@ -278,7 +301,11 @@ revised the same evening to the 019 Bloom character): two-clock rises
 stagger 120ms, engine-ease wipe, hero-scoped 350ms sweep, pass at
 750/950 by band, last beat ~1770/~1970ms. Pending keep/revert.* The
 new section swaps in with new content only. The 010 §7 F5 mobile-LCP
-gate rides to 023's re-evaluation.
+gate rides to 023's re-evaluation. *Amended 2026-09-08 (§9 R16): below
+the rt gate the cascade follows the band's NEW visual order — h1 ·
+subhead · CTA · images (the 006 grammar's order-follows-the-page law;
+superseded: h1 · images · subhead · CTA). The beat tokens re-map in
+the section's indirection block; the token values are untouched.*
 
 ## 7 · Assets and constants
 
@@ -308,8 +335,9 @@ shop · 08 salon hair-wash.
 used): the header/subhead/CTA drawn y values (§1), the pill geometry
 (h = lh − 2 · px 3·3·6 · label lift 3 · line-box offsets 2.5/−0.5,
 riding the type in em — §4 as amended 2026-09-08; superseded: chip
-pb 2 / px 4·4·8), the CTA gaps 24·40·40, the 384 wordmark gap 16. The
-knockout vector geometry carries from the built 006 section.
+pb 2 / px 4·4·8), the CTA gaps 24·40·40, ~~the 384 wordmark gap 16~~
+*(removed 2026-09-08 with the eyebrow, §9 R16)*. The knockout vector
+geometry carries from the built 006 section.
 
 ## 8 · Deliverable — files, semantics
 
@@ -531,6 +559,33 @@ responses + design fixes; fixes re-read from the nodes):
   §4 amended. Side effect at the anchors: the subhead block grows
   (4 lines → 112 at 384; 2 lines → 56 at 768 · 68 at 1344), landing
   the 384 subhead→CTA gap on 48 exactly (CTA tops unchanged, §1).
+- **R16 (owner, 2026-09-08, afternoon — the 384 restructure).**
+  Design re-drew the 384 anchor's hero (the file is the latest
+  intent, the R7 class); every value read fresh from `799:57207` and
+  verified at rendered bounds through the bridge the same session
+  (metadata + `absoluteBoundingBox` + per-cell stroke visibility).
+  **The changes:** (1) the eyebrow `ksWordmark` above the H1 is
+  removed — no anchor carries one (the subhead knockout is
+  untouched); (2) the header/subhead/CTA block moved from the 16px
+  inset to **1t/1t** (x 32, head box 320; H1 box 304 unchanged, H1
+  top holds 96 = 3t at rendered bounds); (3) the subhead/CTA block
+  moved **above** the carousel (subhead top 204, box 310; CTA top
+  357, ends 397) — the drawn subhead still carries the R10-era
+  pill-in-flex grammar, which stays a drawing convention only: the
+  built R14/R15 inline-run construction is not rebuilt (owner
+  instruction), only its top and wrap box move; (4) the carousel
+  dropped to rows 14–19 (top 448) with the field's last row below it
+  (row 20), and the hero section ends at **21t** (was 24t) where the
+  system section starts; (5) the exposure map re-painted — staircase
+  [11,12] · [10–11,13] with ○[11,13], full field rows 14–20, no hero
+  east rail (the system section's rail takes over at row 21, 019 §2
+  as amended). Below the system section nothing moved: 21t + 19t +
+  the 1t slug row = brand-engine still starts at row 41 (1312,
+  bridge-verified). The base load cascade re-maps to the new visual
+  order (h1 · subhead · CTA · images); the rs band follows by the
+  standing R9 split (geometry re-lays the 384 design on the tick;
+  the subhead wrap-box walk re-anchors 310 → 640 through the 576
+  midpoint 475). §1/§2/§3/§4/§6/§7 amended.
 
 ## 10 · Acceptance criteria
 

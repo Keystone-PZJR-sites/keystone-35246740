@@ -38,11 +38,13 @@ import { HeroLoad } from "./hero-load";
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
-/* ---- exposure maps (§2), section-local ticks — a descending east
-   staircase with one ○ ornament per anchor into a full-lattice field
-   opening one row above the carousel; at 384 an east rail runs from
-   the field to the system section. Read per-cell through the bridge
-   2026-09-05. The derived bands render their source anchor's map. ---- */
+/* ---- exposure maps (§2 as amended 2026-09-08, §9 R16), section-local
+   ticks — a descending east staircase with one ○ ornament per anchor
+   into a full-lattice field. At 384 the staircase sits beside the CTA
+   block, the field opens ON the carousel's first row and runs one row
+   past it, and the hero carries no east rail (the system section's
+   rail takes over). Read per-cell through the bridge 2026-09-08. The
+   derived bands render their source anchor's map. ---- */
 
 interface R {
   gx: number;
@@ -61,12 +63,11 @@ interface BandMap {
 
 const MAP_384: BandMap = {
   regions: [
-    { gx: 11, gy: 5 },
-    { gx: 10, gy: 6, gw: 2 },
-    { gx: 0, gy: 7, gw: 12, gh: 7 },
-    { gx: 11, gy: 14, gh: 10 },
+    { gx: 11, gy: 12 },
+    { gx: 10, gy: 13, gw: 2 },
+    { gx: 0, gy: 14, gw: 12, gh: 7 },
   ],
-  ornaments: [{ gx: 11, gy: 6 }],
+  ornaments: [{ gx: 11, gy: 13 }],
 };
 
 const MAP_768: BandMap = {
@@ -187,8 +188,8 @@ export function HeroV2Section() {
     <section className="sec v2-hero-next" aria-labelledby="hx2-heading" data-landmark="hero">
       <HeroLoad />
 
-      {/* the exposure map (§2): staircase, ornament circles, field,
-          the 384 east rail — per band; derived bands share maps */}
+      {/* the exposure map (§2): staircase, ornament circles, field —
+          per band; derived bands share maps */}
       <div className="gx" aria-hidden="true">
         {BANDS.map((band) => [
           ...SECTION_MAP[band].regions.map((r, i) => (
@@ -202,12 +203,11 @@ export function HeroV2Section() {
         ])}
       </div>
 
-      {/* header block, anchored at the H1 line (§1 as amended); the
-          384-only wordmark hangs above it. The subhead and CTA are
-          absolutely positioned at their drawn tops at every band. */}
+      {/* header block, anchored at the H1 line (§1 as amended); no
+          anchor carries an eyebrow wordmark (removed 2026-09-08, §9
+          R16). The subhead and CTA are absolutely positioned at their
+          drawn tops at every band. */}
       <div className="hx2-head">
-        <span className="hx-wm-head hx-rise" aria-hidden="true" />
-
         {/* one canon string, natural wrap in the per-band box (§3 as
             amended — no drawn break at any anchor) */}
         <InterpText as="h1" style="display-serif-sm-thin" className="hx2-h1">

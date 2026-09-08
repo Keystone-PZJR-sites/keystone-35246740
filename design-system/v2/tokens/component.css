@@ -656,19 +656,22 @@
   --hx2-h1-w-rs: calc(var(--wA) * 408 + var(--wB) * 512);
   --hx2-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
   --hx2-h1-w-rd: calc(var(--t) * 672 / 112);
-  --hx2-sub-top-rm: calc(var(--t) * 480 / 32);
+  /* the 384 restructure (2026-09-08, 018 §9 R16): the subhead/CTA
+     block moved above the carousel — subhead 204 · CTA 357 (were
+     480 · 640) */
+  --hx2-sub-top-rm: calc(var(--t) * 204 / 32);
   --hx2-sub-top-rt: calc((var(--wA) + var(--wB)) * 250);
   --hx2-sub-top-rd: calc(var(--t) * 396 / 112);
-  /* subhead wrap boxes: 336 drawn at 384 · 640 drawn at 768 (the full
-     head box — §9 R14) · derived 576 midpoint 488; lines unwrap
-     progressively as the box outgrows them. No wrap pin across rt
-     (the head box is the drawn 640). */
-  --hx2-sub-w-rm: calc(var(--wA) * 336 + var(--wB) * 488);
-  --hx2-sub-w-rs: calc(var(--wA) * 488 + var(--wB) * 640);
+  /* subhead wrap boxes: 310 drawn at 384 (§9 R16; was 336) · 640
+     drawn at 768 (the full head box — §9 R14) · derived 576 midpoint
+     475; lines unwrap progressively as the box outgrows them. No wrap
+     pin across rt (the head box is the drawn 640). */
+  --hx2-sub-w-rm: calc(var(--wA) * 310 + var(--wB) * 475);
+  --hx2-sub-w-rs: calc(var(--wA) * 475 + var(--wB) * 640);
   /* the rd column: the drawn 708 box (§9 R14 — supersedes the R11
      H1-minus-half-tick tune) */
   --hx2-sub-w-rd: calc(var(--t) * 708 / 112);
-  --hx2-cta-top-rm: calc(var(--t) * 640 / 32);
+  --hx2-cta-top-rm: calc(var(--t) * 357 / 32);
   --hx2-cta-top-rt: calc((var(--wA) + var(--wB)) * 355);
   --hx2-cta-top-rd: calc(var(--t) * 529 / 112);
 

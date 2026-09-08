@@ -27,7 +27,7 @@
 
 .v2-hero-next {
   width: 100%;
-  height: calc(var(--t) * 24);
+  height: calc(var(--t) * 21);
 }
 @container (min-width: 665px) {
   .v2-hero-next { height: calc(var(--t) * 13); }
@@ -37,15 +37,22 @@
 }
 
 /* choreography indirection (the 006 grammar): below 768 the cascade
-   follows the band's visual order (h1 · images · subhead · CTA); at
-   the rt gate and up it is the 006 §6 table. Same tokens as v1. */
+   follows the band's visual order — since the 384 restructure that is
+   h1 · subhead · CTA · images (018 §6 as amended 2026-09-08, §9 R16),
+   so the base beats PERMUTE the shared -m tokens (values untouched —
+   v1 still consumes them in their old order): ascending, the subhead
+   takes the two earliest post-h1 beats, the CTA the third, the images
+   the last three. Under the v2-choreo preview values the same
+   permutation lands the image group exactly on the CTA beat (390) —
+   the owner's 2026-09-06 image-group ruling, preserved at base. At
+   the rt gate and up it is the 006 §6 table, unchanged. */
 .v2-hero-next {
-  --_d-rect: var(--hx-d-rect-m);
-  --_d-circle: var(--hx-d-circle-m);
-  --_d-img3: var(--hx-d-img3-m);
-  --_d-sub1: var(--hx-d-sub1-m);
-  --_d-sub2: var(--hx-d-sub2-m);
-  --_d-cta: var(--hx-d-cta-m);
+  --_d-rect: var(--hx-d-img3-m);
+  --_d-circle: var(--hx-d-sub2-m);
+  --_d-img3: var(--hx-d-cta-m);
+  --_d-sub1: var(--hx-d-rect-m);
+  --_d-sub2: var(--hx-d-circle-m);
+  --_d-cta: var(--hx-d-sub1-m);
 }
 @container (min-width: 665px) {
   .v2-hero-next {
@@ -68,30 +75,23 @@
 /* ---------------- header block (§1 as amended) ---------------- */
 
 /* Anchored at the H1 line (96 = 3t at 384 · 98 at 768 · 192 at 1344);
-   insets from the drawn frames (as amended 2026-09-08, §9 R14 — the
-   768 header widened to 640 and the 1344 header narrowed to 1008):
-   left t/2 · 1t · 1t, right 1t · 1t · 2t. The H1's tighter drawn
-   boxes ride its max-width tokens, not the head insets. */
+   insets from the drawn frames (as amended 2026-09-08, §9 R14/R16 —
+   the 768 header widened to 640, the 1344 header narrowed to 1008,
+   and the 384 restructure moved the head to the 1t inset): left 1t at
+   every band, right 1t · 1t · 2t. The H1's tighter drawn boxes ride
+   its max-width tokens, not the head insets. The 384-only eyebrow
+   wordmark above the H1 is removed (§3 as amended, §9 R16). */
 .hx2-head {
   position: absolute;
   top: var(--hx2-head-top-rm);
-  left: calc(var(--t) / 2);
+  left: var(--t);
   right: var(--t);
 }
 @container (min-width: 665px) {
-  .hx2-head { top: var(--hx2-head-top-rt); left: var(--t); }
+  .hx2-head { top: var(--hx2-head-top-rt); }
 }
 @container (min-width: 860px) {
   .hx2-head { top: var(--hx2-head-top-rd); right: calc(2 * var(--t)); }
-}
-
-/* The 384-only wordmark (72×15 material, the 001 asset) hangs above
-   the H1 line: drawn 65 = 96 − 15px mark − t/2 gap. Size, mask, and
-   the 665+ display gate carry from hero.css. */
-.v2-hero-next .hx-wm-head {
-  position: absolute;
-  top: calc(-1 * (var(--t) / 2 + 15px));
-  margin: 0;
 }
 
 /* ---- H1 (§3 as amended 2026-09-08, §9 R14): PP Kyoto Thin, ink
@@ -288,15 +288,17 @@
 
 /* ---------------- carousel (§6) ---------------- */
 
-/* Full-bleed strip: rows 7–12 (6t) at 384 · 8–11 (4t) at 768 ·
-   7–10 (4t) from the rd1 gate. The window/track/frame machine carries
-   from hero.css; the v2 slide geometry restates — rectangles 6t wide
-   at every band, circles 6t below the rt gate and 4t above it. */
+/* Full-bleed strip: rows 14–19 (6t) at 384 (below the subhead/CTA
+   block since the restructure — §1 as amended 2026-09-08, §9 R16) ·
+   8–11 (4t) at 768 · 7–10 (4t) from the rd1 gate. The
+   window/track/frame machine carries from hero.css; the v2 slide
+   geometry restates — rectangles 6t wide at every band, circles 6t
+   below the rt gate and 4t above it. */
 .hx2-carousel {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--t) * 7);
+  top: calc(var(--t) * 14);
   height: calc(var(--t) * 6);
   overflow: hidden;
 }
