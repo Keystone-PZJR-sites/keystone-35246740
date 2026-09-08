@@ -12,8 +12,10 @@
  * machine and the load orchestration are the built 006 islands reused
  * verbatim (HeroCarousel · HeroLoad — the 018 fork-vs-parameterize
  * call: fork the section, share the machine); the shared hx- grammar
- * (rises, chips, knockout, track contract) carries from hero.css, and
- * hero-v2.css restates only what this design changes.
+ * (rises, knockout wordmark, track contract) carries from hero.css;
+ * the subhead is this section's own hx2- construction — one inline
+ * text run with painted pills (018 §9 R14) — and hero-v2.css restates
+ * what this design changes.
  *
  * The strip is ambient imagery (018 §9 R6): aria-hidden, empty alts,
  * no controls — the v1 accessibility posture carries.
@@ -102,22 +104,19 @@ const SECTION_MAP: Record<GridBand, BandMap> = {
   rd2: MAP_1344,
 };
 
-/* ---- chips (§4) — the 006 construction: the label span paints above
-   the ::before brand-fill layer; bindings unchanged from v1 ---- */
+/* ---- chips (§4 as amended 2026-09-08, §9 R14) — inline atoms in the
+   subhead's text run. The chip inherits the paragraph's type (no own
+   line-height); the pill is paint, not layout: ::before is the neutral
+   bg/300 base, ::after the brand fill the load pass wipes in, both
+   inset to the drawn pill box (lh − 2). The label paints above both.
+   Bindings unchanged from v1. ---- */
 
 function Chip({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <span className="hx-chip" data-chip={id}>
-      <span className="hx-chip-label">{children}</span>
+    <span className="hx2-chip" data-chip={id}>
+      <span className="hx2-chip-label">{children}</span>
     </span>
   );
-}
-
-/* Row words are flex items so the designed inline gap (§4) applies
-   uniformly between words and chips; the rows are aria-hidden and the
-   sentence reads from the visually-hidden text (§8). */
-function words(text: string) {
-  return text.split(" ").map((w, i) => <span key={`${w}${i}`}>{w}</span>);
 }
 
 /* ---- CTA row (§5 as amended 2026-09-05, §9 R8) — one row per band
@@ -219,29 +218,29 @@ export function HeroV2Section() {
 
         <InterpText as="p" style="text-xl-light" className="hx2-sub">
           {/* the sentence pair for the accessibility tree, "keystone"
-              included as text (§8); the visual rows are presentation */}
+              included as text (§8); the visual flow is presentation */}
           <span className="hx-sr">
             keystone powers your website and everything that runs through
             it: ads social reviews content and follow-ups that convert.
           </span>
-          {/* one continuous flow (amended 2026-09-05, §9 R10) — the
-              drawn line-groups are superseded: words and chips wrap
-              as a single stream, so no line is forced to end at the
-              colon and the chips fill lines naturally at every width */}
-          <span className="hx-vis" aria-hidden="true">
-            <span className="hx-row hx-rise">
-              <span className="hx-wm" />
-              {words("powers your")}
-              <Chip id="website">website</Chip>
-              {words("and everything that runs through it:")}
-              <Chip id="ads">ads</Chip>
-              <Chip id="social">social</Chip>
-              <Chip id="reviews">reviews</Chip>
-              <Chip id="content">content</Chip>
-              <span>and</span>
-              <Chip id="follow-ups">follow-ups</Chip>
-              {words("that convert.")}
-            </span>
+          {/* one inline text run (amended 2026-09-08, §9 R14 —
+              supersedes R10's flex word-stream): words are real text
+              with real spaces, chips ride inline, and the paragraph's
+              line-height is the only vertical pitch. The text is
+              explicit string expressions so no gap depends on JSX
+              whitespace trimming. */}
+          <span className="hx2-flow hx-rise" aria-hidden="true">
+            <span className="hx-wm" />
+            {" powers your "}
+            <Chip id="website">website</Chip>
+            {" and everything that runs through it: "}
+            <Chip id="ads">ads</Chip>{" "}
+            <Chip id="social">social</Chip>{" "}
+            <Chip id="reviews">reviews</Chip>{" "}
+            <Chip id="content">content</Chip>
+            {" and "}
+            <Chip id="follow-ups">follow-ups</Chip>
+            {" that convert."}
           </span>
         </InterpText>
 

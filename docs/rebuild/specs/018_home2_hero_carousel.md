@@ -68,12 +68,19 @@ intent). The table carries the re-read values; the superseded row was
 header 69/128/224 · H1 top 100/128/224 · subhead 280/428 at rt/rd2 ·
 CTA 386/566 at rt/rd2.*
 
+*Amended 2026-09-08 (§9 R14 — the inline-subhead rework; every value
+re-verified at rendered bounds through the bridge the same morning).
+The table re-carries the re-read values; superseded: 768 header 576w ·
+subhead 242, 520w · CTA 348; 1344 header 1120w · subhead 712w ·
+CTA 534. The 768 gaps are now drawn tokens (h1→subhead `spacing-4xl`
+32 · header→CTA `spacing-6xl` 48); the 1344 gaps read 48/64.*
+
 | block | 384 | 768 | 1344 |
 |---|---|---|---|
-| header (wordmark + H1) | 16, 65 · 336w | 64, 98 · 576w | 112, 192 · 1120w |
+| header (wordmark + H1) | 16, 65 · 336w | 64, 98 · 640w | 112, 192 · 1008w |
 | H1 top | 96 (3t) | 98 | 192 |
-| subhead | 16, 480 · 336w | 64, 242 · 520w | 112, 396 · 712w |
-| CTA row | 16, 640 · h 40 *(amended 2026-09-05, §9 R8; drawn h 48)* | 64, 348 · h 40 | 112, 534 · h 48 |
+| subhead | 16, 480 · 336w | 64, 250 · 640w | 112, 396 · 708w |
+| CTA row | 16, 640 · h 40 *(amended 2026-09-05, §9 R8; drawn h 48)* | 64, 355 · h 40 | 112, 529 · h 48 |
 | carousel strip | 0, 224 · full-bleed | 0, 512 · full-bleed | 0, 784 · full-bleed |
 
 At 384 the subhead and CTA sit **below** the carousel (the v1 rm
@@ -112,22 +119,26 @@ intent*): **natural at every anchor** in each anchor's wrap box — 384:
 the 304 H1 box, two lines breaking after "marketing" (the drawn
 explicit break is gone; the file's residual double space after
 "marketing" is not built — the canon single-space string, owner
-ruling); 768: the right-padded box (pad 64 → a 512 text box), two
-lines; 1344: the right-padded box (pad 336 → a 784 text box), **two
-lines** (the draft's one-line row was not geometrically buildable with
-this canon).
+ruling); 768: the right-padded box (pad 128 in the 640 header → a 512
+text box *(amended 2026-09-08, §9 R14; the box value is unchanged —
+the pad moved from the header frame to the h1 node)*), two lines;
+1344: the right-padded box (pad 336 in the 1008 header → a **672**
+text box *(amended 2026-09-08, §9 R14; was 784)*), **two lines** (the
+draft's one-line row was not geometrically buildable with this canon).
 
 | | 384 | 768 | 1344 |
 |---|---|---|---|
-| style | display-serif/sm/Thin 32/38 *(amended 2026-09-05, §9 R7; was sm+/Thin 36/42)* | display-serif/lg/Thin 48/56 | display-serif/3xl/Thin 72/78 |
-| tracking | −0.64 (−2%) *(amended 2026-09-05, §9 R7)* | −1.44 | −2.16 |
+| style | display-serif/sm/Thin 32/38 *(amended 2026-09-05, §9 R7; was sm+/Thin 36/42)* | display-serif/lg+/Thin 50/60 *(amended 2026-09-08, §9 R14; was lg/Thin 48/56)* | display-serif/3xl/Thin 72/78 |
+| tracking | −0.64 (−2%) *(amended 2026-09-05, §9 R7)* | −1.0 (−2%) *(amended 2026-09-08, §9 R14; was −1.44/−3%)* | −2.16 (−3%) |
 
-*Derived-band walk (amended 2026-09-05, §9 R9): below the rt gate the
-H1 walks 32 → 48 (lh 38 → 56) through the derived 576 midpoint
-(40/47), its wrap box walking 304 → 512 through 408 on the same
-pairs, so the break after "marketing" holds; the walk meets the
-compressed 768 design at the gate within ~2px. Tracking holds each
-band's constant and switches at the gates, per the law.*
+*Derived-band walk (amended 2026-09-05, §9 R9; re-anchored 2026-09-08,
+§9 R14): below the rt gate the H1 walks 32 → 50 (lh 38 → 60) through
+the derived 576 midpoint (41/49), its wrap box walking 304 → 512
+through 408 on the same pairs, so the break after "marketing" holds;
+the walk meets the compressed 768 design at the gate. Tracking holds
+each band's constant and switches at the gates, per the law — with the
+768 restyle both lower anchors carry −2%, so one constant serves the
+base through rt and only the rd gate switches to the 3xl −3%.*
 
 PP Kyoto, `ital` 100, ink `text/100` — the built 006 H1 mount carries.
 At 384 only, the `ksWordmark` (72×15) sits above the H1 on a 16px gap
@@ -142,12 +153,30 @@ chips wrap as a single stream, so no line is forced to end at the
 colon mid-band *(amended 2026-09-05, owner direction at build QA, §9
 R10 — was "two drawn line-groups; the 384 groups flex-wrap"; the
 anchor rags re-flow to the natural wrap, an accepted consequence)*.
+
+*Amended 2026-09-08 (§9 R14 — the inline rework; supersedes R10's flex
+stream and this section's per-band gap rows). The sentence builds as
+**one inline text run**: words are real text with real spaces, chips
+are inline atoms that inherit the paragraph's type, and the
+paragraph's line-height is the only vertical pitch. The pill is
+paint, not layout — a layer behind the label sized `lh − 2` (24 · 24
+· 30 at the anchors), inset 2.5 from the line-box top and overhanging
+0.5 below its bottom, radius 4, px 3 · 3 · 6, with the label riding 3
+above the pill bottom (the drawn pb — optical centering; descenders
+hang out of the pill). The drawn wrapped-row gaps (2/4), the 4px
+line-group gap, and the flex inline gaps are pill-in-flex Figma
+construction artifacts (auto-layout cannot wrap a sentence with
+pills) and are not built — the space character is the inline gap
+(owner ruling at the plan review, 2026-09-08). The drawn line-groups
+(`Frame 635` pairs) remain a drawing convention only.*
+
 Copy (one canon):
 
 > keystone powers your [website] and everything that runs through it:
 > [ads] [social] [reviews] [content] and [follow-ups] that convert.
 
-Chips (radius `radius-xs` 4, pb `spacing-2xs` 2, fills/inks bound):
+Chips (radius `radius-xs` 4, pill and pb per the 2026-09-08 amendment
+above *(superseded: pb `spacing-2xs` 2)*, fills/inks bound):
 
 | chip | fill | ink |
 |---|---|---|
@@ -158,20 +187,40 @@ Chips (radius `radius-xs` 4, pb `spacing-2xs` 2, fills/inks bound):
 | content | `color/blue/300` | `color/blue/700` |
 | follow-ups | `color/purple/300` | `color/purple/700` |
 
-Per-band restatements:
+Per-band restatements *(amended 2026-09-08, §9 R14 — one type at every
+anchor; superseded: 768 text/lg 18/26 with chip labels 18/24, chip px
+4 · 4 · 8, the inline-gap row (6 · 5 · 6) and line-group-gap row
+(6 · 4 · 6) — the R10-era flex-gap vocabulary has no inline
+equivalent)*:
 
 | | 384 | 768 | 1344 |
 |---|---|---|---|
-| type | text/xl/Light 20/26, all M Light | text/lg 18/26 — plain runs L Light, chip labels M Light 18/24 | text/2xl/Light 24/32, all M Light |
-| chip px | 4 | 4 | 8 |
+| type | text/xl/Light 20/26, all M Light | text/xl/Light 20/26, all M Light | text/2xl/Light 24/32, all M Light |
+| pill h (= lh − 2) | 24 | 24 | 30 |
+| pill px | 3 | 3 | 6 |
 
-*Derived-band walk (amended 2026-09-05, §9 R9): below the rt gate the
-subhead walks 20 → 18 (chip lh 26 → 24; body lh constant at the drawn
-26) through the derived 576 midpoints (19 · 25), its wrap box walking
-336 → 520 through 428 on the same pairs — rows unwrap progressively
-as the box outgrows them. The em gaps ride the walking type.*
-| inline gap | 6 | 5 — designed intent (§9 F2), enumerated constant | 6 |
-| line-group gap | 6 | 4 | 6 |
+*Derived-band walk (amended 2026-09-05, §9 R9; collapsed 2026-09-08,
+§9 R14): with the 768 anchor re-drawn at the 384 type, the subhead
+type is **constant 20/26 from the base through the rt band** — no
+walk remains below the rd gate. The wrap box stays the R9 grammar
+with the new 768 endpoint: 336 → 640 through the 576 midpoint 488 —
+lines unwrap progressively as the box outgrows them. Pill geometry
+rides the type in em (002.r1 units): h 1.2em · px 0.15em below the
+rd gate; h 1.25em · px 0.25em in the rd zoom (exact at both drawn
+anchors by construction).*
+
+*Amended 2026-09-08, second ruling (owner, at the built-page review;
+§9 R15): the leading is an **enumerated constant, deliberately
+off-token** — 20/**28** below the rd gate (text/xl says 26) and
+24/**34** in the rd zoom (text/2xl says 32). The pill rhythm law
+sets it: the vertical air between pills on adjacent lines
+(lh − pill height) must match the horizontal air between adjacent
+pills, which is the space advance (measured 0.1852em at both anchor
+sizes → 3.70px at fs 20 · 4.45px at fs 24); 24 + 3.7 and 30 + 4.45
+round to the whole-px 28 and 34. The pill anchors to the glyphs
+(height 1.2em/1.25em, center the drawn 1.5px below the glyph
+center), so the leading change moves lines apart without touching
+the pill's size or its fit on the type.*
 
 ## 5 · The CTA row
 
@@ -256,9 +305,11 @@ inventory (documentation, by export number — the strip is ambient,
 shop · 08 salon hair-wash.
 
 **Non-token constants** (component token layer, per band only where
-used): the header/subhead/CTA drawn y values (§1), the chip pb 2 /
-px 4·4·8, the CTA gaps 24·40·40, the 384 wordmark gap 16. The knockout
-vector geometry carries from the built 006 section.
+used): the header/subhead/CTA drawn y values (§1), the pill geometry
+(h = lh − 2 · px 3·3·6 · label lift 3 · line-box offsets 2.5/−0.5,
+riding the type in em — §4 as amended 2026-09-08; superseded: chip
+pb 2 / px 4·4·8), the CTA gaps 24·40·40, the 384 wordmark gap 16. The
+knockout vector geometry carries from the built 006 section.
 
 ## 8 · Deliverable — files, semantics
 
@@ -422,6 +473,64 @@ responses + design fixes; fixes re-read from the nodes):
   widened to `-n + 3`. Verified on `/hero-next`: frame 3 animates
   eager/high-priority, frame 4 stays offscreen unanimated, reduced
   motion renders it settled.
+- **R14 (owner, 2026-09-08, at the plan review, in-chat) — the
+  inline-subhead rework.** Design re-drew the hero header set after
+  the 2026-09-08 review of the built subhead's leading (the file is
+  the latest intent — the R7 class; every value re-read fresh and
+  verified at rendered bounds through the bridge the same morning:
+  `absoluteBoundingBox` = `absoluteRenderBounds` on every touched
+  node). The 384/768 subheads are the new `subhead - 384`
+  construction (`921:16901` / `921:16933`); the 1344 subhead
+  (`799:60978`) re-drawn in place. **Values:** one subhead type at
+  every anchor — chip labels ride the body style (text/xl/Light
+  20/26 below the rd gate; the 768 text/lg 18/26-body vs 18/24-chip
+  split is gone; text/2xl/Light 24/32 at 1344). Pills are smaller
+  than the line box: h = lh − 2 (24 · 24 · 30), drawn top inset 2.5
+  with a 0.5 overhang past the line bottom, px 3 · 3 · 6, label
+  lifted 3 off the pill bottom (optical centering — descenders hang),
+  radius 4, fills/inks unchanged. The 768 H1 restyled
+  `display-serif/lg+/Thin` 50/60 −2% (h 120; the style was already
+  in the committed type layer — the drift check read zero); gaps are
+  drawn tokens (h1→subhead 32 `spacing-4xl`, header→CTA 48
+  `spacing-6xl` → subhead 250, CTA 355). The 1344 header narrowed to
+  1008 — H1 text box 672 (pad 336), subhead box **708** (supersedes
+  R11's H1-minus-half-tick 728), CTA 529. **Construction ruling:**
+  R10's flex word-stream is superseded by **one inline text run** —
+  words are real text with real spaces, chips inline atoms
+  inheriting the paragraph's type, the pill painted behind the label
+  (never laid out), the paragraph's line-height the only vertical
+  pitch. The drawn wrapped-row gaps (2/4), the 4px line-group gap,
+  and the flex inline gaps are pill-in-flex Figma construction
+  artifacts (auto-layout cannot wrap a sentence with pills) and are
+  not built. **Derived bands:** the rs subhead walk collapses (type
+  constant 20/26 below the rd gate; wrap box 336 → 640 through 488);
+  the H1 walk re-anchors 32 → 50 (38 → 60) through the 576 midpoint
+  41/49, boxes unchanged; the 665 tracking alias is gone (both lower
+  anchors −2%; the rd gate aliases the 3xl −3%). §1/§3/§4/§7
+  amended. Anchor rags re-flow (the R10 accepted consequence); the
+  load choreography carries with the chip pass unchanged (the wipe
+  moves to the pill's brand layer).
+- **R15 (owner, 2026-09-08, at the built-page review, in-chat) — the
+  subhead leading breaks the token: 28 · 34, the pill rhythm law.**
+  On the built R14 subhead the pills sat 2px apart vertically
+  (lh − pill = 26−24 · 32−30) against ~3.7/4.4px horizontally (the
+  space advance) — the owner ruled the vertical pill air must match
+  the horizontal. Measured on the rendered page: the space advance
+  is 0.1852em at both anchor sizes (3.703px at fs 20 · 4.445px at
+  fs 24), so the leading becomes an **enumerated constant off the
+  token styles** (the F2 class): 20/**28** below the rd gate
+  (text/xl carries 26) and 24/**34** in the rd zoom (text/2xl
+  carries 32; the pair rides 34·80/112 → 34). With it the
+  construction re-anchors the pill to the glyphs — height
+  1.2em/1.25em centered on the line box plus the drawn 1.5px
+  downward shift (replacing the R14 box-edge insets 2.5/−0.5, which
+  would have grown the pill under the new leading) — so the pill's
+  size and fit on the type are invariant under leading changes and
+  the added air lands entirely between lines. Nothing in the token
+  layer moves; no other text/xl or text/2xl consumer is touched.
+  §4 amended. Side effect at the anchors: the subhead block grows
+  (4 lines → 112 at 384; 2 lines → 56 at 768 · 68 at 1344), landing
+  the 384 subhead→CTA gap on 48 exactly (CTA tops unchanged, §1).
 
 ## 10 · Acceptance criteria
 
