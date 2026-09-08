@@ -112,6 +112,10 @@ export function SystemSection() {
   return (
     <section
       className="sec v2-system v2-choreo-bloom"
+      /* the nav/footer "Our approach" interim anchor (owner direction
+         2026-09-08 — §9 R8); scroll-margin in system.css clears the
+         fixed rail */
+      id="system"
       aria-label="A complete marketing system"
       data-landmark="system"
     >

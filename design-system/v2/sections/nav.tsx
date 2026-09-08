@@ -38,7 +38,9 @@ const LINKS = {
   company: "/company",
   resources: "/resources",
   login: "https://console.localkeystone.com/login",
-  approach: "/how-it-works",
+  /* the homepage system section, interim until /how-it-works exists
+     (owner direction 2026-09-08 — spec 005 §9 F21) */
+  approach: "/#system",
   getStarted: "/pricing",
 };
 

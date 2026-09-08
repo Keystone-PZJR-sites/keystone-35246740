@@ -29,6 +29,10 @@
      was 17t — the header box grew to 8t and the diagram moved down) */
   height: calc(var(--t) * 19);
   --sys-r: var(--sys-r-rm);
+  /* the "Our approach" anchor lands here (owner direction 2026-09-08
+     — §9 R8): the jump clears the fixed rail by half a tick (the
+     clearance ruling 2026-09-04) */
+  scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
 }
 @container (min-width: 665px) {
   .v2-system {

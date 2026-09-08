@@ -441,6 +441,16 @@ implementation):**
   class. The build renders the intended x = 0 (children's intended
   values are the reads + 5: marker cell at 0, slug/headline texts at
   32). §1/§2/§3 amended.
+- **R8 (owner direction, 2026-09-08 — the "Our approach" interim
+  anchor).** The section carries `id="system"`: the nav's Solutions
+  drawer feature card and the footer's Our Approach item target
+  `/#system` until `/how-it-works` exists (spec 005 §9 F21, spec 004
+  §9 the same day). The section takes
+  `scroll-margin-top: knav-bar-h + t/2` so the jump clears the fixed
+  rail by the half-tick clearance ruling. Inertness (R3) is
+  unchanged — the section is a landing target, not interactive; the
+  bloom already settles on a load at or past the trigger, so an
+  anchor arrival shows the settled render and no geometry moves.
 
 ## 10 · Acceptance criteria
 

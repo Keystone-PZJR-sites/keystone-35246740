@@ -168,7 +168,10 @@ interface NavItem {
 }
 
 /* Internal targets follow the rebuild sitemap where the page exists on
-   this site today, and the sitemap slug where it does not yet. */
+   this site today, and the sitemap slug where it does not yet.
+   Interim homepage anchors (owner direction 2026-09-08 — spec 004 §9):
+   Our Approach points at the system section and Solutions at the Brand
+   engine panel until their pages exist. */
 function navGroups(social: FooterSocial): Array<{
   id: string;
   label: string;
@@ -183,8 +186,8 @@ function navGroups(social: FooterSocial): Array<{
       openRm: 7,
       openRs: 6,
       items: [
-        { label: "Our Approach", href: "/how-it-works" },
-        { label: "Solutions", href: "/solutions" },
+        { label: "Our Approach", href: "/#system" },
+        { label: "Solutions", href: "/#engine-brand" },
         { label: "Our Work", href: "/our-work" },
         { label: "Case Studies", href: "/case-studies" },
         { label: "Pricing", href: "/pricing" },

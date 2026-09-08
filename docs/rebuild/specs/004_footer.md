@@ -396,6 +396,14 @@ the nodes after the fix:
   (1.68–10.35 at rs, 2.75–9.25 at rt) and the tagline/prompt hold
   their designed 2-line/1-line wraps at every audited width. §3
   carries the dated amendment.
+- **Product-group interim anchors (owner direction, 2026-09-08):**
+  two Product items re-target homepage anchors until their pages
+  exist — Our Approach `/how-it-works` → `/#system` (the system
+  section, spec 019 §9 R8) and Solutions `/solutions` → the Brand
+  engine panel `/#engine-brand` (the spec 020 §9 R26 anchors). Labels,
+  order, and geometry are unchanged; targets live in `footer.tsx`'s
+  nav-group table. The nav's Solutions drawer feature card re-targets
+  the same day (spec 005 §9 F21).
 
 ## 10 · Acceptance criteria
 
