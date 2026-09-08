@@ -66,13 +66,15 @@ interface R {
 }
 
 const SECTION_MAP: Record<GridBand, R[]> = {
+  /* gy rides the base band's 2t leading clearance (§9 B15) — the
+     drawn rows 189–190 are bare */
   rm: [
-    { gx: 11, gy: 0, gh: 6 },
-    { gx: 0, gy: 6, gw: 12, gh: 17 },
+    { gx: 11, gy: 2, gh: 6 },
+    { gx: 0, gy: 8, gw: 12, gh: 17 },
   ],
   rs: [
-    { gx: 11, gy: 0, gh: 6 },
-    { gx: 0, gy: 6, gw: 12, gh: 17 },
+    { gx: 11, gy: 2, gh: 6 },
+    { gx: 0, gy: 8, gw: 12, gh: 17 },
   ], // derived from 384 (§1)
   rt: [
     { gx: 10, gy: 0, gw: 2, gh: 5 },

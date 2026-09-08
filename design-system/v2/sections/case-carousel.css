@@ -37,10 +37,15 @@
 
 /* the section owns its rows PLUS the full-lattice pre-footer row that
    follows it at every anchor (§1: r213 · r149 · r42 — the §2 exposure
-   includes it, so the row ships with the section) */
+   includes it, so the row ships with the section) PLUS, at base only,
+   the drawn 2t clearance BEFORE it (§1 as amended, §9 B15: the 384
+   page draws rows 189–190 bare between the work section's end (r188)
+   and this section's start (r191) — the splice had stacked the
+   sections flush and the slug rode the work band's bottom rule; 768
+   and 1344 are drawn flush). 2t + 22t + 1t at base; rs derives it. */
 .v2-cc {
   width: 100%;
-  height: calc(var(--t) * 23);
+  height: calc(var(--t) * 25);
 }
 @container (min-width: 665px) {
   .v2-cc {
@@ -84,18 +89,22 @@
 
 /* ---------------- header (§3) ---------------- */
 
-/* 384: top-anchored — the slug row (text-only as drawn; no marker at
-   this anchor, §9 B) in a 1t row, the headline on the drawn 12 gap.
-   768: the header box is rows 0–5, content v-centered, pl 1t.
-   1344: rows 0–4, v-centered, the marker joins the slug. */
+/* 384: top-anchored — the standing marker construction (§3 as
+   re-amended, §9 B14: the drawn marker sits in its own 1t cell left
+   of the text stack — the work-section 384 construction verbatim; the
+   build's earlier text-only read walked the slug row and missed the
+   sibling cell). 768: the header box is rows 0–5, content v-centered,
+   pl 1t, the marker inline on the 12 gap. 1344: rows 0–4. */
 .cc-head {
   position: absolute;
-  top: 0;
+  /* below the base band's 2t leading clearance (§9 B15) */
+  top: calc(var(--t) * 2);
   left: 0;
-  padding-left: var(--t);
 }
 @container (min-width: 665px) {
   .cc-head {
+    top: 0;
+    padding-left: var(--t);
     height: calc(var(--t) * 5);
     display: flex;
     flex-direction: column;
@@ -112,8 +121,8 @@
 }
 
 /* the slug — the standing marker construction (the system slug's
-   values verbatim; the 384 anchor draws the text alone, so the marker
-   mounts from the rt gate) */
+   values and aliases verbatim — one value, never fork; the wd-slug
+   twin). At 384 the marker's 1t cell IS the gap construction. */
 .cc-slug {
   display: flex;
   align-items: center;
@@ -126,7 +135,17 @@
   --lh1: 16;
 }
 .cc-marker {
-  display: none;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--t);
+  height: var(--t);
+}
+.cc-marker::before {
+  content: "";
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
 }
 @container (min-width: 665px) {
   .cc-slug {
@@ -137,11 +156,8 @@
     --ts-text-xs-medium-font: var(--ts-text-xs-regular-font);
   }
   .cc-marker {
-    display: block;
-    flex: none;
-    width: var(--sys-marker);
-    height: var(--sys-marker);
-    background: var(--color-bg-400);
+    width: auto;
+    height: auto;
   }
 }
 @container (min-width: 860px) {
@@ -155,7 +171,7 @@
     --lh0: 12.8571;
     --lh1: 18;
   }
-  .cc-marker {
+  .cc-marker::before {
     width: var(--sys-marker-rd);
     height: var(--sys-marker-rd);
   }
@@ -167,6 +183,9 @@
 .cc-h2 {
   color: var(--color-text-100);
   margin-top: var(--cc-h2-gap-rm);
+  /* the marker's 1t column carries the header inset at 384 — the
+     headline indents to the text stack (the wd construction) */
+  margin-left: var(--t);
   max-width: var(--cc-h2-w-rm);
   /* the R9 walk: 24/30 drawn at 384 → the derived 576 midpoint 30/36 */
   --fs0: 24;
@@ -211,7 +230,7 @@
    2 partially visible at rest, card 3 off-canvas) */
 .cc-carousel {
   position: absolute;
-  top: calc(var(--t) * 6);
+  top: calc(var(--t) * 8);
   left: var(--t);
   right: 0;
   overflow: clip;
