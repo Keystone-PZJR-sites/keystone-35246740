@@ -25,7 +25,9 @@
 
 .v2-system {
   width: 100%;
-  height: calc(var(--t) * 17);
+  /* 19t since the 384 restructure (§1 as amended 2026-09-08, §9 R7;
+     was 17t — the header box grew to 8t and the diagram moved down) */
+  height: calc(var(--t) * 19);
   --sys-r: var(--sys-r-rm);
 }
 @container (min-width: 665px) {
@@ -43,22 +45,28 @@
 
 /* ---------------- header (§3) ---------------- */
 
-/* 384: top-anchored — the slug row (the marker in its own 1t column
-   left of the text stack) then the headline on the drawn 12 gap.
+/* 384: the slug+headline block v-centers in the 8t header box (§3 as
+   amended 2026-09-08, §9 R7 — drawn top 61 = (256−134)/2; was
+   top-anchored in a 5t box) — the slug row (the marker in its own 1t
+   column left of the text stack) then the headline on the drawn 12
+   gap (the h2's margin, so no flex gap at base).
    768: the header box is rows 0–4 (pl 1t), content v-centered.
    1344: the header column v-centers in the 6t section (pl 1t). */
 .sys-head {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  height: calc(var(--t) * 8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 @container (min-width: 665px) {
   .sys-head {
     left: var(--t);
+    right: auto;
     height: calc(var(--t) * 5);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     gap: var(--sys-head-gap-rt);
   }
 }
@@ -186,14 +194,15 @@
 
 /* ---------------- the diagram (§1/§4) ---------------- */
 
-/* the diagram box (the Bloom observer's target): full width rows 6–16
-   at 384 · rows 5–11 at 768 · the 5t square at cols 7–12, v-centered,
-   from the rd1 gate */
+/* the diagram box (the Bloom observer's target): full width rows 8–18
+   at 384 (§1 as amended 2026-09-08, §9 R7; was rows 6–16) · rows 5–11
+   at 768 · the 5t square at cols 7–12, v-centered, from the rd1
+   gate */
 .sys-diagram {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--t) * 6);
+  top: calc(var(--t) * 8);
   height: calc(var(--t) * 11);
   pointer-events: none;
 }
@@ -213,8 +222,9 @@
   }
 }
 
-/* the stage: the ring's drawn box — center (6t, 12t) · (6t, 9t) ·
-   (9.5t, 3t) section-local (§1); tags position from the same center */
+/* the stage: the ring's drawn box — center (6t, 14t) *(was 12t before
+   the 2026-09-08 restructure, §9 R7)* · (6t, 9t) · (9.5t, 3t)
+   section-local (§1); tags position from the same center */
 .sys-stage {
   position: absolute;
   width: calc(var(--sys-r) + 1px);

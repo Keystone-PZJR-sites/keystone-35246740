@@ -39,10 +39,20 @@ reproduce it by construction.
 
 ## 1 · Section anatomy — tick totals per band
 
+*Amended 2026-09-08 (§9 R7 — the 384 restructure, with the hero's 018
+§9 R16; every value read fresh and verified at rendered bounds through
+the bridge the same afternoon). The base/rs rows were: section rows
+24–40 (17t) · header local rows 0–4 (160px) · gap 32 · diagram rows
+6–16 · ring box 2t–10t × 32t–40t, center (6t, 36t). Page rows shift
+because the hero above is now 21t; the section grew 17t → 19t (the
+header box 5t → 8t with the block v-centered, the diagram down 2t);
+below it nothing moved — 21t + 19t + the 1t slug row = brand-engine
+still starts at row 41.*
+
 | band | section rows | header | diagram box | ring |
 |---|---|---|---|---|
-| base 384 (t=32) | 24–40 (17t) | local rows 0–4 (160px, w 352) · gap 32 | rows 6–16 (352 tall, full width) | d 256 (8t), center (192, +16 below box center) = (6t, 36t); box 2t–10t × 32t–40t |
-| rs 576 (t=48, derived) | the 384 design at t=48 — section rows 24–40 (17t) | local rows 0–4 (240 = 5t) · gap 1.5t | rows 6–16 (528 = 11t, full width) | d 384 (8t), center (6t, 36t + 24); box 2t–10t × 32t–40t |
+| base 384 (t=32) | 21–39 (19t) | local rows 0–7 (256px, w 352); the slug+headline block (134 tall) v-centered at local top 61 = (256−134)/2 | rows 8–18 (352 tall, full width) | d 256 (8t), center (192, +16 below box center) = (6t, 35t); box 2t–10t × 31t–39t |
+| rs 576 (t=48, derived) | the 384 design at t=48 — section rows 21–39 (19t) | local rows 0–7 (384 = 8t); the block v-centered | rows 8–18 (528 = 11t, full width) | d 384 (8t), center (6t, 35t + 24); box 2t–10t × 31t–39t |
 | rt 768 (t=64) | 13–24 (12t) | local rows 0–4 (320 = 5t, w 639, pl 64 pr 80) | rows 5–11 (448 = 7t, full width) | d 384 (6t), center (384, +32) = (6t, 22t); box 3t–9t × 19t–25t, bottom flush with the section end |
 | rd1 960 (t=80, derived) | the 1344 design at t=80 — section rows 12–17 (6t) | x 0–560 (pl 80 pr ~120, riding the zoom) *(amended 2026-09-05, build fresh-read — §9 B1)* | x 560–960, 400 × 400, v-centered | d 240 (3t), centered = (9.5t, 15t); box 8t–11t × 13.5t–16.5t |
 | rd2 1344 (t=112) | 12–17 (6t) | x 0–784 (pl 112 pr 168 — the headline box 504) *(amended 2026-09-05, build fresh-read; §9 B1 — the draft read pr 144)* | x 784–1344, 560 × 560, v-centered | d 336 (3t), centered = (9.5t, 15t); box 8t–11t × 13.5t–16.5t |
@@ -61,9 +71,13 @@ axes at 384/768 and rides a half-tick vertical offset at 1344 (drawn).
 Per-cell stroke visibility read through the bridge; 1px `border/000`
 center-aligned throughout. Zero-based page `col,row`:
 
-- **384** (rows 24–40): east rail col 11 beside the header (rows 24–29),
-  with **■[11,24] filled `bg/200`** (the standing filled-cell
-  vocabulary); full field rows 30–40 behind the diagram.
+- **384** (rows 21–39) *(amended 2026-09-08, §9 R7 — re-read per-cell;
+  superseded: rows 24–40, rail rows 24–29 with ■[11,24], field rows
+  30–40)*: east rail col 11 beside the header (rows 21–28, section-
+  local 0–7 — two rows longer with the grown header box), with
+  **■[11,21] filled `bg/200`** (the standing filled-cell vocabulary);
+  full field rows 29–39 (section-local 8–18, 11 rows) behind the
+  diagram.
 - **768** (rows 13–24): east rail cols 10–11 beside the header (rows
   13–17); full field rows 18–24 behind the diagram. (The [7,13] slot's
   doubled rectangle was deleted at the flag pass — §9 F2.)
@@ -91,7 +105,10 @@ Ink `text/100`, PP Kyoto `ital` 100, natural wrap in the padded boxes.
 The weight steps Thin → Extralight down the bands as drawn (distinct
 file text styles; they ride the token re-extraction). At 384 the marker
 sits in its own 32px column left of the text stack (the drawn header
-row construction); headline pr 16.
+row construction); headline pr 16. *Amended 2026-09-08 (§9 R7): the
+384 header block no longer top-anchors — the slug+headline stack (134
+tall, the 12px slug→headline gap unchanged) v-centers in the grown 8t
+header box (drawn top 61 = (256−134)/2, riding the tick).*
 
 *Derived-band walk (amended 2026-09-05, §9 B7 — the 018 §9 R9 rs
 derivation split, adopted at this build): geometry keeps the 384
@@ -402,6 +419,28 @@ implementation):**
   rides the table (it now reads "… Ads, Reception, and Engagement" —
   the B3 quotation is historical). §4, R1, and the acceptance
   criterion carry the dated name amendments.
+- **R7 (owner, 2026-09-08, afternoon — the 384 restructure, with the
+  hero's 018 §9 R16).** Design re-drew the 384 anchor's hero and
+  system header (the file is the latest intent, the 018 R7 class);
+  every value read fresh from `799:57207` / `859:98755` and verified
+  at rendered bounds through the bridge the same session. **The
+  changes:** the section grew **17t → 19t** and its page top moved
+  24t → 21t (the hero above shrank, 018 R16); the header box grew
+  5t + gap → **8t** with the slug+headline block (134 tall,
+  internals unchanged — marker column, 12px gap, headline pr 16)
+  **v-centered** at local top 61 = (256−134)/2; the diagram moved
+  down to section-local rows 8–18 (box, stage 2t/2t, ring 8t, petals,
+  tags, grain all internally unchanged); the exposure re-painted —
+  east rail rows 0–7 (was 0–5) with the ■ fill kept on the first
+  cell, full field rows 8–18 (11 rows, shifted down 2). Below the
+  section nothing moved: brand-engine still starts at page row 41
+  (1312, bridge-verified), so 020+ are untouched. **One file
+  residual with design:** the `system-section` frame reads **x = −5
+  at rendered bounds** (its children inherit it; every sibling
+  section sits at x 0) — the brand-engine x-13.02 misplacement
+  class. The build renders the intended x = 0 (children's intended
+  values are the reads + 5: marker cell at 0, slug/headline texts at
+  32). §1/§2/§3 amended.
 
 ## 10 · Acceptance criteria
 

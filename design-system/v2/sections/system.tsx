@@ -29,13 +29,14 @@ import { SystemBloom } from "./system-bloom";
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
-/* ---- exposure maps (§2), section-local ticks — read per-cell through
-   the bridge 2026-09-05 and re-verified at the build's fresh-read
-   pass. 384: the east rail beside the header with the ■[11,0] filled
-   cell (the standing filled-cell vocabulary), then the full field
-   behind the diagram; 768: the two-column east rail into the full
-   field; 1344: cols 7–11 painted all six rows, cols 0–6 bare behind
-   the headline. The derived bands render their source anchor's map. */
+/* ---- exposure maps (§2 as amended 2026-09-08, §9 R7), section-local
+   ticks — read per-cell through the bridge (the 384 map re-read at
+   the restructure). 384: the 8-row east rail beside the grown header
+   box with the ■[11,0] filled cell (the standing filled-cell
+   vocabulary), then the full field rows 8–18 behind the diagram;
+   768: the two-column east rail into the full field; 1344: cols 7–11
+   painted all six rows, cols 0–6 bare behind the headline. The
+   derived bands render their source anchor's map. */
 
 interface R {
   gx: number;
@@ -50,8 +51,8 @@ interface BandMap {
 
 const MAP_384: BandMap = {
   regions: [
-    { gx: 11, gy: 0, gh: 6 },
-    { gx: 0, gy: 6, gw: 12, gh: 11 },
+    { gx: 11, gy: 0, gh: 8 },
+    { gx: 0, gy: 8, gw: 12, gh: 11 },
   ],
   fills: [{ gx: 11, gy: 0 }],
 };
