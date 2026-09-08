@@ -48,6 +48,17 @@ carousel y 448). A full-lattice row follows the section at every anchor
 the page clip (card 2 partially visible at rest, card 3 off-canvas —
 the drawn rest).
 
+*Amended 2026-09-08 (owner report at the built review, §9 B15):* the
+drawn 384 page carries **2t of bare clearance BEFORE the section**
+(rows 189–190, between the work section's r188 end and this section's
+r191 start — verified at rendered bounds: work bottom 14475, section
+top 14539); 768 and 1344 are drawn flush. The splice had stacked the
+sections flush at every band and the slug rode the work band's bottom
+rule at base. The built section owns the clearance as a 2t leading
+band at base (the pre-footer-row precedent): 2t + 22t + 1t = 25t,
+header at 2t, carousel at 8t, the §2 exposure riding at gy +2; rs
+derives it; the rt/rd constructions are unchanged.
+
 ## 2 · Exposure map
 
 - **1344**: rows 34–37 cols 8–11 (the east field beside the header) ·
@@ -85,9 +96,14 @@ single-space, wrapping naturally in right-padded boxes (pr 32 · 136 ·
 *Amended 2026-09-06 (build, §9 B5):* the headline wrap boxes are the
 header frames' interior text widths — **288 · 439 · 560** (the §1 "pr"
 values resolve against the header frames, not the section); the drawn
-rag reproduces exactly in these boxes. The 384 slug is **text-only as
-drawn** (no marker at that anchor; the 768/1344 rows carry the 6/7
-markers on 12 gaps — the system-slug construction verbatim).
+rag reproduces exactly in these boxes. ~~The 384 slug is text-only as
+drawn.~~ *Corrected 2026-09-08 (owner report, §9 B14):* the **384
+marker IS drawn** — a 6×6 `bg/400` square centered in its own 1t cell
+left of the text stack (the work-section 384 construction verbatim;
+the build's read walked the slug row and missed the sibling cell —
+§9 F5 had it right all along). All three anchors carry the standing
+marker pair: the 1t-cell construction at 384, the inline 6/7 markers
+on 12 gaps at 768/1344.
 
 ## 4 · The cards
 
@@ -537,6 +553,39 @@ the fresh-read pass and the dated body amendments above):
   rendered page: the rule spans the full 1344 section width at rd2,
   absent at 768/384; both new strings render with the wordmark
   construction; tsc/lint zero.
+- **B14 — the 384 slug marker restored, 2026-09-08** (owner report at
+  the built review: the small section's eyebrow was not the canonical
+  treatment). The drawn 384 header DOES carry the marker — a 6×6
+  `bg/400` square centered in its own 32×32 (1t) cell LEFT of the
+  text stack, the work-section 384 construction verbatim; the build's
+  fresh read had walked the slug row's children and missed the
+  sibling cell (the B5 "text-only" note was a read error — F5's "the
+  full pair" was correct). Lesson for later reads: the 384 slug
+  marker lives one level ABOVE the slug row, beside the text stack.
+  Built as the wd-slug twin: the marker's 1t cell is the gap
+  construction at base (headline indents 1t to the text stack), the
+  inline 6/7-px markers on 12 gaps stand at 665+/860+ unchanged.
+  Verified at rendered bounds through the bridge (cell 0,0 32×32 ·
+  dot 13,13 6×6 bg/400 · text x32 · headline 32,44/288 — the built
+  text sits at the construction's centered y8 against the drawn y7,
+  the standing 1px artifact class) and on the rendered page at
+  384/1344; tsc/lint zero.
+- **B15 — the drawn 2t pre-section clearance restored at base,
+  2026-09-08** (owner report at the built review: the slug rode the
+  rule above it — "that section should be a carbon copy of the work
+  section's elements"). The eyebrow constructions had measured
+  pixel-identical (B14); the real defect was compositional: the drawn
+  384 page keeps rows 189–190 bare between the work and case-study
+  sections (2t — bridge-verified at rendered bounds: work bottom
+  14475, section top 14539) while 768/1344 are drawn flush, and the
+  splice stacked all three bands flush. The §1 page-row bookkeeping
+  had the gap all along (work ends r188, this section starts r191) —
+  the build never carried the two unowned rows. Fixed as the §1
+  amendment: the base section owns a 2t leading band (height 25t,
+  header top 2t, carousel top 8t, exposure gy +2; the
+  pre-footer-row precedent). Verified at the 384 anchor (slug 2t
+  below the work band's rule, headline at 2t+44, carousel 8t) and at
+  768/1344 (unchanged, drawn flush); tsc/lint zero.
 
 ## 10 · Acceptance criteria
 

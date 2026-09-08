@@ -423,6 +423,20 @@ the owner's dev server):
   frame at workTop = engBottom − 1 (the shared pixel) at rest and in
   motion, resolving under the sliver row exactly at the engine
   carousel's apex.
+- **B10 — the line-inclusive collapse extended to every band,
+  2026-09-08** (found at the 022 built review: the owner reported a
+  doubled hairline on the east rail beside the work header at the
+  phone's base band; pixel measurement confirmed the engines→work
+  seam line read 2px below the rd1 gate while every other rail edge
+  read 1px). The engines section ends k·t + 1px (its stack's
+  line-inclusive bottom border on the row line's pixel — the standing
+  law), and only B9's rd1+ block pulled the work section up 1px to
+  share that pixel; base/rt stacked the engines' bottom line and the
+  work rail's top border as two adjacent pixels. The `margin-top:
+  −1px` collapse moved to the section's base rule (all bands; the
+  rd1+ border-top construction unchanged). Verified by pixel
+  measurement at 440: every rail edge including both seams reads
+  exactly 1px on its tick; tsc/lint zero.
 
 ## 10 · Acceptance criteria
 

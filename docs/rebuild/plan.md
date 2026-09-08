@@ -903,3 +903,43 @@ F5 mobile-LCP gate against the new hero.
   frame 1 fires with the CTA, frame 3 animates eager, frame 4 stays
   offscreen unanimated, reduced motion settled, the run settles
   (1796ms).
+
+## Decision log — 2026-09-08
+
+- **The 022 384 slug marker restored** (owner report at the built
+  review; 022 §9 B14). The drawn 384 header carries the standing
+  marker pair — the 6×6 `bg/400` square centered in its own 1t cell
+  left of the text stack (the work-section construction verbatim);
+  the build's fresh read had walked the slug row and missed the
+  sibling cell, recording a wrong "text-only" §3 note (022 §9 B5, now
+  corrected — F5's "full pair" read was right). Read lesson recorded
+  for later specs: the 384 slug marker lives beside the text stack,
+  not inside the slug row. Verified at rendered bounds through the
+  bridge and on the page at 384/1344; tsc/lint zero. Working tree
+  left uncommitted per the git rule.
+- **The doubled seam hairline fixed below the rd1 gate** (owner report
+  at the 022 built review — a double line on the east rail beside the
+  work-section header on the phone; 021 §9 B10). Pixel measurement
+  isolated it: the engines→work seam read 2px while every other rail
+  edge read 1px — the engines section ends k·t + 1px (its
+  line-inclusive bottom border on the row line's pixel) and only the
+  rd1+ block pulled the work section up 1px to share it (021 §9 B9);
+  base/rt stacked two adjacent lines. The `margin-top: −1px` collapse
+  moved to the work section's base rule (every band). The same
+  measurement pass confirmed the two eyebrows (work · case-study)
+  render pixel-identical after the B14 marker restore — the perceived
+  spacing difference was the doubled seam. Verified at 440 by pixel:
+  all rail edges and both section seams read exactly 1px on their
+  ticks; the standing sweep green; tsc/lint zero. Working tree left
+  uncommitted per the git rule.
+- **The 022 drawn pre-section clearance restored at base** (owner
+  report at the built review — the slug rode the work band's rule;
+  022 §9 B15). The drawn 384 page keeps rows 189–190 bare between
+  the work and case-study sections (2t, bridge-verified); 768/1344
+  are drawn flush; the home-next splice had stacked all bands flush.
+  The section now owns the clearance as a 2t leading band at base
+  (25t total; header 2t, carousel 8t, exposure gy +2 — the
+  pre-footer-row precedent; §1 bookkeeping had the gap all along:
+  work ends r188, the section starts r191). Verified at the 384
+  anchor and at 768/1344 (unchanged); tsc/lint zero. Working tree
+  left uncommitted per the git rule.
