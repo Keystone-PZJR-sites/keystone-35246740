@@ -56,8 +56,13 @@ top 14539); 768 and 1344 are drawn flush. The splice had stacked the
 sections flush at every band and the slug rode the work band's bottom
 rule at base. The built section owns the clearance as a 2t leading
 band at base (the pre-footer-row precedent): 2t + 22t + 1t = 25t,
-header at 2t, carousel at 8t, the §2 exposure riding at gy +2; rs
-derives it; the rt/rd constructions are unchanged.
+header at 2t, carousel at 8t; rs derives it; the rt/rd constructions
+are unchanged. *(B16, same day:* the east rail is NOT clear of the
+lead band — the drawn col-11 cells are visibly stroked at rows
+189–190 too, one continuous 8-row run from the section top into the
+header rows; only the flowed content and the full field clear the
+clearance. The first fix had shifted the whole §2 map down 2t; the
+rail keeps gy 0.)
 
 ## 2 · Exposure map
 
@@ -586,6 +591,15 @@ the fresh-read pass and the dated body amendments above):
   pre-footer-row precedent). Verified at the 384 anchor (slug 2t
   below the work band's rule, headline at 2t+44, carousel 8t) and at
   768/1344 (unchanged, drawn flush); tsc/lint zero.
+- **B16 — the lead band's rail cells restored, same day** (owner
+  report: two painted cells missing in the new clearance). The drawn
+  Grid keeps the col-11 rail visibly stroked THROUGH rows 189–190 —
+  bridge-verified: one continuous run from r189 into the header rows
+  (col 10 bare there) — so B15's blanket gy+2 shift was 2 cells too
+  conservative. The rail region now spans gy 0, gh 8 at base/rs; the
+  full field keeps gy 8. Verified on the rendered page at the 384
+  anchor (rail at col 11 from the section top, 8 rows); tsc/lint
+  zero.
 
 ## 10 · Acceptance criteria
 

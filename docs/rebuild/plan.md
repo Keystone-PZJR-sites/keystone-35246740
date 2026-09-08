@@ -938,8 +938,10 @@ F5 mobile-LCP gate against the new hero.
   the work and case-study sections (2t, bridge-verified); 768/1344
   are drawn flush; the home-next splice had stacked all bands flush.
   The section now owns the clearance as a 2t leading band at base
-  (25t total; header 2t, carousel 8t, exposure gy +2 — the
-  pre-footer-row precedent; §1 bookkeeping had the gap all along:
-  work ends r188, the section starts r191). Verified at the 384
-  anchor and at 768/1344 (unchanged); tsc/lint zero. Working tree
-  left uncommitted per the git rule.
+  (25t total; header 2t, carousel 8t — the pre-footer-row precedent;
+  §1 bookkeeping had the gap all along: work ends r188, the section
+  starts r191). The east rail runs THROUGH the clearance (022 §9
+  B16, owner catch: the drawn col-11 cells stay visibly stroked at
+  rows 189–190 — one continuous 8-row run; only the flowed content
+  and the full field clear the lead band). Verified at the 384
+  anchor and at 768/1344 (unchanged); tsc/lint zero.
