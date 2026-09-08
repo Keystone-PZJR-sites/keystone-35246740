@@ -278,6 +278,12 @@
 .e2-spanel + .e2-spanel {
   margin-top: -1px;
 }
+/* the nav's engine anchors land here (owner direction 2026-09-08 —
+   §9 amendment): the jump clears the fixed rail by half a tick (the
+   clearance ruling 2026-09-04) */
+.e2-spanel {
+  scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
+}
 .e2-sbox {
   box-sizing: border-box;
   display: flex;

@@ -123,11 +123,13 @@ export function NavDesktop({
             <i className="knav-mark" aria-hidden="true" />
           </a>
           <i className="knav-vr" aria-hidden="true" />
+          {/* Solutions leads the rail (owner direction 2026-09-08 —
+              spec 005 §9 F19; Our Work follows) */}
+          {trigger("solutions", "Solutions", links.solutions)}
+          <i className="knav-vr" aria-hidden="true" />
           <a className="knav-btn" href={links.ourWork} onMouseEnter={scheduleClose}>
             <span className="knav-item">Our Work</span>
           </a>
-          <i className="knav-vr" aria-hidden="true" />
-          {trigger("solutions", "Solutions", links.solutions)}
           <i className="knav-vr" aria-hidden="true" />
           <a className="knav-btn" href={links.pricing} onMouseEnter={scheduleClose}>
             <span className="knav-item">Pricing</span>
@@ -165,6 +167,12 @@ export function NavDesktop({
         data-open={item !== null || undefined}
         data-item={content}
         onMouseEnter={cancelClose}
+        onClick={(e) => {
+          /* a drawer link closes the drawer — a same-page anchor (the
+             engine subitems on `/`) jumps without a navigation, and
+             the open drawer would otherwise linger over the result */
+          if ((e.target as HTMLElement).closest("a")) closeNow();
+        }}
       >
         {solutions}
         {resources}

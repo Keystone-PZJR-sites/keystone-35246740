@@ -1047,8 +1047,26 @@ All flags resolved 2026-09-06, the same morning:
   state (no flip — the clock is gone); the Engagement `b` detected
   108px past the final rest against the 100.8 boundary;
   tsc/lint zero.
-
-## 10 · Acceptance criteria
+- **R26 (owner direction, 2026-09-08 — the nav's engine anchors;
+  paired with spec 005 §9 F19).** The nav's Solutions subitems and
+  mobile Solutions chips now target the section's engines directly:
+  `/#engine-<id>`. The mechanics, both constructions from one hash:
+  **(1) The ids live on the stack panels** (`.e2-spanel`, one
+  `engine-<id>` each — an id cannot repeat on the rd column's panels,
+  and the nav's mobile chrome shares the engines' 860 gate, so a chip
+  click always finds its id visible). The panels carry
+  `scroll-margin-top: knav-bar-h + t/2` — the jump clears the fixed
+  rail by the half-tick clearance ruling. **(2) At the rd bands the
+  stack is display:none and the browser cannot place the jump; the
+  island scrolls the column to `s = k·stride`** (the target engine's
+  panel at the pin line) on the arrival hash and on every
+  `hashchange`; the R24 mapping's JUMP path then resolves the state
+  to the engine's `a` drawing. This is the island's one scroll
+  write — a navigation, not the mapping; R24's free-scroll contract
+  (never write scroll on the mapping clock) stands. A repeated click
+  on the already-current hash at rd fires no `hashchange` and is a
+  no-op (native anchors at the stack bands do re-scroll; accepted).
+  No geometry changes; the sweep is untouched.
 
 *At the three drawn anchors, the two derived-band anchors, and one
 arbitrary mid-band width per band, scrollbar forced on; the interactive

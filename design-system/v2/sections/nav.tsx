@@ -14,10 +14,12 @@
  * passed into the islands as nodes.
  *
  * Link targets (decision 2026-08-24, recorded at build per §7): the new
- * sitemap routes; the engine subitems and all three resources cards and
- * chips point at their index pages for now; Get Started goes to
- * /pricing; Login goes to the external console (owner decision
- * 2026-08-27, spec 010 §7 F4).
+ * sitemap routes; the engine subitems anchor their homepage panels
+ * (/#engine-<id> — owner direction 2026-09-08, spec 005 §9 F19; the
+ * All chip keeps /solutions); the three resources cards and chips
+ * point at their index pages for now; Get Started goes to /pricing;
+ * Login goes to the external console (owner decision 2026-08-27, spec
+ * 010 §7 F4).
  */
 
 import type { CSSProperties, ReactNode } from "react";
@@ -39,6 +41,13 @@ const LINKS = {
   approach: "/how-it-works",
   getStarted: "/pricing",
 };
+
+/** An engine subitem's target — its homepage panel anchor (owner
+ * direction 2026-09-08, spec 005 §9 F19; the ids live on the engine
+ * section's stack panels, spec 020 §9 R26). */
+function engineAnchor(id: string): string {
+  return `${LINKS.home}#engine-${id}`;
+}
 
 /* ---- content (§3, transcribed from the sets 2026-08-24) ---- */
 
@@ -172,7 +181,7 @@ function SolutionsDrawerContent() {
                 key={e.id}
                 className="knav-sub knav-blk"
                 style={blk(i++)}
-                href={LINKS.solutions}
+                href={engineAnchor(e.id)}
               >
                 <span className="knav-subhead">
                   <span className="knav-subtitle">{e.label}</span>
@@ -244,7 +253,7 @@ function EngineChips() {
   return (
     <>
       {ENGINES.map((e) => (
-        <a key={e.id} className="knav-chip" href={LINKS.solutions}>
+        <a key={e.id} className="knav-chip" href={engineAnchor(e.id)}>
           <i className="knav-chipdot" data-engine={e.id} aria-hidden="true" />
           {e.label}
         </a>
@@ -276,7 +285,8 @@ function ResourceChips() {
    the designed 160/194·256 and 128/144/256 boxes are 5t/4t/4t and
    4t/3t/4t). At rs the box is smaller than the group — clear space. */
 const MOBILE_ROWS: NavMobileRow[] = [
-  { id: "our-work", label: "Our Work", href: LINKS.ourWork },
+  /* Solutions leads the list (owner direction 2026-09-08 — spec 005
+     §9 F19; Our Work follows) */
   {
     id: "solutions",
     label: "Solutions",
@@ -284,6 +294,7 @@ const MOBILE_ROWS: NavMobileRow[] = [
     group: { rm: 5, rs: 5, rt: 4 },
     boxTicks: { rm: 5, rs: 4, rt: 4 },
   },
+  { id: "our-work", label: "Our Work", href: LINKS.ourWork },
   { id: "pricing", label: "Pricing", href: LINKS.pricing },
   { id: "company", label: "Company", href: LINKS.company },
   {

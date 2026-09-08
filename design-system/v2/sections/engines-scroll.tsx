@@ -6,11 +6,12 @@
  *
  * The section's one client island. The server render is the complete
  * structure — sticky slug, sticky stage holding 01a, the left column
- * in plain native flow. The island NEVER writes scroll (§9 R24: the
- * R20 paged clamp, the gesture-end snap glide, and all their input
- * listeners are deleted — scroll is native and free through the whole
- * section, the ElevenLabs contract). It drives the §6 mapping on one
- * rAF clock:
+ * in plain native flow. The island NEVER writes scroll on the mapping
+ * (§9 R24: the R20 paged clamp, the gesture-end snap glide, and all
+ * their input listeners are deleted — scroll is native and free
+ * through the whole section, the ElevenLabs contract; the one scroll
+ * write is the nav's engine-anchor jump, a navigation — §9 R26). It
+ * drives the §6 mapping on one rAF clock:
  *
  * - **The distance mapping (§9 R24).** The stage has TEN scroll
  *   stops, one per drawing: state = round(s / halfStride) over the
@@ -608,6 +609,30 @@ export function EnginesScroll() {
 
     measure();
 
+    /* ---- the nav's engine anchors (owner direction 2026-09-08 — §9
+       amendment). The anchor ids live on the STACK panels; at the rd
+       bands those are display:none, so the browser cannot place the
+       jump itself. The island scrolls the column so the target
+       engine's panel rests at the pin line (s = k·stride) — the
+       mapping's JUMP path then resolves the state to the engine's `a`
+       drawing. This is the one place the island writes scroll (§9
+       R24's free contract governs the mapping, not a navigation):
+       once per arrival hash and per same-page subnav click, never per
+       frame. ---- */
+    const jumpToHash = () => {
+      if (mode !== "io") return; /* native anchors serve the stacks */
+      const match = /^#engine-([a-z]+)$/.exec(window.location.hash);
+      if (!match) return;
+      const k = panels.findIndex((p) => p.dataset.engine === match[1]);
+      if (k < 0) return;
+      const stride = PANEL_T * (section.clientWidth / 12);
+      const top =
+        window.scrollY + body.getBoundingClientRect().top + k * stride - cssPin;
+      window.scrollTo({ top, behavior: "auto" });
+    };
+    window.addEventListener("hashchange", jumpToHash);
+    jumpToHash();
+
     sdrawings.forEach((pair) =>
       pair.forEach((el) => el.addEventListener("transitionend", onLeaveEnd)),
     );
@@ -622,6 +647,7 @@ export function EnginesScroll() {
       stop();
       observer.disconnect();
       ro.disconnect();
+      window.removeEventListener("hashchange", jumpToHash);
       drawings.forEach((d) => d.removeEventListener("transitionend", onLeaveEnd));
       sdrawings.forEach((pair) =>
         pair.forEach((el) => el.removeEventListener("transitionend", onLeaveEnd)),

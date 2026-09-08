@@ -59,6 +59,12 @@ export function NavMobile({
 }) {
   const [open, setOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState<string | null>(null);
+  /** A same-page anchor waiting for the panel to close (the engine
+   * chips — spec 005 §9 amendment 2026-09-08). The scroll lock would
+   * swallow a native jump and the unlock restores the saved position,
+   * so the click defers the jump to the effect below, which runs
+   * after the lock effect's cleanup. */
+  const [pendingHash, setPendingHash] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -68,6 +74,17 @@ export function NavMobile({
     panelRef.current?.focus({ preventScroll: true });
     return unlock;
   }, [open]);
+
+  useEffect(() => {
+    if (open || !pendingHash) return;
+    /* the unlock has restored the page scroll; place the jump. The
+       hash assignment records the target (and scrolls when it is a
+       new hash); scrollIntoView covers a repeated click on the same
+       engine, riding the target's scroll-margin. */
+    window.location.hash = pendingHash;
+    document.getElementById(pendingHash.slice(1))?.scrollIntoView();
+    setPendingHash(null);
+  }, [open, pendingHash]);
 
   /** Close and return focus to the toggle (§7). Pointer-initiated
    * closes mark the toggle so the focus ring stays quiet — iOS Safari
@@ -128,6 +145,19 @@ export function NavMobile({
         aria-modal="true"
         aria-label="Menu"
         tabIndex={-1}
+        onClick={(e) => {
+          /* any link click closes the panel; a SAME-PAGE anchor also
+             defers its jump past the unlock (see pendingHash above) —
+             cross-page links keep their default navigation */
+          const a = (e.target as HTMLElement).closest("a");
+          if (!a) return;
+          const url = new URL(a.href, window.location.href);
+          if (url.hash && url.pathname === window.location.pathname) {
+            e.preventDefault();
+            setPendingHash(url.hash);
+          }
+          close();
+        }}
       >
         <div className="knav-pin">
           <div className="knav-ptop">

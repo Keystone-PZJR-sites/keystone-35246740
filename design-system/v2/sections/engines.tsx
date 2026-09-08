@@ -218,8 +218,18 @@ export function EnginesSection() {
           </p>
         </div>
         <ul className="e2-stacklist">
+          {/* each panel carries the nav's engine anchor (owner
+              direction 2026-09-08 — §9 amendment): the stack panel is
+              the id's one home (an id cannot repeat on the rd column),
+              so native anchor scroll serves the stack bands and the
+              island jumps the rd bands from the same hash */}
           {ENGINES_V2.map((engine) => (
-            <li className="e2-spanel" key={engine.id} data-engine={engine.id}>
+            <li
+              className="e2-spanel"
+              key={engine.id}
+              id={`engine-${engine.id}`}
+              data-engine={engine.id}
+            >
               <div className="e2-sbox">
                 <div className="e2-scard">
                   <span className="e2-dot" aria-hidden="true" />
