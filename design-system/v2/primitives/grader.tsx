@@ -1,8 +1,12 @@
-/** v2 primitives — GraderInput (spec 003 §5).
- * A real form: labeled url field + button-arrow submit. Visual states
+/** v2 primitives — GraderInput (spec 003 §5, as amended 2026-09-08:
+ * the redrawn set — 56/48/44 pills, a brown chrome, and the
+ * business-name field copy replacing the url field).
+ * A real form: labeled text field + button-arrow submit. Visual states
  * are CSS-driven (:hover, :focus-within, :placeholder-shown); the
  * consumer owns *when* error and loading happen and passes them in.
- * `forceState` is for the /primitives QA matrix only.
+ * The set's active-state grader-select-menu (business suggestions) is
+ * consumer behavior and is NOT built here — it lands with the blog
+ * page's spec. `forceState` is for the /primitives QA matrix only.
  */
 
 import { useId } from "react";
@@ -11,6 +15,7 @@ import { IconSparkle } from "../icons";
 
 interface GraderInputProps {
   size?: "lg" | "md" | "sm";
+  chrome?: "teal" | "brown";
   name?: string;
   label?: string;
   placeholder?: string;
@@ -24,9 +29,10 @@ interface GraderInputProps {
 
 export function GraderInput({
   size = "lg",
-  name = "url",
-  label = "Your website address",
-  placeholder = "yourbusiness.com",
+  chrome = "teal",
+  name = "business",
+  label = "Your business name",
+  placeholder = "Your business name",
   action,
   error,
   loading = false,
@@ -38,6 +44,7 @@ export function GraderInput({
     <form
       className="grader"
       data-size={size}
+      data-chrome={chrome}
       data-error={error ? "" : undefined}
       data-state={forceState}
       action={action}
@@ -48,19 +55,18 @@ export function GraderInput({
         </span>
         <input
           type="text"
-          inputMode="url"
           name={name}
           aria-label={label}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           placeholder={placeholder}
           defaultValue={defaultValue}
-          autoComplete="url"
+          autoComplete="organization"
         />
         <ButtonArrow
           type="submit"
           size={size}
-          chrome={error ? "gray" : "teal"}
+          chrome={error ? "gray" : chrome}
           loading={loading}
           label="Grade my site"
         />

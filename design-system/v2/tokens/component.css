@@ -8,6 +8,12 @@
      always-on state ring; colors are per component state. */
   --ring-w: 4px;
 
+  /* grader-input's brown rest ring (spec 003 §5 as amended
+     2026-09-08): the file's focus-ring-grader-brown effect style.
+     The color sits between brown/100 and brown/200 and is not a
+     Figma variable — an enumerated non-token constant. */
+  --grader-ring-brown: #f1e9e4;
+
   /* button-fill's non-token constants (spec 003 §2): the 10px vertical
      padding on xl/lg, and the 10px horizontal step on sm. The 14px is
      the sm pill's left padding — design added 2px of optical left pad

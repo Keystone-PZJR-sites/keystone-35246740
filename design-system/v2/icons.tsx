@@ -67,9 +67,11 @@ export function IconChat({ size = 20, className }: Props) {
   );
 }
 
-/** icons/sparkle (91:8477 teal · 519:5462 red) — one geometry, two-tone
- * palette driven by --sparkle-a / --sparkle-b (teal defaults; the grader
- * error state switches them to the red pair, spec 003 §5). */
+/** icons/sparkle (91:8477 teal · 519:5462 red · 921:18505 brown) — one
+ * geometry (byte-identical across the set, bridge-verified 2026-09-08),
+ * two-tone palette driven by --sparkle-a / --sparkle-b (teal defaults;
+ * the grader error state switches them to the red pair and its brown
+ * chrome to brown/400 + /600, spec 003 §5). */
 export function IconSparkle({ size = 20, className }: Props) {
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -490,12 +492,15 @@ export function IconSystemIntersect({ className }: { className?: string }) {
   );
 }
 
-/** IconLoadingCircle (button-arrow loading glyph) — track stays the
- * alpha-ink token; the head is currentColor per chrome. */
+/** IconLoadingCircle (button-arrow loading glyph) — the head is
+ * currentColor per chrome; the track defaults to the alpha-ink token
+ * and opens a --loading-track hook (the brown chrome's track is drawn
+ * brown/300, spec 003 §4 as amended 2026-09-08 — the --sparkle-a/b
+ * palette-hook precedent). */
 export function IconLoadingCircle({ size = 24, className }: Props) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
-      <path d="M20.625 12C20.625 7.23655 16.7634 3.375 12 3.375C7.23655 3.375 3.375 7.23655 3.375 12C3.375 16.7634 7.23655 20.625 12 20.625C16.7634 20.625 20.625 16.7634 20.625 12ZM21.875 12C21.875 17.4538 17.4538 21.875 12 21.875C6.54619 21.875 2.125 17.4538 2.125 12C2.125 6.54619 6.54619 2.125 12 2.125C17.4538 2.125 21.875 6.54619 21.875 12Z" fill="var(--color-alpha-black-20, rgba(0, 0, 0, 0.2))" />
+      <path d="M20.625 12C20.625 7.23655 16.7634 3.375 12 3.375C7.23655 3.375 3.375 7.23655 3.375 12C3.375 16.7634 7.23655 20.625 12 20.625C16.7634 20.625 20.625 16.7634 20.625 12ZM21.875 12C21.875 17.4538 17.4538 21.875 12 21.875C6.54619 21.875 2.125 17.4538 2.125 12C2.125 6.54619 6.54619 2.125 12 2.125C17.4538 2.125 21.875 6.54619 21.875 12Z" fill="var(--loading-track, var(--color-alpha-black-20, rgba(0, 0, 0, 0.2)))" />
       <path d="M21.875 12C21.875 17.4538 17.4538 21.875 12 21.875V20.625C16.7634 20.625 20.625 16.7634 20.625 12H21.875Z" fill="currentColor" />
     </svg>
   );

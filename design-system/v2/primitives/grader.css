@@ -5,7 +5,10 @@
    QA matrix mirrors every interactive selector with a data-state twin.
 
    Cascade order is load-bearing: default → hover → focus → active →
-   filled → error, so later states win when several apply. */
+   filled → brown chrome twins → error, so later states win when
+   several apply. The brown twins restate every teal selector one
+   attribute stronger; the error block still wins its ties by coming
+   last. */
 
 .grader {
   display: flex;
@@ -18,38 +21,40 @@
   align-items: center;
   box-sizing: border-box;
   gap: var(--space-xl);
+  /* one padding scheme at every size (re-read 2026-09-08) */
+  padding-inline: var(--space-lg) var(--space-md);
   background: var(--color-bg-000);
   border: 1px solid var(--_border);
   border-radius: var(--radius-full);
   box-shadow: 0 0 0 var(--ring-w) var(--_ring);
-  /* default state palette */
+  /* default state palette (teal chrome) */
   --_border: var(--color-border-000);
   --_ring: var(--color-bg-200);
   --_ph: var(--color-text-500);
+  --_ink: var(--color-text-200);
   transition-property: border-color, box-shadow;
   transition-duration: var(--motion-hover-duration);
   transition-timing-function: var(--motion-hover-ease);
 }
 
-/* heights are the set's fixed values (66/50/44), content centered —
-   the variants' padding sums do not close to the fixed heights, so
-   height is authoritative and vertical padding is not restated */
+/* heights are the set's fixed values (56/48/44, redrawn from 66/50/44 —
+   re-read 2026-09-08), content centered. Every size now closes to
+   y-pad 8 + circle + 8, but height stays authoritative so type
+   metrics cannot drift it */
 .grader[data-size="lg"] .grader-field {
-  height: 66px;
-  padding-inline: var(--space-xl) var(--space-lg);
+  height: 56px;
   --_font: var(--ts-text-xl-light-font);
   --_ls: var(--ts-text-xl-light-ls);
   --_opsz: var(--ts-text-xl-light-opsz);
 }
 .grader[data-size="md"] .grader-field,
 .grader[data-size="sm"] .grader-field {
-  padding-inline: var(--space-lg) var(--space-md);
   --_font: var(--ts-text-md-light-font);
   --_ls: var(--ts-text-md-light-ls);
   --_opsz: var(--ts-text-md-light-opsz);
 }
 .grader[data-size="md"] .grader-field {
-  height: 50px;
+  height: 48px;
 }
 .grader[data-size="sm"] .grader-field {
   height: 44px;
@@ -71,7 +76,7 @@
   letter-spacing: var(--_ls);
   font-optical-sizing: none;
   font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
-  color: var(--color-text-200);
+  color: var(--_ink);
 }
 .grader-field input::placeholder {
   color: var(--_ph);
@@ -115,6 +120,44 @@
 .grader[data-state="filled"] .grader-field {
   --_border: var(--color-teal-300);
   --_ring: var(--color-teal-200);
+}
+
+/* brown chrome (spec 003 §5 as amended 2026-09-08 — the set's second
+   chrome, read fresh through the bridge). The border walks
+   brown/200 → /300 at hover and holds /300 through every later state;
+   the rest ring is the enumerated --grader-ring-brown (the file's
+   focus-ring-grader-brown effect style, not a variable) and walks the
+   brown steps; the placeholder holds brown/500 in every state; typed
+   ink is brown/700; the sparkle takes the brown/400 + /600 pair. */
+.grader[data-chrome="brown"] .grader-field {
+  --_border: var(--color-brown-200);
+  --_ring: var(--grader-ring-brown);
+  --_ph: var(--color-brown-500);
+  --_ink: var(--color-brown-700);
+  --sparkle-a: var(--color-brown-400);
+  --sparkle-b: var(--color-brown-600);
+}
+@media (hover: hover) {
+  .grader[data-chrome="brown"] .grader-field:hover {
+    --_border: var(--color-brown-300);
+    --_ring: var(--color-brown-200);
+  }
+}
+.grader[data-chrome="brown"][data-state="hover"] .grader-field {
+  --_border: var(--color-brown-300);
+  --_ring: var(--color-brown-200);
+}
+.grader[data-chrome="brown"] .grader-field:focus-within,
+.grader[data-chrome="brown"][data-state="focus"] .grader-field {
+  --_border: var(--color-brown-300);
+  --_ring: var(--color-brown-300);
+}
+.grader[data-chrome="brown"] .grader-field:focus-within:has(input:not(:placeholder-shown)),
+.grader[data-chrome="brown"][data-state="active"] .grader-field,
+.grader[data-chrome="brown"] .grader-field:not(:focus-within):has(input:not(:placeholder-shown)),
+.grader[data-chrome="brown"][data-state="filled"] .grader-field {
+  --_border: var(--color-brown-300);
+  --_ring: var(--color-brown-200);
 }
 
 /* the embedded arrow is visually disabled until the value is non-empty

@@ -136,7 +136,7 @@ export function ButtonGhost({
 
 interface ButtonArrowProps {
   size?: "lg" | "md" | "sm";
-  chrome?: "teal" | "gray";
+  chrome?: "teal" | "gray" | "brown";
   disabled?: boolean;
   loading?: boolean;
   forceState?: ForceableState | "disabled";

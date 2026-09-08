@@ -339,6 +339,20 @@
   --_glyph-disabled: var(--color-text-600);
   --_glyph-loading: var(--color-text-100);
 }
+/* brown (spec 003 §4 as amended 2026-09-08 — the grader's second
+   chrome). Its spinner track is drawn brown/300, not the alpha ink
+   the teal/gray variants keep (bridge-verified) — the track hook
+   defaults to the alpha ink in the icon. */
+.btn-arrow[data-chrome="brown"] {
+  --_bg: var(--color-brown-200);
+  --_bg-hover: var(--color-brown-300);
+  --_bg-disabled: var(--color-brown-100);
+  --_bg-loading: var(--color-brown-200);
+  --_glyph: var(--color-brown-600);
+  --_glyph-disabled: var(--color-brown-300);
+  --_glyph-loading: var(--color-brown-700);
+  --loading-track: var(--color-brown-300);
+}
 
 @media (hover: hover) {
   .btn-arrow:not(:disabled):not([data-loading]):hover {

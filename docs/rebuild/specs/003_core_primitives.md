@@ -108,6 +108,14 @@ loading swaps the arrow for the spinner glyph (committed asset).
 | teal | `teal-250` | `teal-400` | `teal-500` | `teal-300` |
 | gray | `bg-200` | `bg-300` | `bg-500` | `bg-300` |
 
+*Amended 2026-09-08 — the set gained a **brown** chrome (fresh bridge
+reads of `520:15542`): disabled `brown-100` / glyph `brown-300` ·
+default `brown-200` / `brown-600` · hover `brown-300` / `brown-700` ·
+loading `brown-200` with the spinner head `brown-700` and the track
+drawn `brown-300` — the teal/gray tracks keep the alpha ink
+(verified), so the icon's track is a palette hook with the alpha-ink
+default.*
+
 ## 5 · grader-input (503:25844)
 
 Variants: size `lg/md/sm` × state
@@ -137,6 +145,34 @@ Error chrome (`red-400` border, `red-300` ring) must out-specify the
 filled/active `:has()` rules — those selectors otherwise keep the teal
 ring on an errored field that also has a value.
 
+*Amended 2026-09-08 — the set was redrawn (fresh reads of `503:25844`,
+geometry verified against rendered bounds through the bridge):*
+
+- *Pill heights are **56 / 48 / 44** (lg was 66, md 50) and every size
+  shares one padding scheme — left 12, right 8, y 8, gap 16 (the sums
+  now close: y 8 + circle + 8). Error totals follow: 82 / 74 / 70
+  (construction unchanged — gap 8, message inset 16).*
+- *A second variant axis, chrome `teal`/`brown`. Brown: border
+  `brown-200` walking `brown-300` at hover and holding it through
+  focus/active/filled; ring at rest is the file's
+  `focus-ring-grader-brown` effect style (`#f1e9e4` — not a variable;
+  enumerated as `--grader-ring-brown` in the component token layer),
+  walking `brown-200` (hover/active/filled) and `brown-300` (focus);
+  placeholder `brown-500` in every state; typed ink `brown-700`;
+  sparkle `brown-400`+`brown-600`; the embedded arrow rides §4's brown
+  chrome. Error stays the teal set's red/gray construction (no brown
+  error is drawn).*
+- *The field copy is a business name, not a url — placeholder canon
+  "Your business name" (the drawn 768 footer mounts it).*
+- *The active variants carry a **`grader-select-menu`** below the pill
+  (three business-suggestion rows; `hard-shadow-square-md`, radius 12,
+  pad 8, gap 4; item pads 6/8 y, 8 x; title `text/md/Medium`
+  `text-200`, sub `text/md/Light` `text-400`, hover row `bg-100`
+  radius 4; sm rows draw 50 high; the lg pill-to-menu gap is 12 where
+  md/sm keep 8). **Not built in this primitive** — the menu is
+  consumer behavior with a data source and lands with the blog page's
+  spec.*
+
 Error message: `text/sm/Light` in `red-500`, linked to the field with
 `aria-describedby`; the field carries `aria-invalid`. The arrow-to-state
 mapping above is the set's embedded truth (read from variant instances
@@ -158,7 +194,9 @@ The sticker sheet (re-read 2026-08-23 after expansion):
 - Four 20-grid outline icons: `projects` · `approach` · `case-studies` ·
   `chat`.
 - `icons/sparkle` — a color set: `teal` and `red` (the grader's error
-  sparkle).
+  sparkle). *(Amended 2026-09-08 — a third `brown` variant, byte-
+  identical geometry on the `brown-400`+`brown-600` pair; rides the
+  existing `--sparkle-a`/`--sparkle-b` hooks, no new export.)*
 - `IconArrowRight` / `IconArrowLeft` — 24-grid arrows (the button-arrow
   glyph and the carousel decor arrows).
 - `_nav-trigger-icon` — 10-grid set: `chevron` / `arrow` / `hover` (the

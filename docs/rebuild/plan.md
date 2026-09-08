@@ -1013,3 +1013,22 @@ F5 mobile-LCP gate against the new hero.
   010's Status line carries the supersession note; tsc/lint zero.
   Working tree left uncommitted per the git rule — the cutover
   commit awaits the owner's instruction.
+- **The grader-input primitive refreshed from the redrawn set** (owner
+  ask, in preparation for the blog page; spec 003 §4–§6 carry the
+  dated amendments). Fresh reads of `503:25844` through the bridge:
+  pill heights **56 / 48 / 44** (lg was 66, md 50) with one shared
+  12 · 8 (y 8) padding at every size, and a second **brown chrome**
+  across grader-input, button-arrow, and the sparkle (every stop an
+  existing brown token; the rest ring is the file's
+  `focus-ring-grader-brown` `#f1e9e4` — not a variable, enumerated as
+  `--grader-ring-brown`; the brown spinner track is drawn `brown/300`
+  where teal/gray keep the alpha ink — the icon gained a track hook
+  on the sparkle palette-hook precedent). Field copy is now a
+  business name ("Your business name"); the drawn 768 footer already
+  mounts the 48-high md with the new copy, so the built footer
+  follows through the primitive with no section change. **Not
+  built: the active state's `grader-select-menu`** (business
+  suggestions below the pill) — new interactive behavior with a data
+  source; it rides the blog-page spec. The /primitives matrix
+  carries both chromes. Committed the same day on the owner's
+  instruction.

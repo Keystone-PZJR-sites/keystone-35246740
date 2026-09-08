@@ -282,7 +282,7 @@ export default function PrimitivesPage() {
 
       <section className="pv-section">
         <h2>button-arrow</h2>
-        {(["teal", "gray"] as const).map((chrome) => (
+        {(["teal", "gray", "brown"] as const).map((chrome) => (
           <div key={chrome}>
             <h3>{chrome}</h3>
             <div className="pv-row">
@@ -507,18 +507,27 @@ export default function PrimitivesPage() {
 
       <section className="pv-section">
         <h2>grader-input</h2>
-        {(["lg", "md", "sm"] as const).map((size) => (
-          <div key={size} className="pv-grader-grid">
-            <h3>{size}</h3>
-            <GraderInput size={size} />
-            <GraderInput size={size} forceState="hover" />
-            <GraderInput size={size} forceState="focus" />
-            <GraderInput size={size} forceState="active" defaultValue="yourbusiness.com" />
-            <GraderInput size={size} defaultValue="yourbusiness.com" />
-            <GraderInput size={size} defaultValue="yourbusiness.com" error="Error message here." />
-            <GraderInput size={size} defaultValue="yourbusiness.com" loading />
-          </div>
-        ))}
+        {/* error is drawn for the teal chrome only (its chrome is the
+            red/gray construction either way); loading is the arrow's
+            state and is drawn for both chromes */}
+        {(["teal", "brown"] as const).map((chrome) =>
+          (["lg", "md", "sm"] as const).map((size) => (
+            <div key={`${chrome}-${size}`} className="pv-grader-grid">
+              <h3>
+                {chrome} · {size}
+              </h3>
+              <GraderInput size={size} chrome={chrome} />
+              <GraderInput size={size} chrome={chrome} forceState="hover" />
+              <GraderInput size={size} chrome={chrome} forceState="focus" />
+              <GraderInput size={size} chrome={chrome} forceState="active" defaultValue="business name" />
+              <GraderInput size={size} chrome={chrome} defaultValue="business name" />
+              {chrome === "teal" && (
+                <GraderInput size={size} defaultValue="business name" error="Error message here." />
+              )}
+              <GraderInput size={size} chrome={chrome} defaultValue="business name" loading />
+            </div>
+          )),
+        )}
       </section>
 
       <section className="pv-section">
