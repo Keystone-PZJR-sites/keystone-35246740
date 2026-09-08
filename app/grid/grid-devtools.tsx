@@ -333,19 +333,26 @@ function runSelfTests(
   // overlaps are declared in the expectations (clearanceExceptions),
   // never tolerated silently.
   const exceptions = new Set(expectations.clearanceExceptions ?? []);
+  // section identity (023 §9): a landmark on a .sec root names the
+  // section for its QA route; under the flag its cells stay exposed
+  // and the root skips the clearance audit (check 5 covers its box)
+  const secIdentity = expectations.secLandmarksAreIdentity === true;
+  const isSecRoot = (el: HTMLElement) => secIdentity && el.classList.contains("sec");
   const pageLeft = page.getBoundingClientRect().left;
   const exposure: DOMRect[] = [];
   page
     .querySelectorAll<HTMLElement>(".grid-region, .grid-fill, .grid-cellx, .decor")
     .forEach((el) => {
       if (el.getClientRects().length === 0) return;
-      if (el.closest("[data-landmark]")) return;
+      const lm = el.closest<HTMLElement>("[data-landmark]");
+      if (lm && !isSecRoot(lm)) return;
       exposure.push(el.getBoundingClientRect());
     });
   const clearFails: string[] = [];
   let clearChecks = 0;
   page.querySelectorAll<HTMLElement>("[data-landmark]").forEach((lm, i) => {
     if (lm.getClientRects().length === 0) return;
+    if (isSecRoot(lm)) return;
     const kind = lm.dataset.landmark!;
     if (exceptions.has(kind)) return;
     const r = lm.getBoundingClientRect();

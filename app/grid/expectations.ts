@@ -36,6 +36,13 @@ export interface GridExpectations {
    * build record: the 011/012 designed off-lattice landmarks — px
    * header tops, chat rows, the tag-carrying cards). */
   latticeExempt?: string[];
+  /** When true, a `data-landmark` on a `.sec` root is section identity,
+   * not a content box (the v2 homepage sections carry one for their QA
+   * routes — 023 §9 build record): the root skips the clearance audit
+   * (the section-boundary check already covers it) and its own exposure
+   * stays live instead of reading as contained lattice. Off (the 013
+   * default) everywhere else, so the standing legs are unchanged. */
+  secLandmarksAreIdentity?: boolean;
 }
 
 const [GALLERY_FX, FOOTER_FX] = FIXTURES;
