@@ -57,9 +57,11 @@
 }
 
 /* engine colors — the canonical mapping (§3), one rule for dots and chips */
-.ks-nav [data-engine="visibility"] { --_eng: var(--color-orange-400); }
-.ks-nav [data-engine="ads"] { --_eng: var(--color-yellow-400); }
-.ks-nav [data-engine="brand"] { --_eng: var(--color-pink-400); }
+/* re-bound to the homepage's post-019-relabel canon (owner direction
+   2026-09-08 — spec 005 §9 F20; engines.css carries the same mapping) */
+.ks-nav [data-engine="brand"] { --_eng: var(--color-orange-400); }
+.ks-nav [data-engine="visibility"] { --_eng: var(--color-yellow-400); }
+.ks-nav [data-engine="ads"] { --_eng: var(--color-pink-400); }
 .ks-nav [data-engine="reception"] { --_eng: var(--color-purple-400); }
 .ks-nav [data-engine="engagement"] { --_eng: var(--color-blue-400); }
 

@@ -51,7 +51,16 @@ function engineAnchor(id: string): string {
 
 /* ---- content (§3, transcribed from the sets 2026-08-24) ---- */
 
+/* Engine order is the narrative canon (Brand → Visibility → Ads →
+   Reception → Engagement — owner direction 2026-09-08, spec 005 §9
+   F20, matching the homepage's post-019-relabel order; the slot hues
+   stay orange · yellow · pink · purple · blue). */
 const ENGINES = [
+  {
+    id: "brand",
+    label: "Brand",
+    desc: "Establish credibility: polished websites, profiles, and reviews.",
+  },
   {
     id: "visibility",
     label: "Visibility",
@@ -61,11 +70,6 @@ const ENGINES = [
     id: "ads",
     label: "Ads",
     desc: "Bring in new customers: ads that pay for and improve themselves.",
-  },
-  {
-    id: "brand",
-    label: "Brand",
-    desc: "Establish credibility: polished websites, profiles, and reviews.",
   },
   {
     id: "reception",
