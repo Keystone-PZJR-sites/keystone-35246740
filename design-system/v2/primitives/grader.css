@@ -202,9 +202,76 @@
   color: var(--color-red-500);
 }
 
+/* the grader-select-menu (spec 024 §4 — the 003 §5 deferral closed;
+   drawn in the set's brown active variants). Presentational: the
+   consumer owns when it renders and what selection means; hover is
+   CSS, data-selected is the consumer's. Material fixed px per size
+   (the primitive law). The drawn gap below the pill rides as
+   margin-top (12 lg · 8 md/sm); menu width = pill width (the
+   consumer's box). The active pill's own re-ink is the standing
+   brown active state above. */
+.grader-menu {
+  list-style: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md);
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-000);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-hard-square-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.grader-menu[data-size="md"],
+.grader-menu[data-size="sm"] {
+  margin-top: var(--space-md);
+}
+.grader-menu-item {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-radius: var(--radius-xs);
+  transition: background-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+@media (hover: hover) {
+  .grader-menu-item:hover {
+    background: var(--color-bg-100);
+  }
+}
+.grader-menu-item[data-selected] {
+  background: var(--color-bg-100);
+}
+.grader-menu-name {
+  font: var(--ts-text-md-medium-font);
+  letter-spacing: var(--ts-text-md-medium-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-medium-opsz), var(--font-sans-slnt);
+  color: var(--color-text-200);
+}
+.grader-menu-address {
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  color: var(--color-text-400);
+}
+.grader-menu[data-size="sm"] .grader-menu-name {
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+}
+.grader-menu[data-size="sm"] .grader-menu-address {
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .grader-field,
-  .grader-field input::placeholder {
+  .grader-field input::placeholder,
+  .grader-menu-item {
     transition-duration: 0s;
   }
 }
