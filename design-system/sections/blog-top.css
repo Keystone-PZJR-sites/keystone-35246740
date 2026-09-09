@@ -201,6 +201,11 @@
   overflow: visible;
   z-index: var(--z-raised);
 }
+/* Each .sec isolates its stacking context, so a menu that crosses the
+   section edge needs the whole blog-top raised above blog-lists. */
+.blog-top:has(.grader[data-open]) {
+  z-index: var(--z-raised);
+}
 @container (min-width: 665px) {
   .bt-card {
     padding: calc(var(--bt-u) * 20);
