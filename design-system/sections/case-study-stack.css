@@ -18,7 +18,7 @@
 }
 
 @container (min-width: 1130px) {
-  .cst-content {
+  .cs-content.cst-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
   }

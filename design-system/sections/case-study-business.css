@@ -19,10 +19,10 @@
 /* the bleed column: rt/rd1 cols 1–12, rd2 cols 3–12; rd2 carries the
    drawn interior top pad */
 @container (min-width: 665px) {
-  .csb-content { width: calc(var(--t) * 11 + 1px); }
+  .cs-content.csb-content { width: calc(var(--t) * 11 + 1px); }
 }
 @container (min-width: 1130px) {
-  .csb-content {
+  .cs-content.csb-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 9 + 1px);
     padding-top: calc((var(--wA) + var(--wB)) * 64);

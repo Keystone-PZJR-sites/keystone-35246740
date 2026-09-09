@@ -45,7 +45,9 @@
 @import "./sections/blog-cards.css";
 @import "./sections/blog-lists.css";
 
-/* Case studies */
+/* Case studies — shared page utilities before section overrides so
+   per-section content columns (rd2 TOC inset) win the cascade. */
+@import "./pages/case-study.css";
 @import "./sections/case-study-header.css";
 @import "./sections/case-study-intro.css";
 @import "./sections/case-study-overview.css";
@@ -66,4 +68,3 @@
 
 /* Pages */
 @import "./pages/our-work.css";
-@import "./pages/case-study.css";

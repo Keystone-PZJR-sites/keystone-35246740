@@ -21,7 +21,7 @@
 }
 
 @container (min-width: 1130px) {
-  .csr-content {
+  .cs-content.csr-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
   }

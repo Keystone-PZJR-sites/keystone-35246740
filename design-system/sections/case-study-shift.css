@@ -19,7 +19,7 @@
 }
 
 @container (min-width: 1130px) {
-  .csft-content {
+  .cs-content.csft-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
   }
