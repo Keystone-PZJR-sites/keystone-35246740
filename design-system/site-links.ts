@@ -1,21 +1,22 @@
 import { GRADER_URL } from "./lib/grader";
 
+/** Destinations for nav and footer. Unbuilt pages use `#` so we never
+ * ship a 404 from chrome. */
 export const SITE_LINKS = {
   home: "/",
   approach: "/#system",
   solutions: "/#engine-brand",
   grader: GRADER_URL,
   ourWork: "/our-work",
-  caseStudies: "/case-studies",
+  caseStudies: "#",
   pricing: "/pricing",
-  /* Temporary: the company page is not ready yet. */
-  company: "/",
+  company: "#",
   resources: "/blog",
   blog: "/blog",
-  marketingReport: "/marketing-report",
-  about: "/about",
-  leadership: "/about/team",
-  careers: "/about/careers",
+  marketingReport: "#",
+  about: "#",
+  leadership: "#",
+  careers: "#",
   terms: "/terms",
   privacy: "/privacy",
   accessibility: "/accessibility",
