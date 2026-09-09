@@ -1,4 +1,4 @@
-import { getBlogPosts } from "@keystone-sites/core/lib/server-api";
+import { getBlogPost, getBlogPosts } from "@keystone-sites/core/lib/server-api";
 import { cache } from "react";
 import { SITE_LINKS } from "../site-links";
 
@@ -28,6 +28,19 @@ export interface BlogLandingModel {
 export interface BlogLandingFilter {
   query?: string;
   tag?: string;
+}
+
+export interface BlogPostSectionModel {
+  id: string;
+  heading: string;
+  markdown: string;
+}
+
+export interface BlogPostDetailModel extends BlogCardModel {
+  ledeMarkdown: string;
+  sections: BlogPostSectionModel[];
+  seoTitle: string | null;
+  seoDescription: string | null;
 }
 
 export interface BlogFilteredRequest extends BlogLandingFilter {
@@ -167,6 +180,80 @@ function parsePost(raw: unknown): ParsedBlogPost | null {
   };
 }
 
+function headingId(heading: string, index: number, used: Set<string>): string {
+  const base =
+    heading
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") || `section-${index + 1}`;
+  let id = base;
+  let duplicate = 2;
+  while (used.has(id)) {
+    id = `${base}-${duplicate}`;
+    duplicate += 1;
+  }
+  used.add(id);
+  return id;
+}
+
+function splitPostMarkdown(markdown: string): {
+  ledeMarkdown: string;
+  sections: BlogPostSectionModel[];
+} {
+  const lines = markdown.replace(/\r\n?/g, "\n").split("\n");
+  const usedIds = new Set<string>();
+  const sections: BlogPostSectionModel[] = [];
+  const lede: string[] = [];
+  let current: { heading: string; body: string[] } | null = null;
+
+  for (const line of lines) {
+    const heading = /^(?:#|##)\s+(.+?)\s*$/.exec(line);
+    if (heading) {
+      if (current) {
+        sections.push({
+          id: headingId(current.heading, sections.length, usedIds),
+          heading: current.heading,
+          markdown: current.body.join("\n").trim(),
+        });
+      }
+      current = { heading: heading[1], body: [] };
+    } else if (current) {
+      current.body.push(line);
+    } else {
+      lede.push(line);
+    }
+  }
+
+  if (current) {
+    sections.push({
+      id: headingId(current.heading, sections.length, usedIds),
+      heading: current.heading,
+      markdown: current.body.join("\n").trim(),
+    });
+  }
+
+  return { ledeMarkdown: lede.join("\n").trim(), sections };
+}
+
+function nullableString(value: unknown): string | null {
+  return typeof value === "string" && value.trim().length > 0 ? value : null;
+}
+
+function parsePostDetail(raw: unknown): BlogPostDetailModel | null {
+  const card = parsePost(raw);
+  if (!card || !isRecord(raw)) return null;
+  const content = raw.content_markdown;
+  if (typeof content !== "string") return null;
+  return {
+    ...card,
+    ...splitPostMarkdown(content),
+    seoTitle: nullableString(raw.seo_title),
+    seoDescription: nullableString(raw.seo_description),
+  };
+}
+
 const getBlogPostList = cache(async function getBlogPostList(): Promise<ParsedBlogPost[]> {
   const raw: unknown = await getBlogPosts();
   const posts = Array.isArray(raw)
@@ -223,6 +310,13 @@ export async function getBlogLanding(filter: BlogLandingFilter = {}): Promise<Bl
     categories: topCategories(posts),
   };
 }
+
+export const getBlogPostDetail = cache(async function getBlogPostDetail(
+  slug: string,
+): Promise<BlogPostDetailModel | null> {
+  const raw: unknown = await getBlogPost(slug);
+  return parsePostDetail(raw);
+});
 
 function tagBySlug(posts: ParsedBlogPost[], slug: string): BlogTag | null {
   const normalized = slug.toLocaleLowerCase();

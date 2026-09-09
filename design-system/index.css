@@ -45,6 +45,7 @@
 @import "./sections/blog-cards.css";
 @import "./sections/blog-lists.css";
 @import "./sections/blog-category.css";
+@import "./sections/blog-post.css";
 
 /* Case studies — shared page utilities before section overrides so
    per-section content columns (rd2 TOC inset) win the cascade. */
