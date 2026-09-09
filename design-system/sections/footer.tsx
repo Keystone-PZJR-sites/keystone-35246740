@@ -219,11 +219,6 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
             </FooterItem>
           </li>
         ))}
-        {g.id === "findus" && (
-          <li>
-            <CookiePreferencesLink label="Cookie preferences" className="fitem f-cookie-preferences" />
-          </li>
-        )}
       </ul>
     ),
   }));
@@ -277,9 +272,12 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
         </div>
         <div className="f-copy">
           <span>© 2026 Keystone</span>
-          <a href={SITE_LINKS.terms}>Terms of Service</a>
-          <a href={SITE_LINKS.privacy}>Privacy Policy</a>
-          <a href={SITE_LINKS.accessibility}>Accessibility</a>
+          <div className="f-legal-links">
+            <a href={SITE_LINKS.terms}>Terms of Service</a>
+            <a href={SITE_LINKS.privacy}>Privacy Policy</a>
+            <a href={SITE_LINKS.accessibility}>Accessibility</a>
+            <CookiePreferencesLink label="Cookie preferences" className="f-legal-preferences" />
+          </div>
         </div>
       </div>
     </footer>

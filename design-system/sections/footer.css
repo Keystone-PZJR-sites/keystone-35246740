@@ -455,23 +455,6 @@
   font-size: calc(var(--wA) * 14 + var(--wB) * 16);
   line-height: calc(var(--wA) * 18 + var(--wB) * 22);
 }
-.f-cookie-preferences {
-  --_font: var(--ts-text-md-regular-font);
-  --_ls: var(--ts-text-md-regular-ls);
-  --_opsz: var(--ts-text-md-regular-opsz);
-  --_ink: var(--color-text-400);
-  --_ink-hover: var(--color-text-200);
-  --_ink-focus: var(--color-text-300);
-  appearance: none;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.f-cookie-preferences:focus-visible {
-  box-shadow: 0 0 0 var(--ring-w) var(--color-bg-400);
-}
-
 @container (min-width: 470px) {
   .f-nav {
     width: calc(var(--t) * 10 + 1px);
@@ -689,7 +672,8 @@
   border: 1px solid var(--line);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
   margin-top: calc(var(--t));
   width: calc(var(--t) * 12 + 1px);
   height: calc(var(--t));
@@ -704,9 +688,30 @@
   color: var(--color-text-500);
   white-space: nowrap;
 }
-.f-copy a {
+.f-copy > span,
+.f-legal-links {
+  width: 100%;
+}
+.f-legal-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.f-copy a,
+.f-legal-preferences {
   color: inherit;
   text-decoration: none;
+}
+.f-legal-preferences {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+.f-legal-preferences:focus-visible {
+  box-shadow: 0 0 0 var(--ring-w) var(--color-bg-400);
 }
 
 @container (min-width: 470px) {
@@ -728,8 +733,6 @@
     margin-left: calc(var(--t) * 6);
     width: calc(var(--t) * 6 + 1px);
     height: calc(var(--t) + 1px);
-    justify-content: center;
-    gap: var(--space-xl);
     padding-inline: var(--space-none);
     border-bottom: none;
   }

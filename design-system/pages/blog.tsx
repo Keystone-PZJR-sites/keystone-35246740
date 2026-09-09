@@ -9,17 +9,18 @@ import { NavChrome } from "../sections/nav";
 
 export interface BlogPageProps {
   landing: BlogLandingModel;
+  searchQuery?: string;
   gridCheck?: ReactNode;
 }
 
-export async function BlogPage({ landing, gridCheck }: BlogPageProps) {
+export async function BlogPage({ landing, searchQuery, gridCheck }: BlogPageProps) {
   const company = await getCompanyInformation();
   return (
     <div className="page">
       <GridField />
       <NavChrome />
       <main>
-        <BlogTopSection youtubeUrl={company?.youtube_url} />
+        <BlogTopSection youtubeUrl={company?.youtube_url} searchQuery={searchQuery} />
         <BlogListsSection landing={landing} />
       </main>
       <FooterSection

@@ -3,8 +3,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { IconSearchGlyph } from "../icons";
 
-export function BlogSearchIsland() {
-  const [open, setOpen] = useState(false);
+export function BlogSearchIsland({ initialQuery = "" }: { initialQuery?: string }) {
+  const [open, setOpen] = useState(Boolean(initialQuery));
   /* Move focus only after user-triggered state changes. */
   const interacted = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,6 +50,7 @@ export function BlogSearchIsland() {
           ref={inputRef}
           type="text"
           name="q"
+          defaultValue={initialQuery}
           placeholder="Search..."
           aria-label="Search the blog"
         />

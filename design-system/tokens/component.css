@@ -322,22 +322,22 @@
   --cs-tag-r: var(--radius-sm);
   --cs-d-img: 440ms;
 
-  --hx2-head-top-rm: calc(var(--t) * 96 / 32);
-  --hx2-head-top-rt: calc((var(--wA) + var(--wB)) * 98);
-  --hx2-head-top-rd: calc(var(--t) * 192 / 112);
-  --hx2-h1-w-rm: calc(var(--wA) * 304 + var(--wB) * 408);
-  --hx2-h1-w-rs: calc(var(--wA) * 408 + var(--wB) * 512);
-  --hx2-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
-  --hx2-h1-w-rd: calc(var(--t) * 672 / 112);
-  --hx2-sub-top-rm: calc(var(--t) * 204 / 32);
-  --hx2-sub-top-rt: calc((var(--wA) + var(--wB)) * 250);
-  --hx2-sub-top-rd: calc(var(--t) * 396 / 112);
-  --hx2-sub-w-rm: calc(var(--wA) * 310 + var(--wB) * 475);
-  --hx2-sub-w-rs: calc(var(--wA) * 475 + var(--wB) * 640);
-  --hx2-sub-w-rd: calc(var(--t) * 708 / 112);
-  --hx2-cta-top-rm: calc(var(--t) * 357 / 32);
-  --hx2-cta-top-rt: calc((var(--wA) + var(--wB)) * 355);
-  --hx2-cta-top-rd: calc(var(--t) * 529 / 112);
+  --hero-head-top-rm: calc(var(--t) * 96 / 32);
+  --hero-head-top-rt: calc((var(--wA) + var(--wB)) * 98);
+  --hero-head-top-rd: calc(var(--t) * 192 / 112);
+  --hero-h1-w-rm: calc(var(--wA) * 304 + var(--wB) * 408);
+  --hero-h1-w-rs: calc(var(--wA) * 408 + var(--wB) * 512);
+  --hero-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
+  --hero-h1-w-rd: calc(var(--t) * 672 / 112);
+  --hero-sub-top-rm: calc(var(--t) * 204 / 32);
+  --hero-sub-top-rt: calc((var(--wA) + var(--wB)) * 250);
+  --hero-sub-top-rd: calc(var(--t) * 396 / 112);
+  --hero-sub-w-rm: calc(var(--wA) * 310 + var(--wB) * 475);
+  --hero-sub-w-rs: calc(var(--wA) * 475 + var(--wB) * 640);
+  --hero-sub-w-rd: calc(var(--t) * 708 / 112);
+  --hero-cta-top-rm: calc(var(--t) * 357 / 32);
+  --hero-cta-top-rt: calc((var(--wA) + var(--wB)) * 355);
+  --hero-cta-top-rd: calc(var(--t) * 529 / 112);
 
   --sys-r-rm: calc(var(--t) * 8);
   --sys-r-rt: calc(var(--t) * 6);

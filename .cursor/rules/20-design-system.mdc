@@ -21,6 +21,9 @@ with one reference today. By kind:
 - **Repeated CSS values** → a custom property referenced everywhere.
 - **Copy, labels, URLs, asset paths, endpoints** → a `*-data.ts` module, the
   media registry, or `.env` (see `60-data-and-integrations.mdc`).
+- Rename token and component contracts atomically. Search the full repository
+  before and after the rename. The old name has zero references, and every new
+  reference has one live definition.
 
 The test: if another file could ever need to agree on the value, or a reader
 would ask "why this number?", it gets a central name.

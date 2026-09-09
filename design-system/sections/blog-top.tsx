@@ -53,7 +53,13 @@ const ORNAMENTS: Record<GridBand, R[]> = {
   rd2: [{ gx: 11, gy: 3 }],
 };
 
-export function BlogTopSection({ youtubeUrl }: { youtubeUrl?: string }) {
+export function BlogTopSection({
+  youtubeUrl,
+  searchQuery = "",
+}: {
+  youtubeUrl?: string;
+  searchQuery?: string;
+}) {
   return (
     /* The pre-paint data-js attribute intentionally precedes hydration. */
     <section
@@ -170,7 +176,7 @@ export function BlogTopSection({ youtubeUrl }: { youtubeUrl?: string }) {
               {BLOG_TOP_CONTENT.blogHeading}
             </InterpText>
           </div>
-          <BlogSearchIsland />
+          <BlogSearchIsland initialQuery={searchQuery} />
         </div>
       </div>
     </section>

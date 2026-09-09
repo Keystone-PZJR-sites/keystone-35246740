@@ -23,6 +23,11 @@ export interface BlogLandingModel {
   categories: BlogCategoryModel[];
 }
 
+export interface BlogLandingFilter {
+  query?: string;
+  tag?: string;
+}
+
 const RECENT_COUNT = 3;
 const CATEGORY_COUNT = 5;
 const CATEGORY_POST_COUNT = 3;
@@ -150,8 +155,27 @@ function topCategories(posts: BlogCardModel[]): BlogCategoryModel[] {
     }));
 }
 
-export async function getBlogLanding(): Promise<BlogLandingModel> {
-  const posts = await getBlogPostList();
+function filterPosts(posts: BlogCardModel[], filter: BlogLandingFilter): BlogCardModel[] {
+  const query = filter.query?.trim().toLocaleLowerCase() ?? "";
+  const tag = filter.tag?.trim().toLocaleLowerCase() ?? "";
+  return posts.filter((post) => {
+    const matchesTag =
+      !tag || post.tags.some((postTag) => postTag.slug.toLocaleLowerCase() === tag);
+    if (!matchesTag || !query) return matchesTag;
+    const searchable = [
+      post.title,
+      post.topic,
+      post.description,
+      ...post.tags.flatMap((postTag) => [postTag.name, postTag.slug]),
+    ]
+      .join(" ")
+      .toLocaleLowerCase();
+    return searchable.includes(query);
+  });
+}
+
+export async function getBlogLanding(filter: BlogLandingFilter = {}): Promise<BlogLandingModel> {
+  const posts = filterPosts(await getBlogPostList(), filter);
   const featured = posts[0] ?? null;
   return {
     featured,

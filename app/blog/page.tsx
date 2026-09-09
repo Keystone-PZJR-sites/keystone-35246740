@@ -7,7 +7,29 @@ export const metadata: Metadata = {
   title: "Blog | Keystone",
 };
 
-export default async function Blog() {
-  const landing = await getBlogLanding();
-  return <BlogPage landing={landing} gridCheck={<BlogGridCheck landing={landing} />} />;
+interface BlogRouteProps {
+  searchParams: Promise<{
+    q?: string | string[];
+    tag?: string | string[];
+  }>;
+}
+
+function firstValue(value: string | string[] | undefined): string {
+  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
+}
+
+export default async function Blog({ searchParams }: BlogRouteProps) {
+  const params = await searchParams;
+  const query = firstValue(params.q);
+  const landing = await getBlogLanding({
+    query,
+    tag: firstValue(params.tag),
+  });
+  return (
+    <BlogPage
+      landing={landing}
+      searchQuery={query}
+      gridCheck={<BlogGridCheck landing={landing} />}
+    />
+  );
 }
