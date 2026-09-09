@@ -1284,3 +1284,48 @@ F5 mobile-LCP gate against the new hero.
   the field runs rows 8–24 complete); the crumb semantics, five-cell
   window, pages-≥2 featured drop, and query-h1 all approved. **R5
   (the empty-results line) stays open; the spec awaits approval.**
+- **025 approved and built the same evening** (owner in-chat — "lets
+  get started implementing"; 025 §9 B1 the build record). The
+  landing's lists are the rebuild's first data-driven surface built:
+  the boundary-validated `blog-data.ts` layer (the package's
+  `getBlogPosts()` full-set pagination walk on the 60s revalidate;
+  malformed records drop), the two card components with the drawn
+  clamps and the R4 hover (the card-shadow grammar's next consumer),
+  the tick-sized flow lists with data-computed exposure and the R1
+  whole-tick stack boxes, the data-dependent expectations (totals
+  292 · 163 · 60 at the full archetype — the drawn frames exactly)
+  through the production-aliased `blog-qa`, and the sweep's hermetic
+  `/blog` leg. tsc/lint zero; **the standing sweep green across all
+  five legs**. The 024 agent's parting **preparation review (025 §9
+  R2) was reconciled into the build** (no live collision — owner
+  confirmation): its **F5 was a real build defect, adopted same
+  evening** (the bare endpoint paginates server-side; the first cut
+  fetched one page — the fetch is now the package's full-set walk),
+  F6 adopted as proposed, R5 had been built identically; **F7
+  (excerptless posts), F9 (selection tie-breaks), F10 (the
+  category-card eyebrow), and Q1 (the pre-026 param posture) stay
+  with the owner**, with the build's interim postures recorded in
+  B1. **The R6 dev fixture landed** (025 §9 B2, owner report — the
+  outage left the built work unreviewable): fourteen pinned posts on
+  a DEVELOPMENT-ONLY dynamic import mount when the backend yields
+  nothing; the populated page verified on the owner's server at 1344
+  (the drawn grammar, the clamps on long seeds, the count-ordered
+  sections). **The backend swapped to the SOR API the same evening**
+  (owner-supplied env; the URL corrected to carry `/api/v1` — the
+  bare host 404s) and **the full sweep ran green against live data**
+  (025 §9 B3 — the F8 outage blocker closes; live posts replaced the
+  fixture with no code change). One content note: three of the live
+  top-5 tag names arrive slug-cased from the backend — a content
+  pass, not a build change. **The last preparation flags ruled the
+  same evening** (025 §9 B4): F7 from live-data inspection — 99/100
+  posts carry a real excerpt and the lone excerptless record now
+  derives a plain-text lead from its content (the drop-or-empty
+  alternatives rejected on the data); F9/F10/Q1 ruled fine as built.
+  **Every 025 flag and proposal is closed**; the spec's acceptance
+  ran green against live data and the empty-backend path both. One environment blocker:
+  **the production API is 503ing at the Heroku app level** (§9 R2
+  F8 — presumably affecting the LIVE site's blog too), so the sweep
+  exercised the empty-backend path (verified live: the boundary
+  returns `[]`, the page renders top + footer, no crash — the R3
+  posture) and the populated-data acceptance stays open until the
+  backend returns. Working tree left uncommitted per the git rule.
