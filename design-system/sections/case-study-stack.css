@@ -1,0 +1,255 @@
+/* Responsive service table with shared one-pixel borders. The section
+   and every cell hold their tick rows as minimums and grow with copy. */
+
+.cst-sec {
+  min-height: calc(var(--t) * 22);
+}
+@container (min-width: 470px) {
+  .cst-sec { min-height: calc(var(--t) * 13); }
+}
+@container (min-width: 665px) {
+  .cst-sec { min-height: calc(var(--t) * 10); }
+}
+@container (min-width: 860px) {
+  .cst-sec { min-height: calc(var(--t) * 9); }
+}
+@container (min-width: 1130px) {
+  .cst-sec { min-height: calc(var(--t) * 7); }
+}
+
+@container (min-width: 1130px) {
+  .cst-content {
+    margin-left: calc(var(--t) * 3);
+    width: calc(var(--t) * 8 + 1px);
+  }
+}
+
+/* ---------------- the header block ---------------- */
+
+.cst-header {
+  border: 1px solid var(--color-border-000);
+  min-height: calc(var(--t) * 5 + 1px);
+  padding: 16px;
+}
+@container (min-width: 470px) {
+  .cst-header { min-height: calc(var(--t) * 3 + 1px); }
+}
+@container (min-width: 860px) {
+  .cst-header {
+    min-height: calc(var(--t) * 2 + 1px);
+    padding: 20px;
+  }
+}
+
+.cst-subhead {
+  color: var(--color-text-300);
+  margin-top: calc((var(--wA) + var(--wB)) * 24);
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+@container (min-width: 470px) {
+  .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 415); }
+}
+@container (min-width: 665px) {
+  .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 480); }
+}
+@container (min-width: 860px) {
+  .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 480); }
+}
+@container (min-width: 1130px) {
+  .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 652); }
+}
+
+/* ---------------- the table ---------------- */
+
+/* shares its top edge with the header block */
+.cst-table {
+  display: flex;
+  margin-top: -1px;
+}
+
+/* The logo cell appears from tablet upward. */
+.cst-logo-cell {
+  display: none;
+}
+@container (min-width: 665px) {
+  .cst-logo-cell {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-000);
+    flex: none;
+    width: calc(var(--t) * 1 + 1px);
+    padding: 16px;
+  }
+}
+@container (min-width: 1130px) {
+  .cst-logo-cell {
+    width: calc(var(--t) * 2 + 1px);
+    padding: 20px;
+  }
+}
+/* The masked logomark scales with its chip. */
+.cst-logo-chip {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-300);
+}
+.cst-logomark {
+  width: 16px;
+  height: 16px;
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+}
+@container (min-width: 860px) {
+  .cst-logo-chip { width: 40px; height: 40px; }
+  .cst-logomark { width: 20px; height: 20px; }
+}
+@container (min-width: 1130px) {
+  .cst-logo-chip { width: 48px; height: 48px; }
+  .cst-logomark { width: 24px; height: 24px; }
+}
+
+/* Padding and negative margins overlap adjacent borders without
+   doubling the header seam. */
+.cst-cells {
+  margin: 0;
+  padding: 1px 0 0 1px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  --cell-w: calc(var(--t) * 5.25 + 1px);
+  --cell-h: calc(var(--t) * 5 + 1px);
+  --cell-pad: 16px;
+  width: calc(var(--t) * 10.5 + 2px);
+}
+.cst-cells > li {
+  margin: -1px 0 0 -1px;
+  width: var(--cell-w);
+  min-height: var(--cell-h);
+}
+@container (min-width: 470px) {
+  .cst-cells {
+    --cell-w: calc(var(--t) * 5 + 1px);
+    --cell-h: calc(var(--t) * 3 + 1px);
+    width: calc(var(--t) * 10 + 2px);
+  }
+}
+@container (min-width: 665px) {
+  /* Preserve top padding so row one shares, rather than crosses, the header border. */
+  .cst-cells {
+    margin-left: -1px;
+    --cell-w: calc(var(--t) * 3 + 1px);
+    --cell-h: calc(var(--t) * 3 + 1px);
+    width: calc(var(--t) * 9 + 2px);
+  }
+}
+@container (min-width: 860px) {
+  .cst-cells { --cell-pad: 20px; }
+}
+@container (min-width: 1130px) {
+  .cst-cells {
+    --cell-w: calc(var(--t) * 2 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+    width: calc(var(--t) * 6 + 2px);
+  }
+}
+
+/* The icon sits at the top and the text settles on the bottom padding,
+   keeping a material gap when a description runs long. */
+.cst-cell {
+  border: 1px solid var(--color-border-000);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--cell-pad);
+}
+
+/* Wider bands restore each SVG's intrinsic dimensions. */
+.cst-icon {
+  display: inline-flex;
+}
+.cst-icon svg {
+  width: 26px;
+  height: 26px;
+}
+@container (min-width: 470px) {
+  .cst-icon svg { width: 20px; height: 20px; }
+}
+@container (min-width: 665px) {
+  .cst-icon svg { width: 26px; height: 26px; }
+}
+@container (min-width: 860px) {
+  .cst-icon svg { width: auto; height: auto; }
+}
+
+.cst-cell-text {
+  margin-top: auto;
+  padding-top: var(--space-xl);
+  width: 100%;
+}
+.cst-title {
+  margin: 0;
+  color: var(--color-text-300);
+  font: var(--ts-text-md-medium-font);
+  font-size: calc((var(--wA) + var(--wB)) * 16);
+  line-height: calc((var(--wA) + var(--wB)) * 22);
+  letter-spacing: var(--ts-text-md-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-medium-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.cst-desc {
+  margin: calc((var(--wA) + var(--wB)) * 12) 0 0;
+  color: var(--color-text-300);
+  font: var(--ts-text-xs-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 665px) {
+  .cst-title {
+    font: var(--ts-text-lg-medium-font);
+    font-size: calc((var(--wA) + var(--wB)) * 18);
+    line-height: calc((var(--wA) + var(--wB)) * 26);
+    letter-spacing: var(--ts-text-lg-medium-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-medium-opsz), var(--font-sans-slnt);
+  }
+  .cst-desc {
+    font: var(--ts-text-sm-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+    letter-spacing: var(--ts-text-sm-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .cst-title {
+    font: var(--ts-text-xl-medium-font);
+    font-size: calc((var(--wA) + var(--wB)) * 20);
+    line-height: calc((var(--wA) + var(--wB)) * 26);
+    letter-spacing: var(--ts-text-xl-medium-ls);
+    font-variation-settings: "opsz" var(--ts-text-xl-medium-opsz), var(--font-sans-slnt);
+  }
+  .cst-desc {
+    font: var(--ts-text-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 16);
+    line-height: calc((var(--wA) + var(--wB)) * 22);
+    letter-spacing: var(--ts-text-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* Compact descriptions appear only in narrow bands. */
+.cst-desc-full {
+  display: none;
+}
+@container (min-width: 665px) {
+  .cst-desc-short { display: none; }
+  .cst-desc-full { display: inline; }
+}

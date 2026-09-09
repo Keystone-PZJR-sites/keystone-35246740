@@ -1,0 +1,924 @@
+/* Geometry uses page ticks; typography scales through responsive variables. */
+
+/* The section is a tick grid: columns are the designed tick columns and
+   each row track is a designed row budget, `minmax(rows·t, auto)`, so an
+   anchor renders the designed frame and content that outgrows a budget
+   moves every later row down instead of colliding. Line-inclusive boxes
+   (k·t + 1px) grow their row by the pixel; the following track gives it
+   back so the section total stays on the tick. */
+.pricing-offer-section {
+  display: grid;
+  align-items: start;
+  width: 100%;
+  min-height: calc(var(--t) * 48);
+  grid-template-columns: calc(var(--t) / 2) calc(var(--t) * 10.5) minmax(0, 1fr);
+  grid-template-rows:
+    var(--po-head-top-rm)
+    minmax(calc(var(--t) * 11 - var(--po-head-top-rm)), auto)
+    minmax(calc(var(--t) * 9), auto)
+    minmax(calc(var(--t) * 4), auto)
+    minmax(calc(var(--t) * 21), auto)
+    minmax(calc(var(--t) * 3 - 1px), auto);
+  grid-template-areas:
+    ". . ."
+    ". head ."
+    ". card ."
+    ". chatc ."
+    ". list ."
+    ". chatl .";
+}
+@container (min-width: 470px) {
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 27);
+    grid-template-columns: var(--t) calc(var(--t) * 5) calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-rows:
+      var(--po-head-top-rs)
+      minmax(calc(var(--t) * 10 - var(--po-head-top-rs)), auto)
+      minmax(calc(var(--t) * 2), auto)
+      minmax(calc(var(--t) * 12), auto)
+      minmax(calc(var(--t) * 3 - 1px), auto);
+    grid-template-areas:
+      ". . . ."
+      ". head card ."
+      ". chatc chatc ."
+      ". list list ."
+      ". chatl chatl .";
+  }
+}
+@container (min-width: 665px) {
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 16);
+    grid-template-rows:
+      var(--po-head-top-rt)
+      minmax(calc(var(--t) * 8 - var(--po-head-top-rt)), auto)
+      calc(var(--t) * 6)
+      minmax(calc(var(--t) * 2), auto);
+    grid-template-areas:
+      ". . . ."
+      ". head card ."
+      ". list list ."
+      ". chatl chatl .";
+  }
+}
+@container (min-width: 860px) {
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 15);
+    grid-template-rows:
+      var(--po-head-top-rd1)
+      minmax(calc(var(--t) * 8 - var(--po-head-top-rd1)), auto)
+      calc(var(--t) * 6)
+      minmax(var(--t), auto);
+  }
+}
+@container (min-width: 1130px) {
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 13);
+    grid-template-rows:
+      var(--po-head-top-rd2)
+      minmax(calc(var(--t) * 5 - var(--po-head-top-rd2)), auto)
+      minmax(calc(var(--t) * 6), auto)
+      minmax(calc(var(--t) * 2 - 1px), auto);
+    grid-template-areas:
+      ". . . ."
+      ". head head ."
+      ". card list ."
+      ". chatl chatl .";
+  }
+}
+
+/* Grid items shrink to their content so the boxes end where the copy
+   ends and clear the exposed lattice cells beside them. */
+.po-header {
+  grid-area: head;
+  justify-self: start;
+  min-width: 0;
+}
+
+/* Typed elements share responsive size variables. */
+.po-slug,
+.po-h1,
+.po-subhead,
+.po-fine,
+.po-list-head,
+.po-items li {
+  font: var(--_f);
+  font-size: calc((var(--wA) + var(--wB)) * var(--_fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.po-slug {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-none);
+  color: var(--color-text-400);
+  --_f: var(--ts-text-xs-medium-font);
+  --_fs: 12;
+  --_lh: 16;
+  --_ls: var(--ts-text-xs-medium-ls);
+  --_opsz: var(--ts-text-xs-medium-opsz);
+}
+.po-slug-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-bg-400);
+}
+@container (min-width: 860px) {
+  .po-slug {
+    gap: var(--space-lg);
+    --_f: var(--ts-text-sm-medium-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-medium-ls);
+    --_opsz: var(--ts-text-sm-medium-opsz);
+  }
+  .po-slug-dot {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+.po-h1 {
+  margin: var(--space-lg) 0 0;
+  color: var(--color-text-100);
+  max-width: var(--po-h1-w-rm);
+  --_f: var(--ts-display-serif-sm-plus-thin-font);
+  --_fs: 36;
+  --_lh: 42;
+  --_ls: var(--ts-display-serif-sm-plus-thin-ls);
+}
+@container (min-width: 470px) {
+  .po-h1 { max-width: var(--po-h1-w-rs); }
+}
+@container (min-width: 665px) {
+  .po-h1 {
+    margin-top: var(--space-xl);
+    max-width: var(--po-h1-w-rt);
+    --_f: var(--ts-display-serif-md-thin-font);
+    --_fs: 40;
+    --_lh: 48;
+    --_ls: var(--ts-display-serif-md-thin-ls);
+  }
+}
+@container (min-width: 860px) {
+  .po-h1 {
+    margin-top: var(--space-5xl);
+    max-width: var(--po-h1-w-rd1);
+    --_f: var(--ts-display-serif-lg-thin-font);
+    --_fs: 48;
+    --_lh: 56;
+    --_ls: var(--ts-display-serif-lg-thin-ls);
+  }
+}
+@container (min-width: 1130px) {
+  .po-h1 {
+    max-width: var(--po-h1-w-rd2);
+    --_f: var(--ts-display-serif-3xl-thin-font);
+    --_fs: 72;
+    --_lh: 78;
+    --_ls: var(--ts-display-serif-3xl-thin-ls);
+  }
+}
+
+.po-subhead {
+  margin: var(--space-3xl) 0 0;
+  color: var(--color-text-400);
+  max-width: var(--po-sub-w-rm);
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+/* the two designed paragraphs (rm/rt/rd1): block segments with the
+   12px paragraph spacing; at the 1130 gate they return to inline flow
+   (one paragraph, the 485 box wraps it) — the whitespace between the
+   spans is suppressed while they are blocks and flows at rd2 */
+.po-sub-seg {
+  display: block;
+}
+.po-sub-seg + .po-sub-seg {
+  margin-top: var(--space-lg);
+}
+@container (min-width: 470px) {
+  .po-subhead { max-width: var(--po-sub-w-rs); }
+}
+@container (min-width: 665px) {
+  .po-subhead {
+    max-width: var(--po-sub-w-rt);
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .po-subhead {
+    margin-top: var(--space-5xl);
+    max-width: var(--po-sub-w-rd1);
+    --_f: var(--ts-text-xl-light-font);
+    --_fs: 20;
+    --_lh: 26;
+    --_ls: var(--ts-text-xl-light-ls);
+    --_opsz: var(--ts-text-xl-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .po-subhead {
+    max-width: var(--po-sub-w-rd2);
+    --_f: var(--ts-text-2xl-light-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-light-ls);
+    --_opsz: var(--ts-text-2xl-light-opsz);
+  }
+  .po-sub-seg {
+    display: inline;
+  }
+  .po-sub-seg + .po-sub-seg {
+    margin-top: var(--space-none);
+  }
+}
+
+.po-chat {
+  display: flex;
+  justify-self: start;
+}
+.po-chat-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+.po-cl-sm {
+  display: none;
+}
+@container (min-width: 665px) {
+  .po-cl-md { display: none; }
+  .po-cl-sm { display: flex; }
+}
+/* Chat labels use fixed material sizes per band. */
+.po-chat-label {
+  color: var(--color-text-400);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .po-chat-card .po-chat-label,
+  .po-chat-list .po-chat-label {
+    padding-left: var(--space-md);
+  }
+}
+@container (min-width: 665px) {
+  .po-chat-list .po-chat-label,
+  .po-chat-head-rt .po-chat-label {
+    padding-left: var(--space-none);
+    font: var(--ts-text-sm-light-font);
+    letter-spacing: var(--ts-text-sm-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* the header rows: rt 48 below the subhead, rd1 40 below (in flow) */
+.po-chat-head-rt {
+  display: none;
+}
+.po-chat-head-rd1 {
+  display: none;
+}
+@container (min-width: 665px) {
+  .po-chat-head-rt {
+    display: flex;
+    margin-top: var(--space-6xl);
+  }
+}
+@container (min-width: 860px) {
+  .po-chat-head-rt { display: none; }
+  .po-chat-head-rd1 {
+    display: flex;
+    margin-top: var(--space-5xl);
+  }
+  .po-chat-head-rd1 .po-chat-label {
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .po-chat-head-rd1 { display: none; }
+}
+
+/* Chat rows are material (40/48px) blocks centered on a half-tick line:
+   the drop is the designed row offset from the track start. */
+.po-chat-card {
+  grid-area: chatc;
+  margin-top: calc(var(--space-3xl) + var(--po-chat-drop-card-rm));
+}
+@container (min-width: 470px) {
+  .po-chat-card {
+    margin-top: calc(var(--t) / 2 - var(--po-chat-half-md));
+  }
+}
+@container (min-width: 665px) {
+  .po-chat-card { display: none; }
+}
+
+/* Centers the material row on the half-tick line; below the smallest
+   anchor the row is taller than the tick, so the offset floors at zero. */
+.po-chat-list {
+  grid-area: chatl;
+  margin-top: max(var(--space-none), calc(var(--t) * 1.5 - var(--po-chat-half-md) - 1px));
+}
+@container (min-width: 665px) {
+  .po-chat-list {
+    margin-top: var(--po-chat-drop-list);
+  }
+}
+@container (min-width: 860px) {
+  .po-chat-list { display: none; }
+}
+
+.po-chat-list-rd2 {
+  display: none;
+}
+@container (min-width: 1130px) {
+  .po-chat-list-rd2 {
+    display: flex;
+    grid-area: chatl;
+    margin-top: calc(var(--po-chat-drop-rd2) - 1px);
+  }
+  .po-chat-list-rd2 .po-chat-label {
+    padding-left: var(--space-lg);
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* the card + button container is the whole-tick geometry unit; the
+   white card absorbs the button's material height (the tick wins) */
+.po-card-wrap {
+  grid-area: card;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(var(--t) * 9);
+  /* Keep the card shadow above the touching list box. */
+  z-index: 1;
+}
+@container (min-width: 470px) {
+  .po-card-wrap {
+    margin-top: calc(var(--t) * 3 - var(--po-head-top-rs));
+    min-height: calc(var(--t) * 6);
+  }
+}
+/* The overlay paints the shadow above the tag and touching list. */
+.po-card-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: var(--shadow-hard-square);
+}
+@container (min-width: 665px) {
+  .po-card-wrap {
+    margin-top: calc(var(--t) * 2 - var(--po-head-top-rt));
+    min-height: calc(var(--t) * 5);
+  }
+}
+@container (min-width: 860px) {
+  .po-card-wrap {
+    margin-top: calc(var(--t) * 2 - var(--po-head-top-rd1));
+  }
+}
+@container (min-width: 1130px) {
+  .po-card-wrap {
+    margin-top: 0;
+  }
+}
+
+.po-card {
+  position: relative;
+  /* Keep the mosaic behind content but above the card fill. */
+  isolation: isolate;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: clip;
+  background: var(--color-bg-000);
+  color: var(--color-teal-600);
+  padding: var(--space-2xl) var(--space-3xl) var(--space-3xl);
+}
+@container (min-width: 470px) {
+  .po-card { padding: var(--space-lg) var(--space-xl) var(--space-xl); }
+}
+@container (min-width: 665px) {
+  .po-card { padding: var(--space-2xl) var(--space-3xl) var(--space-3xl); }
+}
+@container (min-width: 860px) {
+  .po-card { padding-bottom: var(--space-5xl); }
+}
+@container (min-width: 1130px) {
+  .po-card { padding: var(--space-4xl) var(--space-2xl) var(--space-5xl) var(--space-4xl); }
+}
+
+.po-cardbtn {
+  flex: none;
+}
+/* The button cell follows the page tick to align both lattices. */
+.po-cardbtn .pbtn {
+  --pbtn-cell: var(--t);
+}
+.po-cardbtn-sm,
+.po-cardbtn-md,
+.po-cardbtn-lg,
+.po-cardbtn-xl {
+  display: none;
+}
+@container (min-width: 470px) {
+  .po-cardbtn-xs { display: none; }
+  .po-cardbtn-sm { display: block; }
+}
+@container (min-width: 665px) {
+  .po-cardbtn-sm { display: none; }
+  .po-cardbtn-md { display: block; }
+}
+@container (min-width: 860px) {
+  .po-cardbtn-md { display: none; }
+  .po-cardbtn-lg { display: block; }
+}
+@container (min-width: 1130px) {
+  .po-cardbtn-lg { display: none; }
+  .po-cardbtn-xl { display: block; }
+}
+
+/* the price row — /month sits on the $50 baseline (flex baseline; its
+   designed box pads: top 6, right 8) */
+.po-price {
+  display: flex;
+  align-items: baseline;
+  margin: var(--space-none);
+}
+.po-price-num {
+  /* Price sizing uses dedicated responsive constants. */
+  font: 300 var(--po-price-rm) / var(--po-price-rm) var(--font-sans);
+  letter-spacing: var(--po-price-ls);
+  font-variation-settings: "opsz" var(--po-price-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.po-price-per {
+  margin-left: var(--po-price-gap);
+  padding: var(--space-sm) var(--space-md) 0 0;
+  font: var(--ts-text-xs-light-font);
+  letter-spacing: var(--ts-text-xs-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 860px) {
+  .po-price-num { font: 300 var(--po-price-rd1) / var(--po-price-rd1) var(--font-sans); }
+  .po-price-per {
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .po-price-num { font: 300 var(--po-price-rd2) / var(--po-price-rd2) var(--font-sans); }
+}
+
+/* the fine print anchors to the bottom pad (the tick's slack sits
+   above it — "the tick wins") */
+.po-fine {
+  margin: auto 0 0;
+  --_f: var(--ts-text-lg-light-font);
+  --_fs: 18;
+  --_lh: 26;
+  --_ls: var(--ts-text-lg-light-ls);
+  --_opsz: var(--ts-text-lg-light-opsz);
+}
+@container (min-width: 470px) {
+  .po-fine {
+    --_f: var(--ts-text-md-light-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-light-ls);
+    --_opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 665px) {
+  .po-fine {
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .po-fine {
+    --_f: var(--ts-text-xl-light-font);
+    --_fs: 20;
+    --_lh: 26;
+    --_ls: var(--ts-text-xl-light-ls);
+    --_opsz: var(--ts-text-xl-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .po-fine {
+    --_f: var(--ts-text-2xl-light-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-light-ls);
+    --_opsz: var(--ts-text-2xl-light-opsz);
+  }
+}
+
+/* the hanging tag — bottom corners radius-sm, indented from the
+   container's left edge */
+.po-tag {
+  position: absolute;
+  top: 100%;
+  left: var(--space-3xl);
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--po-tag-pad-x-rm);
+  background: var(--color-teal-200);
+  color: var(--color-teal-600);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font: var(--ts-text-2xs-medium-font);
+  letter-spacing: var(--ts-text-2xs-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-2xs-medium-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  white-space: nowrap;
+}
+@container (min-width: 860px) {
+  .po-tag {
+    left: var(--space-4xl);
+    height: 32px;
+    padding: var(--space-xs) var(--space-lg) var(--space-md);
+    font: var(--ts-text-xs-medium-font);
+    letter-spacing: var(--ts-text-xs-medium-ls);
+    font-variation-settings: "opsz" var(--ts-text-xs-medium-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* Mosaic cells align to page ticks and omit card-boundary edges. */
+.po-mosaic {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  pointer-events: none;
+}
+.po-mosaic i {
+  position: absolute;
+}
+.po-mosaic i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-teal-150);
+  left: calc(var(--t) * var(--n) - 1px);
+}
+.po-mosaic i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-teal-150);
+  top: calc(var(--t) * var(--n) - 1px);
+}
+.po-mosaic i.c {
+  box-sizing: border-box;
+  width: calc(var(--t) + 1px);
+  height: calc(var(--t) + 1px);
+  border: 1px solid var(--color-teal-150);
+  border-radius: var(--radius-full);
+  left: calc(var(--t) * var(--cx) - 1px);
+  top: calc(var(--t) * var(--cy) - 1px);
+  /* Keep the return movement on the same curve. */
+  transition: translate var(--motion-cell-slide-dur) var(--motion-cell-slide-ease);
+}
+.po-mosaic i.c.fillc {
+  background: var(--color-teal-150);
+}
+
+/* The strip paints only edges facing the card interior. */
+.po-mosaic-strip {
+  top: 0;
+  right: 0;
+  width: calc(var(--t) * 2 + 1px);
+  height: calc(var(--t) * 7 + 1px);
+  border-left-color: var(--color-teal-150);
+  border-bottom-color: var(--color-teal-150);
+}
+.po-mosaic-field {
+  display: none;
+  top: 0;
+  left: 0;
+  width: calc(var(--t) * 5 + 1px);
+  height: calc(var(--t) * 5 + 1px);
+}
+@container (min-width: 470px) {
+  .po-mosaic-strip { display: none; }
+  .po-mosaic-field { display: block; }
+  .po-mosaic-field i.po-c-rt-up { display: none; }
+}
+@container (min-width: 665px) {
+  .po-mosaic-field i.po-c-rt-up { display: block; }
+}
+
+/* Only button hover moves mosaic circles. */
+@media (hover: hover) {
+  .po-card-wrap:has(.pbtn:hover) .po-mosaic i.c {
+    translate: calc(var(--dx, 0) * var(--t)) calc(var(--dy, 0) * var(--t));
+  }
+}
+
+.po-list-single,
+.po-box {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-100);
+  border: 1px solid var(--color-border-000);
+  box-shadow: var(--shadow-hard-square);
+  /* the tick wins: at worst-case compression the hug presses into the
+     bottom pad (material icon rows cannot zoom); the clip keeps it
+     inside the whole-tick box */
+  overflow: clip;
+}
+
+/* The extra pixel makes list borders share lattice lines. */
+.po-list-single {
+  grid-area: list;
+  justify-self: start;
+  width: calc(100% + 1px);
+  min-height: calc(var(--t) * 21 + 1px);
+  padding: var(--space-xl) var(--space-xl) var(--space-3xl);
+}
+@container (min-width: 470px) {
+  .po-list-single {
+    min-height: calc(var(--t) * 12 + 1px);
+    padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
+  }
+  .po-list-single .po-list-cta { align-self: flex-start; }
+}
+@container (min-width: 665px) {
+  .po-list-single { display: none; }
+}
+@container (min-width: 1130px) {
+  .po-list-single {
+    display: flex;
+    margin-top: var(--t);
+    min-height: calc(var(--t) * 5 + 1px);
+    padding: var(--space-3xl) var(--space-4xl);
+  }
+}
+
+/* Tablet bands use two boxes with the right box staggered by one tick. */
+/* Two staggered boxes on a grid: the right box starts one row lower and
+   shares its left border pixel with the left box. Each box holds its
+   tick size as a minimum and grows with its list. */
+.po-list-pair {
+  display: none;
+  grid-area: list;
+  grid-template-columns: repeat(2, calc(var(--t) * 5));
+  grid-template-rows: var(--t) auto;
+  align-items: start;
+  min-height: calc(var(--t) * 6);
+}
+@container (min-width: 665px) {
+  .po-list-pair { display: grid; }
+}
+@container (min-width: 1130px) {
+  .po-list-pair { display: none; }
+}
+
+/* The right box sits behind the left box's shadow. */
+.po-box {
+  position: relative;
+  width: calc(var(--t) * 5 + 1px);
+  min-height: calc(var(--t) * 5 + 1px);
+  padding: var(--space-2xl) var(--space-3xl) var(--space-2xl) var(--space-2xl);
+}
+.po-box-l {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  z-index: 1;
+}
+.po-box-r {
+  grid-column: 2;
+  grid-row: 2;
+  /* The bottom border shares the pixel with the lattice line below. */
+  margin-bottom: -1px;
+  padding-bottom: var(--space-3xl);
+  box-shadow: none;
+}
+@container (min-width: 860px) {
+  .po-box {
+    padding: var(--space-2xl) var(--space-4xl) var(--space-2xl) var(--space-3xl);
+  }
+  .po-box-r {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+}
+
+/* Flow margins scale with the responsive type unit. */
+.po-list-head {
+  margin: 0 0 calc((var(--wA) + var(--wB)) * 20);
+  color: var(--color-text-300);
+  --_f: var(--ts-text-md-medium-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-medium-ls);
+  --_opsz: var(--ts-text-md-medium-opsz);
+}
+@container (min-width: 470px) {
+  .po-list-head { margin-bottom: calc((var(--wA) + var(--wB)) * 16); }
+}
+@container (min-width: 665px) {
+  .po-list-head { margin-bottom: calc((var(--wA) + var(--wB)) * 20); }
+}
+@container (min-width: 860px) {
+  .po-list-head {
+    --_f: var(--ts-text-xl-medium-font);
+    --_fs: 20;
+    --_lh: 26;
+    --_ls: var(--ts-text-xl-medium-ls);
+    --_opsz: var(--ts-text-xl-medium-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .po-list-head {
+    margin-bottom: calc((var(--wA) + var(--wB)) * 12);
+    --_f: var(--ts-text-2xl-medium-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-medium-ls);
+    --_opsz: var(--ts-text-2xl-medium-opsz);
+  }
+}
+
+.po-items {
+  list-style: none;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  display: flex;
+  flex-direction: column;
+  gap: calc((var(--wA) + var(--wB)) * 16);
+}
+@container (min-width: 665px) {
+  .po-items { gap: calc((var(--wA) + var(--wB)) * 12); }
+}
+/* Item type and icon gaps step by responsive band. */
+.po-items li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  color: var(--color-text-300);
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 470px) {
+  .po-items li { gap: var(--space-xl); }
+}
+@container (min-width: 665px) {
+  .po-items li {
+    gap: var(--space-lg);
+    --_f: var(--ts-text-sm-light-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-light-ls);
+    --_opsz: var(--ts-text-sm-light-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .po-items { gap: calc((var(--wA) + var(--wB)) * 20); }
+  .po-items li {
+    --_f: var(--ts-text-md-light-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-light-ls);
+    --_opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .po-items { gap: calc((var(--wA) + var(--wB)) * 12); }
+  .po-items li {
+    gap: var(--space-3xl);
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* The wrap box pins the designed rag and yields to a narrower column. */
+.po-item-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: var(--po-item-w-rm);
+}
+@container (min-width: 470px) {
+  .po-item-text { max-width: var(--po-item-w-rs); }
+}
+@container (min-width: 665px) {
+  .po-item-text { max-width: var(--po-item-w-rt); }
+}
+@container (min-width: 860px) {
+  .po-item-text { max-width: var(--po-item-w-rd1); }
+}
+@container (min-width: 1130px) {
+  .po-item-text { max-width: var(--po-item-w-rd2); }
+}
+
+/* Icon boxes and glyphs scale independently by band. */
+.po-item-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+}
+.po-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.po-item-icon-brand {
+  background: var(--color-bg-200);
+  border-radius: var(--radius-md);
+}
+.po-logomark {
+  width: 16px;
+  height: 16px;
+  background: var(--color-text-400);
+  -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+}
+@container (min-width: 665px) {
+  .po-item-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .po-item-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  .po-logomark {
+    width: 12px;
+    height: 12px;
+  }
+}
+@container (min-width: 860px) {
+  .po-item-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .po-item-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .po-logomark {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* the CTA sits bottom-right (rm in the box flow; rt/rd1 in a p24 row
+   inside the right box; none at rd2 — the card's xl button is the
+   block's only CTA) */
+.po-list-cta {
+  margin-top: auto;
+  align-self: flex-end;
+}
+@container (min-width: 1130px) {
+  .po-list-single .po-list-cta { display: none; }
+}
+.po-cta-rd1 {
+  display: none;
+}
+@container (min-width: 860px) {
+  .po-cta-rt { display: none; }
+  .po-cta-rd1 { display: inline-block; }
+  .po-box-r .po-list-cta { margin-right: calc(var(--space-3xl) - var(--space-4xl)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .po-mosaic i.c {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

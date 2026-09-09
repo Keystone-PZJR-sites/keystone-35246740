@@ -1,0 +1,154 @@
+---
+description: Design system — tokens, styling, motion grammars, fonts, SVG, images, the media registry, z-index
+alwaysApply: true
+---
+
+# Design system: tokens and styling
+
+## Values are defined centrally, never inline
+
+Any value that *means* something is defined once and referenced by name — even
+with one reference today. By kind:
+
+- **Design values** (color, spacing, radius, type, z-index, motion) → a token in
+  `design-system/tokens/`.
+- **Designed non-token constants** → `tokens/component.css`, per band only
+  where used. Constants that reference `--t` or the weights are declared on
+  `.page`, never `:root` (a custom property resolves its inner `var()`s where
+  it is declared).
+- **Per-island magic numbers** (timings, thresholds, beat positions) → a
+  named-constants block at the top of the island file.
+- **Repeated CSS values** → a custom property referenced everywhere.
+- **Copy, labels, URLs, asset paths, endpoints** → a `*-data.ts` module, the
+  media registry, or `.env` (see `60-data-and-integrations.mdc`).
+- Rename token and component contracts atomically. Search the full repository
+  before and after the rename. The old name has zero references, and every new
+  reference has one live definition.
+
+The test: if another file could ever need to agree on the value, or a reader
+would ask "why this number?", it gets a central name.
+
+## Styling lives in the token layers
+
+- Reference the custom properties from `tokens/` for every color, font,
+  radius, spacing, z, and motion value. No hardcoded hex or magic px in
+  component CSS.
+- Structure rides the grid: ticks, weights, em at anchor ratios, or fixed
+  material px per band — see `30-grid-and-layout.mdc`.
+- Every hex color is a token named by role, not hue. The two commented
+  cold-load literals in the root layout (guard style, theme-color) are the
+  standing exceptions. SVG paths in `icons.tsx` may carry the exact primitive
+  token value as a fallback so exported icons remain legible outside the site
+  root; the token remains the active value inside the site.
+- `!important` is forbidden in site styles. Fix the cascade. The base reset's
+  `[hidden]` and the token-based `.ks-consent-panel` theme bridge are the only
+  exceptions; the packaged consent widget's utilities otherwise win the
+  cascade and it exposes no theme props.
+- If a literal appears twice with the same design intent, promote it to a
+  custom property. Two copies always drift.
+- Type is established through the `--ts-*` tokens: `font`, `letter-spacing`,
+  `font-variation-settings: "opsz" …, var(--font-sans-slnt)`,
+  `font-optical-sizing: none`, and `text-transform` where the token carries a
+  case. Responsive section rules may override only `font-size` and
+  `line-height` with Figma-derived anchor interpolation after establishing the
+  complete token; never use a bare `font-size` as the type definition.
+
+Inline `style={{}}` is allowed only for: forwarding a per-instance value the
+CSS cannot know (a color role, a frame index); CSS custom properties consumed
+by a stylesheet rule (`style={{ '--gx': n }}`, `setProperty("--eng-x", …)`);
+transient animation state (`willChange`). A value that never changes per
+instance belongs in a class.
+
+## The z-index scale
+
+Tokens in `tokens/component.css`: `--z-base` · `--z-raised` · `--z-sticky` ·
+`--z-nav` · `--z-modal` · `--z-portal`. Anything that stacks against the rest
+of the page uses a token. Inside one isolated stacking context, siblings may
+use small consecutive integers; values above `3` are reserved for finite
+ordered stacks such as staggered drawer rows. They never compete with the
+global token scale.
+
+## Motion grammars
+
+Motion is a vocabulary of named CSS grammars in `tokens/motion.css` — each
+defined in prose in the file (draw-down, fade-rise, the chip wipe, the
+carousel slide). No animation runtime ships.
+
+- Reuse before inventing. A new grammar is named and defined in prose first.
+- Constants are born in `component.css` and promote to `motion.css` at their
+  second consumer, values unchanged, prior names becoming aliases. Alias
+  curves; never fork them.
+- Opens run the ease-in-out curve; closes run the ease-out. A hard shadow never
+  paints while its box moves: the offset grows from 0,0 after the box lands
+  and drops at once on close.
+- Choreographies settle: a load choreography ends its run explicitly on the
+  final beat's `animationend`, so band-gated variants never replay motion on
+  resize.
+- `prefers-reduced-motion: reduce` renders every grammar state-to-state — no
+  transitions, no timers, elements born settled. A no-JS render shows the same
+  settled state.
+- Hover styles sit under `@media (hover: hover)`; every state also works on
+  touch.
+
+## CSS transition constraints
+
+- Colors do not transition on gradients; transition the opacity of an absolute
+  child that carries the gradient.
+- An inline `style` color overrides a CSS color transition; apply the inline
+  style only while active.
+- Never start a `translate`/transform transition inside an element whose paint
+  is transitioning — the compositor layer re-rasters the ancestor mid-paint
+  (a one-frame flicker `will-change` does not fix). Animate a paint-in-place
+  offset (relative `left`) for small moves. `translate` is fine where no
+  ancestor paint transitions.
+- Use a CSS `filter` for desaturation on anything whose background transitions;
+  `mix-blend-mode: luminosity` interacts badly with it.
+
+## Fonts are licensed
+
+**GT Standard Standard VF** and **PP Kyoto Variable Upright** are licensed and
+not on any public CDN. Never `@import` them from a URL; never commit them to a
+public mirror. Files live in `public/media/fonts/`, loaded by `@font-face` in
+`tokens/fonts.css` and preloaded by the root layout. GT Standard's variable
+default weight is 900: every style sets an explicit weight or text renders
+Black. Per-step optical-size pins live in `tokens/type.css`.
+
+## SVG and icons
+
+- Vector geometry is never hand-authored. Icons and marks are exported
+  verbatim from Figma through the console bridge; the only permitted edit is
+  normalizing paint to `currentColor` where the icon tints with text.
+- Shapes with no vector geometry — dots, plain circles and squares, corner
+  triangles — are CSS with token fills, not files.
+- Never export with Figma's Exclude / Boolean Subtract; ask for a flattened
+  re-export (background as one `<path>`, foreground as separate paths with
+  explicit fills).
+- Threshold: used once and ≤ ~20 lines → inline in the component; used twice
+  anywhere → `design-system/icons.tsx` with `color`/`size` props; complex artwork → a
+  file in `public/media/` registered in `design-system/media.ts`. SVG markup appears in
+  source exactly once.
+
+## Images are art-directed tier sets
+
+Photography renders as `<picture>` with one media-gated `<source>` per width
+tier and the smallest tier as the `<img>` fallback. Tier cuts follow the
+structural gates; cut each at 2× its band's rendered frame. Explicit
+`width`/`height` on every image; WebP only; `alt=""` for ambient photography.
+The deploy serves static assets directly (`images.unoptimized`) — the tier
+markup is the delivery mechanism.
+
+## Public assets and the media registry
+
+Static media lives under `public/media/`, organized by function
+(`hero-carousel/`, `portfolio/`, `engines/`, `testimonials/`, `brand/`,
+`fonts/`). Only favicons, `og-image.png`, and `site.webmanifest` sit at the
+public root.
+
+`design-system/media.ts` is the single source of truth mapping every asset
+to its path with a typed descriptor. Code never hardcodes an asset path. The
+only literal paths are the contexts that cannot import TS: `@font-face` in
+`fonts.css`, the root layout's preload hrefs, and app metadata.
+
+Names are lowercase kebab-case, most general to most specific, identifiable
+without opening the file. Match the folder's existing pattern. Delete replaced
+assets and their registry entries.

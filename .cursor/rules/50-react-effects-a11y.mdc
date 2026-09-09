@@ -1,0 +1,73 @@
+---
+description: React islands — hydration safety, browser APIs in effects, forms, accessibility baseline
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# Islands, hydration, and accessibility
+
+## Browser APIs live inside effects — hydration is sacred
+
+`window`, `document`, `navigator`, and DOM measurement run only inside
+`useEffect`, `useLayoutEffect`, or event handlers. Never at module scope, in a
+component body, or in a `useMemo` initialiser.
+
+The first client render matches the SSR HTML byte-for-byte. Sources of
+mismatch and their fixes:
+
+1. `Math.random()` / `Date.now()` during render → move to an effect or
+   pre-compute on the server and pass as a prop.
+2. Wall-clock reads (`new Date().getFullYear()`) → thread as a prop from a
+   server component.
+3. `typeof window !== 'undefined'` branches that change output → keep the
+   gating value `null` through SSR and the first client render, flip after
+   hydration.
+4. Locale-sensitive formatting → format on the server with an explicit locale.
+
+Use event handlers, derived render state, refs, or the
+derive-state-while-rendering form. A closed portal may read `document.body`
+during client render when the target does not affect output until interaction.
+
+Layout reads (`getBoundingClientRect`, `offsetWidth`, `scrollHeight`) run in
+`useLayoutEffect`.
+
+## Forms stay small
+
+A form is an uncontrolled `<form>` (or a single controlled input when the
+value drives a typeahead) whose submit handler reads the values. The network
+call, response validation, and the `idle | loading | ready | error` lifecycle
+live in one hook the form consumes; the form decides what the states look like.
+Validation lives with the form definition, not as ad-hoc guards in the handler.
+Every form works without JavaScript: a real `action`/`method` that lands on
+the same destination.
+
+Submissions go through the Keystone route handlers (`app/api/form`,
+`app/api/chat`) or the documented external API; never a hand-rolled endpoint.
+
+## Accessibility baseline
+
+- Meaningful `alt` on every image; `alt=""` for decorative and ambient
+  photography.
+- Every interactive element is keyboard-navigable and has a visible
+  `:focus-visible` style.
+- `prefers-reduced-motion: reduce` renders every state directly. Auto-rotation
+  pauses on hover and focus; timers run only in-viewport with the document
+  visible.
+- Color contrast meets WCAG AA (4.5:1 body, 3:1 large text and UI); report the
+  measured ratios for new color pairs.
+- Semantic HTML before ARIA: `<ul><li>`, `<button>`, `<nav>`, `<figure>` with
+  `<blockquote>` and `<figcaption>` for testimonials. ARIA patterns
+  (combobox/listbox, dialog) follow the WAI-ARIA authoring practices exactly:
+  `role`, `aria-expanded`, `aria-controls`, `aria-activedescendant`,
+  `aria-busy`, `aria-invalid` + `aria-describedby`, `role="alert"` for errors.
+- No interactive `<div>`. A control is a `<button>` or `<a>`; style it as the
+  design needs. The one exception is a modal backdrop whose `onClick` closes
+  only when the target is the backdrop.
+- Focus management: an overlay moves focus to its container
+  (`tabIndex={-1}`), not the first input; on close focus returns to the
+  opener. Use `focus({ preventScroll: true })` both ways. A menu row keeps the
+  input's focus (`onMouseDown` prevents default) so the combobox pattern holds.
+- Decorative SVGs are `aria-hidden="true"`; meaningful SVGs carry `role="img"`
+  and a name. Lattice chrome, ornament cells, and clone slides are
+  `aria-hidden`.
+- Touch targets ≥ 44 × 44 px; every hover state also works on touch.

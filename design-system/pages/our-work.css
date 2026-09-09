@@ -1,0 +1,15 @@
+/* Hold entrance elements until fonts are ready. The lattice and navigation
+   remain visible because they do not participate in this sequence. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .page.load-sequence-rise:not(.load-active) .hx-rise {
+    opacity: 0;
+  }
+}
+
+/* The homepage's sweep and nav-drop rules key on the shared `load-active`
+   class (hero.css; sweep is hero-scoped as of 2026-09-06); on this
+   page they are suppressed — no lattice sweep, no nav beat. */
+.page.load-sequence-rise.load-active :is(.grid-region, .decor, .knav-bar, .knav-mbar),
+.page.load-sequence-rise.load-active .grid-region :is(i.v, i.h) {
+  animation: none;
+}

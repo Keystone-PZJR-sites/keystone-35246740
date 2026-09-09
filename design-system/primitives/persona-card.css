@@ -1,0 +1,361 @@
+/* Interior values scale from mount-provided units; fixed sizes provide defaults. */
+
+/* ---------------- pricing-tag ---------------- */
+
+.ptag {
+  --_tu: var(--ptag-u, 1px);
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  background: var(--ptag-bg, var(--color-bg-100));
+  color: var(--ptag-ink, var(--color-text-400));
+  border-radius: calc(var(--_tu) * 4);
+  padding:
+    calc(var(--_tu) * var(--ptag-pt, 2))
+    calc(var(--_tu) * var(--ptag-px, 6))
+    calc(var(--_tu) * var(--ptag-pb, 3));
+  font: var(--ptag-f, var(--ts-text-2xs-regular-font));
+  font-size: calc(var(--_tu) * var(--ptag-fs, 10));
+  line-height: calc(var(--_tu) * var(--ptag-lh, 12));
+  letter-spacing: var(--ptag-ls, var(--ts-text-2xs-regular-ls));
+  font-variation-settings: "opsz" var(--ptag-opsz, var(--ts-text-2xs-regular-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  white-space: nowrap;
+}
+/* Fixed tag sizes. */
+.ptag[data-size="md"] {
+  --ptag-f: var(--ts-text-xs-regular-font);
+  --ptag-fs: 12;
+  --ptag-lh: 16;
+  --ptag-ls: var(--ts-text-xs-regular-ls);
+  --ptag-opsz: var(--ts-text-xs-regular-opsz);
+}
+.ptag[data-size="lg"] {
+  --ptag-pt: 4;
+  --ptag-px: 8;
+  --ptag-pb: 4;
+  --ptag-f: var(--ts-text-sm-regular-font);
+  --ptag-fs: 14;
+  --ptag-lh: 18;
+  --ptag-ls: var(--ts-text-sm-regular-ls);
+  --ptag-opsz: var(--ts-text-sm-regular-opsz);
+}
+.ptag[data-size="xl"] {
+  --ptag-pt: 4;
+  --ptag-px: 10;
+  --ptag-pb: 4;
+  --ptag-f: var(--ts-text-sm-regular-font);
+  --ptag-fs: 14;
+  --ptag-lh: 18;
+  --ptag-ls: var(--ts-text-sm-regular-ls);
+  --ptag-opsz: var(--ts-text-sm-regular-opsz);
+}
+/* the inactive dressing, static for the catalog; cards drive the same
+   pair from the card state */
+.ptag[data-muted] {
+  --ptag-bg: var(--color-bg-300);
+  --ptag-ink: var(--color-bg-600);
+}
+
+/* ---------------- persona-card ---------------- */
+
+.pcard {
+  --_u: var(--pcard-u, 1px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* the card's chips ride the same unit */
+  --ptag-u: var(--_u);
+}
+
+.pcard-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+/* A pseudo keeps the active shadow above the hanging tag. */
+.pcard-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.pcard[data-state="active"] .pcard-box::after {
+  box-shadow: var(--shadow-hard-square);
+}
+
+/* the image band — the export fills it (the media-fill construction);
+   the title sits in the band's flow, bottom-anchored except xl */
+.pcard-image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: var(--pc-title-just, flex-end);
+  box-sizing: border-box;
+  padding:
+    calc(var(--_u) * var(--pc-img-pt, 16))
+    calc(var(--_u) * var(--pc-img-pr, 40))
+    calc(var(--_u) * var(--pc-img-pb, 16))
+    calc(var(--_u) * var(--pc-img-pl, 16));
+}
+.pcard-image picture {
+  position: absolute;
+  inset: 0;
+}
+.pcard-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Inactive images swap directly to the shared ghost treatment. */
+.pcard[data-state="inactive"] .pcard-image img {
+  opacity: var(--motion-ghost-opacity);
+  mix-blend-mode: luminosity;
+}
+
+.pcard-title {
+  position: relative;
+  margin: 0;
+  color: var(--color-bg-000);
+  max-width: calc(var(--_u) * var(--pc-title-w, 248));
+  font: var(--pc-title-f, var(--ts-text-lg-medium-font));
+  font-size: calc(var(--_u) * var(--pc-title-fs, 18));
+  line-height: calc(var(--_u) * var(--pc-title-lh, 26));
+  letter-spacing: var(--pc-title-ls, var(--ts-text-lg-medium-ls));
+  font-variation-settings: "opsz" var(--pc-title-opsz, var(--ts-text-lg-medium-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* the cost card — space-between: estimate + story anchored top, the
+   chips row anchored to the bottom pad; the tick slack lives between
+   story and chips ("the tick wins") */
+.pcard-cost {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: var(--color-bg-000);
+  padding:
+    calc(var(--_u) * var(--pc-cost-pt, 12))
+    calc(var(--_u) * var(--pc-cost-px, 16))
+    calc(var(--_u) * var(--pc-cost-pb, 16));
+}
+.pcard[data-state="inactive"] .pcard-cost {
+  background: var(--ps-cost-inactive);
+}
+
+.pcard-desc {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--_u) * var(--pc-est-gap, 8));
+}
+.pcard-est {
+  margin: 0;
+  color: var(--pcard-hue, var(--color-text-100));
+  font: var(--pc-est-f, var(--ts-text-2xl-light-font));
+  font-size: calc(var(--_u) * var(--pc-est-fs, 24));
+  line-height: calc(var(--_u) * var(--pc-est-lh, 32));
+  letter-spacing: var(--pc-est-ls, var(--ts-text-2xl-light-ls));
+  font-variation-settings: "opsz" var(--pc-est-opsz, var(--ts-text-2xl-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.pcard-story {
+  margin: 0;
+  color: var(--color-text-400);
+  max-width: calc(var(--_u) * var(--pc-story-w, 272));
+  font: var(--pc-story-f, var(--ts-text-md-light-font));
+  font-size: calc(var(--_u) * var(--pc-story-fs, 16));
+  line-height: calc(var(--_u) * var(--pc-story-lh, 22));
+  letter-spacing: var(--pc-story-ls, var(--ts-text-md-light-ls));
+  font-variation-settings: "opsz" var(--pc-story-opsz, var(--ts-text-md-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.pcard[data-state="inactive"] .pcard-est,
+.pcard[data-state="inactive"] .pcard-story {
+  color: var(--color-bg-600);
+}
+
+.pcard-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--_u) * var(--pc-chips-gap, 6));
+}
+.pcard-chips li {
+  display: contents;
+}
+.pcard[data-state="inactive"] {
+  --ptag-bg: var(--color-bg-300);
+  --ptag-ink: var(--color-bg-600);
+}
+
+/* The fixed-height tag hangs under the card box at its right edge; it
+   is out of flow so the box alone sets the card's height. */
+.pcard-tag {
+  position: absolute;
+  top: 100%;
+  right: calc(var(--_u) * var(--pc-tag-inset, 24));
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: calc(var(--_u) * var(--pc-tag-h, 24));
+  padding: 0 calc(var(--_u) * var(--pc-tag-px, 8));
+  background: var(--pcard-hue, var(--color-text-100));
+  color: var(--color-base-white);
+  border-radius: 0 0 calc(var(--_u) * 6) calc(var(--_u) * 6);
+  font: var(--pc-tag-f, var(--ts-text-2xs-medium-font));
+  font-size: calc(var(--_u) * var(--pc-tag-fs, 10));
+  line-height: calc(var(--_u) * var(--pc-tag-lh, 12));
+  letter-spacing: var(--pc-tag-ls, var(--ts-text-2xs-medium-ls));
+  font-variation-settings: "opsz" var(--pc-tag-opsz, var(--ts-text-2xs-medium-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  white-space: nowrap;
+}
+.pcard[data-state="inactive"] .pcard-tag {
+  background: var(--color-bg-300);
+  color: var(--color-bg-600);
+}
+
+/* Inactive cards expose a whole-card button overlay. */
+.pcard-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.pcard[data-state="active"] .pcard-overlay {
+  display: none;
+}
+.pcard-overlay:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* Fixed card sizes. */
+
+.pcard[data-size] {
+  width: calc(var(--_u) * var(--pc-w, 304));
+}
+.pcard[data-size] .pcard-image {
+  flex: none;
+  height: calc(var(--_u) * var(--pc-img-h, 192));
+}
+.pcard[data-size] .pcard-cost {
+  flex: none;
+  height: calc(var(--_u) * var(--pc-cost-h, 320));
+}
+.pcard[data-size="sm"] {
+  --pc-w: 288;
+  --pc-cost-h: 336;
+  --pc-title-f: var(--ts-text-md-medium-font);
+  --pc-title-fs: 16;
+  --pc-title-lh: 22;
+  --pc-title-ls: var(--ts-text-md-medium-ls);
+  --pc-title-opsz: var(--ts-text-md-medium-opsz);
+  --pc-title-w: 232;
+  --pc-story-w: 256;
+}
+.pcard[data-size="md"] {
+  --pc-w: 320;
+  --pc-title-w: 264;
+  --pc-story-f: var(--ts-text-sm-light-font);
+  --pc-story-fs: 14;
+  --pc-story-lh: 18;
+  --pc-story-ls: var(--ts-text-sm-light-ls);
+  --pc-story-opsz: var(--ts-text-sm-light-opsz);
+  --pc-story-w: 288;
+  --pc-tag-inset: 32;
+  --ptag-f: var(--ts-text-xs-regular-font);
+  --ptag-fs: 12;
+  --ptag-lh: 16;
+  --ptag-ls: var(--ts-text-xs-regular-ls);
+  --ptag-opsz: var(--ts-text-xs-regular-opsz);
+}
+.pcard[data-size="lg"] {
+  --pc-w: 400;
+  --pc-img-h: 240;
+  --pc-title-f: var(--ts-text-xl-medium-font);
+  --pc-title-fs: 20;
+  --pc-title-lh: 26;
+  --pc-title-ls: var(--ts-text-xl-medium-ls);
+  --pc-title-opsz: var(--ts-text-xl-medium-opsz);
+  --pc-title-w: 292;
+  --pc-cost-pt: 16;
+  --pc-cost-px: 20;
+  --pc-cost-pb: 20;
+  --pc-est-f: var(--ts-display-sans-2xs-light-font);
+  --pc-est-fs: 28;
+  --pc-est-lh: 36;
+  --pc-est-ls: var(--ts-display-sans-2xs-light-ls);
+  --pc-est-opsz: var(--ts-display-sans-2xs-light-opsz);
+  --pc-est-gap: 16;
+  --pc-story-w: 360;
+  --pc-tag-inset: 32;
+  --ptag-pt: 4;
+  --ptag-px: 8;
+  --ptag-pb: 4;
+  --ptag-f: var(--ts-text-sm-regular-font);
+  --ptag-fs: 14;
+  --ptag-lh: 18;
+  --ptag-ls: var(--ts-text-sm-regular-ls);
+  --ptag-opsz: var(--ts-text-sm-regular-opsz);
+}
+.pcard[data-size="xl"] {
+  --pc-w: 560;
+  --pc-img-h: 224;
+  --pc-cost-h: 336;
+  --pc-img-pt: 24;
+  --pc-img-pr: 24;
+  --pc-img-pb: 24;
+  --pc-img-pl: 24;
+  --pc-title-just: flex-start;
+  --pc-title-f: var(--ts-text-2xl-medium-font);
+  --pc-title-fs: 24;
+  --pc-title-lh: 32;
+  --pc-title-ls: var(--ts-text-2xl-medium-ls);
+  --pc-title-opsz: var(--ts-text-2xl-medium-opsz);
+  --pc-title-w: 232;
+  --pc-cost-pt: 24;
+  --pc-cost-px: 32;
+  --pc-cost-pb: 32;
+  --pc-est-f: var(--ts-display-sans-sm-light-font);
+  --pc-est-fs: 36;
+  --pc-est-lh: 42;
+  --pc-est-ls: var(--ts-display-sans-sm-light-ls);
+  --pc-est-opsz: var(--ts-display-sans-sm-light-opsz);
+  --pc-est-gap: 24;
+  --pc-story-f: var(--ts-text-lg-light-font);
+  --pc-story-fs: 18;
+  --pc-story-lh: 26;
+  --pc-story-ls: var(--ts-text-lg-light-ls);
+  --pc-story-opsz: var(--ts-text-lg-light-opsz);
+  --pc-story-w: 496;
+  --pc-chips-gap: 8;
+  --pc-tag-h: 32;
+  --pc-tag-px: 12;
+  --pc-tag-f: var(--ts-text-xs-semibold-font);
+  --pc-tag-fs: 12;
+  --pc-tag-lh: 16;
+  --pc-tag-ls: var(--ts-text-xs-semibold-ls);
+  --pc-tag-opsz: var(--ts-text-xs-semibold-opsz);
+  --pc-tag-inset: 32;
+  --ptag-pt: 4;
+  --ptag-px: 10;
+  --ptag-pb: 4;
+  --ptag-f: var(--ts-text-sm-regular-font);
+  --ptag-fs: 14;
+  --ptag-lh: 18;
+  --ptag-ls: var(--ts-text-sm-regular-ls);
+  --ptag-opsz: var(--ts-text-sm-regular-opsz);
+}

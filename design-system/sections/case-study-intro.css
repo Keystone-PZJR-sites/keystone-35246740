@@ -1,0 +1,231 @@
+/* Intro stats share one-pixel borders and reflow across responsive bands. */
+
+/* ---------------- section frame ---------------- */
+
+.csi-sec {
+  min-height: calc(var(--t) * 14);
+}
+@container (min-width: 470px) {
+  .csi-sec { min-height: calc(var(--t) * 7); }
+}
+@container (min-width: 665px) {
+  .csi-sec { min-height: calc(var(--t) * 8); }
+}
+@container (min-width: 860px) {
+  .csi-sec { min-height: calc(var(--t) * 4); }
+}
+@container (min-width: 1130px) {
+  .csi-sec { min-height: calc(var(--t) * 3); }
+}
+
+/* ---------------- the head row ---------------- */
+
+/* Heading type and vertical alignment step by responsive band. */
+.csi-head {
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  height: calc(var(--t) * 2);
+  color: var(--color-text-100);
+  font: var(--_f, var(--ts-text-xl-regular-font));
+  font-size: calc((var(--wA) + var(--wB)) * var(--_fs, 20));
+  line-height: calc((var(--wA) + var(--wB)) * var(--_lh, 26));
+  letter-spacing: var(--_ls, var(--ts-text-xl-regular-ls));
+  font-variation-settings: "opsz" var(--_opsz, var(--ts-text-xl-regular-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .csi-head {
+    height: var(--t);
+  }
+}
+@container (min-width: 665px) {
+  .csi-head {
+    --_f: var(--ts-text-2xl-regular-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-regular-ls);
+    --_opsz: var(--ts-text-2xl-regular-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .csi-head { align-items: center; }
+}
+@container (min-width: 1130px) {
+  .csi-head {
+    --_f: var(--ts-display-sans-2xs-regular-font);
+    --_fs: 28;
+    --_lh: 36;
+    --_ls: var(--ts-display-sans-2xs-regular-ls);
+    --_opsz: var(--ts-display-sans-2xs-regular-opsz);
+  }
+}
+
+/* ---------------- the stat grid ---------------- */
+
+/* Line-inclusive cells overlap so every touching pair shares one pixel. */
+.csi-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 1px 0 0 1px;
+  /* The last row's border shares the pixel with the section's bottom edge. */
+  margin-bottom: -1px;
+  --cell-w: calc(var(--t) * 5.25 + 1px);
+  --cell-h: calc(var(--t) * 4 + 1px);
+  --cs-cell-pad: 12px;
+  --cs-pill-f: var(--ts-text-sm-regular-font);
+  --cs-pill-fs: 14;
+  --cs-pill-lh: 18;
+  --cs-pill-ls: var(--ts-text-sm-regular-ls);
+  --cs-pill-opsz: var(--ts-text-sm-regular-opsz);
+}
+.csi-grid > .cs-cell {
+  margin: -1px 0 0 -1px;
+  width: var(--cell-w);
+  height: var(--cell-h);
+}
+/* The disclaimer spans the row on narrow bands and becomes a grid cell. */
+.csi-grid .cs-cell-disclaimer {
+  width: calc(var(--t) * 10.5 + 1px);
+  height: calc(var(--t) * 2 + 1px);
+}
+
+@container (min-width: 470px) {
+  .csi-grid {
+    --cell-w: calc(var(--t) * 5 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+    --cs-pill-f: var(--ts-text-xs-regular-font);
+    --cs-pill-fs: 12;
+    --cs-pill-lh: 16;
+    --cs-pill-ls: var(--ts-text-xs-regular-ls);
+    --cs-pill-opsz: var(--ts-text-xs-regular-opsz);
+  }
+  .csi-grid .cs-cell-disclaimer {
+    width: calc(var(--t) * 10 + 1px);
+    height: calc(var(--t) * 1 + 1px);
+  }
+}
+@container (min-width: 665px) {
+  /* Five cells naturally wrap as three plus two. */
+  .csi-grid {
+    --cell-w: calc(var(--t) * 3 + 1px);
+    --cell-h: calc(var(--t) * 3 + 1px);
+    --cs-cell-pad: 20px;
+    --cs-pill-f: var(--ts-text-sm-regular-font);
+    --cs-pill-fs: 14;
+    --cs-pill-lh: 18;
+    --cs-pill-ls: var(--ts-text-sm-regular-ls);
+    --cs-pill-opsz: var(--ts-text-sm-regular-opsz);
+  }
+  .csi-grid .cs-cell-disclaimer {
+    width: var(--cell-w);
+    height: var(--cell-h);
+  }
+}
+@container (min-width: 860px) {
+  .csi-grid {
+    --cell-w: calc(var(--t) * 2 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+    --cs-cell-pad: 16px;
+    --cs-pill-f: var(--ts-text-md-light-font);
+    --cs-pill-fs: 16;
+    --cs-pill-lh: 22;
+    --cs-pill-ls: var(--ts-text-md-light-ls);
+    --cs-pill-opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .csi-grid { --cs-cell-pad: 24px; }
+}
+
+/* ---------------- cell interiors ---------------- */
+
+.csi-grid .cs-cell-value {
+  font: var(--ts-display-sans-sm-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 36);
+  line-height: calc((var(--wA) + var(--wB)) * 42);
+  letter-spacing: var(--ts-display-sans-sm-light-ls);
+  font-variation-settings: "opsz" var(--ts-display-sans-sm-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  /* With column-reverse, this margin separates the numeral from its label. */
+  margin-bottom: var(--space-xs);
+}
+@container (min-width: 470px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-xs-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 32);
+    line-height: calc((var(--wA) + var(--wB)) * 38);
+    letter-spacing: var(--ts-display-sans-xs-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 665px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-lg-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 48);
+    line-height: calc((var(--wA) + var(--wB)) * 56);
+    letter-spacing: var(--ts-display-sans-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 40);
+    line-height: calc((var(--wA) + var(--wB)) * 48);
+    letter-spacing: var(--ts-display-sans-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-md-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .csi-grid .cs-cell-value {
+    font: var(--ts-display-sans-2xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 64);
+    line-height: calc((var(--wA) + var(--wB)) * 72);
+    letter-spacing: var(--ts-display-sans-2xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-2xl-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* The star scales with the numeral ramp. */
+.csi-grid .cs-cell-star svg {
+  width: auto;
+  height: calc((var(--wA) + var(--wB)) * 12);
+}
+@container (min-width: 665px) {
+  .csi-grid .cs-cell-star svg { height: calc((var(--wA) + var(--wB)) * 18); }
+}
+@container (min-width: 1130px) {
+  .csi-grid .cs-cell-star svg { height: calc((var(--wA) + var(--wB)) * 24); }
+}
+
+/* Labels follow the grid type ramp; disclaimer type stays fixed. */
+.csi-grid .cs-pill {
+  font: var(--cs-pill-f);
+  font-size: calc((var(--wA) + var(--wB)) * var(--cs-pill-fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--cs-pill-lh));
+  letter-spacing: var(--cs-pill-ls);
+  font-variation-settings: "opsz" var(--cs-pill-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.csi-grid .cs-cell-disclaimer .cs-pill {
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  max-width: calc((var(--wA) + var(--wB)) * 196);
+}
+@container (min-width: 470px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: none; }
+}
+@container (min-width: 665px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 152); }
+}
+@container (min-width: 860px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 124); }
+}
+@container (min-width: 1130px) {
+  .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 160); }
+}

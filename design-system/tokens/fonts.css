@@ -1,93 +1,42 @@
-/* ============================================================
-   Keystone Design System — Font faces
-   ============================================================
-   The FK family is licensed (see § Fonts Are Licensed in the
-   site rules). Files live in /public/media/fonts and load here only.
-   Never @import these from a CDN.
-   ============================================================ */
+/* Licensed variable fonts are self-hosted and never CDN-imported.
+   GT Standard requires an explicit weight because its binary default is
+   900. Optical sizing is pinned per type-scale step rather than inferred
+   from Figma's named instances. `swap` keeps text readable while loading. */
 
 @font-face {
-  font-family: 'FK Screamer';
-  src: url('/media/fonts/FKScreamer-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: block;
-}
-
-/* FK Grotesk Neue ships Regular and Bold only (each in normal + italic). There
-   is no Medium or Semibold cut, and the browser does NOT synthesize a heavier
-   weight for this webfont — so the Regular face claims the 400–600 range. That
-   makes Medium (500) and Semibold (600) requests fall back to Regular instead
-   of jumping to full Bold; only a true 700 request uses the Bold cut. When a
-   Medium/Semibold file is licensed, add it here and tighten this range. */
-@font-face {
-  font-family: 'FK Grotesk Neue';
-  src: url('/media/fonts/FKGroteskNeue-Regular.woff2') format('woff2');
-  font-weight: 400 600;
-  font-style: normal;
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'FK Grotesk Neue';
-  src: url('/media/fonts/FKGroteskNeue-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'FK Grotesk Neue';
-  src: url('/media/fonts/FKGroteskNeue-Italic.woff2') format('woff2');
-  font-weight: 400 600;
-  font-style: italic;
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'FK Grotesk Neue';
-  src: url('/media/fonts/FKGroteskNeue-BoldItalic.woff2') format('woff2');
-  font-weight: 700;
-  font-style: italic;
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'FK Grotesk Mono';
-  src: url('/media/fonts/FKGroteskMono-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: optional;
-}
-
-@font-face {
-  font-family: 'FK Roman Standard';
-  src: url('/media/fonts/FKRomanStandard-Light.woff2') format('woff2');
-  font-weight: 300;
+  font-family: "GT Standard";
+  src: url("/media/fonts/gt-standard-standard-vf.woff2") format("woff2");
+  font-weight: 300 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FK Roman Standard';
-  src: url('/media/fonts/FKRomanStandard-LightOblique.woff2') format('woff2');
-  font-weight: 300;
-  font-style: oblique;
+  font-family: "PP Kyoto";
+  src: url("/media/fonts/pp-kyoto-variable-upright-vf.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'FK Roman Standard';
-  src: url('/media/fonts/FKRomanStandard-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: block;
-}
+:root {
+  --font-sans: "GT Standard", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "PP Kyoto", ui-serif, Georgia, serif;
 
-@font-face {
-  font-family: 'FK Roman Standard';
-  src: url('/media/fonts/FKRomanStandard-Oblique.woff2') format('woff2');
-  font-weight: 400;
-  font-style: oblique;
-  font-display: optional;
+  /* Weight names match Figma. */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* GT Standard opsz pins use type-scale steps, not named instances. */
+  --font-opsz-text-compact: 24;
+  --font-opsz-text: 26;
+  --font-opsz-display-2xs: 28;
+  --font-opsz-display: 30;
+
+  /* GT Standard VF slnt axis (0–6). WebKit renders oblique when omitted. */
+  --font-sans-slnt: "slnt" 0;
 }

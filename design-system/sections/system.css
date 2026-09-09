@@ -1,0 +1,357 @@
+/* Flow frame: the head owns its tick rows as a minimum and the diagram is
+   a fixed tick block beneath it; from rd1 the two sit side by side on a
+   grid whose single row stretches with the head. */
+.system-section {
+  width: 100%;
+  min-height: calc(var(--t) * 19);
+  --sys-r: var(--sys-r-rm);
+  /* Keep anchored content clear of the fixed navigation rail. */
+  scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
+}
+@container (min-width: 665px) {
+  .system-section {
+    min-height: calc(var(--t) * 12);
+    --sys-r: var(--sys-r-rt);
+  }
+}
+@container (min-width: 860px) {
+  .system-section {
+    display: grid;
+    grid-template-columns: var(--t) calc(var(--t) * 6) calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    min-height: calc(var(--t) * 6);
+    --sys-r: var(--sys-r-rd);
+  }
+}
+
+.sys-head {
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--t) * 8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@container (min-width: 665px) {
+  .sys-head {
+    margin-left: var(--t);
+    width: auto;
+    min-height: calc(var(--t) * 5);
+    gap: var(--sys-head-gap-rt);
+  }
+}
+@container (min-width: 860px) {
+  .sys-head {
+    grid-column: 2;
+    margin-left: 0;
+    min-height: calc(var(--t) * 6);
+    gap: var(--sys-head-gap-rd);
+  }
+}
+
+.sys-slug {
+  display: flex;
+  align-items: center;
+  height: var(--t);
+  color: var(--color-text-400);
+  --fs0: 12;
+  --fs1: 12;
+  --lh0: 16;
+  --lh1: 16;
+}
+.sys-marker {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--t);
+  height: var(--t);
+}
+.sys-marker::before {
+  content: "";
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
+}
+@container (min-width: 665px) {
+  .sys-slug {
+    height: auto;
+    gap: 1em;
+    --ts-text-xs-medium-font: var(--ts-text-xs-regular-font);
+    --fs0: 12;
+    --fs1: 12;
+    --lh0: 16;
+    --lh1: 16;
+  }
+  .sys-marker {
+    width: auto;
+    height: auto;
+  }
+}
+@container (min-width: 860px) {
+  .sys-slug {
+    gap: 0.8571em;
+    --ts-text-xs-medium-font: var(--ts-text-sm-regular-font);
+    --ts-text-xs-medium-opsz: var(--ts-text-sm-regular-opsz);
+    --fs0: 10;
+    --fs1: 14;
+    --lh0: 12.8571;
+    --lh1: 18;
+  }
+  .sys-marker::before {
+    width: var(--sys-marker-rd);
+    height: var(--sys-marker-rd);
+  }
+}
+
+.sys-h2 {
+  color: var(--color-text-100);
+  margin-top: var(--sys-h2-gap-rm);
+  margin-left: var(--t);
+  max-width: var(--sys-h2-w-rm);
+  --fs0: 24;
+  --fs1: 30;
+  --lh0: 30;
+  --lh1: 36;
+}
+@container (min-width: 470px) {
+  .sys-h2 {
+    max-width: var(--sys-h2-w-rs);
+    --fs0: 30;
+    --fs1: 36;
+    --lh0: 36;
+    --lh1: 42;
+  }
+}
+@container (min-width: 665px) {
+  .sys-h2 {
+    margin: 0;
+    max-width: var(--sys-h2-w-rt);
+    --fs0: 36;
+    --fs1: 36;
+    --lh0: 42;
+    --lh1: 42;
+  }
+}
+@container (min-width: 860px) {
+  .sys-h2 {
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-lg-plus-thin-font);
+    max-width: var(--sys-h2-w-rd);
+    --fs0: 35.7143;
+    --fs1: 50;
+    --lh0: 42.8571;
+    --lh1: 60;
+  }
+}
+
+/* Tick block: the stage positions inside it. */
+.sys-diagram {
+  position: relative;
+  width: 100%;
+  height: calc(var(--t) * 11);
+  pointer-events: none;
+}
+@container (min-width: 665px) {
+  .sys-diagram {
+    height: calc(var(--t) * 7);
+  }
+}
+@container (min-width: 860px) {
+  .sys-diagram {
+    grid-column: 3;
+    align-self: start;
+    width: calc(var(--t) * 5);
+    margin-top: calc(var(--t) / 2);
+    height: calc(var(--t) * 5);
+  }
+}
+
+.sys-stage {
+  position: absolute;
+  width: calc(var(--sys-r) + 1px);
+  height: calc(var(--sys-r) + 1px);
+  left: calc(var(--t) * 2);
+  top: calc(var(--t) * 2);
+}
+@container (min-width: 665px) {
+  .sys-stage {
+    left: calc(var(--t) * 3);
+    top: var(--t);
+  }
+}
+@container (min-width: 860px) {
+  .sys-stage {
+    left: var(--t);
+    top: var(--t);
+  }
+}
+
+/* Isolation contains petal blending; overflow clips grain to the ring. */
+.sys-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-100);
+  border: 1px solid var(--color-border-000);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.sys-petal {
+  position: absolute;
+  width: calc(var(--sys-r) * var(--sys-petal-d));
+  height: calc(var(--sys-r) * var(--sys-petal-d));
+  left: calc(var(--sys-r) * (0.5 + var(--px) - var(--sys-petal-d) / 2));
+  top: calc(var(--sys-r) * (0.5 + var(--py) - var(--sys-petal-d) / 2));
+  border-radius: var(--radius-full);
+  background: var(--_pc);
+  mix-blend-mode: multiply;
+}
+.sys-petal[data-engine="brand"] { --_pc: var(--color-orange-400); }
+.sys-petal[data-engine="visibility"] { --_pc: var(--color-yellow-400); }
+.sys-petal[data-engine="ads"] { --_pc: var(--color-pink-400); }
+.sys-petal[data-engine="reception"] { --_pc: var(--color-purple-300); }
+.sys-petal[data-engine="engagement"] { --_pc: var(--color-blue-300); }
+
+.sys-grain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sys-mark {
+  position: absolute;
+  width: calc(var(--sys-r) * var(--sys-mark-w));
+  height: calc(var(--sys-r) * var(--sys-mark-h));
+  left: calc(var(--sys-r) * (0.5 - var(--sys-mark-w) / 2));
+  top: calc(var(--sys-r) * (0.5 + var(--sys-mark-dy) - var(--sys-mark-h) / 2));
+  color: var(--color-text-050);
+  mix-blend-mode: multiply;
+}
+.sys-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sys-tag {
+  position: absolute;
+  left: calc(var(--sys-r) / 2 + var(--_tx));
+  top: calc(var(--sys-r) / 2 + var(--_ty));
+  transform: translate(-50%, -50%);
+}
+.sys-tag-label {
+  display: block;
+  background: var(--color-bg-300);
+  color: var(--color-text-200);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  padding: 0.1667em 0.6667em 0.25em;
+  --fs0: 12;
+  --fs1: 14;
+  --lh0: 16;
+  --lh1: 19;
+}
+.sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rm); --_ty: var(--sys-tag-ads-y-rm); }
+.sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rm); --_ty: var(--sys-tag-engagement-y-rm); }
+.sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rm); --_ty: var(--sys-tag-reception-y-rm); }
+.sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rm); --_ty: var(--sys-tag-brand-y-rm); }
+.sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rm); --_ty: var(--sys-tag-visibility-y-rm); }
+@container (min-width: 470px) {
+  .sys-tag-label {
+    --fs0: 14;
+    --fs1: 16;
+    --lh0: 19;
+    --lh1: 22;
+  }
+}
+@container (min-width: 665px) {
+  .sys-tag-label {
+    --ts-text-xs-regular-font: var(--ts-text-md-regular-font);
+    --ts-text-xs-regular-opsz: var(--ts-text-md-regular-opsz);
+    padding: 0.125em 0.5em 0.1875em;
+    --fs0: 16;
+    --fs1: 16;
+    --lh0: 22;
+    --lh1: 22;
+  }
+  .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rt); --_ty: var(--sys-tag-ads-y-rt); }
+  .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rt); --_ty: var(--sys-tag-engagement-y-rt); }
+  .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rt); --_ty: var(--sys-tag-reception-y-rt); }
+  .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rt); --_ty: var(--sys-tag-brand-y-rt); }
+  .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rt); --_ty: var(--sys-tag-visibility-y-rt); }
+}
+@container (min-width: 860px) {
+  .sys-tag-label {
+    --fs0: 11.4286;
+    --fs1: 16;
+    --lh0: 15.7143;
+    --lh1: 22;
+  }
+  .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rd); --_ty: var(--sys-tag-ads-y-rd); }
+  .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rd); --_ty: var(--sys-tag-engagement-y-rd); }
+  .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rd); --_ty: var(--sys-tag-reception-y-rd); }
+  .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rd); --_ty: var(--sys-tag-brand-y-rd); }
+  .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rd); --_ty: var(--sys-tag-visibility-y-rd); }
+}
+
+.bloom-sequence[data-bloom="armed"] .sys-ring,
+.bloom-sequence[data-bloom="armed"] .sys-tag {
+  opacity: 0;
+}
+
+.bloom-sequence[data-bloom="run"] .sys-ring {
+  animation:
+    sys-bloom-fade var(--motion-bloom-ring-fade-dur) var(--motion-bloom-ring-ease) backwards,
+    sys-bloom-ring-move var(--motion-bloom-ring-move-dur) var(--motion-bloom-ring-ease) backwards;
+}
+.bloom-sequence[data-bloom="run"] .sys-petal {
+  animation:
+    sys-bloom-fade var(--motion-bloom-engine-fade-dur) var(--motion-bloom-engine-ease) backwards,
+    sys-bloom-engine-move var(--motion-bloom-engine-move-dur) var(--motion-bloom-engine-ease) backwards;
+  animation-delay: calc(var(--motion-bloom-engine-delay) + var(--_bi) * var(--motion-bloom-stagger));
+}
+.bloom-sequence[data-bloom="run"] .sys-tag {
+  animation: sys-bloom-label var(--motion-bloom-label-dur) var(--motion-bloom-resolve-ease) backwards;
+  animation-delay: calc(var(--motion-bloom-label-delay) + var(--_bi) * var(--motion-bloom-stagger));
+}
+.bloom-sequence[data-bloom="run"] .sys-grain {
+  animation: sys-bloom-fade var(--motion-bloom-engine-fade-dur) var(--motion-bloom-engine-ease) backwards;
+  animation-delay: calc(var(--motion-bloom-engine-delay) + 4 * var(--motion-bloom-stagger));
+}
+.bloom-sequence[data-bloom="run"] .sys-mark {
+  animation: sys-bloom-fade var(--motion-bloom-mark-dur) var(--motion-bloom-resolve-ease) backwards;
+  animation-delay: var(--motion-bloom-mark-delay);
+}
+
+@keyframes sys-bloom-fade {
+  from { opacity: 0; }
+}
+@keyframes sys-bloom-ring-move {
+  from { transform: scale(var(--motion-bloom-ring-scale)); }
+}
+/* Petals launch from the shared ring center. */
+@keyframes sys-bloom-engine-move {
+  from {
+    transform: translate(calc(var(--sys-r) * var(--px) * -1), calc(var(--sys-r) * var(--py) * -1))
+      scale(var(--motion-bloom-engine-seed));
+  }
+}
+@keyframes sys-bloom-label {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(var(--motion-bloom-label-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom-sequence[data-bloom] .sys-ring,
+  .bloom-sequence[data-bloom] .sys-petal,
+  .bloom-sequence[data-bloom] .sys-grain,
+  .bloom-sequence[data-bloom] .sys-tag,
+  .bloom-sequence[data-bloom] .sys-mark {
+    animation: none;
+    opacity: 1;
+  }
+}

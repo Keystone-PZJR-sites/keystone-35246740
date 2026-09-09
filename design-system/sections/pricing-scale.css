@@ -1,0 +1,621 @@
+/* Geometry scales from page ticks; interiors scale through --ps-u. */
+
+/* Tick grid: the block and the persona strip stack at the base band and
+   share a row from rs up. Row tracks are designed budgets that grow
+   with their content. */
+.pricing-scale-section {
+  display: grid;
+  align-items: start;
+  width: 100%;
+  min-height: calc(var(--t) * 29);
+  grid-template-columns: calc(var(--t) / 2) minmax(0, 1fr);
+  grid-template-rows:
+    minmax(calc(var(--t) * 10), auto)
+    minmax(var(--t), auto)
+    minmax(calc(var(--t) * 16), auto)
+    minmax(calc(var(--t) * 2), auto);
+  grid-template-areas:
+    "block block"
+    ". ."
+    ". strip"
+    ". .";
+}
+@container (min-width: 470px) {
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 13);
+    grid-template-columns: calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-rows:
+      minmax(calc(var(--t) * 11), auto)
+      minmax(calc(var(--t) * 2), auto);
+    grid-template-areas:
+      "block strip"
+      ". .";
+  }
+}
+@container (min-width: 665px) {
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 10);
+    grid-template-rows:
+      minmax(calc(var(--t) * 8), auto)
+      minmax(calc(var(--t) * 2), auto);
+  }
+}
+@container (min-width: 860px) {
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 9);
+    grid-template-rows:
+      minmax(calc(var(--t) * 7), auto)
+      minmax(calc(var(--t) * 2), auto);
+  }
+}
+/* At rd2 the block spans the whole section; the strip sits inside its row. */
+@container (min-width: 1130px) {
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 7);
+    grid-template-rows: minmax(calc(var(--t) * 7), auto);
+    grid-template-areas: "block strip";
+  }
+}
+
+/* the island wrapper is not a box — the section's children position
+   against .sec */
+.ps-island {
+  display: contents;
+}
+
+/* The top hairline shares the section's lattice pixel. */
+.ps-block {
+  grid-area: block;
+  justify-self: start;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border-000);
+  width: calc(var(--t) * 10);
+  min-height: calc(var(--t) * 10);
+  padding:
+    calc(var(--ps-u) * 24)
+    0
+    0
+    calc(var(--ps-u) * 16);
+}
+@container (min-width: 470px) {
+  .ps-block {
+    width: calc(var(--t) * 5);
+    padding:
+      calc(var(--ps-u) * 24)
+      calc(var(--ps-u) * 32)
+      0
+      calc(var(--ps-u) * 48);
+  }
+}
+@container (min-width: 665px) {
+  .ps-block {
+    min-height: calc(var(--t) * 7);
+    padding:
+      calc(var(--ps-u) * 32)
+      calc(var(--ps-u) * 64)
+      0
+      calc(var(--ps-u) * 64);
+  }
+}
+@container (min-width: 860px) {
+  .ps-block {
+    padding:
+      calc(var(--ps-u) * 32)
+      calc(var(--ps-u) * 80)
+      0
+      calc(var(--ps-u) * 80);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-block {
+    padding:
+      calc(var(--ps-u) * 40)
+      calc(var(--ps-u) * 40)
+      calc(var(--ps-u) * 48)
+      calc(var(--ps-u) * 112);
+  }
+}
+
+.ps-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Type dimensions scale through --ps-u. */
+.ps-head,
+.ps-subhead,
+.ps-chip {
+  font: var(--_f);
+  font-size: calc(var(--ps-u) * var(--_fs));
+  line-height: calc(var(--ps-u) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.ps-head {
+  margin: 0;
+  color: var(--color-text-100);
+  max-width: calc(var(--ps-u) * 288);
+  --_f: var(--ts-display-serif-xs-extralight-font);
+  --_fs: 24;
+  --_lh: 30;
+  --_ls: var(--ts-display-serif-xs-extralight-ls);
+}
+@container (min-width: 470px) {
+  .ps-head { max-width: calc(var(--ps-u) * 160); }
+}
+@container (min-width: 665px) {
+  .ps-head { max-width: calc(var(--ps-u) * 192); }
+}
+@container (min-width: 860px) {
+  .ps-head {
+    max-width: calc(var(--ps-u) * 240);
+    --_f: var(--ts-display-serif-sm-extralight-font);
+    --_fs: 32;
+    --_lh: 38;
+    --_ls: var(--ts-display-serif-sm-extralight-ls);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-head {
+    max-width: calc(var(--ps-u) * 408);
+    --_f: var(--ts-display-serif-md-plus-extralight-font);
+    --_fs: 42;
+    --_lh: 50;
+    --_ls: var(--ts-display-serif-md-plus-extralight-ls);
+  }
+}
+
+.ps-subhead {
+  margin: calc(var(--ps-u) * 24) 0 0;
+  color: var(--color-text-400);
+  max-width: calc(var(--ps-u) * 288);
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 470px) {
+  .ps-subhead { max-width: calc(var(--ps-u) * 160); }
+}
+@container (min-width: 665px) {
+  .ps-subhead {
+    max-width: calc(var(--ps-u) * 192);
+    --_f: var(--ts-text-sm-light-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-light-ls);
+    --_opsz: var(--ts-text-sm-light-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .ps-subhead {
+    margin-top: calc(var(--ps-u) * 32);
+    max-width: calc(var(--ps-u) * 240);
+    --_f: var(--ts-text-md-light-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-light-ls);
+    --_opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-subhead {
+    max-width: calc(var(--ps-u) * 336);
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* Chip order changes by band to balance wrapping. */
+.ps-chips {
+  list-style: none;
+  margin: calc(var(--ps-u) * 24) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+  gap: calc(var(--ps-u) * 4);
+}
+@container (min-width: 470px) {
+  .ps-chips { margin-top: calc(var(--ps-u) * 32); }
+}
+@container (min-width: 665px) {
+  .ps-chips {
+    margin-top: calc(var(--ps-u) * 24);
+    gap: calc(var(--ps-u) * 6);
+  }
+}
+@container (min-width: 860px) {
+  .ps-chips {
+    margin-top: calc(var(--ps-u) * 32);
+    gap: calc(var(--ps-u) * 6);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-chips { gap: calc(var(--ps-u) * 8); }
+}
+
+.ps-chip {
+  background: var(--_bg);
+  color: var(--_ink);
+  border-radius: calc(var(--ps-u) * 2);
+  padding:
+    calc(var(--ps-u) * 1)
+    calc(var(--ps-u) * 4)
+    calc(var(--ps-u) * 2);
+  white-space: nowrap;
+  --_f: var(--ts-text-xs-regular-font);
+  --_fs: 12;
+  --_lh: 16;
+  --_ls: var(--ts-text-xs-regular-ls);
+  --_opsz: var(--ts-text-xs-regular-opsz);
+}
+@container (min-width: 470px) {
+  .ps-chip {
+    --_f: var(--ts-text-2xs-regular-font);
+    --_fs: 10;
+    --_lh: 12;
+    --_ls: var(--ts-text-2xs-regular-ls);
+    --_opsz: var(--ts-text-2xs-regular-opsz);
+  }
+}
+@container (min-width: 665px) {
+  .ps-chip {
+    --_f: var(--ts-text-xs-regular-font);
+    --_fs: 12;
+    --_lh: 16;
+    --_ls: var(--ts-text-xs-regular-ls);
+    --_opsz: var(--ts-text-xs-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-chip {
+    border-radius: calc(var(--ps-u) * 4);
+    padding:
+      calc(var(--ps-u) * 2)
+      calc(var(--ps-u) * 6)
+      calc(var(--ps-u) * 2);
+    --_f: var(--ts-text-md-regular-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-regular-ls);
+    --_opsz: var(--ts-text-md-regular-opsz);
+  }
+}
+
+.ps-chip-ads {
+  --_bg: var(--color-pink-300);
+  --_ink: var(--color-pink-700);
+  order: 1;
+}
+.ps-chip-sales {
+  --_bg: var(--color-orange-300);
+  --_ink: var(--color-orange-600);
+  order: 2;
+}
+.ps-chip-social {
+  --_bg: var(--color-yellow-300);
+  --_ink: var(--color-yellow-700);
+  order: 3;
+}
+.ps-chip-phone {
+  --_bg: var(--color-teal-300);
+  --_ink: var(--color-teal-700);
+  order: 5;
+}
+.ps-chip-hvm {
+  --_bg: var(--color-blue-300);
+  --_ink: var(--color-blue-700);
+  order: 4;
+}
+.ps-chip-multi {
+  --_bg: var(--color-purple-300);
+  --_ink: var(--color-purple-700);
+  order: 6;
+}
+/* rs/rd1 — Ads · Sales calls · Phone answering · Social ·
+   High-volume messaging · Multi-location campaigns */
+@container (min-width: 470px) {
+  .ps-chip-phone { order: 3; }
+  .ps-chip-social { order: 4; }
+  .ps-chip-hvm { order: 5; }
+}
+/* rt/rd2 — Ads · Sales calls · Social · Phone answering ·
+   High-volume messaging · Multi-location campaigns */
+@container (min-width: 665px) {
+  .ps-chip-social { order: 3; }
+  .ps-chip-phone { order: 4; }
+  .ps-chip-hvm { order: 5; }
+}
+@container (min-width: 860px) {
+  .ps-chip-phone { order: 3; }
+  .ps-chip-social { order: 4; }
+}
+@container (min-width: 1130px) {
+  .ps-chip-social { order: 3; }
+  .ps-chip-phone { order: 4; }
+}
+
+/* Mount width drives the proportional slider. */
+.ps-sl-rm .sldr { --sldr-w: var(--ps-slider-w-rm); }
+.ps-sl-rs .sldr { --sldr-w: var(--ps-slider-w-rs); }
+.ps-sl-rt .sldr { --sldr-w: var(--ps-slider-w-rt); }
+.ps-sl-rd .sldr { --sldr-w: var(--ps-slider-w-rd1); }
+@container (min-width: 1130px) {
+  .ps-sl-rd .sldr { --sldr-w: var(--ps-slider-w-rd2); }
+}
+
+.ps-sl-rs,
+.ps-sl-rt,
+.ps-sl-rd {
+  display: none;
+}
+@container (min-width: 470px) {
+  .ps-sl-rm { display: none; }
+  .ps-sl-rs { display: block; }
+}
+@container (min-width: 665px) {
+  .ps-sl-rs { display: none; }
+  .ps-sl-rt {
+    display: block;
+    margin-top: calc(var(--ps-u) * 24);
+  }
+}
+@container (min-width: 860px) {
+  .ps-sl-rt { display: none; }
+  .ps-sl-rd {
+    display: block;
+    margin-top: calc(var(--ps-u) * 32);
+  }
+}
+
+.ps-cta {
+  display: none;
+}
+@container (min-width: 665px) {
+  .ps-cta-rt { display: inline-block; }
+}
+@container (min-width: 860px) {
+  .ps-cta-rt { display: none; }
+  .ps-cta-rd1 { display: inline-block; }
+}
+@container (min-width: 1130px) {
+  .ps-cta-rd1 { display: none; }
+  .ps-cta-rd2 { display: inline-block; }
+}
+
+/* The viewport clips the strip at its origin and the page edge. */
+.ps-carousel {
+  grid-area: strip;
+  position: relative;
+  min-width: 0;
+  /* Clip the strip horizontally only; the hanging tags and the active
+     shadow paint below the card row. */
+  overflow: clip visible;
+  touch-action: pan-y;
+}
+
+/* Drag offset is live; settled movement advances by whole card steps. */
+.ps-strip {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--t);
+  width: max-content;
+  /* Prevent text selection while swiping. */
+  user-select: none;
+  --_step: calc(var(--t) * 10.5);
+  translate: calc(var(--ps-drag-dx, 0px) - var(--ps-k, 0) * var(--_step));
+  transition: translate var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.ps-strip[data-dragging] {
+  transition: none;
+}
+@container (min-width: 470px) {
+  .ps-strip { --_step: calc(var(--t) * 7); }
+}
+@container (min-width: 665px) {
+  .ps-strip { --_step: calc(var(--t) * 6); }
+}
+
+.ps-slot {
+  flex: none;
+  width: calc(var(--t) * 9.5);
+}
+@container (min-width: 470px) {
+  .ps-slot { width: calc(var(--t) * 6); }
+}
+@container (min-width: 665px) {
+  .ps-slot { width: calc(var(--t) * 5); }
+}
+
+/* Image frames are exact tick multiples; the card box owns its tick
+   rows as a minimum and every card in the strip shares the tallest. */
+.ps-slot .pcard {
+  width: 100%;
+  height: 100%;
+  --pcard-u: var(--ps-u);
+}
+.ps-slot .pcard-box {
+  flex: 1;
+  min-height: calc(var(--t) * 16);
+}
+.ps-slot .pcard-image {
+  flex: none;
+  height: calc(var(--t) * 6);
+}
+@container (min-width: 470px) {
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 11); }
+  .ps-slot .pcard-image { height: calc(var(--t) * 4); }
+}
+@container (min-width: 665px) {
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 8); }
+  .ps-slot .pcard-image { height: calc(var(--t) * 3); }
+}
+@container (min-width: 860px) {
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 7); }
+}
+@container (min-width: 1130px) {
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 5); }
+  .ps-slot .pcard-image { height: calc(var(--t) * 2); }
+}
+
+@container (min-width: 470px) {
+  .ps-slot .pcard {
+    --pc-title-f: var(--ts-text-md-medium-font);
+    --pc-title-fs: 16;
+    --pc-title-lh: 22;
+    --pc-title-ls: var(--ts-text-md-medium-ls);
+    --pc-title-opsz: var(--ts-text-md-medium-opsz);
+    --pc-title-w: 232;
+    --pc-story-w: 256;
+  }
+}
+@container (min-width: 665px) {
+  .ps-slot .pcard {
+    --pc-title-f: var(--ts-text-lg-medium-font);
+    --pc-title-fs: 18;
+    --pc-title-lh: 26;
+    --pc-title-ls: var(--ts-text-lg-medium-ls);
+    --pc-title-opsz: var(--ts-text-lg-medium-opsz);
+    --pc-title-w: 264;
+    --pc-story-f: var(--ts-text-sm-light-font);
+    --pc-story-fs: 14;
+    --pc-story-lh: 18;
+    --pc-story-ls: var(--ts-text-sm-light-ls);
+    --pc-story-opsz: var(--ts-text-sm-light-opsz);
+    --pc-story-w: 288;
+    --pc-tag-inset: 32;
+    --ptag-f: var(--ts-text-xs-regular-font);
+    --ptag-fs: 12;
+    --ptag-lh: 16;
+    --ptag-ls: var(--ts-text-xs-regular-ls);
+    --ptag-opsz: var(--ts-text-xs-regular-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .ps-slot .pcard {
+    --pc-title-f: var(--ts-text-xl-medium-font);
+    --pc-title-fs: 20;
+    --pc-title-lh: 26;
+    --pc-title-ls: var(--ts-text-xl-medium-ls);
+    --pc-title-opsz: var(--ts-text-xl-medium-opsz);
+    --pc-title-w: 292;
+    --pc-cost-pt: 16;
+    --pc-cost-px: 20;
+    --pc-cost-pb: 20;
+    --pc-est-f: var(--ts-display-sans-2xs-light-font);
+    --pc-est-fs: 28;
+    --pc-est-lh: 36;
+    --pc-est-ls: var(--ts-display-sans-2xs-light-ls);
+    --pc-est-opsz: var(--ts-display-sans-2xs-light-opsz);
+    --pc-est-gap: 16;
+    --pc-story-f: var(--ts-text-md-light-font);
+    --pc-story-fs: 16;
+    --pc-story-lh: 22;
+    --pc-story-ls: var(--ts-text-md-light-ls);
+    --pc-story-opsz: var(--ts-text-md-light-opsz);
+    --pc-story-w: 360;
+    --ptag-pt: 4;
+    --ptag-px: 8;
+    --ptag-pb: 4;
+    --ptag-f: var(--ts-text-sm-regular-font);
+    --ptag-fs: 14;
+    --ptag-lh: 18;
+    --ptag-ls: var(--ts-text-sm-regular-ls);
+    --ptag-opsz: var(--ts-text-sm-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .ps-slot .pcard {
+    --pc-img-pt: 24;
+    --pc-img-pr: 24;
+    --pc-img-pb: 24;
+    --pc-img-pl: 24;
+    --pc-title-just: flex-start;
+    --pc-title-f: var(--ts-text-2xl-medium-font);
+    --pc-title-fs: 24;
+    --pc-title-lh: 32;
+    --pc-title-ls: var(--ts-text-2xl-medium-ls);
+    --pc-title-opsz: var(--ts-text-2xl-medium-opsz);
+    --pc-title-w: 232;
+    --pc-cost-pt: 24;
+    --pc-cost-px: 32;
+    --pc-cost-pb: 32;
+    --pc-est-f: var(--ts-display-sans-sm-light-font);
+    --pc-est-fs: 36;
+    --pc-est-lh: 42;
+    --pc-est-ls: var(--ts-display-sans-sm-light-ls);
+    --pc-est-opsz: var(--ts-display-sans-sm-light-opsz);
+    --pc-est-gap: 24;
+    --pc-story-f: var(--ts-text-lg-light-font);
+    --pc-story-fs: 18;
+    --pc-story-lh: 26;
+    --pc-story-ls: var(--ts-text-lg-light-ls);
+    --pc-story-opsz: var(--ts-text-lg-light-opsz);
+    --pc-story-w: 496;
+    --pc-chips-gap: 8;
+    --pc-tag-h: 32;
+    --pc-tag-px: 12;
+    --pc-tag-f: var(--ts-text-xs-semibold-font);
+    --pc-tag-fs: 12;
+    --pc-tag-lh: 16;
+    --pc-tag-ls: var(--ts-text-xs-semibold-ls);
+    --pc-tag-opsz: var(--ts-text-xs-semibold-opsz);
+    --pc-tag-inset: 32;
+    --ptag-pt: 4;
+    --ptag-px: 10;
+    --ptag-pb: 4;
+  }
+}
+
+/* Ink and fill transitions share the snap clock. */
+.ps-slot .pcard-cost {
+  transition: background-color var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.ps-slot .pcard-est,
+.ps-slot .pcard-story {
+  transition: color var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.ps-slot .pcard-tag,
+.ps-slot .ptag {
+  transition:
+    color var(--ps-snap-dur) var(--ps-snap-ease),
+    background-color var(--ps-snap-dur) var(--ps-snap-ease);
+}
+
+/* The active shadow appears only after strip movement finishes. */
+.ps-slot .pcard-box::after {
+  box-shadow: var(--shadow-hard-square-0);
+  transition: box-shadow 0s;
+}
+.ps-slot .pcard[data-state="active"] .pcard-box::after {
+  box-shadow: var(--shadow-hard-square);
+  transition: box-shadow var(--motion-card-shadow-dur) var(--motion-drawer-ease) var(--ps-snap-dur);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-strip,
+  .ps-slot .pcard-cost,
+  .ps-slot .pcard-est,
+  .ps-slot .pcard-story,
+  .ps-slot .pcard-tag,
+  .ps-slot .ptag,
+  .ps-slot .pcard-box::after,
+  .ps-slot .pcard[data-state="active"] .pcard-box::after {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

@@ -1,0 +1,366 @@
+:root {
+  --ring-w: 4px;
+
+  --grader-ring-brown: #f1e9e4;
+
+  --btn-fill-pt: 10px;
+  --btn-fill-pad-10: 10px;
+  --btn-fill-pad-14: 14px;
+
+  --motion-hover-duration: 150ms;
+  --motion-hover-ease: ease-in-out;
+
+  --btn-glyph-slide: calc(var(--fitem-gap-hover) - var(--fitem-gap));
+  --btn-glyph-slide-dur: var(--knav-ink-dur);
+
+  --btn-arrow-thru-dur: 500ms;
+  --btn-arrow-thru-exit-ease: cubic-bezier(0.64, 0, 0.78, 0);
+  --btn-arrow-thru-enter-ease: var(--motion-drawer-ease);
+
+  --fitem-gap: 3px;
+  --fitem-gap-hover: 5px;
+  --fitem-bar: 3px;
+
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-nav: 50;
+  --z-modal: 100;
+  --z-portal: 9999;
+
+  --knav-bar-h: 44px;
+  --knav-btn-pr: 14px;
+  --knav-logomark: 18px;
+  --knav-drawer-lg: 890px;
+  --knav-drawer-md: 800px;
+  --knav-drawer-h: 338px;
+  --knav-sub-w-lg: 264px;
+  --knav-sub-w-md: 255px;
+  --knav-card-w-md: 208px;
+  --knav-label-w: 280px;
+  --knav-sub-pt: 10px;
+  --knav-copy-w: 216px;
+  --knav-rchip-pl: 10px;
+  --knav-decor-cell: 112px;
+  --knav-decor-top: -78px;
+  --knav-decor-cx: -76px;
+  --knav-decor-teal: #d4ece7;
+  --knav-decor-brown: #eee5dd;
+  --knav-decor-yellow: #fbebcb;
+
+  --knav-underline-dur: 320ms;
+  --knav-ink-dur: 180ms;
+  --knav-chev-dur: 300ms;
+  --knav-reveal-fade: 180ms;
+  --knav-reveal-slide: 240ms;
+  --knav-reveal-rise: 6px;
+  --knav-blk-fade: 320ms;
+  --knav-blk-slide: 380ms;
+  --knav-blk-rise: 12px;
+  --knav-stagger: 50ms;
+  --knav-stagger-res: calc(7 * var(--knav-stagger) / 3);
+  --knav-stagger-base: 60ms;
+  --icon-swap-dur: 250ms;
+  --icon-swap-blur: 2px;
+  --icon-swap-start-scale: 0.25;
+
+  --knav-card-slide-dur: var(--motion-cell-slide-dur);
+  --knav-card-shadow-dur: var(--motion-card-shadow-dur);
+  --knav-card-shadow-out-dur: var(--motion-card-shadow-out-dur);
+  --knav-card-ease: var(--motion-drawer-ease);
+  --knav-card-slide-ease: var(--motion-cell-slide-ease);
+
+  --hx-wm-w: 3.9563em;
+  --hx-wm-h: 0.8031em;
+  /* Aligns the wordmark art with the text baseline. */
+  --hx-wm-drop: 0.19045;
+  --load-sweep-duration: 700ms;
+  --load-sweep-offset: 120ms;
+  --load-nav-duration: 600ms;
+  --load-nav-drop: 8px;
+  --hx-d-h1a: 80ms;
+  --hx-d-h1b: 190ms;
+  --hx-d-sub1: 330ms;
+  --hx-d-sub2: 410ms;
+  --hx-d-cta: 490ms;
+  --hx-d-rect: 620ms;
+  --hx-d-circle: 760ms;
+  --hx-d-img3: 900ms;
+  --hx-d-pass: 1450ms;
+  --hx-d-rect-m: 190ms;
+  --hx-d-circle-m: 330ms;
+  --hx-d-img3-m: 470ms;
+  --hx-d-sub1-m: 410ms;
+  --hx-d-sub2-m: 490ms;
+  --hx-d-cta-m: 570ms;
+
+  --knav-sub-fill-dur: 300ms;
+  --knav-sub-fill-out-dur: 400ms;
+  --knav-dot-morph-dur: var(--motion-dot-morph-dur);
+  --knav-dot-morph-out-dur: var(--motion-dot-morph-out-dur);
+  --knav-dot-morph-out-ease: var(--motion-dot-morph-out-ease);
+  --knav-dot-rotation: var(--motion-dot-rotation);
+
+  --pbtn-cell-xs: 32px;
+  --pbtn-cell-sm: 48px;
+  --pbtn-cell-md: 64px;
+  --pbtn-cell-lg: 80px;
+  --pbtn-cell-xl: 112px;
+
+  --po-price-rm: 88px;
+  --po-price-rd1: 128px;
+  --po-price-rd2: 176px;
+  --po-price-ls: -0.01em;
+  --po-price-opsz: 30;
+  --po-price-gap: -4px;
+  --po-tag-pad-x-rm: 10px;
+  --po-chat-drop-card-rm: 38px;
+  --po-chat-drop-list: 30px;
+  --po-chat-drop-rd2: 88px;
+  /* Half the md chat row: centers the row on a half-tick line. */
+  --po-chat-half-md: 20px;
+
+  --ps-snap-dur: var(--motion-snap-dur);
+  --ps-snap-ease: var(--motion-snap-ease);
+  --ps-cost-inactive: rgba(234, 232, 224, 0.5);
+
+  --btn-inline-advance: 4px;
+
+  --csc-border-dur: 350ms;
+  --csc-border-out-dur: 250ms;
+  --csc-img-zoom: 1%;
+
+  --wg-ghost-opacity: var(--motion-ghost-opacity);
+
+  --gv-rail-h: 56px;
+  --gv-logo-box-w: 56px;
+  --gv-logo-box-h: 48px;
+  --gv-divider-w: 1px;
+  --gv-divider-h: 24px;
+  --gv-rail-pad: 16px;
+  --gv-group-gap: 24px;
+  --gv-chevron-gap: 8px;
+  --gv-btn: 24px;
+  --gv-switch-pad: 4px;
+  --gv-switch-gap: 8px;
+  --gv-ref-mobile: 384;
+  --gv-ref-tablet: 768;
+  --gv-ref-desktop: 1344;
+  --gv-mobile-float-h: 832;
+  --sldr-track-bevel: inset 0 1px 0 rgba(0, 0, 0, 0.25);
+  --sldr-thumb-bevel:
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
+    1px 1px 0 rgba(0, 0, 0, 0.1);
+
+  --sys-marker: 6px;
+  --sys-marker-rd: 7px;
+  --sys-mark-w: 0.0793;
+  --sys-mark-h: 0.0771;
+  --sys-mark-dy: -0.00594;
+}
+
+/* These values stay on .page because their inner variables resolve there. */
+.page {
+
+  --po-head-top-rm: calc(var(--t) * 100 / 32);
+  --po-head-top-rs: calc(var(--t) * 112 / 48);
+  --po-head-top-rt: calc(var(--t) * 80 / 64);
+  --po-head-top-rd1: calc(var(--t) * 112 / 80);
+  --po-head-top-rd2: calc(var(--t) * 174 / 112);
+  --po-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
+  --po-h1-w-rs: calc((var(--wA) + var(--wB)) * 160);
+  --po-h1-w-rt: calc((var(--wA) + var(--wB)) * 288);
+  --po-h1-w-rd1: calc((var(--wA) + var(--wB)) * 328);
+  --po-h1-w-rd2: calc((var(--wA) + var(--wB)) * 724);
+  --po-sub-w-rm: calc((var(--wA) + var(--wB)) * 240);
+  --po-sub-w-rs: calc((var(--wA) + var(--wB)) * 192);
+  --po-sub-w-rt: calc((var(--wA) + var(--wB)) * 288);
+  --po-sub-w-rd1: calc((var(--wA) + var(--wB)) * 320);
+  --po-sub-w-rd2: calc((var(--wA) + var(--wB)) * 485);
+  --po-item-w-rm: calc((var(--wA) + var(--wB)) * 260);
+  --po-item-w-rs: calc((var(--wA) + var(--wB)) * 392);
+  --po-item-w-rt: calc((var(--wA) + var(--wB)) * 240);
+  --po-item-w-rd1: calc((var(--wA) + var(--wB)) * 300);
+  --po-item-w-rd2: calc((var(--wA) + var(--wB)) * 440);
+
+  --ps-u: calc(var(--wA) + var(--wB));
+  --ps-slider-w-rm: calc((var(--wA) + var(--wB)) * 224);
+  --ps-slider-w-rs: calc((var(--wA) + var(--wB)) * 160);
+  --ps-slider-w-rt: calc((var(--wA) + var(--wB)) * 192);
+  --ps-slider-w-rd1: calc((var(--wA) + var(--wB)) * 224);
+  --ps-slider-w-rd2: calc((var(--wA) + var(--wB)) * 224);
+
+  --faq-u: calc(var(--wA) + var(--wB));
+  --faq-head-w-rm: calc((var(--wA) + var(--wB)) * 176);
+  --faq-head-w-rt: calc((var(--wA) + var(--wB)) * 160);
+  --faq-head-w-rd1: calc((var(--wA) + var(--wB)) * 240);
+  --faq-head-w-rd2: calc((var(--wA) + var(--wB)) * 320);
+
+  --wk-head-top-rm: calc(var(--t) * 100 / 32);
+  --wk-head-top-rs: calc(var(--t) * 112 / 48);
+  --wk-head-top-rt: calc(var(--t) * 80 / 64);
+  --wk-head-top-rd1: calc(var(--t) * 112 / 80);
+  --wk-head-top-rd2: calc(var(--t) * 174 / 112);
+  --wk-h1-w-rm: calc((var(--wA) + var(--wB)) * 304);
+  --wk-h1-w-rs: calc((var(--wA) + var(--wB)) * 336);
+  --wk-h1-w-rt: calc((var(--wA) + var(--wB)) * 480);
+  --wk-h1-w-rd1: calc((var(--wA) + var(--wB)) * 560);
+  --wk-h1-w-rd2: calc((var(--wA) + var(--wB)) * 896);
+  --wk-sub-w-rm: calc((var(--wA) + var(--wB)) * 240);
+  --wk-sub-w-rs: calc((var(--wA) + var(--wB)) * 336);
+  --wk-sub-w-rt: calc((var(--wA) + var(--wB)) * 480);
+  --wk-sub-w-rd1: calc((var(--wA) + var(--wB)) * 560);
+  --wk-sub-w-rd2: calc((var(--wA) + var(--wB)) * 560);
+
+  --cs-head-top-rm: calc(var(--t) * 80 / 32);
+  --cs-head-top-rs: calc(var(--t) * 112 / 48);
+  --cs-head-top-rt: calc(var(--t) * 80 / 64);
+  --cs-head-top-rd1: calc(var(--t) * 112 / 80);
+  --cs-head-top-rd2: calc(var(--t) * 174 / 112);
+  --cs-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
+  --cs-h1-w-rs: calc((var(--wA) + var(--wB)) * 384);
+  --cs-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
+  --cs-h1-w-rd1: calc((var(--wA) + var(--wB)) * 320);
+  --cs-h1-w-rd2: calc((var(--wA) + var(--wB)) * 448);
+  --cs-shadow-pad: calc((var(--wA) + var(--wB)) * 4);
+  --cs-shadow-pad-md: calc((var(--wA) + var(--wB)) * 3);
+  --cs-bar-h: 48px;
+  --cs-bar-h-d: 56px;
+  --cs-bar-label: 80px;
+  --cs-bar-label-d: 104px;
+  --cs-toc-top: calc(var(--t));
+  --cs-toc-item-h: 30px;
+  --cs-toc-gap: 8px;
+  --cs-toc-pad-l: 16px;
+  --cs-toc-pad-r: 8px;
+  --cs-toc-pad-y: 4px;
+  --cs-toc-rule: 2px;
+  --cs-tag-w: 52px;
+  --cs-tag-h: 28px;
+  --cs-tag-r: var(--radius-sm);
+  --cs-d-img: 440ms;
+
+  --hero-head-top-rm: calc(var(--t) * 96 / 32);
+  --hero-head-top-rt: calc((var(--wA) + var(--wB)) * 98);
+  --hero-head-top-rd: calc(var(--t) * 192 / 112);
+  --hero-h1-w-rm: calc(var(--wA) * 304 + var(--wB) * 408);
+  --hero-h1-w-rs: calc(var(--wA) * 408 + var(--wB) * 512);
+  --hero-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
+  --hero-h1-w-rd: calc(var(--t) * 672 / 112);
+  --hero-sub-top-rm: calc(var(--t) * 204 / 32);
+  --hero-sub-top-rt: calc((var(--wA) + var(--wB)) * 250);
+  --hero-sub-top-rd: calc(var(--t) * 396 / 112);
+  --hero-sub-w-rm: calc(var(--wA) * 310 + var(--wB) * 475);
+  --hero-sub-w-rs: calc(var(--wA) * 475 + var(--wB) * 640);
+  --hero-sub-w-rd: calc(var(--t) * 708 / 112);
+  --hero-cta-top-rm: calc(var(--t) * 357 / 32);
+  --hero-cta-top-rt: calc((var(--wA) + var(--wB)) * 355);
+  --hero-cta-top-rd: calc(var(--t) * 529 / 112);
+
+  --sys-r-rm: calc(var(--t) * 8);
+  --sys-r-rt: calc(var(--t) * 6);
+  --sys-r-rd: calc(var(--t) * 3);
+  --sys-h2-gap-rm: calc(var(--t) * 12 / 32);
+  --sys-h2-w-rm: calc(var(--wA) * 304 + var(--wB) * 399.5);
+  --sys-h2-w-rs: calc(var(--wA) * 399.5 + var(--wB) * 495);
+  --sys-h2-w-rt: calc((var(--wA) + var(--wB)) * 495);
+  --sys-h2-w-rd: calc(var(--t) * 504 / 112);
+  --sys-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
+  --sys-head-gap-rd: calc(var(--t) * 40 / 112);
+  --sys-tag-ads-x-rm: 0px;
+  --sys-tag-ads-y-rm: calc(var(--t) * -129.5 / 32);
+  --sys-tag-reception-x-rm: calc(var(--t) * 128 / 32);
+  --sys-tag-reception-y-rm: calc(var(--t) * -31.5 / 32);
+  --sys-tag-engagement-x-rm: calc(var(--t) * 96 / 32);
+  --sys-tag-engagement-y-rm: calc(var(--t) * 90.5 / 32);
+  --sys-tag-brand-x-rm: calc(var(--t) * -96.5 / 32);
+  --sys-tag-brand-y-rm: calc(var(--t) * 90.5 / 32);
+  --sys-tag-visibility-x-rm: calc(var(--t) * -128 / 32);
+  --sys-tag-visibility-y-rm: calc(var(--t) * -34.5 / 32);
+  --sys-tag-ads-x-rt: 0px;
+  --sys-tag-ads-y-rt: calc((var(--wA) + var(--wB)) * -192.5);
+  --sys-tag-reception-x-rt: calc((var(--wA) + var(--wB)) * 181);
+  --sys-tag-reception-y-rt: calc((var(--wA) + var(--wB)) * -60.05);
+  --sys-tag-engagement-x-rt: calc((var(--wA) + var(--wB)) * 139);
+  --sys-tag-engagement-y-rt: calc((var(--wA) + var(--wB)) * 131);
+  --sys-tag-brand-x-rt: calc((var(--wA) + var(--wB)) * -142.5);
+  --sys-tag-brand-y-rt: calc((var(--wA) + var(--wB)) * 131);
+  --sys-tag-visibility-x-rt: calc((var(--wA) + var(--wB)) * -181);
+  --sys-tag-visibility-y-rt: calc((var(--wA) + var(--wB)) * -60.05);
+  --sys-tag-ads-x-rd: 0px;
+  --sys-tag-ads-y-rd: calc(var(--t) * -168 / 112);
+  --sys-tag-reception-x-rd: calc(var(--t) * 168 / 112);
+  --sys-tag-reception-y-rd: calc(var(--t) * -35.55 / 112);
+  --sys-tag-engagement-x-rd: calc(var(--t) * 104.76 / 112);
+  --sys-tag-engagement-y-rd: calc(var(--t) * 136.5 / 112);
+  --sys-tag-brand-x-rd: calc(var(--t) * -104.77 / 112);
+  --sys-tag-brand-y-rd: calc(var(--t) * 136.5 / 112);
+  --sys-tag-visibility-x-rd: calc(var(--t) * -168 / 112);
+  --sys-tag-visibility-y-rd: calc(var(--t) * -35.55 / 112);
+
+  --e2-pin-line: calc(var(--knav-bar-h) + var(--t) * 45 / 112);
+  --e2-cont-x-rd: calc(var(--t) * 64 / 112);
+  --e2-cont-h-rd: calc(var(--t) * 528 / 112);
+  --e2-text-pl-rd: calc(var(--t) * 48 / 112);
+  --e2-dot-rd: calc(var(--t) * 20 / 112);
+  --e2-dotrow-rd: calc(var(--t) * 48 / 112);
+  --e2-desc-w-rd: calc(var(--t) * 432 / 112);
+  --e2-hd-gap-rd: calc(var(--t) * 32 / 112);
+  --e2-ps-rd: calc(var(--t) * 12 / 112);
+  --e2-det-pad-rd: calc(var(--t) * 64 / 112);
+  --e2-det-s-rd: calc(var(--t) * 608 / 112);
+  --e2-bc-dot: calc(var(--t) * 8 / 112);
+  --e2-bc-gap: calc(var(--t) * 8 / 112);
+  --e2-desc-w-rm: calc(var(--wA) * 288 + var(--wB) * 368);
+  --e2-desc-w-rs: calc(var(--wA) * 368 + var(--wB) * 448);
+  --e2-desc-w-rt: calc((var(--wA) + var(--wB)) * 448);
+  --e2-hd-gap-rm: calc(var(--wA) * 12 + var(--wB) * 22);
+  --e2-hd-gap-rs: calc(var(--wA) * 22 + var(--wB) * 32);
+  --e2-hd-gap-rt: calc((var(--wA) + var(--wB)) * 32);
+  --e2-dot-rm: calc(var(--wA) * 7 + var(--wB) * 11.5);
+  --e2-dot-rs: calc(var(--wA) * 11.5 + var(--wB) * 16);
+  --e2-dot-rt: calc((var(--wA) + var(--wB)) * 16);
+  --e2-dotrow-rt: calc((var(--wA) + var(--wB)) * 48);
+  --e2-text-pl-rt: calc((var(--wA) + var(--wB)) * 40);
+  --e2-ps-sub: calc((var(--wA) + var(--wB)) * 12);
+  --e2-det-s-rt: calc(var(--t) * 708 / 64);
+
+  --wd-u-rm: calc(var(--t) / 32);
+  --wd-u-rt: calc(var(--wA) + var(--wB));
+  --wd-u-rd: calc(var(--t) / 112);
+  --wd-h2-gap-rm: calc(var(--t) * 12 / 32);
+  --wd-h2-w-rm: calc(var(--wA) * 304 + var(--wB) * 387.5);
+  --wd-h2-w-rs: calc(var(--wA) * 387.5 + var(--wB) * 471);
+  --wd-h2-w-rt: calc((var(--wA) + var(--wB)) * 471);
+  --wd-h2-w-rd: calc(var(--t) * 448 / 112);
+  --wd-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
+  --wd-head-gap-rd: calc(var(--t) * 40 / 112);
+  --wd-cta-gap-rd: calc(var(--t) * 48 / 112);
+  --wd-band-gap-rm: calc(var(--t) * 32 / 32);
+  --wd-band-gap-rt: calc((var(--wA) + var(--wB)) * 40);
+
+  --cc-u-rm: calc(var(--t) / 32);
+  --cc-u-rt: calc(var(--wA) + var(--wB));
+  --cc-u-rd: calc(var(--t) / 112);
+  --cc-h2-gap-rm: calc(var(--t) * 12 / 32);
+  --cc-h2-w-rm: calc(var(--wA) * 288 + var(--wB) * 363.5);
+  --cc-h2-w-rs: calc(var(--wA) * 363.5 + var(--wB) * 439);
+  --cc-h2-w-rt: calc((var(--wA) + var(--wB)) * 439);
+  --cc-h2-w-rd: calc(var(--t) * 560 / 112);
+  --cc-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
+  --cc-head-gap-rd: calc(var(--t) * 40 / 112);
+  --cc-card-inactive: rgba(234, 232, 224, 0.5);
+
+  --bt-u-rm: calc(var(--t) / 32);
+  --bt-u-rt: calc(var(--wA) + var(--wB));
+  --bt-u-rd: calc(var(--t) / 112);
+  --bt-search-w-rm: calc(var(--t) * 10);
+  --bt-search-w-rt: calc((var(--wA) + var(--wB)) * 336);
+  --bt-search-w-rd: calc(var(--t) * 336 / 112);
+  --blog-search-dur: var(--motion-deck-dur);
+
+  --bl-u-rm: calc(var(--t) / 32);
+  --bl-u-rt: calc(var(--wA) + var(--wB));
+  --bl-u-rd: calc(var(--t) / 112);
+}

@@ -1,0 +1,216 @@
+/* Geometry scales from its lattice cell while width fills its container. */
+
+.pbtn {
+  position: relative;
+  /* Keep the negative-z lattice behind content but above the fill. */
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  /* The box clips its lattice. */
+  overflow: clip;
+  text-decoration: none;
+  white-space: nowrap;
+  font-optical-sizing: none;
+  background: var(--color-teal-400);
+  color: var(--color-teal-800);
+  --_c: var(--pbtn-cell, var(--_cell));
+  height: var(--_h);
+  padding-left: var(--_pl);
+  padding-right: var(--_pr);
+  font: var(--_font);
+  font-size: var(--_fs);
+  line-height: var(--_lh);
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
+  /* resting lattice ink; the hover swap transitions on the elements */
+  --_lat: var(--color-teal-450);
+  transition-property: background-color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+
+/* Sizes remain proportional to their anchor cells. */
+.pbtn[data-size="xs"] {
+  --_cell: var(--pbtn-cell-xs);
+  --_h: calc(var(--_c) * 64 / 32);
+  --_pl: calc(var(--_c) * 24 / 32);
+  --_pr: calc(var(--_c) * 16 / 32);
+  --_font: var(--ts-text-lg-medium-font);
+  --_fs: calc(var(--_c) * 18 / 32);
+  --_lh: calc(var(--_c) * 26 / 32);
+  --_ls: var(--ts-text-lg-medium-ls);
+  --_opsz: var(--ts-text-lg-medium-opsz);
+  --_chip: calc(var(--_c) * 32 / 32);
+  --_glyph: calc(var(--_c) * 18 / 32);
+}
+.pbtn[data-size="sm"] {
+  --_cell: var(--pbtn-cell-sm);
+  --_h: calc(var(--_c) * 48 / 48);
+  --_pl: calc(var(--_c) * 16 / 48);
+  --_pr: calc(var(--_c) * 8 / 48);
+  --_font: var(--ts-text-md-medium-font);
+  --_fs: calc(var(--_c) * 16 / 48);
+  --_lh: calc(var(--_c) * 22 / 48);
+  --_ls: var(--ts-text-md-medium-ls);
+  --_opsz: var(--ts-text-md-medium-opsz);
+  --_chip: calc(var(--_c) * 32 / 48);
+  --_glyph: calc(var(--_c) * 18 / 48);
+}
+.pbtn[data-size="md"] {
+  --_cell: var(--pbtn-cell-md);
+  --_h: calc(var(--_c) * 64 / 64);
+  --_pl: calc(var(--_c) * 24 / 64);
+  --_pr: calc(var(--_c) * 16 / 64);
+  --_font: var(--ts-text-lg-medium-font);
+  --_fs: calc(var(--_c) * 18 / 64);
+  --_lh: calc(var(--_c) * 26 / 64);
+  --_ls: var(--ts-text-lg-medium-ls);
+  --_opsz: var(--ts-text-lg-medium-opsz);
+  --_chip: calc(var(--_c) * 32 / 64);
+  --_glyph: calc(var(--_c) * 18 / 64);
+}
+.pbtn[data-size="lg"] {
+  --_cell: var(--pbtn-cell-lg);
+  --_h: calc(var(--_c) * 80 / 80);
+  --_pl: calc(var(--_c) * 24 / 80);
+  --_pr: calc(var(--_c) * 16 / 80);
+  --_font: var(--ts-text-xl-medium-font);
+  --_fs: calc(var(--_c) * 20 / 80);
+  --_lh: calc(var(--_c) * 26 / 80);
+  --_ls: var(--ts-text-xl-medium-ls);
+  --_opsz: var(--ts-text-xl-medium-opsz);
+  --_chip: calc(var(--_c) * 48 / 80);
+  --_glyph: calc(var(--_c) * 24 / 80);
+}
+.pbtn[data-size="xl"] {
+  --_cell: var(--pbtn-cell-xl);
+  --_h: calc(var(--_c) * 80 / 112);
+  --_pl: calc(var(--_c) * 32 / 112);
+  --_pr: calc(var(--_c) * 32 / 112);
+  --_font: var(--ts-text-2xl-medium-font);
+  --_fs: calc(var(--_c) * 24 / 112);
+  --_lh: calc(var(--_c) * 32 / 112);
+  --_ls: var(--ts-text-2xl-medium-ls);
+  --_opsz: var(--ts-text-2xl-medium-opsz);
+  --_chip: calc(var(--_c) * 48 / 112);
+  --_glyph: calc(var(--_c) * 24 / 112);
+}
+
+/* The arrow chip is white on teal. */
+.pbtn-chip {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--_chip);
+  height: var(--_chip);
+  border-radius: var(--radius-full);
+  background: var(--color-teal-600);
+  color: var(--color-bg-000);
+  transition: background-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.pbtn-chip svg {
+  width: var(--_glyph);
+  height: var(--_glyph);
+}
+
+/* The bottom-anchored lattice uses single shared one-pixel lines. */
+.pbtn-lattice {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  border: 1px solid var(--_lat);
+  pointer-events: none;
+  transition: border-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.pbtn[data-size="xs"] .pbtn-lattice {
+  bottom: 0;
+  right: 0;
+  width: calc(var(--_c) * 4 + 1px);
+  height: calc(var(--_c) * 2 + 1px);
+}
+.pbtn[data-size="sm"] .pbtn-lattice,
+.pbtn[data-size="md"] .pbtn-lattice,
+.pbtn[data-size="lg"] .pbtn-lattice,
+.pbtn[data-size="xl"] .pbtn-lattice {
+  bottom: 0;
+  left: 0;
+  width: calc(var(--_c) * 5 + 1px);
+  height: calc(var(--_c) + 1px);
+}
+.pbtn-lattice i {
+  position: absolute;
+  transition:
+    background-color var(--motion-hover-duration) var(--motion-hover-ease),
+    border-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.pbtn-lattice i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--_lat);
+  left: calc(var(--_c) * var(--n) - 1px);
+}
+.pbtn-lattice i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--_lat);
+  top: calc(var(--_c) * var(--n) - 1px);
+}
+.pbtn-lattice i.c {
+  box-sizing: border-box;
+  width: calc(var(--_c) + 1px);
+  height: calc(var(--_c) + 1px);
+  border: 1px solid var(--_lat);
+  border-radius: var(--radius-full);
+  left: calc(var(--_c) * var(--cx) - 1px);
+  top: calc(var(--_c) * var(--cy) - 1px);
+  /* Animate left to avoid compositor re-rasterization during fill changes. */
+  transition:
+    left var(--motion-cell-slide-dur) var(--motion-cell-slide-ease),
+    border-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+
+/* Hover recolors the chrome and slides row circles one cell. */
+@media (hover: hover) {
+  .pbtn:hover {
+    background: var(--color-teal-500);
+    --_lat: var(--color-teal-550);
+  }
+  .pbtn:hover .pbtn-chip {
+    background: var(--color-teal-700);
+  }
+  .pbtn:hover .pbtn-lattice i.c {
+    left: calc(var(--_c) * (var(--cx) + var(--dx, 0)) - 1px);
+  }
+}
+.pbtn[data-state="hover"] {
+  background: var(--color-teal-500);
+  --_lat: var(--color-teal-550);
+}
+.pbtn[data-state="hover"] .pbtn-chip {
+  background: var(--color-teal-700);
+}
+.pbtn[data-state="hover"] .pbtn-lattice i.c {
+  left: calc(var(--_c) * (var(--cx) + var(--dx, 0)) - 1px);
+}
+
+/* Focus chrome remains fixed-size. */
+.pbtn:focus-visible,
+.pbtn[data-state="focus"] {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-250);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pbtn,
+  .pbtn-chip,
+  .pbtn-lattice,
+  .pbtn-lattice i {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

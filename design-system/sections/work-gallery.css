@@ -1,0 +1,263 @@
+/* One image list reflows from a narrow strip to a wide mosaic. */
+
+/* Flow frame: the section and its header hold their tick rows as
+   minimums and grow with the title. */
+.work-gallery-section {
+  width: 100%;
+  min-height: calc(var(--t) * 12);
+}
+@container (min-width: 470px) {
+  .work-gallery-section { min-height: calc(var(--t) * 11); }
+}
+@container (min-width: 665px) {
+  .work-gallery-section { min-height: calc(var(--t) * 16); }
+}
+@container (min-width: 860px) {
+  .work-gallery-section { min-height: calc(var(--t) * 15); }
+}
+
+/* The header's top hairline shares adjacent lattice pixels. */
+.wg-head {
+  position: relative;
+  width: calc(var(--t) * 11);
+  min-height: calc(var(--t) * 4);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+}
+@container (min-width: 470px) {
+  .wg-head { min-height: calc(var(--t) * 3); }
+}
+@container (min-width: 860px) {
+  .wg-head { min-height: calc(var(--t) * 2); }
+}
+
+/* The title keeps its presentational two-line break at every band. */
+.wg-title {
+  margin: 0 0 0 calc(var(--t) / 2);
+  color: var(--color-text-100);
+  font: var(--ts-display-serif-xs-extralight-font);
+  letter-spacing: var(--ts-display-serif-xs-extralight-ls);
+}
+@container (min-width: 470px) {
+  .wg-title { margin-left: var(--t); }
+}
+@container (min-width: 665px) {
+  .wg-title {
+    font: var(--ts-display-serif-xs-plus-extralight-font);
+    letter-spacing: var(--ts-display-serif-xs-plus-extralight-ls);
+  }
+}
+@container (min-width: 1130px) {
+  .wg-title {
+    font: var(--ts-display-serif-md-plus-thin-font);
+    letter-spacing: var(--ts-display-serif-md-plus-thin-ls);
+  }
+}
+
+/* CTA mounts switch size and placement by band. The mount sits in the
+   header row after the title, so the title wraps short of it. */
+.wg-cta {
+  flex: none;
+  margin-left: auto;
+}
+.wg-cta-md,
+.wg-cta-lg {
+  display: none;
+}
+.wg-cta-sm {
+  margin-right: var(--t);
+}
+@container (min-width: 665px) {
+  .wg-cta-sm { display: none; }
+  .wg-cta-md {
+    display: block;
+    margin-right: calc(var(--t) / 2);
+  }
+}
+@container (min-width: 860px) {
+  .wg-cta-md {
+    margin-right: 0;
+    width: calc(var(--t) * 3);
+    display: flex;
+    justify-content: center;
+  }
+}
+@container (min-width: 1130px) {
+  .wg-cta-md { display: none; }
+  .wg-cta-lg {
+    width: calc(var(--t) * 3);
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* The island makes the strip viewport focusable on narrow bands. */
+.wg-view:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+.wg-island {
+  width: 100%;
+}
+
+/* the viewport clips the strip at the page's edges; the next slide's
+   1t sliver at tick 11 is design */
+.wg-view {
+  width: 100%;
+  overflow: clip;
+  touch-action: pan-y;
+}
+
+/* the track: the active slide at the band's designed inset; the
+   translate rides the promoted snap clock and follows the pointer
+   through --wg-drag-dx mid-gesture. k is 1-based. */
+.wg-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--t);
+  width: max-content;
+  /* Prevent text selection while swiping. */
+  user-select: none;
+  margin-left: calc(var(--t) / 2);
+  --wg-pitch: calc(var(--t) * 10.5);
+  translate: calc(var(--wg-drag-dx, 0px) + (1 - var(--wg-k, 1)) * var(--wg-pitch)) 0;
+  transition: translate var(--motion-snap-dur) var(--motion-snap-ease);
+}
+.wg-list[data-dragging] {
+  transition: none;
+}
+@container (min-width: 470px) {
+  .wg-list {
+    margin-left: var(--t);
+    --wg-pitch: calc(var(--t) * 10);
+  }
+}
+
+.wg-slide {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: calc(var(--t) * 9.5);
+  height: calc(var(--t) * 6);
+  border: 1px solid var(--line);
+}
+@container (min-width: 470px) {
+  .wg-slide { width: calc(var(--t) * 9); }
+}
+
+.wg-slide picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.wg-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Top anchoring keeps site navigation visible in cropped cells. */
+  object-position: top;
+}
+
+/* Inactive slides remain translucent so lattice cells show through. */
+.wg-slide:not([data-active]) img {
+  opacity: var(--wg-ghost-opacity);
+  mix-blend-mode: luminosity;
+}
+
+/* Inactive slide overlays select the corresponding index. */
+.wg-show {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.wg-slide[data-active] .wg-show {
+  display: none;
+}
+.wg-show:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* Only the active strip slide exposes the viewer trigger. */
+.wg-open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: none;
+}
+.wg-slide[data-active] .wg-open {
+  display: block;
+}
+.wg-open:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* the same nine list items on the designed grid: 3×5 cells of 3t×2t
+   on t/2 gutters in the 10t box (ticks 1–11); the two features span
+   2×2 on explicit areas. The strip's island state is inert here: the
+   translate resets, the ghosts undress, the overlays leave. */
+@container (min-width: 665px) {
+  .wg-view {
+    overflow: visible;
+    touch-action: auto;
+    margin-left: var(--t);
+    width: calc(var(--t) * 10);
+  }
+  .wg-list {
+    display: grid;
+    grid-template-columns: repeat(3, calc(var(--t) * 3));
+    grid-template-rows: repeat(5, calc(var(--t) * 2));
+    gap: calc(var(--t) / 2);
+    width: auto;
+    margin-left: 0;
+    translate: none;
+    transition: none;
+  }
+  .wg-slide {
+    width: auto;
+    height: auto;
+    grid-area: var(--wg-area);
+  }
+  .wg-slide:not([data-active]) img {
+    opacity: 1;
+    mix-blend-mode: normal;
+  }
+  .wg-show {
+    display: none;
+  }
+  /* Every mosaic tile opens its own site in the viewer. */
+  .wg-open {
+    display: block;
+  }
+  /* Edge tiles extend one pixel to share surrounding lattice lines. */
+  .wg-slide[data-east] {
+    width: calc(100% + 1px);
+    justify-self: start;
+  }
+  .wg-slide[data-south] {
+    height: calc(100% + 1px);
+    align-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-list {
+    transition: none;
+  }
+}

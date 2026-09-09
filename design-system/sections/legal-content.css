@@ -1,0 +1,182 @@
+.legal-section {
+  width: 100%;
+  min-height: calc(var(--t) * 8);
+  padding-block: calc(var(--t) * 3) calc(var(--t) * 2);
+}
+
+.legal-header,
+.legal-prose {
+  width: calc(var(--t) * 10);
+  margin-left: var(--t);
+}
+
+.legal-header {
+  border-top: 1px solid var(--color-border-000);
+  padding-top: var(--space-xl);
+}
+
+.legal-eyebrow {
+  color: var(--color-text-400);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  text-transform: var(--ts-text-nav-label-case);
+}
+
+.legal-header h1 {
+  max-width: calc(var(--t) * 9);
+  margin-top: var(--space-xl);
+  color: var(--color-text-100);
+  font: var(--ts-display-serif-md-extralight-font);
+  letter-spacing: var(--ts-display-serif-md-extralight-ls);
+}
+
+.legal-prose {
+  margin-top: var(--t);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+}
+
+.legal-prose > * + * {
+  margin-top: var(--space-xl);
+}
+
+.legal-prose h2 {
+  margin-top: var(--space-5xl);
+  color: var(--color-text-100);
+  font: var(--ts-display-serif-xs-light-font);
+  letter-spacing: var(--ts-display-serif-xs-light-ls);
+}
+
+.legal-prose h3 {
+  margin-top: var(--space-3xl);
+  color: var(--color-text-200);
+  font: var(--ts-text-xl-medium-font);
+  letter-spacing: var(--ts-text-xl-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-xl-medium-opsz), var(--font-sans-slnt);
+}
+
+.legal-prose :is(ul, ol) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-left: var(--space-2xl);
+}
+
+.legal-prose ul {
+  list-style: disc;
+}
+
+.legal-prose ol {
+  list-style: decimal;
+}
+
+.legal-prose li {
+  padding-left: var(--space-sm);
+}
+
+.legal-prose li::marker {
+  color: var(--color-teal-500);
+}
+
+.legal-prose a {
+  color: var(--color-teal-700);
+  text-decoration: underline;
+  text-decoration-color: var(--color-teal-300);
+  text-underline-offset: 0.18em;
+}
+
+.legal-prose a:hover {
+  text-decoration-color: currentColor;
+}
+
+.legal-prose a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-200);
+}
+
+.legal-prose blockquote {
+  padding-left: var(--space-xl);
+  border-left: var(--space-xs) solid var(--color-teal-300);
+  color: var(--color-text-400);
+}
+
+.legal-prose hr {
+  border-top: 1px solid var(--color-border-000);
+}
+
+.legal-prose :is(code, pre) {
+  font-family: var(--font-sans);
+}
+
+.legal-prose code {
+  padding-inline: var(--space-xs);
+  background: var(--color-bg-200);
+  border-radius: var(--radius-xs);
+}
+
+.legal-prose pre {
+  overflow-x: auto;
+  padding: var(--space-xl);
+  background: var(--color-bg-200);
+  border: 1px solid var(--color-border-000);
+}
+
+.legal-prose pre code {
+  padding: 0;
+  background: none;
+}
+
+.legal-prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.legal-prose :is(th, td) {
+  min-width: calc(var(--t) * 2);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border-000);
+  text-align: left;
+}
+
+.legal-prose th {
+  color: var(--color-text-200);
+  font-weight: 500;
+}
+
+@container (min-width: 470px) {
+  .legal-section {
+    padding-top: calc(var(--t) * 2);
+  }
+
+  .legal-header h1 {
+    font: var(--ts-display-serif-lg-extralight-font);
+    letter-spacing: var(--ts-display-serif-lg-extralight-ls);
+  }
+}
+
+@container (min-width: 665px) {
+  .legal-prose {
+    width: calc(var(--t) * 7);
+    margin-left: calc(var(--t) * 4);
+  }
+}
+
+@container (min-width: 1130px) {
+  .legal-prose {
+    width: calc(var(--t) * 6);
+    margin-left: calc(var(--t) * 5);
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+
+  .legal-prose h2 {
+    font: var(--ts-display-serif-sm-light-font);
+    letter-spacing: var(--ts-display-serif-sm-light-ls);
+  }
+}

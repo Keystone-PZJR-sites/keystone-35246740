@@ -1,0 +1,78 @@
+---
+description: Reading the design through the Figma MCP — the protocol, the blind spots, the console bridge, token re-extraction
+alwaysApply: true
+---
+
+# Figma is read through the MCP
+
+The live file `ks-MarketingSite` (`IBO39siJYDhiCRtuLWUTW2`) is the design
+intent. Every Figma URL in a comment or a chat message exists to be opened
+through the Figma MCP — for a new section, a refresh, an asset export, or a
+one-value fix.
+
+## The protocol
+
+Before building or changing anything designed, run on the node:
+`get_metadata` (structure and sizes), `get_variable_defs` (bound tokens), and
+`get_design_context` (fills, radii, per-variant values, asset URLs). Read the
+nodes fresh at build time. Do not infer values from memory or screenshots.
+
+**If the Figma MCP is unreachable, stop.** Do not approximate from a screenshot
+or carry values over. Report which server, tool, and node failed and wait.
+Acceptable recovery: the server is unauthenticated → run its `mcp_auth`; it
+needs Figma Desktop → ask the user to open the file; the node id is malformed
+or deleted → ask for the URL again. "The data file probably still matches" is
+not on the list.
+
+## Node reads have known blind spots
+
+- `get_metadata` returns position and size only — no radius, fill, or
+  interactivity. Any cell that might be ornament or a control is read per-node
+  with `get_design_context`.
+- Inside a Figma grid auto-layout, a child's metadata `x`/`y` can be stale.
+  Verify geometry against rendered bounds (`absoluteBoundingBox`) through the
+  console bridge before committing it. Carousel frames overflow their anchors;
+  verify against the in-frame clip.
+- Stroke alignment produces ±0.5/±1px artifacts (a frame at x −0.5, insets
+  reading 23/31/33 where the design means 24/32). Transcribe the intended whole
+  value, not the artifact.
+
+## The console bridge
+
+The Figma console MCP runs JavaScript inside the live file and returns what the
+read tools cannot: rendered bounds, effect values, verbatim SVG exports of
+vector geometry. Use it to verify transcription, to export icon geometry, and
+whenever cached metadata is suspect.
+
+## The file can be wrong — never build the error
+
+Frames occasionally carry a mis-bound variable, a stray ornament cell, stale
+copy. When a node disagrees with its siblings or the established pattern, flag
+it to design instead of building it. Loop: flag → design fixes in Figma or
+records a decision → re-read the touched nodes → record the resolution in a
+comment at the value (node id, date, what changed). Building a known error "to
+match the file" is never correct.
+
+## Component-set reads
+
+- Read every variant of a set (sizes, chromes, states) — never scale one
+  variant to produce another.
+- Check `width / t` and `height / t` at the anchor: whole ticks or designed
+  half-ticks are structure; anything else is material.
+- When a set's cells equal the anchor ticks (32/48/64/80/112), the design is
+  tick-riding drawn at 1:1 — read those px as `1t`.
+
+## Read the token layer before building
+
+Token values come from the Figma variables API and the text styles, not from
+the file's rendered frames. Read the local variable collections, imported
+library variables, and local text styles through the Figma MCP. Update
+`tokens/type-styles.json`, then run `node scripts/generate-type-css.mjs`.
+Design-side token changes flow through the token layer without component overrides.
+
+## What the MCP does not know
+
+The MCP does not know the codebase. It exports whatever the file contains,
+including assets and shapes already implemented, named by SHA hash. Before
+committing an export: search `icons.tsx`, `media.ts`, and `public/media/`;
+rename to descriptive kebab-case or delete the duplicate.

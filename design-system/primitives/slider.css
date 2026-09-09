@@ -1,0 +1,172 @@
+/* Interior geometry scales from --sldr-w; focus and hit areas stay fixed. */
+
+.sldr {
+  display: inline-flex;
+  flex-direction: column;
+  gap: calc(var(--_u) * 11);
+  --_W0: 224;
+  --_u: calc(var(--sldr-w, calc(var(--_W0) * 1px)) / var(--_W0));
+  width: calc(var(--_u) * var(--_W0));
+}
+.sldr[data-size="sm"] {
+  --_W0: 160;
+}
+.sldr[data-size="md"] {
+  --_W0: 192;
+}
+
+/* rest fraction per snap state */
+.sldr[data-state="less"] {
+  --_kf: 0;
+}
+.sldr[data-state="middle"] {
+  --_kf: 0.5;
+}
+.sldr[data-state="more"] {
+  --_kf: 1;
+}
+
+/* ---- the thumb row (18 designed) ---- */
+
+.sldr-row {
+  position: relative;
+  height: calc(var(--_u) * 18);
+  touch-action: pan-y;
+}
+/* Extend the pointer surface to 44px without changing drawn geometry. */
+.sldr-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+  bottom: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+}
+
+/* The track uses the shared inset bevel. */
+.sldr-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--_u) * 6);
+  height: calc(var(--_u) * 6);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-bg-300), var(--color-bg-500));
+  box-shadow: var(--sldr-track-bevel);
+}
+
+/* Center notch marks the middle snap target. */
+.sldr-notch {
+  position: absolute;
+  top: calc(var(--_u) * 6);
+  left: calc(50% - var(--_u) * 0.5);
+  width: calc(var(--_u) * 1);
+  height: calc(var(--_u) * 3);
+  background: var(--color-alpha-black-20);
+}
+
+/* progress fill — left edge to the thumb center: width 0 at less,
+   half at middle, full at more (the set's own states); the hue layers
+   carry the 200 → 400 persona gradients and crossfade on the snap
+   clock */
+.sldr-progress {
+  position: absolute;
+  left: 0;
+  top: calc(var(--_u) * 6);
+  height: calc(var(--_u) * 6);
+  width: calc(var(--sldr-f, var(--_kf)) * 100%);
+  border-radius: var(--radius-full);
+  overflow: clip;
+  transition: width var(--ps-snap-dur) var(--ps-snap-ease);
+}
+/* Each hue layer carries the bevel so it paints above the fill. */
+.sldr-p {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--sldr-track-bevel);
+  opacity: 0;
+  transition: opacity var(--ps-snap-dur) var(--ps-snap-ease);
+}
+.sldr-p[data-hue="pink"] {
+  background: linear-gradient(90deg, var(--color-pink-200), var(--color-pink-400));
+}
+.sldr-p[data-hue="blue"] {
+  background: linear-gradient(90deg, var(--color-blue-200), var(--color-blue-400));
+}
+.sldr-p[data-hue="purple"] {
+  background: linear-gradient(90deg, var(--color-purple-200), var(--color-purple-400));
+}
+.sldr[data-hue="pink"] .sldr-p[data-hue="pink"],
+.sldr[data-hue="blue"] .sldr-p[data-hue="blue"],
+.sldr[data-hue="purple"] .sldr-p[data-hue="purple"] {
+  opacity: 1;
+}
+
+/* Thumb aligns left, center, or right by snap state. */
+.sldr-thumb {
+  position: absolute;
+  top: 0;
+  width: calc(var(--_u) * 18);
+  height: calc(var(--_u) * 18);
+  left: calc(var(--sldr-f, var(--_kf)) * (100% - var(--_u) * 18));
+  border-radius: var(--radius-full);
+  background: var(--color-text-300);
+  box-shadow: var(--sldr-thumb-bevel);
+  transition: left var(--ps-snap-dur) var(--ps-snap-ease);
+}
+
+/* Dragging tracks the pointer without transition lag. */
+.sldr[data-dragging] .sldr-thumb,
+.sldr[data-dragging] .sldr-progress {
+  transition: none;
+}
+
+/* The native input supplies semantics and matches the 44px hit area. */
+.sldr-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+  bottom: calc((min(var(--_u) * 18, 44px) - 44px) / 2);
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Draw keyboard focus on the controlled thumb. */
+.sldr:has(.sldr-input:focus-visible) .sldr-thumb {
+  box-shadow:
+    var(--sldr-thumb-bevel),
+    0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* ---- the label row (16 designed, 11 below the thumb row) ---- */
+
+.sldr-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-400);
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc(var(--_u) * 12);
+  line-height: calc(var(--_u) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  white-space: nowrap;
+}
+.sldr-glyph {
+  width: calc(var(--_u) * 13);
+  height: calc(var(--_u) * 10);
+  color: var(--color-bg-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sldr-thumb,
+  .sldr-progress,
+  .sldr-p {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

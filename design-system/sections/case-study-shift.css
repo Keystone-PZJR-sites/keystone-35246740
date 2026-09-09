@@ -1,0 +1,286 @@
+/* Before-and-after cards stack on narrow bands and share an edge from tablet. */
+
+/* Flow frame: the section holds its tick budget as a minimum and grows
+   with the cards. */
+.csft-sec {
+  min-height: calc(var(--t) * 22);
+}
+@container (min-width: 470px) {
+  .csft-sec { min-height: calc(var(--t) * 13); }
+}
+@container (min-width: 665px) {
+  .csft-sec { min-height: calc(var(--t) * 7); }
+}
+@container (min-width: 860px) {
+  .csft-sec { min-height: calc(var(--t) * 6); }
+}
+@container (min-width: 1130px) {
+  .csft-sec { min-height: calc(var(--t) * 5); }
+}
+
+@container (min-width: 1130px) {
+  .csft-content {
+    margin-left: calc(var(--t) * 3);
+    width: calc(var(--t) * 8 + 1px);
+  }
+}
+
+/* The after box overlaps by one pixel so touching borders remain single.
+   The bottom padding reserves the hanging tag's rows so a grown section
+   still clears it. */
+.csft-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: var(--cs-tag-h);
+}
+@container (min-width: 665px) {
+  .csft-content { flex-direction: row; }
+}
+
+/* ---------------- the cards ---------------- */
+
+/* Each card owns its tick rows as a minimum; the interior is a column
+   whose body settles on the bottom padding and grows the card when its
+   copy runs long. */
+.csft-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border-000);
+  width: calc(var(--t) * 10.5 + 1px);
+  min-height: calc(var(--t) * 10 + 1px);
+  padding: 20px;
+}
+.csft-before {
+  background: var(--color-lightgray-200);
+}
+.csft-after-card {
+  background: var(--color-base-white);
+  /* The shadow is persistent, not an interaction state. */
+  box-shadow: var(--shadow-hard-square);
+  margin-top: -1px;
+}
+@container (min-width: 470px) {
+  .csft-card {
+    width: calc(var(--t) * 10 + 1px);
+    min-height: calc(var(--t) * 6 + 1px);
+  }
+}
+@container (min-width: 665px) {
+  .csft-card { width: calc(var(--t) * 5 + 1px); }
+  .csft-after-card {
+    margin-top: 0;
+  }
+  .csft-after {
+    margin-left: -1px;
+  }
+}
+@container (min-width: 860px) {
+  .csft-card {
+    min-height: calc(var(--t) * 5 + 1px);
+    padding-bottom: 32px;
+  }
+}
+@container (min-width: 1130px) {
+  .csft-card {
+    width: calc(var(--t) * 4 + 1px);
+    min-height: calc(var(--t) * 4 + 1px);
+    padding: 20px 24px 32px;
+  }
+}
+
+/* the card label: text/nav-label, text/200 */
+.csft-label {
+  margin: 0;
+  color: var(--color-text-200);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  text-transform: uppercase;
+}
+
+/* Card interiors settle on the bottom padding and keep a material gap
+   under the label when they run long. */
+.csft-body {
+  margin-top: auto;
+  padding-top: var(--space-xl);
+}
+
+/* ---------------- the stat pair ---------------- */
+
+.csft-stats {
+  margin: 0 0 calc((var(--wA) + var(--wB)) * 24);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+@container (min-width: 470px) {
+  .csft-stats { margin-bottom: calc((var(--wA) + var(--wB)) * 32); }
+}
+@container (min-width: 665px) {
+  .csft-stats { margin-bottom: calc((var(--wA) + var(--wB)) * 24); }
+}
+.csft-stat {
+  width: calc(50% - 8px);
+  position: relative;
+}
+@container (min-width: 860px) {
+  .csft-stat { width: calc(50% - 20.5px); }
+  /* Center the divider in the gap between stat columns. */
+  .csft-stat + .csft-stat::before {
+    content: "";
+    position: absolute;
+    left: -21px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-bg-500);
+  }
+}
+@container (min-width: 1130px) {
+  .csft-stat { width: calc(50% - 24.5px); }
+  .csft-stat + .csft-stat::before { left: -25px; }
+}
+
+/* Numerals and pill labels step independently by band. */
+.csft-stat dd {
+  margin: 0;
+  color: var(--color-text-100);
+  font: var(--ts-text-xl-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 20);
+  line-height: calc((var(--wA) + var(--wB)) * 26);
+  letter-spacing: var(--ts-text-xl-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xl-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 665px) {
+  .csft-stat dd {
+    font: var(--ts-text-2xl-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 24);
+    line-height: calc((var(--wA) + var(--wB)) * 32);
+    letter-spacing: var(--ts-text-2xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .csft-stat dd {
+    font: var(--ts-display-sans-xs-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 32);
+    line-height: calc((var(--wA) + var(--wB)) * 38);
+    letter-spacing: var(--ts-display-sans-xs-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
+  }
+}
+/* Visual order places the numeral first while DOM order stays semantic. */
+.csft-stat {
+  display: flex;
+  flex-direction: column;
+}
+.csft-stat dt {
+  order: 1;
+  margin-top: var(--space-xs);
+}
+.csft-stat .cs-pill {
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 665px) {
+  .csft-stat .cs-pill {
+    font: var(--ts-text-sm-regular-font);
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+    letter-spacing: var(--ts-text-sm-regular-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .csft-stat .cs-pill {
+    font: var(--ts-text-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 16);
+    line-height: calc((var(--wA) + var(--wB)) * 22);
+    letter-spacing: var(--ts-text-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+    /* Pin long labels to the available stat column. */
+    max-width: calc((var(--wA) + var(--wB)) * 72);
+  }
+}
+
+/* ---------------- body lines / items ---------------- */
+
+.csft-lines {
+  margin: 0;
+  padding-left: 1.25em;
+  list-style: disc outside;
+  color: var(--color-text-300);
+  font: var(--ts-text-md-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 16);
+  line-height: calc((var(--wA) + var(--wB)) * 22);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .csft-lines {
+    font: var(--ts-text-sm-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+    letter-spacing: var(--ts-text-sm-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 665px) {
+  .csft-lines {
+    font: var(--ts-text-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 16);
+    line-height: calc((var(--wA) + var(--wB)) * 22);
+    letter-spacing: var(--ts-text-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+.csft-list {
+  gap: var(--space-md);
+}
+.csft-list li {
+  gap: var(--space-md);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 16);
+  line-height: calc((var(--wA) + var(--wB)) * 22);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* ---------------- the Wow! tag ---------------- */
+
+/* The tag hangs below the after card into the section gap. */
+.csft-after {
+  position: relative;
+}
+.csft-tag {
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  width: var(--cs-tag-w);
+  height: var(--cs-tag-h);
+  display: grid;
+  place-items: center;
+  background: var(--color-yellow-400);
+  color: var(--color-yellow-700);
+  border-radius: 0 0 var(--cs-tag-r) var(--cs-tag-r);
+  font: var(--ts-text-xs-medium-font);
+  letter-spacing: var(--ts-text-xs-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-medium-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 860px) {
+  .csft-tag { left: 24px; }
+}

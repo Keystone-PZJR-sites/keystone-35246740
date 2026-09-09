@@ -1,104 +1,58 @@
 # Keystone Corporate Site — `keystone-35246740`
 
-Keystone's own corporate website, built on the Keystone platform. This is a **fully custom, agency-built site** driven by a central, professional-grade design system at `design-system/`. No stock design-system visual components or CSS are loaded — the Keystone data/API layer is used for backend data only.
+Keystone's corporate website. The design system lives under
+`design-system/` on the five-anchor grid. The Keystone data/API layer
+(`@keystone-sites/core` and `@keystone-sites/widgets`) powers backend data,
+chat, and forms; everything visual is custom.
 
-> **AI agents and designers: read `docs/rules/rules.md` before doing anything else.**
-
----
-
-## Docs
-
-| Folder | Purpose |
-|--------|---------|
-| `docs/rules/` | Non-negotiable rules — read before touching anything |
-| `docs/specs/` | Numbered pre-implementation plans with acceptance criteria |
-| `docs/explainers/` | Reference docs: design-system, animations, components, responsive, roadmap |
-
-The design system is documented in `docs/explainers/design-system.md`, and its live catalog is the `/styles` page.
+> **AI agents — read `AGENTS.md`, then every rule in `.cursor/rules/`.**
+> They are the binding contract for this codebase.
 
 ---
 
-## Key Facts
-
-- **Design system:** central, at `design-system/` (tokens → primitives → components → sections). Catalog at `/styles`.
-- **Theme:** `custom` — no stock design-system CSS loaded
-- **All styles:** `design-system/styles/` (assembled by `design-system/styles/index.css`)
-- **Animation engine:** GSAP 3.15.0
-- **Design source:** [Figma — ks-BrandID, node 915:2616](https://www.figma.com/design/XRbD11WIevI5szRFiRrguZ/ks-BrandID?node-id=915-2616&m=dev)
-- **Data layer:** `keystone-design-bootstrap` (API utilities + entity types)
+Agent behavior is defined by `AGENTS.md` and `.cursor/rules/`. The live
+Figma file defines design intent, and the code defines the shipped site.
 
 ---
 
-## Development
+## Key facts
+
+- **Design system:** `design-system/` — tokens → base → grid engine →
+  primitives → sections.
+- **Grid:** five anchors (384 · 576 · 768 · 960 · 1344), container-query
+  band gates at the geometric midpoints (470 · 665 · 860 · 1130),
+  nearest-anchor rendering, the tick capped at 112px.
+- **Fonts:** GT Standard Standard VF + PP Kyoto Variable Upright —
+  licensed, self-hosted.
+- **Motion:** CSS only — named grammars in `design-system/tokens/motion.css`.
+  No animation runtime ships.
+- **Design source:** the live Figma file `ks-MarketingSite`, read through
+  the Figma MCP only.
+- **Data layer:** `@keystone-sites/core` (`lib/server-api`, chat/form
+  route handlers under `app/api/`). Site chat is the
+  `@keystone-sites/widgets` `ChatWidget`, compiled through
+  `design-system/widgets.css`.
+- **Grader:** the grader input queries the Grader search API and
+  deep-links into the Grader app (`design-system/lib/grader.ts`); URLs come from
+  `.env`.
+- **Deploy:** Cloudflare via OpenNext (`npm run preview` / `deploy`).
+
+## Environment
+
+Copy the variables in `.env` for local work: `API_URL`, `AUTH_API_URL`,
+`API_KEY`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GRADER_URL`,
+`NEXT_PUBLIC_GRADER_API_URL`, `NEXT_PUBLIC_GRADER_SEARCH_PATHS`. The
+Grader variables are required; a missing one fails the build.
+
+## Routes
+
+`/` · `/pricing` · `/our-work` · `/case-studies/[slug]`. The grid sweep
+runs on those pages.
+
+## Verification
 
 ```bash
-# Install
-npm install
-
-# Dev server
-API_URL="http://localhost:3000/api/v1" API_KEY="your-key" npm run dev -- --port 4002
-
-# Must pass before every commit (see rules — never use `next build` as a pre-commit check)
-npx tsc --noEmit && npm run lint
-```
-
-**Finding your API key:**
-```bash
-cd /path/to/proto-product-mono-repo/apps/api
-bin/rails runner "puts AccountUser.where(role: 'api_service', account_id: YOUR_ACCOUNT_ID).first.user.api_key"
-```
-
----
-
-## Project Structure
-
-```
-keystone-35246740/
-├── app/                     # Next.js App Router
-│   ├── page.tsx             # Homepage
-│   ├── styles/              # /styles — live design-system catalog (noindex)
-│   ├── (inner)/             # Inner pages sharing InnerPageShell chrome
-│   └── [live pages]/        # about, services, contact, faq, etc.
-├── design-system/           # The central design system
-│   ├── tokens/              # Color, type, radius, spacing, z-index, motion
-│   ├── primitives/          # Text, Heading, Button, Card, Link, Pill, …
-│   ├── components/          # Nav, footer, lead-capture, InnerPageShell
-│   ├── sections/            # Homepage + reusable inner-page sections
-│   ├── patterns/            # Page-specific groups (blog, legal)
-│   ├── providers/ hooks/ lib/
-│   └── styles/              # CSS per layer, assembled by index.css
-├── config/index.ts          # Site config (theme: "custom")
-├── docs/
-│   ├── rules/               # Non-negotiable rules
-│   ├── specs/               # Numbered pre-implementation specs
-│   └── explainers/          # Reference docs (design-system, animations, …)
-└── public/
-    └── fonts/               # FK font files (licensed — add before launch)
-```
-
----
-
-## Local Design Bootstrap Development
-
-```bash
-# Link local design bootstrap
-cd /path/to/keystone/site-builder/keystone-design-bootstrap
-npm link
-
-cd /path/to/keystone/site-builder/customer-sites/keystone-35246740
-npm link keystone-design-bootstrap
-
-# Restore published version
-npm unlink keystone-design-bootstrap
-npm install
-```
-
----
-
-## Deployment
-
-```bash
-npm run build          # Next.js build
-npm run preview        # Build + run locally via Cloudflare Workers
-npm run deploy         # Build + deploy to Cloudflare Workers
+npx tsc --noEmit
+npm run lint
+GRID_URL=http://localhost:3000 npm run test:grid  # the grid sweep, against the running dev server
 ```

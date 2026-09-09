@@ -1,0 +1,142 @@
+---
+description: Architecture — server/client split, the design-system layers, component and state rules
+alwaysApply: true
+---
+
+# Architecture
+
+## Server vs client components
+
+Default to Server Components. Add `'use client'` only for browser APIs
+(`window`, `document`, measurement), React state or effects, or event handlers.
+
+- Never put `'use client'` on a page (`app/**/page.tsx`) or a layout.
+- Push interactivity into leaf islands. Each section ships at most one island;
+  the island is its own file (`nav.tsx` · `nav-island.tsx`).
+- Never call the data-layer fetch functions inside a client component. Server
+  components fetch and pass data down as typed props.
+- Route JS is measured in hundreds of bytes per page. A new island earns its
+  place; a new dependency earns it twice.
+
+## The design system is central
+
+All brand UI lives under `design-system/` and is consumed through it. The
+layers build strictly upward — **tokens → base → grid → primitives →
+sections → pages** — and a layer may use only the layers before it in that order
+(a primitive uses tokens and the grid; it never imports a section).
+
+- `tokens/` — primitives · semantic · type · motion · `component.css` (every
+  designed non-token constant). The only place colors, fonts, radii, spacing,
+  z-index, and motion values are defined.
+- `base.css` — the document reset the sections were verified under and the
+  site root `.site-root` (carried by `body`). Part of the rendering contract; do
+  not restyle it casually.
+- `grid/` — the engine (`engine.css`), the exposure vocabulary, the side fields.
+- `primitives/` — the lowest building blocks (buttons, grader, text, icons in
+  `icons.tsx`). Repeated controls and typography patterns belong here. Search
+  this layer before creating section-specific markup. A section may style a
+  unique semantic heading or control only when no primitive represents its
+  geometry or interaction; pages never do so.
+- `sections/` — full-width page sections and the site chrome (nav, footer,
+  site chat). A section owns its `*.css`, its `*-data.ts`, and its island.
+- `pages/` — complete design-system page compositions consumed by App Router routes.
+- `lib/` — shared client utilities (scroll lock, the Grader client), `media.ts`
+  — the media registry, `widgets.css` — the compiled stylesheet of the
+  `@keystone-sites/widgets` package (see `60-data-and-integrations.mdc`).
+
+All site CSS lives in these layers, assembled by `design-system/index.css` in
+cascade order. Edit the file for the layer you work on; never add rules to the index.
+No CSS modules, styled-components, emotion, `<style>` tags, or utility-class
+framework for site markup.
+
+## Component organization
+
+- One component per file. Named exports only. TypeScript interfaces for every
+  component; never `any`, never `object`.
+- A section and its parts share a name prefix (`nav.tsx` · `nav-desktop.tsx`
+  · `nav-mobile.tsx` · `nav.css` · `nav-data.ts`).
+- A file past ~500 lines is a missing folder: split into one file per visually
+  distinct sub-component, with a colocated `types.ts`. Content arrays never
+  share a file with their component.
+- A sub-component is real when it has a discrete prop interface and output and
+  can be reasoned about without the parent's render. Pure layout wrappers stay
+  inline.
+
+## Pages compose from the design system
+
+A page file mounts design-system sections and feeds them data — nothing more.
+A page never defines its own nav, footer, hero chrome, colors, or CSS.
+
+## Everything is prop-driven
+
+- No hardcoded marketing content in components: every content string, image,
+  color role, navigation label, URL, and configuration is a prop or a typed
+  `*-data.ts` module the component imports. Static accessibility labels and
+  control microcopy that are inseparable from a component's behavior may stay
+  colocated.
+- Default prop values only for layout or style options (`variant`, `size`),
+  never for content.
+- Behaviour hooks between sections and islands are declarative
+  `data-action="…"` contracts on the primitive (`ButtonGhost action`), wired
+  by one delegated document listener in the owning island. Never wire an
+  `onClick` across section boundaries.
+
+## State
+
+- **One source of truth.** A piece of state has one owner: React, or the
+  timer/animation code that React reads through a ref. Never both. Focus is
+  owned by the DOM; uncontrolled inputs own their value.
+- **No module-level mutable state.** A top-level `let` or shared `Map` is a
+  hidden global that breaks under Strict Mode and across navigations. Use React
+  state, refs, or a context whose value is a ref. Module-level `const`
+  registries and small bounded caches of pure network answers are the
+  exceptions — they must be safe to lose at any time.
+- **Prefer native CSS state.** `:hover`, `:focus-within`, `:focus-visible`,
+  `:has()`, `data-*` attributes, and container queries carry state the CSS can
+  see. JS owns only what it must: timers, offsets, debounced flags, springs.
+- **Derive, don't sync.** Status that follows from other state is computed in
+  render, not stored. The sanctioned derive-state-while-rendering form
+  (`if (cond) setX(...)` in the body) replaces `setState` in an effect.
+- **Discriminated unions over string sniffing.** Every variant carries a
+  `type` literal; renderers are one exhaustive `switch`. Classify external
+  data once at the boundary into a closed union.
+
+## Data models are typed at the boundary
+
+Every external response is validated before it enters the app. Declare the
+type once, validate the parsed body against it with a small hand-written
+parser, and use the validated value. A bare `as { … }` cast is forbidden at
+our boundary; typed third-party SDK responses are trusted.
+
+## Effects are idempotent
+
+Every effect and listener is safe to set up, tear down, and set up again
+(Strict Mode double-mounts, HMR, bfcache).
+
+- Always return a cleanup: every `addEventListener` pairs with a remove; every
+  timer with a clear; every observer with `disconnect()`.
+- Capture `ref.current` into a local at effect start and use the local in the
+  cleanup.
+- Never depend on the initial mount being the only mount.
+
+"Works the first time, breaks after hot reload" means a missing cleanup, not a
+missing `useRef` flag.
+
+## UI coordinates through events, not timers
+
+`setTimeout` is not a synchronisation primitive. Wait for `animationend`,
+`transitionend`, `decode()`/`load`, `requestAnimationFrame`, or a synchronous
+`focus({ preventScroll: true })` in the right effect. Timers are for things
+that genuinely fire on a timer: auto-advance, debounce.
+
+## Body scroll locking
+
+The single entry point is `design-system/lib/scroll-lock.ts`. Every overlay
+calls `lockScroll()` and stores the unlock as its cleanup. Never set
+`document.body.style.overflow` from a component; never write a parallel helper.
+
+## No raw console logging
+
+Shipped code carries no `console.log`. If diagnostics become necessary, add one
+central logger with channels and kill switches. `console.warn`/`error` for
+developer-must-see conditions are acceptable, sparingly.

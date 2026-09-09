@@ -1,0 +1,230 @@
+/* Responsive funnel box with semantic labels and presentational bars. */
+
+/* ---------------- section frame ---------------- */
+
+.csf-sec {
+  min-height: calc(var(--t) * 15);
+}
+@container (min-width: 470px) {
+  .csf-sec { min-height: calc(var(--t) * 10); }
+}
+@container (min-width: 665px) {
+  .csf-sec { min-height: calc(var(--t) * 8); }
+}
+@container (min-width: 860px) {
+  .csf-sec { min-height: calc(var(--t) * 7); }
+}
+@container (min-width: 1130px) {
+  .csf-sec { min-height: calc(var(--t) * 6); }
+}
+
+@container (min-width: 1130px) {
+  .csf-content {
+    margin-left: calc(var(--t) * 3);
+    width: calc(var(--t) * 7 + 1px);
+  }
+}
+
+/* ---------------- the container ---------------- */
+
+.csf-box {
+  border: 1px solid var(--color-border-000);
+  min-height: calc(var(--t) * 14 + 1px);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@container (min-width: 470px) {
+  .csf-box {
+    min-height: calc(var(--t) * 9 + 1px);
+    padding: 16px 20px;
+  }
+}
+@container (min-width: 665px) {
+  .csf-box { min-height: calc(var(--t) * 7 + 1px); }
+}
+@container (min-width: 860px) {
+  .csf-box {
+    min-height: calc(var(--t) * 6 + 1px);
+    padding: 20px;
+  }
+}
+@container (min-width: 1130px) {
+  .csf-box { min-height: calc(var(--t) * 5 + 1px); }
+}
+
+/* head→subhead 12/16/16/16/16; subhead ink text/300 */
+.csf-subhead {
+  color: var(--color-text-300);
+  margin-top: calc((var(--wA) + var(--wB)) * 12);
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+@container (min-width: 470px) {
+  .csf-subhead {
+    margin-top: calc((var(--wA) + var(--wB)) * 16);
+    max-width: calc((var(--wA) + var(--wB)) * 440);
+  }
+}
+@container (min-width: 665px) {
+  .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 480); }
+}
+@container (min-width: 860px) {
+  .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 608); }
+}
+@container (min-width: 1130px) {
+  .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 520); }
+}
+
+/* Rows and disclaimer split the remaining vertical slack; equal padding
+   keeps a material gap when the box grows past its tick budget. */
+.csf-rows {
+  margin: auto 0 0;
+  padding-top: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: calc((var(--wA) + var(--wB)) * 12);
+}
+@container (min-width: 665px) {
+  .csf-rows { gap: calc((var(--wA) + var(--wB)) * 16); }
+}
+@container (min-width: 860px) {
+  .csf-rows { gap: calc((var(--wA) + var(--wB)) * 20); }
+}
+
+/* ---------------- the rows ---------------- */
+
+.csf-row {
+  display: flex;
+  align-items: center;
+  height: var(--cs-bar-h);
+}
+@container (min-width: 860px) {
+  .csf-row { height: var(--cs-bar-h-d); }
+}
+
+/* The fixed label column wraps independently of the bar. */
+.csf-label {
+  flex: none;
+  width: var(--cs-bar-label);
+  margin-right: 16px;
+}
+@container (min-width: 470px) {
+  .csf-label {
+    width: var(--cs-bar-label-d);
+    margin-right: 24px;
+  }
+}
+.csf-label .cs-pill {
+  color: var(--color-text-300);
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .csf-label .cs-pill {
+    font: var(--ts-text-sm-regular-font);
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+    letter-spacing: var(--ts-text-sm-regular-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .csf-label .cs-pill {
+    font: var(--ts-text-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 16);
+    line-height: calc((var(--wA) + var(--wB)) * 22);
+    letter-spacing: var(--ts-text-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* the value cell fills the row; the bar inside it */
+.csf-value {
+  margin: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+/* Bars intentionally have square ends. */
+.csf-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  background: var(--color-bg-300);
+  flex: none;
+}
+.csf-bar[data-fill] {
+  flex: 1;
+}
+.csf-row[data-end] .csf-bar {
+  background: var(--color-teal-400);
+}
+
+/* First values sit inside bars; later values sit after them. */
+.csf-num {
+  margin-left: 16px;
+  color: var(--color-text-200);
+  font: var(--ts-text-xl-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 20);
+  line-height: calc((var(--wA) + var(--wB)) * 26);
+  letter-spacing: var(--ts-text-xl-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xl-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.csf-row[data-end] .csf-num {
+  color: var(--color-teal-800);
+}
+@container (min-width: 470px) {
+  .csf-num {
+    font: var(--ts-text-2xl-regular-font);
+    font-size: calc((var(--wA) + var(--wB)) * 24);
+    line-height: calc((var(--wA) + var(--wB)) * 32);
+    letter-spacing: var(--ts-text-2xl-regular-ls);
+    font-variation-settings: "opsz" var(--ts-text-2xl-regular-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .csf-num {
+    font: var(--ts-display-sans-2xs-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 28);
+    line-height: calc((var(--wA) + var(--wB)) * 36);
+    letter-spacing: var(--ts-display-sans-2xs-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-2xs-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* the disclaimer: sm/Light (xs at rm), text/400; shares the slack */
+.csf-disclaimer {
+  margin: auto 0 0;
+  padding-top: var(--space-md);
+  color: var(--color-text-400);
+  font: var(--ts-text-xs-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+@container (min-width: 470px) {
+  .csf-disclaimer {
+    font: var(--ts-text-sm-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+    letter-spacing: var(--ts-text-sm-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+    max-width: calc((var(--wA) + var(--wB)) * 440);
+  }
+}
+@container (min-width: 665px) {
+  .csf-disclaimer { max-width: calc((var(--wA) + var(--wB)) * 600); }
+}
+@container (min-width: 860px) {
+  .csf-disclaimer { max-width: calc((var(--wA) + var(--wB)) * 608); }
+}
