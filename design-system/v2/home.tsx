@@ -14,10 +14,9 @@ import { FooterSection } from "@/design-system/v2/sections/footer";
  * case-study carousel (022) · footer. Mounted by `/`. Social URLs
  * come from the retained Keystone data layer.
  *
- * `qa` is `/`'s dev-only self-test mount (spec 023 §1/§2, amended
- * 2026-09-08 — `/home-fixture` retired). It renders inside the page
- * div because the devtools' measurement probes resolve --t and the
- * weights, which live on .page. The production build stubs it. */
+ * `qa` is the dev-only sweep slot. It renders inside the page div
+ * because the probes resolve --t and the weights, which live on
+ * .page. Production stubs the slot. */
 export async function HomePage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (

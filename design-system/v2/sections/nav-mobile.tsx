@@ -62,9 +62,10 @@ export function NavMobile({
   /** A same-page anchor waiting for the panel to close (the engine
    * chips — spec 005 §9 amendment 2026-09-08). The scroll lock would
    * swallow a native jump and the unlock restores the saved position,
-   * so the click defers the jump to the effect below, which runs
-   * after the lock effect's cleanup. */
-  const [pendingHash, setPendingHash] = useState<string | null>(null);
+   * so the click stores the hash here and the effect below places the
+   * jump after the lock effect's cleanup. A ref, not state: the latch
+   * is not rendered. */
+  const pendingHashRef = useRef<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -76,15 +77,17 @@ export function NavMobile({
   }, [open]);
 
   useEffect(() => {
-    if (open || !pendingHash) return;
+    if (open) return;
+    const hash = pendingHashRef.current;
+    if (!hash) return;
+    pendingHashRef.current = null;
     /* the unlock has restored the page scroll; place the jump. The
        hash assignment records the target (and scrolls when it is a
        new hash); scrollIntoView covers a repeated click on the same
        engine, riding the target's scroll-margin. */
-    window.location.hash = pendingHash;
-    document.getElementById(pendingHash.slice(1))?.scrollIntoView();
-    setPendingHash(null);
-  }, [open, pendingHash]);
+    window.location.hash = hash;
+    document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [open]);
 
   /** Close and return focus to the toggle (§7). Pointer-initiated
    * closes mark the toggle so the focus ring stays quiet — iOS Safari
@@ -147,14 +150,14 @@ export function NavMobile({
         tabIndex={-1}
         onClick={(e) => {
           /* any link click closes the panel; a SAME-PAGE anchor also
-             defers its jump past the unlock (see pendingHash above) —
+             defers its jump past the unlock (see pendingHashRef) —
              cross-page links keep their default navigation */
           const a = (e.target as HTMLElement).closest("a");
           if (!a) return;
           const url = new URL(a.href, window.location.href);
           if (url.hash && url.pathname === window.location.pathname) {
             e.preventDefault();
-            setPendingHash(url.hash);
+            pendingHashRef.current = url.hash;
           }
           close();
         }}

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyPage } from "@/design-system/v2/case-study";
-import { CASE_STUDIES, getCaseStudy } from "@/design-system/v2/sections/case-study-data";
+import { CASE_STUDIES, getCaseStudy, ZIVEL } from "@/design-system/v2/sections/case-study-data";
+import CaseStudyQa from "../../case-study-qa";
 
 /** `/case-studies/[slug]` — the case-study template (spec 017 §8.4;
  * the 014 §9 F9 slug canon). Static params come from the data
@@ -33,5 +34,10 @@ export default async function CaseStudyRoute({
 }) {
   const study = getCaseStudy((await params).slug);
   if (!study) notFound();
-  return <CaseStudyPage study={study} />;
+  return (
+    <CaseStudyPage
+      study={study}
+      qa={study.slug === ZIVEL.slug ? <CaseStudyQa /> : undefined}
+    />
+  );
 }

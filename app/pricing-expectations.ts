@@ -1,8 +1,7 @@
 /** The assembled pricing page's designed anatomy (spec 013 §7.1, read
  * off the five anchor frames and verified against rendered bounds
  * 2026-08-28 — the current record). This module is the single home of
- * the §7.1 table; the /pricing-fixture self-test reads it as its
- * expectations.
+ * the §7.1 table; `/pricing` reads it through pricing-qa (dev-only).
  *
  * Rows are zero-based page ticks; the nav is overlay chrome and never
  * appears here. Sections are listed in the DOM order pricing.tsx
@@ -24,7 +23,7 @@
  * outside the tick box (012 §5). The FAQ landmarks and every other
  * kind stay fully audited. */
 
-import type { GridExpectations } from "../grid/expectations";
+import type { GridExpectations } from "./grid/expectations";
 
 export const PRICING_EXPECTATIONS: GridExpectations = {
   totals: { rm: 117, rs: 70, rt: 48, rd1: 43, rd2: 38 },

@@ -1,13 +1,8 @@
 import { HomePage } from "@/design-system/v2/home";
-import DevtoolsMount from "./grid/devtools-mount";
-import { PAGE_EXPECTATIONS } from "./home-expectations";
+import HomeQa from "./home-qa";
 
-/** `/` — the new-brand homepage (the v2 composition since the spec 023
- * §4 cutover). The page-level self-test mounts here headless (dev-only;
- * no on-page readout — `/home-fixture` used to carry that panel). The
- * production build swaps DevtoolsMount for a null stub. */
+/** `/` — the new-brand homepage. HomeQa is the sweep hook (dev-only;
+ * production aliases it to a null stub). No on-page readout. */
 export default function Home() {
-  return (
-    <HomePage qa={<DevtoolsMount expectations={PAGE_EXPECTATIONS} silent />} />
-  );
+  return <HomePage qa={<HomeQa />} />;
 }

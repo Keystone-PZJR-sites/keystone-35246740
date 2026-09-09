@@ -1,6 +1,6 @@
 /** The assembled homepage's page anatomy (spec 023 §1 — the v2
- * expectations, serving `/` since the 2026-09-08 retirement of
- * `/home-fixture`; the spec 010 v1 tables retired with their page).
+ * expectations, serving `/` through home-qa; the spec 010 v1 tables
+ * retired with their page).
  *
  * Every value defers to the built sections — code is the source of
  * truth (023 §1): the engine section's totals import from

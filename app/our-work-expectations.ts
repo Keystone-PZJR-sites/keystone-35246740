@@ -1,7 +1,7 @@
 /** The assembled Our Work page's designed anatomy (spec 016 §7.1 —
  * the 014/015 landmark records, rendered-bounds re-verified
  * 2026-08-28). This module is the single home of the §7.1 table; the
- * /our-work-fixture self-test reads it as its expectations.
+ * `/our-work` reads it through our-work-qa (dev-only).
  *
  * Rows are zero-based page ticks; the nav is overlay chrome and never
  * appears here — and neither does the 016 viewer (a portal on
@@ -26,7 +26,7 @@
  * landmark kind (card · gallery-head · gallery · logo · item …) stays
  * on the half-tick law. */
 
-import type { GridExpectations } from "../grid/expectations";
+import type { GridExpectations } from "./grid/expectations";
 
 export const OUR_WORK_EXPECTATIONS: GridExpectations = {
   totals: { rm: 111, rs: 85, rt: 60, rd1: 53, rd2: 48 },

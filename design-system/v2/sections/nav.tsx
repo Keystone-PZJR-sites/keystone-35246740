@@ -22,7 +22,7 @@
  * 010 §7 F4).
  */
 
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { IconArrowRight, IconBlog, IconGrader, IconPodcast } from "../icons";
 import { ButtonFill } from "../primitives/buttons";
 import { NavDesktop } from "./nav-desktop";
@@ -202,7 +202,7 @@ function SolutionsDrawerContent() {
         <a className="knav-card knav-fcard knav-blk" style={blk(7)} href={LINKS.approach}>
           <Decor variant="feature" />
           <span className="knav-fcopy">
-            One system, one full picture of your business&rsquo;s marketing,
+            One system, one full picture of your business’s marketing,
             starting with your site.
           </span>
           <span className="knav-frow">

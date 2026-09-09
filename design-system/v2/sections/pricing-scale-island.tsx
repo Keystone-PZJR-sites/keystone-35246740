@@ -45,7 +45,9 @@ interface PricingScaleIslandProps {
 export function PricingScaleIsland({ personas, children }: PricingScaleIslandProps) {
   const ref = useRef<HTMLDivElement>(null);
   const personasRef = useRef(personas);
-  personasRef.current = personas;
+  useEffect(() => {
+    personasRef.current = personas;
+  }, [personas]);
 
   useEffect(() => {
     const root = ref.current;

@@ -9,9 +9,8 @@ import { GalleryOverlay } from "@/design-system/v2/sections/gallery-overlay";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 import { LoadOrchestrator } from "@/design-system/v2/sections/load-orchestrator";
 
-/** The assembled Our Work page — one server component, mounted bare by
- * `/our-work` and under the QA readout by `/our-work-fixture` (spec
- * 014 §8.4, the spec 010 §6.3 pattern). The composition: the header
+/** The assembled Our Work page — one server component, mounted by
+ * `/our-work` (spec 014 §8.4). The composition: the header
  * (014), the case studies (014), and the gallery (015 — spliced
  * 2026-08-28) over the footer, plus the fullscreen gallery viewer
  * (016 — spliced 2026-08-29): a portal-mounted overlay island fed the
@@ -30,11 +29,9 @@ import { LoadOrchestrator } from "@/design-system/v2/sections/load-orchestrator"
  * choreography's final animation (five beats). Social URLs come from
  * the retained Keystone data layer.
  *
- * `qa` is /our-work-fixture's dev-only self-test mount slot (the 013
- * §7 pattern; the Our Work expectations module lands with 016). It
- * renders inside the page div because the devtools' probes resolve
- * --t and the weights, which live on .page. `/our-work` passes
- * nothing. */
+ * `qa` is the dev-only sweep slot. It renders inside the page div
+ * because the probes resolve --t and the weights, which live on
+ * .page. Production stubs the slot. */
 export async function OurWorkPage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (

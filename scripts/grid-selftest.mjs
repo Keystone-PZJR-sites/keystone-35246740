@@ -3,13 +3,10 @@
 // (window.__GRID_SELFTEST__, see app/grid/grid-devtools.tsx) on the
 // audited routes:
 //
-//   /grid                — the fixture harness (spec 002)
-//   /                    — the real assembled homepage (spec 023 §2 —
-//                          the v2 composition and drives; `/home-fixture`
-//                          retired 2026-09-08, owner ruling)
-//   /pricing-fixture     — the real assembled pricing page (spec 013 §7)
-//   /our-work-fixture    — the real assembled Our Work page (spec 016 §7)
-//   /case-study-fixture  — the assembled case-study page (spec 017 §7)
+//   /                    — assembled homepage (spec 023 §2)
+//   /pricing             — assembled pricing page (spec 013 §7)
+//   /our-work            — assembled Our Work page (spec 016 §7)
+//   /case-studies/palm-coast-zivel — Zivel case study (spec 017 §7)
 //
 // at all five anchors and one width per structural slice (spec 010
 // §3.1 — stretched and compressed, 002.r1 nearest-anchor gates), with a
@@ -114,7 +111,7 @@ async function main() {
       detached: false,
     });
   }
-  await waitForServer(`${base}/grid`);
+  await waitForServer(`${base}/`);
 
   const browser = await puppeteer.launch({
     executablePath: chromePath(),
@@ -599,12 +596,11 @@ async function main() {
     }
 
     const ROUTES = [
-      { path: "/grid", drives: null },
       { path: "/", drives: driveHomeV2States },
-      { path: "/pricing-fixture", drives: drivePricingStates },
+      { path: "/pricing", drives: drivePricingStates },
       // hermetic: the 016 viewer's live embeds never load in CI
-      { path: "/our-work-fixture", drives: driveWorkStates, blockRemote: true },
-      { path: "/case-study-fixture", drives: driveCaseStudyStates },
+      { path: "/our-work", drives: driveWorkStates, blockRemote: true },
+      { path: "/case-studies/palm-coast-zivel", drives: driveCaseStudyStates },
     ];
 
     // spec 016 §7.2: during a blockRemote leg every non-localhost
@@ -666,7 +662,7 @@ async function main() {
       // 3 · continuity across every anchor joint: the sample walks a
       // line; one px of width moves it a fraction, never a jump. (The
       // gates are designed downward steps and are not asserted.)
-      if (route === "/grid") {
+      if (route === "/") {
         for (const joint of JOINTS) {
           const below = interpSample(await runAt(joint - 1));
           const at = interpSample(await runAt(joint));

@@ -8,7 +8,7 @@
  * 1344 design, so the rm/rs and rd1/rd2 band pairs share their maps.
  *
  * The homepage hero since the spec 023 §4 cutover: mounts in the
- * promoted composition (v2/home.tsx) and on /hero-next. The carousel
+ * promoted composition (v2/home.tsx). The carousel
  * machine and the load orchestration are the built 006 islands reused
  * verbatim (HeroCarousel · HeroLoad — the 018 fork-vs-parameterize
  * call: fork the section, share the machine); the shared hx- grammar

@@ -2,11 +2,11 @@
  * stacks the grid devtools audit against. The devtools read everything
  * through this shape; no magic numbers live in the test body.
  *
- * FIXTURE_EXPECTATIONS drives /grid (derived from the transcribed
- * fixtures); the assembled homepage's table (spec 023 §1) lives in
- * app/home-expectations.ts. */
+ * Per-page tables live next to their live route: home-expectations.ts,
+ * pricing-expectations.ts, our-work-expectations.ts,
+ * case-study-expectations.ts. */
 
-import { BANDS, FIXTURES, type Band } from "./fixtures";
+import type { Band } from "./fixtures";
 
 export interface SectionRows {
   /** Zero-based page tick of the section's top. */
@@ -37,34 +37,9 @@ export interface GridExpectations {
    * header tops, chat rows, the tag-carrying cards). */
   latticeExempt?: string[];
   /** When true, a `data-landmark` on a `.sec` root is section identity,
-   * not a content box (the v2 homepage sections carry one for their QA
-   * routes — 023 §9 build record): the root skips the clearance audit
-   * (the section-boundary check already covers it) and its own exposure
-   * stays live instead of reading as contained lattice. Off (the 013
-   * default) everywhere else, so the standing legs are unchanged. */
+   * not a content box (the v2 homepage sections carry one — 023 §9):
+   * the root skips the clearance audit (the section-boundary check
+   * already covers it) and its own exposure stays live instead of
+   * reading as contained lattice. */
   secLandmarksAreIdentity?: boolean;
 }
-
-const [GALLERY_FX, FOOTER_FX] = FIXTURES;
-
-/** The /grid fixture page: two transcribed sections, gallery over
- * footer, nothing else in flow (spec 002 §3). */
-export const FIXTURE_EXPECTATIONS: GridExpectations = {
-  totals: Object.fromEntries(
-    BANDS.map((b) => [b, GALLERY_FX.heights[b] + FOOTER_FX.heights[b]]),
-  ) as Record<Band, number>,
-  sections: [
-    {
-      id: GALLERY_FX.id,
-      rows: Object.fromEntries(
-        BANDS.map((b) => [b, { top: 0, h: GALLERY_FX.heights[b] }]),
-      ),
-    },
-    {
-      id: FOOTER_FX.id,
-      rows: Object.fromEntries(
-        BANDS.map((b) => [b, { top: GALLERY_FX.heights[b], h: FOOTER_FX.heights[b] }]),
-      ),
-    },
-  ],
-};

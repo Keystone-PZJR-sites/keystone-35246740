@@ -6,20 +6,18 @@ import { PricingScaleSection } from "@/design-system/v2/sections/pricing-scale";
 import { FaqSection } from "@/design-system/v2/sections/faq";
 import { FooterSection } from "@/design-system/v2/sections/footer";
 
-/** The assembled pricing page — one server component, mounted bare by
- * `/pricing` and under the QA readout by `/pricing-fixture` (spec 011
- * §8, the spec 010 §6.3 pattern). The stack is complete: the offer
- * (011), the price scale + persona carousel (012), and the FAQ (013)
- * over the footer.
+/** The assembled pricing page — one server component, mounted by
+ * `/pricing` (spec 011 §8). The stack is complete: the offer (011),
+ * the price scale + persona carousel (012), and the FAQ (013) over
+ * the footer.
  *
  * No `v2-choreo`: the page has no load choreography (011 §9 R10) —
  * every section renders settled. Social URLs come from the retained
  * Keystone data layer.
  *
- * `qa` is /pricing-fixture's dev-only self-test mount slot (spec 013
- * §7 — the expectations module and devtools); it renders inside the
- * page div because the devtools' probes resolve --t and the weights,
- * which live on .page. `/pricing` passes nothing. */
+ * `qa` is the dev-only sweep slot. It renders inside the page div
+ * because the probes resolve --t and the weights, which live on
+ * .page. Production stubs the slot. */
 export async function PricingPage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (

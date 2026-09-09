@@ -5,7 +5,8 @@
  * down — Shift 67 · Funnel 80 · Stack 90 · Result 103 · CTA 126, the
  * footer and total unchanged, the §2 ornaments moved with it). This
  * module is the single home of the §7.1 table; the
- * /case-study-fixture self-test reads it as its expectations.
+ * `/case-studies/palm-coast-zivel` reads it through case-study-qa
+ * (dev-only).
  *
  * Rows are zero-based page ticks; the nav is overlay chrome and never
  * appears here. Sections span top → the next section's top (§1: the
@@ -45,7 +46,7 @@
  * clearance against the pre-footer full-lattice row a real
  * assertion. */
 
-import type { GridExpectations } from "../grid/expectations";
+import type { GridExpectations } from "./grid/expectations";
 
 export const CASE_STUDY_EXPECTATIONS: GridExpectations = {
   totals: { rm: 227, rs: 154, rt: 110, rd1: 89, rd2: 74 },

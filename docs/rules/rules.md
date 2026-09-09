@@ -46,7 +46,7 @@ The shape specs converged on over 001–006. New specs inherit it.
 - Non-token designed constants are **enumerated in the spec** and live only in the component token layer (`design-system/v2/tokens/component.css`), per band only where used.
 - Motion intent arrives from design in plain language; the spec chooses the values and approval covers both (see "Motion Grammars").
 - Draft flags go to design; fixes are re-read from the nodes; §9 records every resolution. Nothing is built from a node known to be wrong.
-- Every spec ships a **permanent, noindexed dev route** as its QA surface (`/grid`, `/primitives`, `/footer`, `/nav`, and the section routes — since the 023 cutover the homepage's remaining section routes are `/hero-next` · `/system-next` · `/work-next` · `/case-carousel-next`; homepage assembly QA is `/` — `/home-fixture` and `/engines-free-2` retired 2026-09-08, 023 §9 B5).
+- Specs no longer ship a dedicated QA route (owner, 2026-09-08). Acceptance and the grid sweep run on the live page. Dev-only sweep hooks mount through a `*-qa` wrapper that production aliases to a null stub — no panel, no fixture URL.
 - The acceptance preamble is standard: *at each of the five anchors and one arbitrary mid-band width per band, scrollbar forced on.* Checked boxes carry the measured evidence in parentheses.
 - Acceptance always includes: the client-island count, the route's JS size, and every value tracing to a token or an enumerated constant.
 
@@ -686,4 +686,4 @@ This rule does not block refactoring of internal code: utility modules, helper f
 
 One site lives in this tree: the **new-brand rebuild** (sitemap: Home · Our Work · Solutions · Pricing · Company · Resources), built phase by phase under `design-system/v2/` per [`docs/rebuild/plan.md`](../rebuild/plan.md). Launch is **big-bang** (owner decision 2026-08-27): nothing deploys until the site is complete; the old-brand site ships from `main` until then.
 
-`/` renders the assembled homepage (the v2 composition since the spec 023 cutover; the v1 homepage and its routes retired with it). Homepage QA and the sweep run on `/` (`/home-fixture` and `/engines-free-2` retired 2026-09-08). The remaining dev routes (`/grid`, `/primitives`, `/footer`, `/nav`, `/hero-next`, `/system-next`, `/work-next`, `/case-carousel-next`, and the other page fixtures) are noindexed QA surfaces. The nav links to pages that do not exist yet 404 by owner decision (spec 010 §7 F1) until those pages are built.
+`/` renders the assembled homepage (the v2 composition since the spec 023 cutover; the v1 homepage and its routes retired with it). All QA and fixture routes retired 2026-09-08 (023 §9 B7). The sweep runs on the live pages. The nav links to pages that do not exist yet 404 by owner decision (spec 010 §7 F1) until those pages are built.

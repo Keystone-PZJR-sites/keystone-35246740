@@ -96,9 +96,9 @@ export function GalleryOverlay({ sites }: { sites: GalleryViewerSite[] }) {
   const mounted = phase !== "closed";
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- the
-    // approved hydration-safe portal-target pattern (rules.md, "Client-only
-    // state initialised after hydration")
+    // The approved hydration-safe portal-target pattern (rules.md,
+    // "Client-only state initialised after hydration").
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalTarget(document.body);
   }, []);
 
@@ -154,7 +154,7 @@ export function GalleryOverlay({ sites }: { sites: GalleryViewerSite[] }) {
               : gvRef("--gv-ref-desktop");
       let x = 0;
       let y = 0;
-      let boxW = ref;
+      const boxW = ref;
       let boxH = availH;
       let scale = 1;
       if (ref > w) {

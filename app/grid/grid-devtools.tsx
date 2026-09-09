@@ -7,11 +7,10 @@
  * Self-test readout: runs the v5 §8 checks (adapted to container-query
  * gating and 002.r1 nearest-anchor rendering) in-page against the
  * mounting route's designed stack, passed in as the expectations prop
- * (app/grid/expectations.ts) — /grid audits the transcribed fixtures,
- * `/` audits the real assembled homepage. Results are exposed
- * on window.__GRID_SELFTEST__ so the scripted sweep
- * (scripts/grid-selftest.mjs) can assert the same checks in CI on both
- * routes with one contract.
+ * (app/grid/expectations.ts) — live pages audit their assembled
+ * stacks. Results are exposed on window.__GRID_SELFTEST__ so the
+ * scripted sweep (scripts/grid-selftest.mjs) can assert the same
+ * checks in CI. There is no on-page readout.
  *
  * Audits run at rest in every rest state (the audits-at-rest law): an
  * open footer drawer is a designed rest state, so the stack-sum and
@@ -70,6 +69,19 @@ const BAND_CLASSES: Band[] = ["rm", "rs", "rt", "rd1", "rd2"];
 function offGrid(v: number, step: number): number {
   const frac = ((v % step) + step) % step;
   return Math.min(frac, step - frac);
+}
+
+/** True when `g` would type into the focused field — skip the lattice
+ * toggle. `/` mounts these tools and hosts the grader input. */
+function isEditableTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return (
+    tag === "INPUT" ||
+    tag === "TEXTAREA" ||
+    tag === "SELECT" ||
+    target.isContentEditable
+  );
 }
 
 /** Whole half-tick, or half-tick + 1px (line-inclusive sizing). */
@@ -511,14 +523,8 @@ function runSelfTests(
 
 export default function GridDevtools({
   expectations,
-  silent = false,
 }: {
   expectations: GridExpectations;
-  /** Run the audits and expose window.__GRID_SELFTEST__ without the
-   * on-page readout. `/` uses this so the homepage stays clean after
-   * `/home-fixture` retired; `/grid` and the other fixtures keep the
-   * panel. Press `g` still toggles the lattice. */
-  silent?: boolean;
 }) {
   const probesRef = useRef<HTMLDivElement>(null);
   const [output, setOutput] = useState<RunOutput | null>(null);
@@ -545,7 +551,9 @@ export default function GridDevtools({
     const mo = new MutationObserver(() => run());
     mo.observe(page, { attributes: true, attributeFilter: ["class"] });
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "g" && !e.metaKey && !e.ctrlKey && !e.altKey) setOverlay((v) => !v);
+      if (e.key !== "g" || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (isEditableTarget(e.target)) return;
+      setOverlay((v) => !v);
     };
     window.addEventListener("keydown", onKey);
     return () => {
@@ -576,36 +584,6 @@ export default function GridDevtools({
         </div>
       )}
 
-      {!silent && (
-        <aside className="gdt-panel">
-          <h2>
-            grid self-test{" "}
-            {output ? (output.pass ? "\u2713" : "\u2717") : "\u2026"}
-          </h2>
-          {output && (
-            <ul>
-              <li>
-                <span>
-                  band {output.meta.band}
-                  {output.meta.settled ? "" : " · settling\u2026"}
-                </span>
-                <span>
-                  {output.meta.containerW.toFixed(0)}px · t {output.meta.t.toFixed(2)}px
-                </span>
-              </li>
-              {output.results.map((r) => (
-                <li key={r.id} data-pass={r.pass}>
-                  <span>
-                    {r.pass ? "\u2713" : "\u2717"} {r.label}
-                  </span>
-                  <span>{r.detail}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <p className="gdt-hint">g toggles the lattice overlay</p>
-        </aside>
-      )}
     </>
   );
 }

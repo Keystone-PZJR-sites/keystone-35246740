@@ -1020,6 +1020,15 @@ F5 mobile-LCP gate against the new hero.
   the assembled page. 023 §9 B5 and 020 §9 R27 are the record;
   rules.md, the launch checklist, and the README sync. Working tree
   left uncommitted per the git rule.
+- **Every remaining QA route retires** (owner, evening — work on the
+  live pages). Deleted: `/grid` · `/primitives` · `/footer` · `/nav`
+  · `/hero-next` · `/system-next` · `/work-next` ·
+  `/case-carousel-next` · `/pricing-fixture` · `/our-work-fixture` ·
+  `/case-study-fixture`. The sweep runs on `/` · `/pricing` ·
+  `/our-work` · `/case-studies/palm-coast-zivel`. Each live page
+  mounts a `*-qa` wrapper; production aliases those modules to a
+  null stub, so the expectations table and the self-test never enter
+  the production graph. No on-page readout. 023 §9 B7 is the record.
 - **The grader-input primitive refreshed from the redrawn set** (owner)
   ask, in preparation for the blog page; spec 003 §4–§6 carry the
   dated amendments). Fresh reads of `503:25844` through the bridge:

@@ -38,7 +38,7 @@ dead-URL surface as they land; whatever never returns stays a 404
 
 | # | gate | status |
 |---|---|---|
-| G1 | Every page's spec acceptance checked; the grid sweep green in CI on `/grid`, `/`, and each page's QA route | homepage done 2026-08-27; re-check per page |
+| G1 | Every page's spec acceptance checked; the grid sweep green in CI on `/`, `/pricing`, `/our-work`, and `/case-studies/palm-coast-zivel` | homepage done 2026-08-27; re-check per page |
 | G2 | Token layer re-extracted from the Figma variables API for each phase's build; diffs recorded and flowed through tokens | standing rule — last run 2026-08-27 (one drift: `text/xl/Light` ps 0 → 12, no consumer) |
 | G3 | **Testimonials content pass** (spec 009 decision): real quotes and attribution replace the placeholder copy; real photos arrive as an art-directed tier set into the existing `<picture>` markup and registry entries — no structural change | **open — design** |
 | G4 | **The pre-launch metadata wipe** (010 §7 F2) — one content pass once all pages are done; see the inventory below | **open — design content decision** |
@@ -92,7 +92,7 @@ clears with a strikethrough or removal in the landing commit.
 
 1. Deploy this branch as the production site; the old-brand site
    retires when this branch becomes the production deploy.
-   Homepage QA is `/` (`/home-fixture` retired 2026-09-08).
+   The sweep runs on the live pages. Every QA route 404s.
 2. `/` is indexable (no robots meta) and carries the wiped metadata;
    a **sitemap for the new site** replaces the purged old-site proxy
    (built only when its pages exist — 010 §6.3); every dev route

@@ -1,50 +1,7 @@
 /* /grid devtools styles — imported by grid-devtools.tsx only, so they
    ship in development and are absent from the production bundle. */
 
-/* ---- devtools (dev only): self-test readout + debug overlay ---- */
-
-.gdt-panel {
-  position: fixed;
-  right: var(--c);
-  bottom: var(--c);
-  z-index: 10;
-  max-width: 336px;
-  max-height: 60dvh;
-  overflow-y: auto;
-  background: var(--color-bg-000);
-  border: 1px solid var(--color-border-000);
-  padding: var(--c);
-  font: var(--ts-text-xs-regular-font);
-  letter-spacing: var(--ts-text-xs-regular-ls);
-  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz);
-  color: var(--color-text-300);
-}
-.gdt-panel h2 {
-  margin: 0 0 var(--space-sm);
-  font: var(--ts-text-sm-medium-font);
-  letter-spacing: var(--ts-text-sm-medium-ls);
-  color: var(--color-text-100);
-}
-.gdt-panel ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.gdt-panel li {
-  display: flex;
-  gap: var(--space-sm);
-  justify-content: space-between;
-  padding-block: var(--space-2xs);
-  border-top: 1px solid var(--color-border-000);
-}
-.gdt-panel li[data-pass="false"] {
-  color: var(--color-danger-500);
-  font-weight: 500;
-}
-.gdt-panel .gdt-hint {
-  margin-top: var(--space-sm);
-  color: var(--color-text-500);
-}
+/* ---- devtools (dev only): debug overlay + hidden probes ---- */
 
 /* Full-lattice debug overlay: real 1px elements on the same k·t geometry
    as the engine (no gradients, v5 §5.1) — above content, ink-tinted.
@@ -58,7 +15,7 @@
 .gdt-overlay {
   position: absolute;
   inset: 0;
-  z-index: 9;
+  z-index: var(--z-raised);
   pointer-events: none;
 }
 .gdt-overlay i {

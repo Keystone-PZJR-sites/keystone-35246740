@@ -19,10 +19,9 @@ import type { CaseStudy } from "@/design-system/v2/sections/case-study-data";
  * component rendering wholly from the study record (§5.1, the
  * template law): the header over the eight-section stack and the CTA
  * band, the rd2-only sticky-TOC rail beside the stack (§4), the
- * footer, and the §6 entrance. Mounted bare by
- * `/case-studies/[slug]` (static params from the data module —
- * unpopulated slugs 404, §9 F9) and under the QA readout by
- * `/case-study-fixture`.
+ * footer, and the §6 entrance. Mounted by `/case-studies/[slug]`
+ * (static params from the data module — unpopulated slugs 404,
+ * §9 F9).
  *
  * Two islands of its own — the TOC and the orchestrator (five on the
  * page with the nav pair and footer-nav, the §7.3 budget). The
@@ -34,9 +33,9 @@ import type { CaseStudy } from "@/design-system/v2/sections/case-study-data";
  * the header is born settled; a no-JS or reduced-motion render is
  * the settled page with the TOC's resting state and working anchors.
  *
- * `qa` is /case-study-fixture's dev-only self-test mount slot (the
- * 013 §7 pattern). It renders inside the page div because the
- * devtools' probes resolve --t and the weights, which live on .page. */
+ * `qa` is the dev-only sweep slot (Zivel only). It renders inside
+ * the page div because the probes resolve --t and the weights,
+ * which live on .page. Production stubs the slot. */
 export async function CaseStudyPage({ study, qa }: { study: CaseStudy; qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (

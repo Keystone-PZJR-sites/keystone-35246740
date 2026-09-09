@@ -210,7 +210,7 @@ const ITEM_ICONS: Record<Exclude<IncludedIcon, "logomark">, ReactNode> = {
   tokens: <IconTokens />,
 };
 
-const LIST_HEAD = "What\u2019s included:";
+const LIST_HEAD = "What’s included:";
 
 function ItemIcon({ icon }: { icon: IncludedIcon }) {
   if (icon === "logomark") {
@@ -297,7 +297,7 @@ export function PricingOfferSection() {
             rd2 — the segments switch block/inline at the 1130 gate */}
         <p className="po-subhead">
           <span className="po-sub-seg">$50/month for a sales and marketing team.</span>{" "}
-          <span className="po-sub-seg">Sounds ridiculous, but it{"\u2019"}s true.</span>
+          <span className="po-sub-seg">Sounds ridiculous, but it’s true.</span>
         </p>
         <div className="po-chat po-chat-head-rt" data-landmark="chat">
           <ChatRow ghost="sm" />

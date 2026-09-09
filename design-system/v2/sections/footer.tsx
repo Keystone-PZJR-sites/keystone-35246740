@@ -282,7 +282,8 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
               <div className="f-promptrow">
                 <span className="f-dot f-dot-prompt" aria-hidden="true" />
                 <p className="f-prompt">
-                  Show us your site,&nbsp; we&rsquo;ll show
+                  {/* NBSP after the comma so the prompt cannot wrap there. */}
+                  Show us your site,{"\u00a0"} we’ll show
                   <br className="f-brk-c" /> you the rest.
                 </p>
               </div>
@@ -309,7 +310,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
           />
         </div>
         <div className="f-copy">
-          <span>&copy; 2026 Keystone</span>
+          <span>© 2026 Keystone</span>
           <a href="/terms">Terms of Service</a>
           <a href="/privacy">Privacy Policy</a>
         </div>

@@ -1,4 +1,5 @@
-/** /grid harness — fixture exposure maps (spec 002 §3).
+/** Band tables and interpolation ladder for the live-page sweep
+ * (spec 002 §3). The dedicated /grid harness retired (023 §9 B7).
  *
  * Transcribed 2026-08-22 from fresh MCP reads of the five anchor frames in
  * the live Figma file ks-MarketingSite (IBO39siJYDhiCRtuLWUTW2):

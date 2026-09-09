@@ -77,7 +77,7 @@ export const ENGINES_V2: EngineV2Copy[] = [
     tagline: "Keep every customer warm.",
     body: [
       "Existing lists and old leads put back to work with newsletters, offers, and updates on a steady cadence, texts and social for anything time-sensitive.",
-      "Rebooking nudges and win-backs reach customers who\u2019ve lapsed, so nobody on your list goes cold.",
+      "Rebooking nudges and win-backs reach customers who’ve lapsed, so nobody on your list goes cold.",
     ],
   },
 ];

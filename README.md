@@ -28,7 +28,7 @@ as the historical record.
 ## Key facts
 
 - **Design system:** `design-system/v2/` — tokens → base → grid engine →
-  primitives → sections. Catalog at `/primitives`.
+  primitives → sections.
 - **Grid:** five anchors (384 · 576 · 768 · 960 · 1344), container-query
   band gates at the geometric midpoints, nearest-anchor rendering
   (spec 002 + 002.r1; mechanics in `docs/rebuild/reference/GRID-SPEC.md`).
@@ -44,10 +44,9 @@ as the historical record.
 
 ## Routes
 
-`/` is the assembled homepage (QA and the grid sweep run here). The
-remaining noindexed QA surfaces: `/grid` (engine harness + self-tests)
-· `/primitives` · `/footer` · `/nav` · `/hero-next` · `/system-next` ·
-`/work-next` · `/case-carousel-next` · the other page fixtures.
+Live routes: `/` · `/pricing` · `/our-work` · `/case-studies/[slug]`.
+The grid sweep runs on those pages. Dedicated QA and fixture routes
+are retired.
 
 ## Checks
 

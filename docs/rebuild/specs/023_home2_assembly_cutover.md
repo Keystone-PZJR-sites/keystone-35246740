@@ -9,7 +9,8 @@ six §9 asks resolved the same day (the entrance kept and Bloom
 promoted · swap-now with the §6 post-swap checklist · measure-first
 on LCP and the budget line · the deletion list approved · the build
 window granted). Amended 2026-09-08 evening — `/home-fixture` and
-`/engines-free-2` retire; homepage QA and the sweep run on `/` (§9 B5).
+`/engines-free-2` retire; then every remaining QA route retires
+(§9 B5/B7). The sweep runs on the live pages.
 **Depends on:** specs 018–022 (the five built sections and their §9
 records — every value below defers to the built code, the source of
 truth) · spec 010 (the v1 assembly this supersedes; its §7 F5
@@ -324,6 +325,21 @@ day; the five preparation flags sanctioned at approval ride as B1–B4):**
   still production-stubbed). The sweep homepage leg is `/`. Engine
   QA is the assembled page. R2's "standing names are permanent" is
   superseded for `/engines-free-2` only.
+- **B6 (2026-09-08 evening — production graph).** `/` mounts the
+  self-test through `app/home-qa.tsx`. Production aliases that
+  module to a null stub (the 002/010 mount pattern), so the
+  expectations table stays out of the `/` production graph. The
+  lattice `g` toggle ignores focused fields (the grader).
+- **B7 (owner, 2026-09-08 evening — all QA routes retire).** Every
+  remaining QA and fixture URL deletes: `/grid` · `/primitives` ·
+  `/footer` · `/nav` · `/hero-next` · `/system-next` · `/work-next`
+  · `/case-carousel-next` · `/pricing-fixture` · `/our-work-fixture`
+  · `/case-study-fixture` (and the earlier `/home-fixture` ·
+  `/engines-free-2`). The sweep legs are the live pages. Each live
+  page mounts a `*-qa` wrapper aliased to `qa.prod.tsx` in
+  production — no panel, no expectations import, no Replay bar.
+  Interpolation joints move from `/grid` to `/`. R2's permanent
+  QA-route names are superseded.
 
 ## 10 · Acceptance criteria
 

@@ -17,13 +17,16 @@ const eslintConfig = defineConfig([
     rules: {
       // Allow intentionally-unused args/vars prefixed with `_` (placeholders).
       "@typescript-eslint/no-unused-vars": [
-        "warn",
+        "error",
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+      // Art-directed <picture>/<img> tier sets (rules.md). next/image
+      // is off — images.unoptimized, the markup is the delivery.
+      "@next/next/no-img-element": "off",
     },
   },
 ]);

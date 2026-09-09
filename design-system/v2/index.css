@@ -1,11 +1,7 @@
-/* Keystone design system v2 — master stylesheet index.
-   The new-brand rebuild system (docs/rebuild/plan.md). Self-contained:
-   nothing here is imported by the old design system, and nothing old is
-   imported here. Import order matters for the cascade.
-
-   Layers present so far: fonts, tokens (Phase 0), grid engine (Phase 1).
-   Later phases append: base, primitives, components, sections. Edit the
-   file for the layer you work on; never add rules to this index. */
+/* Keystone design system v2 — master stylesheet index
+   (docs/rebuild/plan.md). Import order is the cascade: fonts → tokens
+   → base → grid → primitives → sections. Edit the file for the layer
+   you work on; never add rules to this index. */
 
 /* Fonts */
 @import "./tokens/fonts.css";

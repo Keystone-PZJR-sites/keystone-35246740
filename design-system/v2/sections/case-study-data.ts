@@ -185,19 +185,19 @@ export const ZIVEL: CaseStudy = {
   business: {
     head: "A recovery studio built on great in-person experiences",
     body: [
-      "Walk into Zivel in Palm Coast and you exhale. It\u2019s a modern wellness and recovery studio — infrared sauna, cryotherapy, red-light therapy, float, compression, body contouring, and cryofacials — built around helping people heal faster, move better, and feel like themselves again. Regulars describe it as immaculate, zen, and beautifully curated.",
-      "Owner Kelly Lang had the hard part nailed: a space and a team people rave about. What he didn\u2019t have was a way to keep up with the interest it generated. Inquiries came in from Facebook, Instagram, and the website, but answering them was manual and slow — and the busier the studio got, the more leads went cold while Kelly was on the floor with clients.",
+      "Walk into Zivel in Palm Coast and you exhale. It’s a modern wellness and recovery studio — infrared sauna, cryotherapy, red-light therapy, float, compression, body contouring, and cryofacials — built around helping people heal faster, move better, and feel like themselves again. Regulars describe it as immaculate, zen, and beautifully curated.",
+      "Owner Kelly Lang had the hard part nailed: a space and a team people rave about. What he didn’t have was a way to keep up with the interest it generated. Inquiries came in from Facebook, Instagram, and the website, but answering them was manual and slow — and the busier the studio got, the more leads went cold while Kelly was on the floor with clients.",
     ],
     quote:
-      "\u201cI can\u2019t imagine what we would be like if we actually had a website, a brand presence, and AI-driven processes in place.\u201d",
-    attribution: "\u2014Kelly Lang before going all-in with Keystone",
+      "“I can’t imagine what we would be like if we actually had a website, a brand presence, and AI-driven processes in place.”",
+    attribution: "—Kelly Lang before going all-in with Keystone",
   },
   shift: {
     beforeLabel: "Before Keystone",
     afterLabel: "After Keystone",
     beforeStats: [
       { value: "Manual", label: "Lead follow-up" },
-      { value: "1\u20132 hrs", label: "Response time" },
+      { value: "1–2 hrs", label: "Response time" },
     ],
     afterStats: [
       { value: "Automatic", label: "Lead follow-up" },
@@ -213,7 +213,7 @@ export const ZIVEL: CaseStudy = {
       "One platform to run everything",
       "Ads, site, leads, and reviews live in one dashboard",
       "Every lead gets an instant, on-brand text back",
-      "The dashboard shows what\u2019s working",
+      "The dashboard shows what’s working",
     ],
     tag: "Wow!",
   },
@@ -270,12 +270,12 @@ export const ZIVEL: CaseStudy = {
   },
   result: {
     quote:
-      "\u201cToo many leads! Had a great conversation with a new lead that came in through the website. She\u2019d seen the Facebook ad... filled out the form, and I booked her for a Day Pass today.\u201d",
-    attribution: "\u2014Kelly Lang, Owner of Palm Coast Zivel",
+      "“Too many leads! Had a great conversation with a new lead that came in through the website. She’d seen the Facebook ad... filled out the form, and I booked her for a Day Pass today.”",
+    attribution: "—Kelly Lang, Owner of Palm Coast Zivel",
     head: "A front office that runs itself",
     body: [
-      "Zivel is closing memberships at a pace Kelly describes as \u201ca new member close per day,\u201d and the lead engine has gone from a trickle he chased to a flow he has to keep up with. The reviews back it up: a perfect 5-star average across the studio\u2019s public profile.",
-      "The deeper win is leverage. The same small team now reaches hundreds of prospects, answers every one instantly, and never loses a lead to a slow reply — without anyone working nights to make it happen. That\u2019s the difference between a great studio and a great studio that\u2019s also a growing business.",
+      "Zivel is closing memberships at a pace Kelly describes as “a new member close per day,” and the lead engine has gone from a trickle he chased to a flow he has to keep up with. The reviews back it up: a perfect 5-star average across the studio’s public profile.",
+      "The deeper win is leverage. The same small team now reaches hundreds of prospects, answers every one instantly, and never loses a lead to a slow reply — without anyone working nights to make it happen. That’s the difference between a great studio and a great studio that’s also a growing business.",
     ],
     buttonLabel: "View the Palm Coast Zivel website",
   },
@@ -398,12 +398,12 @@ export const YOUR_HEALTH_SOLUTIONS: CaseStudy = {
   business: {
     head: "A brand-new med spa with an empty calendar to fill",
     body: [
-      "Your Health Solutions opened in Portland, CT with a clear promise: \u201cWellness & Aesthetics for Everyone.\u201d Injectables, body contouring, facials, IV therapy — a clean, welcoming space early clients describe as calming and professional, with staff who explain every step.",
+      "Your Health Solutions opened in Portland, CT with a clear promise: “Wellness & Aesthetics for Everyone.” Injectables, body contouring, facials, IV therapy — a clean, welcoming space early clients describe as calming and professional, with staff who explain every step.",
       "But a brand-new med spa has no calendar to coast on. Jessica Blancato Roche needed bookings from the moment the doors opened — and faster than a small team could chase by hand. So instead of bolting on one tool at a time, she flipped on the entire Keystone stack at once and let the system run the front office from day one.",
     ],
     quote:
-      "\u201cGood morning — we had our grand opening yesterday. I\u2019d like to run the deals today so people can start booking.\u201d",
-    attribution: "\u2014Jessica Blancato Roche the day after opening",
+      "“Good morning — we had our grand opening yesterday. I’d like to run the deals today so people can start booking.”",
+    attribution: "—Jessica Blancato Roche the day after opening",
   },
   shift: {
     beforeLabel: "Opening without Keystone",
@@ -484,12 +484,12 @@ export const YOUR_HEALTH_SOLUTIONS: CaseStudy = {
   },
   result: {
     quote:
-      "\u201cI saw the ads are running, they look great, thank you! Wow, that\u2019s so awesome — and we\u2019re only spending $10 a day right now. You\u2019re the best, honestly!\u201d",
-    attribution: "\u2014Jessica Blancato Roche, Owner of Your Health Solutions",
+      "“I saw the ads are running, they look great, thank you! Wow, that’s so awesome — and we’re only spending $10 a day right now. You’re the best, honestly!”",
+    attribution: "—Jessica Blancato Roche, Owner of Your Health Solutions",
     head: "From opening day to $25k a month",
     body: [
       "Most new med spas spend their first year fighting for visibility. Your Health Solutions skipped that phase. Seven months after opening, the spa reached $25,000 in monthly revenue — built on 320 tracked leads at about $3.50 each, a content engine running at hundreds of posts, and a 5-star reputation across 25 Google reviews.",
-      "The deeper win is what it didn\u2019t cost. The ads, the replies — including the Spanish-language consults the AI books end to end — the content, and the reviews all run from one login on about $10 a day in ad spend. No marketing department, no second front desk: just a new business that opened at full speed and kept it.",
+      "The deeper win is what it didn’t cost. The ads, the replies — including the Spanish-language consults the AI books end to end — the content, and the reviews all run from one login on about $10 a day in ad spend. No marketing department, no second front desk: just a new business that opened at full speed and kept it.",
     ],
     buttonLabel: "View the Your Health Solutions website",
   },
@@ -554,7 +554,7 @@ export const BARE_LUX_STUDIO: CaseStudy = {
   h1: {
     seg1: "How Keystone became",
     seg2: " the front desk Bare Lúx",
-    seg3: " couldn\u2019t afford to hire.",
+    seg3: " couldn’t afford to hire.",
   },
   metadata: {
     category: "Med Spa, Aesthetics",
@@ -597,7 +597,7 @@ export const BARE_LUX_STUDIO: CaseStudy = {
       "109 leads captured and tracked in the Keystone CRM, 17 flagged hot by the AI.",
       "An AI front desk sent 9,383 follow-up texts, reaching 100 distinct leads.",
       "400 social posts and 52 blog posts kept the studio visible across Central Jersey.",
-      "A perfect 5-star average across the studio\u2019s public reviews.",
+      "A perfect 5-star average across the studio’s public reviews.",
     ],
     stats: [
       { value: "4,736", label: "Ad clicks" },
@@ -609,10 +609,10 @@ export const BARE_LUX_STUDIO: CaseStudy = {
     head: "Great treatments that not enough people were seeing",
     body: [
       "Bare Lúx Studio serves Central Jersey out of Bordentown, NJ — laser treatments, skin care, and injectables, delivered in a space clients come back to for years and rave about. The treatments and the results were never the question.",
-      "The question was reach: getting in front of enough of the right people, then catching that demand before it cooled. Estefany Crook didn\u2019t have a full-time front desk or a marketing team — and hiring both is exactly the overhead a newer studio can\u2019t carry. She needed the reach of a bigger operation without the payroll that usually comes with it.",
+      "The question was reach: getting in front of enough of the right people, then catching that demand before it cooled. Estefany Crook didn’t have a full-time front desk or a marketing team — and hiring both is exactly the overhead a newer studio can’t carry. She needed the reach of a bigger operation without the payroll that usually comes with it.",
     ],
-    quote: "\u201cIt looks good!! You\u2019re the best — thank you.\u201d",
-    attribution: "\u2014Estefany Crook on seeing her new Keystone website",
+    quote: "“It looks good!! You’re the best — thank you.”",
+    attribution: "—Estefany Crook on seeing her new Keystone website",
   },
   shift: {
     beforeLabel: "Before Keystone",
@@ -629,7 +629,7 @@ export const BARE_LUX_STUDIO: CaseStudy = {
       "Great treatments that too few people were seeing",
       "No full-time front desk to catch every inquiry",
       "No steady social or blog presence building trust",
-      "Growth seemed to mean payroll the studio wasn\u2019t ready for",
+      "Growth seemed to mean payroll the studio wasn’t ready for",
     ],
     afterChecklist: [
       "The most ad reach of any studio Keystone runs",
@@ -692,12 +692,12 @@ export const BARE_LUX_STUDIO: CaseStudy = {
     ],
   },
   result: {
-    quote: "\u201cSorry, busy afternoon with back-to-back patients.\u201d",
-    attribution: "\u2014Estefany Crook, Owner of Bare Lúx Studio",
+    quote: "“Sorry, busy afternoon with back-to-back patients.”",
+    attribution: "—Estefany Crook, Owner of Bare Lúx Studio",
     head: "At capacity, without the payroll",
     body: [
-      "Bare Lúx now competes for attention like a much larger business: the most ad impressions of any studio we run, a constant content presence, and an AI front desk that catches every lead — even across languages. Estefany\u2019s afternoons fill back-to-back, and when the Keystone team told her \u201ctoo busy with patients is the best problem,\u201d she loved it.",
-      "The deeper win is what the studio never had to build. Reaching this many people usually means a marketing hire; catching every inquiry usually means a front desk. Keystone plays both roles from one subscription, so the head count stayed the same while the calendar filled — and Estefany\u2019s focus stays on the patients walking through the door.",
+      "Bare Lúx now competes for attention like a much larger business: the most ad impressions of any studio we run, a constant content presence, and an AI front desk that catches every lead — even across languages. Estefany’s afternoons fill back-to-back, and when the Keystone team told her “too busy with patients is the best problem,” she loved it.",
+      "The deeper win is what the studio never had to build. Reaching this many people usually means a marketing hire; catching every inquiry usually means a front desk. Keystone plays both roles from one subscription, so the head count stayed the same while the calendar filled — and Estefany’s focus stays on the patients walking through the door.",
     ],
     buttonLabel: "View the Bare Lúx Studio website",
   },
@@ -710,7 +710,7 @@ export const BARE_LUX_STUDIO: CaseStudy = {
   alts: {
     header: "Owner Estefany Crook at a desk inside Bare Lúx Studio",
     studio: "The Bare Lúx Studio team in their scrubs",
-    result: "The Bare Lúx Studio team at the reception desk under the studio\u2019s logo",
+    result: "The Bare Lúx Studio team at the reception desk under the studio’s logo",
   },
   imageTiers: {
     header: {
