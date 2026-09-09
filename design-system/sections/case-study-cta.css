@@ -24,7 +24,7 @@
   height: auto;
 }
 @container (min-width: 1130px) {
-  .csc-band {
+  .cs-content.csc-band {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
   }

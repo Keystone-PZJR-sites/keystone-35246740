@@ -20,9 +20,9 @@
   .cso-sec { min-height: calc(var(--t) * 7); }
 }
 
-/* Wide desktop uses the narrow content column. */
+/* Wide desktop uses the narrow content column (past the TOC rail). */
 @container (min-width: 1130px) {
-  .cso-content {
+  .cs-content.cso-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
   }
