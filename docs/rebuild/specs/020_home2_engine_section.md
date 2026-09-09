@@ -232,6 +232,27 @@ track one full. Reduced motion: the rt timer runs with instant swaps
 and quantized fill; the swipe's fill still follows the finger (direct
 manipulation) with the drawings state-to-state (§9 R22).)*
 
+*(Re-ruled 2026-09-08 — §9 R28, the owner's mobile hijack brief. The
+rt timer and the base/rs swipe are **deleted**; below the rd1 gate the
+section runs **one gesture-gated scroll hijack** at every band, so a
+pass through the stack shows all ten drawings. Scrolling toward a
+panel whose visual rests on the travel direction's far state catches
+the scroll once the visual is substantially in view — the island
+consumes wheel/touch gestures while caught and **never writes scroll**
+(the R15/R24 lesson). The catching gesture's remainder is consumed;
+the next gesture fires the timed swap toward the direction's state
+(the one §6 blur + rise grammar — the R22 lateral wipe retires with
+the swipe; the vertical rise is the axis at every band); the gesture
+after that releases toward the next panel. Symmetric on reverse: a
+panel resting on `b` catches an upward pass and steps b→a. A panel
+already resting on the direction's state never catches; both section
+ends exit free — the stack never traps the scroll (the R20 exit
+vocabulary); keyboard scrolling and teleports/anchor jumps are never
+intercepted (the hijack is a pointer-gesture affordance — the visuals
+are decorative). The indicator is the redrawn two-dot set, discrete
+(§6.2 as amended). Reduced motion keeps the gating with instant swaps
+(the R19 posture); no-JS is unchanged — plain flow resting on `a`.)*
+
 Type restatements: rt — header `display-serif/sm+/Extralight`, body
 `text/xl/Light`, container (24, 97) 488 × 254; base — header
 `display-serif/xs/Extralight`, body `text/md/Light`, container (0, 54)
@@ -384,6 +405,29 @@ counter-transform. The mapping contract above is unchanged.)*
   vocabulary only** (amended the same day — §9 R22): the base/rs
   swipe fill carries no minimum — the b track rests empty (the
   owner's mock) and fills from nothing under the drag.)*
+  *(Redrawn 2026-09-08 — §9 R28, the owner's simplification brief:
+  the set `877:98990` now carries **two variants only** (slide-1 ·
+  slide-2) — **two 8Ø full-radius dots on an 8 gap** (24 × 8). Dot
+  one is `text/200` at both variants; dot two is `bg/600` at slide-1
+  and `text/200` at slide-2 — a discrete "states seen" read with no
+  fill animation and no mid keyframes. The six-keyframe vocabulary,
+  the fill law, the minimum, and the tracks are all superseded.
+  Mounts verified at rendered bounds through the bridge: xs
+  horizontal at left 32 / y 413 in the 448 visual (the mount kept
+  its y as the set grew 6 → 8 high — bottom 27, the R21 artifact
+  class, built as drawn); md the component **rotated −90°** (8 × 24,
+  dot one on top) at left 29 / bottom 32; the rd stage keeps the
+  standing   anchoring (the text column line, flush at the container's
+  bottom) with the geometry riding the zoom. Slide-1 renders
+  wherever a visual rests on `a` and on every non-active rd panel
+  (the drawn frames); slide-2 wherever it rests on `b`.)*
+  *(Reshaped 2026-09-08 — §9 R29, the owner's brief and the set's
+  same-evening redraw: a VIEWED dot is a **square** (radius 0) in
+  the seen `text/200`; the upcoming dot is **round** (radius-full)
+  in `bg/600`. Dot one is always the square; dot two flips round →
+  square as the visual rests on `b`. Geometry holds 8 × 8 on the 8
+  gap — the slide-1 variant's 7×7 square is a drawn residual against
+  the slide-2 variant's 8s, flagged, the consistent 8 built.)*
 - **The last state holds.** After 05b's runway the section releases;
   the empty sliver row (drawn — the 05 frames' `inactive-engine` is
   empty) shows bare lattice *(amended 2026-09-06, §9 R14 — the
@@ -403,7 +447,10 @@ counter-transform. The mapping contract above is unchanged.)*
   *(Amended 2026-09-06 — §9 R19, owner ruling: the carousel timer
   keeps running under reduced motion — the stage is decorative and
   the copy never moves; swaps render instantly, the fill quantizes,
-  snap glides land instantly.)*
+  snap glides land instantly. Amended 2026-09-08 — §9 R28: the
+  stack's gesture gating keeps running under reduced motion — it is
+  the interaction contract, not decoration; the swaps render
+  instantly and the two-dot indicator is already discrete.)*
 - **No-JS** (§9 R6): the column renders in normal flow with the stage
   holding 01a; all five engines' copy is in the document; the runway
   plateaus collapse (no spacers without the island — the section
@@ -439,11 +486,22 @@ counter-transform. The mapping contract above is unchanged.)*
   constants, the same class — added 2026-09-06, §9 R21: the swipe
   intent lock 8px · commit fraction 0.15 · flick velocity 0.3 px/ms;
   the stack indicator's material 24/6/8/6 and its drawn 29/32
-  offsets); the indicator geometry
+  offsets) *(the swipe constants and the timer deleted 2026-09-08 —
+  §9 R28, with the whole timer/swipe apparatus; the **hijack
+  constants** join the R7 QA-tunable class: the catch band — the
+  visual's center within the viewport's 25–75% — and the wheel-burst
+  separator ≈180ms)*; the indicator geometry
   (39 × 7 · pill 24 · dot 7 · x 32 / x 15) *(superseded 2026-09-06 —
   §9 R19, the redrawn keyframes: 56 × 6 — two 24 × 6 tracks · gap 8 ·
-  fill minimum 6)* and its inks
-  (`bg/500` track, `text/300` fill); panel container boxes (§3/§5);
+  fill minimum 6; superseded again 2026-09-08 — §9 R28, the two-dot
+  redraw: **24 × 8 — two 8Ø dots · gap 8**, material below the rd
+  gate, riding the zoom at rd; mounts xs left 32 / bottom 27 · md
+  vertical left 29 / bottom 32)* and its inks
+  (`bg/500` track, `text/300` fill) *(re-inked by the same redraw:
+  dot one `text/200`; dot two `bg/600` unseen · `text/200` seen;
+  reshaped 2026-09-08 — §9 R29: viewed square radius 0 · upcoming
+  round radius-full)*;
+  panel container boxes (§3/§5);
   stage pads — top/left 64 (xl) · 64 (md, 4px clipped bottom-right) ·
   32 (xs), flush bottom-right *(amended 2026-09-06, §9 R12 — drawn
   placement, not the draft's centered halves)*.
@@ -466,7 +524,10 @@ counter-transform. The mapping contract above is unchanged.)*
   them). *(Amended 2026-09-06 — §9 R19: the island owns the carousel
   timer, the gesture-end snap, the swaps, and the indicator fills;
   the column is plain flow with or without it — no spacers, no ready
-  construction, the JS and no-JS documents identical.)*
+  construction, the JS and no-JS documents identical. Amended
+  2026-09-08 — §9 R28: below the gate the island owns the
+  gesture-gated hijack and the discrete two-dot indicator; the timer
+  and the swipe machinery are deleted.)*
 - Splices into `v2/home-next.tsx` after the system section; permanent
   noindexed dev route **`/engines-next`**. *(Amended 2026-09-06 —
   §9 R24: `/engines-next` is retired with the paged contract; the QA
@@ -1073,6 +1134,64 @@ All flags resolved 2026-09-06, the same morning:
   section's isolated QA route deletes. Engine QA and the 023 sweep
   drives run on the assembled `/`. R24's "kept as the QA route" is
   superseded.
+- **R28 (owner rulings, 2026-09-08 evening — the mobile/tablet pass;
+  the post-swap checklist items 1–2 ruled and executed).** The owner's
+  brief in-chat: hijack the scroll at the illustrations so the user
+  sees them all, and simplify the breadcrumb — no mid timing or
+  scroll-scrubbing states; **no engine/geometry tick change**. Two
+  follow-up rulings at the planning questions: the hijack is
+  **gesture-gated** (catch → next gesture swaps → next gesture
+  releases; the user paces it), and it is **one contract below the
+  rd1 gate** — the rt timer and the base/rs swipe are deleted
+  outright. §5/§6/§7/§8 amended at their values. Consequences ruled
+  at the amendment: the R22 lateral wipe retires with the swipe (the
+  vertical blur + rise is the one swap axis at every band);
+  `CAROUSEL_MS` and the three swipe constants delete; the island's
+  665 mode split deletes with them (one stack contract, the 860 gate
+  the only split); keyboard scroll and anchor jumps are never
+  intercepted; reduced motion keeps the gating with instant swaps
+  (the R19 posture); no-JS unchanged. **The breadcrumb set was
+  redrawn as two variants** (fresh reads this session, verified at
+  rendered bounds through the bridge): slide-1 (`891:100815`) ·
+  slide-2 (`930:40881`), each 24 × 8 — two 8Ø full-radius dots, gap
+  8; dot one `text/200` both variants, dot two `bg/600` → `text/200`
+  (a discrete "states seen" read; both inks exist in the token
+  layer, zero new tokens). The stacked anchor frames already mount
+  the new set at slide-1 — 384 horizontal at left 32 / y 413 (bottom
+  27: the mount kept its drawn y while the set grew 6 → 8 high — the
+  R21 artifact class, built as drawn) · 768 rotated −90° (8 × 24,
+  dot one on top) at left 29 / bottom 32; the set variant's own x-37
+  read is the rotation-pivot artifact (29 + the 8 height), the
+  anchor frames govern. **One file residual with design**: the 1344
+  state frames' ACTIVE panels still carry stale old-set instances
+  (`slide1-start` 56 × 6 on every `a` frame; the pre-R19 `Variant2`
+  39 × 7 on every `b` frame and two inactive panels) while several
+  inactive panels already carry the new set — the two-variant set is
+  the intent (this brief); the stale instances are recorded, not
+  built. The xl `engine-visual` variant carries no breadcrumb (the
+  rd mount lives in the state frames — the standing anchoring
+  stands).
+- **R29 (owner brief + design reshape, 2026-09-08 evening — the
+  breadcrumb's square/round vocabulary).** The set `877:98990`
+  reshaped the same evening (fresh bridge read at the brief): a
+  **viewed** dot is a **square** — radius 0, the seen `text/200` —
+  and the **upcoming** dot is **round** — radius-full, `bg/600`.
+  Dot one is always the square; dot two flips round → square as the
+  visual rests on `b`. Geometry holds 8 × 8 on the 8 gap at every
+  mount (§6.2/§7 amended). The radius rides the standing ink
+  transition (the stage clock; instant under reduced motion).
+  *(Tuned the same evening — owner report: the color faded while the
+  shape snapped. Two causes, two fixes: the round rest is authored
+  at the dot's true circle radius — `calc(dot/2)`, not radius-full,
+  whose 9999px interpolation holds the circle for 99.9% of the ramp
+  and snaps at the end — and color + shape share ONE clock, the
+  drawer family's 250ms snappy ease-out (the global tokens, no
+  fork), quicker than the 500ms drawing swap so the flip reads as
+  one crisp beat inside it.)* One
+  drawn residual flagged with design: the slide-1 variant's square
+  draws 7×7 (its frame 23-wide) where the slide-2 variant draws the
+  same semantic dot 8×8 — the variants disagree, so the consistent
+  8 is built (the read-artifact/hygiene class).
 
 *At the three drawn anchors, the two derived-band anchors, and one
 arbitrary mid-band width per band, scrollbar forced on; the interactive

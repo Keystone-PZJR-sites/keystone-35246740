@@ -1153,3 +1153,115 @@ F5 mobile-LCP gate against the new hero.
   standing sweep green; tsc/lint zero. Route JS and the sweep leg
   ride the 025 assembly (B4). Working tree left uncommitted per the
   git rule.
+- **The mobile/tablet engine section re-ruled and built — the
+  post-swap checklist items 1–2 close** (owner rulings in-chat,
+  evening; 020 §9 R28 the record, §5/§6/§7/§8 amended at their
+  values). The owner's brief: hijack the scroll at the illustrations
+  so the user sees them all, and simplify the breadcrumb — no mid
+  timing or scrubbing states; **no tick change**. Rulings at the
+  planning questions: the hijack is **gesture-gated** (catch → the
+  next gesture fires the timed swap → the gesture after releases;
+  symmetric on reverse, both ends exit free, never a scroll write —
+  the island consumes wheel/touch gestures instead) and it is **one
+  contract below the rd1 gate** — the rt 5000ms timer and the
+  base/rs swipe are deleted outright (the R22 lateral wipe with
+  them; the vertical blur + rise is the one swap axis). Keyboard
+  scroll, scrollbar drags, and anchor jumps are never intercepted;
+  reduced motion keeps the gating with instant swaps; no-JS
+  unchanged. **The breadcrumb set was redrawn as two variants**
+  (fresh reads at rendered bounds through the bridge): two 8Ø dots
+  on an 8 gap — dot one `text/200`, dot two `bg/600` unseen ·
+  `text/200` seen — discrete at every band including rd (the island
+  only toggles data-slide; the fill vocabulary is gone). The
+  stacked anchor frames already mount the new set (384 horizontal
+  left 32 · 768 vertical −90° left 29/bottom 32); **one file
+  residual with design** — the 1344 state frames' active panels
+  still carry stale old-set instances (R28). Verified against the
+  owner's server: the full gesture walk at 384 and 768 emulation
+  and mid-band 440 (catch/swap/release per panel both directions,
+  free exits), the rd 1344 ten-state order and discrete indicator
+  unchanged, geometry and inks exact; tsc/lint zero; the standing
+  sweep green. Working tree left uncommitted per the git rule.
+  **Two follow-ups the same evening**: (1) the owner's real-device
+  report — **the hijack does not engage on touch** (mid-drag
+  touchmove events are non-cancelable once the browser owns the
+  scroll, and flick momentum delivers no gesture events at all —
+  the wheel-modeled verification masked both); the touch rework is
+  open, the fix shape recorded in chat (rAF-clock catch detection,
+  gesture-start consumption, a momentum ruling with the owner).
+  (2) **The breadcrumb reshaped** (020 §9 R29; the set redrawn,
+  read fresh): a viewed dot is a square (radius 0, `text/200`),
+  the upcoming dot round (radius-full, `bg/600`) — built; one
+  drawn residual with design (the slide-1 variant's 7×7 square
+  against the set's 8s; the consistent 8 built). Two of the three R1
+  proposals still ride it (the search open/close grammar, the 768
+  search-active derivation); **the no-JS posture was ruled same
+  evening** (owner: the open functional pill — 024 §9 R3, which also
+  records the no-JS law's provenance: born at the hero build, folded
+  into rules.md 2026-08-25, no old-site inheritance; the law itself
+  is a settled-render invariant — the functional reading is this
+  component's ruling, not standing law). **024 handed to a build
+  agent the same evening** (owner).
+- **Spec 025 is drafted** (late evening, from fresh reads of the
+  landing lists at all three anchors — the featured card, the recent
+  section, and the five category sections (Customer Engagement ·
+  Content Strategy · Local Business · Local SEO · Operations), with
+  clamp modes, chromes, list constructions, and per-row exposure all
+  verified at rendered bounds through the bridge; 025 §9 R0 is the
+  record). The slice: the shared post-card grammar (three drawn size
+  constructions, whole-card links, **drawn text clamps** — maxLines
+  2/3 and fixed TRUNCATE boxes, so variable copy never grows a card),
+  the featured card, the recent + category lists with the `View all`
+  sm gray pill, the `blog-data.ts` layer (one 60s-revalidated fetch,
+  boundary-validated; featured = newest, recent = next 3, top-5 tags
+  × 3 newest), and the landing assembly (expectations deriving the
+  variable totals from the fetched counts — the data-dependent
+  ruling's first application; **zero new islands**). Four draft flags
+  with design (025 §7): **F1** — the 768 stacked lists disagree
+  (recent stack 1142 → 43px gaps · category stacks 1152 → 48px, both
+  declaring 32 under SPACE_BETWEEN; the whole-tick-box reading needs
+  a ruling); **F2** — the 384 recent section ends off-tick (title
+  62 vs the categories' 3t construction); **F3** — the featured
+  eyebrow reads `ON AI` where list cards read the bare tag; **F4** —
+  stock-photo layer-name hygiene. Four proposals ride approval (025
+  §7 R1–R4): the n<3 stack derivation, the `bg/300` no-image slot,
+  empty-state omission, and the standing image-zoom card hover.
+  **All four flags and all four proposals ruled the same evening**
+  (owner in-chat; the F1/F2 design fixes re-read at rendered bounds —
+  025 §9 R1): the gap canon is **48** with the recent sections
+  re-drawn to the category construction (768 title 64; the 384
+  section whole-tick 34t); bare tag names everywhere (`ON AI` is
+  placeholder); F4 moot — all landing-list content is backend data,
+  nothing drawn ships; the fixed-stride n<3 derivation approved; the
+  no-image slot superseded (the backend guarantees an image — the
+  validator drops imageless records); empty tags drop their
+  sections; the card hover approved **plus the card shadow** (the
+  promoted card-shadow grammar's next consumer). **The spec awaits
+  approval.**
+- **Spec 026 is drafted** (evening, from fresh reads of the Blog
+  Category frames at all three anchors — headers, featured cards,
+  card rows, pagination, exposure, all verified at rendered bounds
+  through the bridge; 026 §9 R0 is the record). One grammar, two data
+  modes on the live URL scheme: the category page
+  (`/blog?tag={slug}&page=N` — the crumb header `The Blog / Category`
+  over the tag-name h1, the 025 featured card and article cards
+  verbatim, six per page, a centered pagination row of gray
+  button-arrows around a five-cell numbered indicator with the white
+  active cell) and the **search-results surface** (`?q=` — the same
+  grammar, never a featured card, per the planning ruling). Pages ≥ 2
+  drop the featured card and reuse the search construction (026 §7
+  R3). Zero new islands. Two draft flags with design (026 §7): **F1**
+  — the 768 six-card stack renders fractional 51.2 gaps against the
+  025-ruled 48 canon (the same stretch class); **F2** — Grid residue
+  (the 768 [9,7] occluded ○ again; the 384 stroke-hidden [0,24] and a
+  stray full row at r81). Five proposals ride approval (026 §7
+  R1–R5): the crumb link/label semantics, the five-cell pagination
+  window, the pages-≥2 no-featured shift, the query-as-h1, and the
+  empty-results line. **Both flags and R1–R4 ruled the same evening**
+  (owner in-chat; fixes re-read at rendered bounds — 026 §9 R1): F1
+  approved as proposed (the 400 stride in the drawn 37t box); the
+  768 [9,7] ○ ruled disregard (occluded, excluded from the built
+  map); the 384 Grid fixed ([0,24] restored, the stray r81 deleted —
+  the field runs rows 8–24 complete); the crumb semantics, five-cell
+  window, pages-≥2 featured drop, and query-h1 all approved. **R5
+  (the empty-results line) stays open; the spec awaits approval.**

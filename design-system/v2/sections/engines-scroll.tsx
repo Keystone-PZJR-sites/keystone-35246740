@@ -2,7 +2,8 @@
 
 /** v2 sections — the engine section's carousel island (spec 020 §6, as
  * re-ruled 2026-09-06 — §9 R24 distance-mapped free scroll, tuned the
- * same evening — §9 R25: scroll-only at rd, the 25/75 lap).
+ * same evening — §9 R25: scroll-only at rd, the 25/75 lap; the stack
+ * bands re-ruled 2026-09-08 — §9 R28: the gesture-gated hijack).
  *
  * The section's one client island. The server render is the complete
  * structure — sticky slug, sticky stage holding 01a, the left column
@@ -30,10 +31,7 @@
  *   progression — R24's idle cycle is deleted and scroll is the
  *   whole interaction. The 05a→05b boundary is biased early
  *   (LAST_BOUNDARY) so the last b lands just past the Engagement
- *   rest instead of deep in the release. The indicator reads the
- *   drawn slide-start keyframes discretely — slide a is the minimum
- *   dot on track one, slide b is track one full beside track two's
- *   minimum dot; no fill ever animates a countdown.
+ *   rest instead of deep in the release.
  *
  * - **The geometry (§9 R23 carried forward, per-frame).** s derives
  *   from rendered positions every frame — the pin line prefers the
@@ -52,35 +50,39 @@
  *   also lights each panel's dot (data-lit) as its engine becomes
  *   active (§9 R16); the hue transition itself is CSS.
  *
- * - **The indicator (§6.2 as re-read — the redrawn keyframes, read
- *   discretely since §9 R25).** Two tracks per panel, one per
- *   illustration (--e2-fill-a/-b; --e2-fb-on mounts the b fill). At
- *   slide a the active panel holds slide1-start (the minimum dot on
- *   track one — the resting look; the lit dot carries the active
- *   distinction); at slide b it holds slide2-start (track one full,
- *   track two's minimum dot).
+ * - **The indicator (§6.2 as redrawn 2026-09-08 — §9 R28).** Two 8Ø
+ *   dots per panel, discrete — the drawn slide-1/slide-2 variants:
+ *   dot one always inked, dot two takes the seen ink while the
+ *   visual rests on `b`. The island only toggles data-slide="b";
+ *   the inks and the transition are CSS. No fill ever animates.
  *
- * - **Reduced motion (§9 R5/R19).** The structure stands — swaps and
- *   dot hues render instantly (CSS kills the transitions). The
- *   indicator is already discrete; with no snap and no clock there
- *   is nothing else to still.
+ * - **Reduced motion (§9 R5/R19/R28).** The structure — the mapping
+ *   and the stack's gesture gating — stands; swaps and dot hues
+ *   render instantly (CSS kills the transitions). The indicator is
+ *   discrete by construction.
  *
  * Short viewports need nothing here (§9 R4): the stage top-anchors
  * and the fold crops passively.
  *
- * - **The stacks (base/rs/rt — §5 as re-ruled, §9 R21/R22).** Below
- *   the rd1 gate the same island drives the stack visuals' two-state
- *   carousels, unchanged by R24. At rt each panel's illustration
- *   auto-progresses on the CAROUSEL_MS clock (a↔b loop, the blur +
- *   rise grammar, the vertical indicator riding the timer) — a
- *   panel's clock counts only while its visual is substantially in
- *   view. At base/rs the user swipes the visual between the two
- *   states: a pointer drag with a horizontal intent lock scrubs the
- *   stage grammar LATERALLY (§9 R22), the b track's fill rides the
- *   drag from an empty rest, and the release commits past the swipe
- *   threshold (or a flick), the CSS stage clock settling the
- *   drawings and the fill together. The mode is the container's
- *   width (never matchMedia), re-armed by the ResizeObserver.
+ * - **The stacks (base/rs/rt — §5 as re-ruled 2026-09-08, §9 R28).**
+ *   Below the rd1 gate the same island drives ONE gesture-gated
+ *   scroll hijack at every band (the R21 rt timer and the R21/R22
+ *   base/rs swipe are deleted). Scrolling toward a panel whose
+ *   visual rests on the travel direction's far state catches the
+ *   scroll once the visual's center enters the viewport's catch
+ *   band: the island consumes wheel/touch gestures while caught —
+ *   it never writes scroll. The catching gesture's remainder is
+ *   consumed; the next gesture fires the timed swap toward the
+ *   direction's state (the one blur + rise grammar, the vertical
+ *   axis at every band — the R22 lateral wipe retired with the
+ *   swipe); the gesture after that releases. Symmetric on reverse
+ *   (a panel resting on `b` catches an upward pass and steps b→a);
+ *   a panel already resting on the direction's state never catches;
+ *   both section ends exit free. Keyboard scrolling, scrollbar
+ *   drags, and teleports/anchor jumps are never intercepted (any
+ *   real scroll while caught releases the catch — the safety
+ *   valve). The mode is the container's construction (never
+ *   matchMedia), re-armed by the ResizeObserver.
  */
 
 import { useEffect, useRef } from "react";
@@ -91,9 +93,6 @@ import { useEffect, useRef } from "react";
 const PANEL_T = 6;
 const ENGINE_COUNT = 5;
 const STATE_COUNT = 10;
-/** the stack carousels' timer (rt — §9 R21). The rd construction has
- * NO clock since §9 R25 — scroll is its whole interaction. */
-const CAROUSEL_MS = 5000;
 /** hysteresis, in half-stride units — the boundary between neighbor
  * states sits this far from the current state's center (§9 R24;
  * tuned 0.6 → 0.5 by §9 R25 — the 25/75 lap: a→b fires a quarter of
@@ -108,18 +107,20 @@ const LAST_BOUNDARY = 0.3;
 /** raw-index distance past which the mapping jumps straight to the
  * nearest state — teleports, anchor jumps, fast flicks (§9 R24) */
 const JUMP = 1.5;
-/** rAF delta clamp — a resumed tab never jumps the timer */
-const DT_MAX_MS = 100;
-/** the rt structural gate (spec 002.r1) — above it the stack runs the
- * timer, below it the swipe (§9 R21) */
-const RT_GATE_PX = 665;
-/** the swipe's horizontal intent lock, px (§9 R7) */
-const SWIPE_LOCK_PX = 8;
-/** the drag fraction past which a release commits to the other slide
- * (§9 R7/R21) */
-const SWIPE_COMMIT_FRAC = 0.15;
-/** the flick velocity that commits regardless of distance, px/ms */
-const SWIPE_FLICK_VX = 0.3;
+/** the stack hijack's catch band (§9 R28, the R7 QA-tunable class):
+ * a panel catches while its visual's center sits inside this
+ * viewport fraction */
+const CATCH_LO = 0.25;
+const CATCH_HI = 0.75;
+/** wheel events further apart than this are separate gestures
+ * (§9 R28, the same class) — the R20 burst vocabulary */
+const GESTURE_GAP_MS = 180;
+/** the safety valve's grace, ms (§9 R28, the same class): a scroll
+ * event within this window of a consumed gesture event is the
+ * catching burst's own tail (pre-catch deltas, momentum settling) —
+ * only scrolls past it release the catch (scrollbar, keyboard,
+ * navigations) */
+const VALVE_GRACE_MS = 250;
 
 export function EnginesScroll() {
   const ref = useRef<HTMLSpanElement>(null);
@@ -155,24 +156,18 @@ export function EnginesScroll() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       page?.dataset.motion === "reduce";
 
-    /* the stage grammar's values — the swipe scrubs them laterally
-       (§9 R22; the CSS carries the settled states) */
-    const styles = getComputedStyle(section);
-    const stageBlur = parseFloat(styles.getPropertyValue("--motion-stage-blur")) || 8;
-    const stageRise = parseFloat(styles.getPropertyValue("--motion-stage-rise")) || 24;
-    const stageDrop = parseFloat(styles.getPropertyValue("--motion-stage-drop")) || -12;
+    /* ---- the discrete slide indicator (§6.2 as redrawn — §9 R28):
+       data-slide="b" mounts the slide-2 look; the inks are CSS ---- */
+    const setSlide = (el: HTMLElement, b: boolean) => {
+      if (b) el.setAttribute("data-slide", "b");
+      else el.removeAttribute("data-slide");
+    };
 
-    /* ---- the stack carousels (§5 as re-ruled, §9 R21) ---- */
-    /** per-panel a/b sub-state (rt timer), shown drawing, clock */
-    const ssubs = new Array<number>(ENGINE_COUNT).fill(0);
-    const sshown = new Array<number>(ENGINE_COUNT).fill(0);
-    const selapsed = new Array<number>(ENGINE_COUNT).fill(0);
-    /** per-panel resting slide (base/rs swipe) */
+    /* ---- the stack carousels (§5 as re-ruled — §9 R28) ---- */
+    /** per-panel resting slide (0 = a, 1 = b) */
     const sslides = new Array<number>(ENGINE_COUNT).fill(0);
+    const sshown = new Array<number>(ENGINE_COUNT).fill(0);
     const sprimed = new Set<number>();
-    const sfas = new Array<number | null>(ENGINE_COUNT).fill(null);
-    const sfbs = new Array<number | null>(ENGINE_COUNT).fill(null);
-    const sfbons = new Array<number | null>(ENGINE_COUNT).fill(null);
 
     const primeStack = (k: number) => {
       if (sprimed.has(k)) return;
@@ -183,24 +178,7 @@ export function EnginesScroll() {
       });
     };
 
-    const setSIndicator = (k: number, fa: number, fbOn: number, fb: number) => {
-      const panel = spanels[k];
-      if (sfas[k] !== fa) {
-        sfas[k] = fa;
-        panel.style.setProperty("--e2-fill-a", String(fa));
-      }
-      if (sfbons[k] !== fbOn) {
-        sfbons[k] = fbOn;
-        panel.style.setProperty("--e2-fb-on", String(fbOn));
-      }
-      if (sfbs[k] !== fb) {
-        sfbs[k] = fb;
-        panel.style.setProperty("--e2-fill-b", String(fb));
-      }
-    };
-
-    /* the stack swap — the one blur grammar (§9 R3; the axis is the
-       band's — vertical at rt, lateral below the gate) */
+    /* the stack swap — the one blur + rise grammar (§9 R3/R28) */
     const setStackState = (k: number, next: number) => {
       if (sshown[k] === next) return;
       const outgoing = sdrawings[k][sshown[k]];
@@ -216,72 +194,139 @@ export function EnginesScroll() {
       incoming.setAttribute("data-active", "");
     };
 
-    /* the swipe's mid-drag scrub (§9 R22): the stage grammar's values
-       ride the drag's away-ness inline; the release clears them and
-       the CSS transitions carry the settle */
-    const scrubStack = (k: number, q: number, dir: number) => {
-      const out = sdrawings[k][sslides[k]];
-      const inc = sdrawings[k][1 - sslides[k]];
-      out.style.opacity = String(1 - q);
-      out.style.filter = `blur(${stageBlur * q}px)`;
-      out.style.transform = `translateX(${stageDrop * dir * q}px)`;
-      inc.style.opacity = String(q);
-      inc.style.filter = `blur(${stageBlur * (1 - q)}px)`;
-      inc.style.transform = `translateX(${stageRise * dir * (1 - q)}px)`;
+    /* ---- the gesture-gated hijack (§5/§6 as re-ruled — §9 R28).
+       Catch → the next gesture swaps → the gesture after releases;
+       symmetric on reverse; consumes gestures, never writes scroll.
+       Only wheel and touch are gestures — keyboard, scrollbar, and
+       programmatic scrolls stay free (any real scroll while caught
+       releases). ---- */
+    let caught: { k: number; gestureId: number } | null = null;
+    let gestureId = 0;
+    let lastWheelT = 0;
+    let lastGestureT = 0;
+    let touchY: number | null = null;
+
+    const release = () => {
+      caught = null;
     };
-    const clearScrub = (k: number) => {
-      for (const el of sdrawings[k]) {
-        el.style.removeProperty("opacity");
-        el.style.removeProperty("filter");
-        el.style.removeProperty("transform");
+
+    /** the panel to catch on a gesture in `dir` (+1 down / −1 up):
+     * its visual's center inside the catch band and the direction's
+     * target state unseen at rest */
+    const catchable = (dir: 1 | -1) => {
+      const vh = window.innerHeight;
+      const target = dir > 0 ? 1 : 0;
+      for (let k = 0; k < ENGINE_COUNT; k++) {
+        if (sslides[k] === target) continue;
+        const r = svisuals[k]!.getBoundingClientRect();
+        if (r.height === 0) continue;
+        const c = r.top + r.height / 2;
+        if (c > vh * CATCH_LO && c < vh * CATCH_HI) return k;
+      }
+      return -1;
+    };
+
+    /** one gesture event (already assigned to gestureId). Returns
+     * whether the event is consumed. */
+    const gesture = (dir: 1 | -1) => {
+      if (!caught) {
+        const k = catchable(dir);
+        if (k < 0) return false;
+        caught = { k, gestureId };
+        primeStack(k);
+        return true;
+      }
+      if (gestureId === caught.gestureId) return true; /* same burst */
+      const target = dir > 0 ? 1 : 0;
+      if (sslides[caught.k] !== target) {
+        /* the swap gesture — step toward the direction's state and
+           keep consuming this burst */
+        sslides[caught.k] = target;
+        setStackState(caught.k, target);
+        setSlide(spanels[caught.k], target === 1);
+        caught.gestureId = gestureId;
+        return true;
+      }
+      /* the release gesture — the direction's state already rests;
+         let the burst scroll natively */
+      release();
+      return false;
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (mode !== "hijack") return;
+      if (e.deltaY === 0) return;
+      if (e.timeStamp - lastWheelT > GESTURE_GAP_MS) gestureId++;
+      lastWheelT = e.timeStamp;
+      if (gesture(e.deltaY > 0 ? 1 : -1)) {
+        lastGestureT = e.timeStamp;
+        e.preventDefault();
+      }
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (mode !== "hijack") return;
+      gestureId++;
+      touchY = e.touches[0]?.clientY ?? null;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (mode !== "hijack" || touchY === null) return;
+      const y = e.touches[0]?.clientY;
+      if (y === undefined) return;
+      const dy = touchY - y; /* finger up = scroll down */
+      touchY = y;
+      if (dy === 0) return;
+      if (gesture(dy > 0 ? 1 : -1)) {
+        lastGestureT = e.timeStamp;
+        if (e.cancelable) e.preventDefault();
+      }
+    };
+
+    const onTouchEnd = () => {
+      touchY = null;
+    };
+
+    /* the safety valve: a real scroll while caught is a scrollbar
+       drag, a keyboard scroll, or a navigation — never trap those.
+       The grace window keeps the catching burst's own tail (pre-catch
+       deltas, momentum settling) from tripping it. */
+    const onScroll = () => {
+      if (caught && performance.now() - lastGestureT > VALVE_GRACE_MS) {
+        release();
       }
     };
 
     /** a mode change re-arms the stacks at the drawn rest (slide a,
-     * track one full — the server defaults) */
+     * dot two unseen — the server defaults) */
     const resetStack = () => {
+      release();
       for (let k = 0; k < ENGINE_COUNT; k++) {
-        ssubs[k] = 0;
-        selapsed[k] = 0;
         sslides[k] = 0;
         setStackState(k, 0);
         sdrawings[k][1].removeAttribute("data-leaving");
-        clearScrub(k);
-        svisuals[k]!.removeAttribute("data-drag");
-        svisuals[k]!.style.removeProperty("--e2-sdir");
-        spanels[k].style.removeProperty("--e2-fill-a");
-        spanels[k].style.removeProperty("--e2-fill-b");
-        spanels[k].style.removeProperty("--e2-fb-on");
-        sfas[k] = null;
-        sfbs[k] = null;
-        sfbons[k] = null;
+        setSlide(spanels[k], false);
       }
     };
 
     /* ---- geometry and mode (re-measured on resize; s itself derives
        per frame — §9 R23/R24) ---- */
     let active = false;
-    /** which construction the island drives (§9 R21) — the container
-     * is the truth */
-    let mode: "io" | "timer" | "swipe" = "io";
+    /** which construction the island drives (§9 R21/R28) — the
+     * container's construction is the truth: the interactive stage
+     * above the 860 gate, the hijacked stack below it */
+    let mode: "io" | "hijack" = "io";
     let halfP = 0; // one stage stop — half an engine stride
     let cssPin = 0; // the computed pin line (the flow-state fallback)
-    let strideS = 0; // one swipe slide — the stack visual's width
 
     const measure = () => {
       active = io.offsetParent !== null;
       const prev = mode;
-      mode = active
-        ? "io"
-        : section.clientWidth >= RT_GATE_PX
-          ? "timer"
-          : "swipe";
+      mode = active ? "io" : "hijack";
       if (mode !== prev) resetStack();
       if (active) {
         halfP = (PANEL_T * (section.clientWidth / 12)) / 2;
         cssPin = parseFloat(getComputedStyle(stage).top) || 0;
-      } else {
-        strideS = svisuals[0]?.clientWidth || 0;
       }
     };
 
@@ -320,7 +365,7 @@ export function EnginesScroll() {
     };
     drawings.forEach((d) => d.addEventListener("transitionend", onLeaveEnd));
 
-    /* every swap — mapping steps and timer flips — is the one
+    /* every swap — mapping steps and hijack steps — is the one
        blur + rise grammar (§9 R3) */
     const setState = (next: number) => {
       if (shown === next) {
@@ -358,173 +403,20 @@ export function EnginesScroll() {
       else panels[k].removeAttribute("data-lit");
     };
 
-    /* ---- the indicator (§6.2 as re-read — discrete since §9 R25):
-       two tracks per panel. fa/fb ∈ [0,1] map to the drawn 6 → 24
-       growth; fbOn mounts the b fill (the drawn slide1-* variants
-       carry none). At rd only the drawn slide-start keyframes render:
-       slide a = the minimum dot (the resting look), slide b = track
-       one full + track two's minimum dot. The rt stacks still ride
-       their timer through the same setter. ---- */
-    const fas = new Array<number>(ENGINE_COUNT).fill(-1);
-    const fbs = new Array<number>(ENGINE_COUNT).fill(-1);
-    const fbOns = new Array<number>(ENGINE_COUNT).fill(-1);
-
-    const setIndicator = (k: number, fa: number, fbOn: number, fb: number) => {
-      const panel = panels[k];
-      if (fas[k] !== fa) {
-        fas[k] = fa;
-        panel.style.setProperty("--e2-fill-a", String(fa));
-      }
-      if (fbOns[k] !== fbOn) {
-        fbOns[k] = fbOn;
-        panel.style.setProperty("--e2-fb-on", String(fbOn));
-      }
-      if (fbs[k] !== fb) {
-        fbs[k] = fb;
-        panel.style.setProperty("--e2-fill-b", String(fb));
-      }
-    };
-
-    /* ---- the rt stack timers (§9 R21): each visual's clock counts
-       only while it is substantially in view; expiry swaps on the one
-       grammar and loops; the vertical indicator rides the clock ---- */
-    const updateStackTimers = (dt: number) => {
-      const vh = window.innerHeight;
-      const rm = reduced();
-      for (let k = 0; k < ENGINE_COUNT; k++) {
-        const r = svisuals[k]!.getBoundingClientRect();
-        const visible = r.top < vh * 0.75 && r.bottom > vh * 0.25;
-        if (visible) {
-          selapsed[k] += dt;
-          if (selapsed[k] >= CAROUSEL_MS * 0.6) primeStack(k);
-          if (selapsed[k] >= CAROUSEL_MS) {
-            selapsed[k] -= CAROUSEL_MS;
-            ssubs[k] = 1 - ssubs[k];
-            setStackState(k, ssubs[k]);
-          }
-        }
-        let f = Math.max(0, Math.min(1, selapsed[k] / CAROUSEL_MS));
-        if (rm) f = 0; /* quantized — the fill jumps at the swap */
-        if (ssubs[k] === 0) setSIndicator(k, f, 0, 0);
-        else setSIndicator(k, 1, 1, f);
-      }
-    };
-
-    /* ---- the base/rs swipe (§9 R21/R22): pointer drag with a
-       horizontal intent lock; the track and the b fill follow the
-       finger 1:1; the release commits past the threshold or on a
-       flick, and the CSS stage clock settles both ---- */
-    let sdrag: {
-      k: number;
-      x0: number;
-      y0: number;
-      locked: boolean;
-      lastX: number;
-      lastT: number;
-      vx: number;
-      dx: number;
-    } | null = null;
-
-    const onSPointerDown = (e: PointerEvent) => {
-      if (mode !== "swipe" || sdrag) return;
-      const k = svisuals.findIndex((v) => v === e.currentTarget);
-      if (k < 0) return;
-      sdrag = {
-        k,
-        x0: e.clientX,
-        y0: e.clientY,
-        locked: false,
-        lastX: e.clientX,
-        lastT: e.timeStamp,
-        vx: 0,
-        dx: 0,
-      };
-    };
-
-    const onSPointerMove = (e: PointerEvent) => {
-      if (!sdrag || mode !== "swipe") return;
-      const d = sdrag;
-      if (e.currentTarget !== svisuals[d.k]) return;
-      const dx = e.clientX - d.x0;
-      const dy = e.clientY - d.y0;
-      if (!d.locked) {
-        if (Math.abs(dx) >= SWIPE_LOCK_PX && Math.abs(dx) > Math.abs(dy)) {
-          d.locked = true;
-          try {
-            svisuals[d.k]!.setPointerCapture(e.pointerId);
-          } catch {
-            /* a detached or synthetic pointer — the drag still runs */
-          }
-          svisuals[d.k]!.setAttribute("data-drag", "");
-          primeStack(d.k);
-        } else if (Math.abs(dy) > SWIPE_LOCK_PX * 1.5) {
-          sdrag = null; /* a vertical scroll — cede to the page */
-          return;
-        } else {
-          return;
-        }
-      }
-      const dms = e.timeStamp - d.lastT;
-      if (dms > 0) d.vx = (e.clientX - d.lastX) / dms;
-      d.lastX = e.clientX;
-      d.lastT = e.timeStamp;
-      d.dx = dx;
-      /* p is the b-ness (the fill), q the away-ness from the resting
-         slide; the lateral direction is the gesture's — forward from
-         a, backward from b (two slides, §9 R22) */
-      const p = Math.max(
-        0,
-        Math.min(1, sslides[d.k] - (strideS ? dx / strideS : 0)),
-      );
-      const q = sslides[d.k] === 0 ? p : 1 - p;
-      if (!reduced()) scrubStack(d.k, q, sslides[d.k] === 0 ? 1 : -1);
-      setSIndicator(d.k, 1, 1, p);
-    };
-
-    const onSPointerEnd = (e: PointerEvent) => {
-      if (!sdrag) return;
-      const d = sdrag;
-      sdrag = null;
-      if (e.currentTarget !== svisuals[d.k]) return;
-      svisuals[d.k]!.removeAttribute("data-drag");
-      if (!d.locked || mode !== "swipe") return;
-      const commit =
-        Math.abs(d.dx) >= strideS * SWIPE_COMMIT_FRAC ||
-        Math.abs(d.vx) >= SWIPE_FLICK_VX;
-      let target = sslides[d.k];
-      if (commit) {
-        const dir =
-          Math.abs(d.vx) >= SWIPE_FLICK_VX
-            ? d.vx < 0
-              ? 1
-              : -1
-            : d.dx < 0
-              ? 1
-              : -1;
-        target = Math.max(0, Math.min(1, sslides[d.k] + dir));
-      }
-      /* the gesture's lateral axis for the settle (the CSS grammar's
-         --e2-sdir), then hand the scrubbed values to the transitions:
-         data-drag is already off, the inline scrub clears, and the
-         drawings and the fill settle on the stage clock (instant
-         under reduced motion) */
-      svisuals[d.k]!.style.setProperty(
-        "--e2-sdir",
-        String(sslides[d.k] === 0 ? 1 : -1),
-      );
-      clearScrub(d.k);
-      sslides[d.k] = target;
-      ssubs[d.k] = target;
-      setStackState(d.k, target);
-      setSIndicator(d.k, 1, 1, target);
+    /* the rd panels' slide looks, cached against attribute churn */
+    const rdSlides = new Array<boolean | null>(ENGINE_COUNT).fill(null);
+    const setRdSlide = (k: number, b: boolean) => {
+      if (rdSlides[k] === b) return;
+      rdSlides[k] = b;
+      setSlide(panels[k], b);
     };
 
     /* ---- the rAF clock (§9 R24/R25: the distance mapping is the
        whole rd interaction — read-only on scroll, no writes, no
-       auto progression) ---- */
+       auto progression; the hijack is event-driven, so the stack
+       bands need no frame work) ---- */
     let raf = 0;
     let running = false;
-    let lastTs = 0;
 
     const clampState = (v: number) => Math.max(0, Math.min(STATE_COUNT - 1, v));
 
@@ -538,13 +430,7 @@ export function EnginesScroll() {
     const downAt = (i: number) =>
       i === STATE_COUNT - 1 ? i - 1 + LAST_BOUNDARY : i - HYST;
 
-    const update = (now: number) => {
-      const dt = lastTs ? Math.min(DT_MAX_MS, now - lastTs) : 0;
-      lastTs = now;
-      if (mode === "timer") {
-        updateStackTimers(dt);
-        return;
-      }
+    const update = () => {
       if (!active) return;
       const s = readS();
 
@@ -562,27 +448,23 @@ export function EnginesScroll() {
       }
       setState(next);
 
-      /* the dots and the discrete indicator (§9 R25 — the drawn
-         slide-start keyframes; no fill ever animates a countdown) */
+      /* the dots and the discrete two-dot indicator (§9 R25/R28) */
       const engine = Math.floor(state / 2);
       const sub = state % 2;
       for (let j = 0; j < ENGINE_COUNT; j++) {
         setLit(j, j <= engine);
-        if (j !== engine) setIndicator(j, 0, 0, 0);
-        else if (sub === 0) setIndicator(j, 0, 0, 0);
-        else setIndicator(j, 1, 1, 0);
+        setRdSlide(j, j === engine && sub === 1);
       }
     };
 
-    const frame = (now: number) => {
-      update(now);
+    const frame = () => {
+      update();
       raf = running ? requestAnimationFrame(frame) : 0;
     };
 
     const start = () => {
       if (running) return;
       running = true;
-      lastTs = 0; /* no dt jump across a gap */
       raf = requestAnimationFrame(frame);
     };
     const stop = () => {
@@ -591,8 +473,7 @@ export function EnginesScroll() {
       raf = 0;
     };
 
-    /* the clock runs only while the section is near the viewport —
-       the timer pauses with it */
+    /* the clock runs only while the section is near the viewport */
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) start();
@@ -636,12 +517,14 @@ export function EnginesScroll() {
     sdrawings.forEach((pair) =>
       pair.forEach((el) => el.addEventListener("transitionend", onLeaveEnd)),
     );
-    svisuals.forEach((v) => {
-      v!.addEventListener("pointerdown", onSPointerDown);
-      v!.addEventListener("pointermove", onSPointerMove);
-      v!.addEventListener("pointerup", onSPointerEnd);
-      v!.addEventListener("pointercancel", onSPointerEnd);
-    });
+    /* the hijack's gesture listeners — non-passive so a caught burst
+       can be consumed (§9 R28); scroll is the passive safety valve */
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("touchcancel", onTouchEnd, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       stop();
@@ -652,12 +535,12 @@ export function EnginesScroll() {
       sdrawings.forEach((pair) =>
         pair.forEach((el) => el.removeEventListener("transitionend", onLeaveEnd)),
       );
-      svisuals.forEach((v) => {
-        v!.removeEventListener("pointerdown", onSPointerDown);
-        v!.removeEventListener("pointermove", onSPointerMove);
-        v!.removeEventListener("pointerup", onSPointerEnd);
-        v!.removeEventListener("pointercancel", onSPointerEnd);
-      });
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 

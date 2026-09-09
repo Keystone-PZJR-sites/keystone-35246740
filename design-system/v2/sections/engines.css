@@ -10,7 +10,8 @@
    (t·V/112), one declaration serving 860 → ∞.
 
    Two constructions, both rendered, CSS-gated at 860 (engines.tsx):
-   the static stack (base/rs/rt — §5, born settled, zero islands) and
+   the stack (base/rs/rt — §5 as re-ruled 2026-09-08, §9 R28: the
+   island's gesture-gated hijack steps each visual's two states) and
    the interactive carousel stage (rd1/rd2 — §1/§4/§6 as re-ruled
    2026-09-06, §9 R24). The interactive structure is pure CSS: the
    slug row and the stage are sticky; the pinned lattice rides a
@@ -20,10 +21,11 @@
    counter-transform). The island (engines-scroll.tsx) only adds the
    ten-stop distance mapping (§9 R24/R25 — every a and b drawing on
    the scroll path, no clamp, no snap, no auto progression), the
-   swaps, and the discrete slide indicator — no-JS renders the same
-   document with the stage holding 01a (§9 R6), and reduced motion
-   keeps the structure with state-to-state swaps (§9 R5; the media
-   query below kills the stage transitions).
+   stack hijack, the swaps, and the discrete two-dot indicator —
+   no-JS renders the same document with the stage holding 01a (§9
+   R6) and the stacks resting on `a`, and reduced motion keeps the
+   structure with state-to-state swaps (§9 R5/R28; the media query
+   below kills the stage transitions).
 
    The §7 constants live in tokens/component.css (--e2-*); the swap
    grammar in tokens/motion.css (--motion-stage-*). */
@@ -188,48 +190,50 @@
   background: var(--color-bg-400);
 }
 
-/* ---------------- the indicator vocabulary (§6.2 as re-read — §9
-   R19/R21, the 877:98990 keyframes): two full-radius bg/500 tracks,
-   one per illustration; the text/300 fill grows on the drawn law
-   max(min, track · f) — the mid keyframe is 12 = 24 × 0.5 (the fill
-   floors at the 6 minimum; §9 R21 corrected the first build's linear
-   read). One vocabulary, two orientations: horizontal (rd2 card,
-   base/rs stack) and vertical (rt stack — the drawn −90° rotation,
-   fill growing downward). Contexts set the size vars and the fill
-   defaults; the island writes --e2-fill-a/-b and --e2-fb-on. ---- */
+/* ---------------- the indicator vocabulary (§6.2 as redrawn — §9
+   R28, reshaped §9 R29, the two-variant 877:98990 set): two 8 dots
+   on an 8 gap, one per illustration — discrete, no fill ever
+   animates. A VIEWED dot is a square (radius 0) in the seen ink
+   (text/200); the upcoming dot is round (radius-full) in bg/600.
+   Dot one is always viewed; dot two flips as the visual rests on
+   `b` (the island's data-slide="b" on the panel). One vocabulary,
+   two orientations: horizontal (rd2 card, base/rs stack) and
+   vertical (rt stack — the drawn −90° rotation, dot one on top).
+   Contexts set the size vars. ---- */
 
 .e2-bc {
   position: absolute;
   display: flex;
   gap: var(--_bcgap);
-  --_fa: var(--e2-fill-a, 0);
-  --_fb: var(--e2-fill-b, 0);
-  --_fbon: var(--e2-fb-on, 0);
 }
-.e2-bc-track {
-  position: relative;
+/* the round rest is authored at the dot's TRUE circle radius (half
+   the box) so the round → square morph interpolates visibly across
+   the whole clock — radius-full's 9999px would hold the circle for
+   99.9% of the ramp and snap at the end. Color and shape share the
+   drawer family's snappy ease-out on its 250ms clock (§9 R29 as
+   tuned) — quicker than the 500ms drawing swap, so the flip reads
+   as one crisp beat inside it. */
+.e2-bc-dot {
   flex: none;
-  width: var(--_bctr);
-  height: var(--_bch);
-  border-radius: var(--radius-full);
-  background: var(--color-bg-500);
+  width: var(--_bcd);
+  height: var(--_bcd);
+  border-radius: calc(var(--_bcd) / 2);
+  background: var(--color-bg-600);
+  transition:
+    background-color var(--motion-drawer-duration) var(--motion-drawer-ease),
+    border-radius var(--motion-drawer-duration) var(--motion-drawer-ease);
 }
-.e2-bc-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  border-radius: var(--radius-full);
-  background: var(--color-text-300);
+.e2-bc-dot:first-child {
+  border-radius: 0;
+  background: var(--color-text-200);
 }
-.e2-bc-track:first-child .e2-bc-fill {
-  width: max(var(--_bcmin), calc(var(--_bctr) * var(--_fa)));
-}
-.e2-bc-track:last-child .e2-bc-fill {
-  width: calc(max(var(--_bcmin), var(--_bctr) * var(--_fb)) * var(--_fbon));
+.e2-panel[data-slide="b"] .e2-bc-dot:last-child,
+.e2-spanel[data-slide="b"] .e2-bc-dot:last-child {
+  border-radius: 0;
+  background: var(--color-text-200);
 }
 
-/* ================= the stack (base/rs/rt — §5 as re-ruled, §9 R21) ================= */
+/* ================= the stack (base/rs/rt — §5 as re-ruled, §9 R28) ================= */
 
 .e2-stack {
   width: 100%;
@@ -340,15 +344,13 @@
   }
 }
 
-/* the visual: full-bleed bg/100 carousel (§5 as re-ruled 2026-09-06,
-   §9 R21/R22) — the drawing at its drawn mount, 1t top/left,
+/* the visual: full-bleed bg/100 carousel (§5 as re-ruled 2026-09-08,
+   §9 R28) — the drawing at its drawn mount, 1t top/left,
    flush/clipped bottom-right (§1/§4 as amended, §9 R12); side borders
    drop at the page edges at 384 (drawn). The two drawings stack at
-   every band and swap on the one blur grammar (§9 R3), only the
-   travel axis differs: vertical rise at rt (the timer), a slight
-   LATERAL wipe below the rt gate (§9 R22 — the swipe; --e2-sdir
-   carries the gesture's direction, touch-action pan-y keeps vertical
-   scroll native, and the island scrubs the values inline mid-drag). */
+   every band and swap on the one blur + rise grammar (§9 R3), the
+   vertical axis everywhere — the R22 lateral wipe retired with the
+   swipe; the island's gesture-gated hijack steps the states. */
 .e2-svisual {
   position: relative;
   box-sizing: border-box;
@@ -359,7 +361,6 @@
   border-bottom: 1px solid var(--line);
   background: var(--color-bg-100);
   overflow: clip;
-  touch-action: pan-y;
 }
 .e2-strack {
   position: absolute;
@@ -370,7 +371,7 @@
   inset: 0;
   opacity: 0;
   filter: blur(var(--motion-stage-blur));
-  transform: translateX(calc(var(--motion-stage-rise) * var(--e2-sdir, 1)));
+  transform: translateY(var(--motion-stage-rise));
   transition:
     opacity var(--motion-stage-dur) var(--motion-stage-ease),
     filter var(--motion-stage-dur) var(--motion-stage-ease),
@@ -384,10 +385,7 @@
 .e2-sdrawing[data-leaving] {
   opacity: 0;
   filter: blur(var(--motion-stage-blur));
-  transform: translateX(calc(var(--motion-stage-drop) * var(--e2-sdir, 1)));
-}
-.e2-svisual[data-drag] .e2-sdrawing {
-  transition: none;
+  transform: translateY(var(--motion-stage-drop));
 }
 .e2-sdrawing img {
   position: absolute;
@@ -397,32 +395,17 @@
   height: calc(var(--t) * 11);
 }
 
-/* the stack's indicator — the drawn material construction (24 track ·
-   6 thick · 8 gap · 6 minimum at both drawn anchors); horizontal at
-   base/rs, left 1t on the tick, the drawn 29 bottom offset. The rest
-   is the drawn slide1-finish: track one full (--_fa default 1),
-   track two EMPTY (§9 R22 — the b fill carries no minimum below the
-   rt gate: it rides the swipe from nothing, 24 · f, and drains back
-   to nothing). The release settles it on the stage clock with the
-   drawings (killed mid-drag; the rt scrub writes per frame, so no
-   transition there). */
+/* the stack's indicator — the redrawn two-dot set (§9 R28/R29): 8
+   dots · 8 gap, material at both drawn anchors; horizontal at
+   base/rs, left 1t on the tick, the drawn bottom 27 (the mount kept
+   its drawn y as the set grew 6 → 8 high — the R21 artifact class,
+   built as drawn). The rest is the drawn slide-1: dot one the viewed
+   square, dot two the upcoming round. */
 .e2-sbc {
   left: var(--t);
-  bottom: 29px;
-  --_bch: 6px;
-  --_bctr: 24px;
+  bottom: 27px;
+  --_bcd: 8px;
   --_bcgap: 8px;
-  --_bcmin: 6px;
-  --_fa: var(--e2-fill-a, 1);
-}
-.e2-sbc .e2-bc-track:last-child .e2-bc-fill {
-  width: calc(var(--_bctr) * var(--_fb));
-}
-.e2-sbc .e2-bc-fill {
-  transition: width var(--motion-stage-dur) var(--motion-stage-ease);
-}
-.e2-svisual[data-drag] .e2-bc-fill {
-  transition: none;
 }
 
 @container (min-width: 665px) {
@@ -430,46 +413,17 @@
     height: calc(var(--t) * 12 + 1px);
     border: 1px solid var(--line);
   }
-  /* rt: the same stacked grammar on the drawn VERTICAL axis (the
-     timer's blur + rise — §6/§9 R3) */
-  .e2-sdrawing {
-    transform: translateY(var(--motion-stage-rise));
-  }
-  .e2-sdrawing[data-active] {
-    transform: none;
-  }
-  .e2-sdrawing[data-leaving] {
-    transform: translateY(var(--motion-stage-drop));
-  }
   .e2-sdrawing img {
     width: var(--e2-det-s-rt);
     height: var(--e2-det-s-rt);
   }
-  /* the vertical indicator (§6.2 as re-read, §9 R21 — the drawn −90°
-     rotation): tracks stacked, the fill growing downward; the drawn
-     29 left / 32 bottom offsets. The rt fill rides the timer per
-     frame — no transition. */
+  /* the vertical indicator (§6.2 as redrawn, §9 R28 — the drawn −90°
+     rotation): dots stacked, dot one on top; the drawn 29 left /
+     32 bottom offsets. */
   .e2-sbc {
     flex-direction: column;
     left: 29px;
     bottom: 32px;
-  }
-  .e2-sbc .e2-bc-track {
-    width: var(--_bch);
-    height: var(--_bctr);
-  }
-  .e2-sbc .e2-bc-fill {
-    height: auto;
-    width: 100%;
-    transition: none;
-  }
-  .e2-sbc .e2-bc-track:first-child .e2-bc-fill {
-    width: 100%;
-    height: max(var(--_bcmin), calc(var(--_bctr) * var(--_fa)));
-  }
-  .e2-sbc .e2-bc-track:last-child .e2-bc-fill {
-    width: 100%;
-    height: calc(max(var(--_bcmin), var(--_bctr) * var(--_fb)) * var(--_fbon));
   }
 }
 
@@ -613,17 +567,15 @@
     padding-left: var(--e2-text-pl-rd);
   }
 
-  /* the card's timer indicator (§6.2 as re-read 2026-09-06 — §9 R19):
-     the shared vocabulary at the rd sizes (riding the zoom), on the
-     text column line, flush at the container's bottom; resting panels
-     hold the drawn slide1-start (the minimum dot on track one) */
+  /* the card's slide indicator (§6.2 as redrawn 2026-09-08 — §9 R28):
+     the shared two-dot vocabulary at the rd sizes (riding the zoom),
+     on the text column line, flush at the container's bottom; panels
+     hold the drawn slide-1 until their visual rests on `b` */
   .e2-card .e2-bc {
     left: var(--e2-text-pl-rd);
     bottom: 0;
-    --_bch: var(--e2-bc-h);
-    --_bctr: var(--e2-bc-track);
+    --_bcd: var(--e2-bc-dot);
     --_bcgap: var(--e2-bc-gap);
-    --_bcmin: var(--e2-bc-min);
   }
 
   /* the stage — sticky on the pin line; bg/100 fill on the drawn
@@ -699,7 +651,7 @@
   .e2-drawing,
   .e2-sdrawing,
   .e2-strack,
-  .e2-sbc .e2-bc-fill,
+  .e2-bc-dot,
   .e2-io .e2-dot {
     transition: none;
   }
@@ -707,7 +659,7 @@
 .page[data-motion="reduce"] .e2-drawing,
 .page[data-motion="reduce"] .e2-sdrawing,
 .page[data-motion="reduce"] .e2-strack,
-.page[data-motion="reduce"] .e2-sbc .e2-bc-fill,
+.page[data-motion="reduce"] .e2-bc-dot,
 .page[data-motion="reduce"] .e2-io .e2-dot {
   transition: none;
 }

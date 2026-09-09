@@ -23,15 +23,17 @@
  *   (§9 R6).
  *
  * - **Stack (base/rs/rt)** — the drawn stack (§5 as re-ruled
- *   2026-09-06, §9 R21): slug row (rt only, §9 R8), five panels of
- *   engine-box over full-bleed visual. Each visual is now a two-state
- *   carousel resting on the `a` drawing (the redrawn frames — R1's b
- *   canon superseded): at rt the illustration auto-progresses on the
- *   rd carousel timer (blur + rise, a↔b loop) with the indicator
- *   drawn vertical; at base/rs the user swipes between the two
- *   states (a horizontal slide track) with the horizontal indicator's
- *   b fill riding the swipe. The same island drives both; no-JS
- *   renders the drawn rest (slide a, track one full).
+ *   2026-09-08, §9 R28): slug row (rt only, §9 R8), five panels of
+ *   engine-box over full-bleed visual. Each visual is a two-state
+ *   carousel resting on the `a` drawing, driven by ONE gesture-gated
+ *   scroll hijack at every stack band (the R21 rt timer and the
+ *   R21/R22 base/rs swipe are deleted): scrolling toward a panel
+ *   whose visual rests on the far state catches the scroll, the next
+ *   gesture fires the timed a→b swap (blur + rise, the one grammar),
+ *   and the gesture after releases — so a pass shows all ten
+ *   drawings. The indicator is the redrawn two-dot set, discrete
+ *   (vertical at rt, horizontal below). The island drives it; no-JS
+ *   renders the drawn rest (slide a).
  *
  * The left column carries all meaning; the stage subtree and the stack
  * visuals are decorative (aria-hidden, empty alt — the 018 R6
@@ -165,17 +167,15 @@ export function EnginesSection() {
                   <div className="e2-card">
                     <span className="e2-dot" aria-hidden="true" />
                     <EngineCopyBlock engine={engine} />
-                    {/* the timer indicator (§6.2 as re-read — §9 R19,
-                        the 877:98990 keyframes): two bg/500 tracks,
-                        one per illustration; the active track's
-                        text/300 fill rides the carousel timer */}
+                    {/* the slide indicator (§6.2 as redrawn — §9
+                        R28/R29, the two-variant 877:98990 set): two
+                        8 dots, one per illustration — viewed square
+                        (text/200), upcoming round (bg/600); dot two
+                        flips while the visual rests on `b` (the
+                        island's data-slide) */}
                     <span className="e2-bc" aria-hidden="true">
-                      <i className="e2-bc-track">
-                        <b className="e2-bc-fill" />
-                      </i>
-                      <i className="e2-bc-track">
-                        <b className="e2-bc-fill" />
-                      </i>
+                      <i className="e2-bc-dot" />
+                      <i className="e2-bc-dot" />
                     </span>
                   </div>
                 </li>
@@ -236,11 +236,11 @@ export function EnginesSection() {
                   <EngineCopyBlock engine={engine} />
                 </div>
               </div>
-              {/* the visual carousel (§5 as re-ruled, §9 R21): a
-                  two-state track resting on `a` — rt crossfades it on
-                  the timer, base/rs slides it under the swipe; the
-                  indicator is the drawn 24/6/8 material construction,
-                  vertical at rt (rotated −90°, fill growing down),
+              {/* the visual carousel (§5 as re-ruled, §9 R28): a
+                  two-state track resting on `a`, stepped by the
+                  island's gesture-gated hijack on the one blur + rise
+                  grammar; the indicator is the drawn two-dot set —
+                  vertical at rt (rotated −90°, dot one on top),
                   horizontal at base/rs */}
               <div className="e2-svisual" aria-hidden="true">
                 <div className="e2-strack">
@@ -270,12 +270,8 @@ export function EnginesSection() {
                   ))}
                 </div>
                 <span className="e2-bc e2-sbc">
-                  <i className="e2-bc-track">
-                    <b className="e2-bc-fill" />
-                  </i>
-                  <i className="e2-bc-track">
-                    <b className="e2-bc-fill" />
-                  </i>
+                  <i className="e2-bc-dot" />
+                  <i className="e2-bc-dot" />
                 </span>
               </div>
             </li>

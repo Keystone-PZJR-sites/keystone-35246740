@@ -55,12 +55,17 @@ The owner's working list once `/` serves the v2 homepage (owner ruling
 2026-09-08 — swap now, finish after). None of these blocked the swap;
 items 1 and 4 carry owner decisions.
 
-1. **[owner review] The phone/tablet engine section.** It still runs
-   the earlier timer + swipe behavior while desktop carries the new
-   free-scroll contract (deferred 2026-09-06, 020 §9 R25). Review it
-   on `/` at phone width; decide whether aligning it jumps the queue.
-2. **[build, after item 1] The 384/768 engine pass** — whatever item 1
-   rules, executed.
+1. ~~**[owner review] The phone/tablet engine section.**~~ **Ruled
+   2026-09-08** (owner, in-chat — 020 §9 R28): a gesture-gated scroll
+   hijack at the illustrations so a pass shows all ten drawings; one
+   contract below the rd1 gate; the breadcrumb simplified to the
+   redrawn two-dot set; no tick change.
+2. ~~**[build, after item 1] The 384/768 engine pass.**~~ **Built
+   2026-09-08** (the R28 record): the rt timer and the base/rs swipe
+   deleted, the hijack landed, the discrete two-dot indicator at
+   every band. One file residual with design: the 1344 state frames'
+   active panels still carry stale old-set breadcrumb instances
+   (020 §9 R28).
 3. **[design → build] The engine native-visuals pass** (= G10). The
    ten illustrations (+ thirty small-band cuts) are placeholder
    exports; production art replaces them file-for-file through the

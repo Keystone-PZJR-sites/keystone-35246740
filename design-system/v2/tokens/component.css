@@ -770,9 +770,10 @@
   --e2-ps-rd: calc(var(--t) * 12 / 112); /* the styles' drawn ps 12 */
   --e2-det-pad-rd: calc(var(--t) * 64 / 112); /* §4 as amended — top/left */
   --e2-det-s-rd: calc(var(--t) * 608 / 112);
-  /* the slide indicator (§6.2 as redrawn 2026-09-08 — §9 R28, the
-     two-variant 877:98990 set): two 8Ø dots, gap 8, discrete —
-     riding the zoom at rd (material 8/8 below the gate, engines.css) */
+  /* the slide indicator (§6.2 as redrawn 2026-09-08 — §9 R28/R29,
+     the two-variant 877:98990 set): two 8 dots (viewed square ·
+     upcoming round), gap 8, discrete — riding the zoom at rd
+     (material 8/8 below the gate, engines.css) */
   --e2-bc-dot: calc(var(--t) * 8 / 112);
   --e2-bc-gap: calc(var(--t) * 8 / 112);
   /* static stack — the R9 walk pairs (drawn 384 · midpoint · drawn
