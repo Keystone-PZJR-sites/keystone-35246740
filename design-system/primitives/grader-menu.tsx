@@ -1,6 +1,7 @@
 /** Grouped grader listbox.
  * Rows keep focus on the combobox input and use flat result indices. */
 
+import { useLayoutEffect } from "react";
 import type { GraderSuggestion } from "../lib/grader";
 import type { GraderSearchGroups } from "../lib/use-grader-search";
 
@@ -34,6 +35,11 @@ export function GraderSelectMenu({
     { key: "places", label: groupLabels.places, items: groups.places, offset: 0 },
     { key: "web", label: groupLabels.web, items: groups.web, offset: groups.places.length },
   ].filter((s) => s.items.length > 0);
+
+  const activeOptionId = optionId(activeIndex);
+  useLayoutEffect(() => {
+    document.getElementById(activeOptionId)?.scrollIntoView({ block: "nearest" });
+  }, [activeOptionId]);
 
   return (
     <ul className="grader-menu" id={id} role="listbox" aria-label={label}>
