@@ -23,17 +23,13 @@
  *   (§9 R6).
  *
  * - **Stack (base/rs/rt)** — the drawn stack (§5 as re-ruled
- *   2026-09-08, §9 R28): slug row (rt only, §9 R8), five panels of
- *   engine-box over full-bleed visual. Each visual is a two-state
- *   carousel resting on the `a` drawing, driven by ONE gesture-gated
- *   scroll hijack at every stack band (the R21 rt timer and the
- *   R21/R22 base/rs swipe are deleted): scrolling toward a panel
- *   whose visual rests on the far state catches the scroll, the next
- *   gesture fires the timed a→b swap (blur + rise, the one grammar),
- *   and the gesture after releases — so a pass shows all ten
- *   drawings. The indicator is the redrawn two-dot set, discrete
- *   (vertical at rt, horizontal below). The island drives it; no-JS
- *   renders the drawn rest (slide a).
+ *   2026-09-08, §9 R30): slug row (rt only, §9 R8), five panels of
+ *   engine-box over full-bleed visual. The stacks are STATIC — born
+ *   settled on the drawn `a` rest with the two-dot indicator at
+ *   slide-1 (the R21 rt timer, the R21/R22 base/rs swipe, and the
+ *   R28 gesture hijack are all deleted/pulled; a new small-band
+ *   interaction contract is a future ruling). Both drawings stay
+ *   mounted (the drawn two-state content); nothing drives a swap.
  *
  * The left column carries all meaning; the stage subtree and the stack
  * visuals are decorative (aria-hidden, empty alt — the 018 R6
@@ -236,12 +232,12 @@ export function EnginesSection() {
                   <EngineCopyBlock engine={engine} />
                 </div>
               </div>
-              {/* the visual carousel (§5 as re-ruled, §9 R28): a
-                  two-state track resting on `a`, stepped by the
-                  island's gesture-gated hijack on the one blur + rise
-                  grammar; the indicator is the drawn two-dot set —
-                  vertical at rt (rotated −90°, dot one on top),
-                  horizontal at base/rs */}
+              {/* the visual (§5 as re-ruled, §9 R30): the two-state
+                  track rests STATIC on the drawn `a` — the R28 hijack
+                  is pulled, nothing drives a swap; the indicator is
+                  the drawn two-dot set at slide-1 — vertical at rt
+                  (rotated −90°, dot one on top), horizontal at
+                  base/rs */}
               <div className="e2-svisual" aria-hidden="true">
                 <div className="e2-strack">
                   {(["01", "02"] as const).map((state) => (

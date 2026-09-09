@@ -1193,7 +1193,26 @@ F5 mobile-LCP gate against the new hero.
   read fresh): a viewed dot is a square (radius 0, `text/200`),
   the upcoming dot round (radius-full, `bg/600`) — built; one
   drawn residual with design (the slide-1 variant's 7×7 square
-  against the set's 8s; the consistent 8 built). Two of the three R1
+  against the set's 8s; the consistent 8 built).
+- **The engine hijack pulled — the small-band interaction is
+  parked** (owner ruling, late evening; 020 §9 R30 the record,
+  superseding the same-day R28 ruling). The R28 contract never
+  engaged on real touch devices (non-cancelable mid-gesture
+  events; event-less momentum) and its window-scoped non-passive
+  listeners lagged the whole page's scrolling. A touch-capable
+  rework was built and verified (positional rAF arming ·
+  gesture-start gating · a scroll-snap assist · section-scoped
+  listeners), then reverted on the owner's instruction and the
+  pull ruled: the stacks are **static** below the rd1 gate — born
+  settled on the drawn `a` rest with the R29 two-dot indicator at
+  slide-1, the island rd-only, zero gesture listeners at any band.
+  The rd construction, nav anchors, reduced motion, and no-JS are
+  untouched; the breadcrumb redraw stands. The rework is preserved
+  in the branch stash (`R30 touch hijack rework`) as the candidate
+  for the future contract; the post-swap checklist items 1–2
+  re-open on that ruling. Verified against the owner's server;
+  tsc/lint zero; the standing sweep green. Working tree left
+  uncommitted per the git rule. Two of the three R1
   proposals still ride it (the search open/close grammar, the 768
   search-active derivation); **the no-JS posture was ruled same
   evening** (owner: the open functional pill — 024 §9 R3, which also

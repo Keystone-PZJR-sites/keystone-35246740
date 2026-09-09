@@ -55,17 +55,20 @@ The owner's working list once `/` serves the v2 homepage (owner ruling
 2026-09-08 — swap now, finish after). None of these blocked the swap;
 items 1 and 4 carry owner decisions.
 
-1. ~~**[owner review] The phone/tablet engine section.**~~ **Ruled
-   2026-09-08** (owner, in-chat — 020 §9 R28): a gesture-gated scroll
-   hijack at the illustrations so a pass shows all ten drawings; one
-   contract below the rd1 gate; the breadcrumb simplified to the
-   redrawn two-dot set; no tick change.
-2. ~~**[build, after item 1] The 384/768 engine pass.**~~ **Built
-   2026-09-08** (the R28 record): the rt timer and the base/rs swipe
-   deleted, the hijack landed, the discrete two-dot indicator at
-   every band. One file residual with design: the 1344 state frames'
-   active panels still carry stale old-set breadcrumb instances
-   (020 §9 R28).
+1. **[owner ruling] The phone/tablet engine section — the
+   interaction is PARKED** (2026-09-08 evening, 020 §9 R30; it
+   supersedes the same-day R28 hijack ruling). The R28 gesture
+   hijack failed on real touch devices and lagged page scrolling;
+   it is pulled. The stacks are static — the drawn `a` rest with
+   the two-dot indicator — until a new small-band contract is
+   ruled. A touch-capable rework candidate is preserved in the
+   branch stash (020 §9 R30).
+2. **[build, after item 1] The 384/768 engine pass** — re-opens
+   when the new contract is ruled. The R28/R29 breadcrumb redraw
+   (the discrete two-dot set, viewed square · upcoming round) is
+   built and stands at every band. One file residual with design:
+   the 1344 state frames' active panels still carry stale old-set
+   breadcrumb instances (020 §9 R28).
 3. **[design → build] The engine native-visuals pass** (= G10). The
    ten illustrations (+ thirty small-band cuts) are placeholder
    exports; production art replaces them file-for-file through the

@@ -253,6 +253,19 @@ are decorative). The indicator is the redrawn two-dot set, discrete
 (§6.2 as amended). Reduced motion keeps the gating with instant swaps
 (the R19 posture); no-JS is unchanged — plain flow resting on `a`.)*
 
+*(The hijack pulled 2026-09-08, late evening — §9 R30, owner ruling
+at the built review: the R28 contract never engaged on real touch
+devices (non-cancelable mid-gesture events, event-less momentum) and
+its window-scoped non-passive listeners lagged the whole page's
+scrolling. Rather than iterate live, the small-band interaction is
+**parked**: the stacks are STATIC — born settled on the drawn `a`
+rest with the two-dot indicator at slide-1, both drawings mounted,
+zero gesture listeners at any band. The R21 "born settled" posture
+effectively returns, now on the `a` rest with the R29 indicator. A
+new small-band contract is a future owner ruling; a reworked
+touch-capable candidate (positional arming + gesture-start gating +
+a scroll-snap assist) is preserved in the branch stash, §9 R30.)*
+
 Type restatements: rt — header `display-serif/sm+/Extralight`, body
 `text/xl/Light`, container (24, 97) 488 × 254; base — header
 `display-serif/xs/Extralight`, body `text/md/Light`, container (0, 54)
@@ -490,7 +503,9 @@ counter-transform. The mapping contract above is unchanged.)*
   §9 R28, with the whole timer/swipe apparatus; the **hijack
   constants** join the R7 QA-tunable class: the catch band — the
   visual's center within the viewport's 25–75% — and the wheel-burst
-  separator ≈180ms)*; the indicator geometry
+  separator ≈180ms; the hijack constants deleted the same evening —
+  §9 R30, the pull: the static stacks carry no interaction
+  constants)*; the indicator geometry
   (39 × 7 · pill 24 · dot 7 · x 32 / x 15) *(superseded 2026-09-06 —
   §9 R19, the redrawn keyframes: 56 × 6 — two 24 × 6 tracks · gap 8 ·
   fill minimum 6; superseded again 2026-09-08 — §9 R28, the two-dot
@@ -1192,6 +1207,36 @@ All flags resolved 2026-09-06, the same morning:
   draws 7×7 (its frame 23-wide) where the slide-2 variant draws the
   same semantic dot 8×8 — the variants disagree, so the consistent
   8 is built (the read-artifact/hygiene class).
+- **R30 (owner ruling, 2026-09-08 late evening — the hijack pulled;
+  the small-band interaction parked).** The R28 contract failed on
+  real devices, twice over: **on touch it never engaged** — a touch
+  sequence's `touchmove` events become non-cancelable once the
+  browser commits it to scrolling (a mid-drag catch cannot consume
+  anything) and flick momentum emits no gesture events at all (the
+  catch, evaluated inside gesture handlers, never even ran while
+  most of the travel happened; the wheel-modeled verification
+  masked both) — and its **window-scoped non-passive listeners
+  lagged the whole page** (a non-passive wheel/touchmove listener
+  on `window` forces every scroll, at every band, to consult the
+  main thread before it starts). A rework was built and verified
+  the same evening (rAF positional arming · gesture-start gating ·
+  a scroll-snap proximity/stop-always assist · section-scoped,
+  mode-gated listeners), then **reverted on the owner's
+  instruction; the pull followed as the ruling** — the small-band
+  interaction is parked rather than iterated live. Built state:
+  the stacks are **static** — born settled on the drawn `a` rest,
+  the R29 two-dot indicator at slide-1, both drawings mounted (the
+  drawn two-state content stands; the swap grammar stays in the
+  cascade for the future contract), and the island is rd-only with
+  **zero gesture listeners at any band** (the R28 hijack machinery,
+  its constants, and the scroll valve are deleted; `data-slide` is
+  rd vocabulary only). The rd construction, the nav-anchor jump,
+  reduced motion, and no-JS are untouched. The reverted rework is
+  preserved in the branch stash (`R30 touch hijack rework`) as the
+  candidate for the future ruling. Verified against the owner's
+  server: the stacks render the drawn rest at 384/768 with no
+  gesture ever consumed; the rd ten-state walk unchanged; tsc/lint
+  zero; the standing sweep green.
 
 *At the three drawn anchors, the two derived-band anchors, and one
 arbitrary mid-band width per band, scrollbar forced on; the interactive

@@ -10,10 +10,10 @@
    (t·V/112), one declaration serving 860 → ∞.
 
    Two constructions, both rendered, CSS-gated at 860 (engines.tsx):
-   the stack (base/rs/rt — §5 as re-ruled 2026-09-08, §9 R28: the
-   island's gesture-gated hijack steps each visual's two states) and
-   the interactive carousel stage (rd1/rd2 — §1/§4/§6 as re-ruled
-   2026-09-06, §9 R24). The interactive structure is pure CSS: the
+   the STATIC stack (base/rs/rt — §5 as re-ruled 2026-09-08, §9 R30:
+   the R28 hijack is pulled; the visuals rest on the drawn `a`, born
+   settled, no driver) and the interactive carousel stage (rd1/rd2 —
+   §1/§4/§6 as re-ruled 2026-09-06, §9 R24). The interactive structure is pure CSS: the
    slug row and the stage are sticky; the pinned lattice rides a
    sticky assembly behind the flow column; the column itself is plain
    native flow (the R15 compositor window left with the runways — the
@@ -21,11 +21,11 @@
    counter-transform). The island (engines-scroll.tsx) only adds the
    ten-stop distance mapping (§9 R24/R25 — every a and b drawing on
    the scroll path, no clamp, no snap, no auto progression), the
-   stack hijack, the swaps, and the discrete two-dot indicator —
-   no-JS renders the same document with the stage holding 01a (§9
-   R6) and the stacks resting on `a`, and reduced motion keeps the
-   structure with state-to-state swaps (§9 R5/R28; the media query
-   below kills the stage transitions).
+   swaps, and the discrete two-dot indicator — no-JS renders the
+   same document with the stage holding 01a (§9 R6) and the stacks
+   resting on `a`, and reduced motion keeps the structure with
+   state-to-state swaps (§9 R5; the media query below kills the
+   stage transitions).
 
    The §7 constants live in tokens/component.css (--e2-*); the swap
    grammar in tokens/motion.css (--motion-stage-*). */
@@ -233,7 +233,7 @@
   background: var(--color-text-200);
 }
 
-/* ================= the stack (base/rs/rt — §5 as re-ruled, §9 R28) ================= */
+/* ================= the stack (base/rs/rt — §5 as re-ruled, §9 R30: static) ================= */
 
 .e2-stack {
   width: 100%;
@@ -344,13 +344,13 @@
   }
 }
 
-/* the visual: full-bleed bg/100 carousel (§5 as re-ruled 2026-09-08,
-   §9 R28) — the drawing at its drawn mount, 1t top/left,
+/* the visual: full-bleed bg/100 two-state track (§5 as re-ruled
+   2026-09-08, §9 R30) — the drawing at its drawn mount, 1t top/left,
    flush/clipped bottom-right (§1/§4 as amended, §9 R12); side borders
-   drop at the page edges at 384 (drawn). The two drawings stack at
-   every band and swap on the one blur + rise grammar (§9 R3), the
-   vertical axis everywhere — the R22 lateral wipe retired with the
-   swipe; the island's gesture-gated hijack steps the states. */
+   drop at the page edges at 384 (drawn). Both drawings stay mounted,
+   resting on `a` — the R28 hijack is pulled and nothing drives a
+   swap; the grammar below (blur + rise, vertical axis) is kept for
+   the future small-band contract. */
 .e2-svisual {
   position: relative;
   box-sizing: border-box;
