@@ -36,7 +36,9 @@ const LINKS = {
   solutions: "/solutions",
   pricing: "/pricing",
   company: "/company",
-  resources: "/resources",
+  /* the blog keeps its live /blog URLs — no URL change at the rebuild
+     (owner direction 2026-09-08, Resources planning pass) */
+  resources: "/blog",
   login: "https://console.localkeystone.com/login",
   /* the homepage system section, interim until /how-it-works exists
      (owner direction 2026-09-08 — spec 005 §9 F21) */
