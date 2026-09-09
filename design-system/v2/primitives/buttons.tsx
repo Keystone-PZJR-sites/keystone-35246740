@@ -81,8 +81,8 @@ interface ButtonGhostProps {
   /** Renders the same chrome as a link (spec 006 §9, mirroring
    * ButtonFill's extension from spec 005). */
   href?: string;
-  /** Behavior hook rendered as data-action — e.g. the hero's inert
-   * "open-chat" (spec 006 §9), wired when the feature lands. */
+  /** Behavior hook rendered as data-action — "open-chat" opens the site
+   * chat (sections/site-chat-open.tsx); "open-gallery" the work gallery. */
   action?: string;
   disabled?: boolean;
   forceState?: ForceableState;

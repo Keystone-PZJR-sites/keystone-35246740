@@ -1,0 +1,36 @@
+/* v2 — the @keystone-sites/widgets stylesheet.
+
+   The Keystone chat widget ships as Tailwind v4 utility classes with no
+   compiled CSS; the host compiles them (the package's documented
+   prerequisite: import its theme.css after Tailwind). This entry is the
+   whole compile, sealed off from the site's own CSS:
+
+   - theme + utilities only — no preflight. The v2 base reset (base.css)
+     already is the preflight contract (border-box, zeroed margins and
+     paddings, block media, inheriting form controls), so the widget
+     renders on the same normalization every other host gives it.
+   - the utilities are emitted UNLAYERED, on purpose. The site's reset
+     is unlayered element rules (`*`, `button`, `svg`, `h1`…), and an
+     unlayered rule outranks every cascade layer regardless of
+     specificity — in `@layer utilities` the widget's `.p-4`,
+     `.rounded-full`, `.bg-…` would all lose to `* { padding: 0 }` and
+     `button { background: transparent; border-radius: 0 }`. Unlayered,
+     the ordinary rules apply: a utility (class) beats the reset
+     (element). Utilities only ever match the widget's own class names,
+     which the site never uses (rules.md, "The Design System Is
+     Central"), so nothing on the site picks them up.
+   - `source(none)` turns automatic class detection off, so nothing in
+     the site tree is scanned. The only class source is the package's
+     own `@source "../src"` inside its theme.css.
+   - the theme layer is `:root` variables; where a name is shared with
+     a site token (`--radius-*`, `--font-serif`, `--font-weight-*`) the
+     site's unlayered value wins. Audited 2026-09-08: the chat reads
+     none of the shared names except `--font-weight-medium`, identical
+     (500) on both sides.
+
+   This file authors no rules of its own. Imported by the root layout
+   after index.css. */
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" source(none);
+@import "@keystone-sites/widgets/theme.css";
