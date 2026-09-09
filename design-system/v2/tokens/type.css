@@ -1,5 +1,5 @@
 /* v2 tokens — type styles. GENERATED FILE, do not edit.
-   Source: type-styles.json (Figma text styles, extracted 2026-08-31).
+   Source: type-styles.json (Figma text styles, extracted 2026-09-08).
    Regenerate: node scripts/generate-v2-type-css.mjs
 
    Per style: -font is a CSS font shorthand (weight size/lh family);
@@ -95,10 +95,10 @@
   --ts-display-serif-sm-plus-regular-ls: -0.02em;
   --ts-display-serif-sm-plus-medium-font: 500 36px/42px var(--font-serif);
   --ts-display-serif-sm-plus-medium-ls: -0.02em;
-  --ts-display-serif-sm-thin-font: 100 32px/38px var(--font-serif);
-  --ts-display-serif-sm-thin-ls: -0.02em;
   --ts-display-serif-sm-extralight-font: 200 32px/38px var(--font-serif);
   --ts-display-serif-sm-extralight-ls: -0.02em;
+  --ts-display-serif-sm-thin-font: 100 32px/38px var(--font-serif);
+  --ts-display-serif-sm-thin-ls: -0.02em;
   --ts-display-serif-sm-light-font: 300 32px/38px var(--font-serif);
   --ts-display-serif-sm-light-ls: -0.02em;
   --ts-display-serif-sm-regular-font: 400 32px/38px var(--font-serif);
@@ -107,6 +107,8 @@
   --ts-display-serif-sm-medium-ls: -0.02em;
   --ts-display-serif-xs-plus-light-font: 300 28px/34px var(--font-serif);
   --ts-display-serif-xs-plus-light-ls: -0.02em;
+  --ts-display-serif-xs-plus-regular-font: 400 28px/34px var(--font-serif);
+  --ts-display-serif-xs-plus-regular-ls: -0.02em;
   --ts-display-serif-xs-plus-extralight-font: 200 28px/34px var(--font-serif);
   --ts-display-serif-xs-plus-extralight-ls: -0.02em;
   --ts-display-serif-xs-extralight-font: 200 24px/30px var(--font-serif);

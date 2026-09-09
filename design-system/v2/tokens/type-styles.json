@@ -1,6 +1,6 @@
 {
   "source": "Figma ks-MarketingSite (IBO39siJYDhiCRtuLWUTW2) local text styles",
-  "extracted": "2026-09-06",
+  "extracted": "2026-09-08",
   "note": "Extraction snapshot for size/lh/ls/ps/weight. Regenerate type.css with scripts/generate-v2-type-css.mjs. GT Standard opsz is NOT taken from the Figma L/M/S instance — the generator pins it per type-scale step.",
   "styles": [
     { "name": "display-serif/4xl/Extralight", "family": "PP Kyoto", "style": "Extralight", "size": 88, "lh": 90, "ls": "-2%", "ps": 0 },
@@ -50,6 +50,7 @@
     { "name": "display-serif/sm/Regular", "family": "PP Kyoto", "style": "Regular", "size": 32, "lh": 38, "ls": "-2%", "ps": 0 },
     { "name": "display-serif/sm/Medium", "family": "PP Kyoto", "style": "Medium", "size": 32, "lh": 38, "ls": "-2%", "ps": 0 },
     { "name": "display-serif/xs+/Light", "family": "PP Kyoto", "style": "Light", "size": 28, "lh": 34, "ls": "-2%", "ps": 0 },
+    { "name": "display-serif/xs+/Regular", "family": "PP Kyoto", "style": "Regular", "size": 28, "lh": 34, "ls": "-2%", "ps": 0 },
     { "name": "display-serif/xs+/Extralight", "family": "PP Kyoto", "style": "Extralight", "size": 28, "lh": 34, "ls": "-2%", "ps": 0 },
     { "name": "display-serif/xs/Extralight", "family": "PP Kyoto", "style": "Extralight", "size": 24, "lh": 30, "ls": "-2%", "ps": 0 },
     { "name": "display-serif/xs/Light", "family": "PP Kyoto", "style": "Light", "size": 24, "lh": 30, "ls": "-2%", "ps": 0 },
