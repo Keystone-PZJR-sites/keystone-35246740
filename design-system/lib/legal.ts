@@ -1,17 +1,9 @@
 import type { CompanyInformation } from "@keystone-sites/core/types";
+import { SITE_URL } from "../site";
 import { LEGAL_CONTACT_FALLBACK } from "./legal-data";
 
 function siteHost(): string {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!siteUrl) {
-    throw new Error("Missing required environment variable: NEXT_PUBLIC_SITE_URL");
-  }
-
-  try {
-    return new URL(siteUrl).host;
-  } catch {
-    throw new Error("NEXT_PUBLIC_SITE_URL must be an absolute URL");
-  }
+  return new URL(SITE_URL).host;
 }
 
 /** Replaces backend legal-markdown tokens with current company values. */
