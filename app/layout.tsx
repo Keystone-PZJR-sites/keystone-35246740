@@ -1,7 +1,7 @@
 import "@/design-system/index.css";
 import "@/design-system/widgets.css";
 import type { Metadata, Viewport } from "next";
-import { getConsentRegime } from "@keystone-sites/core";
+import { CONSENT_REGIME_BOOTSTRAP_SCRIPT } from "@keystone-sites/core/consent";
 import { CookieConsentModal } from "@keystone-sites/widgets/consent/CookieConsentModal";
 import { SiteChat } from "@/design-system/sections/site-chat";
 import { SITE_URL } from "@/design-system/site";
@@ -34,11 +34,10 @@ export const viewport: Viewport = {
 /** `.site-root` provides the grid's size container. Site chat mounts
  * outside `.page`, so fixed chat chrome does not affect grid geometry. */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const consentRegime = await getConsentRegime();
-
   return (
-    <html lang="en" data-consent-regime={consentRegime}>
+    <html lang="en">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: CONSENT_REGIME_BOOTSTRAP_SCRIPT }} />
         {/*
          * Cold-load guard — inlined in the raw HTML so the page color is
          * right from byte 1, before any stylesheet arrives. The literal is
