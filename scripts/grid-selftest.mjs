@@ -4,9 +4,9 @@
 // audited routes:
 //
 //   /grid                — the fixture harness (spec 002)
-//   /home-fixture        — the real assembled homepage (spec 023 §2 —
-//                          the v2 composition and drives since the §4
-//                          cutover; the 010 leg retired with its page)
+//   /                    — the real assembled homepage (spec 023 §2 —
+//                          the v2 composition and drives; `/home-fixture`
+//                          retired 2026-09-08, owner ruling)
 //   /pricing-fixture     — the real assembled pricing page (spec 013 §7)
 //   /our-work-fixture    — the real assembled Our Work page (spec 016 §7)
 //   /case-study-fixture  — the assembled case-study page (spec 017 §7)
@@ -600,7 +600,7 @@ async function main() {
 
     const ROUTES = [
       { path: "/grid", drives: null },
-      { path: "/home-fixture", drives: driveHomeV2States },
+      { path: "/", drives: driveHomeV2States },
       { path: "/pricing-fixture", drives: drivePricingStates },
       // hermetic: the 016 viewer's live embeds never load in CI
       { path: "/our-work-fixture", drives: driveWorkStates, blockRemote: true },

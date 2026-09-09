@@ -8,7 +8,8 @@ the Bloom promotion landing with this build). Draft 2026-09-08 — all
 six §9 asks resolved the same day (the entrance kept and Bloom
 promoted · swap-now with the §6 post-swap checklist · measure-first
 on LCP and the budget line · the deletion list approved · the build
-window granted)
+window granted). Amended 2026-09-08 evening — `/home-fixture` and
+`/engines-free-2` retire; homepage QA and the sweep run on `/` (§9 B5).
 **Depends on:** specs 018–022 (the five built sections and their §9
 records — every value below defers to the built code, the source of
 truth) · spec 010 (the v1 assembly this supersedes; its §7 F5
@@ -56,7 +57,8 @@ tables retire with their page.
 - The fixture leg runs **`/home-next-fixture`** pre-cutover and swaps
   to **`/home-fixture`** at the cutover commit — same module, same
   checks; the five anchors, the standing slice widths, and the capped
-  wide legs.
+  wide legs. *(Amended 2026-09-08 — §9 B5: `/home-fixture` retires;
+  the sweep leg is `/`.)*
 - **Rest states audited**: the settled load (post-choreography); Bloom
   pre-fire and settled; the engine section at each of its ten
   distance-mapped stops and both parked ends (drives synthesized per
@@ -96,7 +98,10 @@ One commit, after this spec's approval and the §2/§3 passes:
 1. **The composition promotes**: `home-next.tsx` renames to `home.tsx`
    (the v1 file retires); `/` (`app/page.tsx`) and `/home-fixture`
    mount it. The `data-landmark` wiring and the devtools mounts ride
-   the composition unchanged.
+   the composition unchanged. *(Amended 2026-09-08 — §9 B5:
+   `/home-fixture` retires; `/` is the sole mount and the sweep
+   surface. The production stub keeps the self-test off the
+   production module graph.)*
 2. **The v1 homepage retires** (§5 — the enumerated list; approval of
    this spec is the explicit deletion instruction the workspace rule
    requires).
@@ -106,8 +111,11 @@ One commit, after this spec's approval and the §2/§3 passes:
    `/system-next` · `/engines-free-2` · `/work-next` ·
    `/case-carousel-next` (§9 R2). The dead engine sandboxes
    (`/engines-next` · `/engines-free`) delete with the v1 routes.
+   *(Amended 2026-09-08 — §9 B5: `/home-fixture` and
+   `/engines-free-2` retire; homepage QA is `/`.)*
 4. **The expectations swap** (§1); the sweep list drops the v1 leg
-   and gains `/` + `/home-fixture`.
+   and gains `/` + `/home-fixture`. *(Amended 2026-09-08 — §9 B5:
+   the homepage sweep leg is `/` only.)*
 5. **The launch checklist updates in the same commit**: the Home line
    reads v2-built; the open gates (§6) carry their owners and
    sequencing.
@@ -183,6 +191,8 @@ anchor read already on record.
 
 - `grid/expectations-home-v2.ts` (working name) — the §1 module;
   the sweep-config swap; the §2 drive additions to the harness.
+  *(Amended 2026-09-08 — §9 B5: the module lives at
+  `app/home-expectations.ts`; `/` mounts it.)*
 - The §4 cutover commit (rename, mounts, deletions, checklist).
 - The budget record appended to this spec's §9 at the pass (the
   013/016 pattern).
@@ -308,6 +318,12 @@ day; the five preparation flags sanctioned at approval ride as B1–B4):**
   early. Route surface verified on the production server: the eight
   retired routes 404; `/`, the five QA routes, and the fixtures
   respond 200.
+- **B5 (owner, 2026-09-08 evening — homepage QA on `/`).** `/home-fixture`
+  and `/engines-free-2` retire. The expectations module moves to
+  `app/home-expectations.ts`; `/` mounts the self-test (devtools
+  still production-stubbed). The sweep homepage leg is `/`. Engine
+  QA is the assembled page. R2's "standing names are permanent" is
+  superseded for `/engines-free-2` only.
 
 ## 10 · Acceptance criteria
 

@@ -11,6 +11,8 @@ import type { GridExpectations } from "./expectations";
  * by the dev-only machinery. */
 const GridDevtools = dynamic(() => import("./grid-devtools"));
 
-export default function DevtoolsMount(props: { expectations: GridExpectations }) {
+export default function DevtoolsMount(
+  props: { expectations: GridExpectations; silent?: boolean },
+) {
   return <GridDevtools {...props} />;
 }

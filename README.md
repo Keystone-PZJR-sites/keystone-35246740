@@ -44,10 +44,10 @@ as the historical record.
 
 ## Routes
 
-`/` is the assembled homepage. The dev/QA surfaces are permanent and
-noindexed: `/grid` (engine harness + self-tests) · `/primitives` ·
-`/footer` · `/nav` · `/hero` · `/portfolio` · `/engine` ·
-`/testimonials` · `/home-fixture` (the homepage QA mount).
+`/` is the assembled homepage (QA and the grid sweep run here). The
+remaining noindexed QA surfaces: `/grid` (engine harness + self-tests)
+· `/primitives` · `/footer` · `/nav` · `/hero-next` · `/system-next` ·
+`/work-next` · `/case-carousel-next` · the other page fixtures.
 
 ## Checks
 

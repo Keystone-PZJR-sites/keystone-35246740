@@ -8,7 +8,7 @@
  * gating and 002.r1 nearest-anchor rendering) in-page against the
  * mounting route's designed stack, passed in as the expectations prop
  * (app/grid/expectations.ts) — /grid audits the transcribed fixtures,
- * /home-fixture audits the real assembled homepage. Results are exposed
+ * `/` audits the real assembled homepage. Results are exposed
  * on window.__GRID_SELFTEST__ so the scripted sweep
  * (scripts/grid-selftest.mjs) can assert the same checks in CI on both
  * routes with one contract.
@@ -509,7 +509,17 @@ function runSelfTests(
   return { meta, results, pass: results.every((r) => r.pass) };
 }
 
-export default function GridDevtools({ expectations }: { expectations: GridExpectations }) {
+export default function GridDevtools({
+  expectations,
+  silent = false,
+}: {
+  expectations: GridExpectations;
+  /** Run the audits and expose window.__GRID_SELFTEST__ without the
+   * on-page readout. `/` uses this so the homepage stays clean after
+   * `/home-fixture` retired; `/grid` and the other fixtures keep the
+   * panel. Press `g` still toggles the lattice. */
+  silent?: boolean;
+}) {
   const probesRef = useRef<HTMLDivElement>(null);
   const [output, setOutput] = useState<RunOutput | null>(null);
   const [overlay, setOverlay] = useState(false);
@@ -566,34 +576,36 @@ export default function GridDevtools({ expectations }: { expectations: GridExpec
         </div>
       )}
 
-      <aside className="gdt-panel">
-        <h2>
-          grid self-test{" "}
-          {output ? (output.pass ? "\u2713" : "\u2717") : "\u2026"}
-        </h2>
-        {output && (
-          <ul>
-            <li>
-              <span>
-                band {output.meta.band}
-                {output.meta.settled ? "" : " · settling\u2026"}
-              </span>
-              <span>
-                {output.meta.containerW.toFixed(0)}px · t {output.meta.t.toFixed(2)}px
-              </span>
-            </li>
-            {output.results.map((r) => (
-              <li key={r.id} data-pass={r.pass}>
+      {!silent && (
+        <aside className="gdt-panel">
+          <h2>
+            grid self-test{" "}
+            {output ? (output.pass ? "\u2713" : "\u2717") : "\u2026"}
+          </h2>
+          {output && (
+            <ul>
+              <li>
                 <span>
-                  {r.pass ? "\u2713" : "\u2717"} {r.label}
+                  band {output.meta.band}
+                  {output.meta.settled ? "" : " · settling\u2026"}
                 </span>
-                <span>{r.detail}</span>
+                <span>
+                  {output.meta.containerW.toFixed(0)}px · t {output.meta.t.toFixed(2)}px
+                </span>
               </li>
-            ))}
-          </ul>
-        )}
-        <p className="gdt-hint">g toggles the lattice overlay</p>
-      </aside>
+              {output.results.map((r) => (
+                <li key={r.id} data-pass={r.pass}>
+                  <span>
+                    {r.pass ? "\u2713" : "\u2717"} {r.label}
+                  </span>
+                  <span>{r.detail}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="gdt-hint">g toggles the lattice overlay</p>
+        </aside>
+      )}
     </>
   );
 }

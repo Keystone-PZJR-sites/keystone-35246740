@@ -1,6 +1,6 @@
 /** The assembled homepage's page anatomy (spec 023 §1 — the v2
- * expectations, serving /home-fixture since the §4 cutover; the spec
- * 010 v1 tables retired with their page).
+ * expectations, serving `/` since the 2026-09-08 retirement of
+ * `/home-fixture`; the spec 010 v1 tables retired with their page).
  *
  * Every value defers to the built sections — code is the source of
  * truth (023 §1): the engine section's totals import from
@@ -31,7 +31,7 @@
  * clearance audit while keeping their exposure live (023 §9 build
  * record; the boundary check already covers the roots). */
 
-import type { GridExpectations } from "../grid/expectations";
+import type { GridExpectations } from "./grid/expectations";
 import { ENGINES_V2_TICKS } from "@/design-system/v2/sections/engines-data";
 
 /** The engine section's flow height per band (023 §1): the leading

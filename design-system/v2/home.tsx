@@ -11,14 +11,13 @@ import { FooterSection } from "@/design-system/v2/sections/footer";
 /** The assembled homepage (the Phase 10 v2 composition, promoted to
  * `/` at the spec 023 §4 cutover; born as home-next.tsx, spec 018 §8):
  * nav · hero (018) · system (019) · engines (020) · work deck (021) ·
- * case-study carousel (022) · footer. Mounted bare by `/` and under
- * the QA readout by `/home-fixture`. Social URLs come from the
- * retained Keystone data layer.
+ * case-study carousel (022) · footer. Mounted by `/`. Social URLs
+ * come from the retained Keystone data layer.
  *
- * `qa` is /home-fixture's dev-only self-test mount (spec 023 §1/§2).
- * It renders inside the page div because the devtools' measurement
- * probes resolve --t and the weights, which live on .page. `/` passes
- * nothing. */
+ * `qa` is `/`'s dev-only self-test mount (spec 023 §1/§2, amended
+ * 2026-09-08 — `/home-fixture` retired). It renders inside the page
+ * div because the devtools' measurement probes resolve --t and the
+ * weights, which live on .page. The production build stubs it. */
 export async function HomePage({ qa }: { qa?: React.ReactNode }) {
   const companyInfo = await getCompanyInformation();
   return (

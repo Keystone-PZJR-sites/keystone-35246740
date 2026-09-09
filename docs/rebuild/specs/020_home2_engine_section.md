@@ -472,7 +472,8 @@ counter-transform. The mapping contract above is unchanged.)*
   §9 R24: `/engines-next` is retired with the paged contract; the QA
   route is **`/engines-free-2`** — born as the promotion experiment's
   sandbox, kept as the section's permanent QA surface, mounting the
-  canonical section.)*
+  canonical section. Amended 2026-09-08 — §9 R27: `/engines-free-2`
+  retires; the section audits on `/`.)*
 - The expectations module gains the section's tick constants (52t at
   rd2 interactive *(amended 2026-09-06 — §9 R19: 32t)*; 96t/127t
   static stacks at rt/base per §1); the
@@ -480,7 +481,8 @@ counter-transform. The mapping contract above is unchanged.)*
   `/engines-next` through the standing devtools at every rest state
   (each of the ten states is a rest). *(Route per the R24 amendment
   above: `/engines-free-2`; under the distance mapping each of the
-  ten states is a scroll stop.)*
+  ten states is a scroll stop. Amended 2026-09-08 — §9 R27: the
+  assembled `/` is the QA surface.)*
 
 ## 9 · Resolutions record
 
@@ -1067,6 +1069,10 @@ All flags resolved 2026-09-06, the same morning:
   on the already-current hash at rd fires no `hashchange` and is a
   no-op (native anchors at the stack bands do re-scroll; accepted).
   No geometry changes; the sweep is untouched.
+- **R27 (owner, 2026-09-08 evening — `/engines-free-2` retires).** The
+  section's isolated QA route deletes. Engine QA and the 023 sweep
+  drives run on the assembled `/`. R24's "kept as the QA route" is
+  superseded.
 
 *At the three drawn anchors, the two derived-band anchors, and one
 arbitrary mid-band width per band, scrollbar forced on; the interactive

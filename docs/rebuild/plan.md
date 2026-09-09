@@ -1013,7 +1013,14 @@ F5 mobile-LCP gate against the new hero.
   010's Status line carries the supersession note; tsc/lint zero.
   Working tree left uncommitted per the git rule — the cutover
   commit awaits the owner's instruction.
-- **The grader-input primitive refreshed from the redrawn set** (owner
+- **`/home-fixture` and `/engines-free-2` retire** (owner, evening —
+  going live; homepage QA and the sweep move to `/`). The
+  expectations module rehomes to `app/home-expectations.ts`; `/`
+  mounts the self-test (production-stubbed). Isolated engine QA is
+  the assembled page. 023 §9 B5 and 020 §9 R27 are the record;
+  rules.md, the launch checklist, and the README sync. Working tree
+  left uncommitted per the git rule.
+- **The grader-input primitive refreshed from the redrawn set** (owner)
   ask, in preparation for the blog page; spec 003 §4–§6 carry the
   dated amendments). Fresh reads of `503:25844` through the bridge:
   pill heights **56 / 48 / 44** (lg was 66, md 50) with one shared

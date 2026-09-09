@@ -3,8 +3,8 @@
  * through this shape; no magic numbers live in the test body.
  *
  * FIXTURE_EXPECTATIONS drives /grid (derived from the transcribed
- * fixtures); the assembled homepage's table (spec 010 §2) lives in
- * app/home-fixture/expectations.ts. */
+ * fixtures); the assembled homepage's table (spec 023 §1) lives in
+ * app/home-expectations.ts. */
 
 import { BANDS, FIXTURES, type Band } from "./fixtures";
 
