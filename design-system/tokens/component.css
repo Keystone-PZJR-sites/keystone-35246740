@@ -130,6 +130,13 @@
   --csc-border-out-dur: 250ms;
   --csc-img-zoom: 1%;
 
+  --bc-page-cell: 36px;
+  --bc-page-indicator-w: 180px;
+  --bc-page-button-cell-rm: 48px;
+  --bc-page-button-cell-lg: 56px;
+  --bc-pager-w-rt: 384px;
+  --bc-pager-w-rd: 352px;
+
   --wg-ghost-opacity: var(--motion-ghost-opacity);
 
   --gv-rail-h: 56px;
@@ -363,4 +370,9 @@
   --bl-u-rm: calc(var(--t) / 32);
   --bl-u-rt: calc(var(--wA) + var(--wB));
   --bl-u-rd: calc(var(--t) / 112);
+
+  --bc-u-rm: calc(var(--t) / 32);
+  --bc-u-rt: calc(var(--wA) + var(--wB));
+  --bc-u-rd: calc(var(--t) / 112);
+  --bc-pager-w-rm: calc(var(--t) * 10);
 }

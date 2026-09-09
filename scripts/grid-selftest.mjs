@@ -210,10 +210,10 @@ async function main() {
 
     // The mobile nav is an overlay, so page geometry must not change.
     async function driveMobileNav(assertState) {
-      if (!(await clickVisible(".knav-mtoggle"))) return;
+      if (!(await clickVisible('.knav-mtoggle[aria-label="Menu"]'))) return;
       await sleep(SETTLE_MS);
       await assertState("mobile nav open");
-      await clickVisible(".knav-mtoggle");
+      await clickVisible('.knav-mtoggle[aria-label="Close menu"]');
       await sleep(SETTLE_MS);
       await assertState("mobile nav closed");
     }
@@ -422,6 +422,42 @@ async function main() {
       await driveMobileNav(assertState);
     }
 
+    async function driveBlogStates(route, width) {
+      const assertState = makeAssert(route, width);
+      const state = await page.evaluate(() => {
+        const category = document.querySelector(".blog-category");
+        const pager = document.querySelector(".bc-pagination");
+        const visibleArrow = (selector) =>
+          [...document.querySelectorAll(selector)].find(
+            (element) => element.getClientRects().length > 0,
+          );
+        return {
+          landing: Boolean(document.querySelector(".blog-top")),
+          filtered: Boolean(category),
+          mode: category?.getAttribute("data-mode") ?? null,
+          current: pager?.getAttribute("data-current-page") ?? null,
+          currentCount: pager?.querySelectorAll('[aria-current="page"]').length ?? 0,
+          previousTag: visibleArrow(".bc-page-previous .btn-arrow")?.tagName ?? null,
+          nextTag: visibleArrow(".bc-page-next .btn-arrow")?.tagName ?? null,
+        };
+      });
+      const filteredRoute = route.includes("?tag=") || route.includes("?q=");
+      if (filteredRoute) {
+        if (!state.filtered || state.landing) {
+          fail(`${route} ${width} · filtered route did not replace the landing`);
+        }
+        if (state.currentCount !== 1) {
+          fail(`${route} ${width} · ${state.currentCount} current-page cells`);
+        }
+        if (state.current === "1" && state.previousTag !== "SPAN") {
+          fail(`${route} ${width} · first-page back control is ${state.previousTag}`);
+        }
+      } else if (!state.landing || state.filtered) {
+        fail(`${route} ${width} · landing route changed surface`);
+      }
+      await assertState("blog rest");
+    }
+
     // Homepage stable states: system bloom, engine stops, deck cycle,
     // carousel cycle, footer drawer, and mobile navigation.
     async function driveHomeStates(route, width, band) {
@@ -566,20 +602,27 @@ async function main() {
       await driveMobileNav(assertState);
     }
 
+    let topTagRoute = null;
+    if (matchesRoute("/blog")) {
+      await page.goto(`${base}/blog`, { waitUntil: "networkidle0" });
+      topTagRoute = await page.evaluate(
+        () => document.querySelector('.bl-catsec a[href*="?tag="]')?.getAttribute("href") ?? null,
+      );
+    }
+
     const ROUTES = [
       { path: "/", drives: driveHomeStates },
       { path: "/pricing", drives: drivePricingStates },
       // Live gallery embeds never load during the sweep.
       { path: "/our-work", drives: driveWorkStates, blockRemote: true },
       { path: "/case-studies/palm-coast-zivel", drives: driveCaseStudyStates },
+      { path: "/blog", drives: driveBlogStates },
+      ...(topTagRoute ? [{ path: topTagRoute, drives: driveBlogStates }] : []),
+      { path: "/blog?q=business", drives: driveBlogStates },
     ].filter((entry) => matchesRoute(entry.path));
 
-    if (ROUTES.length === 0) {
-      throw new Error(`GRID_ROUTE=${process.env.GRID_ROUTE} matched no sweep paths.`);
-    }
-
     console.log(
-      `Sweep ${ROUTES.map((entry) => entry.path).join(" · ")}` +
+      `Sweep ${ROUTES.map((entry) => entry.path).join(" · ") || "(no routes)"}` +
         (DRIVE_STATES ? "" : " · states off") +
         (ROUTE_FILTERS.length ? ` · GRID_ROUTE=${ROUTE_FILTERS.join(",")}` : ""),
     );
@@ -660,6 +703,121 @@ async function main() {
       if (blockRemote) {
         page.off("request", interceptor);
         await page.setRequestInterception(false);
+      }
+    }
+
+    const fixtureCases = [
+      {
+        path: "/blog?tag=grid-category&_grid=twenty-five-page-category",
+        current: "1",
+        cells: "1|2|3|...|25",
+        cards: 6,
+        featured: true,
+        previousTag: "SPAN",
+        nextTag: "A",
+      },
+      {
+        path: "/blog?tag=grid-category&page=13&_grid=twenty-five-page-category",
+        current: "13",
+        cells: "1|...|13|...|25",
+        cards: 6,
+        featured: false,
+        previousTag: "A",
+        nextTag: "A",
+      },
+      {
+        path: "/blog?tag=grid-category&page=25&_grid=twenty-five-page-category",
+        current: "25",
+        cells: "1|...|23|24|25",
+        cards: 6,
+        featured: false,
+        previousTag: "A",
+        nextTag: "SPAN",
+      },
+      {
+        path: "/blog?tag=grid-category&_grid=two-post-category",
+        current: "1",
+        cells: "1",
+        cards: 1,
+        featured: true,
+        previousTag: "SPAN",
+        nextTag: "SPAN",
+      },
+      {
+        path: "/blog?q=grid-empty&_grid=empty-search",
+        current: "1",
+        cells: "1",
+        cards: 0,
+        featured: false,
+        previousTag: "SPAN",
+        nextTag: "SPAN",
+        empty: true,
+      },
+    ].filter((fixture) => matchesRoute(fixture.path));
+
+    if (ROUTES.length === 0 && fixtureCases.length === 0) {
+      throw new Error(`GRID_ROUTE=${process.env.GRID_ROUTE} matched no sweep paths.`);
+    }
+
+    for (const fixture of fixtureCases) {
+      await page.goto(`${base}${fixture.path}`, { waitUntil: "networkidle0" });
+      for (const width of [384, 768, 1344]) {
+        const out = await runAt(width, true);
+        if (!out.pass) {
+          fail(`${fixture.path} ${width} · ${out.fails.join(" · ")}`);
+        }
+        const state = await page.evaluate(() => {
+          const section = document.querySelector(".blog-category");
+          const cards = section?.querySelector(".bc-cards-frame");
+          const t = document.querySelector(".page").getBoundingClientRect().width / 12;
+          const visibleArrow = (selector) =>
+            [...document.querySelectorAll(selector)].find(
+              (element) => element.getClientRects().length > 0,
+            );
+          return {
+            current: section
+              ?.querySelector(".bc-pagination")
+              ?.getAttribute("data-current-page"),
+            cells: [...(section?.querySelectorAll(".bc-page-cell") ?? [])]
+              .map((cell) => cell.textContent.trim())
+              .join("|"),
+            cards: section?.querySelectorAll(".bc-cards > li").length ?? 0,
+            featured: Boolean(section?.querySelector(".bc-featured")),
+            previousTag:
+              visibleArrow(".bc-page-previous .btn-arrow")?.tagName ?? null,
+            nextTag: visibleArrow(".bc-page-next .btn-arrow")?.tagName ?? null,
+            empty: Boolean(section?.querySelector(".bc-empty")),
+            cardsTopTicks:
+              section && cards
+                ? (cards.getBoundingClientRect().top -
+                    section.getBoundingClientRect().top) /
+                  t
+                : null,
+          };
+        });
+        for (const key of [
+          "current",
+          "cells",
+          "cards",
+          "featured",
+          "previousTag",
+          "nextTag",
+        ]) {
+          if (state[key] !== fixture[key]) {
+            fail(
+              `${fixture.path} ${width} · ${key} ${state[key]} ≠ ${fixture[key]}`,
+            );
+          }
+        }
+        if (Boolean(state.empty) !== Boolean(fixture.empty)) {
+          fail(`${fixture.path} ${width} · empty state mismatch`);
+        }
+        const shiftedTop = width === 384 ? 8 : 4;
+        if (!fixture.featured && Math.abs(state.cardsTopTicks - shiftedTop) > 0.02) {
+          fail(
+            `${fixture.path} ${width} · cards top ${state.cardsTopTicks.toFixed(3)}t ≠ ${shiftedTop}t`,
+          );
+        }
       }
     }
   } finally {

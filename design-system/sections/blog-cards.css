@@ -17,6 +17,9 @@
   left: 0;
   width: 100%;
   height: 100%;
+  /* The base reset clamps images at max-width: 100%. The hover width
+     must grow past it or the centered zoom becomes a leftward pan. */
+  max-width: none;
   object-fit: cover;
   transition:
     top var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
@@ -205,6 +208,8 @@
   left: 0;
   width: 100%;
   height: 100%;
+  /* Keep the featured card on the same centered zoom construction. */
+  max-width: none;
   object-fit: cover;
   transition:
     top var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),

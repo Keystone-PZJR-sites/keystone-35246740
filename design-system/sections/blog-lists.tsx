@@ -3,21 +3,11 @@ import { InterpText } from "../primitives/text";
 import { ButtonFill } from "../primitives/buttons";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import type { BlogCardModel, BlogLandingModel } from "./blog-data";
+import { BLOG_FEATURE_GAP_TICKS, BLOG_FEATURE_TICKS, blogStackTicks } from "./blog-layout";
 
-const FEAT_T = { rm: 16, rt: 4, rd: 3 } as const;
-const GAP_AFTER_FEAT = 2;
 const GAP_BEFORE_CATS = 3;
 const CAT_GAP = { rm: 2, rt: 2, rd: 1 } as const;
 const PRE_FOOTER_T = 2;
-const RT_CARD = 352;
-const RT_GAP = 48;
-
-function stackRm(n: number): number {
-  return 11 * n - 1;
-}
-function stackRt(n: number): number {
-  return Math.ceil((RT_CARD * n + RT_GAP * (n - 1)) / 64);
-}
 
 interface FamilyTicks {
   recent: number;
@@ -31,8 +21,7 @@ function familyTicks(
   landing: BlogLandingModel,
 ): FamilyTicks {
   const nRecent = landing.recent.length;
-  const stack = (n: number) =>
-    fam === "rm" ? stackRm(n) : fam === "rt" ? stackRt(n) : 3;
+  const stack = (n: number) => blogStackTicks(n)[fam];
   const titleT = fam === "rm" ? 2 : 1;
   const recent = nRecent > 0 ? titleT + stack(nRecent) : 0;
   const catTitleT = fam === "rm" ? 3 : 1;
@@ -44,10 +33,10 @@ function familyTicks(
       ? catSections.reduce((a, b) => a + b, 0) +
         CAT_GAP[fam] * (catSections.length - 1)
       : 0;
-  const feat = FEAT_T[fam];
+  const feat = BLOG_FEATURE_TICKS[fam];
   let total = feat;
   let midGapRow: number | null = null;
-  if (recent > 0) total += GAP_AFTER_FEAT + recent;
+  if (recent > 0) total += BLOG_FEATURE_GAP_TICKS + recent;
   if (catsT > 0) {
     midGapRow = total + 1;
     total += GAP_BEFORE_CATS + catsT;
@@ -82,7 +71,7 @@ function exposureFor(fam: "rm" | "rt" | "rd", t: FamilyTicks): R[] {
     regions.push({ gx: 0, gy: 0, gw: 12, gh: 2 });
     regions.push({ gx: 0, gy: 3, gw: 12, gh: 1 });
   } else {
-    regions.push({ gx: 0, gy: 0, gw: 12, gh: FEAT_T[fam] + 1 });
+    regions.push({ gx: 0, gy: 0, gw: 12, gh: BLOG_FEATURE_TICKS[fam] + 1 });
   }
   if (t.midGapRow !== null) {
     regions.push({ gx: 0, gy: t.midGapRow, gw: 12, gh: 1 });
@@ -159,8 +148,8 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
           <CardRow
             posts={landing.recent}
             stackTicks={{
-              rm: stackRm(landing.recent.length),
-              rt: stackRt(landing.recent.length),
+              rm: blogStackTicks(landing.recent.length).rm,
+              rt: blogStackTicks(landing.recent.length).rt,
             }}
           />
         </div>
@@ -195,8 +184,8 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
               <CardRow
                 posts={cat.posts}
                 stackTicks={{
-                  rm: stackRm(cat.posts.length),
-                  rt: stackRt(cat.posts.length),
+                  rm: blogStackTicks(cat.posts.length).rm,
+                  rt: blogStackTicks(cat.posts.length).rt,
                 }}
               />
             </section>
