@@ -7,6 +7,9 @@
 //   /pricing             — assembled pricing page (spec 013 §7)
 //   /our-work            — assembled Our Work page (spec 016 §7)
 //   /case-studies/palm-coast-zivel — Zivel case study (spec 017 §7)
+//   /blog                — the blog landing (spec 025 §8; the
+//                          expectations derive from the page's own
+//                          data snapshot — the data-dependent ruling)
 //
 // at all five anchors and one width per structural slice (spec 010
 // §3.1 — stretched and compressed, 002.r1 nearest-anchor gates), with a
@@ -595,12 +598,43 @@ async function main() {
       await driveMobileNav(assertState);
     }
 
+    // Blog landing rest-state drives (spec 025 §8): the 024 search
+    // module open (the pill replaces the h2 at base — the drawn
+    // search-active state) and closed on Escape, plus the standing
+    // footer drawer and mobile nav. The lists carry no islands; their
+    // data-dependent geometry is asserted by the standing checks
+    // against the page's own expectations snapshot.
+    async function driveBlogStates(route, width, band) {
+      const assertState = makeAssert(route, width);
+
+      if (await clickVisible(".bt-search-rest")) {
+        await sleep(SETTLE_MS);
+        const open = await page.evaluate(
+          () => document.querySelector(".bt-search")?.hasAttribute("data-open") ?? false,
+        );
+        if (!open) fail(`${route} ${width} · search did not open`);
+        await assertState("search open");
+        await page.keyboard.press("Escape");
+        await sleep(SETTLE_MS);
+        const closed = await page.evaluate(
+          () => !document.querySelector(".bt-search")?.hasAttribute("data-open"),
+        );
+        if (!closed) fail(`${route} ${width} · Escape did not close the search`);
+        await assertState("search closed");
+      }
+
+      await driveFooterDrawer(assertState, band);
+      await driveMobileNav(assertState);
+    }
+
     const ROUTES = [
       { path: "/", drives: driveHomeV2States },
       { path: "/pricing", drives: drivePricingStates },
       // hermetic: the 016 viewer's live embeds never load in CI
       { path: "/our-work", drives: driveWorkStates, blockRemote: true },
       { path: "/case-studies/palm-coast-zivel", drives: driveCaseStudyStates },
+      // hermetic: the blog's post images are backend URLs (spec 025 §7)
+      { path: "/blog", drives: driveBlogStates, blockRemote: true },
     ];
 
     // spec 016 §7.2: during a blockRemote leg every non-localhost

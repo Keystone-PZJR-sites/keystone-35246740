@@ -113,3 +113,8 @@
 /* Sections (spec 024) — the blog landing top (the island only flips
    data-open; the morph is CSS) */
 @import "./sections/blog-top.css";
+
+/* Sections (spec 025) — the blog post cards and the landing lists
+   (data-driven flow; zero islands) */
+@import "./sections/blog-cards.css";
+@import "./sections/blog-lists.css";

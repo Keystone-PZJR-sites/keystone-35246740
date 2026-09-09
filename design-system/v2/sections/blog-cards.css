@@ -1,0 +1,424 @@
+/* v2 sections — the blog post cards (spec 025 §3/§4). Anchors 384 ·
+   768 · 1344: geometry below the rt gate is the 384 design on the
+   tick; type rides the pure zoom through rm/rs (the 018 R9 split is
+   NOT pre-applied); the rt band holds the 768 drawn values; from the
+   rd1 gate the 1344 design zooms on the tick.
+
+   Units: card boxes and image heights are tick geometry where drawn
+   on ticks (rm card 10t, image 4t; rd card row 3t) and band-unit
+   values where not (the rt 352 stride, the rd 138 image); interiors
+   (pads, gaps, clamp boxes) ride --bl-u (component.css). The clamps
+   are DRAWN (§3: maxLines/TRUNCATE in the file) — variable copy
+   truncates and never grows a card.
+
+   Chrome: borderless white panels (`bg/000`) over the page paper —
+   no line-inclusive borders in this family (§3: no strokes drawn).
+   The hover (§6, the R4 ruling): the card grows `hard-shadow-square`
+   from its 0,0 origin on the promoted card-shadow clocks AND the
+   image zooms paint-in-place (`--csc-img-zoom` — the standing
+   grammar's next consumer); focus-visible parity through the link. */
+
+/* ---------------- the shared unit (§3) ---------------- */
+
+.blc {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  /* the hover shadow, born at its 0,0 origin (the standing law); the
+     resting side carries the out clock */
+  box-shadow: var(--shadow-hard-square-0);
+  transition: box-shadow var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+.blc-img {
+  position: relative;
+  overflow: clip;
+  height: calc(var(--t) * 4);
+}
+.blc-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    top var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    left var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    width var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    height var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+.blc-info {
+  background: var(--color-bg-000);
+  flex: 1;
+  min-height: 0;
+  padding: calc(var(--bl-u) * 12) calc(var(--bl-u) * 16) calc(var(--bl-u) * 16);
+}
+@container (min-width: 665px) {
+  .blc-img {
+    height: calc(var(--t) * 3);
+  }
+  .blc-info {
+    padding: calc(var(--bl-u) * 20);
+  }
+}
+@container (min-width: 860px) {
+  .blc-img {
+    height: calc(var(--bl-u) * 138);
+  }
+}
+
+/* the eyebrow (§3): topic + read time, one justify-between row of
+   text/nav-label; the drawn strings render uppercase */
+.blc-eyebrow,
+.blf-eyebrow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--bl-u) * 12);
+  margin: 0;
+}
+.blc-eyebrow .blc-topic,
+.blf-info .blc-topic {
+  color: var(--color-text-200);
+  text-transform: uppercase;
+}
+.blc-eyebrow .blc-time,
+.blf-info .blc-time {
+  color: var(--color-text-300);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* the nav-label walk (10/12 drawn at every anchor; pure zoom below
+   the rt gate — the bt-listen construction) */
+.blc-topic,
+.blc-time {
+  --fs0: 10;
+  --fs1: 15;
+  --lh0: 12;
+  --lh1: 18;
+}
+@container (min-width: 470px) {
+  .blc-topic,
+  .blc-time {
+    --fs0: 15;
+    --fs1: 20;
+    --lh0: 18;
+    --lh1: 24;
+  }
+}
+@container (min-width: 665px) {
+  .blc-topic,
+  .blc-time {
+    --fs0: 10;
+    --fs1: 10;
+    --lh0: 12;
+    --lh1: 12;
+  }
+}
+@container (min-width: 860px) {
+  .blc-topic,
+  .blc-time {
+    --fs0: 7.1429;
+    --fs1: 10;
+    --lh0: 8.5714;
+    --lh1: 12;
+  }
+}
+
+/* the title (§3): eyebrow→title gap 8; the drawn clamps — 2 lines at
+   base, 1 at rt, 2 at rd */
+.blc-title {
+  color: var(--color-text-100);
+  margin-top: calc(var(--bl-u) * 8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  /* pure zoom: 16/22 drawn at 384 → 24/33 at the 576 edge */
+  --fs0: 16;
+  --fs1: 24;
+  --lh0: 22;
+  --lh1: 33;
+}
+@container (min-width: 470px) {
+  .blc-title {
+    --fs0: 24;
+    --fs1: 32;
+    --lh0: 33;
+    --lh1: 44;
+  }
+}
+@container (min-width: 665px) {
+  .blc-title {
+    -webkit-line-clamp: 1;
+    /* the 768 anchor's style is text/lg/Medium (§3) */
+    --ts-text-md-medium-font: var(--ts-text-lg-medium-font);
+    --ts-text-md-medium-opsz: var(--ts-text-lg-medium-opsz);
+    --fs0: 18;
+    --fs1: 18;
+    --lh0: 26;
+    --lh1: 26;
+  }
+}
+@container (min-width: 860px) {
+  .blc-title {
+    -webkit-line-clamp: 2;
+    /* the 1344 anchor's style is text/xl/Medium (§3) */
+    --ts-text-md-medium-font: var(--ts-text-xl-medium-font);
+    --ts-text-md-medium-opsz: var(--ts-text-xl-medium-opsz);
+    --fs0: 14.2857;
+    --fs1: 20;
+    --lh0: 18.5714;
+    --lh1: 26;
+  }
+}
+
+/* the description (§3): title→desc gap 8; the drawn clamps — a fixed
+   96 TRUNCATE box at base (4 lines + slack), 2 lines at rt, 3 at rd */
+.blc-desc {
+  color: var(--color-text-300);
+  margin-top: calc(var(--bl-u) * 8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  height: calc(var(--bl-u) * 96);
+  /* pure zoom: 16/22 drawn at 384 → 24/33 at the 576 edge */
+  --fs0: 16;
+  --fs1: 24;
+  --lh0: 22;
+  --lh1: 33;
+}
+@container (min-width: 470px) {
+  .blc-desc {
+    --fs0: 24;
+    --fs1: 32;
+    --lh0: 33;
+    --lh1: 44;
+  }
+}
+@container (min-width: 665px) {
+  .blc-desc {
+    -webkit-line-clamp: 2;
+    height: auto;
+    /* the 768 anchor's style is text/lg/Light (§3) */
+    --ts-text-md-light-font: var(--ts-text-lg-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --fs0: 18;
+    --fs1: 18;
+    --lh0: 26;
+    --lh1: 26;
+  }
+}
+@container (min-width: 860px) {
+  .blc-desc {
+    -webkit-line-clamp: 3;
+    /* the 1344 anchor's style is text/xl/Light (§3) */
+    --ts-text-md-light-font: var(--ts-text-xl-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --fs0: 14.2857;
+    --fs1: 20;
+    --lh0: 18.5714;
+    --lh1: 26;
+  }
+}
+
+/* ---------------- the featured card (§4) ---------------- */
+
+.blf {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  height: calc(var(--t) * 16);
+  box-shadow: var(--shadow-hard-square-0);
+  transition: box-shadow var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+.blf-img {
+  position: relative;
+  overflow: clip;
+  height: calc(var(--t) * 8);
+}
+.blf-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    top var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    left var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    width var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    height var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+.blf-info {
+  background: var(--color-bg-000);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--bl-u) * 20);
+}
+@container (min-width: 665px) {
+  .blf {
+    flex-direction: row;
+    height: calc(var(--t) * 4);
+  }
+  .blf-img {
+    flex: 1;
+    height: auto;
+  }
+  .blf-info {
+    flex: 1;
+  }
+}
+@container (min-width: 860px) {
+  .blf {
+    height: calc(var(--t) * 3);
+  }
+  .blf-info {
+    padding: calc(var(--bl-u) * 32);
+  }
+}
+
+/* the featured title (§4): eyebrow→title gap 8; serif Extralight walk */
+.blf-title {
+  color: var(--color-text-100);
+  margin-top: calc(var(--bl-u) * 8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  /* pure zoom: 24/30 drawn at 384 → 36/45 at the 576 edge */
+  --fs0: 24;
+  --fs1: 36;
+  --lh0: 30;
+  --lh1: 45;
+}
+@container (min-width: 470px) {
+  .blf-title {
+    --fs0: 36;
+    --fs1: 48;
+    --lh0: 45;
+    --lh1: 60;
+  }
+}
+@container (min-width: 665px) {
+  .blf-title {
+    /* the 768 anchor repeats xs/Extralight 24/30 (§4) */
+    --fs0: 24;
+    --fs1: 24;
+    --lh0: 30;
+    --lh1: 30;
+  }
+}
+@container (min-width: 860px) {
+  .blf-title {
+    -webkit-line-clamp: 2;
+    max-width: calc(var(--bl-u) * 507);
+    /* the 1344 anchor's style is sm+/Extralight 36/42 (§4) */
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-sm-plus-extralight-font);
+    --fs0: 25.7143;
+    --fs1: 36;
+    --lh0: 30;
+    --lh1: 42;
+  }
+}
+
+/* the featured description (§4): bottom-anchored, 3 lines everywhere */
+.blf-desc {
+  color: var(--color-text-300);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin-top: calc(var(--bl-u) * 12);
+  /* pure zoom: 16/22 drawn at 384 → 24/33 at the 576 edge */
+  --fs0: 16;
+  --fs1: 24;
+  --lh0: 22;
+  --lh1: 33;
+}
+@container (min-width: 470px) {
+  .blf-desc {
+    --fs0: 24;
+    --fs1: 32;
+    --lh0: 33;
+    --lh1: 44;
+  }
+}
+@container (min-width: 665px) {
+  .blf-desc {
+    /* text/lg/Light at rt (§4) */
+    --ts-text-md-light-font: var(--ts-text-lg-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --fs0: 18;
+    --fs1: 18;
+    --lh0: 26;
+    --lh1: 26;
+  }
+}
+@container (min-width: 860px) {
+  .blf-desc {
+    /* text/xl/Light at rd (§4) */
+    --ts-text-md-light-font: var(--ts-text-xl-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --fs0: 14.2857;
+    --fs1: 20;
+    --lh0: 18.5714;
+    --lh1: 26;
+  }
+}
+
+/* ---------------- the hover dressing (§6, R4) ---------------- */
+
+@media (hover: hover) {
+  .blc:hover,
+  .blf:hover {
+    box-shadow: var(--shadow-hard-square);
+    transition-duration: var(--motion-card-shadow-dur);
+  }
+  .blc:hover .blc-img img,
+  .blf:hover .blf-img img {
+    top: calc(-1 * var(--csc-img-zoom));
+    left: calc(-1 * var(--csc-img-zoom));
+    width: calc(100% + 2 * var(--csc-img-zoom));
+    height: calc(100% + 2 * var(--csc-img-zoom));
+    transition-duration: var(--motion-card-shadow-dur);
+    transition-timing-function: var(--motion-drawer-ease);
+  }
+}
+.blc:focus-visible,
+.blf:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-hard-square);
+  transition-duration: var(--motion-card-shadow-dur);
+}
+.blc:focus-visible .blc-img img,
+.blf:focus-visible .blf-img img {
+  top: calc(-1 * var(--csc-img-zoom));
+  left: calc(-1 * var(--csc-img-zoom));
+  width: calc(100% + 2 * var(--csc-img-zoom));
+  height: calc(100% + 2 * var(--csc-img-zoom));
+  transition-duration: var(--motion-card-shadow-dur);
+  transition-timing-function: var(--motion-drawer-ease);
+}
+
+/* reduced motion is site law: the dressing applies state-to-state */
+@media (prefers-reduced-motion: reduce) {
+  .blc,
+  .blf,
+  .blc-img img,
+  .blf-img img {
+    transition: none;
+  }
+}
+.page[data-motion="reduce"] .blc,
+.page[data-motion="reduce"] .blf,
+.page[data-motion="reduce"] .blc-img img,
+.page[data-motion="reduce"] .blf-img img {
+  transition: none;
+}

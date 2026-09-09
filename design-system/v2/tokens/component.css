@@ -874,4 +874,15 @@
      close the deck ease-out (the standing asymmetry). Promotes to a
      shared entrance name at a second consumer per the motion law. */
   --blog-search-dur: var(--motion-deck-dur);
+
+  /* blog-landing lists constants (spec 025 §1/§3/§4 — the data-driven
+     lists). The band unit --bl-u (the bt construction verbatim); the
+     card interiors, clamp boxes, and row gaps ride it in
+     blog-cards.css / blog-lists.css. The rt stack stride is the §9 R1
+     ruling — card 352 on the 48-gap canon — and the stack boxes take
+     their whole-tick heights from the server-computed `--bl-st-*`
+     vars (blog-lists.tsx; the §7 R1 round-up law). */
+  --bl-u-rm: calc(var(--t) / 32);
+  --bl-u-rt: calc(var(--wA) + var(--wB));
+  --bl-u-rd: calc(var(--t) / 112);
 }

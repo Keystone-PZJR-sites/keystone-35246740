@@ -2,7 +2,7 @@ import path from "node:path";
 import type { NextConfig } from "next";
 
 const QA_STUB = path.resolve(__dirname, "app/qa.prod");
-const QA_WRAPPERS = ["home-qa", "pricing-qa", "our-work-qa", "case-study-qa"];
+const QA_WRAPPERS = ["home-qa", "pricing-qa", "our-work-qa", "case-study-qa", "blog-qa"];
 
 const nextConfig: NextConfig = {
   // This repo sits next to a parent lockfile. Pin tracing here so
