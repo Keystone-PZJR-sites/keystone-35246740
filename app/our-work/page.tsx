@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Our Work | Keystone",
 };
 
-export default function OurWork() {
-  return <OurWorkPage gridCheck={<OurWorkGridCheck />} />;
+export default async function OurWork({
+  searchParams,
+}: {
+  searchParams: Promise<{ gallery?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const raw = Array.isArray(params.gallery) ? params.gallery[0] : params.gallery;
+  const parsed = raw === undefined ? NaN : raw === "" ? 1 : Number.parseInt(raw, 10);
+  const openGallerySite = Number.isFinite(parsed) ? parsed : undefined;
+  return <OurWorkPage gridCheck={<OurWorkGridCheck />} openGallerySite={openGallerySite} />;
 }
