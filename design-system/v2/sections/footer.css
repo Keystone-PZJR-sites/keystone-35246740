@@ -279,6 +279,13 @@
 
 .f-grader .grader {
   width: 100%;
+  /* the sm band's select-menu rows set text/sm (spec 025 §5) */
+  --_menu-name-font: var(--ts-text-sm-medium-font);
+  --_menu-name-ls: var(--ts-text-sm-medium-ls);
+  --_menu-name-opsz: var(--ts-text-sm-medium-opsz);
+  --_menu-sub-font: var(--ts-text-sm-light-font);
+  --_menu-sub-ls: var(--ts-text-sm-light-ls);
+  --_menu-sub-opsz: var(--ts-text-sm-light-opsz);
 }
 .f-grader .grader .grader-field {
   height: 44px;
@@ -289,6 +296,14 @@
 }
 
 @container (min-width: 470px) {
+  .f-grader .grader {
+    --_menu-name-font: var(--ts-text-md-medium-font);
+    --_menu-name-ls: var(--ts-text-md-medium-ls);
+    --_menu-name-opsz: var(--ts-text-md-medium-opsz);
+    --_menu-sub-font: var(--ts-text-md-light-font);
+    --_menu-sub-ls: var(--ts-text-md-light-ls);
+    --_menu-sub-opsz: var(--ts-text-md-light-opsz);
+  }
   .f-grader .grader .grader-field {
     height: 50px;
   }
@@ -299,6 +314,9 @@
 }
 
 @container (min-width: 1130px) {
+  .f-grader .grader {
+    --_menu-gap: var(--space-lg);
+  }
   .f-grader .grader .grader-field {
     height: 66px;
     padding-inline: var(--space-xl) var(--space-lg);

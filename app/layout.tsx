@@ -1,5 +1,7 @@
 import "@/design-system/v2/index.css";
+import "@/design-system/v2/widgets.css";
 import type { Metadata, Viewport } from "next";
+import { SiteChat } from "@/design-system/v2/sections/site-chat";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -36,7 +38,9 @@ export const viewport: Viewport = {
 /** The root layout — owned by the rebuild (spec 010 §4). `body` carries
  * `.v2-root`: the site base styles and the size container the grid
  * engine's container queries read (design-system/v2/base.css,
- * grid/engine.css). */
+ * grid/engine.css). The site chat (spec 024) mounts after the page on
+ * every route — fixed chrome outside `.page`, so the grid sweep never
+ * sees it. */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -70,7 +74,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
         />
       </head>
-      <body className="v2-root">{children}</body>
+      <body className="v2-root">
+        {children}
+        <SiteChat />
+      </body>
     </html>
   );
 }
