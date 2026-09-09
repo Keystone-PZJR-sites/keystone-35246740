@@ -18,6 +18,7 @@ import { GraderInput } from "../primitives/grader";
 import { FooterItem } from "../primitives/footer-item";
 import { MEDIA_V2 } from "../media";
 import { FooterNav, type FooterNavGroup } from "./footer-nav";
+import { PODCAST_SPOTIFY_URL, PODCAST_APPLE_PODCASTS_URL } from "./podcast-links";
 
 /* ---- §2 exposure maps, section-local ticks ---- */
 
@@ -146,12 +147,9 @@ function Overlay({ maps }: { maps: Record<GridBand, BandMap> }) {
 
 /* ---- nav content (§4) ---- */
 
-/* Podcast destinations carried from the shipping site's footer content
-   (design-system/components/footer/footer-content.ts). */
-const PODCAST_URL =
-  "https://open.spotify.com/show/41MuXEI3TIvCAQW20Ko9cX?si=777efb21569d4d94";
-const APPLE_PODCASTS_URL =
-  "https://podcasts.apple.com/us/podcast/made-locally/id1895736090";
+/* Podcast destinations — the shared module since spec 024 §8 (the
+   blog landing's podcast card is the second consumer; the Spotify
+   `?si=` tracking parameter dropped at the lift, 024 §9 R4). */
 
 export interface FooterSocial {
   linkedin?: string;
@@ -202,7 +200,7 @@ function navGroups(social: FooterSocial): Array<{
       openRs: 5,
       items: [
         { label: "Blog", href: "/blog" },
-        { label: "Podcast", href: PODCAST_URL },
+        { label: "Podcast", href: PODCAST_SPOTIFY_URL },
         { label: "Marketing Report", href: "/marketing-report" },
       ],
     },
@@ -227,8 +225,8 @@ function navGroups(social: FooterSocial): Array<{
         { label: "Facebook", href: social.facebook ?? "#" },
         { label: "Instagram", href: social.instagram ?? "#" },
         { label: "YouTube", href: social.youtube ?? "#" },
-        { label: "Spotify", href: PODCAST_URL },
-        { label: "Apple Podcast", href: APPLE_PODCASTS_URL },
+        { label: "Spotify", href: PODCAST_SPOTIFY_URL },
+        { label: "Apple Podcast", href: PODCAST_APPLE_PODCASTS_URL },
       ],
     },
   ];
