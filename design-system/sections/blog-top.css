@@ -195,6 +195,12 @@
   width: calc(var(--t) * 10 + 1px);
   min-height: calc(var(--t) * 7 + 1px);
 }
+/* Let the absolute suggestions menu escape the card and stack above the
+   blog-headings row that follows in the grid. */
+.bt-gcard:has(.grader[data-open]) {
+  overflow: visible;
+  z-index: var(--z-raised);
+}
 @container (min-width: 665px) {
   .bt-card {
     padding: calc(var(--bt-u) * 20);
