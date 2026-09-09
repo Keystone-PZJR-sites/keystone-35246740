@@ -30,6 +30,15 @@ const nextConfig: NextConfig = {
   // <picture> markup (art-directed WebP exports) does its own sizing.
   images: { unoptimized: true },
   trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: "/gallery",
+        destination: "/our-work/?gallery=1",
+        permanent: true,
+      },
+    ];
+  },
   // The Keystone packages ship TypeScript; Next transpiles them.
   transpilePackages: [
     "@keystone-sites/core",
