@@ -133,6 +133,7 @@ interface NavItem {
   href: string;
   arrow?: boolean;
   chrome?: "light" | "dark";
+  external?: boolean;
 }
 
 function navGroups(social: FooterSocial): Array<{
@@ -143,10 +144,10 @@ function navGroups(social: FooterSocial): Array<{
   items: NavItem[];
 }> {
   const socialItems: NavItem[] = [];
-  if (social.linkedin) socialItems.push({ label: "LinkedIn", href: social.linkedin });
-  if (social.facebook) socialItems.push({ label: "Facebook", href: social.facebook });
-  if (social.instagram) socialItems.push({ label: "Instagram", href: social.instagram });
-  if (social.youtube) socialItems.push({ label: "YouTube", href: social.youtube });
+  if (social.linkedin) socialItems.push({ label: "LinkedIn", href: social.linkedin, external: true });
+  if (social.facebook) socialItems.push({ label: "Facebook", href: social.facebook, external: true });
+  if (social.instagram) socialItems.push({ label: "Instagram", href: social.instagram, external: true });
+  if (social.youtube) socialItems.push({ label: "YouTube", href: social.youtube, external: true });
 
   return [
     {
@@ -160,7 +161,7 @@ function navGroups(social: FooterSocial): Array<{
         { label: "Our Work", href: SITE_LINKS.ourWork },
         { label: "Case Studies", href: SITE_LINKS.caseStudies },
         { label: "Pricing", href: SITE_LINKS.pricing },
-        { label: "Login", href: SITE_LINKS.login, arrow: true, chrome: "dark" },
+        { label: "Login", href: SITE_LINKS.login, arrow: true, chrome: "dark", external: true },
       ],
     },
     {
@@ -170,7 +171,7 @@ function navGroups(social: FooterSocial): Array<{
       openRs: 5,
       items: [
         { label: "Blog", href: SITE_LINKS.blog },
-        { label: "Podcast", href: SITE_LINKS.spotify },
+        { label: "Podcast", href: SITE_LINKS.spotify, external: true },
         { label: "Marketing Report", href: SITE_LINKS.marketingReport },
       ],
     },
@@ -192,8 +193,8 @@ function navGroups(social: FooterSocial): Array<{
       openRs: 7,
       items: [
         ...socialItems,
-        { label: "Spotify", href: SITE_LINKS.spotify },
-        { label: "Apple Podcast", href: SITE_LINKS.applePodcasts },
+        { label: "Spotify", href: SITE_LINKS.spotify, external: true },
+        { label: "Apple Podcast", href: SITE_LINKS.applePodcasts, external: true },
       ],
     },
   ];
@@ -214,6 +215,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
               chrome={item.chrome ?? "light"}
               href={item.href}
               arrow={item.arrow}
+              external={item.external}
             >
               {item.label}
             </FooterItem>

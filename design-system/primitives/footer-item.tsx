@@ -9,6 +9,8 @@ interface FooterItemProps {
   href: string;
   /** Trailing arrow glyph; tints with the label in every state. */
   arrow?: boolean;
+  /** Open in a new tab (external destinations). */
+  external?: boolean;
   forceState?: "hover" | "focus";
   children: ReactNode;
 }
@@ -18,6 +20,7 @@ export function FooterItem({
   chrome = "light",
   href,
   arrow = false,
+  external = false,
   forceState,
   children,
 }: FooterItemProps) {
@@ -28,6 +31,7 @@ export function FooterItem({
       data-chrome={chrome}
       data-state={forceState}
       href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       <span className="fitem-label">{children}</span>
       {arrow && (
