@@ -12,7 +12,14 @@ import { LoadOrchestrator } from "@/design-system/sections/load-orchestrator";
 /** Our Work page composition. The portal-mounted viewer uses the same
  * gallery data as the page. The orchestrator settles after the last
  * card rise. The grid check lives inside `.page` to read grid variables. */
-export async function OurWorkPage({ gridCheck }: { gridCheck?: React.ReactNode }) {
+export async function OurWorkPage({
+  gridCheck,
+  openGallerySite,
+}: {
+  gridCheck?: React.ReactNode;
+  /** 1-based gallery site to open on load (from `?gallery=`). */
+  openGallerySite?: number;
+}) {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page load-sequence-rise">
@@ -34,7 +41,10 @@ export async function OurWorkPage({ gridCheck }: { gridCheck?: React.ReactNode }
       />
       {/* The first card's rise is the final animation on the shared clock. */}
       <LoadOrchestrator finalAnimation="hx-rise" finalSelector=".csc" />
-      <GalleryOverlay sites={GALLERY_SITES.map(({ name, url }) => ({ name, url }))} />
+      <GalleryOverlay
+        sites={GALLERY_SITES.map(({ name, url }) => ({ name, url }))}
+        openSite={openGallerySite}
+      />
       {gridCheck}
     </div>
   );

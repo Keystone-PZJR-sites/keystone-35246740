@@ -31,10 +31,21 @@ const VIEW_MODES: Array<{ id: ViewMode; label: string; Icon: typeof IconDesktopV
   { id: "mobile", label: "Mobile view", Icon: IconMobileView },
 ];
 
-export function GalleryOverlay({ sites }: { sites: GalleryViewerSite[] }) {
+export function GalleryOverlay({
+  sites,
+  openSite,
+}: {
+  sites: GalleryViewerSite[];
+  /** 1-based site index from `?gallery=` (e.g. /gallery → first site). */
+  openSite?: number;
+}) {
   const portalTarget = typeof document === "undefined" ? null : document.body;
-  const [phase, setPhase] = useState<Phase>("closed");
-  const [s, setS] = useState(1);
+  const initialSite =
+    openSite !== undefined
+      ? Math.max(1, Math.min(sites.length || 1, openSite || 1))
+      : null;
+  const [phase, setPhase] = useState<Phase>(initialSite ? "open" : "closed");
+  const [s, setS] = useState(initialSite ?? 1);
   const [v, setV] = useState<ViewMode>("desktop");
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -58,6 +69,20 @@ export function GalleryOverlay({ sites }: { sites: GalleryViewerSite[] }) {
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
   }, [sites.length]);
+
+  /* Drop ?gallery= after the deep-linked open so refresh stays closed. */
+  useEffect(() => {
+    if (!initialSite) return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has("gallery")) return;
+    params.delete("gallery");
+    const query = params.toString();
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`,
+    );
+  }, [initialSite]);
 
   useEffect(() => {
     if (!mounted) return;
