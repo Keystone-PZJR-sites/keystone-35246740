@@ -109,3 +109,7 @@
 
 /* homepage v2 — the case-study carousel (spec 022) */
 @import "./sections/case-carousel.css";
+
+/* Sections (spec 024) — the blog landing top (the island only flips
+   data-open; the morph is CSS) */
+@import "./sections/blog-top.css";

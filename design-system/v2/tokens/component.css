@@ -770,13 +770,11 @@
   --e2-ps-rd: calc(var(--t) * 12 / 112); /* the styles' drawn ps 12 */
   --e2-det-pad-rd: calc(var(--t) * 64 / 112); /* §4 as amended — top/left */
   --e2-det-s-rd: calc(var(--t) * 608 / 112);
-  /* the timer indicator (§6.2 as re-read 2026-09-06 — §9 R19, the
-     877:98990 keyframes): two 24 × 6 tracks, gap 8; the fill grows
-     from the drawn 6 minimum to the full track */
-  --e2-bc-h: calc(var(--t) * 6 / 112);
-  --e2-bc-track: calc(var(--t) * 24 / 112);
+  /* the slide indicator (§6.2 as redrawn 2026-09-08 — §9 R28, the
+     two-variant 877:98990 set): two 8Ø dots, gap 8, discrete —
+     riding the zoom at rd (material 8/8 below the gate, engines.css) */
+  --e2-bc-dot: calc(var(--t) * 8 / 112);
   --e2-bc-gap: calc(var(--t) * 8 / 112);
-  --e2-bc-min: calc(var(--t) * 6 / 112);
   /* static stack — the R9 walk pairs (drawn 384 · midpoint · drawn
      768): desc 288 · 368 · 448 — the drawn rag holds through the
      walk; header→description gap 12 · 22 · 32; dot 7 · 11.5 · 16 */
@@ -852,4 +850,27 @@
      (rgba(234,232,224,.5), the F4-sanctioned enumerated class) — the
      lattice reads through it (§2) */
   --cc-card-inactive: rgba(234, 232, 224, 0.5);
+
+  /* blog-landing-top constants (spec 024 §1/§3/§4/§6 — the Resources
+     phase's first section). The band unit --bt-u (the wd/cc
+     construction): base/rs the 384 design re-laid on the tick; rt the
+     768 band constants on the weight pair; rd1+ the 1344 design on
+     the tick (one declaration to ∞). The §3/§4 interior walks ride
+     the unit in blog-top.css (the 021 slot-table precedent); the
+     search module's material geometry (§4: heights 56/48/40, discs,
+     glyphs, pl/pr/gap) is fixed px per band in blog-top.css. */
+  --bt-u-rm: calc(var(--t) / 32);
+  --bt-u-rt: calc(var(--wA) + var(--wB));
+  --bt-u-rd: calc(var(--t) / 112);
+  /* the search open-pill widths (§4): the drawn 336 at 768/1344 rides
+     the band construction; at base the open pill fills the 10t
+     header row (the drawn 320 at the 384 anchor) */
+  --bt-search-w-rm: calc(var(--t) * 10);
+  --bt-search-w-rt: calc((var(--wA) + var(--wB)) * 336);
+  --bt-search-w-rd: calc(var(--t) * 336 / 112);
+  /* the search open/close clock (§6): aliases the standing
+     deck/drawer 300ms duration; open rides the drawer ease-in-out,
+     close the deck ease-out (the standing asymmetry). Promotes to a
+     shared entrance name at a second consumer per the motion law. */
+  --blog-search-dur: var(--motion-deck-dur);
 }

@@ -1048,3 +1048,108 @@ F5 mobile-LCP gate against the new hero.
   source; it rides the blog-page spec. The /primitives matrix
   carries both chromes. Committed the same day on the owner's
   instruction.
+- **The Resources planning pass ran and Phase 11 opens on Resources**
+  (owner direction, evening — the blog page; the "order decided when
+  Phase 10 ends" call). Metadata-grade reads of the file's `Resources`
+  section confirmed all nine page frames — three pages × the three
+  anchors of the standing three-anchor policy: **Blog Landing**
+  (`921:16985` 1344 · `926:29545` 768 · `928:36676` 384), **Blog
+  Category** (`930:42246` · `931:43604` · `931:47017`), **Blog Post
+  Detail** (`934:51103` · `934:52698` · `939:53663` — confirmed done
+  by the owner at the pass) — plus the state sets: the grader's
+  active states (`503:25844`, the 003-amendment set), the
+  `podcast-button` interactions (`921:18413`), and the search
+  module's states (`925:27829`; search-active pages `945:55358` 1344
+  · `945:56487` 384). Frame-name hygiene fixed file-side at the pass
+  (the stale "Homepage - Full" names).
+- **The blog is the rebuild's first data-driven surface; the owner's
+  planning rulings** (all this pass): **(1) tick rounding** — variable
+  content grows each page to the nearest whole tick at the bottom
+  (the case-study `extraTicks` grammar generalized to computed
+  content); expectations totals become data-dependent, resolved at
+  the assembly specs. **(2) Rendering carries the live posture** —
+  server-rendered on request, every fetch on `serverApi`'s default
+  60-second revalidate; the data layer is the live one
+  (`@keystone-sites/core`, already a dependency — `/public/blog_posts`
+  · `/public/blog_posts/by_slug/{slug}`). **(3) URLs do not change**
+  — the blog keeps `/blog` and `/blog/[slug]`; the nav's Resources
+  link now points to `/blog` (landed this pass); no redirects, no
+  `/resources` routes. **(4) The page set is a re-skin of the live
+  blog** — categories are the live top-5 tags by count (the drawn
+  five match today's data); the category page is the live filtered
+  mode re-skinned to the drawn grammar (6 per page, back/next
+  pagination); **search results reuse the category-page structure
+  without the featured card**; featured = newest (the live
+  featured-flag preference simplified). Removed live functionality:
+  the highlights row, the topic band, the all-topics list, the
+  filter bar, the CTA band. **(5) Front-end only on the interactive
+  inputs** — the grader card and the search module build the drawn
+  states; the wiring (suggestions data, submit, open/active
+  interaction contracts) is another workstream's. The grader's
+  select-menu visual closes the 003 deferral here. **(6) Podcast
+  links ride the footer's source** — Spotify/Apple constants +
+  `company_information.youtube_url` (the core package carries no
+  podcast URL fields yet; a bump picks them up if the backend adds
+  them).
+- **Resources specs are 024–027**, just-in-time per the standing
+  cadence: **024** — landing top (header, podcast card, grader card,
+  search module); **025** — the post-card grammar + data layer + the
+  landing's lists (featured, recent, category sections) and landing
+  assembly; **026** — category page + pagination + assembly (the
+  search-results surface rides its grammar); **027** — post detail.
+- **Spec 024 is drafted** (evening, from fresh reads of the landing
+  frames at all three anchors, the search-module set, the
+  podcast-button set, and the grader set's brown active variants —
+  every geometry fact, binding, type style, and per-cell exposure
+  verified against rendered bounds through the bridge; 024 §9 R0 is
+  the record). The slice: the page H1 (serif Thin walk 36 · 50 · 72,
+  no slug), the two feature cards (podcast `yellow` chrome with the
+  three social marks at 36/48/56; grader `brown` chrome mounting the
+  003 primitive lg/md/md, **the 003 select-menu deferral closing
+  here** as a presentational block), and the blog header with the
+  collapsing search module (rest circle 56/48/40 · open pill
+  336/336/320; at base the open pill replaces the h2 row, as drawn).
+  Route: `app/blog/page.tsx` lands with this spec; the expectations
+  and sweep leg ride the 025 assembly. Two draft flags with design
+  (024 §7): **F1** — the 768 page-H1 header reads y 98 against 384's
+  96 (a real 2px, not the artifact class); **F2** — the 768 [9,7] ○
+  ornament sits fully under the grader card. Three proposals ride
+  approval (024 §7 R1): the no-JS open-pill posture, the search
+  open/close grammar (300ms on the standing asymmetry), and the 768
+  search-active derivation. **Both draft flags resolved the same
+  evening** (design fixes, re-read at rendered bounds; 024 §9 R2):
+  the page-H1 headers re-drawn at all three anchors — y 80 · 80 ·
+  176, each gaining the standing slug pair (`The Blog` eyebrow,
+  marker `bg/400`, label `text/400`) above the H1; the occluded ○
+  deleted ([11,5] the row's only ornament); the 768 `feature-cards`
+  frame re-created as `951:7473` in the rework, child-for-child
+  identical. **The spec awaits approval.**
+- **024 approved and built the same evening** (owner approval in-chat
+  after the preparation review; 024 §9 R4 the review record, B1–B5
+  the build record). The preparation pass re-verified every §1–§4
+  value at rendered bounds — zero discrepancies — and landed four
+  rulings as dated amendments (R4): the podcast focus ring is
+  **fixed-px** at every mount size; **no flash** — the search's JS
+  enhancement collapses before first paint (an inline flip; React
+  19's dev-only mismatch warning suppressed at the section, the
+  theme-script pattern — B3); the **Spotify `?si=` tracker stripped**
+  at the podcast-links lift (the footer follows through the shared
+  module); one token-expectation correction — the card titles'
+  `display-serif/xs+/Regular` landed at the pre-build re-extraction
+  (the extraction read zero drift otherwise). One build finding
+  (B2): the search module's glyph is its own component, a **fourth
+  icon export** (`IconSearchGlyph`). Deliverables: `blog-top.tsx` /
+  `blog-top.css` with the one island `blog-search-island.tsx` (the
+  native GET form; open/close CSS on the 300ms asymmetric clock),
+  **`GraderSelectMenu`** in the grader primitive (**the 003
+  deferral closes**), `podcast-links.ts` (the footer lift), the
+  `--bt-*` constants, `design-system/v2/blog.tsx`, and **route
+  `app/blog/page.tsx`** — the nav's Resources link now resolves.
+  The rs band rides the pure zoom (the R9 evaluation reserved for
+  the owner on the built page). Acceptance verified against the
+  owner's server: the three drawn anchors byte-exact, the derived
+  576/960, compressed 738/1200, the capped 1920; the search
+  contract end to end; reduced motion; the no-JS open form; the
+  standing sweep green; tsc/lint zero. Route JS and the sweep leg
+  ride the 025 assembly (B4). Working tree left uncommitted per the
+  git rule.

@@ -1,0 +1,750 @@
+/* v2 sections — the blog landing top (spec 024). Anchors 384 · 768 ·
+   1344 (plan.md three-anchor policy): GEOMETRY below the rt gate is
+   the 384 design re-laid on the tick; TYPE rides the pure zoom of the
+   384 design through rm/rs — the 018 R9 midpoint split is NOT
+   pre-applied (§1 reserves it for the built evaluation). The rt band
+   holds the 768 drawn values as band constants (hold-then-switch).
+   From the rd1 gate the 1344 design zooms on the tick — one
+   declaration serves 860 → ∞.
+
+   Units (§1/§3/§4): the section rows, card boxes, the 1t stagger, and
+   the header/blog-header row positions are tick geometry; the H1
+   header is flowed content at MATERIAL y riding the band unit --bt-u
+   (component.css) — it does not sit on ticks (the content-clears-the-
+   lattice law; the drawn clearances 18 · 86 · 74 hold the half-tick
+   law). Card interiors (pads, gaps, desc boxes, label walks) ride
+   --bt-u; material px survives as controls — the 32 icon chips, the
+   podcast discs 36/48/56 (+ their 12 gaps), the grader pill (the
+   primitive's own px), and the search module's §4 geometry — and as
+   the 1px hairlines and the fixed-px focus rings (§7 F4, §9 R4).
+
+   Card borders are paint overlays on line-inclusive boxes (k·t + 1px,
+   the 011 R17 law): each border lands on the lattice pixels and the
+   flush pair shares the col-6 pixel (DOM order: the grader paints on
+   top). The cards' opaque fills paint over the §2 field.
+
+   The search module (§4/§5/§6): ONE morphing box — the bg/300 circle
+   at rest, the white bordered pill when open; contents swap
+   state-to-state under the width change (§6: nothing else animates).
+   The OPEN posture is the CSS default — no-JS renders the functional
+   GET form (§9 R3). The section root's [data-js] (set pre-paint by
+   the section's inline flip, §9 R4) collapses it; the island's
+   [data-open] re-opens it. The width morph runs one 300ms clock
+   (--blog-search-dur): open on the drawer ease-in-out, close on the
+   deck ease-out (CSS reads the timing from the TARGET state — the
+   standing asymmetry). At base the open pill replaces the title row
+   (the drawn 384 search-active page hides the h2). */
+
+/* ---------------- section frame (§1) ---------------- */
+
+.v2-bt {
+  width: 100%;
+  height: calc(var(--t) * 28);
+  --bt-u: var(--bt-u-rm);
+  --bts-w: var(--bt-search-w-rm);
+  /* the search module's material geometry (§4), fixed px per band:
+     rest circle Ø · submit disc Ø · glyph · pl · pr · gap */
+  --bts-d: 40px;
+  --bts-go: 32px;
+  --bts-glyph: 16px;
+  --bts-pl: 16px;
+  --bts-pr: 4px;
+  --bts-gap: 8px;
+  /* the podcast discs (§4), material per band */
+  --bt-disc: 36px;
+}
+@container (min-width: 665px) {
+  .v2-bt {
+    height: calc(var(--t) * 15);
+    --bt-u: var(--bt-u-rt);
+    --bts-w: var(--bt-search-w-rt);
+    --bts-d: 48px;
+    --bts-go: 36px;
+    --bts-glyph: 18px;
+    --bts-pl: 20px;
+    --bts-pr: 6px;
+    --bt-disc: 48px;
+  }
+}
+@container (min-width: 860px) {
+  .v2-bt {
+    height: calc(var(--t) * 11);
+    --bt-u: var(--bt-u-rd);
+    --bts-w: var(--bt-search-w-rd);
+    --bts-d: 56px;
+    --bts-go: 40px;
+    --bts-glyph: 20px;
+    --bts-pl: 24px;
+    --bts-pr: 8px;
+    --bt-disc: 56px;
+  }
+}
+
+/* ---------------- the page H1 header (§3, §9 R2) ---------------- */
+
+/* flowed content at material y (80 · 80 · 176) riding the unit */
+.bt-head {
+  position: absolute;
+  left: var(--t);
+  top: calc(var(--bt-u) * 80);
+}
+@container (min-width: 860px) {
+  .bt-head {
+    top: calc(var(--bt-u) * 176);
+  }
+}
+
+/* the slug pair (§9 R2): the marker INLINE beside the label (gaps
+   8 · 12 · 12 in em at the anchor ratios — not the section slugs'
+   1t-cell construction; this header is off the ticks). Marker 6 at
+   base · 7 from the rt gate (aliasing the standing sys tokens —
+   the drawn 768 carries the 7). */
+.bt-slug {
+  display: flex;
+  align-items: center;
+  gap: 0.6667em;
+  color: var(--color-text-400);
+  /* the pure-zoom walk: 12/16 drawn at 384 → 18/24 at the 576 edge */
+  --fs0: 12;
+  --fs1: 18;
+  --lh0: 16;
+  --lh1: 24;
+}
+.bt-slug::before {
+  content: "";
+  flex: none;
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
+}
+@container (min-width: 470px) {
+  .bt-slug {
+    --fs0: 18;
+    --fs1: 24;
+    --lh0: 24;
+    --lh1: 32;
+  }
+}
+@container (min-width: 665px) {
+  .bt-slug {
+    gap: 0.8571em;
+    /* the 768/1344 anchors carry text/sm/Medium (§9 R2) — alias the
+       mounted style's tokens (alias, never fork); ls is −1% on both */
+    --ts-text-xs-medium-font: var(--ts-text-sm-medium-font);
+    --ts-text-xs-medium-opsz: var(--ts-text-sm-medium-opsz);
+    --fs0: 14;
+    --fs1: 14;
+    --lh0: 18;
+    --lh1: 18;
+  }
+  .bt-slug::before {
+    width: var(--sys-marker-rd);
+    height: var(--sys-marker-rd);
+  }
+}
+@container (min-width: 860px) {
+  .bt-slug {
+    --fs0: 10;
+    --fs1: 14;
+    --lh0: 12.8571;
+    --lh1: 18;
+  }
+}
+
+/* the H1: canon single string, natural wrap in the drawn boxes
+   (320 · 512 · 736 — text columns riding the unit); slug→H1 gap
+   16 · 16 · 24. Kyoto's ital axis is locked at 100 (spec 001) —
+   the upright binary IS the drawn rendering. */
+.bt-h1 {
+  color: var(--color-text-100);
+  margin-top: calc(var(--bt-u) * 16);
+  max-width: calc(var(--bt-u) * 320);
+  /* pure zoom: 36/42 drawn at 384 → 54/63 at the 576 edge */
+  --fs0: 36;
+  --fs1: 54;
+  --lh0: 42;
+  --lh1: 63;
+}
+@container (min-width: 470px) {
+  .bt-h1 {
+    --fs0: 54;
+    --fs1: 72;
+    --lh0: 63;
+    --lh1: 84;
+  }
+}
+@container (min-width: 665px) {
+  .bt-h1 {
+    max-width: calc(var(--bt-u) * 512);
+    /* the 768 anchor's style is lg+/Thin 50/60 (§3) — alias font AND
+       ls (sm+/Thin is −3%, lg+/Thin −2%) */
+    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-lg-plus-thin-font);
+    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-lg-plus-thin-ls);
+    --fs0: 50;
+    --fs1: 50;
+    --lh0: 60;
+    --lh1: 60;
+  }
+}
+@container (min-width: 860px) {
+  .bt-h1 {
+    margin-top: calc(var(--bt-u) * 24);
+    max-width: calc(var(--bt-u) * 736);
+    /* the 1344 anchor's style is 3xl/Thin 72/78 (−3%) */
+    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-3xl-thin-font);
+    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-3xl-thin-ls);
+    --fs0: 51.4286;
+    --fs1: 72;
+    --lh0: 55.7143;
+    --lh1: 78;
+  }
+}
+
+/* ---------------- the feature cards (§4) ---------------- */
+
+.bt-card {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: clip;
+  border-radius: 0;
+  padding: calc(var(--bt-u) * 16);
+}
+/* the 1px chrome border as a paint overlay on the line-inclusive box
+   (011 R17): the box is k·t + 1px so the border lands on the lattice
+   pixels; the interior pad measures from the box edge as drawn */
+.bt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--bt-card-line);
+  pointer-events: none;
+}
+.bt-podcast {
+  --bt-card-line: var(--color-yellow-400);
+  background: var(--color-yellow-300);
+  color: var(--color-yellow-700);
+  left: var(--t);
+  top: calc(var(--t) * 8);
+  width: calc(var(--t) * 10 + 1px);
+  height: calc(var(--t) * 7 + 1px);
+}
+.bt-gcard {
+  --bt-card-line: var(--color-brown-200);
+  background: var(--color-brown-100);
+  color: var(--color-brown-600);
+  left: var(--t);
+  top: calc(var(--t) * 16);
+  width: calc(var(--t) * 10 + 1px);
+  height: calc(var(--t) * 7 + 1px);
+}
+@container (min-width: 665px) {
+  .bt-card {
+    padding: calc(var(--bt-u) * 20);
+  }
+  .bt-podcast {
+    top: calc(var(--t) * 5);
+    width: calc(var(--t) * 5 + 1px);
+    height: calc(var(--t) * 5 + 1px);
+  }
+  .bt-gcard {
+    left: calc(var(--t) * 6);
+    top: calc(var(--t) * 6);
+    width: calc(var(--t) * 5 + 1px);
+    height: calc(var(--t) * 5 + 1px);
+  }
+}
+@container (min-width: 860px) {
+  .bt-card {
+    padding: calc(var(--bt-u) * 32);
+  }
+  .bt-podcast {
+    top: calc(var(--t) * 4);
+    height: calc(var(--t) * 3 + 1px);
+  }
+  .bt-gcard {
+    top: calc(var(--t) * 5);
+    height: calc(var(--t) * 3 + 1px);
+  }
+}
+
+/* the title row: headline left, the 32 material icon chip top-right */
+.bt-card-titlerow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.bt-card-title {
+  /* pure zoom: 24/30 drawn at 384 → 36/45 at the 576 edge */
+  --fs0: 24;
+  --fs1: 36;
+  --lh0: 30;
+  --lh1: 45;
+}
+@container (min-width: 470px) {
+  .bt-card-title {
+    --fs0: 36;
+    --fs1: 48;
+    --lh0: 45;
+    --lh1: 60;
+  }
+}
+@container (min-width: 665px) {
+  .bt-card-title {
+    /* the 768 anchor repeats the 384 style (§4) */
+    --fs0: 24;
+    --fs1: 24;
+    --lh0: 30;
+    --lh1: 30;
+  }
+}
+@container (min-width: 860px) {
+  .bt-card-title {
+    /* the 1344 anchor's style is xs+/Regular 28/34 (−2%; the style
+       landed at this build's re-extraction — §7 as amended) */
+    --ts-display-serif-xs-regular-font: var(--ts-display-serif-xs-plus-regular-font);
+    --ts-display-serif-xs-regular-ls: var(--ts-display-serif-xs-plus-regular-ls);
+    --fs0: 20;
+    --fs1: 28;
+    --lh0: 24.2857;
+    --lh1: 34;
+  }
+}
+.bt-chip {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: grid;
+  place-items: center;
+}
+.bt-podcast .bt-chip {
+  background: var(--color-yellow-400);
+  color: var(--color-yellow-600);
+}
+.bt-gcard .bt-chip {
+  background: var(--color-brown-300);
+  color: var(--color-brown-600);
+}
+
+/* the description: title→desc gap 16 · 16 · 24; boxes pr 0 · 48 · 112 */
+.bt-card-desc {
+  margin-top: calc(var(--bt-u) * 16);
+  /* pure zoom: 16/22 drawn at 384 → 24/33 at the 576 edge */
+  --fs0: 16;
+  --fs1: 24;
+  --lh0: 22;
+  --lh1: 33;
+}
+@container (min-width: 470px) {
+  .bt-card-desc {
+    --fs0: 24;
+    --fs1: 32;
+    --lh0: 33;
+    --lh1: 44;
+  }
+}
+@container (min-width: 665px) {
+  .bt-card-desc {
+    padding-right: calc(var(--bt-u) * 48);
+    /* the 768 anchor's style is text/lg/Light (§4) */
+    --ts-text-md-light-font: var(--ts-text-lg-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --fs0: 18;
+    --fs1: 18;
+    --lh0: 26;
+    --lh1: 26;
+  }
+}
+@container (min-width: 860px) {
+  .bt-card-desc {
+    margin-top: calc(var(--bt-u) * 24);
+    padding-right: calc(var(--bt-u) * 112);
+    /* the 1344 anchor's style is text/xl/Light (§4) */
+    --ts-text-md-light-font: var(--ts-text-xl-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --fs0: 14.2857;
+    --fs1: 20;
+    --lh0: 18.5714;
+    --lh1: 26;
+  }
+}
+
+/* the action block: label → controls on the drawn 12 gap */
+.bt-card-action {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: calc(var(--bt-u) * 12);
+}
+
+/* `LISTEN ON` — text/nav-label at every anchor (§4; the drawn string
+   is uppercase — no transform), box pr 48 */
+.bt-listen {
+  padding-right: calc(var(--bt-u) * 48);
+  /* pure zoom: 10/12 drawn at 384 → 15/18 at the 576 edge */
+  --fs0: 10;
+  --fs1: 15;
+  --lh0: 12;
+  --lh1: 18;
+}
+@container (min-width: 470px) {
+  .bt-listen {
+    --fs0: 15;
+    --fs1: 20;
+    --lh0: 18;
+    --lh1: 24;
+  }
+}
+@container (min-width: 665px) {
+  .bt-listen {
+    --fs0: 10;
+    --fs1: 10;
+    --lh0: 12;
+    --lh1: 12;
+  }
+}
+@container (min-width: 860px) {
+  .bt-listen {
+    --fs0: 7.1429;
+    --fs1: 10;
+    --lh0: 8.5714;
+    --lh1: 12;
+  }
+}
+
+/* the three social marks (§4): material discs on the drawn 12 gaps
+   (a material cluster — the discs and their gaps hold px per band);
+   glyphs at 60% of the disc (the drawn 20%-inset box, §7 F5), inked
+   yellow/700 through currentColor */
+.bt-socials {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+}
+.bt-social {
+  display: grid;
+  place-items: center;
+  width: var(--bt-disc);
+  height: var(--bt-disc);
+  border-radius: var(--radius-full);
+  background: var(--color-yellow-400);
+  color: var(--color-yellow-700);
+  transition: background-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.bt-social svg {
+  width: 60%;
+  height: 60%;
+}
+@media (hover: hover) {
+  .bt-social:hover {
+    background: var(--color-yellow-500);
+  }
+}
+/* the drawn focus dressing (§4, §9 R4: fixed px at every mount size):
+   the 2px white ring then the 4px yellow/700 */
+.bt-social:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-bg-000),
+    0 0 0 4px var(--color-yellow-700);
+}
+
+/* the grader mounts (§4): md below the rd1 gate · lg from it —
+   width-filling the card interior */
+.bt-grader {
+  width: 100%;
+}
+.bt-grader .grader {
+  width: 100%;
+}
+.bt-grader-lg {
+  display: none;
+}
+@container (min-width: 860px) {
+  .bt-grader-md {
+    display: none;
+  }
+  .bt-grader-lg {
+    display: block;
+  }
+}
+
+/* ---------------- the blog header (§3) ---------------- */
+
+.bt-bh {
+  position: absolute;
+  left: var(--t);
+  right: var(--t);
+  top: calc(var(--t) * 24);
+}
+@container (min-width: 665px) {
+  .bt-bh {
+    top: calc(var(--t) * 12);
+  }
+}
+@container (min-width: 860px) {
+  .bt-bh {
+    top: calc(var(--t) * 9);
+  }
+}
+
+/* the interior row (drawn y 44 · 71 · 73, h 40 · 50 · 78 — flowed
+   content riding the unit); everything v-centers (the drawn chip and
+   disc offsets are the centering at each anchor) */
+.bt-bh-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(var(--bt-u) * 44);
+  height: calc(var(--bt-u) * 40);
+}
+@container (min-width: 665px) {
+  .bt-bh-row {
+    margin-top: calc(var(--bt-u) * 71);
+    height: calc(var(--bt-u) * 50);
+  }
+}
+@container (min-width: 860px) {
+  .bt-bh-row {
+    margin-top: calc(var(--bt-u) * 73);
+    height: calc(var(--bt-u) * 78);
+  }
+}
+
+/* the icon slug + h2 (§3): the 32 material chip on text/500, the
+   glyph inked text/100; the drawn 24 gap rides the unit */
+.bt-bh-title {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--bt-u) * 24);
+  min-width: 0;
+}
+.bt-bh-chip {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-500);
+  color: var(--color-text-100);
+  display: grid;
+  place-items: center;
+}
+.bt-bh-h2 {
+  color: var(--color-text-100);
+  /* pure zoom: 24/30 drawn at 384 → 36/45 at the 576 edge */
+  --fs0: 24;
+  --fs1: 36;
+  --lh0: 30;
+  --lh1: 45;
+}
+@container (min-width: 470px) {
+  .bt-bh-h2 {
+    --fs0: 36;
+    --fs1: 48;
+    --lh0: 45;
+    --lh1: 60;
+  }
+}
+@container (min-width: 665px) {
+  .bt-bh-h2 {
+    /* the 768 anchor's style is md+/Extralight 42/50 (ls −2% on both) */
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-md-plus-extralight-font);
+    --fs0: 42;
+    --fs1: 42;
+    --lh0: 50;
+    --lh1: 50;
+  }
+}
+@container (min-width: 860px) {
+  .bt-bh-h2 {
+    /* the 1344 anchor's style is 3xl/Thin 72/78 (−3%) */
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-3xl-thin-font);
+    --ts-display-serif-xs-extralight-ls: var(--ts-display-serif-3xl-thin-ls);
+    --fs0: 51.4286;
+    --fs1: 72;
+    --lh0: 55.7143;
+    --lh1: 78;
+  }
+}
+
+/* at base the OPEN pill replaces the title row (§4 — the drawn 384
+   search-active page hides the h2): both the island's open state and
+   the no-JS posture */
+.bt-bh-row:has(.bt-search[data-open]) .bt-bh-title,
+.v2-bt:not([data-js]) .bt-bh-title {
+  display: none;
+}
+@container (min-width: 665px) {
+  .bt-bh-row:has(.bt-search[data-open]) .bt-bh-title,
+  .v2-bt:not([data-js]) .bt-bh-title {
+    display: flex;
+  }
+}
+
+/* ---------------- the search module (§4/§5/§6) ---------------- */
+
+/* the morphing box — the OPEN white pill is the default posture
+   (no-JS, §9 R3). The base transition timing is the OPEN direction
+   (drawer ease-in-out); the collapsed block restates the CLOSE
+   direction (deck ease-out) — CSS reads the timing from the target
+   state (the standing asymmetry). */
+.bt-search {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--bts-w);
+  height: var(--bts-d);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-000);
+  overflow: clip;
+  transition: width var(--blog-search-dur) var(--motion-drawer-ease-open);
+}
+
+/* the open pill's state dressing (§4, cascade order: hover → focus →
+   typing — the later state wins its ties) */
+@media (hover: hover) {
+  .bt-search:hover {
+    border-color: var(--color-border-100);
+    box-shadow: 0 0 0 4px var(--color-bg-300);
+  }
+  .bt-search:hover .bt-search-go {
+    background: var(--color-bg-400);
+  }
+}
+.bt-search:focus-within {
+  border-color: var(--color-border-100);
+  box-shadow: 0 0 0 4px var(--color-bg-300);
+}
+.bt-search:has(input:not(:placeholder-shown)) {
+  border-color: var(--color-border-100);
+  box-shadow: 0 0 0 4px var(--color-bg-200);
+}
+
+/* the collapsed rest (JS present, island closed) — out-specifies the
+   open dressing above */
+.v2-bt[data-js] .bt-search:not([data-open]) {
+  width: var(--bts-d);
+  background: var(--color-bg-300);
+  border-color: transparent;
+  box-shadow: none;
+  transition-timing-function: var(--motion-deck-ease);
+}
+@media (hover: hover) {
+  .v2-bt[data-js] .bt-search:not([data-open]):hover {
+    background: var(--color-bg-400);
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .v2-bt[data-js] .bt-search:not([data-open]):hover .bt-search-go {
+    background: var(--color-bg-300);
+  }
+}
+/* the rest focus ring (§4: 4px bg/600) — painted by the box so the
+   overflow clip cannot amputate it */
+.v2-bt[data-js] .bt-search:not([data-open]):has(.bt-search-rest:focus-visible) {
+  box-shadow: 0 0 0 4px var(--color-bg-600);
+}
+
+/* the rest button fills the box; only the collapsed state shows it */
+.bt-search-rest {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--color-text-300);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  outline: none;
+}
+.v2-bt[data-js] .bt-search:not([data-open]) .bt-search-rest {
+  display: grid;
+}
+.bt-search-rest svg,
+.bt-search-go svg {
+  width: var(--bts-glyph);
+  height: var(--bts-glyph);
+}
+
+/* the pill (the real GET form): pl · gap · input · submit disc · pr */
+.bt-search-pill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--bts-gap);
+  padding-left: var(--bts-pl);
+  padding-right: var(--bts-pr);
+}
+.v2-bt[data-js] .bt-search:not([data-open]) .bt-search-pill {
+  display: none;
+}
+.bt-search-pill input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  outline: none;
+  color: var(--color-text-200);
+  /* text/md/Light at base (§4) */
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+}
+@container (min-width: 665px) {
+  .bt-search-pill input {
+    /* text/lg/Light at md/xl (§4) */
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+.bt-search-pill input::placeholder {
+  color: var(--color-text-500);
+  opacity: 1;
+}
+.bt-search-go {
+  flex: none;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  width: var(--bts-go);
+  height: var(--bts-go);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-300);
+  color: var(--color-text-300);
+  cursor: pointer;
+  outline: none;
+  transition: background-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.bt-search-go:focus-visible {
+  box-shadow: 0 0 0 4px var(--color-bg-600);
+}
+
+/* reduced motion is site law (§6): every state renders state-to-state */
+@media (prefers-reduced-motion: reduce) {
+  .bt-search,
+  .bt-search-go,
+  .bt-social {
+    transition: none;
+  }
+}
+.page[data-motion="reduce"] .bt-search,
+.page[data-motion="reduce"] .bt-search-go,
+.page[data-motion="reduce"] .bt-social {
+  transition: none;
+}
