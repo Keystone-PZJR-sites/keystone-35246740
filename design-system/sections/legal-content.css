@@ -82,14 +82,11 @@
 }
 
 .legal-prose a {
-  color: var(--color-teal-700);
+  color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--color-teal-300);
+  text-decoration-color: var(--color-border-200);
+  text-decoration-skip-ink: auto;
   text-underline-offset: 0.18em;
-}
-
-.legal-prose a:hover {
-  text-decoration-color: currentColor;
 }
 
 .legal-prose a:focus-visible {
