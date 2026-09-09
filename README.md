@@ -7,21 +7,25 @@ data, chat, and forms; everything visual is custom.
 
 On 2026-08-27 the old-brand site was purged from this branch (owner
 decision — big-bang launch). The old site still ships from `main` until
-the rebuild launches; its spec series (`docs/specs/`) stays frozen here
-as the historical record.
+the rebuild launches.
 
-> **AI agents and designers — read `docs/rebuild/plan.md` first, then
-> `docs/rules/rules.md` in full.**
+> **AI agents and designers — read `AGENTS.md`, then every rule in
+> `.cursor/rules/`.** They are the binding contract for this codebase.
 
 ---
 
 ## Docs
 
-| Folder | Purpose |
+| Location | Purpose |
 |--------|---------|
-| `docs/rules/` | Non-negotiable rules — read before touching anything |
-| `docs/rebuild/` | The rebuild plan, reference docs, and spec series (001–) |
-| `docs/specs/` | The old-brand spec series — frozen, historical record only |
+| `AGENTS.md` | The agent rules index and the non-negotiables |
+| `.cursor/rules/` | The rules: workflow, architecture, design system, grid, Figma, React and accessibility, data and integrations |
+| `docs/reference/grid-engine.md` | The grid mechanics — how the engine is built, painted, and kept crisp |
+| `docs/reference/tokens.md` | The token architecture and the re-extraction procedure |
+| `docs/launch-checklist.md` | Page status, launch gates, and the launch steps |
+
+There are no spec documents. The live Figma file is the design intent, the
+code is the record of what was built, and the rules are the contract.
 
 ---
 
@@ -30,28 +34,39 @@ as the historical record.
 - **Design system:** `design-system/v2/` — tokens → base → grid engine →
   primitives → sections.
 - **Grid:** five anchors (384 · 576 · 768 · 960 · 1344), container-query
-  band gates at the geometric midpoints, nearest-anchor rendering
-  (spec 002 + 002.r1; mechanics in `docs/rebuild/reference/GRID-SPEC.md`).
+  band gates at the geometric midpoints (470 · 665 · 860 · 1130),
+  nearest-anchor rendering, the tick capped at 112px.
 - **Fonts:** GT Standard Standard VF + PP Kyoto Variable Upright —
-  licensed, self-hosted (spec 001).
+  licensed, self-hosted.
 - **Motion:** CSS only — named grammars in `v2/tokens/motion.css`.
   No animation runtime ships.
 - **Design source:** the live Figma file `ks-MarketingSite`, read through
   the Figma MCP only.
 - **Data layer:** `@keystone-sites/core` (`lib/server-api`, chat/form
-  route handlers under `app/api/`).
+  route handlers under `app/api/`). The site chat is the
+  `@keystone-sites/widgets` `ChatWidget`, compiled through
+  `v2/widgets.css`.
+- **Grader:** the grader input queries the Grader search API and
+  deep-links into the Grader app (`v2/lib/grader.ts`); URLs come from
+  `.env`.
 - **Deploy:** Cloudflare via OpenNext (`npm run preview` / `deploy`).
+
+## Environment
+
+Copy the variables in `.env` for local work: `API_URL`, `AUTH_API_URL`,
+`API_KEY`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GRADER_URL`,
+`NEXT_PUBLIC_GRADER_API_URL`, `NEXT_PUBLIC_GRADER_SEARCH_PATHS`. The
+Grader variables are required; a missing one fails the build.
 
 ## Routes
 
 Live routes: `/` · `/pricing` · `/our-work` · `/case-studies/[slug]`.
-The grid sweep runs on those pages. Dedicated QA and fixture routes
-are retired.
+The grid sweep runs on those pages. There are no QA or fixture routes.
 
 ## Checks
 
 ```bash
-npx tsc --noEmit   # zero errors before every commit
-npm run lint       # zero warnings before every commit
-npm run test:grid  # the grid self-test sweep (starts its own dev server)
+npx tsc --noEmit                                  # zero errors before every commit
+npm run lint                                      # zero warnings before every commit
+GRID_URL=http://localhost:3000 npm run test:grid  # the grid sweep, against the running dev server
 ```

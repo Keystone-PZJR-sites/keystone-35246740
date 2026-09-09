@@ -1,0 +1,80 @@
+---
+description: Data and integrations — environment variables, the @keystone-sites packages, the chat widget, the Grader, dependencies
+alwaysApply: true
+---
+
+# Data and integrations
+
+## Environment variables
+
+- Every configurable URL, key, and path lives in `.env` locally and in the
+  deploy environment: `API_URL`, `AUTH_API_URL`, `API_KEY`,
+  `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GRADER_URL`,
+  `NEXT_PUBLIC_GRADER_API_URL`, `NEXT_PUBLIC_GRADER_SEARCH_PATHS`.
+- Required variables have no in-code defaults. A module that needs one reads
+  it through a `required(name, value)` guard that throws at build time with the
+  variable's name (`design-system/v2/lib/grader.ts` is the model). A missing
+  variable fails the build, never a request.
+- `NEXT_PUBLIC_*` values are inlined at build time: spell each read out as a
+  literal `process.env.NAME`; never look one up dynamically.
+- Adding a variable means adding it to `.env`, to the guard, and to this list.
+
+## The `@keystone-sites/*` packages
+
+- `@keystone-sites/core` — server data (`lib/server-api`: company information,
+  team, portfolio), entity types, the chat and form route handlers, the chat
+  backend resolver. Server-only; never import it in a client component.
+- `@keystone-sites/services` — analytics and event capture.
+- `@keystone-sites/widgets` — the battle-tested Keystone widgets (`ChatWidget`
+  and friends).
+
+Data from `server-api` is typed at the page or section boundary against the
+package's entity types before it reaches a component. Helpers that return
+`unknown` or loosely typed objects are validated at the fetch site; only
+verified fields render.
+
+## The chat widget
+
+The site chat is `@keystone-sites/widgets` `ChatWidget`, mounted once in the
+root layout by `sections/site-chat.tsx` and configured by
+`sections/site-chat-data.ts` (accent, placeholder, suggested questions).
+Business name, logo, and team come from `server-api`; it renders only when the
+account has chat enabled.
+
+- **Configure it through its accepted props only.** Never restyle it, override
+  its classes, wrap it in a themed container, or patch its markup. Its surface
+  is standardized across every Keystone site by design.
+- The widget ships Tailwind v4 classes with no compiled CSS. The host compiles
+  them in `design-system/v2/widgets.css` and nowhere else: theme + utilities,
+  no preflight (`base.css` is the equivalent contract), `source(none)` so the
+  site tree is never scanned, and the utilities emitted **unlayered** so a
+  class beats the site's unlayered element reset. Utilities in `@layer
+  utilities` lose to `* { padding: 0 }` and `button { background: transparent }`
+  and the widget renders broken. Do not move that import into a layer.
+- Site markup never uses Tailwind class names. The compile only matches the
+  widget's own markup.
+- Opening the chat from the site is a `data-action="open-chat"` contract:
+  `sections/site-chat-open.tsx` delegates the click to the widget's own prompt
+  pill, so the widget runs its standard behaviour (suggested questions for a
+  new session, the conversation for a returning one). Never reimplement widget
+  state.
+- Shared variable names between the Tailwind theme and the site tokens
+  (`--radius-*`, `--font-serif`, `--font-weight-*`) resolve to the site's
+  values. Re-audit that intersection when the widgets package or the token
+  layer changes.
+
+## The Grader
+
+`design-system/v2/lib/grader.ts` owns the Grader contract: the search endpoint
+list, the response parser, the suggestion type, and the deep-link builder.
+`lib/use-grader-search.ts` is the client hook (debounce, per-session cache,
+grouped Google Places / Websites results with caps). `primitives/grader.tsx`
+is the only consumer. New Grader behaviour lands in those three files.
+
+## Dependencies
+
+The site ships zero UI runtime libraries: motion is CSS, islands are small,
+forms are native. Before adding any dependency, check the existing islands and
+the `@keystone-sites/*` packages, prefer the platform, and justify the addition
+in the change. Bump the `@keystone-sites/*` packages deliberately and re-verify
+the widget surface in the browser after every bump.

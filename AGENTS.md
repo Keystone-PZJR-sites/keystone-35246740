@@ -1,82 +1,75 @@
 # Agent rules — keystone-35246740
 
-This branch (`new-brand-marketing-site`) is the **new-brand rebuild** of the
-Keystone corporate site — since 2026-08-27 the only site in this working
-tree (the old-brand code was purged by owner decision; big-bang launch;
-the old site ships from `main` until then). Before doing anything:
+This branch (`new-brand-marketing-site`) is the new-brand rebuild of the
+Keystone corporate site, built under `design-system/v2/` on the five-anchor
+grid. It is the only site in this tree. The old site ships from `main` until
+the big-bang launch; nothing here deploys before every page is complete.
 
-1. Read `docs/rebuild/plan.md` — phasing, decision log, source-of-truth
- hierarchy, and spec cadence for the rebuild.
-2. Rebuild specs live in `docs/rebuild/specs/` (series from 001). Specs are
- approved before implementation and written just-in-time from fresh Figma
- MCP reads — see plan.md, "Spec cadence".
-3. Read `docs/rules/rules.md` in full — revised 2026-08-27 for the
- purged, v2-only tree. It carries the rebuild spec conventions, the
- grid and type laws, the motion grammars, the amendment protocol in
- "Specs Are Immutable", and the Figma verification protocol inside
- "Figma Links Are Read Through the MCP".
-4. The old-brand spec series (`docs/specs/001–056`) is a frozen
- historical record. Never edit it; never build from it.
-5. Never delete pages or routes without explicit instruction.
-6. **Never start your own dev server.** The owner keeps `npm run dev`
- running on port 3000 — verify against `http://localhost:3000`. Two
- dev servers share one `.next` directory and corrupt each other's
- chunks (the page half-loads; this happened 2026-08-29). If port 3000
- is not answering, say so and ask — do not launch a replacement.
- Run the grid sweep against the owner's server too:
- `GRID_URL=http://localhost:3000 npm run test:grid` (without GRID_URL
- it spawns its own `next dev` and hits the same conflict).
+The rules are binding. They live in `.cursor/rules/` and load automatically;
+this file is the index and the short list you must never break. There are no
+design specs in this repository: the live Figma file is the design intent, the
+code is the record of what was built, and these rules are the contract.
 
-All geometry, type, and token values come from the live Figma file
-`ks-MarketingSite` through the Figma MCP — never from screenshots, memory, or
-prior extractions.
+## Read order
 
-Figma verification digest (full protocol in `docs/rules/rules.md`):
+1. This file.
+2. `.cursor/rules/00-workflow.mdc` — how work happens here: sources of truth,
+   verification gates, git, docs, comments.
+3. `.cursor/rules/10-architecture.mdc` — server/client split, the design-system
+   layers, component and state rules.
+4. `.cursor/rules/20-design-system.mdc` — tokens, styling, motion, fonts, assets.
+5. `.cursor/rules/30-grid-and-layout.mdc` — the band system and the grid laws.
+   Mechanics: `docs/reference/grid-engine.md`.
+6. `.cursor/rules/40-figma.mdc` — reading the design through the Figma MCP.
+7. `.cursor/rules/50-react-effects-a11y.mdc` — hydration, effects, accessibility.
+8. `.cursor/rules/60-data-and-integrations.mdc` — env, packages, the widgets, forms.
 
-- `get_metadata` cannot see radius, fill, or interactivity; grid
- auto-layout children can carry stale `x`/`y`. Verify transcription
- against rendered bounds (`absoluteBoundingBox`) through the Figma
- console MCP ("the console bridge") before committing geometry.
-- Stroke alignment causes ±0.5/±1px read artifacts; transcribe the
- intended whole value, not the artifact.
-- The file can be wrong — never build a known error. Flag anomalies to
- design, re-read every touched node after the fix, and record the
- resolution in the spec's §9 resolutions record.
-- Re-extract the token layer from the Figma variables API before every
- phase build.
-- Post-approval changes land as dated inline amendments plus a §9 entry
- ("Specs Are Immutable", rebuild amendment protocol) — never silent
- edits, never a new spec for a same-day fix.
+## Never
 
-Grid digest (the full laws in `docs/rules/rules.md`, "Grid & Type
-Laws" — learned the hard way in the pricing build, 2026-08-27):
+- Never read geometry, type, or tokens from screenshots, memory, or a prior
+  extraction. Read the live Figma file through the Figma MCP. If the MCP is
+  unreachable, stop and say so.
+- Never start your own dev server. The owner runs `npm run dev` on port 3000.
+  Two servers share one `.next` directory and corrupt each other. If port 3000
+  is not answering, say so and ask. The grid sweep runs against the owner's
+  server: `GRID_URL=http://localhost:3000 npm run test:grid`.
+- Never hardcode a value that means something: colors, spacing, type, motion,
+  z-index, URLs, copy, asset paths, endpoints. Tokens, data modules, the media
+  registry, and `.env` are the homes.
+- Never write CSS outside the `design-system/v2/` layers; never use utility
+  classes, CSS modules, CSS-in-JS, `<style>` tags, or `!important`.
+- Never customize a `@keystone-sites/*` widget beyond its accepted props.
+- Never put `'use client'` on a page; interactivity lives in leaf islands.
+- Never suppress a lint or type error; fix the cause.
+- Never delete a page, route, or config file without explicit instruction.
+- Never commit, stage, or push unless the human asks in that turn.
 
-- A band-constant designed value rides the weights —
- `calc((wA + wB) * V)`, never `Vpx` — so the compressed slices zoom
- it with the tick. Fixed px breaks wraps and clearances off-anchor.
-- A bordered content box whose edge lies on exposed lattice is sized
- `k·t + 1px` (line-inclusive), or it doubles the page hairline.
-- The grid sweep audits vertical stacks only. Check horizontal
- clearance against exposed cells manually at compressed-slice widths
- (below each anchor, above each gate) until the harness gains the
- assertion (spec 013).
-- Content clears the lattice (owner ruling 2026-09-04): flowed
- content never touches a tick line and keeps ≥ half a tick of
- vertical clearance from the next section or a bottom-anchored
- block. When populating a fixed-frame template (the case-study
- pages), grow an overrunning frame by whole ticks — per-study
- `extraTicks` in the data module — so the next block starts on the
- next tick. Never let copy compress the gap. The painted lattice
- rides the growth: cells drawn against content (the widenings
- beside stat rows, tail rails, their ornaments) shift down with the
- frame bottom while the leading rail extends — a painted cell left
- on its drawn row while content moves is a defect.
+## Before you say "done"
 
-Do not commit, stage, or push unless the human asks in that turn.
-Completing a spec or passing checks is not permission to commit. Leave
-the working tree dirty and report what is ready. When asked to commit,
-write messages in ASD-STE100 Simplified Technical English (see "Git
-Workflow" in `docs/rules/rules.md`): active voice, one idea per sentence,
-20 words or fewer per sentence, plain approved words. Prefer the smallest
-complete commit (one spec, one token layer, one primitive) — not a whole
-phase.
+- `npx tsc --noEmit` — zero errors.
+- `npm run lint` — zero errors, zero warnings.
+- Any change under `design-system/v2/` that touches layout: the grid sweep
+  passes at every anchor and mid-band width, scrollbar forced on.
+- A visual change is verified in the browser at the five anchors
+  (384 · 576 · 768 · 960 · 1344) and one mid-band width per band.
+- Every new value traces to a token, a named constant, or a data module.
+- The rules and reference docs still describe the code. Update them in the
+  same change when they do not.
+
+## Git
+
+Commit only when asked. Conventional Commits (`feat:`, `fix:`, `docs:`,
+`chore:`, `refactor:`), written in ASD-STE100 Simplified Technical English:
+active voice, one idea per sentence, 20 words or fewer per sentence, plain
+words. The smallest complete commit — one primitive, one section, one token
+layer. `tsc` and `lint` pass before every commit. Never force-push `main`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

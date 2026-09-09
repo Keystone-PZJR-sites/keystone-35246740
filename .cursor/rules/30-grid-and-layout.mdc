@@ -1,0 +1,128 @@
+---
+description: The five-anchor grid — band system, the four units, the grid and type laws, layout positioning rules
+alwaysApply: true
+---
+
+# Grid and layout
+
+Mechanics (the engine, painting, hairlines, how boxes meet the lattice) are in
+`docs/reference/grid-engine.md`; the engine itself is
+`design-system/v2/grid/engine.css`. These laws govern on top of them. Refer
+to them by name.
+
+## The band system
+
+Five anchors where a design exists and renders exact; four structural gates
+at the bands' geometric midpoints, gated by **container queries** on
+`.v2-root` — never media queries.
+
+| band | gate (`@container min-width`) | anchor | tick `--t` |
+|---|---|---|---|
+| base | — | 384 | 32px |
+| `rs` | 470 | 576 | 48px |
+| `rt` | 665 | 768 | 64px |
+| `rd1` | 860 | 960 | 80px |
+| `rd2` | 1130 | 1344 | 112px |
+
+- The tick is the page container's width ÷ 12, capped at 112px. Base CSS is
+  the 384 design (mobile-first); each gate overrides upward.
+- **Nearest-anchor rendering.** Every width renders the nearest anchor's
+  design: stretched below its anchor, compressed above the gate. In a
+  compressed slice the weights collapse to a pure zoom of that anchor, so wrap
+  counts and designed clearances hold by construction.
+- Above 1344 the tick caps, the weights pin at 0/1, and the 1344 design
+  renders byte-exact at every wider width. The page box (12t) centers on a
+  whole-pixel offset (`--page-x`); the freed gutters paint the side fields
+  (`.gf-*`, deterministic server-side hash, never animated). Fixed chrome
+  carries `--page-x`.
+- Three-anchor pages may be designed at 384 · 768 · 1344 only. `rs` renders
+  the 384 design on its tick; `rd1` derives from the 1344 design unless the
+  section rules otherwise. A frame drawn later supersedes the derivation.
+- JavaScript that needs the band measures the container (ResizeObserver) or
+  reads computed style — never `matchMedia`.
+- Every section is verified at all five anchors and one width per structural
+  slice, scrollbar forced on.
+
+## The four units
+
+Every dimension belongs to exactly one unit. Classifying it is the first
+decision.
+
+1. **Ticks** — structure: column positions, section heights, exposure regions,
+   component footprints. Written in `--t`; fluid by construction.
+2. **Weights** — text columns: wrap-pinning widths and text-block heights in
+   flow margins interpolate `calc(var(--wA)*V0 + var(--wB)*V1)` between the
+   band's anchors.
+3. **Em at anchor ratios** — line-internal spacing: inline gaps, chip paddings
+   ride the type.
+4. **Material** — fixed px per band: buttons, icons, marks, control inners.
+   Primitives are material (fixed px per size variant, never band-aware);
+   sections choose the size variant per band and own each instance's width.
+
+A px value that secretly encodes ticks, weights, or type is a defect: it breaks
+rag, fit, or clearance in the compressed slices. Constants that reference `--t`
+or the weights are declared on `.page`, never `:root`.
+
+## The grid and type laws
+
+- **Hold-then-switch.** Type interpolates between a band's two anchors only
+  when both carry the same structure. At a structural switch, type holds its
+  last designed value across the band and switches with the structure at the
+  gate.
+- **Size and line-height interpolate; weight and tracking are band
+  constants**, restated per band.
+- **Band constants ride the weights.** A designed value constant across a band
+  is `calc((var(--wA) + var(--wB)) * V)`, never `Vpx`, so it zooms with the
+  tick in the compressed slices. Fixed px broke wraps and rail clearance the
+  day sections met the compressed slices.
+- **Line-inclusive content boxes.** A bordered box whose edge lies on exposed
+  lattice is sized `k·t + 1px`, so its border lands on the line's pixel. A box
+  sized `k·t` exactly doubles the hairline.
+- **The tick wins.** A whole-tick box height governs over its declared padding
+  sum; slack compresses padding or sits as clear space.
+- **Content clears the lattice.** Flowed content never touches a tick line or
+  another block and keeps at least half a tick of vertical clearance from the
+  next section or a bottom-anchored block. When new content overruns a
+  fixed-frame template (the case-study pages), grow the frame by whole ticks
+  (per-study `extraTicks` in the data module) so the next block starts on the
+  next tick. Copy never silently compresses a gap. **The painted lattice rides
+  the growth**: cells drawn against content (widenings beside stat rows, tail
+  rails, their ornaments) shift with the frame; the leading rail extends. A
+  cell left on its drawn row while content moves is a defect.
+- **Derived states.** When design supplies one archetype state, siblings
+  derive as the smallest whole-tick height that fits their content at the
+  band's internals; the derivation is written in a comment at the value.
+- **Choreographies settle.** A load choreography ends explicitly on the final
+  beat's `animationend`; band-gated variants re-entering the tree have nothing
+  to replay.
+- **Proportional primitives.** A primitive may be declared proportional (the
+  pricing button): every interior value is a designed-px-over-anchor-cell
+  fraction, so a mount that passes the page tick scales the control with the
+  grid. The tell in Figma: when a set's cells equal the anchor ticks
+  (32/48/64/80/112), read those px as `1t`.
+- **Overlay chrome** (the nav) never participates in a section's tick stack.
+- **Audits at rest.** Mid-flight motion may be fractional-tick by design; the
+  stack-sum, landmark, and exposed-cell clearance audits assert at rest in
+  every state. A clearance failure is a collision first.
+- **Rendered truth over metadata.** Every landmark is verified against
+  rendered bounds, never Figma metadata `x`/`y`.
+
+## Layout must scale — no fragile positioning
+
+Absolute positioning is acceptable only for: media fills (`inset: 0;
+object-fit: cover` in a grid-sized parent); the exposure vocabulary
+(`--gx`/`--gy` ticks); overlay layers (nav chrome, modal backdrops, decorative
+pseudo-elements, a menu anchored to its control); a true escape from document
+flow (viewport-fixed controls). Everything else is normal flow.
+
+| Anti-pattern | Fix |
+|---|---|
+| Fixed px coordinates from Figma's ruler | ticks/weights, flex order + margin |
+| Fixed px widths on text containers | weight-riding wrap boxes |
+| Fixed px heights on sub-containers | whole-tick heights; "the tick wins" |
+| `line-height: 0` as a spacing hack | flex column + gap |
+| Magic gaps | tick or em expressions per the four units |
+| Media queries for band switches | container queries at the gates |
+
+Always: no fixed widths that overflow at 384; touch targets ≥ 44 × 44 px;
+no hover-only interactions.
