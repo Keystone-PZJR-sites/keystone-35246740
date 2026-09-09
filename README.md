@@ -40,9 +40,10 @@ Figma file defines design intent, and the code defines the shipped site.
 ## Environment
 
 Copy the variables in `.env` for local work: `API_URL`, `AUTH_API_URL`,
-`API_KEY`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GRADER_URL`,
-`NEXT_PUBLIC_GRADER_API_URL`, `NEXT_PUBLIC_GRADER_SEARCH_PATHS`. The
-Grader variables are required; a missing one fails the build.
+`API_KEY`, `NEXT_PUBLIC_GRADER_URL`, `NEXT_PUBLIC_GRADER_API_URL`,
+`NEXT_PUBLIC_GRADER_SEARCH_PATHS`. The Grader variables are required; a
+missing one fails the build. The public site origin is `SITE_URL` in
+`design-system/site.ts`.
 
 ## Routes
 

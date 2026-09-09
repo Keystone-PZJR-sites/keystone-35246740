@@ -9,8 +9,10 @@ alwaysApply: true
 
 - Every configurable URL, key, and path lives in `.env` locally and in the
   deploy environment: `API_URL`, `AUTH_API_URL`, `API_KEY`,
-  `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GRADER_URL`,
-  `NEXT_PUBLIC_GRADER_API_URL`, `NEXT_PUBLIC_GRADER_SEARCH_PATHS`.
+  `NEXT_PUBLIC_GRADER_URL`, `NEXT_PUBLIC_GRADER_API_URL`,
+  `NEXT_PUBLIC_GRADER_SEARCH_PATHS`.
+- The public site origin is baked into `design-system/site.ts` (`SITE_URL`),
+  same pattern as customer sites — not a deploy secret.
 - Required variables have no in-code defaults. A module that needs one reads
   it through a `required(name, value)` guard that throws at build time with the
   variable's name (`design-system/lib/grader.ts` is the model). A missing

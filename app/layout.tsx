@@ -4,16 +4,11 @@ import type { Metadata, Viewport } from "next";
 import { getConsentRegime } from "@keystone-sites/core";
 import { CookieConsentModal } from "@keystone-sites/widgets/consent/CookieConsentModal";
 import { SiteChat } from "@/design-system/sections/site-chat";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-
-if (!siteUrl) {
-  throw new Error("Missing required environment variable: NEXT_PUBLIC_SITE_URL");
-}
+import { SITE_URL } from "@/design-system/site";
 
 /* Static metadata never blocks HTML delivery. */
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: "Keystone | Sales & Marketing for Local Businesses",
   description:
     "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",

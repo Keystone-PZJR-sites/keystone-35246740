@@ -13,9 +13,16 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
     const frames = track.querySelectorAll(".hx-frame:not([data-clone])").length;
     const frameEls = [...track.querySelectorAll<HTMLElement>(".hx-frame")];
     const styles = getComputedStyle(track);
+    /* Browsers may serialize 3500ms as 3.5s; parseFloat alone would
+       treat that as 3.5ms and run the carousel at a blur. */
     const ms = (name: string, fallback: number) => {
-      const v = parseFloat(styles.getPropertyValue(name));
-      return Number.isFinite(v) ? v : fallback;
+      const raw = styles.getPropertyValue(name).trim();
+      if (!raw) return fallback;
+      const v = parseFloat(raw);
+      if (!Number.isFinite(v)) return fallback;
+      if (raw.endsWith("ms")) return v;
+      if (raw.endsWith("s")) return v * 1000;
+      return v;
     };
     const slide = ms("--motion-slide-duration", 900);
     const dwell = ms("--motion-carousel-dwell", 3500);
