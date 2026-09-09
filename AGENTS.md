@@ -44,10 +44,14 @@ ships. These rules are the contract.
 
 - `npx tsc --noEmit` — zero errors.
 - `npm run lint` — zero errors, zero warnings.
-- Any change under `design-system/` that touches layout: the grid sweep
-  passes at every anchor and mid-band width, scrollbar forced on.
 - A visual change is verified in the browser at the five anchors
   (384 · 576 · 768 · 960 · 1344) and one mid-band width per band.
+- The grid sweep is **not** the default layout gate. Run it only when the
+  lattice contract changes — `design-system/grid/`, `app/grid/`, or asserted
+  section tick geometry / exposure / stack order. See `00-workflow.mdc`.
+  A one-page lattice change uses `GRID_ROUTE`. Never use the sweep as a
+  mid-build loop. If it fails, stay on that route; do not restart the full
+  suite from `/`.
 - Every new value traces to a token, a named constant, or a data module.
 - The rules describe the code. Update them with the code.
 

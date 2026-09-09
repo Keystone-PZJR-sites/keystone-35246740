@@ -92,6 +92,7 @@
   flex-direction: column;
   gap: calc(var(--bl-u) * 32);
   min-height: calc(var(--t) * var(--bl-st-rm));
+  height: calc(var(--t) * var(--bl-st-rm));
 }
 .bl-stack > li {
   display: block;
@@ -99,14 +100,22 @@
 }
 .bl-stack .blc {
   min-height: calc(var(--t) * 10);
+  height: calc(var(--t) * 10);
+}
+.bl-stack .blc-info {
+  /* The card copy is line-clamped; keep new backend copy inside the
+     designed card slot instead of letting its min-content size grow it. */
+  overflow: hidden;
 }
 @container (min-width: 665px) {
   .bl-stack {
     gap: calc(var(--bl-u) * 48);
     min-height: calc(var(--t) * var(--bl-st-rt));
+    height: calc(var(--t) * var(--bl-st-rt));
   }
   .bl-stack .blc {
     min-height: calc(var(--bl-u) * 352);
+    height: calc(var(--bl-u) * 352);
   }
 }
 @container (min-width: 860px) {
@@ -114,12 +123,15 @@
     flex-direction: row;
     gap: calc(var(--bl-u) * 32);
     min-height: calc(var(--t) * 3);
+    height: calc(var(--t) * 3);
   }
   .bl-stack > li {
     flex: 1;
     min-width: 0;
+    min-height: 0;
   }
   .bl-stack .blc {
     height: 100%;
+    min-height: 0;
   }
 }

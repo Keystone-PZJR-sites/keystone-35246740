@@ -2,26 +2,32 @@ import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import type { ReactNode } from "react";
 import { GridField } from "../grid/field";
 import { FooterSection } from "../sections/footer";
+import { BlogCategorySection } from "../sections/blog-category";
 import { BlogListsSection } from "../sections/blog-lists";
 import { BlogTopSection } from "../sections/blog-top";
-import type { BlogLandingModel } from "../sections/blog-data";
+import type { BlogPageModel } from "../sections/blog-data";
 import { NavChrome } from "../sections/nav";
 
 export interface BlogPageProps {
-  landing: BlogLandingModel;
-  searchQuery?: string;
+  model: BlogPageModel;
   gridCheck?: ReactNode;
 }
 
-export async function BlogPage({ landing, searchQuery, gridCheck }: BlogPageProps) {
+export async function BlogPage({ model, gridCheck }: BlogPageProps) {
   const company = await getCompanyInformation();
   return (
     <div className="page">
       <GridField />
       <NavChrome />
       <main>
-        <BlogTopSection youtubeUrl={company?.youtube_url} searchQuery={searchQuery} />
-        <BlogListsSection landing={landing} />
+        {model.type === "landing" ? (
+          <>
+            <BlogTopSection youtubeUrl={company?.youtube_url} />
+            <BlogListsSection landing={model.landing} />
+          </>
+        ) : (
+          <BlogCategorySection model={model.filtered} />
+        )}
       </main>
       <FooterSection
         social={{

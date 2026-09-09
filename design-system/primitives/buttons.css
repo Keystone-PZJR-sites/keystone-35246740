@@ -325,15 +325,17 @@
 }
 
 @media (hover: hover) {
-  .btn-arrow:not(:disabled):not([data-loading]):hover {
+  .btn-arrow:not(:disabled):not([data-state="disabled"]):not([data-loading]):hover {
     background: var(--_bg-hover);
   }
-  .btn-arrow:not(:disabled):not([data-loading]):hover .btn-arrow-main {
+  .btn-arrow:not(:disabled):not([data-state="disabled"]):not([data-loading]):hover
+    .btn-arrow-main {
     left: var(--_thru);
     transition: left calc(var(--btn-arrow-thru-dur) / 2)
       var(--btn-arrow-thru-exit-ease);
   }
-  .btn-arrow:not(:disabled):not([data-loading]):hover .btn-arrow-ghost {
+  .btn-arrow:not(:disabled):not([data-state="disabled"]):not([data-loading]):hover
+    .btn-arrow-ghost {
     left: 0;
     transition: left calc(var(--btn-arrow-thru-dur) / 2)
       var(--btn-arrow-thru-enter-ease) calc(var(--btn-arrow-thru-dur) / 2);

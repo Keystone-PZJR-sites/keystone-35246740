@@ -138,6 +138,8 @@ export function ButtonGhost({
 interface ButtonArrowProps {
   size?: "lg" | "md" | "sm";
   chrome?: "teal" | "gray" | "brown";
+  /** A URL renders link chrome; null renders disabled non-link chrome. */
+  href?: string | null;
   disabled?: boolean;
   loading?: boolean;
   forceState?: ForceableState | "disabled";
@@ -149,12 +151,50 @@ interface ButtonArrowProps {
 export function ButtonArrow({
   size = "lg",
   chrome = "teal",
+  href,
   disabled = false,
   loading = false,
   forceState,
   label,
   type = "button",
 }: ButtonArrowProps) {
+  const glyph = loading ? (
+    <IconLoadingCircle />
+  ) : (
+    <>
+      {/* Stacked glyphs create the hover pass-through. */}
+      <IconArrowRight className="btn-arrow-main" />
+      <IconArrowRight className="btn-arrow-ghost" />
+    </>
+  );
+  if (typeof href === "string") {
+    return (
+      <a
+        href={href}
+        className="btn-arrow"
+        data-size={size}
+        data-chrome={chrome}
+        data-state={forceState}
+        aria-label={label}
+      >
+        {glyph}
+      </a>
+    );
+  }
+  if (href === null) {
+    return (
+      <span
+        className="btn-arrow"
+        data-size={size}
+        data-chrome={chrome}
+        data-state="disabled"
+        aria-disabled="true"
+        aria-label={label}
+      >
+        {glyph}
+      </span>
+    );
+  }
   return (
     <button
       type={type}
@@ -167,15 +207,7 @@ export function ButtonArrow({
       aria-busy={loading || undefined}
       aria-label={label}
     >
-      {loading ? (
-        <IconLoadingCircle />
-      ) : (
-        <>
-          {/* Stacked glyphs create the hover pass-through. */}
-          <IconArrowRight className="btn-arrow-main" />
-          <IconArrowRight className="btn-arrow-ghost" />
-        </>
-      )}
+      {glyph}
     </button>
   );
 }

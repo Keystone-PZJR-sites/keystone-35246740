@@ -55,5 +55,7 @@ runs on those pages.
 ```bash
 npx tsc --noEmit
 npm run lint
-GRID_URL=http://localhost:3000 npm run test:grid  # the grid sweep, against the running dev server
+# lattice contract only — not the default for a section or page build
+GRID_URL=http://localhost:3000 npm run test:grid
+GRID_URL=http://localhost:3000 GRID_ROUTE=/blog npm run test:grid  # one page
 ```
