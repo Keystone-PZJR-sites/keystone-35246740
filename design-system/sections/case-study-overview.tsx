@@ -2,20 +2,17 @@
 
 import type { CaseStudy } from "./case-study-data";
 import { CaseStudyFeatureList } from "./case-study-feature-list";
-import { CaseStudyLattice, extraTickVars } from "./case-study-lattice";
+import { CaseStudyLattice } from "./case-study-lattice";
 import { CaseStudyStatCell } from "./case-study-stat-cell";
 
 export function CaseStudyOverviewSection({ study }: { study: CaseStudy }) {
-  /* Growth moves the frame-bottom stats and lattice with longer copy. */
-  const extra = study.extraTicks?.overview;
   return (
     <section
       className="sec cs-sec cso-sec"
       id="overview"
       aria-labelledby="overview-h"
-      style={extraTickVars(extra)}
     >
-      <CaseStudyLattice section="overview" extra={extra} />
+      <CaseStudyLattice section="overview" />
       <div className="cs-content cso-content" data-landmark="overview">
         <div className="cso-frame">
           <h2 className="cs-h2 cs-type" id="overview-h">

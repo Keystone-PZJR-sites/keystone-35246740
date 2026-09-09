@@ -3,8 +3,6 @@
 
 import type { CaseStudyPageImage } from "../media";
 
-type Band = "rm" | "rs" | "rt" | "rd1" | "rd2";
-
 type ChipColor = "pink" | "orange" | "yellow" | "teal" | "blue" | "purple";
 
 export interface CaseStudyTag {
@@ -40,7 +38,6 @@ interface ImageTierSize {
 }
 
 /** Per-band whole-tick growth. Omitted bands use the base height. */
-type ExtraTicks = Partial<Record<Band, number>>;
 
 export interface CaseStudy {
   /** Route slug. */
@@ -73,13 +70,6 @@ export interface CaseStudy {
   /** Body paragraphs render with the section's paragraph spacing. */
   result: { quote: string; attribution: string; head: string; body: string[]; buttonLabel: string };
   liveUrl: string;
-  /** Extra whole ticks keep variable-length content clear of the next
-   * section; the lattice applies the same growth. */
-  extraTicks?: {
-    overview?: ExtraTicks;
-    shift?: ExtraTicks;
-    result?: ExtraTicks;
-  };
   /** Meaningful alt text for each photograph. */
   alts: Record<CaseStudyPageImage, string>;
   /** Intrinsic dimensions for each image tier. */
@@ -431,11 +421,6 @@ const YOUR_HEALTH_SOLUTIONS: CaseStudy = {
     buttonLabel: "View the Your Health Solutions website",
   },
   liveUrl: "https://your-health-solutions-66700434.rahul-0b6.workers.dev/",
-  extraTicks: {
-    overview: { rm: 1, rd2: 1 },
-    shift: { rm: 1 },
-    result: { rm: 2, rd1: 1 },
-  },
   alts: {
     header: "Owner Jessica Blancato Roche and a team member inside Your Health Solutions",
     studio: "The Your Health Solutions reception desk",
@@ -621,11 +606,6 @@ const BARE_LUX_STUDIO: CaseStudy = {
     buttonLabel: "View the Bare Lúx Studio website",
   },
   liveUrl: "https://bare-lux-studio-93591379.rahul-0b6.workers.dev/",
-  extraTicks: {
-    overview: { rm: 2, rt: 1, rd1: 1, rd2: 1 },
-    shift: { rm: 1 },
-    result: { rm: 3, rd1: 1, rd2: 1 },
-  },
   alts: {
     header: "Owner Estefany Crook at a desk inside Bare Lúx Studio",
     studio: "The Bare Lúx Studio team in their scrubs",

@@ -3,19 +3,19 @@
 /* ---------------- section frame ---------------- */
 
 .csi-sec {
-  height: calc(var(--t) * 14);
+  min-height: calc(var(--t) * 14);
 }
 @container (min-width: 470px) {
-  .csi-sec { height: calc(var(--t) * 7); }
+  .csi-sec { min-height: calc(var(--t) * 7); }
 }
 @container (min-width: 665px) {
-  .csi-sec { height: calc(var(--t) * 8); }
+  .csi-sec { min-height: calc(var(--t) * 8); }
 }
 @container (min-width: 860px) {
-  .csi-sec { height: calc(var(--t) * 4); }
+  .csi-sec { min-height: calc(var(--t) * 4); }
 }
 @container (min-width: 1130px) {
-  .csi-sec { height: calc(var(--t) * 3); }
+  .csi-sec { min-height: calc(var(--t) * 3); }
 }
 
 /* ---------------- the head row ---------------- */
@@ -69,6 +69,8 @@
   flex-wrap: wrap;
   align-content: flex-start;
   padding: 1px 0 0 1px;
+  /* The last row's border shares the pixel with the section's bottom edge. */
+  margin-bottom: -1px;
   --cell-w: calc(var(--t) * 5.25 + 1px);
   --cell-h: calc(var(--t) * 4 + 1px);
   --cs-cell-pad: 12px;
@@ -78,7 +80,7 @@
   --cs-pill-ls: var(--ts-text-sm-regular-ls);
   --cs-pill-opsz: var(--ts-text-sm-regular-opsz);
 }
-.csi-grid > * {
+.csi-grid > .cs-cell {
   margin: -1px 0 0 -1px;
   width: var(--cell-w);
   height: var(--cell-h);

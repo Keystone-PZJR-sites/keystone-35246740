@@ -1,34 +1,35 @@
 /* One image list reflows from a narrow strip to a wide mosaic. */
 
+/* Flow frame: the section and its header hold their tick rows as
+   minimums and grow with the title. */
 .work-gallery-section {
   width: 100%;
-  height: calc(var(--t) * 12);
+  min-height: calc(var(--t) * 12);
 }
 @container (min-width: 470px) {
-  .work-gallery-section { height: calc(var(--t) * 11); }
+  .work-gallery-section { min-height: calc(var(--t) * 11); }
 }
 @container (min-width: 665px) {
-  .work-gallery-section { height: calc(var(--t) * 16); }
+  .work-gallery-section { min-height: calc(var(--t) * 16); }
 }
 @container (min-width: 860px) {
-  .work-gallery-section { height: calc(var(--t) * 15); }
+  .work-gallery-section { min-height: calc(var(--t) * 15); }
 }
 
 /* The header's top hairline shares adjacent lattice pixels. */
 .wg-head {
   position: relative;
-  box-sizing: border-box;
   width: calc(var(--t) * 11);
-  height: calc(var(--t) * 4);
+  min-height: calc(var(--t) * 4);
   border-top: 1px solid var(--line);
   display: flex;
   align-items: center;
 }
 @container (min-width: 470px) {
-  .wg-head { height: calc(var(--t) * 3); }
+  .wg-head { min-height: calc(var(--t) * 3); }
 }
 @container (min-width: 860px) {
-  .wg-head { height: calc(var(--t) * 2); }
+  .wg-head { min-height: calc(var(--t) * 2); }
 }
 
 /* The title keeps its presentational two-line break at every band. */
@@ -54,29 +55,29 @@
   }
 }
 
-/* CTA mounts switch size and placement by band. */
+/* CTA mounts switch size and placement by band. The mount sits in the
+   header row after the title, so the title wraps short of it. */
 .wg-cta {
-  position: absolute;
-  top: 50%;
-  translate: 0 -50%;
+  flex: none;
+  margin-left: auto;
 }
 .wg-cta-md,
 .wg-cta-lg {
   display: none;
 }
 .wg-cta-sm {
-  right: var(--t);
+  margin-right: var(--t);
 }
 @container (min-width: 665px) {
   .wg-cta-sm { display: none; }
   .wg-cta-md {
     display: block;
-    right: calc(var(--t) / 2);
+    margin-right: calc(var(--t) / 2);
   }
 }
 @container (min-width: 860px) {
   .wg-cta-md {
-    right: 0;
+    margin-right: 0;
     width: calc(var(--t) * 3);
     display: flex;
     justify-content: center;
@@ -85,7 +86,6 @@
 @container (min-width: 1130px) {
   .wg-cta-md { display: none; }
   .wg-cta-lg {
-    right: 0;
     width: calc(var(--t) * 3);
     display: flex;
     justify-content: center;

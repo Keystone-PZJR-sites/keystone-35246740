@@ -210,17 +210,19 @@
 .e2-spanel {
   scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
 }
+/* The box owns its tick rows as a minimum; symmetric padding keeps the
+   centered card in place and grows the box when its copy runs long. */
 .e2-sbox {
-  box-sizing: border-box;
   display: flex;
   width: calc(var(--t) * 11 + 1px);
-  height: calc(var(--t) * 11 + 1px);
+  min-height: calc(var(--t) * 11 + 1px);
+  padding-block: var(--space-xl);
   border: 1px solid var(--line);
 }
 @container (min-width: 665px) {
   .e2-sbox {
     width: calc(var(--t) * 12 + 1px);
-    height: calc(var(--t) * 7 + 1px);
+    min-height: calc(var(--t) * 7 + 1px);
   }
 }
 

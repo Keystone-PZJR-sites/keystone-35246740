@@ -5,7 +5,7 @@ import type { GridExpectations } from "../expectations";
 
 const BANDS: readonly Band[] = ["rm", "rs", "rt", "rd1", "rd2"];
 const TOP: Record<Band, number> = { rm: 28, rs: 28, rt: 15, rd1: 11, rd2: 11 };
-const FOOTER: Record<Band, number> = { rm: 24, rs: 21, rt: 15, rd1: 12, rd2: 11 };
+const FOOTER: Record<Band, number> = { rm: 26, rs: 23, rt: 18, rd1: 12, rd2: 11 };
 
 export function blogExpectations(landing: BlogLandingModel): GridExpectations {
   const ticks = blogListsTicks(landing);

@@ -1,12 +1,15 @@
+import { GRADER_URL } from "./lib/grader";
+
 export const SITE_LINKS = {
   home: "/",
   approach: "/#system",
   solutions: "/#engine-brand",
-  grader: "/#grader",
+  grader: GRADER_URL,
   ourWork: "/our-work",
   caseStudies: "/case-studies",
   pricing: "/pricing",
-  company: "/company",
+  /* Temporary: the company page is not ready yet. */
+  company: "/",
   resources: "/blog",
   blog: "/blog",
   marketingReport: "/marketing-report",

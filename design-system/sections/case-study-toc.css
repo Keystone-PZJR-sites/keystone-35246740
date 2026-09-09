@@ -8,7 +8,8 @@
     position: absolute;
     left: var(--t);
     top: calc(var(--t) * 3 + (var(--wA) + var(--wB)) * 64);
-    height: calc(var(--t) * 49 - (var(--wA) + var(--wB)) * 64);
+    /* The rail ends where the CTA band begins, however far the copy runs. */
+    bottom: calc(var(--t) * 4);
     /* Fixed width keeps "The Business" on one line. */
     width: calc((var(--wA) + var(--wB)) * 176);
     /* Above the lattice and below global navigation. */

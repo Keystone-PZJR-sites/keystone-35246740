@@ -2,20 +2,17 @@
 
 import { CaseStudyButton } from "../primitives/case-study-button";
 import type { CaseStudy } from "./case-study-data";
-import { CaseStudyLattice, extraTickVars } from "./case-study-lattice";
+import { CaseStudyLattice } from "./case-study-lattice";
 import { CaseStudyPhoto } from "./case-study-photo";
 
 export function CaseStudyResultSection({ study }: { study: CaseStudy }) {
-  /* Per-study growth keeps the flowed content clear of the CTA band. */
-  const extra = study.extraTicks?.result;
   return (
     <section
       className="sec cs-sec csr-sec"
       id="result"
       aria-labelledby="result-h"
-      style={extraTickVars(extra)}
     >
-      <CaseStudyLattice section="result" extra={extra} />
+      <CaseStudyLattice section="result" />
       <div className="cs-content csr-content" data-landmark="result">
         <div className="csr-img">
           <CaseStudyPhoto study={study} image="result" />

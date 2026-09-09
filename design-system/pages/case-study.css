@@ -30,10 +30,11 @@
   width: 100%;
 }
 
-/* Sections may override this full-height content column at wider bands. */
+/* The content column fills its section's tick budget and grows with its
+   copy. Sections may override the column at wider bands. */
 .cs-content {
   position: relative;
-  height: 100%;
+  flex: 1 0 auto;
   margin-left: calc(var(--t) / 2);
   width: calc(var(--t) * 10.5 + 1px);
 }

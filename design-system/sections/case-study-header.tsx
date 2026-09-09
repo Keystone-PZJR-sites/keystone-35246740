@@ -25,19 +25,21 @@ export function CaseStudyHeaderSection({ study }: { study: CaseStudy }) {
   return (
     <section className="sec cs-sec csh-sec">
       <CaseStudyLattice section="header" />
-      <div className="cs-content" data-landmark="header">
+      <div className="cs-content csh-content" data-landmark="header">
         <header className="csh">
-          <p className="csh-slug hx-rise" aria-hidden="true">
-            <i className="csh-slug-dot" />
-            Case Study
-          </p>
-          <h1 className="csh-h1 hx-rise">
-            {study.h1.seg1}
-            {study.h1.seg2 && <br className="csh-br-rt" aria-hidden="true" />}
-            {study.h1.seg2}
-            {study.h1.seg3 && <br className="csh-br-rsd2" aria-hidden="true" />}
-            {study.h1.seg3}
-          </h1>
+          <div className="csh-head flow-budget">
+            <p className="csh-slug hx-rise" aria-hidden="true">
+              <i className="csh-slug-dot" />
+              Case Study
+            </p>
+            <h1 className="csh-h1 hx-rise">
+              {study.h1.seg1}
+              {study.h1.seg2 && <br className="csh-br-rt" aria-hidden="true" />}
+              {study.h1.seg2}
+              {study.h1.seg3 && <br className="csh-br-rsd2" aria-hidden="true" />}
+              {study.h1.seg3}
+            </h1>
+          </div>
 
           {/* The photo sits beside the text column from tablet upward. */}
           <div className="csh-img hx-rise">

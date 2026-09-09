@@ -30,7 +30,7 @@ const H = {
   engines: { rm: ENG.rm, rs: ENG.rm, rt: ENG.rt, rd1: ENG.rd, rd2: ENG.rd },
   work: { rm: 20, rs: 20, rt: 16, rd1: 7, rd2: 7 },
   cc: { rm: 25, rs: 25, rt: 12, rd1: 9, rd2: 9 },
-  footer: { rm: 24, rs: 21, rt: 15, rd1: 12, rd2: 11 },
+  footer: { rm: 26, rs: 23, rt: 18, rd1: 12, rd2: 11 },
 } as const;
 
 const ORDER = ["hero", "system", "engines", "work", "cc", "footer"] as const;

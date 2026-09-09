@@ -1,21 +1,28 @@
 /* The deck scales as one unit and reorders through CSS slot values. */
 
+/* Flow frame: the head owns its tick rows as a minimum and the band is a
+   tick block beneath it; from rd1 the two share one grid row inside the
+   section's 1t vertical padding. */
 .work-section {
   width: 100%;
-  height: calc(var(--t) * 20);
+  min-height: calc(var(--t) * 20);
   /* Share the boundary pixel with the preceding section. */
   margin-top: -1px;
 }
 @container (min-width: 665px) {
   .work-section {
-    height: calc(var(--t) * 16);
+    min-height: calc(var(--t) * 16);
   }
 }
 @container (min-width: 860px) {
   .work-section {
-    height: calc(var(--t) * 7);
-    /* The top rule stays inside the section height. */
-    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, calc(var(--t) * 6));
+    grid-template-rows: minmax(0, 1fr);
+    /* The top rule stays inside the section height, so the bottom pad
+       gives back its pixel. */
+    padding-block: var(--t) calc(var(--t) - 1px);
+    min-height: calc(var(--t) * 7);
     border-top: 1px solid var(--line);
   }
 }
@@ -26,14 +33,13 @@
    1344: the header column v-centers in the 5t content band (the
    section's py 1t); the CTA joins it below the headline. */
 .wd-head {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+  min-height: calc(var(--t) * 7);
 }
 @container (min-width: 665px) {
   .wd-head {
-    left: var(--t);
-    height: calc(var(--t) * 5);
+    margin-left: var(--t);
+    min-height: calc(var(--t) * 5);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -43,8 +49,8 @@
 }
 @container (min-width: 860px) {
   .wd-head {
-    top: var(--t);
-    left: 0;
+    grid-column: 1;
+    margin-left: 0;
     padding-left: var(--t);
     gap: var(--wd-head-gap-rd);
   }
@@ -165,11 +171,11 @@
    sits as clear space — the tick wins). rd1+: no band chrome — the
    deck floats on bare paper in the east half, clipped as drawn. */
 .wd-band {
-  position: absolute;
-  left: 0;
+  position: relative;
   width: 100%;
-  top: calc(var(--t) * 7);
-  height: calc(var(--t) * 13 + 1px);
+  min-height: calc(var(--t) * 13 + 1px);
+  /* The bottom border shares the pixel with the section's bottom edge. */
+  margin-bottom: -1px;
   background: var(--color-bg-100);
   border-top: 1px solid var(--color-border-000);
   border-bottom: 1px solid var(--color-border-000);
@@ -183,17 +189,17 @@
 }
 @container (min-width: 665px) {
   .wd-band {
-    top: calc(var(--t) * 5);
-    height: calc(var(--t) * 11 + 1px);
+    min-height: calc(var(--t) * 11 + 1px);
     gap: var(--wd-band-gap-rt);
   }
 }
 @container (min-width: 860px) {
   .wd-band {
-    top: var(--t);
-    left: calc(var(--t) * 6);
+    grid-column: 2;
     width: calc(var(--t) * 6);
+    min-height: 0;
     height: calc(var(--t) * 5);
+    margin-bottom: 0;
     background: none;
     border: 0;
     padding-bottom: 0;

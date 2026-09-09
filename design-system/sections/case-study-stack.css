@@ -1,19 +1,20 @@
-/* Responsive service table with shared one-pixel borders. */
+/* Responsive service table with shared one-pixel borders. The section
+   and every cell hold their tick rows as minimums and grow with copy. */
 
 .cst-sec {
-  height: calc(var(--t) * 22);
+  min-height: calc(var(--t) * 22);
 }
 @container (min-width: 470px) {
-  .cst-sec { height: calc(var(--t) * 13); }
+  .cst-sec { min-height: calc(var(--t) * 13); }
 }
 @container (min-width: 665px) {
-  .cst-sec { height: calc(var(--t) * 10); }
+  .cst-sec { min-height: calc(var(--t) * 10); }
 }
 @container (min-width: 860px) {
-  .cst-sec { height: calc(var(--t) * 9); }
+  .cst-sec { min-height: calc(var(--t) * 9); }
 }
 @container (min-width: 1130px) {
-  .cst-sec { height: calc(var(--t) * 7); }
+  .cst-sec { min-height: calc(var(--t) * 7); }
 }
 
 @container (min-width: 1130px) {
@@ -26,17 +27,16 @@
 /* ---------------- the header block ---------------- */
 
 .cst-header {
-  box-sizing: border-box;
   border: 1px solid var(--color-border-000);
-  height: calc(var(--t) * 5 + 1px);
+  min-height: calc(var(--t) * 5 + 1px);
   padding: 16px;
 }
 @container (min-width: 470px) {
-  .cst-header { height: calc(var(--t) * 3 + 1px); }
+  .cst-header { min-height: calc(var(--t) * 3 + 1px); }
 }
 @container (min-width: 860px) {
   .cst-header {
-    height: calc(var(--t) * 2 + 1px);
+    min-height: calc(var(--t) * 2 + 1px);
     padding: 20px;
   }
 }
@@ -129,7 +129,7 @@
 .cst-cells > li {
   margin: -1px 0 0 -1px;
   width: var(--cell-w);
-  height: var(--cell-h);
+  min-height: var(--cell-h);
 }
 @container (min-width: 470px) {
   .cst-cells {
@@ -158,10 +158,14 @@
   }
 }
 
+/* The icon sits at the top and the text settles on the bottom padding,
+   keeping a material gap when a description runs long. */
 .cst-cell {
-  box-sizing: border-box;
   border: 1px solid var(--color-border-000);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   padding: var(--cell-pad);
 }
 
@@ -183,12 +187,10 @@
   .cst-icon svg { width: auto; height: auto; }
 }
 
-/* Text anchors to the cell's bottom padding. */
 .cst-cell-text {
-  position: absolute;
-  left: var(--cell-pad);
-  right: var(--cell-pad);
-  bottom: var(--cell-pad);
+  margin-top: auto;
+  padding-top: var(--space-xl);
+  width: 100%;
 }
 .cst-title {
   margin: 0;

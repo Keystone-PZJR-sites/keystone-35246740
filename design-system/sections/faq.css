@@ -6,20 +6,20 @@
 
 /* Header. */
 
+/* The header owns its tick rows as a minimum and grows with the heading. */
 .faq-header {
-  box-sizing: border-box;
   border-top: 1px solid var(--color-border-000);
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: calc(var(--t) * 11);
-  height: calc(var(--t) * 3);
+  min-height: calc(var(--t) * 3);
   padding: 0 calc(var(--faq-u) * 160) 0 calc(var(--faq-u) * 16);
 }
 @container (min-width: 470px) {
   .faq-header {
     width: calc(var(--t) * 10);
-    height: calc(var(--t) * 2);
+    min-height: calc(var(--t) * 2);
     padding: 0 calc(var(--faq-u) * 48) 0 calc(var(--faq-u) * 48);
   }
 }
@@ -30,7 +30,7 @@
     left: 0;
     justify-content: space-between;
     width: calc(var(--t) * 4);
-    height: calc(var(--t) * 6);
+    min-height: calc(var(--t) * 6);
     padding: 0 0 calc(var(--faq-u) * 20) calc(var(--faq-u) * 64);
   }
 }

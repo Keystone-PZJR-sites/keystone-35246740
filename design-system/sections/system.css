@@ -1,45 +1,50 @@
+/* Flow frame: the head owns its tick rows as a minimum and the diagram is
+   a fixed tick block beneath it; from rd1 the two sit side by side on a
+   grid whose single row stretches with the head. */
 .system-section {
   width: 100%;
-  height: calc(var(--t) * 19);
+  min-height: calc(var(--t) * 19);
   --sys-r: var(--sys-r-rm);
   /* Keep anchored content clear of the fixed navigation rail. */
   scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
 }
 @container (min-width: 665px) {
   .system-section {
-    height: calc(var(--t) * 12);
+    min-height: calc(var(--t) * 12);
     --sys-r: var(--sys-r-rt);
   }
 }
 @container (min-width: 860px) {
   .system-section {
-    height: calc(var(--t) * 6);
+    display: grid;
+    grid-template-columns: var(--t) calc(var(--t) * 6) calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    min-height: calc(var(--t) * 6);
     --sys-r: var(--sys-r-rd);
   }
 }
 
 .sys-head {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: calc(var(--t) * 8);
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--t) * 8);
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 @container (min-width: 665px) {
   .sys-head {
-    left: var(--t);
-    right: auto;
-    height: calc(var(--t) * 5);
+    margin-left: var(--t);
+    width: auto;
+    min-height: calc(var(--t) * 5);
     gap: var(--sys-head-gap-rt);
   }
 }
 @container (min-width: 860px) {
   .sys-head {
-    height: auto;
-    bottom: 0;
+    grid-column: 2;
+    margin-left: 0;
+    min-height: calc(var(--t) * 6);
     gap: var(--sys-head-gap-rd);
   }
 }
@@ -138,26 +143,24 @@
   }
 }
 
+/* Tick block: the stage positions inside it. */
 .sys-diagram {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(var(--t) * 8);
+  position: relative;
+  width: 100%;
   height: calc(var(--t) * 11);
   pointer-events: none;
 }
 @container (min-width: 665px) {
   .sys-diagram {
-    top: calc(var(--t) * 5);
     height: calc(var(--t) * 7);
   }
 }
 @container (min-width: 860px) {
   .sys-diagram {
-    left: calc(var(--t) * 7);
-    right: auto;
+    grid-column: 3;
+    align-self: start;
     width: calc(var(--t) * 5);
-    top: calc(var(--t) / 2);
+    margin-top: calc(var(--t) / 2);
     height: calc(var(--t) * 5);
   }
 }

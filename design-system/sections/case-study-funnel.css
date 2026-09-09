@@ -3,19 +3,19 @@
 /* ---------------- section frame ---------------- */
 
 .csf-sec {
-  height: calc(var(--t) * 15);
+  min-height: calc(var(--t) * 15);
 }
 @container (min-width: 470px) {
-  .csf-sec { height: calc(var(--t) * 10); }
+  .csf-sec { min-height: calc(var(--t) * 10); }
 }
 @container (min-width: 665px) {
-  .csf-sec { height: calc(var(--t) * 8); }
+  .csf-sec { min-height: calc(var(--t) * 8); }
 }
 @container (min-width: 860px) {
-  .csf-sec { height: calc(var(--t) * 7); }
+  .csf-sec { min-height: calc(var(--t) * 7); }
 }
 @container (min-width: 1130px) {
-  .csf-sec { height: calc(var(--t) * 6); }
+  .csf-sec { min-height: calc(var(--t) * 6); }
 }
 
 @container (min-width: 1130px) {
@@ -28,9 +28,8 @@
 /* ---------------- the container ---------------- */
 
 .csf-box {
-  box-sizing: border-box;
   border: 1px solid var(--color-border-000);
-  height: calc(var(--t) * 14 + 1px);
+  min-height: calc(var(--t) * 14 + 1px);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -38,21 +37,21 @@
 }
 @container (min-width: 470px) {
   .csf-box {
-    height: calc(var(--t) * 9 + 1px);
+    min-height: calc(var(--t) * 9 + 1px);
     padding: 16px 20px;
   }
 }
 @container (min-width: 665px) {
-  .csf-box { height: calc(var(--t) * 7 + 1px); }
+  .csf-box { min-height: calc(var(--t) * 7 + 1px); }
 }
 @container (min-width: 860px) {
   .csf-box {
-    height: calc(var(--t) * 6 + 1px);
+    min-height: calc(var(--t) * 6 + 1px);
     padding: 20px;
   }
 }
 @container (min-width: 1130px) {
-  .csf-box { height: calc(var(--t) * 5 + 1px); }
+  .csf-box { min-height: calc(var(--t) * 5 + 1px); }
 }
 
 /* head→subhead 12/16/16/16/16; subhead ink text/300 */
@@ -77,9 +76,11 @@
   .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 520); }
 }
 
-/* Rows and disclaimer split the remaining vertical slack. */
+/* Rows and disclaimer split the remaining vertical slack; equal padding
+   keeps a material gap when the box grows past its tick budget. */
 .csf-rows {
   margin: auto 0 0;
+  padding-top: var(--space-md);
   display: flex;
   flex-direction: column;
   gap: calc((var(--wA) + var(--wB)) * 12);
@@ -201,6 +202,7 @@
 /* the disclaimer: sm/Light (xs at rm), text/400; shares the slack */
 .csf-disclaimer {
   margin: auto 0 0;
+  padding-top: var(--space-md);
   color: var(--color-text-400);
   font: var(--ts-text-xs-light-font);
   font-size: calc((var(--wA) + var(--wB)) * 12);

@@ -2,7 +2,7 @@
 
 import type { CaseStudy, CaseStudyStat } from "./case-study-data";
 import { CaseStudyFeatureList } from "./case-study-feature-list";
-import { CaseStudyLattice, extraTickVars } from "./case-study-lattice";
+import { CaseStudyLattice } from "./case-study-lattice";
 
 function StatPair({ stats }: { stats: CaseStudyStat[] }) {
   return (
@@ -20,16 +20,13 @@ function StatPair({ stats }: { stats: CaseStudyStat[] }) {
 }
 
 export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
-  /* Only the variable-length after card consumes per-study growth. */
-  const extra = study.extraTicks?.shift;
   return (
     <section
       className="sec cs-sec csft-sec"
       id="shift"
       aria-labelledby="shift-h"
-      style={extraTickVars(extra)}
     >
-      <CaseStudyLattice section="shift" extra={extra} />
+      <CaseStudyLattice section="shift" />
       <h2 className="hx-sr" id="shift-h">
         The Shift
       </h2>

@@ -2,21 +2,22 @@
 
 /* ---------------- section frame ---------------- */
 
-/* Per-study growth variables default to the base frame. */
+/* Flow frame: the section holds its tick budget as a minimum and grows
+   with the copy. */
 .cso-sec {
-  height: calc(var(--t) * (29 + var(--csx-rm, 0)));
+  min-height: calc(var(--t) * 29);
 }
 @container (min-width: 470px) {
-  .cso-sec { height: calc(var(--t) * (17 + var(--csx-rs, 0))); }
+  .cso-sec { min-height: calc(var(--t) * 17); }
 }
 @container (min-width: 665px) {
-  .cso-sec { height: calc(var(--t) * (11 + var(--csx-rt, 0))); }
+  .cso-sec { min-height: calc(var(--t) * 11); }
 }
 @container (min-width: 860px) {
-  .cso-sec { height: calc(var(--t) * (9 + var(--csx-rd1, 0))); }
+  .cso-sec { min-height: calc(var(--t) * 9); }
 }
 @container (min-width: 1130px) {
-  .cso-sec { height: calc(var(--t) * (7 + var(--csx-rd2, 0))); }
+  .cso-sec { min-height: calc(var(--t) * 7); }
 }
 
 /* Wide desktop uses the narrow content column. */
@@ -27,23 +28,27 @@
   }
 }
 
-/* The frame and its bottom-anchored stats grow together. */
+/* The frame is a column whose stat row settles on its last tick row and
+   moves down with longer copy. */
 .cso-frame {
   position: relative;
-  height: calc(var(--t) * (27 + var(--csx-rm, 0)));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: calc(var(--t) * 27);
 }
 @container (min-width: 470px) {
-  .cso-frame { height: calc(var(--t) * (16 + var(--csx-rs, 0))); }
+  .cso-frame { min-height: calc(var(--t) * 16); }
 }
 @container (min-width: 665px) {
-  .cso-frame { height: calc(var(--t) * (10 + var(--csx-rt, 0))); }
+  .cso-frame { min-height: calc(var(--t) * 10); }
 }
 @container (min-width: 860px) {
-  .cso-frame { height: calc(var(--t) * (8 + var(--csx-rd1, 0))); }
+  .cso-frame { min-height: calc(var(--t) * 8); }
 }
 @container (min-width: 1130px) {
   .cso-frame {
-    height: calc(var(--t) * (7 + var(--csx-rd2, 0)));
+    min-height: calc(var(--t) * 7);
     /* Align the section start with the TOC resting line. */
     padding-top: calc((var(--wA) + var(--wB)) * 64);
   }
@@ -115,26 +120,26 @@
   }
 }
 
-/* ---------------- the stat row (frame-bottom anchored) ------------ */
+/* ---------------- the stat row (frame-bottom settled) ------------- */
 
 /* three cells on shared hairlines (the intro construction): rm 2+1 of
    4.75t×4t · rs 2+1 of 5t×2t · rt 3 across 3t×3t · rd1/rd2 3 across
-   2t×2t; pads 12/12/20/16/16 */
+   2t×2t; pads 12/12/20/16/16. The row keeps a material gap under the
+   list when the copy runs long, and its line-inclusive bottom border
+   lands on the frame edge. */
 .cso-stats {
-  position: absolute;
-  left: 0;
-  /* Offset line-inclusive cells so their bottom border lands on the frame edge. */
-  bottom: -1px;
+  margin-top: auto;
+  margin-bottom: -1px;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding: 1px 0 0 1px;
+  padding: calc(var(--space-3xl) + 1px) 0 0 1px;
   width: calc(var(--t) * 9.5 + 2px);
   --cell-w: calc(var(--t) * 4.75 + 1px);
   --cell-h: calc(var(--t) * 4 + 1px);
   --cs-cell-pad: 12px;
 }
-.cso-stats > * {
+.cso-stats > .cs-cell {
   margin: -1px 0 0 -1px;
   width: var(--cell-w);
   height: var(--cell-h);

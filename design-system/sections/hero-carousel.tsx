@@ -130,6 +130,19 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       if (motion.matches) clear();
       else resume();
     };
+    /* Circle (and sometimes rect) widths change at band gates. The
+       transform tallies --hc-r/--hc-c in those widths, so a mid-scroll
+       resize leaves the track translated into empty space. Snap home. */
+    let bandKey = getComputedStyle(track).getPropertyValue("--hc-ct").trim();
+    const onBandChange = () => {
+      const next = getComputedStyle(track).getPropertyValue("--hc-ct").trim();
+      if (next === bandKey) return;
+      bandKey = next;
+      clear();
+      snapHome();
+      resume();
+    };
+    const resize = new ResizeObserver(onBandChange);
     const observer = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
@@ -140,6 +153,7 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
     );
 
     observer.observe(root);
+    resize.observe(root);
     document.addEventListener("visibilitychange", onVisibility);
     root.addEventListener("pointerenter", onPointerEnter);
     root.addEventListener("pointerleave", onPointerLeave);
@@ -151,6 +165,7 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       cancelled = true;
       clear();
       observer.disconnect();
+      resize.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       root.removeEventListener("pointerenter", onPointerEnter);
       root.removeEventListener("pointerleave", onPointerLeave);

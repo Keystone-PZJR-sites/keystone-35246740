@@ -94,6 +94,20 @@
   align-items: flex-start;
 }
 
+/* Flow budget: a block that owns its designed rows (`--budget`, a
+   length in ticks) and grows past them only when its content does. The
+   trailing half tick keeps overgrown content clear of the next block;
+   inside the budget it is slack. Sections stack flow-budget blocks and
+   tick blocks (fixed `k·t` media frames) in normal flow, so an anchor
+   renders the designed rows exactly and a narrower or taller-wrapping
+   render pushes later blocks down instead of colliding. */
+.flow-budget {
+  position: relative;
+  box-sizing: border-box;
+  min-height: var(--budget);
+  padding-bottom: calc(var(--t) / 2);
+}
+
 /* ---- selective exposure overlay ---- */
 
 .gx {
@@ -133,24 +147,19 @@
   top: calc(var(--t) * var(--n) - 1px);
 }
 
-/* Solid cell. */
-.grid-fill {
-  position: absolute;
-  background: var(--line);
-  left: calc(var(--t) * var(--gx));
-  top: calc(var(--t) * var(--gy));
-  width: calc(var(--t) * var(--gw, 1) + 1px);
-  height: calc(var(--t) * var(--gh, 1) + 1px);
+/* Bottom-anchored region: `--gyb` rows count up from the section's
+   bottom edge, minus the line-inclusive pixel, so the exposure follows a
+   flow section that grows with its copy. */
+.grid-region.gb {
+  top: auto;
+  bottom: calc(var(--t) * var(--gyb) - 1px);
 }
-
-/* Standalone outlined cell or block. */
-.grid-cellx {
-  position: absolute;
-  border: 1px solid var(--line);
-  left: calc(var(--t) * var(--gx));
-  top: calc(var(--t) * var(--gy));
-  width: calc(var(--t) * var(--gw, 1) + 1px);
-  height: calc(var(--t) * var(--gh, 1) + 1px);
+/* Stretched region: both edges set, height follows the section, and
+   interior rows past the grown height are clipped. */
+.grid-region.gs {
+  bottom: calc(var(--t) * var(--gyb) - 1px);
+  height: auto;
+  overflow: hidden;
 }
 
 /* Ornament shapes: filled squares use bg/200, circles add radius, and
@@ -181,6 +190,10 @@
   top: calc(var(--t) * var(--gy));
   width: calc(var(--t) + 1px);
   height: calc(var(--t) + 1px);
+}
+.decor.gb {
+  top: auto;
+  bottom: calc(var(--t) * var(--gyb) - 1px);
 }
 
 /* ---- wide-viewport side fields ---- */
@@ -248,6 +261,10 @@
   top: calc(var(--t) * var(--gy));
   width: calc(var(--t) + 1px);
   height: calc(var(--t) + 1px);
+}
+.decor.gb {
+  top: auto;
+  bottom: calc(var(--t) * var(--gyb) - 1px);
 }
 
 /* ---- band gating: rm (base) · rs · rt · rd1 · rd2 ---- */

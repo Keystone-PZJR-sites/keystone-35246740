@@ -1,15 +1,20 @@
 /** Visible lattice regions and ornaments for each section and band.
- * Rows are section-local; adjacent sections share their boundary line. */
+ * Rows are section-local; adjacent sections share their boundary line.
+ * Rails stretch between the section edges and trailing regions and
+ * ornaments count rows from the section bottom, so the exposure follows
+ * a section that grows with its copy. */
 
 import { GridDecor, GridRegion, type GridBand } from "../grid/region";
 
 interface R {
   gx: number;
-  gy: number;
+  gy?: number;
+  gyb?: number;
   gw?: number;
   gh?: number;
 }
-type Orn = [col: number, row: number];
+/** Ornament cell: `[col, row]` from the top or `[col, null, rowFromBottom]`. */
+type Orn = [col: number, row: number | null, rowFromBottom?: number];
 
 interface SectionMap {
   regions: Partial<Record<GridBand, R[]>>;
@@ -25,14 +30,14 @@ const MAP = {
         { gx: 11, gy: 4 },
         { gx: 10, gy: 5, gw: 2 },
         { gx: 9, gy: 6, gw: 3, gh: 12 },
-        { gx: 11, gy: 18, gh: 7 },
+        { gx: 11, gy: 18, gyb: 0, gh: 7 },
       ],
       rs: [
         { gx: 11, gy: 4 },
         { gx: 10, gy: 5, gw: 2 },
         { gx: 9, gy: 6, gw: 3 },
         { gx: 8, gy: 7, gw: 4, gh: 7 },
-        { gx: 11, gy: 14, gh: 6 },
+        { gx: 11, gy: 14, gyb: 0, gh: 6 },
       ],
       rt: [
         { gx: 11, gy: 2 },
@@ -64,124 +69,135 @@ const MAP = {
   },
   intro: {
     regions: {
-      rm: [{ gx: 11, gy: 0, gh: 14 }],
-      rs: [{ gx: 11, gy: 0, gh: 7 }],
+      rm: [{ gx: 11, gy: 0, gyb: 0, gh: 14 }],
+      rs: [{ gx: 11, gy: 0, gyb: 0, gh: 7 }],
       rt: [
-        { gx: 10, gy: 1, gw: 2, gh: 3 },
-        { gx: 7, gy: 4, gw: 5, gh: 3 },
-        { gx: 11, gy: 7 },
+        { gx: 10, gy: 1, gyb: 4, gw: 2, gh: 3 },
+        { gx: 7, gyb: 1, gw: 5, gh: 3 },
+        { gx: 11, gyb: 0 },
       ],
-      rd1: [{ gx: 11, gy: 1, gh: 3 }],
+      rd1: [{ gx: 11, gy: 1, gyb: 0, gh: 3 }],
       rd2: [
         { gx: 8, gy: 0, gw: 4 },
-        { gx: 11, gy: 1, gh: 2 },
+        { gx: 11, gy: 1, gyb: 0, gh: 2 },
       ],
     },
-    circles: {},
     fillCircles: { rm: [[11, 2]], rs: [[11, 1]], rt: [[11, 1]], rd1: [[11, 1]], rd2: [[11, 1]] },
   },
   overview: {
     regions: {
       rm: [
-        { gx: 11, gy: 0, gh: 19 },
-        { gx: 10, gy: 19, gw: 2, gh: 8 },
-        { gx: 11, gy: 27, gh: 2 },
+        { gx: 11, gy: 0, gyb: 10, gh: 19 },
+        { gx: 10, gyb: 2, gw: 2, gh: 8 },
+        { gx: 11, gyb: 0, gh: 2 },
       ],
       rs: [
-        { gx: 11, gy: 0, gh: 14 },
-        { gx: 6, gy: 14, gw: 6, gh: 2 },
-        { gx: 11, gy: 16 },
+        { gx: 11, gy: 0, gyb: 3, gh: 14 },
+        { gx: 6, gyb: 1, gw: 6, gh: 2 },
+        { gx: 11, gyb: 0 },
       ],
       rt: [
-        { gx: 11, gy: 0, gh: 7 },
-        { gx: 10, gy: 7, gw: 2, gh: 3 },
-        { gx: 11, gy: 10 },
+        { gx: 11, gy: 0, gyb: 4, gh: 7 },
+        { gx: 10, gyb: 1, gw: 2, gh: 3 },
+        { gx: 11, gyb: 0 },
       ],
       rd1: [
-        { gx: 11, gy: 0, gh: 6 },
-        { gx: 7, gy: 6, gw: 5, gh: 2 },
-        { gx: 11, gy: 8 },
+        { gx: 11, gy: 0, gyb: 3, gh: 6 },
+        { gx: 7, gyb: 1, gw: 5, gh: 2 },
+        { gx: 11, gyb: 0 },
       ],
       rd2: [
-        { gx: 11, gy: 0, gh: 5 },
-        { gx: 9, gy: 5, gw: 3, gh: 2 },
+        { gx: 11, gy: 0, gyb: 2, gh: 5 },
+        { gx: 9, gyb: 0, gw: 3, gh: 2 },
       ],
     },
-    squares: { rm: [[11, 20]], rs: [[11, 12]], rt: [[11, 7]], rd1: [[11, 6]], rd2: [[11, 5]] },
+    squares: {
+      rm: [[11, null, 8]],
+      rs: [[11, 12]],
+      rt: [[11, null, 3]],
+      rd1: [[11, null, 2]],
+      rd2: [[11, null, 1]],
+    },
   },
   business: {
     regions: {
-      rm: [{ gx: 11, gy: 0, gh: 35 }],
-      rs: [{ gx: 11, gy: 0, gh: 23 }],
-      rt: [{ gx: 11, gy: 0, gh: 13 }],
-      rd1: [{ gx: 11, gy: 0, gh: 11 }],
-      rd2: [{ gx: 11, gy: 0, gh: 10 }],
+      rm: [{ gx: 11, gy: 0, gyb: 0, gh: 35 }],
+      rs: [{ gx: 11, gy: 0, gyb: 0, gh: 23 }],
+      rt: [{ gx: 11, gy: 0, gyb: 0, gh: 13 }],
+      rd1: [{ gx: 11, gy: 0, gyb: 0, gh: 11 }],
+      rd2: [{ gx: 11, gy: 0, gyb: 0, gh: 10 }],
     },
     squares: { rs: [[11, 16]] },
   },
   shift: {
     regions: {
-      rm: [{ gx: 11, gy: 0, gh: 22 }],
-      rs: [{ gx: 11, gy: 0, gh: 13 }],
-      rt: [{ gx: 11, gy: 0, gh: 7 }],
-      rd1: [{ gx: 11, gy: 0, gh: 6 }],
-      rd2: [{ gx: 11, gy: 0, gh: 5 }],
+      rm: [{ gx: 11, gy: 0, gyb: 0, gh: 22 }],
+      rs: [{ gx: 11, gy: 0, gyb: 0, gh: 13 }],
+      rt: [{ gx: 11, gy: 0, gyb: 0, gh: 7 }],
+      rd1: [{ gx: 11, gy: 0, gyb: 0, gh: 6 }],
+      rd2: [{ gx: 11, gy: 0, gyb: 0, gh: 5 }],
     },
     fillCircles: { rm: [[11, 0]], rs: [[11, 0]], rt: [[11, 0]], rd1: [[11, 0]], rd2: [[11, 0]] },
   },
   funnel: {
     regions: {
-      rm: [{ gx: 11, gy: 0, gh: 15 }],
-      rs: [{ gx: 11, gy: 0, gh: 10 }],
-      rt: [{ gx: 11, gy: 0, gh: 8 }],
-      rd1: [{ gx: 11, gy: 0, gh: 7 }],
-      rd2: [{ gx: 11, gy: 0, gh: 6 }],
+      rm: [{ gx: 11, gy: 0, gyb: 0, gh: 15 }],
+      rs: [{ gx: 11, gy: 0, gyb: 0, gh: 10 }],
+      rt: [{ gx: 11, gy: 0, gyb: 0, gh: 8 }],
+      rd1: [{ gx: 11, gy: 0, gyb: 0, gh: 7 }],
+      rd2: [{ gx: 11, gy: 0, gyb: 0, gh: 6 }],
     },
   },
   stack: {
     regions: {
-      rm: [{ gx: 11, gy: 0, gh: 22 }],
-      rs: [{ gx: 11, gy: 0, gh: 13 }],
-      rt: [{ gx: 11, gy: 0, gh: 10 }],
-      rd1: [{ gx: 11, gy: 0, gh: 9 }],
-      rd2: [{ gx: 11, gy: 0, gh: 7 }],
+      rm: [{ gx: 11, gy: 0, gyb: 0, gh: 22 }],
+      rs: [{ gx: 11, gy: 0, gyb: 0, gh: 13 }],
+      rt: [{ gx: 11, gy: 0, gyb: 0, gh: 10 }],
+      rd1: [{ gx: 11, gy: 0, gyb: 0, gh: 9 }],
+      rd2: [{ gx: 11, gy: 0, gyb: 0, gh: 7 }],
     },
     squares: { rm: [[11, 0]], rs: [[11, 0]], rt: [[11, 0]], rd1: [[11, 0]], rd2: [[11, 0]] },
   },
   result: {
     regions: {
-      rm: [{ gx: 11, gy: 0, gh: 31 }],
-      rs: [{ gx: 11, gy: 0, gh: 23 }],
-      rt: [{ gx: 11, gy: 0, gh: 21 }],
-      rd1: [{ gx: 11, gy: 0, gh: 17 }],
-      rd2: [{ gx: 11, gy: 0, gh: 14 }],
+      rm: [{ gx: 11, gy: 0, gyb: 0, gh: 31 }],
+      rs: [{ gx: 11, gy: 0, gyb: 0, gh: 23 }],
+      rt: [{ gx: 11, gy: 0, gyb: 0, gh: 21 }],
+      rd1: [{ gx: 11, gy: 0, gyb: 0, gh: 17 }],
+      rd2: [{ gx: 11, gy: 0, gyb: 0, gh: 14 }],
     },
     fillCircles: { rd2: [[11, 10]] },
   },
   cta: {
     regions: {
       rm: [
-        { gx: 11, gy: 0, gh: 9 },
-        { gx: 0, gy: 9, gw: 12 },
+        { gx: 11, gy: 0, gyb: 1, gh: 9 },
+        { gx: 0, gyb: 0, gw: 12 },
       ],
       rs: [
-        { gx: 11, gy: 0, gh: 6 },
-        { gx: 0, gy: 6, gw: 12 },
+        { gx: 11, gy: 0, gyb: 1, gh: 6 },
+        { gx: 0, gyb: 0, gw: 12 },
       ],
       rt: [
-        { gx: 11, gy: 0, gh: 4 },
-        { gx: 0, gy: 4, gw: 12 },
+        { gx: 11, gy: 0, gyb: 1, gh: 4 },
+        { gx: 0, gyb: 0, gw: 12 },
       ],
       rd1: [
-        { gx: 11, gy: 0, gh: 4 },
-        { gx: 0, gy: 4, gw: 12 },
+        { gx: 11, gy: 0, gyb: 1, gh: 4 },
+        { gx: 0, gyb: 0, gw: 12 },
       ],
       rd2: [
-        { gx: 11, gy: 0, gh: 3 },
-        { gx: 0, gy: 3, gw: 12 },
+        { gx: 11, gy: 0, gyb: 1, gh: 3 },
+        { gx: 0, gyb: 0, gw: 12 },
       ],
     },
-    squares: { rm: [[11, 9]], rs: [[11, 6]], rt: [[11, 4]], rd1: [[11, 4]], rd2: [[11, 3]] },
+    squares: {
+      rm: [[11, null, 0]],
+      rs: [[11, null, 0]],
+      rt: [[11, null, 0]],
+      rd1: [[11, null, 0]],
+      rd2: [[11, null, 0]],
+    },
   },
 } satisfies Record<string, SectionMap>;
 
@@ -189,66 +205,24 @@ type CaseStudySectionId = keyof typeof MAP;
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
-/** Growth extends the leading rail and shifts later regions and
- * ornaments so they remain aligned with bottom-anchored content. */
-function grownBand(map: SectionMap, band: GridBand, extra: number) {
-  const regions = map.regions[band] ?? [];
-  if (!extra) {
-    return { regions, orn: (cells: Orn[]) => cells };
-  }
-  const shiftFrom = regions.length > 1 ? regions[1].gy : Infinity;
-  return {
-    regions: regions.map((r, i) =>
-      i === 0 ? { ...r, gh: (r.gh ?? 1) + extra } : { ...r, gy: r.gy + extra },
-    ),
-    orn: (cells: Orn[]) =>
-      cells.map(([gx, gy]) => (gy >= shiftFrom ? ([gx, gy + extra] as Orn) : ([gx, gy] as Orn))),
-  };
+function ornament(band: GridBand, key: string, [gx, gy, gyb]: Orn, shape: string) {
+  return (
+    <GridDecor key={`${band}-${key}${gx}-${gy ?? `b${gyb}`}`} band={band} gx={gx} gy={gy ?? undefined} gyb={gyb}>
+      <span className={shape} />
+    </GridDecor>
+  );
 }
 
-/** Converts per-band growth into the CSS variables used by sections. */
-export function extraTickVars(extra?: Partial<Record<GridBand, number>>): React.CSSProperties | undefined {
-  if (!extra) return undefined;
-  return {
-    "--csx-rm": extra.rm ?? 0,
-    "--csx-rs": extra.rs ?? 0,
-    "--csx-rt": extra.rt ?? 0,
-    "--csx-rd1": extra.rd1 ?? 0,
-    "--csx-rd2": extra.rd2 ?? 0,
-  } as React.CSSProperties;
-}
-
-export function CaseStudyLattice({
-  section,
-  extra,
-}: {
-  section: CaseStudySectionId;
-  extra?: Partial<Record<GridBand, number>>;
-}) {
+export function CaseStudyLattice({ section }: { section: CaseStudySectionId }) {
   const map: SectionMap = MAP[section];
   return (
     <div className="gx" aria-hidden="true">
-      {BANDS.map((band) => {
-        const { regions, orn } = grownBand(map, band, extra?.[band] ?? 0);
-        return [
-          ...regions.map((r, i) => <GridRegion key={`${band}-r${i}`} band={band} {...r} />),
-          ...orn(map.circles?.[band] ?? []).map(([gx, gy]) => (
-            <GridDecor key={`${band}-o${gx}-${gy}`} band={band} gx={gx} gy={gy}>
-              <span className="f-cell round" />
-            </GridDecor>
-          )),
-          ...orn(map.fillCircles?.[band] ?? []).map(([gx, gy]) => (
-            <GridDecor key={`${band}-fo${gx}-${gy}`} band={band} gx={gx} gy={gy}>
-              <span className="f-cell fill round" />
-            </GridDecor>
-          )),
-          ...orn(map.squares?.[band] ?? []).map(([gx, gy]) => (
-            <GridDecor key={`${band}-f${gx}-${gy}`} band={band} gx={gx} gy={gy}>
-              <span className="f-cell fill" />
-            </GridDecor>
-          )),
-        ];
-      })}
+      {BANDS.map((band) => [
+        ...(map.regions[band] ?? []).map((r, i) => <GridRegion key={`${band}-r${i}`} band={band} {...r} />),
+        ...(map.circles?.[band] ?? []).map((o) => ornament(band, "o", o, "f-cell round")),
+        ...(map.fillCircles?.[band] ?? []).map((o) => ornament(band, "fo", o, "f-cell fill round")),
+        ...(map.squares?.[band] ?? []).map((o) => ornament(band, "f", o, "f-cell fill")),
+      ])}
     </div>
   );
 }

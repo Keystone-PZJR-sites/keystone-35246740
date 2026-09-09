@@ -1,8 +1,9 @@
+/* Flow frame: the block holds its tick rows as a minimum and keeps a
+   material gap under the input when the copy wraps taller. */
 .f-top {
-  box-sizing: border-box;
   width: 100%;
-  height: calc(var(--t) * 10);
-  padding: calc(var(--t) + 32px) 0 0 20px;
+  min-height: calc(var(--t) * 10);
+  padding: calc(var(--t) + 32px) 0 var(--space-4xl) 20px;
   /* content column: 300 → 416 across the base band */
   --_gw: calc(var(--wA) * 300 + var(--wB) * 416);
 }
@@ -22,21 +23,26 @@
 
 @container (min-width: 470px) {
   .f-top {
-    height: calc(var(--t) * 7);
+    min-height: calc(var(--t) * 7);
     padding: calc(var(--t)) 0 0 0;
     /* Scale the content column with the tick to avoid the exposed rail. */
     --_gw: calc((var(--wA) + var(--wB)) * 416);
   }
+  /* The box holds its tick rows as a minimum; the padding keeps the
+     centered content off the borders when it grows, and the extra 12px
+     below lifts the optical center. The bottom border shares the pixel
+     with the row below. */
   .f-ti {
     margin-left: calc(var(--t));
+    margin-bottom: -1px;
     width: calc(var(--t) * 10 + 1px);
-    height: calc(var(--t) * 6 + 1px);
+    min-height: calc(var(--t) * 6 + 1px);
     border: 1px solid var(--line);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 12px;
+    padding: var(--space-3xl) 0 calc(var(--space-3xl) + 12px);
   }
   .f-tag,
   .f-inp {
@@ -49,33 +55,37 @@
 
 @container (min-width: 665px) {
   .f-top {
-    height: calc(var(--t) * 6);
+    min-height: calc(var(--t) * 6);
   }
   .f-ti {
     margin-left: 0;
+    margin-bottom: 0;
     width: 100%;
-    height: calc(var(--t) * 5);
+    min-height: calc(var(--t) * 5);
     border: none;
   }
 }
 
 @container (min-width: 860px) {
   .f-top {
-    height: calc(var(--t) * 3);
+    min-height: calc(var(--t) * 3);
+    /* The input's bottom border shares the pixel with the row below. */
+    padding-bottom: 0;
     --_gw: calc(var(--wA) * 416 + var(--wB) * 528);
   }
   .f-ti {
     width: calc(var(--t) * 12 + 1px);
-    height: auto;
+    min-height: 0;
+    margin-bottom: -1px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    padding-bottom: 0;
+    align-items: stretch;
+    padding: 0;
   }
   .f-tag,
   .f-inp {
     width: calc(var(--t) * 6 + 1px);
-    height: calc(var(--t) * 2 + 1px);
+    min-height: calc(var(--t) * 2 + 1px);
     border: 1px solid var(--line);
     display: flex;
     flex-direction: column;
@@ -642,7 +652,7 @@
 .f-logo {
   position: relative;
   width: 100%;
-  height: calc(var(--t) * 6);
+  height: calc(var(--t) * 8);
 }
 .f-lockband {
   margin-top: calc(var(--t));
@@ -670,13 +680,13 @@
 .f-copy {
   box-sizing: border-box;
   border: 1px solid var(--line);
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   align-items: center;
-  align-content: center;
-  flex-wrap: wrap;
   margin-top: calc(var(--t));
   width: calc(var(--t) * 12 + 1px);
-  height: calc(var(--t));
+  height: calc(var(--t) * 3);
   padding-inline: calc(var(--t));
   font-family: var(--font-sans);
   font-optical-sizing: none;
@@ -688,14 +698,20 @@
   color: var(--color-text-500);
   white-space: nowrap;
 }
-.f-copy > span,
 .f-legal-links {
-  width: 100%;
+  display: contents;
 }
-.f-legal-links {
+.f-copy > span {
+  grid-column: 1 / -1;
+  grid-row: 3;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+.f-legal-links > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .f-copy a,
 .f-legal-preferences {
@@ -722,28 +738,23 @@
   }
 }
 
-@container (min-width: 665px) {
+@container (min-width: 860px) {
   /* +1px covers the line-inclusive r5 overlay so #042019 cannot
      leak under the copyright cell (the left cells already paint t+1). */
   .f-logo {
     height: calc(var(--t) * 5 + 1px);
   }
   .f-copy {
+    display: flex;
     margin-top: 0;
-    margin-left: calc(var(--t) * 6);
-    width: calc(var(--t) * 6 + 1px);
+    margin-left: calc(var(--t) * 5);
+    width: calc(var(--t) * 7 + 1px);
     height: calc(var(--t) + 1px);
-    padding-inline: var(--space-none);
-    border-bottom: none;
-  }
-}
-
-@container (min-width: 860px) {
-  .f-copy {
-    margin-left: calc(var(--t) * 7);
-    width: calc(var(--t) * 5 + 1px);
+    justify-content: center;
     gap: var(--space-sm);
+    padding-inline: var(--space-none);
     padding-right: var(--t);
+    border-bottom: none;
     font-size: 12px;
     line-height: 16px;
     font-size: calc(var(--wA) * 12 + var(--wB) * 14);

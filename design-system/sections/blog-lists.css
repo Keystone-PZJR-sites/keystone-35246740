@@ -30,16 +30,16 @@
 }
 
 .bl-sechead {
-  height: var(--t);
+  min-height: var(--t);
   margin-bottom: var(--t);
 }
 .bl-catsec .bl-sechead {
-  height: calc(var(--t) * 2);
+  min-height: calc(var(--t) * 2);
 }
 @container (min-width: 665px) {
   .bl-sechead,
   .bl-catsec .bl-sechead {
-    height: var(--t);
+    min-height: var(--t);
     margin-bottom: 0;
   }
 }
@@ -91,29 +91,29 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--bl-u) * 32);
-  height: calc(var(--t) * var(--bl-st-rm));
+  min-height: calc(var(--t) * var(--bl-st-rm));
 }
 .bl-stack > li {
   display: block;
   flex: none;
 }
 .bl-stack .blc {
-  height: calc(var(--t) * 10);
+  min-height: calc(var(--t) * 10);
 }
 @container (min-width: 665px) {
   .bl-stack {
     gap: calc(var(--bl-u) * 48);
-    height: calc(var(--t) * var(--bl-st-rt));
+    min-height: calc(var(--t) * var(--bl-st-rt));
   }
   .bl-stack .blc {
-    height: calc(var(--bl-u) * 352);
+    min-height: calc(var(--bl-u) * 352);
   }
 }
 @container (min-width: 860px) {
   .bl-stack {
     flex-direction: row;
     gap: calc(var(--bl-u) * 32);
-    height: calc(var(--t) * 3);
+    min-height: calc(var(--t) * 3);
   }
   .bl-stack > li {
     flex: 1;

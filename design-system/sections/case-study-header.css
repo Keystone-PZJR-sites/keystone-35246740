@@ -2,41 +2,81 @@
 
 /* ---------------- section frame ---------------- */
 
+/* Flow frame: the content column starts the head at its designed tick
+   row and the section holds its tick budget as a minimum, growing with
+   the copy. */
 .csh-sec {
-  height: calc(var(--t) * 25);
+  min-height: calc(var(--t) * 25);
+  padding-bottom: var(--t);
+}
+.csh-content {
+  padding-top: var(--cs-head-top-rm);
 }
 @container (min-width: 470px) {
-  .csh-sec { height: calc(var(--t) * 20); }
+  .csh-sec { min-height: calc(var(--t) * 20); }
+  .csh-content { padding-top: var(--cs-head-top-rs); }
 }
 @container (min-width: 665px) {
-  .csh-sec { height: calc(var(--t) * 12); }
+  .csh-sec { min-height: calc(var(--t) * 12); }
+  .csh-content { padding-top: var(--cs-head-top-rt); }
 }
 @container (min-width: 860px) {
-  .csh-sec { height: calc(var(--t) * 9); }
+  .csh-sec { min-height: calc(var(--t) * 9); }
+  .csh-content { padding-top: var(--cs-head-top-rd1); }
 }
+/* At rd2 the photo ends on the section's last row by design. */
 @container (min-width: 1130px) {
-  .csh-sec { height: calc(var(--t) * 7); }
+  .csh-sec {
+    min-height: calc(var(--t) * 7);
+    padding-bottom: 0;
+  }
+  .csh-content { padding-top: var(--cs-head-top-rd2); }
 }
 
 /* ---------------- the header block ---------------- */
 
+/* Stacked bands: head budget, photo, then metadata one tick below.
+   Row bands place metadata beside the photo; desktop bands run the
+   text column beside a photo that starts on its own tick row. */
 .csh {
-  position: absolute;
-  top: var(--cs-head-top-rm);
-  left: 0;
-  right: 0;
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "head"
+    "img"
+    "meta";
+  align-items: start;
+}
+.csh-head {
+  grid-area: head;
+  --budget: calc(var(--t) * 10 - var(--cs-head-top-rm));
 }
 @container (min-width: 470px) {
-  .csh { top: var(--cs-head-top-rs); }
+  .csh-head { --budget: calc(var(--t) * 8 - var(--cs-head-top-rs)); }
 }
 @container (min-width: 665px) {
-  .csh { top: var(--cs-head-top-rt); }
+  .csh {
+    grid-template-columns: calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-areas:
+      "head head"
+      "meta img";
+  }
+  .csh-head { --budget: calc(var(--t) * 5 - var(--cs-head-top-rt)); }
 }
+/* The photo spans both rows; the flexible metadata row absorbs its
+   height so the heading row keeps hugging its copy. */
 @container (min-width: 860px) {
-  .csh { top: var(--cs-head-top-rd1); }
-}
-@container (min-width: 1130px) {
-  .csh { top: var(--cs-head-top-rd2); }
+  .csh {
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "head img"
+      "meta img";
+  }
+  .csh-head {
+    --budget: 0px;
+    padding-bottom: 0;
+  }
 }
 
 /* Entrance delays run from eyebrow through photo. */
@@ -145,11 +185,9 @@
 /* ---------------- the photo ---------------- */
 
 /* The photo box stays on tick rows; its composited canvas overflows
-   by the baked-shadow pad. */
+   by the baked-shadow pad. Desktop bands drop it to its designed row. */
 .csh-img {
-  position: absolute;
-  left: 0;
-  top: calc(var(--t) * 10 - var(--cs-head-top-rm));
+  grid-area: img;
   width: calc(var(--t) * 10.5);
   height: calc(var(--t) * 8);
   --cs-pad-x: var(--cs-shadow-pad);
@@ -157,49 +195,36 @@
 }
 @container (min-width: 470px) {
   .csh-img {
-    top: calc(var(--t) * 8 - var(--cs-head-top-rs));
     width: calc(var(--t) * 10);
     height: calc(var(--t) * 6);
   }
 }
 @container (min-width: 665px) {
   .csh-img {
-    left: calc(var(--t) * 5);
-    top: calc(var(--t) * 5 - var(--cs-head-top-rt));
     width: calc(var(--t) * 5);
     height: calc(var(--t) * 5);
   }
 }
 @container (min-width: 860px) {
-  .csh-img {
-    top: calc(var(--t) * 2 - var(--cs-head-top-rd1));
-  }
+  .csh-img { margin-top: calc(var(--t) * 2 - var(--cs-head-top-rd1)); }
 }
 @container (min-width: 1130px) {
-  .csh-img {
-    top: calc(var(--t) * 2 - var(--cs-head-top-rd2));
-  }
+  .csh-img { margin-top: calc(var(--t) * 2 - var(--cs-head-top-rd2)); }
 }
 
 /* ---------------- the metadata column + tags ---------------- */
 
-/* Metadata uses tick positioning through tablet and normal flow on desktop. */
+/* Metadata follows the photo by one tick on stacked bands, shares the
+   photo's row on tablet, and follows the heading on desktop. */
 .csh-meta {
-  position: absolute;
-  left: 0;
-  top: calc(var(--t) * 19 - var(--cs-head-top-rm));
-}
-@container (min-width: 470px) {
-  .csh-meta { top: calc(var(--t) * 15 - var(--cs-head-top-rs)); }
+  grid-area: meta;
+  margin-top: var(--t);
 }
 @container (min-width: 665px) {
-  .csh-meta { top: calc(var(--t) * 5 - var(--cs-head-top-rt)); }
+  .csh-meta { margin-top: 0; }
 }
 @container (min-width: 860px) {
-  .csh-meta {
-    position: static;
-    margin-top: calc((var(--wA) + var(--wB)) * 32);
-  }
+  .csh-meta { margin-top: calc((var(--wA) + var(--wB)) * 32); }
 }
 @container (min-width: 1130px) {
   .csh-meta { margin-top: calc((var(--wA) + var(--wB)) * 40); }

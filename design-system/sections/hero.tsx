@@ -148,7 +148,7 @@ export function HeroSection() {
         ])}
       </div>
 
-      <div className="hero-head">
+      <div className="hero-head flow-budget">
         <InterpText as="h1" style="display-serif-sm-thin" className="hero-h1">
           <span className="hx-rise" id="hero-heading">
             Sales and marketing that runs itself.

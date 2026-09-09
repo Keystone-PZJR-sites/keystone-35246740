@@ -1,41 +1,97 @@
 /* Geometry uses page ticks; typography scales through responsive variables. */
 
+/* The section is a tick grid: columns are the designed tick columns and
+   each row track is a designed row budget, `minmax(rows·t, auto)`, so an
+   anchor renders the designed frame and content that outgrows a budget
+   moves every later row down instead of colliding. Line-inclusive boxes
+   (k·t + 1px) grow their row by the pixel; the following track gives it
+   back so the section total stays on the tick. */
 .pricing-offer-section {
+  display: grid;
+  align-items: start;
   width: 100%;
-  height: calc(var(--t) * 48);
+  min-height: calc(var(--t) * 48);
+  grid-template-columns: calc(var(--t) / 2) calc(var(--t) * 10.5) minmax(0, 1fr);
+  grid-template-rows:
+    var(--po-head-top-rm)
+    minmax(calc(var(--t) * 11 - var(--po-head-top-rm)), auto)
+    minmax(calc(var(--t) * 9), auto)
+    minmax(calc(var(--t) * 4), auto)
+    minmax(calc(var(--t) * 21), auto)
+    minmax(calc(var(--t) * 3 - 1px), auto);
+  grid-template-areas:
+    ". . ."
+    ". head ."
+    ". card ."
+    ". chatc ."
+    ". list ."
+    ". chatl .";
 }
 @container (min-width: 470px) {
-  .pricing-offer-section { height: calc(var(--t) * 27); }
-}
-@container (min-width: 665px) {
-  .pricing-offer-section { height: calc(var(--t) * 16); }
-}
-@container (min-width: 860px) {
-  .pricing-offer-section { height: calc(var(--t) * 15); }
-}
-@container (min-width: 1130px) {
-  .pricing-offer-section { height: calc(var(--t) * 13); }
-}
-
-.po-header {
-  position: absolute;
-  top: var(--po-head-top-rm);
-  left: calc(var(--t) / 2);
-}
-@container (min-width: 470px) {
-  .po-header {
-    top: var(--po-head-top-rs);
-    left: var(--t);
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 27);
+    grid-template-columns: var(--t) calc(var(--t) * 5) calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-rows:
+      var(--po-head-top-rs)
+      minmax(calc(var(--t) * 10 - var(--po-head-top-rs)), auto)
+      minmax(calc(var(--t) * 2), auto)
+      minmax(calc(var(--t) * 12), auto)
+      minmax(calc(var(--t) * 3 - 1px), auto);
+    grid-template-areas:
+      ". . . ."
+      ". head card ."
+      ". chatc chatc ."
+      ". list list ."
+      ". chatl chatl .";
   }
 }
 @container (min-width: 665px) {
-  .po-header { top: var(--po-head-top-rt); }
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 16);
+    grid-template-rows:
+      var(--po-head-top-rt)
+      minmax(calc(var(--t) * 8 - var(--po-head-top-rt)), auto)
+      calc(var(--t) * 6)
+      minmax(calc(var(--t) * 2), auto);
+    grid-template-areas:
+      ". . . ."
+      ". head card ."
+      ". list list ."
+      ". chatl chatl .";
+  }
 }
 @container (min-width: 860px) {
-  .po-header { top: var(--po-head-top-rd1); }
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 15);
+    grid-template-rows:
+      var(--po-head-top-rd1)
+      minmax(calc(var(--t) * 8 - var(--po-head-top-rd1)), auto)
+      calc(var(--t) * 6)
+      minmax(var(--t), auto);
+  }
 }
 @container (min-width: 1130px) {
-  .po-header { top: var(--po-head-top-rd2); }
+  .pricing-offer-section {
+    min-height: calc(var(--t) * 13);
+    grid-template-rows:
+      var(--po-head-top-rd2)
+      minmax(calc(var(--t) * 5 - var(--po-head-top-rd2)), auto)
+      minmax(calc(var(--t) * 6), auto)
+      minmax(calc(var(--t) * 2 - 1px), auto);
+    grid-template-areas:
+      ". . . ."
+      ". head head ."
+      ". card list ."
+      ". chatl chatl .";
+  }
+}
+
+/* Grid items shrink to their content so the boxes end where the copy
+   ends and clear the exposed lattice cells beside them. */
+.po-header {
+  grid-area: head;
+  justify-self: start;
+  min-width: 0;
 }
 
 /* Typed elements share responsive size variables. */
@@ -190,6 +246,7 @@
 
 .po-chat {
   display: flex;
+  justify-self: start;
 }
 .po-chat-row {
   display: flex;
@@ -256,35 +313,30 @@
   .po-chat-head-rd1 { display: none; }
 }
 
+/* Chat rows are material (40/48px) blocks centered on a half-tick line:
+   the drop is the designed row offset from the track start. */
 .po-chat-card {
-  position: absolute;
-  top: calc(var(--t) * 20 + var(--space-3xl) + var(--po-chat-drop-card-rm));
-  left: calc(var(--t) / 2);
+  grid-area: chatc;
+  margin-top: calc(var(--space-3xl) + var(--po-chat-drop-card-rm));
 }
 @container (min-width: 470px) {
   .po-chat-card {
-    top: calc(var(--t) * 10.5 - 20px);
-    left: var(--t);
+    margin-top: calc(var(--t) / 2 - var(--po-chat-half-md));
   }
 }
 @container (min-width: 665px) {
   .po-chat-card { display: none; }
 }
 
+/* Centers the material row on the half-tick line; below the smallest
+   anchor the row is taller than the tick, so the offset floors at zero. */
 .po-chat-list {
-  position: absolute;
-  top: calc(var(--t) * 46.5 - 20px);
-  left: calc(var(--t) / 2);
-}
-@container (min-width: 470px) {
-  .po-chat-list {
-    top: calc(var(--t) * 25.5 - 20px);
-    left: var(--t);
-  }
+  grid-area: chatl;
+  margin-top: max(var(--space-none), calc(var(--t) * 1.5 - var(--po-chat-half-md) - 1px));
 }
 @container (min-width: 665px) {
   .po-chat-list {
-    top: calc(var(--t) * 14 + var(--po-chat-drop-list));
+    margin-top: var(--po-chat-drop-list);
   }
 }
 @container (min-width: 860px) {
@@ -297,9 +349,8 @@
 @container (min-width: 1130px) {
   .po-chat-list-rd2 {
     display: flex;
-    position: absolute;
-    top: calc(var(--t) * 11 + var(--po-chat-drop-rd2));
-    left: var(--t);
+    grid-area: chatl;
+    margin-top: calc(var(--po-chat-drop-rd2) - 1px);
   }
   .po-chat-list-rd2 .po-chat-label {
     padding-left: var(--space-lg);
@@ -312,22 +363,18 @@
 /* the card + button container is the whole-tick geometry unit; the
    white card absorbs the button's material height (the tick wins) */
 .po-card-wrap {
-  position: absolute;
+  grid-area: card;
+  position: relative;
   display: flex;
   flex-direction: column;
-  top: calc(var(--t) * 11);
-  left: calc(var(--t) / 2);
-  width: calc(var(--t) * 10.5);
-  height: calc(var(--t) * 9);
+  min-height: calc(var(--t) * 9);
   /* Keep the card shadow above the touching list box. */
   z-index: 1;
 }
 @container (min-width: 470px) {
   .po-card-wrap {
-    top: calc(var(--t) * 3);
-    left: calc(var(--t) * 6);
-    width: calc(var(--t) * 5);
-    height: calc(var(--t) * 6);
+    margin-top: calc(var(--t) * 3 - var(--po-head-top-rs));
+    min-height: calc(var(--t) * 6);
   }
 }
 /* The overlay paints the shadow above the tag and touching list. */
@@ -341,14 +388,18 @@
 }
 @container (min-width: 665px) {
   .po-card-wrap {
-    top: calc(var(--t) * 2);
-    height: calc(var(--t) * 5);
+    margin-top: calc(var(--t) * 2 - var(--po-head-top-rt));
+    min-height: calc(var(--t) * 5);
+  }
+}
+@container (min-width: 860px) {
+  .po-card-wrap {
+    margin-top: calc(var(--t) * 2 - var(--po-head-top-rd1));
   }
 }
 @container (min-width: 1130px) {
   .po-card-wrap {
-    top: calc(var(--t) * 5);
-    left: var(--t);
+    margin-top: 0;
   }
 }
 
@@ -607,19 +658,15 @@
 
 /* The extra pixel makes list borders share lattice lines. */
 .po-list-single {
-  position: absolute;
-  top: calc(var(--t) * 24);
-  left: calc(var(--t) / 2);
-  width: calc(var(--t) * 10.5 + 1px);
-  height: calc(var(--t) * 21 + 1px);
+  grid-area: list;
+  justify-self: start;
+  width: calc(100% + 1px);
+  min-height: calc(var(--t) * 21 + 1px);
   padding: var(--space-xl) var(--space-xl) var(--space-3xl);
 }
 @container (min-width: 470px) {
   .po-list-single {
-    top: calc(var(--t) * 12);
-    left: var(--t);
-    width: calc(var(--t) * 10 + 1px);
-    height: calc(var(--t) * 12 + 1px);
+    min-height: calc(var(--t) * 12 + 1px);
     padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
   }
   .po-list-single .po-list-cta { align-self: flex-start; }
@@ -630,25 +677,26 @@
 @container (min-width: 1130px) {
   .po-list-single {
     display: flex;
-    top: calc(var(--t) * 6);
-    left: calc(var(--t) * 6);
-    width: calc(var(--t) * 5 + 1px);
-    height: calc(var(--t) * 5 + 1px);
+    margin-top: var(--t);
+    min-height: calc(var(--t) * 5 + 1px);
     padding: var(--space-3xl) var(--space-4xl);
   }
 }
 
 /* Tablet bands use two boxes with the right box staggered by one tick. */
+/* Two staggered boxes on a grid: the right box starts one row lower and
+   shares its left border pixel with the left box. Each box holds its
+   tick size as a minimum and grows with its list. */
 .po-list-pair {
   display: none;
-  position: absolute;
-  top: calc(var(--t) * 8);
-  left: var(--t);
-  width: calc(var(--t) * 10);
-  height: calc(var(--t) * 6);
+  grid-area: list;
+  grid-template-columns: repeat(2, calc(var(--t) * 5));
+  grid-template-rows: var(--t) auto;
+  align-items: start;
+  min-height: calc(var(--t) * 6);
 }
 @container (min-width: 665px) {
-  .po-list-pair { display: block; }
+  .po-list-pair { display: grid; }
 }
 @container (min-width: 1130px) {
   .po-list-pair { display: none; }
@@ -656,19 +704,21 @@
 
 /* The right box sits behind the left box's shadow. */
 .po-box {
-  position: absolute;
+  position: relative;
   width: calc(var(--t) * 5 + 1px);
-  height: calc(var(--t) * 5 + 1px);
+  min-height: calc(var(--t) * 5 + 1px);
   padding: var(--space-2xl) var(--space-3xl) var(--space-2xl) var(--space-2xl);
 }
 .po-box-l {
-  top: 0;
-  left: 0;
+  grid-column: 1;
+  grid-row: 1 / span 2;
   z-index: 1;
 }
 .po-box-r {
-  top: var(--t);
-  left: calc(var(--t) * 5);
+  grid-column: 2;
+  grid-row: 2;
+  /* The bottom border shares the pixel with the lattice line below. */
+  margin-bottom: -1px;
   padding-bottom: var(--space-3xl);
   box-shadow: none;
 }
@@ -776,21 +826,23 @@
   }
 }
 
+/* The wrap box pins the designed rag and yields to a narrower column. */
 .po-item-text {
-  flex: none;
-  width: var(--po-item-w-rm);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: var(--po-item-w-rm);
 }
 @container (min-width: 470px) {
-  .po-item-text { width: var(--po-item-w-rs); }
+  .po-item-text { max-width: var(--po-item-w-rs); }
 }
 @container (min-width: 665px) {
-  .po-item-text { width: var(--po-item-w-rt); }
+  .po-item-text { max-width: var(--po-item-w-rt); }
 }
 @container (min-width: 860px) {
-  .po-item-text { width: var(--po-item-w-rd1); }
+  .po-item-text { max-width: var(--po-item-w-rd1); }
 }
 @container (min-width: 1130px) {
-  .po-item-text { width: var(--po-item-w-rd2); }
+  .po-item-text { max-width: var(--po-item-w-rd2); }
 }
 
 /* Icon boxes and glyphs scale independently by band. */

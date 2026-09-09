@@ -173,25 +173,23 @@ function runSelfTests(
     detail: `sample ${interp.toFixed(3)}px · line ${interpExpected.toFixed(3)}px`,
   });
 
-  // 4 · stack sum: page height = designed tick total for the band, plus
-  // any open drawer's designed growth.
-  const pageH = page.getBoundingClientRect().height;
-  const expectedTicks = expectations.totals[band] + drawerExtraTicks(page);
-  results.push({
-    id: "stack",
-    label: `stack sum = ${expectedTicks}t`,
-    pass: Math.abs(pageH - expectedTicks * t) <= 2,
-    detail: `page ${(pageH / t).toFixed(4)}t (${pageH.toFixed(1)}px)`,
-  });
+  // Sections hold their designed rows as minimums and grow only when
+  // their copy needs more room. At an anchor the design fits, so the
+  // rows are exact; between anchors a section may run past its rows,
+  // and every later section moves down by that growth.
+  const atAnchor = Math.abs(containerW - BAND_ANCHORS[band]) < 0.5 || containerW >= 1344;
 
-  // 5 · section boundaries: every .sec flow child tops and sizes on its
-  // designed rows, matched in DOM order; a section with
-  // no rows at this band must be hidden. An open drawer grows its own
-  // section and moves every later section down by the same ticks
-  // so the designed tops carry the cumulative growth.
+  // 4 · section boundaries: every .sec flow child tops on its designed
+  // row plus the growth of the sections above it, matched in DOM order;
+  // a section with no rows at this band must be hidden. An open drawer
+  // grows its own section by its published ticks. A section that runs
+  // past its rows between anchors publishes that growth to the sections
+  // below and to the stack sum; at an anchor any growth fails.
   const pageTop = page.getBoundingClientRect().top;
   const secs = [...page.querySelectorAll<HTMLElement>(".sec")];
   const secFails: string[] = [];
+  const grown = new Set<HTMLElement>();
+  let growthPx = 0;
   if (secs.length !== expectations.sections.length) {
     secFails.push(`${secs.length} .sec in DOM, ${expectations.sections.length} expected`);
   } else {
@@ -209,18 +207,39 @@ function runSelfTests(
       const top = rect.top - pageTop;
       const expectedTop = designed.top + priorExtra;
       const h = designed.h + ownExtra;
-      if (!onRow(top, expectedTop, t))
+      if (Math.abs(top - (expectedTop * t + growthPx)) > 1.1)
         secFails.push(`${exp.id} top ${(top / t).toFixed(3)}t ≠ ${expectedTop}t`);
-      if (!onRow(rect.height, h, t))
-        secFails.push(`${exp.id} h ${(rect.height / t).toFixed(3)}t ≠ ${h}t`);
+      const growth = rect.height - h * t;
+      if (atAnchor || growth < 0) {
+        if (!onRow(rect.height, h, t))
+          secFails.push(`${exp.id} h ${(rect.height / t).toFixed(3)}t ≠ ${h}t`);
+      } else if (growth > 1.1) {
+        grown.add(el);
+        growthPx += growth;
+      }
       priorExtra += ownExtra;
     });
   }
   results.push({
     id: "sections",
-    label: "section boundaries on designed rows",
+    label: atAnchor ? "section boundaries on designed rows" : "sections stack from designed rows",
     pass: secFails.length === 0,
-    detail: secFails.length ? secFails.join(" · ") : `${expectations.sections.length} sections on rows`,
+    detail: secFails.length
+      ? secFails.join(" · ")
+      : grown.size
+        ? `${expectations.sections.length} sections · ${grown.size} grown by ${(growthPx / t).toFixed(3)}t`
+        : `${expectations.sections.length} sections on rows`,
+  });
+
+  // 5 · stack sum: page height = designed tick total for the band, plus
+  // any open drawer's designed growth, plus between-anchor growth.
+  const pageH = page.getBoundingClientRect().height;
+  const expectedTicks = expectations.totals[band] + drawerExtraTicks(page);
+  results.push({
+    id: "stack",
+    label: `stack sum = ${expectedTicks}t${growthPx ? " + growth" : ""}`,
+    pass: Math.abs(pageH - expectedTicks * t - growthPx) <= 2,
+    detail: `page ${(pageH / t).toFixed(4)}t (${pageH.toFixed(1)}px)`,
   });
 
   // 6 · landmark audit: tops and sizes land on (half-)ticks, ±1px for
@@ -228,7 +247,8 @@ function runSelfTests(
   // geometry is audited. Zero landmarks means attributes were lost.
   // Kinds the expectations declare latticeExempt are designed content
   // offsets, not tick geometry — skipped here,
-  // still covered by the stack and section-boundary checks.
+  // still covered by the stack and section-boundary checks. A grown
+  // section is content-sized, so its landmarks are audited at anchors.
   const latticeExempt = new Set(expectations.latticeExempt ?? []);
   let landmarks = 0;
   const drifted: string[] = [];
@@ -237,7 +257,9 @@ function runSelfTests(
     if (latticeExempt.has(kind)) return;
     const rect = el.getBoundingClientRect();
     if (el.getClientRects().length === 0) return; // band-hidden variant
-    const anchorTop = kind === "sec" ? pageTop : el.closest(".sec")!.getBoundingClientRect().top;
+    const sec = el.closest<HTMLElement>(".sec");
+    if (sec && grown.has(sec)) return;
+    const anchorTop = kind === "sec" ? pageTop : sec!.getBoundingClientRect().top;
     const checks: Array<[string, number]> = [
       ["top", rect.top - anchorTop],
       ["height", rect.height],
@@ -257,7 +279,7 @@ function runSelfTests(
   // 7 · band-gate sweep: exactly one band class visible, including .decor.
   const visibleBands = new Set<string>();
   page
-    .querySelectorAll<HTMLElement>(".grid-region, .grid-fill, .grid-cellx, .decor")
+    .querySelectorAll<HTMLElement>(".grid-region, .decor")
     .forEach((el) => {
       if (el.getClientRects().length === 0) return;
       for (const b of BAND_CLASSES) if (el.classList.contains(b)) visibleBands.add(b);
@@ -274,16 +296,22 @@ function runSelfTests(
   // over whatever .gx lattices the page renders.
   let seams = 0;
   const seamFails: string[] = [];
+  // Tick coordinates come from rendered boxes so top-, bottom-, and
+  // stretch-anchored regions compare on one grid.
   page.querySelectorAll<HTMLElement>(".gx").forEach((gx) => {
+    const origin = gx.getBoundingClientRect();
     const regions = [...gx.querySelectorAll<HTMLElement>(".grid-region")]
       .filter((el) => el.getClientRects().length > 0)
-      .map((el) => ({
-        rect: el.getBoundingClientRect(),
-        gx: parseFloat(el.style.getPropertyValue("--gx")),
-        gy: parseFloat(el.style.getPropertyValue("--gy")),
-        gw: parseFloat(el.style.getPropertyValue("--gw")),
-        gh: parseFloat(el.style.getPropertyValue("--gh")),
-      }));
+      .map((el) => {
+        const rect = el.getBoundingClientRect();
+        return {
+          rect,
+          gx: Math.round((rect.left - origin.left) / t),
+          gy: Math.round((rect.top - origin.top) / t),
+          gw: Math.round((rect.width - 1) / t),
+          gh: Math.round((rect.height - 1) / t),
+        };
+      });
     for (const a of regions) {
       for (const b of regions) {
         if (a === b) continue;
@@ -326,7 +354,7 @@ function runSelfTests(
   const pageLeft = page.getBoundingClientRect().left;
   const exposure: DOMRect[] = [];
   page
-    .querySelectorAll<HTMLElement>(".grid-region, .grid-fill, .grid-cellx, .decor")
+    .querySelectorAll<HTMLElement>(".grid-region, .decor")
     .forEach((el) => {
       if (el.getClientRects().length === 0) return;
       const lm = el.closest<HTMLElement>("[data-landmark]");

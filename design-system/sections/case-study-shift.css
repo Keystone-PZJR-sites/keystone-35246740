@@ -1,20 +1,21 @@
 /* Before-and-after cards stack on narrow bands and share an edge from tablet. */
 
-/* Section height follows per-study growth variables. */
+/* Flow frame: the section holds its tick budget as a minimum and grows
+   with the cards. */
 .csft-sec {
-  height: calc(var(--t) * (22 + var(--csx-rm, 0)));
+  min-height: calc(var(--t) * 22);
 }
 @container (min-width: 470px) {
-  .csft-sec { height: calc(var(--t) * (13 + var(--csx-rs, 0))); }
+  .csft-sec { min-height: calc(var(--t) * 13); }
 }
 @container (min-width: 665px) {
-  .csft-sec { height: calc(var(--t) * (7 + var(--csx-rt, 0))); }
+  .csft-sec { min-height: calc(var(--t) * 7); }
 }
 @container (min-width: 860px) {
-  .csft-sec { height: calc(var(--t) * (6 + var(--csx-rd1, 0))); }
+  .csft-sec { min-height: calc(var(--t) * 6); }
 }
 @container (min-width: 1130px) {
-  .csft-sec { height: calc(var(--t) * (5 + var(--csx-rd2, 0))); }
+  .csft-sec { min-height: calc(var(--t) * 5); }
 }
 
 @container (min-width: 1130px) {
@@ -24,11 +25,14 @@
   }
 }
 
-/* The after box overlaps by one pixel so touching borders remain single. */
+/* The after box overlaps by one pixel so touching borders remain single.
+   The bottom padding reserves the hanging tag's rows so a grown section
+   still clears it. */
 .csft-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-bottom: var(--cs-tag-h);
 }
 @container (min-width: 665px) {
   .csft-content { flex-direction: row; }
@@ -36,12 +40,16 @@
 
 /* ---------------- the cards ---------------- */
 
+/* Each card owns its tick rows as a minimum; the interior is a column
+   whose body settles on the bottom padding and grows the card when its
+   copy runs long. */
 .csft-card {
   position: relative;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--color-border-000);
   width: calc(var(--t) * 10.5 + 1px);
-  height: calc(var(--t) * 10 + 1px);
+  min-height: calc(var(--t) * 10 + 1px);
   padding: 20px;
 }
 .csft-before {
@@ -53,33 +61,14 @@
   box-shadow: var(--shadow-hard-square);
   margin-top: -1px;
 }
-/* Only the variable-length after card grows; its body remains bottom-aligned. */
-.csft-card.csft-after-card {
-  height: calc(var(--t) * (10 + var(--csx-rm, 0)) + 1px);
-}
-@container (min-width: 470px) {
-  .csft-card.csft-after-card { height: calc(var(--t) * (6 + var(--csx-rs, 0)) + 1px); }
-}
-@container (min-width: 665px) {
-  .csft-card.csft-after-card { height: calc(var(--t) * (6 + var(--csx-rt, 0)) + 1px); }
-}
-@container (min-width: 860px) {
-  .csft-card.csft-after-card { height: calc(var(--t) * (5 + var(--csx-rd1, 0)) + 1px); }
-}
-@container (min-width: 1130px) {
-  .csft-card.csft-after-card { height: calc(var(--t) * (4 + var(--csx-rd2, 0)) + 1px); }
-}
 @container (min-width: 470px) {
   .csft-card {
     width: calc(var(--t) * 10 + 1px);
-    height: calc(var(--t) * 6 + 1px);
+    min-height: calc(var(--t) * 6 + 1px);
   }
 }
 @container (min-width: 665px) {
-  .csft-card {
-    width: calc(var(--t) * 5 + 1px);
-    height: calc(var(--t) * 6 + 1px);
-  }
+  .csft-card { width: calc(var(--t) * 5 + 1px); }
   .csft-after-card {
     margin-top: 0;
   }
@@ -89,15 +78,15 @@
 }
 @container (min-width: 860px) {
   .csft-card {
-    width: calc(var(--t) * 5 + 1px);
-    height: calc(var(--t) * 5 + 1px);
+    min-height: calc(var(--t) * 5 + 1px);
+    padding-bottom: 32px;
   }
 }
 @container (min-width: 1130px) {
   .csft-card {
     width: calc(var(--t) * 4 + 1px);
-    height: calc(var(--t) * 4 + 1px);
-    padding: 20px 24px;
+    min-height: calc(var(--t) * 4 + 1px);
+    padding: 20px 24px 32px;
   }
 }
 
@@ -112,18 +101,11 @@
   text-transform: uppercase;
 }
 
-/* Card interiors anchor to the bottom padding. */
+/* Card interiors settle on the bottom padding and keep a material gap
+   under the label when they run long. */
 .csft-body {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-}
-@container (min-width: 860px) {
-  .csft-body { bottom: 32px; }
-}
-@container (min-width: 1130px) {
-  .csft-body { left: 24px; right: 24px; }
+  margin-top: auto;
+  padding-top: var(--space-xl);
 }
 
 /* ---------------- the stat pair ---------------- */

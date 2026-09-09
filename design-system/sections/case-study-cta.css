@@ -1,19 +1,19 @@
 /* CTA copy reuses shared wordmark and chip tokens across responsive lines. */
 
 .csc-sec {
-  height: calc(var(--t) * 10);
+  min-height: calc(var(--t) * 10);
 }
 @container (min-width: 470px) {
-  .csc-sec { height: calc(var(--t) * 7); }
+  .csc-sec { min-height: calc(var(--t) * 7); }
 }
 @container (min-width: 665px) {
-  .csc-sec { height: calc(var(--t) * 5); }
+  .csc-sec { min-height: calc(var(--t) * 5); }
 }
 @container (min-width: 860px) {
-  .csc-sec { height: calc(var(--t) * 5); }
+  .csc-sec { min-height: calc(var(--t) * 5); }
 }
 @container (min-width: 1130px) {
-  .csc-sec { height: calc(var(--t) * 4); }
+  .csc-sec { min-height: calc(var(--t) * 4); }
 }
 
 /* the band hugs its drawn box inside the whole-tick section (the

@@ -5,6 +5,13 @@
   --_u: var(--csc-u, 1px);
   position: relative;
   isolation: isolate;
+  /* Stacked layout: the image frame is a fixed row and the profile row
+     absorbs the card's remaining height, so long copy grows the card
+     instead of colliding. Section mounts restate the template for row
+     layouts. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: var(--csc-img-h) minmax(0, auto);
   /* The resting side owns the shadow's exit duration. */
   box-shadow: var(--shadow-hard-square-0);
   transition: box-shadow var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
@@ -86,9 +93,14 @@
 
 /* ---------------- the site image ---------------- */
 
+/* Both boxes extend one pixel past their grid area so adjacent borders
+   share a lattice seam; the image paints above the profile's top edge. */
 .csc-img {
-  position: absolute;
-  box-sizing: border-box;
+  position: relative;
+  grid-area: 1 / 1;
+  z-index: 2;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
   /* The border overlaps adjacent seams; the frame clips hover zoom. */
   border: 1px solid var(--color-border-000);
   overflow: hidden;
@@ -121,8 +133,11 @@
 /* ---------------- the profile card ---------------- */
 
 .csc-profile {
-  position: absolute;
-  box-sizing: border-box;
+  position: relative;
+  grid-area: 2 / 1;
+  z-index: 1;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
   display: flex;
   flex-direction: column;
   /* Place lede at top and stats/CTA at bottom. */
@@ -238,171 +253,6 @@
 
 .csc-cta {
   margin-top: calc(var(--_u) * var(--csc-cta-gap, 20));
-}
-
-/* Fixed interior values; section mounts restate them responsively. */
-
-.csc[data-size="md"] {
-  --csc-pt: 20;
-  --csc-px: 20;
-  --csc-pb: 20;
-  --csc-cat-f: var(--ts-text-sm-light-font);
-  --csc-cat-fs: 14;
-  --csc-cat-lh: 18;
-  --csc-cat-ls: var(--ts-text-sm-light-ls);
-  --csc-cat-opsz: var(--ts-text-sm-light-opsz);
-  --csc-sslug-f: var(--ts-text-sm-light-font);
-  --csc-sslug-fs: 14;
-  --csc-sslug-lh: 18;
-  --csc-sslug-ls: var(--ts-text-sm-light-ls);
-  --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
-  --csc-label-f: var(--ts-text-sm-regular-font);
-  --csc-label-fs: 14;
-  --csc-label-lh: 18;
-  --csc-label-ls: var(--ts-text-sm-regular-ls);
-  --csc-label-opsz: var(--ts-text-sm-regular-opsz);
-}
-.csc[data-size="lg"] {
-  --csc-pt: 20;
-  --csc-px: 24;
-  --csc-pb: 24;
-  --csc-cat-f: var(--ts-text-sm-light-font);
-  --csc-cat-fs: 14;
-  --csc-cat-lh: 18;
-  --csc-cat-ls: var(--ts-text-sm-light-ls);
-  --csc-cat-opsz: var(--ts-text-sm-light-opsz);
-  --csc-cat-gap: 2;
-  --csc-title-f: var(--ts-display-serif-xs-plus-light-font);
-  --csc-title-fs: 28;
-  --csc-title-lh: 34;
-  --csc-title-ls: var(--ts-display-serif-xs-plus-light-ls);
-  --csc-title-gap: 8;
-  --csc-desc-f: var(--ts-text-lg-light-font);
-  --csc-desc-fs: 18;
-  --csc-desc-lh: 26;
-  --csc-desc-ls: var(--ts-text-lg-light-ls);
-  --csc-desc-opsz: var(--ts-text-lg-light-opsz);
-  --csc-sslug-f: var(--ts-text-sm-light-font);
-  --csc-sslug-fs: 14;
-  --csc-sslug-lh: 18;
-  --csc-sslug-ls: var(--ts-text-sm-light-ls);
-  --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
-  --csc-slug-gap: 8;
-  --csc-num-gap: 0;
-  --csc-label-f: var(--ts-text-sm-regular-font);
-  --csc-label-fs: 14;
-  --csc-label-lh: 18;
-  --csc-label-ls: var(--ts-text-sm-regular-ls);
-  --csc-label-opsz: var(--ts-text-sm-regular-opsz);
-}
-.csc[data-size="xl"] {
-  --csc-pt: 24;
-  --csc-px: 32;
-  --csc-pb: 32;
-  --csc-cat-f: var(--ts-text-sm-light-font);
-  --csc-cat-fs: 14;
-  --csc-cat-lh: 18;
-  --csc-cat-ls: var(--ts-text-sm-light-ls);
-  --csc-cat-opsz: var(--ts-text-sm-light-opsz);
-  --csc-title-f: var(--ts-display-serif-xs-plus-light-font);
-  --csc-title-fs: 28;
-  --csc-title-lh: 34;
-  --csc-title-ls: var(--ts-display-serif-xs-plus-light-ls);
-  --csc-title-gap: 16;
-  --csc-desc-f: var(--ts-text-lg-light-font);
-  --csc-desc-fs: 18;
-  --csc-desc-lh: 26;
-  --csc-desc-ls: var(--ts-text-lg-light-ls);
-  --csc-desc-opsz: var(--ts-text-lg-light-opsz);
-  --csc-cta-gap: 32;
-  --csc-sslug-f: var(--ts-text-sm-light-font);
-  --csc-sslug-fs: 14;
-  --csc-sslug-lh: 18;
-  --csc-sslug-ls: var(--ts-text-sm-light-ls);
-  --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
-  --csc-slug-gap: 8;
-  --csc-num-f: var(--ts-display-sans-2xs-light-font);
-  --csc-num-fs: 28;
-  --csc-num-lh: 36;
-  --csc-num-ls: var(--ts-display-sans-2xs-light-ls);
-  --csc-num-opsz: var(--ts-display-sans-2xs-light-opsz);
-  --csc-label-f: var(--ts-text-sm-regular-font);
-  --csc-label-fs: 14;
-  --csc-label-lh: 18;
-  --csc-label-ls: var(--ts-text-sm-regular-ls);
-  --csc-label-opsz: var(--ts-text-sm-regular-opsz);
-}
-
-/* Fixed boxes and arrangements. */
-
-.csc[data-size="xl"] {
-  width: 1120px;
-  height: 448px;
-  --csc-split: 672px;
-}
-.csc[data-size="lg"] {
-  width: 800px;
-  height: 400px;
-  --csc-split: 400px;
-}
-.csc[data-size="md"] {
-  width: 640px;
-  height: 384px;
-  --csc-split: 320px;
-}
-.csc[data-size="sm"] {
-  width: 480px;
-  height: 624px;
-  --csc-img-h: 288px;
-}
-.csc[data-size="xs"] {
-  width: 336px;
-  height: 576px;
-  --csc-img-h: 192px;
-}
-
-/* Boxes overlap by one pixel so adjacent borders share a seam. */
-.csc[data-arrangement="left-image"] .csc-img {
-  top: 0;
-  bottom: -1px;
-  left: 0;
-  width: calc(var(--csc-split) + 1px);
-  z-index: 2;
-}
-.csc[data-arrangement="left-image"] .csc-profile {
-  top: 0;
-  bottom: -1px;
-  left: var(--csc-split);
-  right: -1px;
-  z-index: 1;
-}
-.csc[data-arrangement="right-image"] .csc-profile {
-  top: 0;
-  bottom: -1px;
-  left: 0;
-  width: calc(100% - var(--csc-split) + 1px);
-  z-index: 2;
-}
-.csc[data-arrangement="right-image"] .csc-img {
-  top: 0;
-  bottom: -1px;
-  right: -1px;
-  width: calc(var(--csc-split) + 1px);
-  z-index: 1;
-}
-.csc[data-arrangement="centered"] .csc-img {
-  top: 0;
-  left: 0;
-  right: -1px;
-  height: calc(var(--csc-img-h) + 1px);
-  z-index: 2;
-}
-.csc[data-arrangement="centered"] .csc-profile {
-  top: var(--csc-img-h);
-  left: 0;
-  right: -1px;
-  bottom: -1px;
-  z-index: 1;
 }
 
 /* reduced motion: the hover dressing swaps state-to-state (last in

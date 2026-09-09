@@ -1,12 +1,42 @@
+/* Flow frame: the head carries a tick budget (its designed rows to the
+   carousel row); the carousel and the trailing clearance row follow in
+   flow. Content that outgrows its budget pushes the strip down instead
+   of colliding with it. The designed line counts below are the anchor
+   frames' text heights; the derived gaps reproduce the designed tops. */
 .hero-section {
   width: 100%;
-  height: calc(var(--t) * 21);
+  min-height: calc(var(--t) * 21);
+  padding-top: var(--hero-head-top-rm);
+  padding-bottom: var(--t);
+  --_h1-lines: 2;
+  --_sub-lines: 4;
+  --_h1-lh: calc(var(--wA) * 38 + var(--wB) * 49);
+  --_sub-lh: calc(var(--wA) * 28 + var(--wB) * 28);
+  --_head-rows: calc(var(--t) * 14 - var(--hero-head-top-rm));
+}
+@container (min-width: 470px) {
+  .hero-section {
+    --_h1-lh: calc(var(--wA) * 49 + var(--wB) * 60);
+    --_sub-lines: 3;
+  }
 }
 @container (min-width: 665px) {
-  .hero-section { height: calc(var(--t) * 13); }
+  .hero-section {
+    min-height: calc(var(--t) * 13);
+    padding-top: var(--hero-head-top-rt);
+    --_h1-lh: calc((var(--wA) + var(--wB)) * 60);
+    --_sub-lines: 2;
+    --_head-rows: calc(var(--t) * 8 - var(--hero-head-top-rt));
+  }
 }
 @container (min-width: 860px) {
-  .hero-section { height: calc(var(--t) * 12); }
+  .hero-section {
+    min-height: calc(var(--t) * 12);
+    padding-top: var(--hero-head-top-rd);
+    --_h1-lh: calc(var(--wA) * 55.7143 + var(--wB) * 78);
+    --_sub-lh: calc(var(--wA) * 24.2857 + var(--wB) * 34);
+    --_head-rows: calc(var(--t) * 7 - var(--hero-head-top-rd));
+  }
 }
 
 /* Map shared choreography beats to the visual order at each band. */
@@ -31,16 +61,12 @@
 .hero-section .hero-h1 .hx-rise { --_d: var(--hx-d-h1a); }
 .hero-section .hero-flow { --_d: var(--_d-sub1); }
 .hero-head {
-  position: absolute;
-  top: var(--hero-head-top-rm);
-  left: var(--t);
-  right: var(--t);
-}
-@container (min-width: 665px) {
-  .hero-head { top: var(--hero-head-top-rt); }
+  width: calc(100% - 2 * var(--t));
+  margin-inline: var(--t);
+  --budget: var(--_head-rows);
 }
 @container (min-width: 860px) {
-  .hero-head { top: var(--hero-head-top-rd); right: calc(2 * var(--t)); }
+  .hero-head { width: calc(100% - 3 * var(--t)); }
 }
 
 .hero-h1 {
@@ -67,11 +93,16 @@
     --ts-display-serif-sm-thin-ls: var(--ts-display-serif-3xl-thin-ls);
   }
 }
+/* Derived gaps: the designed next-block top minus the designed bottom of
+   the block above (its top plus its anchor line count times line-height).
+   Type stops zooming below the smallest anchor while the tick keeps
+   shrinking, so each gap floors at one spacing cell and never collapses. */
 .hero-sub {
-  position: absolute;
-  top: calc(var(--hero-sub-top-rm) - var(--hero-head-top-rm));
-  left: 0;
-  right: 0;
+  position: relative;
+  margin-top: max(
+    var(--space-xl),
+    calc(var(--hero-sub-top-rm) - var(--hero-head-top-rm) - var(--_h1-lines) * var(--_h1-lh))
+  );
   max-width: var(--hero-sub-w-rm);
   color: var(--color-text-200);
   --fs0: 20; --fs1: 20; --lh0: 28; --lh1: 28;
@@ -84,13 +115,19 @@
 }
 @container (min-width: 665px) {
   .hero-sub {
-    top: calc(var(--hero-sub-top-rt) - var(--hero-head-top-rt));
+    margin-top: max(
+      var(--space-xl),
+      calc(var(--hero-sub-top-rt) - var(--hero-head-top-rt) - var(--_h1-lines) * var(--_h1-lh))
+    );
     max-width: none;
   }
 }
 @container (min-width: 860px) {
   .hero-sub {
-    top: calc(var(--hero-sub-top-rd) - var(--hero-head-top-rd));
+    margin-top: max(
+      var(--space-xl),
+      calc(var(--hero-sub-top-rd) - var(--hero-head-top-rd) - var(--_h1-lines) * var(--_h1-lh))
+    );
     max-width: var(--hero-sub-w-rd);
     --fs0: 17.1429; --fs1: 24; --lh0: 24.2857; --lh1: 34;
     --hero-pill-h: 1.25em;
@@ -140,35 +177,37 @@
 .hero-chip[data-chip="follow-ups"] { --chip-fill: var(--color-purple-300); --chip-ink: var(--color-purple-700); }
 
 .hero-section .hx-cta {
-  position: absolute;
-  top: calc(var(--hero-cta-top-rm) - var(--hero-head-top-rm));
-  left: 0;
-  margin: 0;
+  position: relative;
+  margin-top: max(
+    var(--space-xl),
+    calc(var(--hero-cta-top-rm) - var(--hero-sub-top-rm) - var(--_sub-lines) * var(--_sub-lh))
+  );
 }
 @container (min-width: 665px) {
   .hero-section .hx-cta {
-    top: calc(var(--hero-cta-top-rt) - var(--hero-head-top-rt));
+    margin-top: max(
+      var(--space-xl),
+      calc(var(--hero-cta-top-rt) - var(--hero-sub-top-rt) - var(--_sub-lines) * var(--_sub-lh))
+    );
   }
 }
 @container (min-width: 860px) {
   .hero-section .hx-cta {
-    top: calc(var(--hero-cta-top-rd) - var(--hero-head-top-rd));
+    margin-top: max(
+      var(--space-xl),
+      calc(var(--hero-cta-top-rd) - var(--hero-sub-top-rd) - var(--_sub-lines) * var(--_sub-lh))
+    );
   }
 }
 
 .hero-carousel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(var(--t) * 14);
+  position: relative;
+  width: 100%;
   height: calc(var(--t) * 6);
   overflow: hidden;
 }
 @container (min-width: 665px) {
-  .hero-carousel { top: calc(var(--t) * 8); height: calc(var(--t) * 4); }
-}
-@container (min-width: 860px) {
-  .hero-carousel { top: calc(var(--t) * 7); }
+  .hero-carousel { height: calc(var(--t) * 4); }
 }
 
 /* Resolve shape tallies in grid ticks. */
@@ -214,32 +253,29 @@
     animation: none;
   }
 }
+/* One CTA row renders per band; rows wrap when the buttons outgrow the
+   column at narrow widths. */
 .hx-cta {
   display: none;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-5xl);
+  gap: var(--space-3xl) var(--space-5xl);
 }
 .hx-cta-a {
   display: flex;
-  position: absolute;
-  top: calc(var(--t) * 18 - var(--hx-head-top-rm) + var(--hx-cta-sub-drop));
-  left: 0;
   gap: var(--space-3xl);
-}
-@container (min-width: 470px) {
-  .hx-cta-a { top: calc(var(--t) * 14 - var(--hx-head-top-rs) + var(--hx-cta-sub-drop)); }
 }
 @container (min-width: 665px) {
   .hx-cta-a { display: none; }
-  .hx-cta-b { display: flex; margin-top: var(--hx-cta-top-rt); }
+  .hx-cta-b { display: flex; }
 }
 @container (min-width: 860px) {
   .hx-cta-b { display: none; }
-  .hx-cta-c { display: flex; margin-top: var(--space-6xl); }
+  .hx-cta-c { display: flex; }
 }
 @container (min-width: 1130px) {
   .hx-cta-c { display: none; }
-  .hx-cta-d { display: flex; margin-top: var(--space-7xl); }
+  .hx-cta-d { display: flex; }
 }
 
 .hx-window { height: 100%; }

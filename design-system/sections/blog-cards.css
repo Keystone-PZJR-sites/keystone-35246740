@@ -44,8 +44,7 @@
   }
 }
 
-.blc-eyebrow,
-.blf-eyebrow {
+.blc-eyebrow {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -191,7 +190,7 @@
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  height: calc(var(--t) * 16);
+  min-height: calc(var(--t) * 16);
   box-shadow: var(--shadow-hard-square-0);
   transition: box-shadow var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
 }
@@ -225,7 +224,7 @@
 @container (min-width: 665px) {
   .blf {
     flex-direction: row;
-    height: calc(var(--t) * 4);
+    min-height: calc(var(--t) * 4);
   }
   .blf-img {
     flex: 1;
@@ -237,7 +236,7 @@
 }
 @container (min-width: 860px) {
   .blf {
-    height: calc(var(--t) * 3);
+    min-height: calc(var(--t) * 3);
   }
   .blf-info {
     padding: calc(var(--bl-u) * 32);

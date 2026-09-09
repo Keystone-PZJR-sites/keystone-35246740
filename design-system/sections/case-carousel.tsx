@@ -74,7 +74,7 @@ export function CaseCarouselSection() {
         )}
       </div>
 
-      <div className="cc-head">
+      <div className="cc-head flow-budget">
         <InterpText as="p" style="text-xs-medium" className="cc-slug">
           <span className="cc-marker" aria-hidden="true" />
           <span>Demand that turns into growth</span>

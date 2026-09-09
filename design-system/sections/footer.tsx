@@ -70,12 +70,12 @@ const SECTION_MAP: Record<GridBand, BandMap> = {
 };
 
 /* Logo maps use block-local tick coordinates. */
-function logoMap(r5Cells: number | null): BandMap {
+function logoMap(r5Cells: number | null, sideCells = 3): BandMap {
   return {
     regions: [
       { gx: 0, gy: 0, gw: 12, gh: 1 },
-      { gx: 0, gy: 1, gw: 1, gh: 3 },
-      { gx: 11, gy: 1, gw: 1, gh: 3 },
+      { gx: 0, gy: 1, gw: 1, gh: sideCells },
+      { gx: 11, gy: 1, gw: 1, gh: sideCells },
       r5Cells === null
         ? { gx: 0, gy: 4, gw: 12, gh: 1 }
         : { gx: 0, gy: 4, gw: r5Cells, gh: 1 },
@@ -87,11 +87,11 @@ function logoMap(r5Cells: number | null): BandMap {
   };
 }
 const LOGO_MAP: Record<GridBand, BandMap> = {
-  rm: logoMap(null),
-  rs: logoMap(null),
-  rt: logoMap(6),
-  rd1: logoMap(7),
-  rd2: logoMap(7),
+  rm: logoMap(null, 7),
+  rs: logoMap(null, 7),
+  rt: logoMap(null, 7),
+  rd1: logoMap(5),
+  rd2: logoMap(5),
 };
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];

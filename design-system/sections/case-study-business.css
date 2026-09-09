@@ -1,19 +1,19 @@
 /* The callout stacks on narrow bands and runs beside a bleeding image on wide bands. */
 
 .csb-sec {
-  height: calc(var(--t) * 35);
+  min-height: calc(var(--t) * 35);
 }
 @container (min-width: 470px) {
-  .csb-sec { height: calc(var(--t) * 23); }
+  .csb-sec { min-height: calc(var(--t) * 23); }
 }
 @container (min-width: 665px) {
-  .csb-sec { height: calc(var(--t) * 13); }
+  .csb-sec { min-height: calc(var(--t) * 13); }
 }
 @container (min-width: 860px) {
-  .csb-sec { height: calc(var(--t) * 11); }
+  .csb-sec { min-height: calc(var(--t) * 11); }
 }
 @container (min-width: 1130px) {
-  .csb-sec { height: calc(var(--t) * 10); }
+  .csb-sec { min-height: calc(var(--t) * 10); }
 }
 
 /* the bleed column: rt/rd1 cols 1–12, rd2 cols 3–12; rd2 carries the

@@ -35,11 +35,22 @@ Before you report a change as done:
 - Visual work is verified in the browser at the five anchors (384 · 576 ·
   768 · 960 · 1344) and one arbitrary mid-band width per band, scrollbar
   forced on. Report the measured evidence, not "looks right".
-- Layout work under `design-system/` passes the grid sweep:
-  `GRID_URL=http://localhost:3000 npm run test:grid`.
 - Every value traces to a token, a named constant, or a data module.
 - Count the client islands you added and the route JS you added; each section
   ships at most one island.
+
+**Grid sweep — only when the lattice contract changes.** Run
+`GRID_URL=<active-dev-url> npm run test:grid` when the change touches any of:
+
+- `design-system/grid/` (engine, region, painting)
+- `app/grid/` (panel logic, expectations, band helpers)
+- section tick geometry that expectations assert (designed rows, region
+  `gx`/`gy`/`gyb`/`gw`/`gh`, section stack order, footer drawer growth)
+
+Skip it for copy, links, tokens that are not tick geometry, motion, widgets,
+data modules, and ordinary CSS that does not change designed section heights
+or exposure regions. When in doubt, prefer a focused browser check over a
+full sweep. The sweep is minutes long; do not run it by default.
 
 **Fix the cause, never suppress.** Lint and type directives hide problems.
 

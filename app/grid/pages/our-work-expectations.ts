@@ -10,7 +10,7 @@
 import type { GridExpectations } from "../expectations";
 
 export const OUR_WORK_EXPECTATIONS: GridExpectations = {
-  totals: { rm: 111, rs: 85, rt: 60, rd1: 53, rd2: 48 },
+  totals: { rm: 113, rs: 87, rt: 63, rd1: 53, rd2: 48 },
   sections: [
     {
       id: "work-header",
@@ -45,9 +45,9 @@ export const OUR_WORK_EXPECTATIONS: GridExpectations = {
     {
       id: "footer",
       rows: {
-        rm: { top: 87, h: 24 },
-        rs: { top: 64, h: 21 },
-        rt: { top: 45, h: 15 },
+        rm: { top: 87, h: 26 },
+        rs: { top: 64, h: 23 },
+        rt: { top: 45, h: 18 },
         rd1: { top: 41, h: 12 },
         rd2: { top: 37, h: 11 },
       },

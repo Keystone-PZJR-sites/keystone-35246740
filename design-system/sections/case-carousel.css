@@ -1,15 +1,21 @@
+/* Flow frame: head budget, then the strip, then a clearance row. The
+   strip's shadow paint space is part of the clearance row. */
 .case-carousel-section {
   width: 100%;
-  height: calc(var(--t) * 25);
+  min-height: calc(var(--t) * 25);
+  padding-top: calc(var(--t) * 2);
+  padding-bottom: calc(var(--t) - var(--_strip-paint));
+  --_strip-paint: 4px;
 }
 @container (min-width: 665px) {
   .case-carousel-section {
-    height: calc(var(--t) * 12);
+    min-height: calc(var(--t) * 12);
+    padding-top: 0;
   }
 }
 @container (min-width: 860px) {
   .case-carousel-section {
-    height: calc(var(--t) * 9);
+    min-height: calc(var(--t) * 9);
   }
 }
 
@@ -35,15 +41,16 @@
 }
 
 .cc-head {
-  position: absolute;
-  top: calc(var(--t) * 2);
-  left: 0;
+  width: 100%;
+  --budget: calc(var(--t) * 6);
 }
+/* Centered head: symmetric half-tick padding keeps the designed center
+   while the block can still grow with its copy. */
 @container (min-width: 665px) {
   .cc-head {
-    top: 0;
+    --budget: calc(var(--t) * 5);
+    padding-top: calc(var(--t) / 2);
     padding-left: var(--t);
-    height: calc(var(--t) * 5);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -53,7 +60,7 @@
 }
 @container (min-width: 860px) {
   .cc-head {
-    height: calc(var(--t) * 4);
+    --budget: calc(var(--t) * 4);
     gap: var(--cc-head-gap-rd);
   }
 }
@@ -149,24 +156,13 @@
 }
 
 .cc-carousel {
-  position: absolute;
-  top: calc(var(--t) * 8);
-  left: var(--t);
-  right: 0;
+  position: relative;
+  margin-left: var(--t);
+  width: calc(100% - var(--t));
   overflow: clip;
   touch-action: pan-y;
   /* Leave paint space for the active card border and shadow. */
-  padding-bottom: 4px;
-}
-@container (min-width: 665px) {
-  .cc-carousel {
-    top: calc(var(--t) * 5);
-  }
-}
-@container (min-width: 860px) {
-  .cc-carousel {
-    top: calc(var(--t) * 4);
-  }
+  padding-bottom: var(--_strip-paint);
 }
 
 .cc-strip {
@@ -202,13 +198,16 @@
   }
 }
 
+/* Cards share the strip's tallest height; the info column absorbs
+   any growth so the image frame keeps its tick height. */
 .cc-card {
   --cc-u: var(--cc-u-rm);
   position: relative;
   isolation: isolate;
   display: flex;
   flex-direction: column-reverse;
-  height: calc(var(--t) * 16);
+  height: 100%;
+  min-height: calc(var(--t) * 16);
   background: var(--color-bg-000);
   transition: background-color var(--motion-snap-dur) var(--motion-snap-ease);
 }
@@ -216,13 +215,13 @@
   .cc-card {
     --cc-u: var(--cc-u-rt);
     flex-direction: row;
-    height: calc(var(--t) * 6);
+    min-height: calc(var(--t) * 6);
   }
 }
 @container (min-width: 860px) {
   .cc-card {
     --cc-u: var(--cc-u-rd);
-    height: calc(var(--t) * 4);
+    min-height: calc(var(--t) * 4);
   }
 }
 
@@ -264,21 +263,25 @@
 .cc-info {
   position: relative;
   box-sizing: border-box;
-  height: calc(var(--t) * 9);
-  padding: calc(var(--cc-u) * 16) calc(var(--cc-u) * 20) 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cc-u) * 16);
+  min-height: calc(var(--t) * 9);
+  padding: calc(var(--cc-u) * 16) calc(var(--cc-u) * 20) calc(var(--cc-u) * 24);
 }
 @container (min-width: 665px) {
   .cc-info {
     flex: none;
     width: calc(var(--t) * 5);
-    height: auto;
-    padding: calc(var(--cc-u) * 20) calc(var(--cc-u) * 32) 0 calc(var(--cc-u) * 24);
+    min-height: 0;
+    padding: calc(var(--cc-u) * 20) calc(var(--cc-u) * 32) calc(var(--cc-u) * 24) calc(var(--cc-u) * 24);
   }
 }
 @container (min-width: 860px) {
   .cc-info {
     width: calc(var(--t) * 4);
-    padding: calc(var(--cc-u) * 32) calc(var(--cc-u) * 64) 0 calc(var(--cc-u) * 32);
+    padding: calc(var(--cc-u) * 32) calc(var(--cc-u) * 64) calc(var(--cc-u) * 32) calc(var(--cc-u) * 32);
   }
 }
 
@@ -442,21 +445,11 @@
   }
 }
 
+/* The pill sits at the info column's bottom padding edge and follows
+   the stats down when the copy runs long. */
 .cc-cta {
-  position: absolute;
-  left: calc(var(--cc-u) * 20);
-  bottom: calc(var(--cc-u) * 24);
-}
-@container (min-width: 665px) {
-  .cc-cta {
-    left: calc(var(--cc-u) * 24);
-  }
-}
-@container (min-width: 860px) {
-  .cc-cta {
-    left: calc(var(--cc-u) * 32);
-    bottom: calc(var(--cc-u) * 32);
-  }
+  margin-top: auto;
+  align-self: flex-start;
 }
 .cc-cta-rt,
 .cc-cta-rd {

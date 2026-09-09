@@ -15,7 +15,7 @@
 import type { GridExpectations } from "../expectations";
 
 export const CASE_STUDY_EXPECTATIONS: GridExpectations = {
-  totals: { rm: 227, rs: 154, rt: 110, rd1: 89, rd2: 74 },
+  totals: { rm: 229, rs: 156, rt: 113, rd1: 89, rd2: 74 },
   sections: [
     {
       id: "header",
@@ -110,9 +110,9 @@ export const CASE_STUDY_EXPECTATIONS: GridExpectations = {
     {
       id: "footer",
       rows: {
-        rm: { top: 203, h: 24 },
-        rs: { top: 133, h: 21 },
-        rt: { top: 95, h: 15 },
+        rm: { top: 203, h: 26 },
+        rs: { top: 133, h: 23 },
+        rt: { top: 95, h: 18 },
         rd1: { top: 77, h: 12 },
         rd2: { top: 63, h: 11 },
       },

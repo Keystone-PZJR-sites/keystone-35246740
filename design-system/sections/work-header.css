@@ -1,43 +1,42 @@
-/* Header geometry and type scale through responsive page variables. */
+/* Flow frame: the head starts at its designed tick row and the section
+   holds its tick budget as a minimum, growing with the copy. */
 
 .work-header-section {
   width: 100%;
-  height: calc(var(--t) * 17);
+  min-height: calc(var(--t) * 17);
+  padding-top: var(--wk-head-top-rm);
+  padding-bottom: calc(var(--t) / 2);
 }
 @container (min-width: 470px) {
-  .work-header-section { height: calc(var(--t) * 11); }
+  .work-header-section {
+    min-height: calc(var(--t) * 11);
+    padding-top: var(--wk-head-top-rs);
+  }
 }
 @container (min-width: 665px) {
-  .work-header-section { height: calc(var(--t) * 8); }
+  .work-header-section {
+    min-height: calc(var(--t) * 8);
+    padding-top: var(--wk-head-top-rt);
+  }
 }
 @container (min-width: 860px) {
-  .work-header-section { height: calc(var(--t) * 8); }
+  .work-header-section { padding-top: var(--wk-head-top-rd1); }
 }
 @container (min-width: 1130px) {
-  .work-header-section { height: calc(var(--t) * 7); }
+  .work-header-section {
+    min-height: calc(var(--t) * 7);
+    padding-top: var(--wk-head-top-rd2);
+  }
 }
 
 /* ---------------- the header block ---------------- */
 
 .wkh {
-  position: absolute;
-  top: var(--wk-head-top-rm);
-  left: calc(var(--t) / 2);
+  position: relative;
+  margin-left: calc(var(--t) / 2);
 }
 @container (min-width: 470px) {
-  .wkh {
-    top: var(--wk-head-top-rs);
-    left: var(--t);
-  }
-}
-@container (min-width: 665px) {
-  .wkh { top: var(--wk-head-top-rt); }
-}
-@container (min-width: 860px) {
-  .wkh { top: var(--wk-head-top-rd1); }
-}
-@container (min-width: 1130px) {
-  .wkh { top: var(--wk-head-top-rd2); }
+  .wkh { margin-left: var(--t); }
 }
 
 /* The shared entrance rule consumes these delays. */

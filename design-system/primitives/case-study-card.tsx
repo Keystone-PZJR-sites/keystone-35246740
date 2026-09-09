@@ -1,13 +1,10 @@
-/** Unsized cards inherit responsive geometry from their section. The
- * inline CTA is presentational so the overlay remains the only tab stop. */
+/** Cards inherit responsive geometry from their section. The inline CTA
+ * is presentational so the overlay remains the only tab stop. */
 
 import { CASE_STUDY_TIERS, caseStudySrc } from "../media";
 import type { CaseStudySummary } from "../sections/work-cases-data";
 import { IconStar } from "../icons";
 import { ButtonInline } from "./button-inline";
-
-type CaseStudyCardSize = "xl" | "lg" | "md" | "sm" | "xs";
-type CaseStudyCardArrangement = "left-image" | "right-image" | "centered";
 
 interface CaseStudyCardProps {
   study: CaseStudySummary;
@@ -17,20 +14,15 @@ interface CaseStudyCardProps {
   flip?: boolean;
   /** Applies the section entrance class. */
   rise?: boolean;
-  /** Optional fixed design size; section mounts leave this unset. */
-  size?: CaseStudyCardSize;
-  arrangement?: CaseStudyCardArrangement;
   /** Renders hover dressing statically. */
   forceState?: "hover";
 }
 
-export function CaseStudyCard({ study, eager = false, flip = false, rise = false, size, arrangement, forceState }: CaseStudyCardProps) {
+export function CaseStudyCard({ study, eager = false, flip = false, rise = false, forceState }: CaseStudyCardProps) {
   const fallback = CASE_STUDY_TIERS[CASE_STUDY_TIERS.length - 1];
   return (
     <article
       className={rise ? "csc hx-rise" : "csc"}
-      data-size={size}
-      data-arrangement={arrangement}
       data-flip={flip || undefined}
       data-state={forceState}
       data-landmark="card"

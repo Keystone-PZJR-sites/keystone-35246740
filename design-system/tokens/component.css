@@ -74,9 +74,6 @@
   --hx-wm-h: 0.8031em;
   /* Aligns the wordmark art with the text baseline. */
   --hx-wm-drop: 0.19045;
-  --hx-gap-inline-rt: 5px;
-  --hx-chip-lh-rt: 24px;
-  --hx-cta-top-rt: 56px;
   --load-sweep-duration: 700ms;
   --load-sweep-offset: 120ms;
   --load-nav-duration: 600ms;
@@ -97,60 +94,12 @@
   --hx-d-sub2-m: 490ms;
   --hx-d-cta-m: 570ms;
 
-  --gbtn-fwd-inner-xs: 26px;
-  --gbtn-fwd-inner-sm: 28px;
-  --gbtn-fwd-inner-md: 32px;
-  --gbtn-fwd-inner-lg: 40px;
-  --gbtn-fwd-inner-xl: 48px;
-  --gbtn-back-inner-xs: 24px;
-  --gbtn-back-inner-sm: 26px;
-  --gbtn-back-inner-md: 30px;
-  --gbtn-back-inner-lg: 38px;
-  --gbtn-back-inner-xl: 46px;
-  --gbtn-fwd-glyph: 0.568;
-  --gbtn-back-glyph: 0.598;
-  /* Extends the smallest control to the 44px touch target. */
-  --gbtn-hit-extend: -6px;
-
-  --pf-card-inactive-bg: rgba(234, 232, 224, 0.5);
-  --pf-inactive-filter: grayscale(1) sepia(0.1) brightness(0.98);
-  --pf-inactive-opacity: 0.8;
-  --pf-enter: var(--motion-enter-frac);
-  --pf-enter-rm: var(--motion-enter-frac-rm);
-  --pf-frame-dur: 450ms;
-  --pf-frame-scale: 0.985;
-  --pf-stagger: var(--motion-enter-stagger);
-  --pf-curtain-dur: 700ms;
-  --pf-curtain-delay: 350ms;
-
   --knav-sub-fill-dur: 300ms;
   --knav-sub-fill-out-dur: 400ms;
   --knav-dot-morph-dur: var(--motion-dot-morph-dur);
   --knav-dot-morph-out-dur: var(--motion-dot-morph-out-dur);
   --knav-dot-morph-out-ease: var(--motion-dot-morph-out-ease);
   --knav-dot-rotation: var(--motion-dot-rotation);
-
-  /* These values form a critically damped spring. */
-  --eng-spring-stiffness: 420;
-  --eng-spring-damping: 41;
-  --eng-spring-mass: 1;
-  --eng-spring-rest: 0.001;
-  --eng-pill-fade-end: 0.35;
-  --eng-content-fade-start: 0.25;
-  --eng-content-fade-end: 0.75;
-  --eng-overscroll-resist: 0.3;
-  --eng-fling-speed: 500;
-  --eng-chrome-fade-dur: 450ms;
-  --eng-card-inactive-bg: var(--pf-card-inactive-bg);
-  --eng-inactive-filter: grayscale(1) sepia(0.12) brightness(0.975);
-  --eng-inactive-opacity: 0.7;
-  --eng-dot-sm: 12px;
-  --eng-dot-md: 16px;
-  --eng-dot-xl: 18px;
-  --eng-crumb-active-w: 24px;
-  --eng-crumb-h: 6px;
-
-  --tst-dwell: 6500ms;
 
   --pbtn-cell-xs: 32px;
   --pbtn-cell-sm: 48px;
@@ -159,7 +108,6 @@
   --pbtn-cell-xl: 112px;
 
   --po-price-rm: 88px;
-  --po-price-rt: 88px;
   --po-price-rd1: 128px;
   --po-price-rd2: 176px;
   --po-price-ls: -0.01em;
@@ -169,6 +117,8 @@
   --po-chat-drop-card-rm: 38px;
   --po-chat-drop-list: 30px;
   --po-chat-drop-rd2: 88px;
+  /* Half the md chat row: centers the row on a half-tick line. */
+  --po-chat-half-md: 20px;
 
   --ps-snap-dur: var(--motion-snap-dur);
   --ps-snap-ease: var(--motion-snap-ease);
@@ -212,33 +162,6 @@
 
 /* These values stay on .page because their inner variables resolve there. */
 .page {
-  --hx-head-top-rm: calc(var(--t) * 69 / 32);
-  --hx-head-top-rs: calc(var(--t) * 73 / 48);
-  --hx-head-top-rt: calc(var(--t) * 80 / 64);
-  --hx-head-top-rd1: calc(var(--t) * 112 / 80);
-  --hx-head-top-rd2: calc(var(--t) * 160 / 112);
-  --hx-inset-rm: calc(var(--t) / 2);
-  --hx-sub-maxw: calc((var(--wA) + var(--wB)) * 384);
-  --hx-cta-sub-drop: calc((var(--wA) + var(--wB)) * 122 + 40px);
-
-  --eng-col: calc(var(--t) * 3);
-  --eng-col-rs: calc(var(--t) * 4.5);
-  --eng-text-h-rm: calc((var(--wA) + var(--wB)) * 160);
-
-  --tst-rest-rm: calc(var(--t) * -1);
-  --tst-rest-rs: 0px;
-  --tst-rest-rt: var(--t);
-  --tst-rest-rd1: var(--t);
-  --tst-rule-rm: calc(var(--t) * 11);
-  --tst-rule-rs: calc(var(--t) * 9);
-  --tst-rule-rt: calc(var(--t) * 8);
-  --tst-rule-rd1: calc(var(--t) * 8);
-  --tst-rule-rd2: calc(var(--t) * 11);
-  --tst-head-w-rm: calc(var(--wA) * 304 + var(--wB) * 384);
-  --tst-head-w-rs: calc(var(--wA) * 384 + var(--wB) * 384);
-  --tst-head-w-rt: calc(var(--wA) * 384 + var(--wB) * 448);
-  --tst-head-w-rd1: calc(var(--wA) * 448 + var(--wB) * 560);
-  --tst-head-w-rd2: calc(var(--wB) * 560);
 
   --po-head-top-rm: calc(var(--t) * 100 / 32);
   --po-head-top-rs: calc(var(--t) * 112 / 48);
@@ -290,7 +213,6 @@
   --wk-sub-w-rd1: calc((var(--wA) + var(--wB)) * 560);
   --wk-sub-w-rd2: calc((var(--wA) + var(--wB)) * 560);
 
-  --cs-u: calc(var(--wA) + var(--wB));
   --cs-head-top-rm: calc(var(--t) * 80 / 32);
   --cs-head-top-rs: calc(var(--t) * 112 / 48);
   --cs-head-top-rt: calc(var(--t) * 80 / 64);
@@ -303,9 +225,6 @@
   --cs-h1-w-rd2: calc((var(--wA) + var(--wB)) * 448);
   --cs-shadow-pad: calc((var(--wA) + var(--wB)) * 4);
   --cs-shadow-pad-md: calc((var(--wA) + var(--wB)) * 3);
-  --cs-bar-2: 130px;
-  --cs-bar-3: 60px;
-  --cs-bar-4: 40px;
   --cs-bar-h: 48px;
   --cs-bar-h-d: 56px;
   --cs-bar-label: 80px;

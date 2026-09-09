@@ -1,20 +1,60 @@
 /* Geometry scales from page ticks; interiors scale through --ps-u. */
 
+/* Tick grid: the block and the persona strip stack at the base band and
+   share a row from rs up. Row tracks are designed budgets that grow
+   with their content. */
 .pricing-scale-section {
+  display: grid;
+  align-items: start;
   width: 100%;
-  height: calc(var(--t) * 29);
+  min-height: calc(var(--t) * 29);
+  grid-template-columns: calc(var(--t) / 2) minmax(0, 1fr);
+  grid-template-rows:
+    minmax(calc(var(--t) * 10), auto)
+    minmax(var(--t), auto)
+    minmax(calc(var(--t) * 16), auto)
+    minmax(calc(var(--t) * 2), auto);
+  grid-template-areas:
+    "block block"
+    ". ."
+    ". strip"
+    ". .";
 }
 @container (min-width: 470px) {
-  .pricing-scale-section { height: calc(var(--t) * 13); }
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 13);
+    grid-template-columns: calc(var(--t) * 5) minmax(0, 1fr);
+    grid-template-rows:
+      minmax(calc(var(--t) * 11), auto)
+      minmax(calc(var(--t) * 2), auto);
+    grid-template-areas:
+      "block strip"
+      ". .";
+  }
 }
 @container (min-width: 665px) {
-  .pricing-scale-section { height: calc(var(--t) * 10); }
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 10);
+    grid-template-rows:
+      minmax(calc(var(--t) * 8), auto)
+      minmax(calc(var(--t) * 2), auto);
+  }
 }
 @container (min-width: 860px) {
-  .pricing-scale-section { height: calc(var(--t) * 9); }
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 9);
+    grid-template-rows:
+      minmax(calc(var(--t) * 7), auto)
+      minmax(calc(var(--t) * 2), auto);
+  }
 }
+/* At rd2 the block spans the whole section; the strip sits inside its row. */
 @container (min-width: 1130px) {
-  .pricing-scale-section { height: calc(var(--t) * 7); }
+  .pricing-scale-section {
+    min-height: calc(var(--t) * 7);
+    grid-template-rows: minmax(calc(var(--t) * 7), auto);
+    grid-template-areas: "block strip";
+  }
 }
 
 /* the island wrapper is not a box — the section's children position
@@ -25,16 +65,16 @@
 
 /* The top hairline shares the section's lattice pixel. */
 .ps-block {
-  position: absolute;
-  top: 0;
-  left: 0;
+  grid-area: block;
+  justify-self: start;
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-top: 1px solid var(--color-border-000);
   width: calc(var(--t) * 10);
-  height: calc(var(--t) * 10);
+  min-height: calc(var(--t) * 10);
   padding:
     calc(var(--ps-u) * 24)
     0
@@ -53,7 +93,7 @@
 }
 @container (min-width: 665px) {
   .ps-block {
-    height: calc(var(--t) * 7);
+    min-height: calc(var(--t) * 7);
     padding:
       calc(var(--ps-u) * 32)
       calc(var(--ps-u) * 64)
@@ -357,18 +397,13 @@
 
 /* The viewport clips the strip at its origin and the page edge. */
 .ps-carousel {
-  position: absolute;
-  top: calc(var(--t) * 11);
-  left: calc(var(--t) / 2);
-  right: 0;
-  overflow: clip;
+  grid-area: strip;
+  position: relative;
+  min-width: 0;
+  /* Clip the strip horizontally only; the hanging tags and the active
+     shadow paint below the card row. */
+  overflow: clip visible;
   touch-action: pan-y;
-}
-@container (min-width: 470px) {
-  .ps-carousel {
-    top: 0;
-    left: calc(var(--t) * 5);
-  }
 }
 
 /* Drag offset is live; settled movement advances by whole card steps. */
@@ -406,31 +441,34 @@
   .ps-slot { width: calc(var(--t) * 5); }
 }
 
-/* Card and image heights remain exact tick multiples. */
+/* Image frames are exact tick multiples; the card box owns its tick
+   rows as a minimum and every card in the strip shares the tallest. */
 .ps-slot .pcard {
   width: 100%;
+  height: 100%;
   --pcard-u: var(--ps-u);
 }
 .ps-slot .pcard-box {
-  height: calc(var(--t) * 16);
+  flex: 1;
+  min-height: calc(var(--t) * 16);
 }
 .ps-slot .pcard-image {
   flex: none;
   height: calc(var(--t) * 6);
 }
 @container (min-width: 470px) {
-  .ps-slot .pcard-box { height: calc(var(--t) * 11); }
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 11); }
   .ps-slot .pcard-image { height: calc(var(--t) * 4); }
 }
 @container (min-width: 665px) {
-  .ps-slot .pcard-box { height: calc(var(--t) * 8); }
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 8); }
   .ps-slot .pcard-image { height: calc(var(--t) * 3); }
 }
 @container (min-width: 860px) {
-  .ps-slot .pcard-box { height: calc(var(--t) * 7); }
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 7); }
 }
 @container (min-width: 1130px) {
-  .ps-slot .pcard-box { height: calc(var(--t) * 5); }
+  .ps-slot .pcard-box { min-height: calc(var(--t) * 5); }
   .ps-slot .pcard-image { height: calc(var(--t) * 2); }
 }
 

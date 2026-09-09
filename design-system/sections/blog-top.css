@@ -1,6 +1,18 @@
+/* Flow frame: a grid inside the 1t side gutters. Each row holds its
+   designed tick rows as a minimum and grows with its content; the cards
+   hold their tick size the same way. */
 .blog-top {
   width: 100%;
-  height: calc(var(--t) * 28);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows:
+    minmax(calc(var(--t) * 8), auto)
+    minmax(calc(var(--t) * 8), auto)
+    minmax(calc(var(--t) * 8), auto)
+    minmax(calc(var(--t) * 4), auto);
+  align-items: start;
+  padding-inline: var(--t);
+  min-height: calc(var(--t) * 28);
   --bt-u: var(--bt-u-rm);
   --bts-w: var(--bt-search-w-rm);
   --bts-d: 40px;
@@ -13,7 +25,12 @@
 }
 @container (min-width: 665px) {
   .blog-top {
-    height: calc(var(--t) * 15);
+    grid-template-columns: repeat(2, calc(var(--t) * 5));
+    grid-template-rows:
+      minmax(calc(var(--t) * 5), auto)
+      minmax(calc(var(--t) * 7), auto)
+      minmax(calc(var(--t) * 3), auto);
+    min-height: calc(var(--t) * 15);
     --bt-u: var(--bt-u-rt);
     --bts-w: var(--bt-search-w-rt);
     --bts-d: 48px;
@@ -26,7 +43,11 @@
 }
 @container (min-width: 860px) {
   .blog-top {
-    height: calc(var(--t) * 11);
+    grid-template-rows:
+      minmax(calc(var(--t) * 4), auto)
+      minmax(calc(var(--t) * 5), auto)
+      minmax(calc(var(--t) * 2), auto);
+    min-height: calc(var(--t) * 11);
     --bt-u: var(--bt-u-rd);
     --bts-w: var(--bt-search-w-rd);
     --bts-d: 56px;
@@ -39,13 +60,14 @@
 }
 
 .bt-head {
-  position: absolute;
-  left: var(--t);
-  top: calc(var(--bt-u) * 80);
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: start;
+  padding-top: calc(var(--bt-u) * 80);
 }
 @container (min-width: 860px) {
   .bt-head {
-    top: calc(var(--bt-u) * 176);
+    padding-top: calc(var(--bt-u) * 176);
   }
 }
 
@@ -140,8 +162,7 @@
 }
 
 .bt-card {
-  position: absolute;
-  box-sizing: border-box;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -160,34 +181,35 @@
   --bt-card-line: var(--color-yellow-400);
   background: var(--color-yellow-300);
   color: var(--color-yellow-700);
-  left: var(--t);
-  top: calc(var(--t) * 8);
+  grid-column: 1;
+  grid-row: 2;
   width: calc(var(--t) * 10 + 1px);
-  height: calc(var(--t) * 7 + 1px);
+  min-height: calc(var(--t) * 7 + 1px);
 }
 .bt-gcard {
   --bt-card-line: var(--color-brown-200);
   background: var(--color-brown-100);
   color: var(--color-brown-600);
-  left: var(--t);
-  top: calc(var(--t) * 16);
+  grid-column: 1;
+  grid-row: 3;
   width: calc(var(--t) * 10 + 1px);
-  height: calc(var(--t) * 7 + 1px);
+  min-height: calc(var(--t) * 7 + 1px);
 }
 @container (min-width: 665px) {
   .bt-card {
     padding: calc(var(--bt-u) * 20);
   }
   .bt-podcast {
-    top: calc(var(--t) * 5);
     width: calc(var(--t) * 5 + 1px);
-    height: calc(var(--t) * 5 + 1px);
+    min-height: calc(var(--t) * 5 + 1px);
   }
+  /* The grader card sits one row lower and shares its left border pixel. */
   .bt-gcard {
-    left: calc(var(--t) * 6);
-    top: calc(var(--t) * 6);
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: var(--t);
     width: calc(var(--t) * 5 + 1px);
-    height: calc(var(--t) * 5 + 1px);
+    min-height: calc(var(--t) * 5 + 1px);
   }
 }
 @container (min-width: 860px) {
@@ -195,12 +217,10 @@
     padding: calc(var(--bt-u) * 32);
   }
   .bt-podcast {
-    top: calc(var(--t) * 4);
-    height: calc(var(--t) * 3 + 1px);
+    min-height: calc(var(--t) * 3 + 1px);
   }
   .bt-gcard {
-    top: calc(var(--t) * 5);
-    height: calc(var(--t) * 3 + 1px);
+    min-height: calc(var(--t) * 3 + 1px);
   }
 }
 
@@ -388,19 +408,13 @@
 }
 
 .bt-bh {
-  position: absolute;
-  left: var(--t);
-  right: var(--t);
-  top: calc(var(--t) * 24);
+  grid-column: 1 / -1;
+  grid-row: 4;
+  width: 100%;
 }
 @container (min-width: 665px) {
   .bt-bh {
-    top: calc(var(--t) * 12);
-  }
-}
-@container (min-width: 860px) {
-  .bt-bh {
-    top: calc(var(--t) * 9);
+    grid-row: 3;
   }
 }
 

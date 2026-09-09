@@ -2,21 +2,22 @@
 
 /* ---------------- section frame ---------------- */
 
-/* Per-study growth preserves clearance before the CTA band. */
+/* Flow frame: the section holds its tick budget as a minimum and grows
+   with the copy. */
 .csr-sec {
-  height: calc(var(--t) * (31 + var(--csx-rm, 0)));
+  min-height: calc(var(--t) * 31);
 }
 @container (min-width: 470px) {
-  .csr-sec { height: calc(var(--t) * (23 + var(--csx-rs, 0))); }
+  .csr-sec { min-height: calc(var(--t) * 23); }
 }
 @container (min-width: 665px) {
-  .csr-sec { height: calc(var(--t) * (21 + var(--csx-rt, 0))); }
+  .csr-sec { min-height: calc(var(--t) * 21); }
 }
 @container (min-width: 860px) {
-  .csr-sec { height: calc(var(--t) * (17 + var(--csx-rd1, 0))); }
+  .csr-sec { min-height: calc(var(--t) * 17); }
 }
 @container (min-width: 1130px) {
-  .csr-sec { height: calc(var(--t) * (14 + var(--csx-rd2, 0))); }
+  .csr-sec { min-height: calc(var(--t) * 14); }
 }
 
 @container (min-width: 1130px) {

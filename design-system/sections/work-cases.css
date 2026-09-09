@@ -1,93 +1,85 @@
-/* Card geometry uses page ticks and line-inclusive shared borders. */
+/* Flow frame: the card stack, then a clearance row. Section and card
+   heights are tick budgets that grow with their copy. */
 
 .work-cases-section {
   width: 100%;
-  height: calc(var(--t) * 58);
+  min-height: calc(var(--t) * 58);
+  padding-bottom: var(--t);
 }
 @container (min-width: 470px) {
-  .work-cases-section { height: calc(var(--t) * 42); }
+  .work-cases-section { min-height: calc(var(--t) * 42); }
 }
 @container (min-width: 665px) {
-  .work-cases-section { height: calc(var(--t) * 21); }
+  .work-cases-section { min-height: calc(var(--t) * 21); }
 }
 @container (min-width: 860px) {
-  .work-cases-section { height: calc(var(--t) * 18); }
+  .work-cases-section { min-height: calc(var(--t) * 18); }
 }
 @container (min-width: 1130px) {
-  .work-cases-section { height: calc(var(--t) * 15); }
+  .work-cases-section { min-height: calc(var(--t) * 15); }
 }
 
 /* ---------------- the card stack ---------------- */
 
 .wkc-stack {
-  position: absolute;
-  top: 0;
-  left: calc(var(--t) / 2);
+  position: relative;
+  margin-left: calc(var(--t) / 2);
   display: flex;
   flex-direction: column;
   gap: var(--t);
 }
 @container (min-width: 470px) {
-  .wkc-stack { left: var(--t); }
+  .wkc-stack { margin-left: var(--t); }
 }
 
 /* ---------------- card geometry per band ---------------- */
 
+/* Stacked bands: a six-tick image row over a profile row that fills the
+   card's tick budget and grows with its copy. */
 .work-cases-section .csc {
   --csc-u: calc(var(--wA) + var(--wB));
+  --csc-img-h: calc(var(--t) * 6);
   width: calc(var(--t) * 10.5);
-  height: calc(var(--t) * 18);
+  min-height: calc(var(--t) * 18);
 }
-/* Stacked image and profile boxes overlap borders by one pixel. */
-.work-cases-section .csc-img {
-  inset: 0 -1px auto 0;
-  height: calc(var(--t) * 6 + 1px);
-  z-index: 2;
-}
-.work-cases-section .csc-profile {
-  inset: calc(var(--t) * 6) -1px -1px 0;
-  z-index: 1;
-}
-
 @container (min-width: 470px) {
   .work-cases-section .csc {
     width: calc(var(--t) * 10);
-    height: calc(var(--t) * 13);
+    min-height: calc(var(--t) * 13);
   }
 }
 
-/* Row layouts place the profile above the shared image boundary. */
+/* Row bands: image and profile share one row split at the designed
+   column; the flipped card mirrors the columns and paints the profile
+   above the shared boundary. */
 @container (min-width: 665px) {
   .work-cases-section .csc {
-    height: calc(var(--t) * 6);
     --wkc-split: 50%;
+    min-height: calc(var(--t) * 6);
+    grid-template-columns: var(--wkc-split) minmax(0, 1fr);
+    grid-template-rows: minmax(0, auto);
   }
-  .work-cases-section .csc-img {
-    inset: 0 auto -1px 0;
-    height: auto;
-    width: calc(var(--wkc-split) + 1px);
-  }
-  .work-cases-section .csc-profile {
-    /* Extend one pixel so the profile shares the lattice boundary. */
-    inset: 0 -1px -1px var(--wkc-split);
-  }
-  .work-cases-section .csc[data-flip] .csc-profile {
-    inset: 0 auto -1px 0;
-    width: calc(100% - var(--wkc-split) + 1px);
-    z-index: 2;
+  .work-cases-section .csc-img { grid-area: 1 / 1; }
+  .work-cases-section .csc-profile { grid-area: 1 / 2; }
+  .work-cases-section .csc[data-flip] {
+    grid-template-columns: minmax(0, 1fr) var(--wkc-split);
   }
   .work-cases-section .csc[data-flip] .csc-img {
-    inset: 0 -1px -1px auto;
+    grid-area: 1 / 2;
     z-index: 1;
+  }
+  .work-cases-section .csc[data-flip] .csc-profile {
+    grid-area: 1 / 1;
+    z-index: 2;
   }
 }
 @container (min-width: 860px) {
-  .work-cases-section .csc { height: calc(var(--t) * 5); }
+  .work-cases-section .csc { min-height: calc(var(--t) * 5); }
 }
 @container (min-width: 1130px) {
   .work-cases-section .csc {
-    height: calc(var(--t) * 4);
     --wkc-split: 60%;
+    min-height: calc(var(--t) * 4);
   }
 }
 

@@ -196,15 +196,17 @@
   --ptag-ink: var(--color-bg-600);
 }
 
-/* The fixed-height hanging tag aligns under the card's right edge. */
+/* The fixed-height tag hangs under the card box at its right edge; it
+   is out of flow so the box alone sets the card's height. */
 .pcard-tag {
-  align-self: flex-end;
+  position: absolute;
+  top: 100%;
+  right: calc(var(--_u) * var(--pc-tag-inset, 24));
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
   height: calc(var(--_u) * var(--pc-tag-h, 24));
   padding: 0 calc(var(--_u) * var(--pc-tag-px, 8));
-  margin-right: calc(var(--_u) * var(--pc-tag-inset, 24));
   background: var(--pcard-hue, var(--color-text-100));
   color: var(--color-base-white);
   border-radius: 0 0 calc(var(--_u) * 6) calc(var(--_u) * 6);

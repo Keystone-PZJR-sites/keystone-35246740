@@ -38,8 +38,9 @@ at the bands' geometric midpoints, gated by **container queries** on
   section rules otherwise. A frame drawn later supersedes the derivation.
 - JavaScript that needs the band measures the container (ResizeObserver) or
   reads computed style — never `matchMedia`.
-- Every section is verified at all five anchors and one width per structural
-  slice, scrollbar forced on.
+- Design and acceptance cover all five anchors and one width per structural
+  slice, scrollbar forced on. The automated grid sweep is only for lattice
+  contract changes — see `00-workflow.mdc`.
 
 ## The four units
 
@@ -80,13 +81,13 @@ or the weights are declared on `.page`, never `:root`.
   sum; slack compresses padding or sits as clear space.
 - **Content clears the lattice.** Flowed content never touches a tick line or
   another block and keeps at least half a tick of vertical clearance from the
-  next section or a bottom-anchored block. When new content overruns a
-  fixed-frame template (the case-study pages), grow the frame by whole ticks
-  (per-study `extraTicks` in the data module) so the next block starts on the
-  next tick. Copy never silently compresses a gap. **The painted lattice rides
-  the growth**: cells drawn against content (widenings beside stat rows, tail
-  rails, their ornaments) shift with the frame; the leading rail extends. A
-  cell left on its drawn row while content moves is a defect.
+  next section or a bottom-anchored block. Copy never silently compresses a
+  gap and never overlaps a sibling: when it needs more room the frame grows
+  (see *Flow frames*). **The painted lattice rides the growth**: a region
+  drawn against content anchors to the edge it belongs to (`gy` from the
+  section top, `gyb` from the section bottom, both to stretch between them),
+  so it moves with the frame. A cell left on its drawn row while content
+  moves is a defect.
 - **Derived states.** When design supplies one archetype state, siblings
   derive as the smallest whole-tick height that fits their content at the
   band's internals; the derivation is written in a comment at the value.
@@ -105,21 +106,54 @@ or the weights are declared on `.page`, never `:root`.
 - **Rendered truth over metadata.** Every landmark is verified against
   rendered bounds, never Figma metadata `x`/`y`.
 
+## Flow frames
+
+A design fixes every block's rows at its anchor; a render between anchors,
+or with longer copy, must not collide. Every section is therefore a **flow
+frame**: the designed rows are minimums, and content that needs more room
+pushes everything after it down by exactly what it needs.
+
+- A section, card, or text block declares its designed rows as
+  `min-height: calc(var(--t) * k)`, never `height`. Media frames and
+  controls that hold a fixed tick footprint (`k·t` images, buttons, the
+  system diagram) are **tick blocks** and keep `height`.
+- A text block that owns rows uses `.flow-budget` with `--budget` set to
+  those rows; its trailing half tick is the clearance to the next block and
+  is slack inside the budget.
+- Blocks stack in normal flow: CSS grid (`grid-template-areas`, one row per
+  designed row band, `minmax(k·t, auto)` rows) or a flex column. A block's
+  designed offset from the previous block is `margin-top`; a bottom-anchored
+  block in a frame is `margin-top: auto`, not `position: absolute; bottom`.
+  A shared-pixel seam is `margin-bottom: -1px` on the flowed box.
+- Text wraps inside `max-width`, never a fixed `width`.
+- A gap derived by subtraction (a designed top minus the block above, a
+  tick minus a material row) floors with `max()` at a spacing token. Type
+  stops zooming below the smallest anchor while the tick keeps shrinking, so
+  an unfloored derivation goes negative and blocks collide.
+- **The flow contract is what the grid checks verify.** At an anchor every
+  section renders its designed rows exactly — growth at an anchor is a defect
+  in the section. Between anchors a section may grow by what its copy needs;
+  every later section moves down by that growth, and the stack sum carries
+  it. Landmarks inside a grown section are audited at the anchors.
+- Regions anchor to the section edge they belong to (`gy`, `gyb`, or both to
+  stretch); nothing publishes per-content "extra ticks".
+
 ## Layout must scale — no fragile positioning
 
 Absolute positioning is acceptable only for: media fills (`inset: 0;
 object-fit: cover` in a grid-sized parent); the exposure vocabulary
-(`--gx`/`--gy` ticks); overlay layers (nav chrome, modal backdrops, decorative
-pseudo-elements, a menu anchored to its control); grid-coordinate frames whose
-parent has an explicit tick height and whose edges are expressed in ticks or
-anchor weights; a true escape from document flow (viewport-fixed controls).
-Everything else is normal flow.
+(`--gx`/`--gy`/`--gyb` ticks); overlay layers (nav chrome, modal backdrops,
+decorative pseudo-elements, a menu anchored to its control, a tag hanging off
+a card edge); a true escape from document flow (viewport-fixed controls, the
+case-study rail). Everything else is normal flow.
 
 | Anti-pattern | Fix |
 |---|---|
-| Fixed px coordinates from Figma's ruler | ticks/weights, flex order + margin |
-| Fixed px widths on text containers | weight-riding wrap boxes |
-| Fixed px heights on sub-containers | whole-tick heights; "the tick wins" |
+| Fixed px coordinates from Figma's ruler | ticks/weights, grid areas or flex order + `margin-top` |
+| `position: absolute; top: k·t` on ordinary content | grid row / flow order with a tick `margin-top` |
+| `height: k·t` on a section or text frame | `min-height: k·t` (flow frame) |
+| Fixed px widths on text containers | `max-width` weight-riding wrap boxes |
+| Per-content height overrides (`extraTicks`, breakpoint-specific `height`) | flow frame that grows with its content |
 | `line-height: 0` as a spacing hack | flex column + gap |
 | Magic gaps | tick or em expressions per the four units |
 | Media queries for band switches | container queries at the gates |
