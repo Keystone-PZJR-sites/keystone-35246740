@@ -269,27 +269,27 @@ export function PricingOfferSection() {
           </p>
         </div>
         <div className="po-cardbtn po-cardbtn-xs">
-          <PricingButton size="xs" href={PRICING_CHECKOUT_URL}>
+          <PricingButton size="xs" href={PRICING_CHECKOUT_URL} external>
             Start today
           </PricingButton>
         </div>
         <div className="po-cardbtn po-cardbtn-sm">
-          <PricingButton size="sm" href={PRICING_CHECKOUT_URL}>
+          <PricingButton size="sm" href={PRICING_CHECKOUT_URL} external>
             Start today
           </PricingButton>
         </div>
         <div className="po-cardbtn po-cardbtn-md">
-          <PricingButton size="md" href={PRICING_CHECKOUT_URL}>
+          <PricingButton size="md" href={PRICING_CHECKOUT_URL} external>
             Start today
           </PricingButton>
         </div>
         <div className="po-cardbtn po-cardbtn-lg">
-          <PricingButton size="lg" href={PRICING_CHECKOUT_URL}>
+          <PricingButton size="lg" href={PRICING_CHECKOUT_URL} external>
             Start today
           </PricingButton>
         </div>
         <div className="po-cardbtn po-cardbtn-xl">
-          <PricingButton size="xl" href={PRICING_CHECKOUT_URL}>
+          <PricingButton size="xl" href={PRICING_CHECKOUT_URL} external>
             Start today
           </PricingButton>
         </div>
@@ -305,7 +305,7 @@ export function PricingOfferSection() {
         <h2 className="po-list-head">{LIST_HEAD}</h2>
         <ItemList items={INCLUDED_ITEMS} />
         <div className="po-list-cta">
-          <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL}>
+          <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL} external>
             Start today
           </ButtonFill>
         </div>
@@ -319,12 +319,12 @@ export function PricingOfferSection() {
           <ItemList items={INCLUDED_ITEMS.slice(4)} />
           <div className="po-list-cta">
             <span className="po-cta-rt">
-              <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL}>
+              <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL} external>
                 Start today
               </ButtonFill>
             </span>
             <span className="po-cta-rd1">
-              <ButtonFill size="md" chrome="teal" href={PRICING_CHECKOUT_URL}>
+              <ButtonFill size="md" chrome="teal" href={PRICING_CHECKOUT_URL} external>
                 Start today
               </ButtonFill>
             </span>

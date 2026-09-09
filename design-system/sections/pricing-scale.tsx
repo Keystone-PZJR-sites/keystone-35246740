@@ -112,17 +112,17 @@ export function PricingScaleSection() {
               <Slider size="sm" label={SLIDER_LABEL} valueText={rest.tagLabel} />
             </div>
             <div className="ps-cta ps-cta-rt">
-              <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL}>
+              <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL} external>
                 Start today
               </ButtonFill>
             </div>
             <div className="ps-cta ps-cta-rd1">
-              <ButtonFill size="md" chrome="teal" href={PRICING_CHECKOUT_URL}>
+              <ButtonFill size="md" chrome="teal" href={PRICING_CHECKOUT_URL} external>
                 Start today
               </ButtonFill>
             </div>
             <div className="ps-cta ps-cta-rd2">
-              <ButtonFill size="lg" chrome="teal" href={PRICING_CHECKOUT_URL}>
+              <ButtonFill size="lg" chrome="teal" href={PRICING_CHECKOUT_URL} external>
                 Start today
               </ButtonFill>
             </div>

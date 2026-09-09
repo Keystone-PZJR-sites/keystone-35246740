@@ -9,7 +9,7 @@ import {
   IconSocialSpotify,
   IconSocialYoutube,
 } from "../icons";
-import { SITE_LINKS } from "../site-links";
+import { EXTERNAL_LINK, SITE_LINKS } from "../site-links";
 import { BlogSearchIsland } from "./blog-search-island";
 import { BLOG_TOP_CONTENT } from "./blog-top-data";
 
@@ -118,13 +118,23 @@ export function BlogTopSection({
           </InterpText>
           <ul className="bt-socials">
             <li>
-              <a className="bt-social" href={SITE_LINKS.spotify} aria-label="Listen on Spotify">
+              <a
+                className="bt-social"
+                href={SITE_LINKS.spotify}
+                aria-label="Listen on Spotify"
+                {...EXTERNAL_LINK}
+              >
                 <IconSocialSpotify />
               </a>
             </li>
             {youtubeUrl && (
               <li>
-                <a className="bt-social" href={youtubeUrl} aria-label="Listen on YouTube">
+                <a
+                  className="bt-social"
+                  href={youtubeUrl}
+                  aria-label="Listen on YouTube"
+                  {...EXTERNAL_LINK}
+                >
                   <IconSocialYoutube />
                 </a>
               </li>
@@ -134,6 +144,7 @@ export function BlogTopSection({
                 className="bt-social"
                 href={SITE_LINKS.applePodcasts}
                 aria-label="Listen on Apple Podcasts"
+                {...EXTERNAL_LINK}
               >
                 <IconSocialApplePodcasts />
               </a>

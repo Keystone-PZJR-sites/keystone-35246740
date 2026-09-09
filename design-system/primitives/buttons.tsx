@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { IconArrowRight, IconCaseStudies, IconLoadingCircle, IconNavTrigger } from "../icons";
+import { EXTERNAL_LINK } from "../site-links";
 
 type ForceableState = "hover" | "focus";
 
@@ -12,6 +13,8 @@ interface ButtonFillProps {
   type?: "button" | "submit";
   /** Renders link chrome when provided. */
   href?: string;
+  /** Open in a new tab (external destinations). */
+  external?: boolean;
   /** Behavior hook rendered as data-action. */
   action?: string;
   forceState?: ForceableState;
@@ -24,6 +27,7 @@ export function ButtonFill({
   shape = "pill",
   type = "button",
   href,
+  external = false,
   action,
   forceState,
   children,
@@ -46,6 +50,7 @@ export function ButtonFill({
         data-shape={shape}
         data-state={forceState}
         data-action={action}
+        {...(external ? EXTERNAL_LINK : {})}
       >
         {label}
       </a>
@@ -73,6 +78,8 @@ interface ButtonGhostProps {
   icon?: ReactNode;
   /** Renders link chrome when provided. */
   href?: string;
+  /** Open in a new tab (external destinations). */
+  external?: boolean;
   /** Behavior hook rendered as data-action — "open-chat" opens the site
    * chat (sections/site-chat-open.tsx); "open-gallery" the work gallery. */
   action?: string;
@@ -86,6 +93,7 @@ export function ButtonGhost({
   color = "brown",
   icon = <IconCaseStudies />,
   href,
+  external = false,
   action,
   disabled = false,
   forceState,
@@ -106,6 +114,7 @@ export function ButtonGhost({
         data-color={color}
         data-state={forceState}
         data-action={action}
+        {...(external ? EXTERNAL_LINK : {})}
       >
         {content}
       </a>

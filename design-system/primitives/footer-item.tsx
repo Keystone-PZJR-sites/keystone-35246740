@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { IconNavTrigger } from "../icons";
+import { EXTERNAL_LINK } from "../site-links";
 
 interface FooterItemProps {
   size?: "sm" | "md";
@@ -31,7 +32,7 @@ export function FooterItem({
       data-chrome={chrome}
       data-state={forceState}
       href={href}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...(external ? EXTERNAL_LINK : {})}
     >
       <span className="fitem-label">{children}</span>
       {arrow && (

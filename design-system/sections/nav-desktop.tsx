@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { IconNavTrigger } from "../icons";
+import { EXTERNAL_LINK } from "../site-links";
 
 /** Allows the pointer to cross the trigger-to-panel gap without flicker. */
 const CLOSE_INTENT_MS = 140;
@@ -128,6 +129,7 @@ export function NavDesktop({
           className="knav-btn knav-login"
           href={links.login}
           onMouseEnter={scheduleClose}
+          {...EXTERNAL_LINK}
         >
           <span className="knav-item">
             Login
