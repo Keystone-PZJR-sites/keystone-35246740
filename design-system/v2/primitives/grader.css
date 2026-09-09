@@ -11,6 +11,7 @@
    last. */
 
 .grader {
+  position: relative; /* the select-menu anchors to the pill */
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -52,6 +53,31 @@
   --_font: var(--ts-text-md-light-font);
   --_ls: var(--ts-text-md-light-ls);
   --_opsz: var(--ts-text-md-light-opsz);
+}
+
+/* the select-menu's type rides the size: lg and md rows set text/md,
+   sm rows text/sm (the set's size3 menu). Declared on .grader so a
+   consumer's band restatement (footer.css) can move them with the pill. */
+.grader {
+  --_menu-name-font: var(--ts-text-md-medium-font);
+  --_menu-name-ls: var(--ts-text-md-medium-ls);
+  --_menu-name-opsz: var(--ts-text-md-medium-opsz);
+  --_menu-sub-font: var(--ts-text-md-light-font);
+  --_menu-sub-ls: var(--ts-text-md-light-ls);
+  --_menu-sub-opsz: var(--ts-text-md-light-opsz);
+  /* pill-to-menu gap: 8 at md/sm, 12 at lg (re-read 2026-09-08) */
+  --_menu-gap: var(--space-md);
+}
+.grader[data-size="lg"] {
+  --_menu-gap: var(--space-lg);
+}
+.grader[data-size="sm"] {
+  --_menu-name-font: var(--ts-text-sm-medium-font);
+  --_menu-name-ls: var(--ts-text-sm-medium-ls);
+  --_menu-name-opsz: var(--ts-text-sm-medium-opsz);
+  --_menu-sub-font: var(--ts-text-sm-light-font);
+  --_menu-sub-ls: var(--ts-text-sm-light-ls);
+  --_menu-sub-opsz: var(--ts-text-sm-light-opsz);
 }
 .grader[data-size="md"] .grader-field {
   height: 48px;
@@ -192,6 +218,102 @@
   pointer-events: auto;
 }
 
+/* grader-select-menu (spec 003 §5 as amended 2026-09-08; behaviour spec
+   025) — the active pill's business suggestions. Overlays whatever
+   follows the pill (an in-flow menu would shift the section's stacks);
+   its width is the pill's at every size. White card, border/000, radius
+   12, pad 8, rows 4 apart under hard-shadow-square-md; a row pads
+   6 / 8 / 8 and the active (or hovered) row takes bg/100 at radius 4. */
+.grader-menu {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + var(--_menu-gap));
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: var(--space-none);
+  padding: var(--space-md);
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-000);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-hard-square-md);
+}
+
+/* the two source groups (Google Places · websites): each a label over
+   its rows. The label is the system's small caps label (text/nav-label,
+   the eyebrow the nav and case-study cards carry) in text/400 — the
+   address ink — padded to the row's inset so it aligns with the names.
+   Groups sit a full row-gap (8) apart; rows keep their 4. */
+.grader-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.grader-group + .grader-group {
+  margin-top: var(--space-xs);
+}
+.grader-group-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: var(--space-none);
+  padding: var(--space-none);
+}
+.grader-group-label {
+  display: block;
+  padding: var(--space-sm) var(--space-md) var(--space-none);
+  color: var(--color-text-400);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  text-transform: var(--ts-text-nav-label-case);
+}
+
+.grader-option {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-radius: var(--radius-xs);
+  text-align: left;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+.grader-option[data-active] {
+  background: var(--color-bg-100);
+}
+@media (hover: hover) {
+  .grader-option:hover {
+    background: var(--color-bg-100);
+  }
+}
+
+.grader-option-name,
+.grader-option-sub {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-optical-sizing: none;
+}
+.grader-option-name {
+  font: var(--_menu-name-font);
+  letter-spacing: var(--_menu-name-ls);
+  font-variation-settings: "opsz" var(--_menu-name-opsz), var(--font-sans-slnt);
+  color: var(--color-text-200);
+}
+.grader-option-sub {
+  font: var(--_menu-sub-font);
+  letter-spacing: var(--_menu-sub-ls);
+  font-variation-settings: "opsz" var(--_menu-sub-opsz), var(--font-sans-slnt);
+  color: var(--color-text-400);
+}
+
 .grader-error {
   margin: var(--space-none);
   padding-inline: var(--space-xl);
@@ -204,7 +326,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .grader-field,
-  .grader-field input::placeholder {
+  .grader-field input::placeholder,
+  .grader-option {
     transition-duration: 0s;
   }
 }
