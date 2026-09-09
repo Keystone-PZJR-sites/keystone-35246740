@@ -12,6 +12,8 @@
 // Usage:
 //   node scripts/grid-selftest.mjs            # starts `next dev` itself
 //   GRID_URL=http://localhost:3000 node scripts/grid-selftest.mjs
+//   GRID_ROUTE=/blog …                        # one page (`/` is home only)
+//   GRID_STATES=0 …                           # rest geometry; skip drives
 //   CHROME_PATH=/path/to/chrome …             # override browser binary
 //
 // The devtools ship in development only, so the sweep runs against a
@@ -38,6 +40,21 @@ const PORT = 4823;
 // are shorter. 700ms
 // covers them all with margin — rest-state audits only run at rest.
 const SETTLE_MS = 700;
+// One-page lattice work uses GRID_ROUTE so a blog change does not drive
+// the home engines. `/` is home only; other values are path prefixes.
+const ROUTE_FILTERS = (process.env.GRID_ROUTE ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const DRIVE_STATES = process.env.GRID_STATES !== "0";
+
+function matchesRoute(path) {
+  if (ROUTE_FILTERS.length === 0) return true;
+  return ROUTE_FILTERS.some((filter) => {
+    if (filter === "/") return path === "/";
+    return path === filter || path.startsWith(`${filter}?`) || path.startsWith(`${filter}/`);
+  });
+}
 
 function chromePath() {
   const candidates = [
@@ -555,7 +572,17 @@ async function main() {
       // Live gallery embeds never load during the sweep.
       { path: "/our-work", drives: driveWorkStates, blockRemote: true },
       { path: "/case-studies/palm-coast-zivel", drives: driveCaseStudyStates },
-    ];
+    ].filter((entry) => matchesRoute(entry.path));
+
+    if (ROUTES.length === 0) {
+      throw new Error(`GRID_ROUTE=${process.env.GRID_ROUTE} matched no sweep paths.`);
+    }
+
+    console.log(
+      `Sweep ${ROUTES.map((entry) => entry.path).join(" · ")}` +
+        (DRIVE_STATES ? "" : " · states off") +
+        (ROUTE_FILTERS.length ? ` · GRID_ROUTE=${ROUTE_FILTERS.join(",")}` : ""),
+    );
 
     // Block non-localhost requests on routes with external embeds.
     const interceptor = (req) => {
@@ -599,7 +626,7 @@ async function main() {
               (out.fails.length ? ` · ${out.fails.join(" · ")}` : ""),
           );
         else console.log(`PASS ${route} anchor ${anchor} · band ${out.band} · t ${out.t}`);
-        if (drives) await drives(route, anchor, out.band);
+        if (drives && DRIVE_STATES) await drives(route, anchor, out.band);
       }
 
       // 2 · one width per structural slice.
@@ -607,7 +634,7 @@ async function main() {
         const out = await runAt(w, settleAfterResize);
         if (!out.pass) fail(`${route} slice ${w} · band ${out.band} · ${out.fails.join(" · ")}`);
         else console.log(`PASS ${route} slice ${w} · band ${out.band}`);
-        if (drives) await drives(route, w, out.band);
+        if (drives && DRIVE_STATES) await drives(route, w, out.band);
       }
 
       // 3 · continuity across every anchor joint: the sample walks a

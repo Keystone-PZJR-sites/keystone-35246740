@@ -50,7 +50,20 @@ Before you report a change as done:
 Skip it for copy, links, tokens that are not tick geometry, motion, widgets,
 data modules, and ordinary CSS that does not change designed section heights
 or exposure regions. When in doubt, prefer a focused browser check over a
-full sweep. The sweep is minutes long; do not run it by default.
+full sweep. The sweep is minutes long; do not run it by default. Never use
+it as a mid-build loop. If it fails, stay on the failing route; do not
+restart the full suite from `/`.
+
+A one-page lattice change runs only that page. `/` is home only:
+
+```
+GRID_URL=http://localhost:3000 GRID_ROUTE=/blog npm run test:grid
+```
+
+`GRID_ROUTE` is a comma-separated path prefix. `GRID_STATES=0` skips
+interactive drives (engines, carousel, drawers) and checks rest geometry
+only. A spec may add a page to the runner; it must not require a full-site
+sweep for a one-page build.
 
 **Fix the cause, never suppress.** Lint and type directives hide problems.
 
