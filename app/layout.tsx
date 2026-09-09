@@ -1,16 +1,17 @@
-import "@/design-system/v2/index.css";
-import "@/design-system/v2/widgets.css";
+import "@/design-system/index.css";
+import "@/design-system/widgets.css";
 import type { Metadata, Viewport } from "next";
-import { SiteChat } from "@/design-system/v2/sections/site-chat";
+import { getConsentRegime } from "@keystone-sites/core";
+import { CookieConsentModal } from "@keystone-sites/widgets/consent/CookieConsentModal";
+import { SiteChat } from "@/design-system/sections/site-chat";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://keystone.app");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-/* Metadata is static so it never blocks HTML delivery. The title,
- * description, and og-image are the standing site copy — the new-brand
- * copy and social card are an open content decision (spec 010 §7 F2)
- * and replace these values in place when design supplies them. */
+if (!siteUrl) {
+  throw new Error("Missing required environment variable: NEXT_PUBLIC_SITE_URL");
+}
+
+/* Static metadata never blocks HTML delivery. */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Keystone | Sales & Marketing for Local Businesses",
@@ -35,15 +36,13 @@ export const viewport: Viewport = {
   themeColor: "#f8f7f2",
 };
 
-/** The root layout — owned by the rebuild (spec 010 §4). `body` carries
- * `.v2-root`: the site base styles and the size container the grid
- * engine's container queries read (design-system/v2/base.css,
- * grid/engine.css). The site chat (spec 024) mounts after the page on
- * every route — fixed chrome outside `.page`, so the grid sweep never
- * sees it. */
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+/** `.site-root` provides the grid's size container. Site chat mounts
+ * outside `.page`, so fixed chat chrome does not affect grid geometry. */
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const consentRegime = await getConsentRegime();
+
   return (
-    <html lang="en">
+    <html lang="en" data-consent-regime={consentRegime}>
       <head>
         {/*
          * Cold-load guard — inlined in the raw HTML so the page color is
@@ -57,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          * Preload hints for the two site fonts. The browser discovers
          * @font-face rules only after parsing the CSS, so without these
          * the font fetches start hundreds of milliseconds late. Both are
-         * small self-hosted variable fonts (spec 001; font-display: swap).
+         * small self-hosted variable fonts.
          */}
         <link
           rel="preload"
@@ -74,9 +73,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
         />
       </head>
-      <body className="v2-root">
+      <body className="site-root">
         {children}
         <SiteChat />
+        <CookieConsentModal />
       </body>
     </html>
   );

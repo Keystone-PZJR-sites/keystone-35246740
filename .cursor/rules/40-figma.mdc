@@ -15,8 +15,7 @@ one-value fix.
 Before building or changing anything designed, run on the node:
 `get_metadata` (structure and sizes), `get_variable_defs` (bound tokens), and
 `get_design_context` (fills, radii, per-variant values, asset URLs). Read the
-nodes fresh at build time — never from memory of an earlier read, a screenshot,
-a prior extraction, or the previous implementation.
+nodes fresh at build time. Do not infer values from memory or screenshots.
 
 **If the Figma MCP is unreachable, stop.** Do not approximate from a screenshot
 or carry values over. Report which server, tool, and node failed and wait.
@@ -63,13 +62,13 @@ match the file" is never correct.
 - When a set's cells equal the anchor ticks (32/48/64/80/112), the design is
   tick-riding drawn at 1:1 — read those px as `1t`.
 
-## Re-extract the token layer before building
+## Read the token layer before building
 
 Token values come from the Figma variables API and the text styles, not from
-the file's rendered frames. Re-extract before a new section build (see
-`docs/reference/tokens.md` §9 for the procedure); regenerate `tokens/type.css`
-from `type-styles.json` with `node scripts/generate-v2-type-css.mjs`. Silent
-design-side changes flow through the tokens with no component change.
+the file's rendered frames. Read the local variable collections, imported
+library variables, and local text styles through the Figma MCP. Update
+`tokens/type-styles.json`, then run `node scripts/generate-type-css.mjs`.
+Design-side token changes flow through the token layer without component overrides.
 
 ## What the MCP does not know
 

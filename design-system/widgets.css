@@ -1,0 +1,61 @@
+/* Chat widget utilities compile without preflight because base.css owns
+   normalization. Utilities stay unlayered so class rules beat the
+   unlayered element reset. `source(none)` limits scanning to the package.
+   Site tokens win shared `:root` names. */
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" source(none);
+@import "@keystone-sites/widgets/theme.css";
+
+.ks-chat-panel.pointer-events-none {
+  --ks-chat-accent-ink: var(--color-teal-700);
+}
+
+/* Match the prompt glyphs to the Grader arrow ink. */
+.ks-chat-panel.pointer-events-none svg {
+  color: var(--color-teal-500);
+}
+
+/* CookieConsentModal does not expose theme props. These overrides stay
+   scoped to its root class and map the packaged surface to site tokens. */
+.ks-consent-panel.ks-consent-panel,
+.ks-consent-panel.ks-consent-panel * {
+  font-family: var(--font-sans) !important;
+}
+
+.ks-consent-panel .ks-consent-serif.ks-consent-serif {
+  font-family: var(--font-serif) !important;
+}
+
+.ks-consent-panel > div {
+  color: var(--color-text-200) !important;
+  background-color: var(--color-bg-100) !important;
+  border-color: var(--color-border-000) !important;
+}
+
+.ks-consent-panel a {
+  color: var(--color-teal-700) !important;
+  text-decoration-color: var(--color-teal-300) !important;
+}
+
+.ks-consent-panel button[class~="bg-[#2b2620]"] {
+  color: var(--color-teal-700) !important;
+  background-color: var(--color-teal-250) !important;
+}
+
+.ks-consent-panel button[class~="bg-[#2b2620]"]:hover {
+  background-color: var(--color-teal-300) !important;
+}
+
+.ks-consent-panel button[class~="border-[#2b2620]/[0.22]"] {
+  color: var(--color-teal-700) !important;
+  border-color: var(--color-teal-700) !important;
+}
+
+.ks-consent-panel button[class~="border-[#2b2620]/[0.22]"]:hover {
+  background-color: color-mix(in srgb, var(--color-teal-700) 7%, transparent) !important;
+}
+
+.ks-consent-panel :is(a, button):focus-visible {
+  outline-color: var(--color-teal-500) !important;
+}

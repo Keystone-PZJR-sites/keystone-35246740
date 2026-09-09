@@ -1,0 +1,486 @@
+.hero-section {
+  width: 100%;
+  height: calc(var(--t) * 21);
+}
+@container (min-width: 665px) {
+  .hero-section { height: calc(var(--t) * 13); }
+}
+@container (min-width: 860px) {
+  .hero-section { height: calc(var(--t) * 12); }
+}
+
+/* Map shared choreography beats to the visual order at each band. */
+.hero-section {
+  --_d-rect: var(--hx-d-img3-m);
+  --_d-circle: var(--hx-d-sub2-m);
+  --_d-img3: var(--hx-d-cta-m);
+  --_d-sub1: var(--hx-d-rect-m);
+  --_d-sub2: var(--hx-d-circle-m);
+  --_d-cta: var(--hx-d-sub1-m);
+}
+@container (min-width: 665px) {
+  .hero-section {
+    --_d-rect: var(--hx-d-rect);
+    --_d-circle: var(--hx-d-circle);
+    --_d-img3: var(--hx-d-img3);
+    --_d-sub1: var(--hx-d-sub1);
+    --_d-sub2: var(--hx-d-sub2);
+    --_d-cta: var(--hx-d-cta);
+  }
+}
+.hero-section .hero-h1 .hx-rise { --_d: var(--hx-d-h1a); }
+.hero-section .hero-flow { --_d: var(--_d-sub1); }
+.hero-head {
+  position: absolute;
+  top: var(--hero-head-top-rm);
+  left: var(--t);
+  right: var(--t);
+}
+@container (min-width: 665px) {
+  .hero-head { top: var(--hero-head-top-rt); }
+}
+@container (min-width: 860px) {
+  .hero-head { top: var(--hero-head-top-rd); right: calc(2 * var(--t)); }
+}
+
+.hero-h1 {
+  color: var(--color-text-100);
+  max-width: var(--hero-h1-w-rm);
+  --fs0: 32; --fs1: 41; --lh0: 38; --lh1: 49;
+}
+@container (min-width: 470px) {
+  .hero-h1 {
+    max-width: var(--hero-h1-w-rs);
+    --fs0: 41; --fs1: 50; --lh0: 49; --lh1: 60;
+  }
+}
+@container (min-width: 665px) {
+  .hero-h1 {
+    max-width: var(--hero-h1-w-rt);
+    --fs0: 50; --fs1: 50; --lh0: 60; --lh1: 60;
+  }
+}
+@container (min-width: 860px) {
+  .hero-h1 {
+    max-width: var(--hero-h1-w-rd);
+    --fs0: 51.4286; --fs1: 72; --lh0: 55.7143; --lh1: 78;
+    --ts-display-serif-sm-thin-ls: var(--ts-display-serif-3xl-thin-ls);
+  }
+}
+.hero-sub {
+  position: absolute;
+  top: calc(var(--hero-sub-top-rm) - var(--hero-head-top-rm));
+  left: 0;
+  right: 0;
+  max-width: var(--hero-sub-w-rm);
+  color: var(--color-text-200);
+  --fs0: 20; --fs1: 20; --lh0: 28; --lh1: 28;
+  --hero-pill-h: 1.2em;
+  --hero-pill-shift: 0.075em;
+  --hero-pill-px: 0.15em;
+}
+@container (min-width: 470px) {
+  .hero-sub { max-width: var(--hero-sub-w-rs); }
+}
+@container (min-width: 665px) {
+  .hero-sub {
+    top: calc(var(--hero-sub-top-rt) - var(--hero-head-top-rt));
+    max-width: none;
+  }
+}
+@container (min-width: 860px) {
+  .hero-sub {
+    top: calc(var(--hero-sub-top-rd) - var(--hero-head-top-rd));
+    max-width: var(--hero-sub-w-rd);
+    --fs0: 17.1429; --fs1: 24; --lh0: 24.2857; --lh1: 34;
+    --hero-pill-h: 1.25em;
+    --hero-pill-shift: 0.0625em;
+    --hero-pill-px: 0.25em;
+  }
+}
+
+.hero-flow {
+  display: block;
+}
+
+.hero-chip {
+  position: relative;
+  display: inline-block;
+  padding: 0 var(--hero-pill-px);
+  white-space: nowrap;
+}
+/* Center the painted pill on glyphs rather than line-box edges. */
+.hero-chip::before,
+.hero-chip::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - var(--hero-pill-h) / 2 + var(--hero-pill-shift));
+  left: 0;
+  right: 0;
+  height: var(--hero-pill-h);
+  border-radius: var(--radius-xs);
+}
+.hero-chip::before {
+  background: var(--color-bg-300);
+}
+.hero-chip::after {
+  background: var(--chip-fill);
+}
+.hero-chip-label {
+  position: relative;
+  z-index: 1;
+  color: var(--chip-ink);
+}
+
+.hero-chip[data-chip="website"] { --chip-fill: var(--color-teal-250); --chip-ink: var(--color-teal-700); }
+.hero-chip[data-chip="ads"] { --chip-fill: var(--color-pink-300); --chip-ink: var(--color-pink-700); }
+.hero-chip[data-chip="social"] { --chip-fill: var(--color-orange-300); --chip-ink: var(--color-orange-600); }
+.hero-chip[data-chip="reviews"] { --chip-fill: var(--color-yellow-300); --chip-ink: var(--color-yellow-700); }
+.hero-chip[data-chip="content"] { --chip-fill: var(--color-blue-300); --chip-ink: var(--color-blue-700); }
+.hero-chip[data-chip="follow-ups"] { --chip-fill: var(--color-purple-300); --chip-ink: var(--color-purple-700); }
+
+.hero-section .hx-cta {
+  position: absolute;
+  top: calc(var(--hero-cta-top-rm) - var(--hero-head-top-rm));
+  left: 0;
+  margin: 0;
+}
+@container (min-width: 665px) {
+  .hero-section .hx-cta {
+    top: calc(var(--hero-cta-top-rt) - var(--hero-head-top-rt));
+  }
+}
+@container (min-width: 860px) {
+  .hero-section .hx-cta {
+    top: calc(var(--hero-cta-top-rd) - var(--hero-head-top-rd));
+  }
+}
+
+.hero-carousel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--t) * 14);
+  height: calc(var(--t) * 6);
+  overflow: hidden;
+}
+@container (min-width: 665px) {
+  .hero-carousel { top: calc(var(--t) * 8); height: calc(var(--t) * 4); }
+}
+@container (min-width: 860px) {
+  .hero-carousel { top: calc(var(--t) * 7); }
+}
+
+/* Resolve shape tallies in grid ticks. */
+.hero-section .hx-track {
+  --hc-ct: 6;
+  transform: translateX(calc(var(--t) * (var(--hc-r, 0) * 6 + var(--hc-c, 0) * var(--hc-ct)) * -1));
+}
+@container (min-width: 665px) {
+  .hero-section .hx-track { --hc-ct: 4; }
+}
+
+.hero-section .hx-frame {
+  width: calc(var(--t) * 6);
+}
+@container (min-width: 665px) {
+  .hero-section .hx-frame[data-shape="circle"] { width: calc(var(--t) * 4); }
+}
+
+.load-active .hero-chip::after {
+  animation: hx-chip-wipe var(--motion-wipe-duration) var(--motion-wipe-ease) backwards;
+  animation-delay: var(--_cd);
+}
+.load-active .hero-chip-label {
+  animation: hx-chip-ink var(--motion-wipe-duration) ease backwards;
+  animation-delay: var(--_cd);
+}
+.hero-chip[data-chip="website"] { --_cd: var(--_dp, var(--hx-d-pass)); }
+.hero-chip[data-chip="ads"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + var(--motion-chip-stagger)); }
+.hero-chip[data-chip="social"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 2 * var(--motion-chip-stagger)); }
+.hero-chip[data-chip="reviews"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 3 * var(--motion-chip-stagger)); }
+.hero-chip[data-chip="content"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 4 * var(--motion-chip-stagger)); }
+.hero-chip[data-chip="follow-ups"] { --_cd: calc(var(--_dp, var(--hx-d-pass)) + 5 * var(--motion-chip-stagger)); }
+
+/* Settled animations stay off when band-gated elements re-enter. */
+.page.load-settled .hero-chip::after,
+.page.load-settled .hero-chip-label {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .load-active .hero-chip::after,
+  .load-active .hero-chip-label {
+    animation: none;
+  }
+}
+.hx-cta {
+  display: none;
+  align-items: center;
+  gap: var(--space-5xl);
+}
+.hx-cta-a {
+  display: flex;
+  position: absolute;
+  top: calc(var(--t) * 18 - var(--hx-head-top-rm) + var(--hx-cta-sub-drop));
+  left: 0;
+  gap: var(--space-3xl);
+}
+@container (min-width: 470px) {
+  .hx-cta-a { top: calc(var(--t) * 14 - var(--hx-head-top-rs) + var(--hx-cta-sub-drop)); }
+}
+@container (min-width: 665px) {
+  .hx-cta-a { display: none; }
+  .hx-cta-b { display: flex; margin-top: var(--hx-cta-top-rt); }
+}
+@container (min-width: 860px) {
+  .hx-cta-b { display: none; }
+  .hx-cta-c { display: flex; margin-top: var(--space-6xl); }
+}
+@container (min-width: 1130px) {
+  .hx-cta-c { display: none; }
+  .hx-cta-d { display: flex; margin-top: var(--space-7xl); }
+}
+
+.hx-window { height: 100%; }
+
+.hx-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  list-style: none;
+  --hc-ct: 8;
+  transform: translateX(calc(var(--t) * (var(--hc-r, 0) * 8 + var(--hc-c, 0) * var(--hc-ct)) * -1));
+  transition: transform var(--motion-slide-duration) var(--motion-slide-ease);
+}
+@container (min-width: 470px) {
+  .hx-track { --hc-ct: 6; }
+}
+@container (min-width: 665px) {
+  .hx-track { --hc-ct: 5; }
+}
+/* Disable transition while resetting from clones. */
+.hx-track.hx-snap { transition: none; }
+
+.hx-frame {
+  flex: none;
+  width: calc(var(--t) * 8);
+  height: 100%;
+  overflow: hidden;
+}
+.hx-frame[data-shape="circle"] {
+  border-radius: var(--radius-full);
+}
+@container (min-width: 470px) {
+  .hx-frame[data-shape="circle"] { width: calc(var(--t) * 6); }
+}
+@container (min-width: 665px) {
+  .hx-frame[data-shape="circle"] { width: calc(var(--t) * 5); }
+}
+.hx-frame picture,
+.hx-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hx-frame img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.hx-wm {
+  position: relative;
+  top: calc(var(--hx-wm-h) * var(--hx-wm-drop));
+  display: inline-block;
+  width: var(--hx-wm-w);
+  height: var(--hx-wm-h);
+  background: var(--color-text-200);
+  /* Top-left anchoring avoids Safari rounding the fractional mask offset. */
+  -webkit-mask: url("/media/brand/ks-wordmark-inline.svg") 0 0 / 100% 100% no-repeat;
+  mask: url("/media/brand/ks-wordmark-inline.svg") 0 0 / 100% 100% no-repeat;
+}
+
+.page.load-sequence {
+  --load-sweep-duration: 350ms;
+  --load-nav-duration: 250ms;
+  --motion-wipe-ease: var(--motion-entrance-engine-ease);
+  --motion-chip-stagger: var(--motion-entrance-stagger);
+  --hx-d-h1a: 0ms;
+  --hx-d-h1b: 120ms;
+  --hx-d-sub1: 150ms;
+  --hx-d-sub2: 270ms;
+  --hx-d-cta: 390ms;
+  --hx-d-rect: 390ms;
+  --hx-d-circle: 510ms;
+  --hx-d-img3: 630ms;
+  --hx-d-pass: 750ms;
+  --hx-d-pass-m: 950ms;
+  --hx-d-rect-m: 150ms;
+  --hx-d-circle-m: 270ms;
+  --hx-d-img3-m: 390ms;
+  --hx-d-sub1-m: 390ms;
+  --hx-d-sub2-m: 510ms;
+  --hx-d-cta-m: 630ms;
+  --_rise-fade-dur: var(--motion-entrance-engine-fade-dur);
+  --_rise-move-dur: var(--motion-entrance-engine-move-dur);
+  --_rise-ease: var(--motion-entrance-engine-ease);
+}
+.page.load-sequence .hero-h1 .hx-rise {
+  --_rise-fade-dur: var(--motion-entrance-ring-fade-dur);
+  --_rise-move-dur: var(--motion-entrance-ring-move-dur);
+  --_rise-ease: var(--motion-entrance-ring-ease);
+}
+.page.load-sequence :is(.hx-rise, .hx-frame:nth-child(-n + 3), .hero-section .decor) {
+  --motion-rise-distance: 12px;
+}
+.page.load-sequence .hero-section {
+  --_dp: var(--hx-d-pass-m);
+}
+@container (min-width: 665px) {
+  .page.load-sequence .hero-section {
+    --_dp: var(--hx-d-pass);
+  }
+}
+
+/* Hide choreographed elements until the load class prevents a cold-font flash. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .page.load-sequence:not(.load-active)
+    :is(.hx-rise, .hx-frame:nth-child(-n + 3), .knav-bar, .knav-mbar) {
+    opacity: 0;
+  }
+  .page.load-sequence:not(.load-active)
+    .hero-section :is(.grid-region, .decor) {
+    opacity: 0;
+  }
+}
+
+@keyframes hx-rise {
+  from { opacity: 0; transform: translateY(var(--motion-rise-distance)); }
+}
+@keyframes hx-rise-move {
+  from { transform: translateY(var(--motion-rise-distance)); }
+}
+@keyframes hx-fade {
+  from { opacity: 0; }
+}
+@keyframes hx-sweep-v {
+  from { transform: scaleY(0); }
+}
+@keyframes hx-sweep-h {
+  from { transform: scaleX(0); }
+}
+@keyframes hx-nav-drop {
+  from { opacity: 0; transform: translateY(calc(-1 * var(--load-nav-drop))); }
+}
+@keyframes hx-chip-wipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes hx-chip-ink {
+  from { color: var(--color-text-200); }
+}
+
+.load-active .hero-section .grid-region i.v {
+  transform-origin: top;
+  animation: hx-sweep-v var(--load-sweep-duration) var(--motion-entrance-ring-ease) backwards;
+}
+.load-active .hero-section .grid-region i.h {
+  transform-origin: left;
+  animation: hx-sweep-h var(--load-sweep-duration) var(--motion-entrance-ring-ease) backwards;
+  animation-delay: var(--load-sweep-offset);
+}
+
+.load-active .knav-bar,
+.load-active .knav-mbar {
+  animation: hx-nav-drop var(--load-nav-duration) var(--motion-entrance-engine-ease) backwards;
+}
+
+.load-active .hx-rise {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d, 0ms);
+}
+.hx-cta { --_d: var(--_d-cta); }
+
+.load-active .hx-frame:nth-child(1) {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d-rect);
+}
+.load-active .hx-frame:nth-child(2) {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d-circle);
+}
+.load-active .hx-frame:nth-child(3) {
+  animation: hx-rise var(--motion-rise-duration) var(--motion-rise-ease) backwards;
+  animation-delay: var(--_d-img3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page.load-sequence.load-active:not(.load-settled) .hx-rise {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d, 0ms);
+  }
+  .page.load-sequence.load-active:not(.load-settled) .hx-frame:nth-child(1) {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d-rect);
+  }
+  .page.load-sequence.load-active:not(.load-settled) .hx-frame:nth-child(2) {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d-circle);
+  }
+  .page.load-sequence.load-active:not(.load-settled) .hx-frame:nth-child(3) {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+    animation-delay: var(--_d-img3);
+  }
+  .page.load-sequence.load-active:not(.load-settled)
+    .hero-section .decor {
+    animation:
+      hx-fade var(--_rise-fade-dur) var(--_rise-ease) backwards,
+      hx-rise-move var(--_rise-move-dur) var(--_rise-ease) backwards;
+  }
+}
+
+.page.load-settled .grid-region,
+.page.load-settled .decor,
+.page.load-settled .grid-region i.v,
+.page.load-settled .grid-region i.h,
+.page.load-settled .knav-bar,
+.page.load-settled .knav-mbar,
+.page.load-settled .hx-rise,
+.page.load-settled .hx-frame:nth-child(-n + 3) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .load-active .grid-region,
+  .load-active .decor,
+  .load-active .grid-region i.v,
+  .load-active .grid-region i.h,
+  .load-active .knav-bar,
+  .load-active .knav-mbar,
+  .load-active .hx-rise,
+  .load-active .hx-frame:nth-child(-n + 3) {
+    animation: none;
+  }
+  .hx-track { transition: none; }
+}
+.hx-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

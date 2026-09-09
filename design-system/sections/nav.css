@@ -1,0 +1,1203 @@
+/* Every child of the chrome is fixed or absolute, so these wrappers are
+   zero-height boxes that preserve navigation landmarks without affecting layout. */
+.ks-nav,
+.ks-nav > nav {
+  display: block;
+}
+
+.knav-d {
+  display: none;
+}
+@container (min-width: 860px) {
+  .knav-d {
+    display: block;
+  }
+  .knav-m {
+    display: none;
+  }
+}
+
+.knav-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--knav-bar-h);
+  height: var(--knav-bar-h);
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-mark {
+  display: block;
+  width: var(--knav-logomark);
+  height: var(--knav-logomark);
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
+}
+
+.knav-vr {
+  flex: none;
+  align-self: center;
+  width: 1px;
+  height: var(--space-3xl);
+  background: var(--color-bg-400);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+
+.ks-nav [data-engine="brand"] { --_eng: var(--color-orange-400); }
+.ks-nav [data-engine="visibility"] { --_eng: var(--color-yellow-400); }
+.ks-nav [data-engine="ads"] { --_eng: var(--color-pink-400); }
+.ks-nav [data-engine="reception"] { --_eng: var(--color-purple-400); }
+.ks-nav [data-engine="engagement"] { --_eng: var(--color-blue-400); }
+
+.knav-logo:focus-visible,
+.knav-btn:focus-visible,
+.knav-mtoggle:focus-visible,
+.knav-row:focus-visible,
+.knav-sub:focus-visible,
+.knav-card:focus-visible,
+.knav-chip:focus-visible,
+.knav-rchip:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
+  z-index: 1;
+}
+/* Pointer-initiated closes return focus without showing a keyboard ring. */
+.knav-mtoggle[data-quiet-focus]:focus-visible {
+  box-shadow: none;
+}
+.knav-bar {
+  position: fixed;
+  top: 0;
+  /* Include the centered page offset at wide viewport sizes. */
+  left: calc(var(--page-x) + var(--t));
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  width: calc(var(--t) * 10);
+  height: var(--knav-bar-h);
+  /* the space between rail and Login is transparent — the page's top
+     row shows through and stays clickable */
+  pointer-events: none;
+}
+.knav-rail {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  background: var(--color-bg-200);
+  pointer-events: auto;
+}
+.knav-login {
+  pointer-events: auto;
+}
+
+.knav-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--knav-bar-h);
+  padding-left: var(--space-xl);
+  padding-right: var(--knav-btn-pr);
+  background: var(--color-bg-200);
+  text-decoration: none;
+  pointer-events: auto;
+}
+/* Use a pseudo-element because borders cannot animate by scaling. */
+.knav-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-text-600);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--knav-underline-dur) var(--motion-drawer-ease);
+}
+
+.knav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--fitem-gap);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  color: var(--color-text-300);
+  transition: color var(--knav-ink-dur) var(--motion-hover-ease);
+}
+.knav-tick {
+  flex: none;
+  color: var(--color-text-500);
+  transition:
+    rotate var(--knav-chev-dur) var(--motion-drawer-ease),
+    translate var(--knav-ink-dur) var(--motion-hover-ease),
+    color var(--knav-ink-dur) var(--motion-hover-ease);
+}
+
+@media (hover: hover) {
+  .knav-btn:hover::after {
+    transform: scaleX(1);
+  }
+  .knav-btn:hover .knav-item {
+    color: var(--color-text-100);
+  }
+  .knav-btn:hover .knav-tick {
+    color: var(--color-text-400);
+  }
+  .knav-btn[aria-controls]:hover .knav-tick {
+    rotate: 180deg;
+  }
+  /* Translate the arrow without changing the button's layout width. */
+  .knav-login:hover .knav-tick {
+    translate: calc(var(--fitem-gap-hover) - var(--fitem-gap)) 0;
+  }
+}
+.knav-btn[aria-expanded="true"]::after {
+  transform: scaleX(1);
+}
+.knav-btn[aria-expanded="true"] .knav-item {
+  color: var(--color-text-100);
+}
+.knav-btn[aria-expanded="true"] .knav-tick {
+  color: var(--color-text-400);
+  rotate: 180deg;
+}
+
+.knav-drawer {
+  position: fixed;
+  top: calc(var(--knav-bar-h) + var(--space-xs));
+  left: calc(var(--page-x) + var(--t));
+  z-index: var(--z-nav);
+  box-sizing: border-box;
+  width: var(--knav-drawer-md);
+  height: var(--knav-drawer-h);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
+  background: var(--color-bg-000);
+  border-radius: var(--radius-none);
+  box-shadow: var(--shadow-hard-square);
+  overflow: clip;
+  opacity: 0;
+  translate: 0 calc(-1 * var(--knav-reveal-rise));
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--knav-reveal-fade) ease,
+    translate var(--knav-reveal-slide) var(--motion-drawer-ease),
+    visibility 0s linear var(--knav-reveal-slide);
+}
+.knav-drawer[data-open] {
+  opacity: 1;
+  translate: 0 0;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity var(--knav-reveal-fade) ease,
+    translate var(--knav-reveal-slide) var(--motion-drawer-ease);
+}
+
+@container (min-width: 1130px) {
+  .knav-drawer {
+    width: var(--knav-drawer-lg);
+  }
+}
+
+/* Delay block resets until the panel has finished fading. */
+.knav-blk {
+  opacity: 0;
+  translate: 0 var(--knav-blk-rise);
+  transition:
+    opacity 0s linear var(--knav-reveal-slide),
+    translate 0s linear var(--knav-reveal-slide);
+}
+.knav-drawer[data-open] .knav-blk {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--knav-blk-fade) ease
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease)
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger)));
+}
+/* Spread both content variants over the same reveal window. */
+.knav-dcontent[data-content="resources"] {
+  --_stagger: var(--knav-stagger-res);
+}
+
+/* subitems are cascade blocks AND highlight hosts; the combined rules
+   restate both lists so the fill fade survives the block rule — the
+   arrival on the hover side, the slower release on the resting side.
+   The closed-state combo restates the block resets: without it,
+   .knav-sub's own resting transition wins the cascade and the subitem
+   snaps out instantly while the panel is still fading. */
+.knav-sub.knav-blk {
+  transition:
+    opacity 0s linear var(--knav-reveal-slide),
+    translate 0s linear var(--knav-reveal-slide),
+    background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
+}
+.knav-drawer[data-open] .knav-sub.knav-blk {
+  transition:
+    opacity var(--knav-blk-fade) ease
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease)
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
+}
+@media (hover: hover) {
+  .knav-drawer[data-open] .knav-sub.knav-blk:hover {
+    transition:
+      opacity var(--knav-blk-fade) ease
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      translate var(--knav-blk-slide) var(--motion-drawer-ease)
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
+  }
+}
+
+/* cards are cascade blocks AND hover-shadow hosts; transition is one
+   property, so the combined rules restate both lists — the shadow
+   reversing on the resting side and growing on hover. The closed-state
+   combo restates the block resets (same construction as .knav-sub). */
+.knav-card.knav-blk {
+  transition:
+    opacity 0s linear var(--knav-reveal-slide),
+    translate 0s linear var(--knav-reveal-slide),
+    box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
+}
+.knav-drawer[data-open] .knav-card.knav-blk {
+  transition:
+    opacity var(--knav-blk-fade) ease
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease)
+      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+    box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
+}
+@media (hover: hover) {
+  .knav-drawer[data-open] .knav-card.knav-blk:hover {
+    transition:
+      opacity var(--knav-blk-fade) ease
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      translate var(--knav-blk-slide) var(--motion-drawer-ease)
+        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
+      box-shadow var(--knav-card-shadow-dur) var(--knav-card-ease);
+  }
+}
+
+/* Keep both variants rendered so switching content preserves reveal styles. */
+.knav-drawer {
+  display: grid;
+}
+.knav-dcontent {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 0;
+  visibility: hidden;
+  /* on close, the active content stays visible through the panel fade
+     and goes hidden with it */
+  transition: visibility 0s linear var(--knav-reveal-slide);
+}
+/* Content swaps immediately while the drawer is open. */
+.knav-drawer[data-open] .knav-dcontent {
+  transition: none;
+}
+.knav-drawer[data-open][data-item="solutions"] .knav-dcontent[data-content="solutions"],
+.knav-drawer[data-open][data-item="resources"] .knav-dcontent[data-content="resources"] {
+  visibility: visible;
+}
+
+.knav-dlabels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 16px;
+}
+.knav-dlabel {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 243px;
+  padding-inline: var(--space-lg);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  text-transform: var(--ts-text-nav-label-case);
+  color: var(--color-darkgray-100);
+  white-space: nowrap;
+}
+.knav-dlabel-b {
+  width: var(--knav-card-w-md);
+  padding-inline: var(--space-xl);
+}
+
+.knav-dbody {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-lg);
+  flex: 1;
+  min-height: 0;
+}
+.knav-dvr {
+  flex: none;
+  align-self: stretch;
+  width: 1px;
+  background: var(--color-border-000);
+}
+.knav-dcol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.knav-sub {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: var(--knav-sub-w-md);
+  padding: var(--knav-sub-pt) var(--space-lg) var(--space-lg);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  /* the resting rule times the release (slower than the arrival) */
+  transition: background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
+}
+.knav-subhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+.knav-subtitle {
+  font: var(--ts-display-serif-2xs-medium-font);
+  letter-spacing: var(--ts-display-serif-2xs-medium-ls);
+  color: var(--color-text-100);
+}
+.knav-subdot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  /* 50%, not the 9999px token: it renders the same circle, but the
+     morph interpolates the whole way instead of snapping in the last
+     few px of a 9999 → 0 run */
+  border-radius: 50%;
+  background: var(--_eng);
+  /* the resting rule times the return: 50% slower than the morph out,
+     easing in and out so the unwind starts lazy instead of snapping */
+  transition:
+    border-radius var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease),
+    rotate var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease);
+}
+.knav-subdesc {
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  color: var(--color-text-300);
+}
+/* Rotate while morphing the engine marker from circle to square. */
+@media (hover: hover) {
+  .knav-sub:hover {
+    background: var(--color-bg-100);
+  }
+  .knav-sub:hover .knav-subdot {
+    border-radius: var(--radius-none);
+    rotate: var(--knav-dot-rotation);
+    transition:
+      border-radius var(--knav-dot-morph-dur) var(--motion-drawer-ease),
+      rotate var(--knav-dot-morph-dur) var(--motion-drawer-ease);
+  }
+}
+
+@container (min-width: 1130px) {
+  .knav-sub {
+    width: var(--knav-sub-w-lg);
+  }
+}
+
+.knav-card {
+  position: relative;
+  box-sizing: border-box;
+  overflow: clip;
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-none) var(--radius-xl);
+  text-decoration: none;
+  align-self: stretch;
+  /* Shadows animate without changing card or drawer geometry. */
+  box-shadow: var(--_hs0);
+  transition: box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
+}
+@media (hover: hover) {
+  .knav-card:hover {
+    box-shadow: var(--_hs);
+    transition: box-shadow var(--knav-card-shadow-dur) var(--knav-card-ease);
+  }
+  /* the circles slide one cell in their designed directions and slide
+     back on mouse-out on the same curve */
+  .knav-card:hover .knav-decor i.c {
+    translate: calc(var(--dx, 0) * var(--knav-decor-cell))
+      calc(var(--dy, 0) * var(--knav-decor-cell));
+  }
+}
+
+/* Use one outer border and single interior lines to avoid doubled edges. */
+.knav-decor {
+  position: absolute;
+  box-sizing: border-box;
+  top: var(--knav-decor-top);
+  left: calc(50% + var(--knav-decor-cx));
+  transform: translateX(-50%);
+  width: calc(var(--knav-decor-cell) * 4 + 1px);
+  height: calc(var(--knav-decor-cell) * 4 + 1px);
+  border: 1px solid var(--_decor);
+  pointer-events: none;
+}
+.knav-decor i {
+  position: absolute;
+}
+.knav-decor i.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--_decor);
+  left: calc(var(--knav-decor-cell) * var(--n) - 1px);
+}
+.knav-decor i.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--_decor);
+  top: calc(var(--knav-decor-cell) * var(--n) - 1px);
+}
+.knav-decor i.c {
+  box-sizing: border-box;
+  width: calc(var(--knav-decor-cell) + 1px);
+  height: calc(var(--knav-decor-cell) + 1px);
+  border: 1px solid var(--_decor);
+  border-radius: var(--radius-full);
+  left: calc(var(--knav-decor-cell) * var(--cx) - 1px);
+  top: calc(var(--knav-decor-cell) * var(--cy) - 1px);
+  transition: translate var(--knav-card-slide-dur) var(--knav-card-slide-ease);
+}
+
+.knav-fcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: var(--knav-card-w-md);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
+  background: var(--color-teal-100);
+  --_decor: var(--knav-decor-teal);
+  --_hs: 3px 3px 0 0 var(--color-teal-200);
+  --_hs0: 0 0 0 0 var(--color-teal-200);
+}
+.knav-fcopy {
+  position: relative;
+  width: min(var(--knav-copy-w), 100%);
+  font: var(--ts-text-xl-light-font);
+  letter-spacing: var(--ts-text-xl-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+  color: var(--color-teal-600);
+}
+.knav-frow {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-md);
+  color: var(--color-teal-500);
+}
+.knav-flabel {
+  flex: 1;
+  font: var(--ts-text-lg-light-font);
+  letter-spacing: var(--ts-text-lg-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+}
+.knav-frow svg {
+  flex: none;
+}
+
+@container (min-width: 1130px) {
+  .knav-dbody {
+    gap: var(--space-xl);
+  }
+  .knav-dlabel,
+  .knav-dlabel-b {
+    width: var(--knav-label-w);
+  }
+  .knav-dlabel-b {
+    padding-inline: var(--space-3xl);
+  }
+  .knav-fcard {
+    width: var(--knav-sub-w-lg);
+  }
+}
+
+.knav-rcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-xl);
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--space-xl);
+  background: var(--_bg);
+}
+.knav-chiprow {
+  position: relative;
+  display: flex;
+}
+.knav-cardchip {
+  display: grid;
+  place-items: center;
+  width: var(--space-4xl);
+  height: var(--space-4xl);
+  border-radius: var(--radius-full);
+  background: var(--_chipbg);
+  color: var(--_chipink);
+}
+.knav-cbody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.knav-crow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--_title);
+}
+.knav-ctitle {
+  font: var(--ts-display-serif-xs-regular-font);
+  letter-spacing: var(--ts-display-serif-xs-regular-ls);
+  white-space: nowrap;
+}
+.knav-crow svg {
+  flex: none;
+}
+.knav-cdesc {
+  font: var(--ts-text-lg-light-font);
+  letter-spacing: var(--ts-text-lg-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  color: var(--_desc);
+}
+
+.knav-rcard[data-card="blog"] {
+  --_bg: var(--color-bg-100);
+  --_decor: var(--color-bg-200);
+  --_chipbg: var(--color-text-500);
+  --_chipink: var(--color-text-100);
+  --_title: var(--color-text-200);
+  --_desc: var(--color-text-400);
+  --_hs: var(--shadow-hard-square-md);
+  --_hs0: var(--shadow-hard-square-md-0);
+}
+.knav-rcard[data-card="grader"] {
+  --_bg: var(--color-brown-100);
+  --_decor: var(--knav-decor-brown);
+  --_chipbg: var(--color-brown-300);
+  --_chipink: var(--color-brown-600);
+  --_title: var(--color-brown-700);
+  --_desc: var(--color-brown-500);
+  --_hs: 3px 3px 0 0 var(--color-brown-200);
+  --_hs0: 0 0 0 0 var(--color-brown-200);
+}
+.knav-rcard[data-card="podcast"] {
+  --_bg: var(--color-yellow-100);
+  --_decor: var(--knav-decor-yellow);
+  --_chipbg: var(--color-yellow-400);
+  --_chipink: var(--color-yellow-600);
+  --_title: var(--color-yellow-700);
+  --_desc: var(--color-yellow-600);
+  --_hs: 3px 3px 0 0 var(--color-yellow-200);
+  --_hs0: 0 0 0 0 var(--color-yellow-200);
+}
+
+@container (min-width: 1130px) {
+  .knav-rcard {
+    flex: none;
+    width: var(--knav-sub-w-lg);
+  }
+}
+
+@container (max-width: 859px) {
+  /* Lift the page stacking context while the mobile menu is open so
+     body-level widget portals stay behind the modal navigation surface. */
+  .page:has(.knav-m[data-open]) {
+    z-index: calc(var(--z-portal) + 2);
+  }
+}
+
+.knav-mbar {
+  position: fixed;
+  top: 0;
+  right: calc(var(--t) - 1px);
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-m[data-open] .knav-mbar {
+  background: var(--color-bg-300);
+}
+
+.knav-mtoggle {
+  appearance: none;
+  border: 0;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  display: grid;
+  place-items: center;
+  width: var(--knav-bar-h);
+  height: var(--knav-bar-h);
+  background: var(--color-bg-200);
+  cursor: pointer;
+  color: var(--color-text-400);
+  touch-action: manipulation;
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+
+/* Crossfade the stacked menu and close glyphs. */
+.knav-glyphstack {
+  display: grid;
+  place-items: center;
+}
+.knav-glyphstack svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--icon-swap-dur) var(--motion-drawer-ease-open),
+    filter var(--icon-swap-dur) var(--motion-drawer-ease-open),
+    scale var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-glyph-x {
+  opacity: 0;
+  filter: blur(var(--icon-swap-blur));
+  scale: var(--icon-swap-start-scale);
+}
+.knav-m[data-open] .knav-glyph-menu {
+  opacity: 0;
+  filter: blur(var(--icon-swap-blur));
+  scale: var(--icon-swap-start-scale);
+}
+.knav-m[data-open] .knav-glyph-x {
+  opacity: 1;
+  filter: blur(0);
+  scale: 1;
+}
+
+.knav-m[data-open] .knav-logo,
+.knav-m[data-open] .knav-plogo,
+.knav-m[data-open] .knav-mtoggle {
+  background: var(--color-bg-300);
+}
+.knav-m[data-open] .knav-mvr {
+  background: var(--color-border-100);
+}
+
+.knav-catch {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-nav) - 1);
+}
+.knav-m[data-open] .knav-catch {
+  display: block;
+}
+
+.knav-m::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-border-050);
+  z-index: calc(var(--z-nav) + 1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-m[data-open]::after {
+  opacity: 1;
+}
+
+.knav-panel {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-nav);
+  box-sizing: border-box;
+  width: calc(var(--t) * 11 + 1px);
+  height: 0;
+  background: var(--color-bg-200);
+  border: 1px solid var(--color-border-050);
+  border-top: 0;
+  box-shadow: var(--shadow-hard-square-md-0);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* vertical pan only — the 1px rail overhang must never be draggable */
+  touch-action: pan-y;
+  /* no scrollbar track: it would flash during the draw-down (height
+     transiently shorter than content) and shove the rail lattice off
+     its ticks; touch/wheel scrolling still works on overflow */
+  scrollbar-width: none;
+  visibility: hidden;
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease),
+    visibility 0s linear var(--motion-drawer-duration);
+}
+.knav-panel::-webkit-scrollbar {
+  display: none;
+}
+.knav-panel:focus {
+  outline: none;
+}
+.knav-m[data-open] .knav-panel {
+  height: 100dvh;
+  visibility: visible;
+  box-shadow: var(--shadow-hard-square-md);
+  /* Grow the shadow after the panel finishes opening. */
+  transition:
+    height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease)
+      var(--motion-drawer-duration);
+}
+
+/* content is static under the moving clip edge: the inner column keeps
+   the full viewport height regardless of the panel's animated height.
+   The −1 margin anchors measurements to the outer edge of the border. */
+.knav-pin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* the panel's interior is 100dvh minus its bottom border — an exact
+     fit, so nothing scrolls unless content genuinely overflows */
+  min-height: calc(100dvh - 1px);
+  margin-left: -1px;
+  width: calc(100% + 1px);
+}
+
+.knav-ptop {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: calc(var(--t) * 3);
+}
+.knav-wordmark {
+  position: absolute;
+  left: var(--space-3xl);
+  top: 28px;
+  display: block;
+}
+.knav-wmark {
+  display: block;
+  width: calc(var(--wA) * 70 + var(--wB) * 87);
+  height: calc(var(--wA) * 16 + var(--wB) * 20);
+  background: var(--color-text-200);
+  -webkit-mask: url("/media/brand/ks-wordmark.svg") center / contain no-repeat;
+  mask: url("/media/brand/ks-wordmark.svg") center / contain no-repeat;
+}
+/* the open-state rail, right edge flush with the panel's right edge;
+   fully painted like the closed rail */
+.knav-prailtop {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+.knav-m[data-open] .knav-prailtop {
+  background: var(--color-bg-300);
+}
+.knav-plogo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--knav-bar-h);
+  height: var(--knav-bar-h);
+  background: var(--color-bg-200);
+  transition: background-color var(--icon-swap-dur) var(--motion-drawer-ease-open);
+}
+
+.knav-list {
+  list-style: none;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  position: relative;
+  width: calc(var(--t) * 10 + 1px);
+  isolation: isolate;
+  flex: none;
+  /* above the rail ornament, so an open box's shadow paints over the
+     rail cells instead of resolving behind them */
+  z-index: 1;
+}
+/* Descending z-order lets an open row shadow cover the next row. */
+.knav-slot:nth-child(1) { z-index: 5; }
+.knav-slot:nth-child(2) { z-index: 4; }
+.knav-slot:nth-child(3) { z-index: 3; }
+.knav-slot:nth-child(4) { z-index: 2; }
+.knav-slot:nth-child(5) { z-index: 1; }
+
+.knav-slot {
+  position: relative;
+  height: calc(var(--t) * 2 + 1px);
+}
+.knav-slot + .knav-slot {
+  margin-top: -1px;
+}
+
+/* Keep label geometry stable while a drawer opens. */
+.knav-row {
+  box-sizing: border-box;
+  appearance: none;
+  margin: var(--space-none);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: calc(var(--t) - 19px) var(--space-2xl) 0;
+  background: none;
+  border: 0;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+a.knav-row {
+  height: calc(var(--t) * 2 + 1px);
+  border: 1px solid var(--color-border-050);
+}
+.knav-rlabel {
+  padding-left: var(--space-2xs);
+  font: var(--ts-display-sans-2xs-light-font);
+  letter-spacing: var(--ts-display-sans-2xs-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-display-sans-2xs-light-opsz), var(--font-sans-slnt);
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--color-text-200);
+  white-space: nowrap;
+}
+.knav-rchev {
+  flex: none;
+  /* centered on the label's line box: (36 − 16) / 2 */
+  margin-top: 10px;
+  color: var(--color-text-500);
+  transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.knav-gslot[data-open] .knav-rchev {
+  rotate: 180deg;
+  transition: rotate var(--motion-drawer-duration) var(--motion-drawer-ease-open);
+}
+
+/* The slot controls push-down distance while the box expands to its content. */
+
+.knav-gslot {
+  --_g: var(--g-rm);
+  --_bt: var(--bt-rm);
+  transition: height var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.knav-gslot[data-open] {
+  height: calc(var(--t) * var(--_g) + 1px);
+  transition: height var(--motion-drawer-duration) var(--motion-drawer-ease-open);
+}
+
+.knav-gbox {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 0fr;
+  align-items: stretch;
+  min-height: calc(var(--t) * 2 + 1px);
+  border: 1px solid var(--color-border-050);
+  background: var(--color-bg-200);
+  overflow: clip;
+  box-shadow: var(--shadow-hard-square-md-0);
+  transition:
+    grid-template-rows var(--motion-drawer-duration) var(--motion-drawer-ease),
+    min-height var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.knav-gslot[data-open] .knav-gbox {
+  grid-template-rows: auto 1fr;
+  /* The box may be shorter than its push-down group. */
+  min-height: calc(var(--t) * var(--_bt) + 1px);
+  box-shadow: var(--shadow-hard-square-md);
+  transition:
+    grid-template-rows var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    min-height var(--motion-drawer-duration) var(--motion-drawer-ease-open),
+    box-shadow var(--motion-drawer-shadow-duration) var(--motion-drawer-ease)
+      var(--motion-drawer-duration);
+}
+
+.knav-gtrigger {
+  padding-bottom: 0;
+}
+
+/* Closed chip lists leave the accessibility tree. */
+.knav-chips {
+  min-height: 0;
+  overflow: clip;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear var(--motion-drawer-duration);
+}
+.knav-gslot[data-open] .knav-chips {
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+}
+.knav-chipsin {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-3xl) var(--space-2xl) var(--space-xl);
+}
+
+.knav-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-000);
+  text-decoration: none;
+  color: var(--color-text-200);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  font-size: calc(var(--wA) * 14 + var(--wB) * 20);
+  line-height: calc(var(--wA) * 18 + var(--wB) * 26);
+  white-space: nowrap;
+}
+.knav-chipdot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--_eng);
+}
+
+.knav-rchip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--knav-rchip-pl);
+  border-radius: var(--radius-full);
+  background: var(--_chipbg);
+  text-decoration: none;
+  color: var(--_label);
+  font: var(--ts-text-sm-regular-font);
+  letter-spacing: var(--ts-text-sm-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  font-size: calc(var(--wA) * 14 + var(--wB) * 20);
+  line-height: calc(var(--wA) * 18 + var(--wB) * 26);
+  white-space: nowrap;
+}
+/* The icon uses independent ink from its label. */
+.knav-rchipicon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--_icon);
+}
+.knav-rchip[data-card="blog"] {
+  --_chipbg: var(--color-text-500);
+  --_label: var(--color-bg-300);
+  --_icon: var(--color-text-100);
+}
+.knav-rchip[data-card="grader"] {
+  --_chipbg: var(--color-brown-300);
+  --_label: var(--color-brown-700);
+  --_icon: var(--color-brown-600);
+}
+.knav-rchip[data-card="podcast"] {
+  --_chipbg: var(--color-yellow-400);
+  --_label: var(--color-yellow-700);
+  --_icon: var(--color-yellow-600);
+}
+
+.knav-prail {
+  position: absolute;
+  top: calc(var(--t) * 3);
+  bottom: 0;
+  right: -1px;
+  width: calc(var(--t) + 1px);
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+}
+.knav-pcell {
+  box-sizing: border-box;
+  flex: none;
+  width: 100%;
+  height: calc(var(--t) + 1px);
+  border: 1px solid var(--color-border-050);
+}
+.knav-pcell + .knav-pcell {
+  margin-top: -1px;
+}
+.knav-pcell:nth-child(4),
+.knav-pcell:nth-child(11) {
+  border-radius: var(--radius-full);
+}
+
+.knav-pbtns {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xl);
+  align-self: flex-start;
+  margin: auto var(--space-none) var(--space-4xl) var(--space-3xl);
+  padding-top: var(--space-3xl);
+}
+
+/* ================= mobile band overrides (rs, rt) ================= */
+
+@container (min-width: 470px) {
+  .knav-panel {
+    box-shadow: var(--shadow-hard-square-0);
+  }
+  .knav-m[data-open] .knav-panel {
+    box-shadow: var(--shadow-hard-square);
+  }
+  .knav-ptop {
+    height: calc(var(--t) * 2);
+  }
+  .knav-wordmark {
+    top: var(--space-3xl);
+  }
+  .knav-wmark {
+    width: 87px;
+    height: 20px;
+  }
+  .knav-prail {
+    top: calc(var(--t) * 2);
+  }
+  .knav-pcell:nth-child(4) {
+    border-radius: var(--radius-none);
+  }
+  .knav-pcell:nth-child(5) {
+    border-radius: var(--radius-full);
+  }
+  .knav-gslot {
+    --_g: var(--g-rs);
+    --_bt: var(--bt-rs);
+  }
+  .knav-rlabel {
+    font-size: calc(var(--wA) * 28 + var(--wB) * 32);
+    line-height: calc(var(--wA) * 36 + var(--wB) * 38);
+  }
+  .knav-chipsin {
+    gap: var(--space-lg);
+    /* Keep engine chips wrapping three per row. */
+    max-width: calc(var(--wA) * 440 + var(--wB) * 496);
+  }
+  .knav-chip,
+  .knav-rchip {
+    font: var(--ts-text-xl-light-font);
+    letter-spacing: var(--ts-text-xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+    font-size: calc(var(--wA) * 20 + var(--wB) * 24);
+    line-height: calc(var(--wA) * 26 + var(--wB) * 32);
+  }
+}
+
+@container (min-width: 665px) {
+  .knav-gslot {
+    --_g: var(--g-rt);
+    --_bt: var(--bt-rt);
+  }
+  /* row label holds 32/38 across rt; label pad becomes 45 (t − 20) */
+  .knav-row {
+    padding-top: calc(var(--t) - 20px);
+  }
+  .knav-rlabel {
+    font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
+    font-size: 32px;
+    line-height: 38px;
+  }
+  .knav-rchev {
+    width: 20px;
+    height: 20px;
+    /* (38 − 20) / 2 */
+    margin-top: 9px;
+  }
+  .knav-chipsin {
+    gap: var(--space-xl);
+    max-width: 496px;
+  }
+  .knav-chip,
+  .knav-rchip {
+    font: var(--ts-text-2xl-light-font);
+    letter-spacing: var(--ts-text-2xl-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .knav-chipdot {
+    width: 8px;
+    height: 8px;
+  }
+  .knav-rchip {
+    gap: var(--space-md);
+    padding-left: var(--space-lg);
+    padding-right: var(--space-xl);
+  }
+  .knav-rchipicon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knav-logo,
+  .knav-plogo,
+  .knav-mbar,
+  .knav-prailtop,
+  .knav-vr,
+  .knav-btn::after,
+  .knav-item,
+  .knav-tick,
+  .knav-drawer,
+  .knav-drawer[data-open],
+  .knav-dcontent,
+  .knav-blk,
+  .knav-drawer[data-open] .knav-blk,
+  .knav-sub,
+  .knav-sub.knav-blk,
+  .knav-subdot,
+  .knav-sub:hover .knav-subdot,
+  .knav-drawer[data-open] .knav-sub.knav-blk,
+  .knav-drawer[data-open] .knav-sub.knav-blk:hover,
+  .knav-card,
+  .knav-card.knav-blk,
+  .knav-card:hover,
+  .knav-drawer[data-open] .knav-card.knav-blk,
+  .knav-drawer[data-open] .knav-card.knav-blk:hover,
+  .knav-decor i.c,
+  .knav-mtoggle,
+  .knav-glyphstack svg,
+  .knav-panel,
+  .knav-m[data-open] .knav-panel,
+  .knav-rchev,
+  .knav-gslot[data-open] .knav-rchev,
+  .knav-gslot,
+  .knav-gslot[data-open],
+  .knav-gbox,
+  .knav-gslot[data-open] .knav-gbox,
+  .knav-chips {
+    transition: none;
+  }
+}

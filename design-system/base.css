@@ -1,0 +1,87 @@
+/* Document reset and site root. Keep the reset lean because section
+   geometry depends on this normalization contract. */
+
+*,
+::before,
+::after,
+::backdrop {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img,
+svg,
+iframe {
+  display: block;
+  vertical-align: middle;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+button,
+input {
+  font: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  border-radius: 0;
+  background: transparent;
+}
+
+button,
+input:where([type="button"], [type="submit"]) {
+  appearance: button;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* `.site-root` is the size container read by the grid engine. */
+
+/* Selection inverts body ink and light paper. */
+.site-root ::selection,
+.site-root::selection {
+  background-color: var(--color-text-200);
+  color: var(--color-bg-050);
+}
+
+.site-root {
+  min-height: 100dvh;
+  background: var(--color-bg-100);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

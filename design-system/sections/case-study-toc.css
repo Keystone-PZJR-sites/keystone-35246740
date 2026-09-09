@@ -1,0 +1,78 @@
+/* The desktop rail spans the Overview-through-Result portion of the stack. */
+.toc-rail {
+  display: none;
+}
+@container (min-width: 1130px) {
+  .toc-rail {
+    display: block;
+    position: absolute;
+    left: var(--t);
+    top: calc(var(--t) * 3 + (var(--wA) + var(--wB)) * 64);
+    height: calc(var(--t) * 49 - (var(--wA) + var(--wB)) * 64);
+    /* Fixed width keeps "The Business" on one line. */
+    width: calc((var(--wA) + var(--wB)) * 176);
+    /* Above the lattice and below global navigation. */
+    z-index: var(--z-sticky);
+    pointer-events: none;
+  }
+}
+
+.toc {
+  position: sticky;
+  top: var(--cs-toc-top);
+  pointer-events: auto;
+}
+
+.toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-toc-gap);
+  /* Align the left rail to the first lattice column. */
+  border-left: 1px solid var(--color-border-000);
+}
+
+.toc-item a {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--cs-toc-item-h);
+  padding: var(--cs-toc-pad-y) var(--cs-toc-pad-r) var(--cs-toc-pad-y) var(--cs-toc-pad-l);
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  text-decoration: none;
+  color: var(--color-text-400);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+@media (hover: hover) {
+  .toc-item a:hover {
+    color: var(--color-text-200);
+  }
+}
+.toc-item a:focus-visible {
+  outline: none;
+  background: var(--color-bg-300);
+  color: var(--color-text-200);
+}
+
+/* The active rule replaces the one-pixel rail for this row. */
+.toc-item a[aria-current="true"] {
+  border-left: var(--cs-toc-rule) solid var(--color-teal-400);
+  padding-left: calc(var(--cs-toc-pad-l) - var(--cs-toc-rule) + 1px);
+  color: var(--color-text-200);
+  font: var(--ts-text-md-medium-font);
+  letter-spacing: var(--ts-text-md-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-medium-opsz), var(--font-sans-slnt);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc-item a {
+    transition-duration: 0s;
+  }
+}

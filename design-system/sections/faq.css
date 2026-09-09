@@ -1,0 +1,342 @@
+/* FAQ layout across the five grid bands. */
+
+.faq-section {
+  width: 100%;
+}
+
+/* Header. */
+
+.faq-header {
+  box-sizing: border-box;
+  border-top: 1px solid var(--color-border-000);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(var(--t) * 11);
+  height: calc(var(--t) * 3);
+  padding: 0 calc(var(--faq-u) * 160) 0 calc(var(--faq-u) * 16);
+}
+@container (min-width: 470px) {
+  .faq-header {
+    width: calc(var(--t) * 10);
+    height: calc(var(--t) * 2);
+    padding: 0 calc(var(--faq-u) * 48) 0 calc(var(--faq-u) * 48);
+  }
+}
+@container (min-width: 665px) {
+  .faq-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: space-between;
+    width: calc(var(--t) * 4);
+    height: calc(var(--t) * 6);
+    padding: 0 0 calc(var(--faq-u) * 20) calc(var(--faq-u) * 64);
+  }
+}
+@container (min-width: 860px) {
+  .faq-header {
+    padding:
+      calc(var(--faq-u) * 32)
+      0
+      calc(var(--faq-u) * 20)
+      calc(var(--faq-u) * 80);
+  }
+}
+@container (min-width: 1130px) {
+  .faq-header {
+    width: calc(var(--t) * 5);
+    padding:
+      calc(var(--faq-u) * 40)
+      calc(var(--faq-u) * 128)
+      calc(var(--faq-u) * 32)
+      calc(var(--faq-u) * 112);
+  }
+}
+
+/* The tablet heading occupies a centered two-tick sub-box. */
+.faq-head-box {
+  display: contents;
+}
+@container (min-width: 665px) {
+  .faq-head-box {
+    display: flex;
+    align-items: center;
+    height: calc(var(--t) * 2);
+  }
+}
+@container (min-width: 860px) {
+  .faq-head-box {
+    display: contents;
+  }
+}
+
+/* Typography follows the active band weight. */
+.faq-head {
+  margin: var(--space-none);
+  color: var(--color-text-100);
+  max-width: var(--faq-head-w-rm);
+  font: var(--_f);
+  font-size: calc(var(--faq-u) * var(--_fs));
+  line-height: calc(var(--faq-u) * var(--_lh));
+  letter-spacing: var(--_ls);
+  --_f: var(--ts-display-serif-xs-extralight-font);
+  --_fs: 24;
+  --_lh: 30;
+  --_ls: var(--ts-display-serif-xs-extralight-ls);
+}
+@container (min-width: 470px) {
+  /* one designed line inside the trued box — no wrap pin */
+  .faq-head {
+    max-width: none;
+  }
+}
+@container (min-width: 665px) {
+  .faq-head {
+    max-width: var(--faq-head-w-rt);
+  }
+}
+@container (min-width: 860px) {
+  .faq-head {
+    max-width: var(--faq-head-w-rd1);
+    --_f: var(--ts-display-serif-sm-extralight-font);
+    --_fs: 32;
+    --_lh: 38;
+    --_ls: var(--ts-display-serif-sm-extralight-ls);
+  }
+}
+@container (min-width: 1130px) {
+  .faq-head {
+    max-width: var(--faq-head-w-rd2);
+    --_f: var(--ts-display-serif-md-plus-extralight-font);
+    --_fs: 42;
+    --_lh: 50;
+    --_ls: var(--ts-display-serif-md-plus-extralight-ls);
+  }
+}
+
+/* Responsive chat rows. */
+
+.faq-chat {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--faq-u) * 16);
+}
+.faq-chat-label {
+  padding-left: calc(var(--faq-u) * 12);
+  color: var(--color-text-400);
+  font: var(--_f);
+  font-size: calc(var(--faq-u) * var(--_fs));
+  line-height: calc(var(--faq-u) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  --_f: var(--ts-text-sm-light-font);
+  --_fs: 14;
+  --_lh: 18;
+  --_ls: var(--ts-text-sm-light-ls);
+  --_opsz: var(--ts-text-sm-light-opsz);
+}
+@container (min-width: 665px) {
+  .faq-chat-rt {
+    display: flex;
+  }
+}
+@container (min-width: 860px) {
+  .faq-chat-rt {
+    display: none;
+  }
+  .faq-chat-rd1 {
+    display: flex;
+  }
+  .faq-chat-rd1 .faq-chat-label {
+    --_f: var(--ts-text-md-light-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-light-ls);
+    --_opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .faq-chat-rd1 {
+    display: none;
+  }
+  .faq-chat-rd2 {
+    display: flex;
+    gap: calc(var(--faq-u) * 24);
+  }
+  .faq-chat-rd2 .faq-chat-label {
+    padding-left: calc(var(--faq-u) * 16);
+    padding-bottom: calc(var(--faq-u) * 2);
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* Questions. */
+
+.faq-questions {
+  list-style: none;
+  margin: var(--space-none);
+  padding: var(--space-none);
+  width: calc(var(--t) * 11);
+}
+@container (min-width: 470px) {
+  .faq-questions {
+    width: calc(var(--t) * 10);
+  }
+}
+@container (min-width: 665px) {
+  .faq-questions {
+    width: calc(var(--t) * 7);
+    margin-left: calc(var(--t) * 4);
+  }
+}
+@container (min-width: 1130px) {
+  .faq-questions {
+    width: calc(var(--t) * 6);
+    margin-left: calc(var(--t) * 5);
+  }
+}
+
+/* Per-band disclosure geometry. */
+.faq-section .fq {
+  width: 100%;
+  height: calc(var(--t) * 2);
+  --fq-closed: 2;
+  --fq-pt: calc(var(--faq-u) * 20);
+  --fq-pr: calc(var(--faq-u) * 24);
+  --fq-pb: calc(var(--faq-u) * 20);
+  --fq-pl: calc(var(--faq-u) * 16);
+  --fq-qrow: calc(var(--faq-u) * 24);
+  --fq-gap: calc(var(--faq-u) * 16);
+  --fq-a-inset: 0px;
+  --fq-q-f: var(--ts-text-md-light-font);
+  --fq-q-fs: calc(var(--faq-u) * 16);
+  --fq-q-lh: calc(var(--faq-u) * 22);
+  --fq-q-ls: var(--ts-text-md-light-ls);
+  --fq-q-opsz: var(--ts-text-md-light-opsz);
+  --fq-a-f: var(--ts-text-md-light-font);
+  --fq-a-fs: calc(var(--faq-u) * 16);
+  --fq-a-lh: calc(var(--faq-u) * 22);
+  --fq-a-ls: var(--ts-text-md-light-ls);
+  --fq-a-opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 470px) {
+  .faq-section .fq {
+    height: var(--t);
+    --fq-closed: 1;
+    --fq-pt: calc(var(--faq-u) * 12);
+    --fq-pr: calc(var(--faq-u) * 48);
+    --fq-pb: calc(var(--faq-u) * 12);
+    --fq-pl: calc(var(--faq-u) * 48);
+  }
+}
+@container (min-width: 665px) {
+  .faq-section .fq {
+    --fq-pt: calc(var(--faq-u) * 20);
+    --fq-pr: calc(var(--faq-u) * 40);
+    --fq-pb: calc(var(--faq-u) * 20);
+    --fq-pl: calc(var(--faq-u) * 40);
+  }
+}
+@container (min-width: 860px) {
+  .faq-section .fq {
+    --fq-qrow: calc(var(--faq-u) * 40);
+    --fq-gap: calc(var(--faq-u) * 8);
+  }
+}
+@container (min-width: 1130px) {
+  .faq-section .fq {
+    --fq-pt: calc(var(--faq-u) * 40);
+    --fq-qrow: calc(var(--faq-u) * 32);
+    --fq-gap: calc(var(--faq-u) * 16);
+    --fq-a-inset: calc(var(--faq-u) * 96);
+    --fq-q-f: var(--ts-text-xl-light-font);
+    --fq-q-fs: calc(var(--faq-u) * 20);
+    --fq-q-lh: calc(var(--faq-u) * 26);
+    --fq-q-ls: var(--ts-text-xl-light-ls);
+    --fq-q-opsz: var(--ts-text-xl-light-opsz);
+    --fq-a-f: var(--ts-text-lg-light-font);
+    --fq-a-fs: calc(var(--faq-u) * 18);
+    --fq-a-lh: calc(var(--faq-u) * 26);
+    --fq-a-ls: var(--ts-text-lg-light-ls);
+    --fq-a-opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+.faq-section .fq[data-open] {
+  height: calc(var(--t) * var(--fq-open, var(--fq-closed)));
+}
+
+/* Pre-footer gap row. */
+
+.faq-gaprow {
+  position: relative;
+  width: 100%;
+  height: var(--t);
+}
+
+/* Rail cells extend with drawer growth. */
+
+.faq-railext {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.faq-ext {
+  position: absolute;
+  box-sizing: border-box;
+  left: calc(var(--t) * var(--gx));
+  top: calc(var(--t) * var(--gy));
+  width: calc(var(--t) + 1px);
+  height: calc(var(--t) + 1px);
+  border: 1px solid var(--line);
+  opacity: 0;
+  transition: opacity var(--motion-drawer-duration) var(--motion-drawer-ease);
+}
+.faq-ext.on {
+  opacity: 1;
+  /* cascade away from the drawer, nearest cell first; close fades with
+     the collapse — no stagger (the base rule above) */
+  transition-delay: calc(var(--i) * var(--motion-rail-stagger));
+}
+
+/* Compound band gating. */
+.faq-ext.rs,
+.faq-ext.rt,
+.faq-ext.rd1,
+.faq-ext.rd2 {
+  display: none;
+}
+@container (min-width: 470px) {
+  .faq-ext.rm { display: none; }
+  .faq-ext.rs { display: block; }
+}
+@container (min-width: 665px) {
+  .faq-ext.rs { display: none; }
+  .faq-ext.rt { display: block; }
+}
+@container (min-width: 860px) {
+  .faq-ext.rt { display: none; }
+  .faq-ext.rd1 { display: block; }
+}
+@container (min-width: 1130px) {
+  .faq-ext.rd1 { display: none; }
+  .faq-ext.rd2 { display: block; }
+}
+
+/* Reduced motion. */
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-ext {
+    transition: none;
+  }
+  .faq-ext.on {
+    transition-delay: 0s;
+  }
+}

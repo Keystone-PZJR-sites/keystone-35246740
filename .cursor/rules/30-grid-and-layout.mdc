@@ -5,16 +5,14 @@ alwaysApply: true
 
 # Grid and layout
 
-Mechanics (the engine, painting, hairlines, how boxes meet the lattice) are in
-`docs/reference/grid-engine.md`; the engine itself is
-`design-system/v2/grid/engine.css`. These laws govern on top of them. Refer
-to them by name.
+The engine, painting, hairlines, and lattice alignment live in
+`design-system/grid/engine.css`. These laws govern on top of them.
 
 ## The band system
 
 Five anchors where a design exists and renders exact; four structural gates
 at the bands' geometric midpoints, gated by **container queries** on
-`.v2-root` — never media queries.
+`.site-root` — never media queries.
 
 | band | gate (`@container min-width`) | anchor | tick `--t` |
 |---|---|---|---|
@@ -112,8 +110,10 @@ or the weights are declared on `.page`, never `:root`.
 Absolute positioning is acceptable only for: media fills (`inset: 0;
 object-fit: cover` in a grid-sized parent); the exposure vocabulary
 (`--gx`/`--gy` ticks); overlay layers (nav chrome, modal backdrops, decorative
-pseudo-elements, a menu anchored to its control); a true escape from document
-flow (viewport-fixed controls). Everything else is normal flow.
+pseudo-elements, a menu anchored to its control); grid-coordinate frames whose
+parent has an explicit tick height and whose edges are expressed in ticks or
+anchor weights; a true escape from document flow (viewport-fixed controls).
+Everything else is normal flow.
 
 | Anti-pattern | Fix |
 |---|---|

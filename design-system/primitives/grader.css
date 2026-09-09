@@ -1,0 +1,307 @@
+/* Grader input state order is load-bearing:
+   default → hover → focus → active → filled → brown → error. */
+
+.grader {
+  position: relative; /* the select-menu anchors to the pill */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.grader-field {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: var(--space-xl);
+  /* All sizes share one padding scheme. */
+  padding-inline: var(--space-lg) var(--space-md);
+  background: var(--color-bg-000);
+  border: 1px solid var(--_border);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 var(--ring-w) var(--_ring);
+  /* default state palette (teal chrome) */
+  --_border: var(--color-border-000);
+  --_ring: var(--color-bg-200);
+  --_ph: var(--color-text-500);
+  --_ink: var(--color-text-200);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+
+/* Fixed heights prevent type metrics from changing pill geometry. */
+.grader[data-size="lg"] .grader-field {
+  height: 56px;
+  --_font: var(--ts-text-xl-light-font);
+  --_ls: var(--ts-text-xl-light-ls);
+  --_opsz: var(--ts-text-xl-light-opsz);
+}
+.grader[data-size="md"] .grader-field,
+.grader[data-size="sm"] .grader-field {
+  --_font: var(--ts-text-md-light-font);
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+
+/* Menu type inherits from the grader size and can be restated by mounts. */
+.grader {
+  --_menu-name-font: var(--ts-text-md-medium-font);
+  --_menu-name-ls: var(--ts-text-md-medium-ls);
+  --_menu-name-opsz: var(--ts-text-md-medium-opsz);
+  --_menu-sub-font: var(--ts-text-md-light-font);
+  --_menu-sub-ls: var(--ts-text-md-light-ls);
+  --_menu-sub-opsz: var(--ts-text-md-light-opsz);
+  /* Large pills use a larger menu gap. */
+  --_menu-gap: var(--space-md);
+}
+.grader[data-size="lg"] {
+  --_menu-gap: var(--space-lg);
+}
+.grader[data-size="sm"] {
+  --_menu-name-font: var(--ts-text-sm-medium-font);
+  --_menu-name-ls: var(--ts-text-sm-medium-ls);
+  --_menu-name-opsz: var(--ts-text-sm-medium-opsz);
+  --_menu-sub-font: var(--ts-text-sm-light-font);
+  --_menu-sub-ls: var(--ts-text-sm-light-ls);
+  --_menu-sub-opsz: var(--ts-text-sm-light-opsz);
+}
+.grader[data-size="md"] .grader-field {
+  height: 48px;
+}
+.grader[data-size="sm"] .grader-field {
+  height: 44px;
+}
+
+.grader-sparkle {
+  display: inline-flex;
+  flex: none;
+}
+
+.grader-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: var(--space-none);
+  background: none;
+  outline: none;
+  font: var(--_font);
+  letter-spacing: var(--_ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
+  color: var(--_ink);
+}
+.grader-field input::placeholder {
+  color: var(--_ph);
+  opacity: 1;
+  transition-property: color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+
+/* hover */
+@media (hover: hover) {
+  .grader-field:hover {
+    --_border: var(--color-teal-250);
+    --_ring: var(--color-teal-200);
+    --_ph: var(--color-text-400);
+  }
+}
+.grader[data-state="hover"] .grader-field {
+  --_border: var(--color-teal-250);
+  --_ring: var(--color-teal-200);
+  --_ph: var(--color-text-400);
+}
+
+/* focus (field focused, still empty) */
+.grader-field:focus-within,
+.grader[data-state="focus"] .grader-field {
+  --_border: var(--color-teal-400);
+  --_ring: var(--color-teal-300);
+  --_ph: var(--color-text-400);
+}
+
+/* active (focused with content) */
+.grader-field:focus-within:has(input:not(:placeholder-shown)),
+.grader[data-state="active"] .grader-field {
+  --_border: var(--color-teal-300);
+  --_ring: var(--color-teal-200);
+}
+
+/* filled (content, not focused) */
+.grader-field:not(:focus-within):has(input:not(:placeholder-shown)),
+.grader[data-state="filled"] .grader-field {
+  --_border: var(--color-teal-300);
+  --_ring: var(--color-teal-200);
+}
+
+/* Brown chrome restates each teal state with stronger selectors. */
+.grader[data-chrome="brown"] .grader-field {
+  --_border: var(--color-brown-200);
+  --_ring: var(--grader-ring-brown);
+  --_ph: var(--color-brown-500);
+  --_ink: var(--color-brown-700);
+  --sparkle-a: var(--color-brown-400);
+  --sparkle-b: var(--color-brown-600);
+}
+@media (hover: hover) {
+  .grader[data-chrome="brown"] .grader-field:hover {
+    --_border: var(--color-brown-300);
+    --_ring: var(--color-brown-200);
+  }
+}
+.grader[data-chrome="brown"][data-state="hover"] .grader-field {
+  --_border: var(--color-brown-300);
+  --_ring: var(--color-brown-200);
+}
+.grader[data-chrome="brown"] .grader-field:focus-within,
+.grader[data-chrome="brown"][data-state="focus"] .grader-field {
+  --_border: var(--color-brown-300);
+  --_ring: var(--color-brown-300);
+}
+.grader[data-chrome="brown"] .grader-field:focus-within:has(input:not(:placeholder-shown)),
+.grader[data-chrome="brown"][data-state="active"] .grader-field,
+.grader[data-chrome="brown"] .grader-field:not(:focus-within):has(input:not(:placeholder-shown)),
+.grader[data-chrome="brown"][data-state="filled"] .grader-field {
+  --_border: var(--color-brown-300);
+  --_ring: var(--color-brown-200);
+}
+
+/* The arrow appears disabled while the field is empty. */
+.grader-field:has(input:placeholder-shown) .btn-arrow:not(:disabled),
+.grader[data-state="default"] .grader-field .btn-arrow:not(:disabled),
+.grader[data-state="hover"] .grader-field .btn-arrow:not(:disabled),
+.grader[data-state="focus"] .grader-field .btn-arrow:not(:disabled),
+.grader[data-state="active"] .grader-field .btn-arrow:not(:disabled) {
+  background: var(--_bg-disabled);
+  color: var(--_glyph-disabled);
+  pointer-events: none;
+}
+
+/* error — must out-specify the :has() filled/active rules above;
+   those selectors carry :has()/:not() specificity that otherwise
+   keeps the teal ring. Restate every interactive twin so hover
+   and focus-within cannot leak teal over red/400 + red/300. */
+.grader[data-error] .grader-field,
+.grader[data-error] .grader-field:hover,
+.grader[data-error] .grader-field:focus-within,
+.grader[data-error] .grader-field:focus-within:has(input:not(:placeholder-shown)),
+.grader[data-error] .grader-field:not(:focus-within):has(input:not(:placeholder-shown)) {
+  --_border: var(--color-red-400);
+  --_ring: var(--color-red-300);
+  --sparkle-a: var(--color-red-400);
+  --sparkle-b: var(--color-red-600);
+}
+.grader[data-error] .grader-field .btn-arrow:not(:disabled) {
+  background: var(--_bg);
+  color: var(--_glyph);
+  pointer-events: auto;
+}
+
+/* The suggestion menu overlays following content without shifting layout. */
+.grader-menu {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + var(--_menu-gap));
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: var(--space-none);
+  padding: var(--space-md);
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-000);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-hard-square-md);
+}
+
+/* the two source groups (Google Places · websites): each a label over
+   its rows. The label is the system's small caps label (text/nav-label,
+   the eyebrow the nav and case-study cards carry) in text/400 — the
+   address ink — padded to the row's inset so it aligns with the names.
+   Groups sit a full row-gap (8) apart; rows keep their 4. */
+.grader-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.grader-group + .grader-group {
+  margin-top: var(--space-xs);
+}
+.grader-group-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: var(--space-none);
+  padding: var(--space-none);
+}
+.grader-group-label {
+  display: block;
+  padding: var(--space-sm) var(--space-md) var(--space-none);
+  color: var(--color-text-400);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  text-transform: var(--ts-text-nav-label-case);
+}
+
+.grader-option {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-radius: var(--radius-xs);
+  text-align: left;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+.grader-option[data-active] {
+  background: var(--color-bg-100);
+}
+@media (hover: hover) {
+  .grader-option:hover {
+    background: var(--color-bg-100);
+  }
+}
+
+.grader-option-name,
+.grader-option-sub {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-optical-sizing: none;
+}
+.grader-option-name {
+  font: var(--_menu-name-font);
+  letter-spacing: var(--_menu-name-ls);
+  font-variation-settings: "opsz" var(--_menu-name-opsz), var(--font-sans-slnt);
+  color: var(--color-text-200);
+}
+.grader-option-sub {
+  font: var(--_menu-sub-font);
+  letter-spacing: var(--_menu-sub-ls);
+  font-variation-settings: "opsz" var(--_menu-sub-opsz), var(--font-sans-slnt);
+  color: var(--color-text-400);
+}
+
+.grader-error {
+  margin: var(--space-none);
+  padding-inline: var(--space-xl);
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  color: var(--color-red-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grader-field,
+  .grader-field input::placeholder,
+  .grader-option {
+    transition-duration: 0s;
+  }
+}

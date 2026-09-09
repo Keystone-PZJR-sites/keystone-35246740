@@ -1,0 +1,419 @@
+/* Interior values scale from --csc-u. Overlapping one-pixel borders
+   keep shared seams crisp, and the overlay is the sole interaction. */
+
+.csc {
+  --_u: var(--csc-u, 1px);
+  position: relative;
+  isolation: isolate;
+  /* The resting side owns the shadow's exit duration. */
+  box-shadow: var(--shadow-hard-square-0);
+  transition: box-shadow var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+
+/* The named link overlays both boxes. */
+.csc-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+.csc-link:focus-visible {
+  /* the dressing below is the visible focus style */
+  outline: none;
+}
+
+/* Card hover and link focus share the same dressing. */
+@media (hover: hover) {
+  .csc:hover {
+    box-shadow: var(--shadow-hard-square);
+    transition-duration: var(--motion-card-shadow-dur);
+  }
+  /* Both box hairlines darken on one clock. */
+  .csc:hover .csc-profile,
+  .csc:hover .csc-img {
+    border-color: var(--color-border-200);
+    transition-duration: var(--csc-border-dur);
+  }
+  .csc:hover .btn-inline {
+    color: var(--color-text-100);
+  }
+  .csc:hover .btn-inline-glyph {
+    left: var(--btn-inline-advance);
+  }
+  /* the subtle image zoom, on the shadow's in clock, decelerating on
+     the grammar's ease-out */
+  .csc:hover .csc-img img {
+    top: calc(-1 * var(--csc-img-zoom));
+    left: calc(-1 * var(--csc-img-zoom));
+    width: calc(100% + 2 * var(--csc-img-zoom));
+    height: calc(100% + 2 * var(--csc-img-zoom));
+    transition-duration: var(--motion-card-shadow-dur);
+    transition-timing-function: var(--motion-drawer-ease);
+  }
+}
+.csc:has(.csc-link:focus-visible),
+.csc[data-state="hover"] {
+  box-shadow: var(--shadow-hard-square);
+  transition-duration: var(--motion-card-shadow-dur);
+}
+.csc:has(.csc-link:focus-visible) .csc-profile,
+.csc:has(.csc-link:focus-visible) .csc-img,
+.csc[data-state="hover"] .csc-profile,
+.csc[data-state="hover"] .csc-img {
+  border-color: var(--color-border-200);
+  transition-duration: var(--csc-border-dur);
+}
+.csc:has(.csc-link:focus-visible) .btn-inline,
+.csc[data-state="hover"] .btn-inline {
+  color: var(--color-text-100);
+}
+.csc:has(.csc-link:focus-visible) .btn-inline-glyph,
+.csc[data-state="hover"] .btn-inline-glyph {
+  left: var(--btn-inline-advance);
+}
+.csc:has(.csc-link:focus-visible) .csc-img img,
+.csc[data-state="hover"] .csc-img img {
+  top: calc(-1 * var(--csc-img-zoom));
+  left: calc(-1 * var(--csc-img-zoom));
+  width: calc(100% + 2 * var(--csc-img-zoom));
+  height: calc(100% + 2 * var(--csc-img-zoom));
+  transition-duration: var(--motion-card-shadow-dur);
+  transition-timing-function: var(--motion-drawer-ease);
+}
+/* Keyboard focus adds the CTA wash as a visible card signal. */
+.csc:has(.csc-link:focus-visible) .btn-inline {
+  background: var(--color-bg-300);
+}
+
+/* ---------------- the site image ---------------- */
+
+.csc-img {
+  position: absolute;
+  box-sizing: border-box;
+  /* The border overlaps adjacent seams; the frame clips hover zoom. */
+  border: 1px solid var(--color-border-000);
+  overflow: hidden;
+  transition: border-color var(--csc-border-out-dur) var(--motion-drawer-ease);
+}
+.csc-img picture {
+  position: absolute;
+  inset: 0;
+}
+/* Paint the zoom through dimensions to avoid transform re-rasterization.
+   Explicit dimensions also override the replaced element's intrinsic size. */
+.csc-img img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* the base reset clamps images at max-width 100% — the zoom must
+     grow past it; the frame clips, so nothing escapes */
+  max-width: none;
+  object-fit: cover;
+  transition:
+    top var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    left var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    width var(--motion-card-shadow-out-dur) var(--motion-drawer-ease),
+    height var(--motion-card-shadow-out-dur) var(--motion-drawer-ease);
+}
+
+/* ---------------- the profile card ---------------- */
+
+.csc-profile {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* Place lede at top and stats/CTA at bottom. */
+  justify-content: space-between;
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-000);
+  /* The resting side owns the border's exit duration. */
+  transition: border-color var(--csc-border-out-dur) var(--motion-drawer-ease);
+  padding:
+    calc(var(--_u) * var(--csc-pt, 16))
+    calc(var(--_u) * var(--csc-px, 16))
+    calc(var(--_u) * var(--csc-pb, 16));
+}
+
+.csc-category {
+  margin: 0;
+  color: var(--color-text-400);
+  font: var(--csc-cat-f, var(--ts-text-xs-light-font));
+  font-size: calc(var(--_u) * var(--csc-cat-fs, 12));
+  line-height: calc(var(--_u) * var(--csc-cat-lh, 16));
+  letter-spacing: var(--csc-cat-ls, var(--ts-text-xs-light-ls));
+  font-variation-settings: "opsz" var(--csc-cat-opsz, var(--ts-text-xs-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.csc-title {
+  margin: calc(var(--_u) * var(--csc-cat-gap, 6)) 0 0;
+  color: var(--color-text-100);
+  font: var(--csc-title-f, var(--ts-display-serif-xs-light-font));
+  font-size: calc(var(--_u) * var(--csc-title-fs, 24));
+  line-height: calc(var(--_u) * var(--csc-title-lh, 30));
+  letter-spacing: var(--csc-title-ls, var(--ts-display-serif-xs-light-ls));
+}
+.csc-desc {
+  margin: calc(var(--_u) * var(--csc-title-gap, 12)) 0 0;
+  color: var(--color-text-300);
+  font: var(--csc-desc-f, var(--ts-text-md-light-font));
+  font-size: calc(var(--_u) * var(--csc-desc-fs, 16));
+  line-height: calc(var(--_u) * var(--csc-desc-lh, 22));
+  letter-spacing: var(--csc-desc-ls, var(--ts-text-md-light-ls));
+  font-variation-settings: "opsz" var(--csc-desc-opsz, var(--ts-text-md-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* ---------------- the stats block ---------------- */
+
+.csc-slug {
+  margin: 0;
+  color: var(--color-text-400);
+  font: var(--csc-sslug-f, var(--ts-text-xs-light-font));
+  font-size: calc(var(--_u) * var(--csc-sslug-fs, 12));
+  line-height: calc(var(--_u) * var(--csc-sslug-lh, 16));
+  letter-spacing: var(--csc-sslug-ls, var(--ts-text-xs-light-ls));
+  font-variation-settings: "opsz" var(--csc-sslug-opsz, var(--ts-text-xs-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* three equal cells on a 16 gap with 1px border/000 full-height
+   dividers between (gap 16 + line 1 + gap 16 = the 33 column gap;
+   the divider paints 17 back from each following cell) */
+.csc-stats {
+  margin: calc(var(--_u) * var(--csc-slug-gap, 6)) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: calc(var(--_u) * 33);
+}
+.csc-stat {
+  position: relative;
+  display: flex;
+  /* Keep valid dl order while rendering the value above its label. */
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: calc(var(--_u) * var(--csc-num-gap, 4));
+}
+.csc-stat + .csc-stat::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--_u) * -17);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-000);
+}
+.csc-stat-value {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-300);
+  font: var(--csc-num-f, var(--ts-text-2xl-light-font));
+  font-size: calc(var(--_u) * var(--csc-num-fs, 24));
+  line-height: calc(var(--_u) * var(--csc-num-lh, 32));
+  letter-spacing: var(--csc-num-ls, var(--ts-text-2xl-light-ls));
+  font-variation-settings: "opsz" var(--csc-num-opsz, var(--ts-text-2xl-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+/* The star follows the numeral; labels wrap naturally in narrow cells. */
+.csc-star {
+  display: inline-flex;
+  flex: none;
+  margin-left: calc(var(--_u) * 4);
+  color: var(--color-text-500);
+}
+.csc-stat-label {
+  /* Min-content preserves the intended per-word label wrap. */
+  width: min-content;
+  color: var(--color-text-400);
+  font: var(--csc-label-f, var(--ts-text-xs-light-font));
+  font-size: calc(var(--_u) * var(--csc-label-fs, 12));
+  line-height: calc(var(--_u) * var(--csc-label-lh, 16));
+  letter-spacing: var(--csc-label-ls, var(--ts-text-xs-light-ls));
+  font-variation-settings: "opsz" var(--csc-label-opsz, var(--ts-text-xs-light-opsz)), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.csc-cta {
+  margin-top: calc(var(--_u) * var(--csc-cta-gap, 20));
+}
+
+/* Fixed interior values; section mounts restate them responsively. */
+
+.csc[data-size="md"] {
+  --csc-pt: 20;
+  --csc-px: 20;
+  --csc-pb: 20;
+  --csc-cat-f: var(--ts-text-sm-light-font);
+  --csc-cat-fs: 14;
+  --csc-cat-lh: 18;
+  --csc-cat-ls: var(--ts-text-sm-light-ls);
+  --csc-cat-opsz: var(--ts-text-sm-light-opsz);
+  --csc-sslug-f: var(--ts-text-sm-light-font);
+  --csc-sslug-fs: 14;
+  --csc-sslug-lh: 18;
+  --csc-sslug-ls: var(--ts-text-sm-light-ls);
+  --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
+  --csc-label-f: var(--ts-text-sm-regular-font);
+  --csc-label-fs: 14;
+  --csc-label-lh: 18;
+  --csc-label-ls: var(--ts-text-sm-regular-ls);
+  --csc-label-opsz: var(--ts-text-sm-regular-opsz);
+}
+.csc[data-size="lg"] {
+  --csc-pt: 20;
+  --csc-px: 24;
+  --csc-pb: 24;
+  --csc-cat-f: var(--ts-text-sm-light-font);
+  --csc-cat-fs: 14;
+  --csc-cat-lh: 18;
+  --csc-cat-ls: var(--ts-text-sm-light-ls);
+  --csc-cat-opsz: var(--ts-text-sm-light-opsz);
+  --csc-cat-gap: 2;
+  --csc-title-f: var(--ts-display-serif-xs-plus-light-font);
+  --csc-title-fs: 28;
+  --csc-title-lh: 34;
+  --csc-title-ls: var(--ts-display-serif-xs-plus-light-ls);
+  --csc-title-gap: 8;
+  --csc-desc-f: var(--ts-text-lg-light-font);
+  --csc-desc-fs: 18;
+  --csc-desc-lh: 26;
+  --csc-desc-ls: var(--ts-text-lg-light-ls);
+  --csc-desc-opsz: var(--ts-text-lg-light-opsz);
+  --csc-sslug-f: var(--ts-text-sm-light-font);
+  --csc-sslug-fs: 14;
+  --csc-sslug-lh: 18;
+  --csc-sslug-ls: var(--ts-text-sm-light-ls);
+  --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
+  --csc-slug-gap: 8;
+  --csc-num-gap: 0;
+  --csc-label-f: var(--ts-text-sm-regular-font);
+  --csc-label-fs: 14;
+  --csc-label-lh: 18;
+  --csc-label-ls: var(--ts-text-sm-regular-ls);
+  --csc-label-opsz: var(--ts-text-sm-regular-opsz);
+}
+.csc[data-size="xl"] {
+  --csc-pt: 24;
+  --csc-px: 32;
+  --csc-pb: 32;
+  --csc-cat-f: var(--ts-text-sm-light-font);
+  --csc-cat-fs: 14;
+  --csc-cat-lh: 18;
+  --csc-cat-ls: var(--ts-text-sm-light-ls);
+  --csc-cat-opsz: var(--ts-text-sm-light-opsz);
+  --csc-title-f: var(--ts-display-serif-xs-plus-light-font);
+  --csc-title-fs: 28;
+  --csc-title-lh: 34;
+  --csc-title-ls: var(--ts-display-serif-xs-plus-light-ls);
+  --csc-title-gap: 16;
+  --csc-desc-f: var(--ts-text-lg-light-font);
+  --csc-desc-fs: 18;
+  --csc-desc-lh: 26;
+  --csc-desc-ls: var(--ts-text-lg-light-ls);
+  --csc-desc-opsz: var(--ts-text-lg-light-opsz);
+  --csc-cta-gap: 32;
+  --csc-sslug-f: var(--ts-text-sm-light-font);
+  --csc-sslug-fs: 14;
+  --csc-sslug-lh: 18;
+  --csc-sslug-ls: var(--ts-text-sm-light-ls);
+  --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
+  --csc-slug-gap: 8;
+  --csc-num-f: var(--ts-display-sans-2xs-light-font);
+  --csc-num-fs: 28;
+  --csc-num-lh: 36;
+  --csc-num-ls: var(--ts-display-sans-2xs-light-ls);
+  --csc-num-opsz: var(--ts-display-sans-2xs-light-opsz);
+  --csc-label-f: var(--ts-text-sm-regular-font);
+  --csc-label-fs: 14;
+  --csc-label-lh: 18;
+  --csc-label-ls: var(--ts-text-sm-regular-ls);
+  --csc-label-opsz: var(--ts-text-sm-regular-opsz);
+}
+
+/* Fixed boxes and arrangements. */
+
+.csc[data-size="xl"] {
+  width: 1120px;
+  height: 448px;
+  --csc-split: 672px;
+}
+.csc[data-size="lg"] {
+  width: 800px;
+  height: 400px;
+  --csc-split: 400px;
+}
+.csc[data-size="md"] {
+  width: 640px;
+  height: 384px;
+  --csc-split: 320px;
+}
+.csc[data-size="sm"] {
+  width: 480px;
+  height: 624px;
+  --csc-img-h: 288px;
+}
+.csc[data-size="xs"] {
+  width: 336px;
+  height: 576px;
+  --csc-img-h: 192px;
+}
+
+/* Boxes overlap by one pixel so adjacent borders share a seam. */
+.csc[data-arrangement="left-image"] .csc-img {
+  top: 0;
+  bottom: -1px;
+  left: 0;
+  width: calc(var(--csc-split) + 1px);
+  z-index: 2;
+}
+.csc[data-arrangement="left-image"] .csc-profile {
+  top: 0;
+  bottom: -1px;
+  left: var(--csc-split);
+  right: -1px;
+  z-index: 1;
+}
+.csc[data-arrangement="right-image"] .csc-profile {
+  top: 0;
+  bottom: -1px;
+  left: 0;
+  width: calc(100% - var(--csc-split) + 1px);
+  z-index: 2;
+}
+.csc[data-arrangement="right-image"] .csc-img {
+  top: 0;
+  bottom: -1px;
+  right: -1px;
+  width: calc(var(--csc-split) + 1px);
+  z-index: 1;
+}
+.csc[data-arrangement="centered"] .csc-img {
+  top: 0;
+  left: 0;
+  right: -1px;
+  height: calc(var(--csc-img-h) + 1px);
+  z-index: 2;
+}
+.csc[data-arrangement="centered"] .csc-profile {
+  top: var(--csc-img-h);
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  z-index: 1;
+}
+
+/* reduced motion: the hover dressing swaps state-to-state (last in
+   the file — the base rules' transition shorthands must not outrank
+   the kill by order) */
+@media (prefers-reduced-motion: reduce) {
+  .csc,
+  .csc-profile,
+  .csc-img,
+  .csc-img img {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

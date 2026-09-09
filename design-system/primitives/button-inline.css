@@ -1,0 +1,63 @@
+/* Animate the glyph with left to avoid compositor re-rasterization. */
+
+.btn-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-text-300);
+  font: var(--ts-text-md-regular-font);
+  letter-spacing: var(--ts-text-md-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  /* on the resting rule so mouse-out reverses on the same curve */
+  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+/* Extend the 22px row to a 44px hit target without changing layout. */
+.btn-inline::before {
+  content: "";
+  position: absolute;
+  inset: -11px 0;
+}
+
+.btn-inline-glyph {
+  display: inline-flex;
+  flex: none;
+  /* on the resting rule so mouse-out reverses on the same curve */
+  position: relative;
+  left: 0;
+  transition: left var(--motion-hover-duration) var(--motion-hover-ease);
+}
+
+@media (hover: hover) {
+  .btn-inline:hover {
+    color: var(--color-text-100);
+  }
+  .btn-inline:hover .btn-inline-glyph {
+    left: var(--btn-inline-advance);
+  }
+}
+.btn-inline[data-state="hover"] {
+  color: var(--color-text-100);
+}
+.btn-inline[data-state="hover"] .btn-inline-glyph {
+  left: var(--btn-inline-advance);
+}
+
+.btn-inline:focus-visible,
+.btn-inline[data-state="focus"] {
+  outline: none;
+  background: var(--color-bg-300);
+  color: var(--color-text-100);
+}
+
+/* Reduced motion preserves state styling without transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .btn-inline,
+  .btn-inline-glyph {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

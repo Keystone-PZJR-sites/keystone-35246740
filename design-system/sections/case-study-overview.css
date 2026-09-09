@@ -1,0 +1,230 @@
+/* Overview content flows from the top while stats anchor to the frame bottom. */
+
+/* ---------------- section frame ---------------- */
+
+/* Per-study growth variables default to the base frame. */
+.cso-sec {
+  height: calc(var(--t) * (29 + var(--csx-rm, 0)));
+}
+@container (min-width: 470px) {
+  .cso-sec { height: calc(var(--t) * (17 + var(--csx-rs, 0))); }
+}
+@container (min-width: 665px) {
+  .cso-sec { height: calc(var(--t) * (11 + var(--csx-rt, 0))); }
+}
+@container (min-width: 860px) {
+  .cso-sec { height: calc(var(--t) * (9 + var(--csx-rd1, 0))); }
+}
+@container (min-width: 1130px) {
+  .cso-sec { height: calc(var(--t) * (7 + var(--csx-rd2, 0))); }
+}
+
+/* Wide desktop uses the narrow content column. */
+@container (min-width: 1130px) {
+  .cso-content {
+    margin-left: calc(var(--t) * 3);
+    width: calc(var(--t) * 8 + 1px);
+  }
+}
+
+/* The frame and its bottom-anchored stats grow together. */
+.cso-frame {
+  position: relative;
+  height: calc(var(--t) * (27 + var(--csx-rm, 0)));
+}
+@container (min-width: 470px) {
+  .cso-frame { height: calc(var(--t) * (16 + var(--csx-rs, 0))); }
+}
+@container (min-width: 665px) {
+  .cso-frame { height: calc(var(--t) * (10 + var(--csx-rt, 0))); }
+}
+@container (min-width: 860px) {
+  .cso-frame { height: calc(var(--t) * (8 + var(--csx-rd1, 0))); }
+}
+@container (min-width: 1130px) {
+  .cso-frame {
+    height: calc(var(--t) * (7 + var(--csx-rd2, 0)));
+    /* Align the section start with the TOC resting line. */
+    padding-top: calc((var(--wA) + var(--wB)) * 64);
+  }
+}
+
+/* ---------------- flow: head → body → list ---------------- */
+
+/* Body and items use constrained measure; stats may span wider. */
+.cso-body {
+  color: var(--color-text-100);
+  margin-top: calc((var(--wA) + var(--wB)) * 24);
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+.cso-list {
+  margin-top: calc((var(--wA) + var(--wB)) * 24);
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+@container (min-width: 470px) {
+  .cso-body,
+  .cso-list {
+    margin-top: calc((var(--wA) + var(--wB)) * 32);
+    max-width: calc((var(--wA) + var(--wB)) * 432);
+  }
+}
+@container (min-width: 665px) {
+  .cso-body,
+  .cso-list {
+    max-width: calc((var(--wA) + var(--wB)) * 576);
+  }
+}
+@container (min-width: 860px) {
+  .cso-body,
+  .cso-list {
+    margin-top: calc((var(--wA) + var(--wB)) * 24);
+    max-width: calc((var(--wA) + var(--wB)) * 640);
+  }
+}
+@container (min-width: 1130px) {
+  .cso-body,
+  .cso-list {
+    margin-top: calc((var(--wA) + var(--wB)) * 40);
+    max-width: calc((var(--wA) + var(--wB)) * 608);
+  }
+}
+
+/* the items: rows on the 24 glyph, text gap 8; row gaps 16 at
+   rm/rs/rt, 12 at rd1/rd2; list ink text/300, the body ramp */
+.cso-list {
+  gap: calc((var(--wA) + var(--wB)) * 16);
+}
+.cso-list li {
+  gap: var(--space-md);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 16);
+  line-height: calc((var(--wA) + var(--wB)) * 22);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 860px) {
+  .cso-list { gap: calc((var(--wA) + var(--wB)) * 12); }
+  .cso-list li {
+    font: var(--ts-text-lg-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 18);
+    line-height: calc((var(--wA) + var(--wB)) * 26);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* ---------------- the stat row (frame-bottom anchored) ------------ */
+
+/* three cells on shared hairlines (the intro construction): rm 2+1 of
+   4.75t×4t · rs 2+1 of 5t×2t · rt 3 across 3t×3t · rd1/rd2 3 across
+   2t×2t; pads 12/12/20/16/16 */
+.cso-stats {
+  position: absolute;
+  left: 0;
+  /* Offset line-inclusive cells so their bottom border lands on the frame edge. */
+  bottom: -1px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 1px 0 0 1px;
+  width: calc(var(--t) * 9.5 + 2px);
+  --cell-w: calc(var(--t) * 4.75 + 1px);
+  --cell-h: calc(var(--t) * 4 + 1px);
+  --cs-cell-pad: 12px;
+}
+.cso-stats > * {
+  margin: -1px 0 0 -1px;
+  width: var(--cell-w);
+  height: var(--cell-h);
+}
+@container (min-width: 470px) {
+  .cso-stats {
+    width: calc(var(--t) * 10 + 2px);
+    --cell-w: calc(var(--t) * 5 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+  }
+}
+@container (min-width: 665px) {
+  .cso-stats {
+    width: calc(var(--t) * 9 + 2px);
+    --cell-w: calc(var(--t) * 3 + 1px);
+    --cell-h: calc(var(--t) * 3 + 1px);
+    --cs-cell-pad: 20px;
+  }
+}
+@container (min-width: 860px) {
+  .cso-stats {
+    width: calc(var(--t) * 6 + 2px);
+    --cell-w: calc(var(--t) * 2 + 1px);
+    --cell-h: calc(var(--t) * 2 + 1px);
+    --cs-cell-pad: 16px;
+  }
+}
+
+/* Numerals use the responsive display-sans ramp. */
+.cso-stats .cs-cell-value {
+  font: var(--ts-display-sans-xs-light-font);
+  font-size: calc((var(--wA) + var(--wB)) * 32);
+  line-height: calc((var(--wA) + var(--wB)) * 38);
+  letter-spacing: var(--ts-display-sans-xs-light-ls);
+  font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  margin-bottom: var(--space-xs);
+}
+@container (min-width: 665px) {
+  .cso-stats .cs-cell-value {
+    font: var(--ts-display-sans-lg-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 48);
+    line-height: calc((var(--wA) + var(--wB)) * 56);
+    letter-spacing: var(--ts-display-sans-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .cso-stats .cs-cell-value {
+    font: var(--ts-display-sans-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 40);
+    line-height: calc((var(--wA) + var(--wB)) * 48);
+    letter-spacing: var(--ts-display-sans-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-md-light-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 1130px) {
+  .cso-stats .cs-cell-value {
+    font: var(--ts-display-sans-lg-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 48);
+    line-height: calc((var(--wA) + var(--wB)) * 56);
+    letter-spacing: var(--ts-display-sans-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-display-sans-lg-light-opsz), var(--font-sans-slnt);
+  }
+}
+
+/* Pill labels use the responsive text ramp. */
+.cso-stats .cs-pill {
+  font: var(--ts-text-xs-regular-font);
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+  letter-spacing: var(--ts-text-xs-regular-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+@container (min-width: 470px) {
+  .cso-stats .cs-pill {
+    font: var(--ts-text-sm-regular-font);
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+    letter-spacing: var(--ts-text-sm-regular-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
+  }
+}
+@container (min-width: 860px) {
+  .cso-stats .cs-pill {
+    font: var(--ts-text-md-light-font);
+    font-size: calc((var(--wA) + var(--wB)) * 16);
+    line-height: calc((var(--wA) + var(--wB)) * 22);
+    letter-spacing: var(--ts-text-md-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  }
+}

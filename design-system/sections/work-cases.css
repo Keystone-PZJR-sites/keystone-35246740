@@ -1,0 +1,160 @@
+/* Card geometry uses page ticks and line-inclusive shared borders. */
+
+.work-cases-section {
+  width: 100%;
+  height: calc(var(--t) * 58);
+}
+@container (min-width: 470px) {
+  .work-cases-section { height: calc(var(--t) * 42); }
+}
+@container (min-width: 665px) {
+  .work-cases-section { height: calc(var(--t) * 21); }
+}
+@container (min-width: 860px) {
+  .work-cases-section { height: calc(var(--t) * 18); }
+}
+@container (min-width: 1130px) {
+  .work-cases-section { height: calc(var(--t) * 15); }
+}
+
+/* ---------------- the card stack ---------------- */
+
+.wkc-stack {
+  position: absolute;
+  top: 0;
+  left: calc(var(--t) / 2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--t);
+}
+@container (min-width: 470px) {
+  .wkc-stack { left: var(--t); }
+}
+
+/* ---------------- card geometry per band ---------------- */
+
+.work-cases-section .csc {
+  --csc-u: calc(var(--wA) + var(--wB));
+  width: calc(var(--t) * 10.5);
+  height: calc(var(--t) * 18);
+}
+/* Stacked image and profile boxes overlap borders by one pixel. */
+.work-cases-section .csc-img {
+  inset: 0 -1px auto 0;
+  height: calc(var(--t) * 6 + 1px);
+  z-index: 2;
+}
+.work-cases-section .csc-profile {
+  inset: calc(var(--t) * 6) -1px -1px 0;
+  z-index: 1;
+}
+
+@container (min-width: 470px) {
+  .work-cases-section .csc {
+    width: calc(var(--t) * 10);
+    height: calc(var(--t) * 13);
+  }
+}
+
+/* Row layouts place the profile above the shared image boundary. */
+@container (min-width: 665px) {
+  .work-cases-section .csc {
+    height: calc(var(--t) * 6);
+    --wkc-split: 50%;
+  }
+  .work-cases-section .csc-img {
+    inset: 0 auto -1px 0;
+    height: auto;
+    width: calc(var(--wkc-split) + 1px);
+  }
+  .work-cases-section .csc-profile {
+    /* Extend one pixel so the profile shares the lattice boundary. */
+    inset: 0 -1px -1px var(--wkc-split);
+  }
+  .work-cases-section .csc[data-flip] .csc-profile {
+    inset: 0 auto -1px 0;
+    width: calc(100% - var(--wkc-split) + 1px);
+    z-index: 2;
+  }
+  .work-cases-section .csc[data-flip] .csc-img {
+    inset: 0 -1px -1px auto;
+    z-index: 1;
+  }
+}
+@container (min-width: 860px) {
+  .work-cases-section .csc { height: calc(var(--t) * 5); }
+}
+@container (min-width: 1130px) {
+  .work-cases-section .csc {
+    height: calc(var(--t) * 4);
+    --wkc-split: 60%;
+  }
+}
+
+/* rm/rs ride the primitive's xs/sm defaults. rt: the md numbers. */
+@container (min-width: 665px) {
+  .work-cases-section .csc {
+    --csc-pt: 20;
+    --csc-px: 20;
+    --csc-pb: 20;
+    --csc-cat-f: var(--ts-text-sm-light-font);
+    --csc-cat-fs: 14;
+    --csc-cat-lh: 18;
+    --csc-cat-ls: var(--ts-text-sm-light-ls);
+    --csc-cat-opsz: var(--ts-text-sm-light-opsz);
+    --csc-sslug-f: var(--ts-text-sm-light-font);
+    --csc-sslug-fs: 14;
+    --csc-sslug-lh: 18;
+    --csc-sslug-ls: var(--ts-text-sm-light-ls);
+    --csc-sslug-opsz: var(--ts-text-sm-light-opsz);
+    --csc-label-f: var(--ts-text-sm-regular-font);
+    --csc-label-fs: 14;
+    --csc-label-lh: 18;
+    --csc-label-ls: var(--ts-text-sm-regular-ls);
+    --csc-label-opsz: var(--ts-text-sm-regular-opsz);
+  }
+}
+/* rd1: the lg numbers */
+@container (min-width: 860px) {
+  .work-cases-section .csc {
+    --csc-pt: 20;
+    --csc-px: 24;
+    --csc-pb: 24;
+    --csc-cat-gap: 2;
+    --csc-title-f: var(--ts-display-serif-xs-plus-light-font);
+    --csc-title-fs: 28;
+    --csc-title-lh: 34;
+    --csc-title-ls: var(--ts-display-serif-xs-plus-light-ls);
+    --csc-title-gap: 8;
+    --csc-desc-f: var(--ts-text-lg-light-font);
+    --csc-desc-fs: 18;
+    --csc-desc-lh: 26;
+    --csc-desc-ls: var(--ts-text-lg-light-ls);
+    --csc-desc-opsz: var(--ts-text-lg-light-opsz);
+    --csc-slug-gap: 8;
+    --csc-num-gap: 0;
+  }
+}
+/* rd2: the xl numbers */
+@container (min-width: 1130px) {
+  .work-cases-section .csc {
+    --csc-pt: 24;
+    --csc-px: 32;
+    --csc-pb: 32;
+    --csc-cat-gap: 6;
+    --csc-title-gap: 16;
+    --csc-cta-gap: 32;
+    --csc-num-f: var(--ts-display-sans-2xs-light-font);
+    --csc-num-fs: 28;
+    --csc-num-lh: 36;
+    --csc-num-ls: var(--ts-display-sans-2xs-light-ls);
+    --csc-num-opsz: var(--ts-display-sans-2xs-light-opsz);
+    --csc-num-gap: 4;
+  }
+}
+
+/* Only the first card participates in the page entrance sequence. */
+
+.work-cases-section .csc.hx-rise {
+  --_d: var(--hx-d-rect);
+}

@@ -1,0 +1,333 @@
+/* Header geometry, typography, and entrance delays vary by responsive band. */
+
+/* ---------------- section frame ---------------- */
+
+.csh-sec {
+  height: calc(var(--t) * 25);
+}
+@container (min-width: 470px) {
+  .csh-sec { height: calc(var(--t) * 20); }
+}
+@container (min-width: 665px) {
+  .csh-sec { height: calc(var(--t) * 12); }
+}
+@container (min-width: 860px) {
+  .csh-sec { height: calc(var(--t) * 9); }
+}
+@container (min-width: 1130px) {
+  .csh-sec { height: calc(var(--t) * 7); }
+}
+
+/* ---------------- the header block ---------------- */
+
+.csh {
+  position: absolute;
+  top: var(--cs-head-top-rm);
+  left: 0;
+  right: 0;
+}
+@container (min-width: 470px) {
+  .csh { top: var(--cs-head-top-rs); }
+}
+@container (min-width: 665px) {
+  .csh { top: var(--cs-head-top-rt); }
+}
+@container (min-width: 860px) {
+  .csh { top: var(--cs-head-top-rd1); }
+}
+@container (min-width: 1130px) {
+  .csh { top: var(--cs-head-top-rd2); }
+}
+
+/* Entrance delays run from eyebrow through photo. */
+.csh-slug { --_d: var(--hx-d-h1a); }
+.csh-h1 { --_d: var(--hx-d-h1b); }
+.csh-meta { --_d: var(--hx-d-sub1); }
+.csh-img { --_d: var(--cs-d-img); }
+
+/* Each mount supplies responsive font variables. */
+.csh-slug,
+.csh-h1,
+.csh-pair dt,
+.csh-pair dd,
+.cs-tag {
+  font: var(--_f);
+  font-size: calc((var(--wA) + var(--wB)) * var(--_fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.csh-slug {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: 0;
+  color: var(--color-text-400);
+  --_f: var(--ts-text-xs-medium-font);
+  --_fs: 12;
+  --_lh: 16;
+  --_ls: var(--ts-text-xs-medium-ls);
+  --_opsz: var(--ts-text-xs-medium-opsz);
+}
+.csh-slug-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-bg-400);
+}
+@container (min-width: 860px) {
+  .csh-slug {
+    gap: var(--space-lg);
+    --_f: var(--ts-text-sm-medium-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-medium-ls);
+    --_opsz: var(--ts-text-sm-medium-opsz);
+  }
+  .csh-slug-dot {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+/* Explicit breaks supplement natural wrapping in the configured boxes. */
+.csh-h1 {
+  margin: calc((var(--wA) + var(--wB)) * 16) 0 0;
+  color: var(--color-text-100);
+  max-width: var(--cs-h1-w-rm);
+  --_f: var(--ts-display-serif-sm-plus-thin-font);
+  --_fs: 36;
+  --_lh: 42;
+  --_ls: var(--ts-display-serif-sm-plus-thin-ls);
+}
+.csh-br-rt,
+.csh-br-rsd2 {
+  display: none;
+}
+@container (min-width: 470px) {
+  .csh-h1 {
+    max-width: var(--cs-h1-w-rs);
+    --_f: var(--ts-display-serif-md-thin-font);
+    --_fs: 40;
+    --_lh: 48;
+    --_ls: var(--ts-display-serif-md-thin-ls);
+  }
+  .csh-br-rsd2 { display: inline; }
+}
+@container (min-width: 665px) {
+  .csh-h1 { max-width: var(--cs-h1-w-rt); }
+  .csh-br-rsd2 { display: none; }
+  .csh-br-rt { display: inline; }
+}
+@container (min-width: 860px) {
+  .csh-h1 {
+    margin-top: calc((var(--wA) + var(--wB)) * 24);
+    max-width: var(--cs-h1-w-rd1);
+    --_f: var(--ts-display-serif-md-plus-thin-font);
+    --_fs: 42;
+    --_lh: 50;
+    --_ls: var(--ts-display-serif-md-plus-thin-ls);
+  }
+  .csh-br-rt { display: none; }
+}
+@container (min-width: 1130px) {
+  .csh-h1 {
+    max-width: var(--cs-h1-w-rd2);
+    --_f: var(--ts-display-serif-lg-plus-thin-font);
+    --_fs: 50;
+    --_lh: 60;
+    --_ls: var(--ts-display-serif-lg-plus-thin-ls);
+  }
+  .csh-br-rsd2 { display: inline; }
+}
+
+/* ---------------- the photo ---------------- */
+
+/* The photo box stays on tick rows; its composited canvas overflows
+   by the baked-shadow pad. */
+.csh-img {
+  position: absolute;
+  left: 0;
+  top: calc(var(--t) * 10 - var(--cs-head-top-rm));
+  width: calc(var(--t) * 10.5);
+  height: calc(var(--t) * 8);
+  --cs-pad-x: var(--cs-shadow-pad);
+  --cs-pad-y: var(--cs-shadow-pad);
+}
+@container (min-width: 470px) {
+  .csh-img {
+    top: calc(var(--t) * 8 - var(--cs-head-top-rs));
+    width: calc(var(--t) * 10);
+    height: calc(var(--t) * 6);
+  }
+}
+@container (min-width: 665px) {
+  .csh-img {
+    left: calc(var(--t) * 5);
+    top: calc(var(--t) * 5 - var(--cs-head-top-rt));
+    width: calc(var(--t) * 5);
+    height: calc(var(--t) * 5);
+  }
+}
+@container (min-width: 860px) {
+  .csh-img {
+    top: calc(var(--t) * 2 - var(--cs-head-top-rd1));
+  }
+}
+@container (min-width: 1130px) {
+  .csh-img {
+    top: calc(var(--t) * 2 - var(--cs-head-top-rd2));
+  }
+}
+
+/* ---------------- the metadata column + tags ---------------- */
+
+/* Metadata uses tick positioning through tablet and normal flow on desktop. */
+.csh-meta {
+  position: absolute;
+  left: 0;
+  top: calc(var(--t) * 19 - var(--cs-head-top-rm));
+}
+@container (min-width: 470px) {
+  .csh-meta { top: calc(var(--t) * 15 - var(--cs-head-top-rs)); }
+}
+@container (min-width: 665px) {
+  .csh-meta { top: calc(var(--t) * 5 - var(--cs-head-top-rt)); }
+}
+@container (min-width: 860px) {
+  .csh-meta {
+    position: static;
+    margin-top: calc((var(--wA) + var(--wB)) * 32);
+  }
+}
+@container (min-width: 1130px) {
+  .csh-meta { margin-top: calc((var(--wA) + var(--wB)) * 40); }
+}
+
+/* Metadata columns stack at tablet width. */
+.csh-pairs {
+  margin: 0;
+  display: flex;
+  gap: var(--space-xl);
+}
+.csh-col {
+  width: 144px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+@container (min-width: 470px) {
+  .csh-pairs { gap: var(--space-2xl); }
+  .csh-col { width: 192px; }
+}
+@container (min-width: 665px) {
+  .csh-pairs { flex-direction: column; gap: var(--space-3xl); }
+  .csh-col { gap: var(--space-3xl); }
+}
+@container (min-width: 860px) {
+  .csh-pairs { flex-direction: row; gap: var(--space-3xl); }
+  .csh-col { width: 172px; gap: var(--space-3xl); }
+}
+@container (min-width: 1130px) {
+  .csh-col { width: 224px; }
+}
+
+.csh-pair dt {
+  color: var(--color-text-500);
+  --_f: var(--ts-text-2xs-regular-font);
+  --_fs: 10;
+  --_lh: 12;
+  --_ls: var(--ts-text-2xs-regular-ls);
+  --_opsz: var(--ts-text-2xs-regular-opsz);
+  margin-bottom: 2px;
+}
+.csh-pair dd {
+  margin: 0;
+  color: var(--color-text-100);
+  --_f: var(--ts-text-sm-light-font);
+  --_fs: 14;
+  --_lh: 18;
+  --_ls: var(--ts-text-sm-light-ls);
+  --_opsz: var(--ts-text-sm-light-opsz);
+}
+@container (min-width: 470px) {
+  .csh-pair dt {
+    margin-bottom: 0;
+    --_f: var(--ts-text-xs-regular-font);
+    --_fs: 12;
+    --_lh: 16;
+    --_ls: var(--ts-text-xs-regular-ls);
+    --_opsz: var(--ts-text-xs-regular-opsz);
+  }
+  .csh-pair dd {
+    --_f: var(--ts-text-md-light-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-light-ls);
+    --_opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container (min-width: 860px) {
+  .csh-pair dt {
+    --_f: var(--ts-text-sm-regular-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-regular-ls);
+    --_opsz: var(--ts-text-sm-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .csh-pair dd {
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* ---------------- the tags ---------------- */
+
+.csh-meta .cs-tags {
+  margin-top: calc((var(--wA) + var(--wB)) * 32);
+  column-gap: var(--space-xs);
+}
+.csh-meta .cs-tag {
+  padding: 1.5px 4px;
+  --_f: var(--ts-text-2xs-regular-font);
+  --_fs: 10;
+  --_lh: 12;
+  --_ls: var(--ts-text-2xs-regular-ls);
+  --_opsz: var(--ts-text-2xs-regular-opsz);
+}
+@container (min-width: 470px) {
+  .csh-meta .cs-tags { column-gap: var(--space-md); }
+  .csh-meta .cs-tag {
+    padding: 2px 6px;
+    --_f: var(--ts-text-sm-regular-font);
+    --_fs: 14;
+    --_lh: 18;
+    --_ls: var(--ts-text-sm-regular-ls);
+    --_opsz: var(--ts-text-sm-regular-opsz);
+  }
+}
+@container (min-width: 665px) {
+  .csh-meta .cs-tags {
+    margin-top: calc((var(--wA) + var(--wB)) * 24);
+    max-width: calc((var(--wA) + var(--wB)) * 256);
+  }
+}
+@container (min-width: 860px) {
+  .csh-meta .cs-tags { margin-top: calc((var(--wA) + var(--wB)) * 32); max-width: none; }
+}
+@container (min-width: 1130px) {
+  .csh-meta .cs-tags { margin-top: calc((var(--wA) + var(--wB)) * 40); }
+  .csh-meta .cs-tag {
+    --_f: var(--ts-text-md-regular-font);
+    --_fs: 16;
+    --_lh: 22;
+    --_ls: var(--ts-text-md-regular-ls);
+    --_opsz: var(--ts-text-md-regular-opsz);
+  }
+}

@@ -24,19 +24,9 @@ mismatch and their fixes:
    hydration.
 4. Locale-sensitive formatting → format on the server with an explicit locale.
 
-**The portal target is the only approved `setState` in a top-level effect:**
-
-```ts
-const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
-useEffect(() => {
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  setPortalTarget(document.body);
-}, []);
-```
-
-Every other case has a better tool: an event handler, derived render state, a
-ref, or the derive-state-while-rendering form. A `useMemo` returning
-`document.body` is not equivalent — it produces a client-only fiber.
+Use event handlers, derived render state, refs, or the
+derive-state-while-rendering form. A closed portal may read `document.body`
+during client render when the target does not affect output until interaction.
 
 Layout reads (`getBoundingClientRect`, `offsetWidth`, `scrollHeight`) run in
 `useLayoutEffect`.

@@ -1,0 +1,385 @@
+/* The deck scales as one unit and reorders through CSS slot values. */
+
+.work-section {
+  width: 100%;
+  height: calc(var(--t) * 20);
+  /* Share the boundary pixel with the preceding section. */
+  margin-top: -1px;
+}
+@container (min-width: 665px) {
+  .work-section {
+    height: calc(var(--t) * 16);
+  }
+}
+@container (min-width: 860px) {
+  .work-section {
+    height: calc(var(--t) * 7);
+    /* The top rule stays inside the section height. */
+    box-sizing: border-box;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* 384: top-anchored — the slug row (the marker in its own 1t column
+   left of the text stack) then the headline on the drawn 12 gap.
+   768: the header box is rows 0–4 (pl 1t), content v-centered.
+   1344: the header column v-centers in the 5t content band (the
+   section's py 1t); the CTA joins it below the headline. */
+.wd-head {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@container (min-width: 665px) {
+  .wd-head {
+    left: var(--t);
+    height: calc(var(--t) * 5);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--wd-head-gap-rt);
+  }
+}
+@container (min-width: 860px) {
+  .wd-head {
+    top: var(--t);
+    left: 0;
+    padding-left: var(--t);
+    gap: var(--wd-head-gap-rd);
+  }
+}
+
+.wd-slug {
+  display: flex;
+  align-items: center;
+  height: var(--t);
+  color: var(--color-text-400);
+  --fs0: 12;
+  --fs1: 12;
+  --lh0: 16;
+  --lh1: 16;
+}
+/* the square marker: 6px bg/400 (7 from the rd1 gate — material); at
+   384 its 1t cell IS the gap construction */
+.wd-marker {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--t);
+  height: var(--t);
+}
+.wd-marker::before {
+  content: "";
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
+}
+@container (min-width: 665px) {
+  .wd-slug {
+    height: auto;
+    gap: 1em;
+    /* Override the mounted style without duplicating its longhands. */
+    --ts-text-xs-medium-font: var(--ts-text-xs-regular-font);
+  }
+  .wd-marker {
+    width: auto;
+    height: auto;
+  }
+}
+@container (min-width: 860px) {
+  .wd-slug {
+    gap: 0.8571em;
+    --ts-text-xs-medium-font: var(--ts-text-sm-regular-font);
+    --ts-text-xs-medium-opsz: var(--ts-text-sm-regular-opsz);
+    --fs0: 10;
+    --fs1: 14;
+    --lh0: 12.8571;
+    --lh1: 18;
+  }
+  .wd-marker::before {
+    width: var(--sys-marker-rd);
+    height: var(--sys-marker-rd);
+  }
+}
+
+/* The headline wraps naturally and changes weight at wide desktop. */
+.wd-h2 {
+  color: var(--color-text-100);
+  margin-top: var(--wd-h2-gap-rm);
+  margin-left: var(--t);
+  max-width: var(--wd-h2-w-rm);
+  --fs0: 24;
+  --fs1: 30;
+  --lh0: 30;
+  --lh1: 36;
+}
+@container (min-width: 470px) {
+  .wd-h2 {
+    max-width: var(--wd-h2-w-rs);
+    --fs0: 30;
+    --fs1: 36;
+    --lh0: 36;
+    --lh1: 42;
+  }
+}
+@container (min-width: 665px) {
+  .wd-h2 {
+    margin: 0;
+    max-width: var(--wd-h2-w-rt);
+    --fs0: 36;
+    --fs1: 36;
+    --lh0: 42;
+    --lh1: 42;
+  }
+}
+@container (min-width: 860px) {
+  .wd-h2 {
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-lg-plus-thin-font);
+    max-width: var(--wd-h2-w-rd);
+    --fs0: 35.7143;
+    --fs1: 50;
+    --lh0: 42.8571;
+    --lh1: 60;
+  }
+}
+
+/* CTA mounts switch between the band and header. */
+.wd-cta-head {
+  display: none;
+}
+@container (min-width: 860px) {
+  .wd-cta-head {
+    display: block;
+    margin-top: calc(var(--wd-cta-gap-rd) - var(--wd-head-gap-rd));
+  }
+  .wd-cta-band {
+    display: none;
+  }
+}
+
+/* rt/base: full-width bg/100, top/bottom hairlines line-inclusive
+   against the lattice rails (k·t + 1px — the standing law; the bottom
+   border shares the section boundary's line pixel with the rail run).
+   The stack + md CTA group v-centers (the drawn frames' padding slack
+   sits as clear space — the tick wins). rd1+: no band chrome — the
+   deck floats on bare paper in the east half, clipped as drawn. */
+.wd-band {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: calc(var(--t) * 7);
+  height: calc(var(--t) * 13 + 1px);
+  background: var(--color-bg-100);
+  border-top: 1px solid var(--color-border-000);
+  border-bottom: 1px solid var(--color-border-000);
+  /* Exclude the shared border pixel from flex centering. */
+  padding-bottom: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wd-band-gap-rm);
+}
+@container (min-width: 665px) {
+  .wd-band {
+    top: calc(var(--t) * 5);
+    height: calc(var(--t) * 11 + 1px);
+    gap: var(--wd-band-gap-rt);
+  }
+}
+@container (min-width: 860px) {
+  .wd-band {
+    top: var(--t);
+    left: calc(var(--t) * 6);
+    width: calc(var(--t) * 6);
+    height: calc(var(--t) * 5);
+    background: none;
+    border: 0;
+    padding-bottom: 0;
+    overflow: clip;
+    gap: 0;
+  }
+}
+
+/* the band CTA left-aligns with the stack (drawn x = 1t at both
+   anchors — the stack's own centered margin) */
+.wd-cta-band {
+  align-self: flex-start;
+  margin-left: var(--t);
+}
+
+/* Unitless card metrics scale through --wd-u. */
+.wd-deck {
+  /* Reset the button so the deck renders as content. */
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  --wd-u: var(--wd-u-rm);
+  --wd-fw: 320;
+  --wd-sw: 320;
+  --wd-sh: 232;
+  --wd-bar-n: 16;
+  --wd-dot-n: 4;
+  --wd-dot-pl-n: 6;
+  --wd-dot-gap-n: 4;
+  --wd-rb: 8px;
+  --wd-bar-ar: 320 / 16;
+  --wd-img-ar: 320 / 192;
+  width: calc(var(--wd-u) * var(--wd-sw));
+  height: calc(var(--wd-u) * var(--wd-sh));
+}
+@container (min-width: 665px) {
+  .wd-deck {
+    --wd-u: var(--wd-u-rt);
+    --wd-fw: 640;
+    --wd-sw: 640;
+    --wd-sh: 468;
+    --wd-bar-n: 24;
+    --wd-dot-n: 8;
+    --wd-dot-pl-n: 8;
+    --wd-dot-gap-n: 8;
+    --wd-rb: 12px;
+    --wd-bar-ar: 640 / 24;
+    --wd-img-ar: 640 / 400;
+  }
+}
+@container (min-width: 860px) {
+  .wd-deck {
+    --wd-u: var(--wd-u-rd);
+    --wd-fw: 548;
+    --wd-sw: 548;
+    --wd-sh: 404;
+    --wd-bar-n: 24;
+    --wd-dot-n: 8;
+    --wd-dot-pl-n: 8;
+    --wd-dot-gap-n: 8;
+    --wd-rb: 12px;
+    --wd-bar-ar: 548 / 24;
+    --wd-img-ar: 548 / 336;
+  }
+}
+.wd-deck:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-border-200);
+}
+
+/* Card height emerges from the browser-bar and image aspect ratios. */
+.wd-card {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(var(--wd-u) * var(--wd-oy));
+  width: calc(var(--wd-u) * var(--wd-w));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition:
+    width var(--motion-deck-dur) var(--motion-deck-ease),
+    top var(--motion-deck-dur) var(--motion-deck-ease);
+}
+
+/* Chrome colors belong to sites, not stack positions. */
+.wd-card[data-site="yhs"] { --wd-chrome: var(--color-teal-250); --wd-chrome-line: var(--color-teal-300); }
+.wd-card[data-site="lune"] { --wd-chrome: var(--color-blue-250); --wd-chrome-line: var(--color-blue-350); }
+.wd-card[data-site="x20"] { --wd-chrome: var(--color-purple-300); --wd-chrome-line: var(--color-purple-350); --wd-shot-line: var(--color-text-100); }
+.wd-card[data-site="drefadez"] { --wd-chrome: var(--color-pink-250); --wd-chrome-line: var(--color-pink-300); --wd-shot-line: var(--color-border-200); }
+.wd-card[data-site="ora"] { --wd-chrome: var(--color-yellow-250); --wd-chrome-line: var(--color-yellow-300); }
+.wd-card[data-site="miriam"] { --wd-chrome: var(--color-orange-250); --wd-chrome-line: var(--color-orange-300); }
+
+/* Slot values define width, vertical offset, and paint order. */
+.wd-card[data-slot="0"] { --wd-w: 320; --wd-oy: 24; z-index: 6; }
+.wd-card[data-slot="1"] { --wd-w: 304; --wd-oy: 18; z-index: 5; }
+.wd-card[data-slot="2"] { --wd-w: 288; --wd-oy: 12; z-index: 4; }
+.wd-card[data-slot="3"] { --wd-w: 272; --wd-oy: 8; z-index: 3; }
+.wd-card[data-slot="4"] { --wd-w: 256; --wd-oy: 4; z-index: 2; }
+.wd-card[data-slot="5"] { --wd-w: 240; --wd-oy: 0; z-index: 1; }
+@container (min-width: 665px) {
+  .wd-card[data-slot="0"] { --wd-w: 640; --wd-oy: 44; }
+  .wd-card[data-slot="1"] { --wd-w: 616; --wd-oy: 34; }
+  .wd-card[data-slot="2"] { --wd-w: 592; --wd-oy: 24; }
+  .wd-card[data-slot="3"] { --wd-w: 568; --wd-oy: 16; }
+  .wd-card[data-slot="4"] { --wd-w: 544; --wd-oy: 8; }
+  .wd-card[data-slot="5"] { --wd-w: 520; --wd-oy: 0; }
+}
+@container (min-width: 860px) {
+  .wd-card[data-slot="0"] { --wd-w: 548; --wd-oy: 44; }
+  .wd-card[data-slot="1"] { --wd-w: 524; --wd-oy: 34; }
+  .wd-card[data-slot="2"] { --wd-w: 500; --wd-oy: 24; }
+  .wd-card[data-slot="3"] { --wd-w: 476; --wd-oy: 16; }
+  .wd-card[data-slot="4"] { --wd-w: 452; --wd-oy: 8; }
+  .wd-card[data-slot="5"] { --wd-w: 428; --wd-oy: 0; }
+}
+
+/* Browser-bar dimensions scale with each card slot. */
+.wd-bar {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  aspect-ratio: var(--wd-bar-ar);
+  background: var(--wd-chrome);
+  border: 1px solid var(--wd-chrome-line);
+  border-bottom: 0;
+  box-shadow: var(--shadow-web-swatch);
+  display: flex;
+  align-items: center;
+  padding-left: calc(var(--wd-u) * var(--wd-dot-pl-n) * var(--wd-w) / var(--wd-fw) - 1px);
+  gap: calc(var(--wd-u) * var(--wd-dot-gap-n) * var(--wd-w) / var(--wd-fw));
+  transition:
+    padding-left var(--motion-deck-dur) var(--motion-deck-ease),
+    gap var(--motion-deck-dur) var(--motion-deck-ease);
+}
+/* Dots paint above the grain layer. */
+.wd-grain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.wd-bar i {
+  position: relative;
+  width: calc(var(--wd-u) * var(--wd-dot-n) * var(--wd-w) / var(--wd-fw));
+  height: calc(var(--wd-u) * var(--wd-dot-n) * var(--wd-w) / var(--wd-fw));
+  border-radius: var(--radius-full);
+  background: var(--color-alpha-white-40);
+  transition:
+    width var(--motion-deck-dur) var(--motion-deck-ease),
+    height var(--motion-deck-dur) var(--motion-deck-ease);
+}
+
+/* Clip screenshots so rounded border strokes remain visible. */
+.wd-shot {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  aspect-ratio: var(--wd-img-ar);
+  background: var(--color-base-white);
+  /* Selected sites override the default image border. */
+  border: solid var(--wd-shot-line, var(--color-border-000));
+  border-width: 0 1px 1px;
+  border-radius: 0 0 var(--wd-rb) var(--wd-rb);
+  overflow: hidden;
+}
+.wd-shot img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wd-card,
+  .wd-shot {
+    transition: none;
+  }
+}

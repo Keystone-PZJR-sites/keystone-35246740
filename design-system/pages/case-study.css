@@ -1,0 +1,241 @@
+/* Hide entrance elements until the orchestrator starts. No-JS and
+   reduced-motion renders remain settled. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .page.load-sequence-case-study:not(.load-active) .hx-rise {
+    opacity: 0;
+  }
+}
+
+/* Shared load styles must not animate the lattice or navigation here. */
+.page.load-sequence-case-study.load-active :is(.grid-region, .decor, .knav-bar, .knav-mbar),
+.page.load-sequence-case-study.load-active .grid-region :is(i.v, i.h) {
+  animation: none;
+}
+
+/* Containing block for the sticky TOC rail. */
+.cs-stack {
+  position: relative;
+  width: 100%;
+}
+
+/* Anchor scrolling is smooth only when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.load-sequence-case-study) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Shared section frame. Heights live with each section. */
+.cs-sec {
+  width: 100%;
+}
+
+/* Sections may override this full-height content column at wider bands. */
+.cs-content {
+  position: relative;
+  height: 100%;
+  margin-left: calc(var(--t) / 2);
+  width: calc(var(--t) * 10.5 + 1px);
+}
+@container (min-width: 470px) {
+  .cs-content {
+    margin-left: var(--t);
+    width: calc(var(--t) * 10 + 1px);
+  }
+}
+
+/* Type mounts set their font variables per responsive band. */
+.cs-type {
+  font: var(--_f);
+  font-size: calc((var(--wA) + var(--wB)) * var(--_fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--_lh));
+  letter-spacing: var(--_ls);
+  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* Section-heading type ramp. */
+.cs-h2 {
+  margin: 0;
+  color: var(--color-text-100);
+  --_f: var(--ts-text-xl-regular-font);
+  --_fs: 20;
+  --_lh: 26;
+  --_ls: var(--ts-text-xl-regular-ls);
+  --_opsz: var(--ts-text-xl-regular-opsz);
+}
+@container (min-width: 665px) {
+  .cs-h2 {
+    --_f: var(--ts-text-2xl-regular-font);
+    --_fs: 24;
+    --_lh: 32;
+    --_ls: var(--ts-text-2xl-regular-ls);
+    --_opsz: var(--ts-text-2xl-regular-opsz);
+  }
+}
+@container (min-width: 1130px) {
+  .cs-h2 {
+    --_f: var(--ts-display-sans-2xs-regular-font);
+    --_fs: 28;
+    --_lh: 36;
+    --_ls: var(--ts-display-sans-2xs-regular-ls);
+    --_opsz: var(--ts-display-sans-2xs-regular-opsz);
+  }
+}
+
+/* Section-body type ramp; each mount supplies its own color. */
+.cs-body {
+  margin: 0;
+  --_f: var(--ts-text-md-light-font);
+  --_fs: 16;
+  --_lh: 22;
+  --_ls: var(--ts-text-md-light-ls);
+  --_opsz: var(--ts-text-md-light-opsz);
+}
+@container (min-width: 860px) {
+  .cs-body {
+    --_f: var(--ts-text-lg-light-font);
+    --_fs: 18;
+    --_lh: 26;
+    --_ls: var(--ts-text-lg-light-ls);
+    --_opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* Quotes begin with “. The fallback indent matches that glyph's
+   measured advance when native hanging punctuation is unavailable. */
+.cs-quote {
+  margin: 0;
+  color: var(--color-text-100);
+  text-indent: -0.434em;
+}
+@supports (hanging-punctuation: first) {
+  .cs-quote {
+    text-indent: 0;
+    hanging-punctuation: first;
+  }
+}
+.cs-quote-attrib {
+  margin: 0;
+  color: var(--color-text-400);
+}
+
+/* Cells overlap by one pixel in their owning grids to share borders. */
+.cs-cell {
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-000);
+  display: flex;
+  flex-direction: column-reverse; /* Numeral appears above the label. */
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--cs-cell-pad, 12px);
+}
+.cs-cell-value {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-200);
+}
+.cs-cell-label {
+  margin: 0;
+}
+.cs-cell-star {
+  display: inline-flex;
+  margin-left: var(--space-md);
+  color: var(--color-yellow-400);
+}
+.cs-cell-disclaimer {
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+/* Owning grids set pill typography per band. */
+.cs-pill {
+  display: inline-block;
+  border-radius: var(--radius-full);
+  color: var(--color-text-400);
+}
+
+.cs-check {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.cs-check li {
+  display: flex;
+  align-items: flex-start;
+}
+.cs-check svg {
+  flex: none;
+}
+
+/* Item margins preserve row rhythm when zero-height wrap markers are present. */
+.cs-tags {
+  margin: 0 0 calc(-1 * var(--space-xs));
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cs-tag {
+  border-radius: var(--radius-2xs);
+  background: var(--tag-fill);
+  color: var(--tag-ink);
+  margin-bottom: var(--space-xs);
+}
+@container (min-width: 470px) {
+  .cs-tags {
+    margin-bottom: calc(-1 * var(--space-md));
+  }
+  .cs-tag {
+    border-radius: var(--radius-xs);
+    margin-bottom: var(--space-md);
+  }
+}
+.cs-tag[data-color="pink"] { --tag-fill: var(--color-pink-300); --tag-ink: var(--color-pink-700); }
+.cs-tag[data-color="orange"] { --tag-fill: var(--color-orange-300); --tag-ink: var(--color-orange-600); }
+.cs-tag[data-color="yellow"] { --tag-fill: var(--color-yellow-300); --tag-ink: var(--color-yellow-700); }
+.cs-tag[data-color="teal"] { --tag-fill: var(--color-teal-300); --tag-ink: var(--color-teal-700); }
+.cs-tag[data-color="blue"] { --tag-fill: var(--color-blue-300); --tag-ink: var(--color-blue-700); }
+.cs-tag[data-color="purple"] { --tag-fill: var(--color-purple-300); --tag-ink: var(--color-purple-700); }
+
+/* Zero-height items force responsive chip wrapping without adding space. */
+.cs-tagbr {
+  width: 100%;
+  height: 0;
+  margin: 0;
+}
+.cs-tagbr-b {
+  display: none;
+}
+@container (min-width: 665px) and (max-width: 859.98px) {
+  /* Phone answering precedes Social visually in this band. */
+  .cs-tag { order: var(--tag-order); }
+  .cs-tagbr-a { order: 4; }
+  .cs-tagbr-b { display: block; order: 8; }
+}
+
+/* Composited images overflow their tick box by the baked-shadow pad.
+   max-width is unset so the canvas is never squeezed into the box. */
+.cs-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cs-photo picture,
+.cs-photo img {
+  display: block;
+}
+.cs-photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  width: calc(100% + var(--cs-pad-x, 0px));
+  height: calc(100% + var(--cs-pad-y, 0px));
+}

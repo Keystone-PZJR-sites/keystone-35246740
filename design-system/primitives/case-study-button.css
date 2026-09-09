@@ -1,0 +1,80 @@
+/* A pseudo extends the visual row to a 44px hit target. */
+
+.csb {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-lg);
+  position: relative;
+  white-space: nowrap;
+  color: var(--color-text-300);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-color: var(--color-bg-500);
+  text-decoration-thickness: 5%;
+  /* Offset the underline below the baseline. */
+  text-underline-offset: 18%;
+  text-decoration-skip-ink: auto;
+  /* on the resting rule so mouse-out reverses on the same curve */
+  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.csb[data-size="lg"] {
+  font: var(--ts-text-lg-light-font);
+  letter-spacing: var(--ts-text-lg-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.csb[data-size="sm"] {
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+/* Extend the hit area without changing row geometry. */
+.csb::before {
+  content: "";
+  position: absolute;
+  inset: -9px 0;
+}
+
+.csb-glyph {
+  display: inline-flex;
+  flex: none;
+  color: var(--color-text-500);
+  /* on the resting rule so mouse-out reverses on the same curve */
+  position: relative;
+  left: 0;
+  transition: left var(--motion-hover-duration) var(--motion-hover-ease);
+}
+
+@media (hover: hover) {
+  .csb:hover {
+    color: var(--color-text-100);
+  }
+  .csb:hover .csb-glyph {
+    left: var(--btn-inline-advance);
+  }
+}
+.csb[data-state="hover"] {
+  color: var(--color-text-100);
+}
+.csb[data-state="hover"] .csb-glyph {
+  left: var(--btn-inline-advance);
+}
+
+.csb:focus-visible,
+.csb[data-state="focus"] {
+  outline: none;
+  background: var(--color-bg-300);
+  color: var(--color-text-100);
+}
+
+/* reduced motion: state-to-state — the dressed state still applies
+   while hovered, the transitions are off */
+@media (prefers-reduced-motion: reduce) {
+  .csb,
+  .csb-glyph {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

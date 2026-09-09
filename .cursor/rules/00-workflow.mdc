@@ -1,5 +1,5 @@
 ---
-description: How work happens in this repo — sources of truth, verification gates, git, docs, comments
+description: How work happens in this repo — sources of truth, verification gates, git, and comments
 alwaysApply: true
 ---
 
@@ -10,24 +10,19 @@ alwaysApply: true
 1. **The live Figma file** `ks-MarketingSite` (`IBO39siJYDhiCRtuLWUTW2`), read
    through the Figma MCP. Every geometry, type, color, and exposure value
    comes from a node read at build time. See `40-figma.mdc`.
-2. **The code.** The built values live in the token layers, the data modules,
-   and the components. When you extend or fix built work, read the code for
-   the current values — never a document, never memory.
-3. **`docs/reference/`** — the grid mechanics (`grid-engine.md`) and the token
-   architecture (`tokens.md`). Law for *how*, never for content values.
+2. **The code.** Values live in the token layers, data modules, and components.
+   Read the code for current behavior.
 
-There are no spec documents. Design intent is the Figma file; the record of a
-build is the code and its comments; the standing decisions are these rules.
-Do not create spec, plan, or decision-log documents.
+Design intent is the Figma file. The record of what ships is the code and its
+comments. These rules are the contract. Project files describe only current
+behavior and requirements.
 
-## Standing owner decisions
+## Standing decisions
 
-- Big-bang launch: nothing deploys until every page is complete.
 - Light mode only.
-- Nav links to pages that do not exist yet 404 until those pages are built.
-- No QA or fixture routes. Acceptance and the grid sweep run on the live pages.
-  Dev-only sweep hooks mount through a `*-qa` wrapper that production aliases
-  to a null stub — no panel, no fixture URL.
+- Acceptance and the grid sweep run on the live pages. Dev-only sweep hooks
+  mount through a `*-grid-check` wrapper that production aliases to a null component — no
+  panel, no dedicated URL.
 - The tick caps at 112px above a 1344 container; the 1344 design renders exact
   at every wider width and the side fields fill the gutters.
 
@@ -40,28 +35,24 @@ Before you report a change as done:
 - Visual work is verified in the browser at the five anchors (384 · 576 ·
   768 · 960 · 1344) and one arbitrary mid-band width per band, scrollbar
   forced on. Report the measured evidence, not "looks right".
-- Layout work under `design-system/v2/` passes the grid sweep:
+- Layout work under `design-system/` passes the grid sweep:
   `GRID_URL=http://localhost:3000 npm run test:grid`.
 - Every value traces to a token, a named constant, or a data module.
 - Count the client islands you added and the route JS you added; each section
   ships at most one island.
 
-**Fix the cause, never suppress.** `eslint-disable`, `@ts-ignore`,
-`@ts-expect-error`, and `@ts-nocheck` hide problems. The single sanctioned
-disable is the hydration-safe portal-target `setState` (see
-`50-react-effects-a11y.mdc`); it always carries the comment.
+**Fix the cause, never suppress.** Lint and type directives hide problems.
 
-**Do not use `npm run build` as a pre-commit check.** It invalidates the dev
-cache. `tsc --noEmit` + `lint` give the same signal. Use `next build` for
-deploy verification and bundle-size checks only.
+Use `npm run build` for deploy verification and bundle-size checks.
 
 ## The dev server
 
-**Never start your own dev server.** The owner keeps `npm run dev` on port
-3000; verify against `http://localhost:3000`. Two servers share one `.next`
-directory and corrupt each other's chunks. If port 3000 is not answering, say
-so and ask. Without `GRID_URL` the grid sweep spawns its own `next dev` on port
-4823 and hits the same conflict — always pass `GRID_URL`.
+**Never start your own dev server.** The owner keeps `npm run dev` running;
+inspect the active terminal and verify against that server's port. Two servers
+share one `.next` directory and corrupt each other's chunks. If the active
+server is not answering, say so and ask. Without `GRID_URL` the grid sweep
+spawns its own `next dev` on port 4823 and hits the same conflict — always pass
+the active server URL.
 
 ## Don't hallucinate
 
@@ -73,9 +64,9 @@ so and ask. Without `GRID_URL` the grid sweep spawns its own `next dev` on port
 
 ## Search before you build
 
-- Icons and marks: `design-system/v2/icons.tsx` and `public/media/brand/`.
-- Assets: `design-system/v2/media.ts` and `public/media/`.
-- Tokens: `design-system/v2/tokens/` before writing any color, spacing, type,
+- Icons and marks: `design-system/icons.tsx` and `public/media/brand/`.
+- Assets: `design-system/media.ts` and `public/media/`.
+- Tokens: `design-system/tokens/` before writing any color, spacing, type,
   motion, or z value.
 - Data helpers and route handlers: the `@keystone-sites/*` packages.
 - Behaviour hooks: `data-action` contracts already wired (`open-chat`,
@@ -85,17 +76,11 @@ The Figma MCP does not know the codebase; cross-reference its exports before
 committing anything. It names assets with SHA hashes — rename to descriptive
 kebab-case or delete the duplicate.
 
-## Docs and comments
+## Comments
 
-- Docs stay in sync with code, in the same change. If someone read only the
-  docs and only the code, they must agree.
-- Write docs minimal, one idea per sentence, no preamble, no code snippets
-  unless prose cannot carry the rule. Document what exists, not plans.
 - Comments explain *why*, never *what*. A useful comment carries a non-obvious
-  reason, a constraint the code cannot express, or a trade-off that survived a
-  discussion. Record a Figma node id and read date where a value came from a
-  node. Never cite a document that does not exist; never write banner
-  comments — split the file instead.
+  reason or a constraint the code cannot express. Write in present tense.
+  Record a Figma node id where a value came from a node.
 - User-facing strings use literal Unicode characters. The only escapes are
   invisible significant characters (`\u00a0`, `\u200d`, `\u202f`), commented.
 
@@ -103,13 +88,14 @@ kebab-case or delete the duplicate.
 
 - **Commit only when the human asks in that turn.** Passing checks is not
   permission. Leave the tree dirty and report what is ready.
-- Branches: `feature/`, `fix/`, `docs/`, `chore/`. Messages follow Conventional
-  Commits with an imperative summary.
+- New branches use `feature/`, `fix/`, or `chore/`. Keep an established shared
+  branch name when work is already coordinated on that branch. Messages follow
+  Conventional Commits with an imperative summary.
 - Messages are ASD-STE100 Simplified Technical English: active voice, one idea
   per sentence, 20 words or fewer per sentence, plain approved words ("start",
   not "initiate"; "use", not "utilize"), no noun clusters over three words.
 - One commit = one logical unit; the smallest complete one (one primitive, one
-  section, one token layer). Related docs ride the same commit.
+  section, one token layer).
 - `tsc` and `lint` pass before every commit. Never `git push --force` to
   `main`. PRs squash to a few logical commits.
 

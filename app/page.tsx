@@ -1,8 +1,7 @@
-import { HomePage } from "@/design-system/v2/home";
-import HomeQa from "./home-qa";
+import { HomePage } from "@/design-system/pages/home";
+import HomeGridCheck from "./grid/pages/home";
 
-/** `/` — the new-brand homepage. HomeQa is the sweep hook (dev-only;
- * production aliases it to a null stub). No on-page readout. */
+/** The homepage. The development-only sweep hook has no visible output. */
 export default function Home() {
-  return <HomePage qa={<HomeQa />} />;
+  return <HomePage gridCheck={<HomeGridCheck />} />;
 }

@@ -1,36 +1,38 @@
 {
-  "name": "customer-site-template",
+  "name": "keystone-marketing-site",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "preview": "npx opennextjs-cloudflare build && npx wrangler dev",
     "deploy": "npx opennextjs-cloudflare build && npx wrangler deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "cf-typegen": "wrangler types --include-runtime false --env-interface CloudflareEnv cloudflare-env.d.ts",
     "test:grid": "node scripts/grid-selftest.mjs"
   },
   "dependencies": {
     "@keystone-sites/core": "^1.1.3",
-    "@keystone-sites/services": "^1.0.1",
     "@keystone-sites/widgets": "^1.2.4",
-    "@opennextjs/cloudflare": "^1.14.8",
-    "next": "^15.3.2",
+    "next": "^16.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.6",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "16.1.1",
+    "eslint-config-next": "^16.3.4",
+    "postcss": "^8",
     "puppeteer-core": "^25.8.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^4.54.0"
+    "wrangler": "^4.130.0"
   }
 }

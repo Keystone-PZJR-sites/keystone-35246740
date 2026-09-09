@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CaseStudyPage } from "@/design-system/v2/case-study";
-import { CASE_STUDIES, getCaseStudy, ZIVEL } from "@/design-system/v2/sections/case-study-data";
-import CaseStudyQa from "../../case-study-qa";
+import { CaseStudyPage } from "@/design-system/pages/case-study";
+import { CASE_STUDIES, getCaseStudy, ZIVEL } from "@/design-system/sections/case-study-data";
+import CaseStudyGridCheck from "../../grid/pages/case-study";
 
-/** `/case-studies/[slug]` — the case-study template (spec 017 §8.4;
- * the 014 §9 F9 slug canon). Static params come from the data
- * module: only populated studies build, everything else 404s (the
- * 017 §9 F9 owner decision — no placeholder pages; the Phase B
- * studies land as content passes). The title is the interim
- * per-study metadata — the pre-launch metadata wipe (checklist G4)
- * covers the final copy. */
+/** Only populated case studies receive static routes. Unknown slugs 404. */
 
 export const dynamicParams = false;
 
@@ -37,7 +31,7 @@ export default async function CaseStudyRoute({
   return (
     <CaseStudyPage
       study={study}
-      qa={study.slug === ZIVEL.slug ? <CaseStudyQa /> : undefined}
+      gridCheck={study.slug === ZIVEL.slug ? <CaseStudyGridCheck /> : undefined}
     />
   );
 }

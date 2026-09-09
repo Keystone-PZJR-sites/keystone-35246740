@@ -13,7 +13,7 @@ alwaysApply: true
   `NEXT_PUBLIC_GRADER_API_URL`, `NEXT_PUBLIC_GRADER_SEARCH_PATHS`.
 - Required variables have no in-code defaults. A module that needs one reads
   it through a `required(name, value)` guard that throws at build time with the
-  variable's name (`design-system/v2/lib/grader.ts` is the model). A missing
+  variable's name (`design-system/lib/grader.ts` is the model). A missing
   variable fails the build, never a request.
 - `NEXT_PUBLIC_*` values are inlined at build time: spell each read out as a
   literal `process.env.NAME`; never look one up dynamically.
@@ -24,14 +24,25 @@ alwaysApply: true
 - `@keystone-sites/core` — server data (`lib/server-api`: company information,
   team, portfolio), entity types, the chat and form route handlers, the chat
   backend resolver. Server-only; never import it in a client component.
-- `@keystone-sites/services` — analytics and event capture.
 - `@keystone-sites/widgets` — the battle-tested Keystone widgets (`ChatWidget`
   and friends).
+- `@keystone-sites/services` — a transitive widgets runtime dependency. It is
+  not imported by site code, but remains in `transpilePackages` because the
+  widget package consumes its TypeScript source.
 
 Data from `server-api` is typed at the page or section boundary against the
 package's entity types before it reaches a component. Helpers that return
 `unknown` or loosely typed objects are validated at the fetch site; only
 verified fields render.
+
+## Sitemap and social destinations
+
+`design-system/site-links.ts` is the source of truth for site-owned routes and
+external product destinations. An assigned sitemap route is not dead code
+merely because its page is authored separately; preserve it unless the sitemap
+itself changes. Company social links come only from backend company
+information. Omit an unavailable network; never add a static social fallback
+or `href="#"`.
 
 ## The chat widget
 
@@ -41,11 +52,13 @@ root layout by `sections/site-chat.tsx` and configured by
 Business name, logo, and team come from `server-api`; it renders only when the
 account has chat enabled.
 
-- **Configure it through its accepted props only.** Never restyle it, override
-  its classes, wrap it in a themed container, or patch its markup. Its surface
-  is standardized across every Keystone site by design.
+- **Configure it through its accepted props only.** Never alter its layout,
+  controls, spacing, typography, or markup. The documented prompt-only color
+  bridge in `widgets.css` may map `--ks-chat-accent-ink` and prompt SVG ink to
+  site tokens; no other class override is allowed. Its interaction surface is
+  standardized across every Keystone site by design.
 - The widget ships Tailwind v4 classes with no compiled CSS. The host compiles
-  them in `design-system/v2/widgets.css` and nowhere else: theme + utilities,
+  them in `design-system/widgets.css` and nowhere else: theme + utilities,
   no preflight (`base.css` is the equivalent contract), `source(none)` so the
   site tree is never scanned, and the utilities emitted **unlayered** so a
   class beats the site's unlayered element reset. Utilities in `@layer
@@ -65,16 +78,34 @@ account has chat enabled.
 
 ## The Grader
 
-`design-system/v2/lib/grader.ts` owns the Grader contract: the search endpoint
+`design-system/lib/grader.ts` owns the Grader contract: the search endpoint
 list, the response parser, the suggestion type, and the deep-link builder.
 `lib/use-grader-search.ts` is the client hook (debounce, per-session cache,
 grouped Google Places / Websites results with caps). `primitives/grader.tsx`
 is the only consumer. New Grader behaviour lands in those three files.
 
+## Legal pages and consent
+
+- Terms and Privacy render the backend
+  `CompanyInformation.terms_of_service_markdown` and
+  `privacy_policy_markdown` fields. `design-system/lib/legal.ts` replaces all
+  backend template tokens before rendering.
+- Accessibility copy is owned in `design-system/pages/legal-data.ts`.
+  `design-system/pages/legal.tsx` is the single composition for all long-form
+  legal pages; routes select a document instead of duplicating page markup.
+- Render markdown with `react-markdown` and `remark-gfm`. Never inject backend
+  HTML.
+- The root layout mounts the packaged `CookieConsentModal` once and supplies
+  its server-derived `data-consent-regime` through `getConsentRegime()`.
+- Use cookie-widget props for behaviour. Because the package exposes no theme
+  props, visual overrides are allowed only under `.ks-consent-panel` in
+  `design-system/widgets.css`; keep them token-based and clearly commented.
+
 ## Dependencies
 
-The site ships zero UI runtime libraries: motion is CSS, islands are small,
-forms are native. Before adding any dependency, check the existing islands and
-the `@keystone-sites/*` packages, prefer the platform, and justify the addition
-in the change. Bump the `@keystone-sites/*` packages deliberately and re-verify
-the widget surface in the browser after every bump.
+Motion is CSS, islands are small, and forms are native. The only page-content
+rendering dependencies are `react-markdown` and `remark-gfm` for trusted
+backend legal markdown. Before adding another dependency, check the existing
+islands and the `@keystone-sites/*` packages, prefer the platform, and justify
+the addition in the change. Bump the `@keystone-sites/*` packages deliberately
+and re-verify the widget surface in the browser after every bump.

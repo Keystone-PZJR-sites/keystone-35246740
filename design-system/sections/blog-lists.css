@@ -1,0 +1,125 @@
+.blog-lists {
+  position: relative;
+  padding: 0 var(--t) calc(var(--t) * 2);
+  --bl-u: var(--bl-u-rm);
+}
+@container (min-width: 665px) {
+  .blog-lists {
+    --bl-u: var(--bl-u-rt);
+  }
+}
+@container (min-width: 860px) {
+  .blog-lists {
+    --bl-u: var(--bl-u-rd);
+  }
+}
+
+.bl-recent {
+  margin-top: calc(var(--t) * 2);
+}
+.bl-cats {
+  margin-top: calc(var(--t) * 3);
+}
+.bl-catsec + .bl-catsec {
+  margin-top: calc(var(--t) * 2);
+}
+@container (min-width: 860px) {
+  .bl-catsec + .bl-catsec {
+    margin-top: var(--t);
+  }
+}
+
+.bl-sechead {
+  height: var(--t);
+  margin-bottom: var(--t);
+}
+.bl-catsec .bl-sechead {
+  height: calc(var(--t) * 2);
+}
+@container (min-width: 665px) {
+  .bl-sechead,
+  .bl-catsec .bl-sechead {
+    height: var(--t);
+    margin-bottom: 0;
+  }
+}
+.bl-shrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--bl-u) * 16);
+}
+
+.bl-h3 {
+  color: var(--color-text-100);
+  --fs0: 24;
+  --fs1: 36;
+  --lh0: 30;
+  --lh1: 45;
+}
+@container (min-width: 470px) {
+  .bl-h3 {
+    --fs0: 36;
+    --fs1: 48;
+    --lh0: 45;
+    --lh1: 60;
+  }
+}
+@container (min-width: 665px) {
+  .bl-h3 {
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-sm-plus-extralight-font);
+    --fs0: 36;
+    --fs1: 36;
+    --lh0: 42;
+    --lh1: 42;
+  }
+}
+@container (min-width: 860px) {
+  .bl-h3 {
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-md-extralight-font);
+    --fs0: 28.5714;
+    --fs1: 40;
+    --lh0: 34.2857;
+    --lh1: 48;
+  }
+}
+
+.bl-stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--bl-u) * 32);
+  height: calc(var(--t) * var(--bl-st-rm));
+}
+.bl-stack > li {
+  display: block;
+  flex: none;
+}
+.bl-stack .blc {
+  height: calc(var(--t) * 10);
+}
+@container (min-width: 665px) {
+  .bl-stack {
+    gap: calc(var(--bl-u) * 48);
+    height: calc(var(--t) * var(--bl-st-rt));
+  }
+  .bl-stack .blc {
+    height: calc(var(--bl-u) * 352);
+  }
+}
+@container (min-width: 860px) {
+  .bl-stack {
+    flex-direction: row;
+    gap: calc(var(--bl-u) * 32);
+    height: calc(var(--t) * 3);
+  }
+  .bl-stack > li {
+    flex: 1;
+    min-width: 0;
+  }
+  .bl-stack .blc {
+    height: 100%;
+  }
+}

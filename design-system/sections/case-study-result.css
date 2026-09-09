@@ -1,0 +1,177 @@
+/* Result content flows from image to quote, narrative, and action. */
+
+/* ---------------- section frame ---------------- */
+
+/* Per-study growth preserves clearance before the CTA band. */
+.csr-sec {
+  height: calc(var(--t) * (31 + var(--csx-rm, 0)));
+}
+@container (min-width: 470px) {
+  .csr-sec { height: calc(var(--t) * (23 + var(--csx-rs, 0))); }
+}
+@container (min-width: 665px) {
+  .csr-sec { height: calc(var(--t) * (21 + var(--csx-rt, 0))); }
+}
+@container (min-width: 860px) {
+  .csr-sec { height: calc(var(--t) * (17 + var(--csx-rd1, 0))); }
+}
+@container (min-width: 1130px) {
+  .csr-sec { height: calc(var(--t) * (14 + var(--csx-rd2, 0))); }
+}
+
+@container (min-width: 1130px) {
+  .csr-content {
+    margin-left: calc(var(--t) * 3);
+    width: calc(var(--t) * 8 + 1px);
+  }
+}
+
+/* ---------------- the image ---------------- */
+
+/* Result images have no canvas pad. */
+.csr-img {
+  width: calc(var(--t) * 10.5);
+  height: calc(var(--t) * 7);
+}
+@container (min-width: 470px) {
+  .csr-img {
+    width: calc(var(--t) * 10);
+    height: calc(var(--t) * 6);
+  }
+}
+@container (min-width: 1130px) {
+  .csr-img {
+    width: calc(var(--t) * 8);
+    height: calc(var(--t) * 5);
+  }
+}
+
+/* ---------------- the quote ---------------- */
+
+/* 1t below the image at every band; the hairline from rs with the
+   drawn interior pads; quote→attrib 24/24/32/32/32 */
+.csr-quote {
+  margin: var(--t) 0 0;
+  box-sizing: border-box;
+  /* Minimum height keeps following content aligned across quote lengths. */
+  min-height: calc((var(--wA) + var(--wB)) * 240);
+}
+@container (min-width: 470px) {
+  .csr-quote {
+    border-top: 1px solid var(--color-border-000);
+    padding-top: calc((var(--wA) + var(--wB)) * 24);
+    min-height: calc((var(--wA) + var(--wB)) * 224);
+  }
+}
+@container (min-width: 665px) {
+  .csr-quote {
+    padding-top: calc((var(--wA) + var(--wB)) * 48);
+    min-height: calc((var(--wA) + var(--wB)) * 334);
+  }
+}
+@container (min-width: 860px) {
+  .csr-quote {
+    padding-top: calc((var(--wA) + var(--wB)) * 64);
+    min-height: calc((var(--wA) + var(--wB)) * 320);
+  }
+}
+@container (min-width: 1130px) {
+  .csr-quote { min-height: calc((var(--wA) + var(--wB)) * 336); }
+}
+
+/* Quote type steps through the responsive serif ramp. */
+.csr-quote-body {
+  margin: 0;
+  font: var(--ts-display-serif-2xs-plus-extralight-font);
+  font-size: calc((var(--wA) + var(--wB)) * 20);
+  line-height: calc((var(--wA) + var(--wB)) * 24);
+  letter-spacing: var(--ts-display-serif-2xs-plus-extralight-ls);
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+.csr-quote .cs-quote-attrib {
+  margin-top: calc((var(--wA) + var(--wB)) * 24);
+}
+@container (min-width: 470px) {
+  .csr-quote-body {
+    font: var(--ts-display-serif-xs-extralight-font);
+    font-size: calc((var(--wA) + var(--wB)) * 24);
+    line-height: calc((var(--wA) + var(--wB)) * 30);
+    letter-spacing: var(--ts-display-serif-xs-extralight-ls);
+    max-width: calc((var(--wA) + var(--wB)) * 432);
+  }
+}
+@container (min-width: 665px) {
+  .csr-quote-body {
+    font: var(--ts-display-serif-sm-extralight-font);
+    font-size: calc((var(--wA) + var(--wB)) * 32);
+    line-height: calc((var(--wA) + var(--wB)) * 38);
+    letter-spacing: var(--ts-display-serif-sm-extralight-ls);
+    max-width: calc((var(--wA) + var(--wB)) * 512);
+  }
+  .csr-quote .cs-quote-attrib { margin-top: calc((var(--wA) + var(--wB)) * 32); }
+}
+@container (min-width: 860px) {
+  .csr-quote-body { max-width: calc((var(--wA) + var(--wB)) * 688); }
+}
+@container (min-width: 1130px) {
+  .csr-quote-body {
+    font: var(--ts-display-serif-sm-plus-extralight-font);
+    font-size: calc((var(--wA) + var(--wB)) * 36);
+    line-height: calc((var(--wA) + var(--wB)) * 42);
+    letter-spacing: var(--ts-display-serif-sm-plus-extralight-ls);
+    max-width: calc((var(--wA) + var(--wB)) * 784);
+  }
+}
+
+/* ---------------- head · body · button ---------------- */
+
+/* quote block→head (drawn) 32/63/108/58/84; head→body 20/20/32/32/40;
+   body→button 20/63/32/32/40 */
+.csr-head {
+  margin-top: calc((var(--wA) + var(--wB)) * 32);
+}
+.csr-body {
+  margin-top: calc((var(--wA) + var(--wB)) * 20);
+  max-width: calc((var(--wA) + var(--wB)) * 304);
+}
+.csr-body p {
+  color: var(--color-text-100);
+}
+.csr-body p + p {
+  margin-top: calc((var(--wA) + var(--wB)) * 12);
+}
+.csr-cta {
+  margin-top: calc((var(--wA) + var(--wB)) * 20);
+}
+@container (min-width: 470px) {
+  .csr-head { margin-top: calc((var(--wA) + var(--wB)) * 63); }
+  .csr-body { max-width: calc((var(--wA) + var(--wB)) * 432); }
+  .csr-cta { margin-top: calc((var(--wA) + var(--wB)) * 63); }
+}
+@container (min-width: 665px) {
+  .csr-head { margin-top: calc((var(--wA) + var(--wB)) * 108); }
+  .csr-body {
+    margin-top: calc((var(--wA) + var(--wB)) * 32);
+    max-width: calc((var(--wA) + var(--wB)) * 512);
+  }
+  .csr-cta { margin-top: calc((var(--wA) + var(--wB)) * 32); }
+}
+@container (min-width: 860px) {
+  .csr-head { margin-top: calc((var(--wA) + var(--wB)) * 58); }
+  .csr-body { max-width: calc((var(--wA) + var(--wB)) * 608); }
+}
+@container (min-width: 1130px) {
+  .csr-head { margin-top: calc((var(--wA) + var(--wB)) * 60); }
+  .csr-body {
+    margin-top: calc((var(--wA) + var(--wB)) * 40);
+    max-width: calc((var(--wA) + var(--wB)) * 544);
+  }
+  .csr-cta { margin-top: calc((var(--wA) + var(--wB)) * 40); }
+}
+
+/* Button size increases above the narrowest band. */
+.csr-cta-lg { display: none; }
+@container (min-width: 470px) {
+  .csr-cta-sm { display: none; }
+  .csr-cta-lg { display: block; }
+}

@@ -7,15 +7,16 @@ const eslintConfig = defineConfig([
   ...nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
+    // Framework and deployment output:
     ".next/**",
+    ".open-next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
   ]),
   {
     rules: {
-      // Allow intentionally-unused args/vars prefixed with `_` (placeholders).
+      // Ignore intentionally unused names prefixed with `_`.
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -24,8 +25,7 @@ const eslintConfig = defineConfig([
           caughtErrorsIgnorePattern: "^_",
         },
       ],
-      // Art-directed <picture>/<img> tier sets (rules.md). next/image
-      // is off — images.unoptimized, the markup is the delivery.
+      // Art-directed tier sets use native <picture>/<img> markup.
       "@next/next/no-img-element": "off",
     },
   },

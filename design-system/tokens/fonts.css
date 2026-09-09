@@ -1,0 +1,42 @@
+/* Licensed variable fonts are self-hosted and never CDN-imported.
+   GT Standard requires an explicit weight because its binary default is
+   900. Optical sizing is pinned per type-scale step rather than inferred
+   from Figma's named instances. `swap` keeps text readable while loading. */
+
+@font-face {
+  font-family: "GT Standard";
+  src: url("/media/fonts/gt-standard-standard-vf.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Kyoto";
+  src: url("/media/fonts/pp-kyoto-variable-upright-vf.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-sans: "GT Standard", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "PP Kyoto", ui-serif, Georgia, serif;
+
+  /* Weight names match Figma. */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* GT Standard opsz pins use type-scale steps, not named instances. */
+  --font-opsz-text-compact: 24;
+  --font-opsz-text: 26;
+  --font-opsz-display-2xs: 28;
+  --font-opsz-display: 30;
+
+  /* GT Standard VF slnt axis (0–6). WebKit renders oblique when omitted. */
+  --font-sans-slnt: "slnt" 0;
+}

@@ -1,0 +1,98 @@
+/* Shared motion tokens. Drawers reveal content with their moving clip
+   edge; hard shadows appear only after the box lands. */
+
+:root {
+  --motion-drawer-duration: 250ms;
+  /* ease-out — the close direction (and the shadow growth) */
+  --motion-drawer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* ease-in-out — the open direction */
+  --motion-drawer-ease-open: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-drawer-shadow-duration: 200ms;
+
+  /* Fade-rise entries share the drawer ease-out curve. */
+  --motion-rise-distance: 26px;
+  --motion-rise-duration: 800ms;
+  --motion-rise-ease: var(--motion-drawer-ease);
+
+  /* Chip highlights wipe left-to-right while their ink cross-fades. */
+  --motion-wipe-duration: 420ms;
+  --motion-wipe-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  --motion-chip-stagger: 150ms;
+
+  /* Carousels move one frame without overshoot; islands read timers here. */
+  --motion-slide-duration: 900ms;
+  --motion-slide-ease: cubic-bezier(0.45, 0.05, 0.15, 1);
+  --motion-carousel-dwell: 3500ms;
+  --motion-carousel-first-advance: 4500ms;
+
+  /* Dots morph from circle to square and unwind more slowly on exit. */
+  --motion-dot-morph-dur: 450ms;
+  --motion-dot-morph-out-dur: 600ms;
+  --motion-dot-morph-out-ease: var(--motion-drawer-ease-open);
+  --motion-dot-rotation: 180deg;
+
+  /* Card shadows grow after layout motion and reverse slightly faster. */
+  --motion-card-shadow-dur: 450ms;
+  --motion-card-shadow-out-dur: 300ms;
+
+  /* Decorative circles translate one cell without moving layout. */
+  --motion-cell-slide-dur: 500ms;
+  --motion-cell-slide-ease: var(--motion-drawer-ease-open);
+
+  /* Rail cells stagger on open and fade together on close. */
+  --motion-rail-stagger: 40ms;
+
+  /* Carousel snapping uses the shared slide ease; dragging has no transition. */
+  --motion-snap-dur: 450ms;
+  --motion-snap-ease: var(--motion-slide-ease);
+
+  /* Inactive carousel images remain translucent so the lattice reads through. */
+  --motion-ghost-opacity: 0.5;
+
+  /* Entrances fire once at the visibility threshold; mobile opens earlier. */
+  --motion-enter-frac: 0.25;
+  --motion-enter-frac-rm: 0.18;
+  --motion-enter-stagger: 120ms;
+
+  /* Two-clock entrances ink quickly and settle more slowly. */
+  --motion-entrance-ring-fade-dur: 700ms;
+  --motion-entrance-ring-move-dur: 900ms;
+  --motion-entrance-ring-ease: cubic-bezier(0.2, 0.72, 0.18, 1);
+  --motion-entrance-engine-fade-dur: 400ms;
+  --motion-entrance-engine-move-dur: 750ms;
+  --motion-entrance-engine-ease: cubic-bezier(0.16, 0.78, 0.24, 1);
+  --motion-entrance-stagger: 120ms;
+
+  /* Bloom launches engines clockwise from the center and resolves labels
+     before the final intersect mark. Shared timings alias entrance tokens. */
+  --motion-bloom-ring-fade-dur: var(--motion-entrance-ring-fade-dur);
+  --motion-bloom-ring-move-dur: var(--motion-entrance-ring-move-dur);
+  --motion-bloom-ring-ease: var(--motion-entrance-ring-ease);
+  --motion-bloom-ring-scale: 0.94;
+  --motion-bloom-engine-delay: 150ms;
+  --motion-bloom-stagger: var(--motion-entrance-stagger);
+  --motion-bloom-engine-fade-dur: var(--motion-entrance-engine-fade-dur);
+  --motion-bloom-engine-move-dur: var(--motion-entrance-engine-move-dur);
+  --motion-bloom-engine-ease: var(--motion-entrance-engine-ease);
+  --motion-bloom-engine-seed: 0.12;
+  --motion-bloom-label-delay: 340ms;
+  --motion-bloom-label-dur: 350ms;
+  --motion-bloom-label-scale: 0.96;
+  --motion-bloom-mark-delay: 950ms;
+  --motion-bloom-mark-dur: 400ms;
+  /* Labels and the mark use the standard ease keyword. */
+  --motion-bloom-resolve-ease: ease;
+
+  /* Every stage swap uses the same blur-and-rise transition. Reduced
+     motion renders state changes directly. */
+  --motion-stage-dur: 500ms;
+  --motion-stage-ease: var(--motion-drawer-ease);
+  --motion-stage-blur: 8px;
+  --motion-stage-rise: 24px;
+  --motion-stage-drop: -12px;
+
+  /* Deck cards share one clock with no stagger. Rapid input retargets
+     current positions instead of queuing; reduced motion reorders directly. */
+  --motion-deck-dur: 300ms;
+  --motion-deck-ease: var(--motion-drawer-ease);
+}
