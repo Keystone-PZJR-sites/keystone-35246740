@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { IconArrowRight, IconBlog, IconGrader, IconPodcast } from "../icons";
 import { ButtonFill } from "../primitives/buttons";
-import { SITE_LINKS } from "../site-links";
+import { EXTERNAL_LINK, SITE_LINKS } from "../site-links";
 import { NavDesktop } from "./nav-desktop";
 import { NavMobile, type NavMobileRow } from "./nav-mobile";
 
@@ -45,6 +45,7 @@ const RESOURCE_CARDS = [
     chipLabel: "Blog",
     Icon: IconBlog,
     href: SITE_LINKS.resources,
+    external: false,
   },
   {
     id: "grader",
@@ -53,6 +54,7 @@ const RESOURCE_CARDS = [
     chipLabel: "Grader",
     Icon: IconGrader,
     href: SITE_LINKS.grader,
+    external: true,
   },
   {
     id: "podcast",
@@ -61,6 +63,7 @@ const RESOURCE_CARDS = [
     chipLabel: "Podcast",
     Icon: IconPodcast,
     href: SITE_LINKS.spotify,
+    external: true,
   },
 ] as const;
 
@@ -176,6 +179,7 @@ function ResourcesDrawerContent() {
             style={blk(i + 1)}
             data-card={card.id}
             href={card.href}
+            {...(card.external ? EXTERNAL_LINK : {})}
           >
             <Decor variant={card.id} />
             <span className="knav-chiprow">
@@ -217,7 +221,13 @@ function ResourceChips() {
   return (
     <>
       {RESOURCE_CARDS.map((card) => (
-        <a key={card.id} className="knav-rchip" data-card={card.id} href={card.href}>
+        <a
+          key={card.id}
+          className="knav-rchip"
+          data-card={card.id}
+          href={card.href}
+          {...(card.external ? EXTERNAL_LINK : {})}
+        >
           <card.Icon className="knav-rchipicon" />
           {card.chipLabel}
         </a>
@@ -263,7 +273,7 @@ export function NavChrome() {
               <ButtonFill size="lg" chrome="teal" shape="pill" href={SITE_LINKS.pricing}>
                 Get Started
               </ButtonFill>
-              <ButtonFill size="lg" chrome="gray" shape="box" href={SITE_LINKS.login}>
+              <ButtonFill size="lg" chrome="gray" shape="box" href={SITE_LINKS.login} external>
                 Login
               </ButtonFill>
             </>

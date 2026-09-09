@@ -1,5 +1,11 @@
 import { GRADER_URL } from "./lib/grader";
 
+/** Spread onto anchors that leave this origin. */
+export const EXTERNAL_LINK = {
+  target: "_blank",
+  rel: "noopener noreferrer",
+} as const;
+
 /** Destinations for nav and footer. Unbuilt pages use `#` so we never
  * ship a 404 from chrome. */
 export const SITE_LINKS = {

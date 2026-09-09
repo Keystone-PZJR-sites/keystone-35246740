@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { IconArrowRight } from "../icons";
+import { EXTERNAL_LINK } from "../site-links";
 
 type PricingButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -9,6 +10,8 @@ interface PricingButtonProps {
   size?: PricingButtonSize;
   /** Navigation destination. */
   href: string;
+  /** Open in a new tab (external destinations). */
+  external?: boolean;
   forceState?: "hover" | "focus";
   children: ReactNode;
 }
@@ -35,9 +38,21 @@ function Lattice({ size }: { size: PricingButtonSize }) {
   );
 }
 
-export function PricingButton({ size = "md", href, forceState, children }: PricingButtonProps) {
+export function PricingButton({
+  size = "md",
+  href,
+  external = false,
+  forceState,
+  children,
+}: PricingButtonProps) {
   return (
-    <a className="pbtn" data-size={size} data-state={forceState} href={href}>
+    <a
+      className="pbtn"
+      data-size={size}
+      data-state={forceState}
+      href={href}
+      {...(external ? EXTERNAL_LINK : {})}
+    >
       <span className="pbtn-label">{children}</span>
       <span className="pbtn-chip">
         <IconArrowRight />
