@@ -131,6 +131,25 @@
   box-shadow: 0 0 0 var(--ring-w) var(--_ring);
 }
 
+.btn-fill:disabled {
+  cursor: not-allowed;
+  background: var(--color-bg-300);
+  color: var(--color-text-500);
+  box-shadow: none;
+}
+.btn-fill:disabled .btn-glyph {
+  color: var(--color-text-600);
+  left: 0;
+}
+@media (hover: hover) {
+  .btn-fill:disabled:hover {
+    background: var(--color-bg-300);
+  }
+  .btn-fill:disabled:hover .btn-glyph {
+    left: 0;
+  }
+}
+
 /* Label and icon use a 4px gap; the trailing glyph is an arrow. */
 .btn-fill .btn-label {
   display: inline-flex;
