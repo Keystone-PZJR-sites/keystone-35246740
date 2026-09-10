@@ -169,11 +169,11 @@
   .faq-chat-rd2 .faq-chat-label {
     padding-left: calc(var(--faq-u) * 16);
     padding-bottom: calc(var(--faq-u) * 2);
-    --_f: var(--ts-text-lg-light-font);
-    --_fs: 18;
+    --_f: var(--ts-text-xl-light-font);
+    --_fs: 20;
     --_lh: 26;
-    --_ls: var(--ts-text-lg-light-ls);
-    --_opsz: var(--ts-text-lg-light-opsz);
+    --_ls: var(--ts-text-xl-light-ls);
+    --_opsz: var(--ts-text-xl-light-opsz);
   }
 }
 
