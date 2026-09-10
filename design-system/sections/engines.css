@@ -126,17 +126,10 @@
   }
 }
 
+/* The sticky bar and tablet stack keep the 1t indent. Type and
+   mark come from the shared slug. */
 .e2-slug {
-  display: flex;
-  align-items: center;
-  margin: 0 0 0 var(--t);
-  color: var(--color-text-400);
-}
-.e2-marker {
-  flex: none;
-  width: 7px;
-  height: 7px;
-  background: var(--color-bg-400);
+  margin-left: var(--t);
 }
 
 .e2-bc {
@@ -188,13 +181,6 @@
     display: flex;
     align-items: center;
     height: var(--t);
-  }
-  .e2-stackslug .e2-slug {
-    gap: 1em;
-    --fs0: 12;
-    --fs1: 12;
-    --lh0: 16;
-    --lh1: 16;
   }
 }
 
@@ -360,14 +346,6 @@
     border-bottom: 1px solid var(--line);
     background: var(--color-bg-100);
   }
-  .e2-slugrow .e2-slug {
-    gap: 0.8571em;
-    --fs0: 10;
-    --fs1: 14;
-    --lh0: 12.8571;
-    --lh1: 18;
-  }
-
   /* Matching sticky travel keeps the stage and lattice release aligned. */
   .e2-body {
     position: relative;
