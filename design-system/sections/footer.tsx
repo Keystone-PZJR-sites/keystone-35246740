@@ -172,7 +172,7 @@ function navGroups(social: FooterSocial): Array<{
       items: [
         { label: "Blog", href: SITE_LINKS.blog },
         { label: "Podcast", href: SITE_LINKS.spotify, external: true },
-        { label: "Marketing Report", href: SITE_LINKS.marketingReport },
+        { label: "Marketing Report", href: SITE_LINKS.marketingReport, external: true },
       ],
     },
     {
