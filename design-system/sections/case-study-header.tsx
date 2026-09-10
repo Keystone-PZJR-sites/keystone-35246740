@@ -2,6 +2,7 @@
  * Visual line breaks and tag ordering vary by band without changing
  * the accessible reading order. */
 
+import { Slug } from "../primitives/slug";
 import type { CaseStudy, CaseStudyTag } from "./case-study-data";
 import { CaseStudyLattice } from "./case-study-lattice";
 import { CaseStudyPhoto } from "./case-study-photo";
@@ -28,10 +29,9 @@ export function CaseStudyHeaderSection({ study }: { study: CaseStudy }) {
       <div className="cs-content csh-content" data-landmark="header">
         <header className="csh">
           <div className="csh-head flow-budget">
-            <p className="csh-slug hx-rise" aria-hidden="true">
-              <i className="csh-slug-dot" />
+            <Slug className="hx-rise" aria-hidden>
               Case Study
-            </p>
+            </Slug>
             <h1 className="csh-h1 hx-rise">
               {study.h1.seg1}
               {study.h1.seg2 && <br className="csh-br-rt" aria-hidden="true" />}

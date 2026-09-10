@@ -4,6 +4,7 @@
 
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
 import { ButtonFill, ButtonGhost } from "../primitives/buttons";
+import { Slug } from "../primitives/slug";
 import { IconChat } from "../icons";
 
 const GET_STARTED_HREF = "/pricing";
@@ -136,10 +137,7 @@ export function WorkHeaderSection() {
 
       {/* Header elements share the page entrance sequence. */}
       <header className="wkh" data-landmark="head">
-        <p className="wkh-slug hx-rise">
-          <i className="wkh-slug-dot" aria-hidden="true" />
-          Our Work
-        </p>
+        <Slug className="hx-rise">Our Work</Slug>
         <h1 className="wkh-h1 hx-rise">
           Beautiful websites, ads, social, and content that grow your business.
         </h1>

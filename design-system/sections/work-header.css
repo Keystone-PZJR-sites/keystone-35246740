@@ -40,7 +40,7 @@
 }
 
 /* The shared entrance rule consumes these delays. */
-.wkh-slug {
+.wkh .slug {
   --_d: var(--hx-d-h1a);
 }
 .wkh-h1 {
@@ -54,7 +54,6 @@
 }
 
 /* the weight-riding size construction (the 011 header pattern) */
-.wkh-slug,
 .wkh-h1,
 .wkh-subhead {
   font: var(--_f);
@@ -63,39 +62,6 @@
   letter-spacing: var(--_ls);
   font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
   font-optical-sizing: none;
-}
-
-/* Slug type and marker size step at wide desktop. */
-.wkh-slug {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin: var(--space-none);
-  color: var(--color-text-400);
-  --_f: var(--ts-text-xs-medium-font);
-  --_fs: 12;
-  --_lh: 16;
-  --_ls: var(--ts-text-xs-medium-ls);
-  --_opsz: var(--ts-text-xs-medium-opsz);
-}
-.wkh-slug-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--color-bg-400);
-}
-@container (min-width: 860px) {
-  .wkh-slug {
-    gap: var(--space-lg);
-    --_f: var(--ts-text-sm-medium-font);
-    --_fs: 14;
-    --_lh: 18;
-    --_ls: var(--ts-text-sm-medium-ls);
-    --_opsz: var(--ts-text-sm-medium-opsz);
-  }
-  .wkh-slug-dot {
-    width: 7px;
-    height: 7px;
-  }
 }
 
 /* The heading wraps naturally inside its responsive measure. */

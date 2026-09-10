@@ -1,4 +1,5 @@
 import { GridRegion } from "../grid/region";
+import { Slug } from "../primitives/slug";
 import { InterpText } from "../primitives/text";
 import { SITE_LINKS } from "../site-links";
 import type { BlogPostDetailModel } from "./blog-data";
@@ -24,20 +25,17 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
 
       <div className="bp-rounder">
         <header className="bp-head" data-landmark="head">
-          <div className="bp-crumb">
-            <span className="bp-marker" aria-hidden="true" />
-            <InterpText as="span" style="text-xs-medium" className="bp-crumb-text">
-              <a href={SITE_LINKS.blog}>{BLOG_POST_CONTENT.blogLabel}</a>
-              {primaryTag && (
-                <>
-                  <span aria-hidden="true">/</span>
-                  <a href={`${SITE_LINKS.blog}?tag=${encodeURIComponent(primaryTag.slug)}`}>
-                    {primaryTag.name}
-                  </a>
-                </>
-              )}
-            </InterpText>
-          </div>
+          <Slug>
+            <a href={SITE_LINKS.blog}>{BLOG_POST_CONTENT.blogLabel}</a>
+            {primaryTag && (
+              <>
+                <span aria-hidden="true">/</span>
+                <a href={`${SITE_LINKS.blog}?tag=${encodeURIComponent(primaryTag.slug)}`}>
+                  {primaryTag.name}
+                </a>
+              </>
+            )}
+          </Slug>
           <InterpText as="h1" style="display-serif-sm-plus-thin" className="bp-h1">
             {post.title}
           </InterpText>

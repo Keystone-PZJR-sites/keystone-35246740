@@ -1,6 +1,7 @@
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
 import { InterpText } from "../primitives/text";
 import { GraderInput } from "../primitives/grader";
+import { Slug } from "../primitives/slug";
 import {
   IconBlog,
   IconGrader,
@@ -90,9 +91,7 @@ export function BlogTopSection({
       </div>
 
       <header className="bt-head">
-        <InterpText as="p" style="text-xs-medium" className="bt-slug">
-          {BLOG_TOP_CONTENT.eyebrow}
-        </InterpText>
+        <Slug>{BLOG_TOP_CONTENT.eyebrow}</Slug>
         <InterpText as="h1" style="display-serif-sm-plus-thin" className="bt-h1">
           {BLOG_TOP_CONTENT.title}
         </InterpText>

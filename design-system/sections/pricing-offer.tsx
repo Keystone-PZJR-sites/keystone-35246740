@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
 import { ButtonFill, ButtonGhost } from "../primitives/buttons";
 import { PricingButton } from "../primitives/pricing-button";
+import { Slug } from "../primitives/slug";
 import {
   IconAiChat,
   IconChat,
@@ -235,10 +236,7 @@ export function PricingOfferSection() {
       </div>
 
       <header className="po-header" data-landmark="head">
-        <p className="po-slug">
-          <i className="po-slug-dot" aria-hidden="true" />
-          Pricing
-        </p>
+        <Slug>Pricing</Slug>
         <h1 className="po-h1">Pay for the work, not the retainer.</h1>
         {/* Segments become one flowing paragraph at the widest band. */}
         <p className="po-subhead">

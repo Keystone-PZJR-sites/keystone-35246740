@@ -80,13 +80,12 @@
 }
 
 /* Entrance delays run from eyebrow through photo. */
-.csh-slug { --_d: var(--hx-d-h1a); }
+.csh .slug { --_d: var(--hx-d-h1a); }
 .csh-h1 { --_d: var(--hx-d-h1b); }
 .csh-meta { --_d: var(--hx-d-sub1); }
 .csh-img { --_d: var(--cs-d-img); }
 
 /* Each mount supplies responsive font variables. */
-.csh-slug,
 .csh-h1,
 .csh-pair dt,
 .csh-pair dd,
@@ -97,38 +96,6 @@
   letter-spacing: var(--_ls);
   font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
   font-optical-sizing: none;
-}
-
-.csh-slug {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin: 0;
-  color: var(--color-text-400);
-  --_f: var(--ts-text-xs-medium-font);
-  --_fs: 12;
-  --_lh: 16;
-  --_ls: var(--ts-text-xs-medium-ls);
-  --_opsz: var(--ts-text-xs-medium-opsz);
-}
-.csh-slug-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--color-bg-400);
-}
-@container (min-width: 860px) {
-  .csh-slug {
-    gap: var(--space-lg);
-    --_f: var(--ts-text-sm-medium-font);
-    --_fs: 14;
-    --_lh: 18;
-    --_ls: var(--ts-text-sm-medium-ls);
-    --_opsz: var(--ts-text-sm-medium-opsz);
-  }
-  .csh-slug-dot {
-    width: 7px;
-    height: 7px;
-  }
 }
 
 /* Explicit breaks supplement natural wrapping in the configured boxes. */

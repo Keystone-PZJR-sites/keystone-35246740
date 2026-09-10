@@ -49,60 +49,6 @@
   }
 }
 
-.sys-slug {
-  display: flex;
-  align-items: center;
-  height: var(--t);
-  color: var(--color-text-400);
-  --fs0: 12;
-  --fs1: 12;
-  --lh0: 16;
-  --lh1: 16;
-}
-.sys-marker {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: var(--t);
-  height: var(--t);
-}
-.sys-marker::before {
-  content: "";
-  width: var(--sys-marker);
-  height: var(--sys-marker);
-  background: var(--color-bg-400);
-}
-@container (min-width: 665px) {
-  .sys-slug {
-    height: auto;
-    gap: 1em;
-    --ts-text-xs-medium-font: var(--ts-text-xs-regular-font);
-    --fs0: 12;
-    --fs1: 12;
-    --lh0: 16;
-    --lh1: 16;
-  }
-  .sys-marker {
-    width: auto;
-    height: auto;
-  }
-}
-@container (min-width: 860px) {
-  .sys-slug {
-    gap: 0.8571em;
-    --ts-text-xs-medium-font: var(--ts-text-sm-regular-font);
-    --ts-text-xs-medium-opsz: var(--ts-text-sm-regular-opsz);
-    --fs0: 10;
-    --fs1: 14;
-    --lh0: 12.8571;
-    --lh1: 18;
-  }
-  .sys-marker::before {
-    width: var(--sys-marker-rd);
-    height: var(--sys-marker-rd);
-  }
-}
-
 .sys-h2 {
   color: var(--color-text-100);
   margin-top: var(--sys-h2-gap-rm);

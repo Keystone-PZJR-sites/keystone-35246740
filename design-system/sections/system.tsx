@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
+import { Slug } from "../primitives/slug";
 import { InterpText } from "../primitives/text";
 import { IconSystemIntersect } from "../icons";
 import { NoiseDuo } from "../lib/noise";
@@ -88,10 +89,7 @@ export function SystemSection() {
       </div>
 
       <div className="sys-head">
-        <InterpText as="p" style="text-xs-medium" className="sys-slug">
-          <span className="sys-marker" aria-hidden="true" />
-          <span>A complete marketing system</span>
-        </InterpText>
+        <Slug layout="rail">A complete marketing system</Slug>
         <InterpText as="h2" style="display-serif-xs-extralight" className="sys-h2">
           Five engines that deeply understand your business working together.
         </InterpText>

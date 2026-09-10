@@ -1,4 +1,5 @@
 import { GridRegion, type GridBand } from "../grid/region";
+import { Slug } from "../primitives/slug";
 import { InterpText } from "../primitives/text";
 import { IconNavTrigger, IconStar } from "../icons";
 import {
@@ -75,10 +76,7 @@ export function CaseCarouselSection() {
       </div>
 
       <div className="cc-head flow-budget">
-        <InterpText as="p" style="text-xs-medium" className="cc-slug">
-          <span className="cc-marker" aria-hidden="true" />
-          <span>Demand that turns into growth</span>
-        </InterpText>
+        <Slug layout="rail">Demand that turns into growth</Slug>
         <InterpText as="h2" style="display-serif-xs-extralight" className="cc-h2">
           Marketing that delivers on its promise.
         </InterpText>
