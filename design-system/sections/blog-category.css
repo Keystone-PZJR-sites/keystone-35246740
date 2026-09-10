@@ -34,8 +34,19 @@
 
 .bc-head {
   flex: none;
-  min-height: calc(var(--t) * 8);
   padding-top: calc(var(--bc-u) * 80);
+}
+.bc-content {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--t);
+}
+.bc-content-grid {
+  inset: 0 auto auto calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+  height: 100%;
 }
 .bc-crumb {
   display: flex;
@@ -76,9 +87,6 @@
   --lh1: 63;
 }
 @container (min-width: 665px) {
-  .bc-head {
-    min-height: calc(var(--t) * 4);
-  }
   .bc-crumb {
     gap: 0.8571em;
   }

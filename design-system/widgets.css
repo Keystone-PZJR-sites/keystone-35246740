@@ -34,8 +34,9 @@
 }
 
 .ks-consent-panel a {
-  color: var(--color-teal-700) !important;
-  text-decoration-color: var(--color-teal-300) !important;
+  color: inherit !important;
+  text-decoration-color: var(--color-border-200) !important;
+  text-decoration-skip-ink: auto !important;
 }
 
 .ks-consent-panel button[class~="bg-[#2b2620]"] {

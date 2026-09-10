@@ -56,26 +56,18 @@ interface Region {
   gh?: number;
 }
 
-function exposedRows(
+function exposedField(
   family: "rm" | "rt" | "rd",
-  total: number,
   hasFeatured: boolean,
-): Region[] {
+): Region {
   const firstFullRow = family === "rm" ? 8 : 4;
   const drawnFullEnd = (hasFeatured ? FEATURED_FIELD_END : ROWS_FIELD_END)[family];
-  const finalRow = total - 1;
-  const regions: Region[] = [];
-  const firstRegionEnd = Math.min(drawnFullEnd, finalRow);
-  if (firstRegionEnd > firstFullRow) {
-    regions.push({
-      gx: 0,
-      gy: firstFullRow,
-      gw: 12,
-      gh: firstRegionEnd - firstFullRow,
-    });
-  }
-  regions.push({ gx: 0, gy: finalRow, gw: 12, gh: 1 });
-  return regions;
+  return {
+    gx: 0,
+    gy: 0,
+    gw: 12,
+    gh: drawnFullEnd - firstFullRow,
+  };
 }
 
 const FAMILIES: {
@@ -120,28 +112,10 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
       style={style}
     >
       <div className="gx" aria-hidden="true">
-        {FAMILIES.flatMap(({ family, bands }) =>
-          bands.flatMap((band) => [
-            ...(family === "rm"
-              ? [<GridRegion key={`${band}-rail`} band={band} gx={11} gy={5} gh={3} />]
-              : []),
-            ...exposedRows(family, ticks[family], model.featured !== null).map((region, index) => (
-              <GridRegion key={`${band}-region-${index}`} band={band} {...region} />
-            )),
-            ...(family === "rm"
-              ? [
-                  <GridDecor key={`${band}-ornament`} band={band} gx={11} gy={6}>
-                    <span className="f-cell round" />
-                  </GridDecor>,
-                ]
-              : family === "rt"
-                ? [
-                    <GridDecor key={`${band}-ornament`} band={band} gx={11} gy={5}>
-                      <span className="f-cell round" />
-                    </GridDecor>,
-                  ]
-                : []),
-          ]),
+        {FAMILIES.flatMap(({ bands }) =>
+          bands.map((band) => (
+            <GridRegion key={`${band}-footer-row`} band={band} gx={0} gyb={0} gw={12} />
+          )),
         )}
       </div>
 
@@ -163,97 +137,114 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
         </InterpText>
       </header>
 
-      {model.featured && (
-        <div className="bc-featured" data-landmark="feat">
-          <FeaturedArticleCard post={model.featured} />
-        </div>
-      )}
-
-      <div className="bc-cards-frame" data-landmark="cards">
-        {model.posts.length > 0 ? (
-          <ul className="bc-cards">
-            {model.posts.map((post) => (
-              <li key={post.slug}>
-                <ArticleCard post={post} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          model.type === "search" && (
-            <InterpText as="p" style="text-xl-light" className="bc-empty">
-              {BLOG_CATEGORY_CONTENT.emptyResults}
-            </InterpText>
-          )
-        )}
-      </div>
-
-      <nav
-        className="bc-pagination"
-        aria-label={BLOG_CATEGORY_CONTENT.pagesLabel}
-        data-landmark="pagination"
-        data-current-page={model.pagination.currentPage}
-        data-total-pages={model.pagination.totalPages}
-      >
-        <span className="bc-page-button bc-page-previous">
-          <span className="bc-page-arrow-md">
-            <ButtonArrow
-              size="md"
-              chrome="gray"
-              href={previousPage}
-              label={BLOG_CATEGORY_CONTENT.previousPageLabel}
-            />
-          </span>
-          <span className="bc-page-arrow-lg">
-            <ButtonArrow
-              size="lg"
-              chrome="gray"
-              href={previousPage}
-              label={BLOG_CATEGORY_CONTENT.previousPageLabel}
-            />
-          </span>
-        </span>
-        <span className="bc-page-window">
-          {blogPageWindow(
-            model.pagination.currentPage,
-            model.pagination.totalPages,
-          ).map((item) =>
-            item.type === "ellipsis" ? (
-              <span className="bc-page-cell" key={item.key} aria-hidden="true">
-                {BLOG_CATEGORY_CONTENT.ellipsis}
-              </span>
-            ) : (
-              <a
-                className="bc-page-cell"
-                href={blogPageHref(model.pagination, item.page)}
-                aria-current={
-                  item.page === model.pagination.currentPage ? "page" : undefined
-                }
-                key={item.page}
-              >
-                {item.page}
-              </a>
-            ),
+      <div className="bc-content">
+        <div className="gx bc-content-grid" aria-hidden="true">
+          {FAMILIES.flatMap(({ family, bands }) =>
+            bands.map((band) => (
+              <GridRegion
+                key={`${band}-content-field`}
+                band={band}
+                {...exposedField(family, model.featured !== null)}
+              />
+            )),
           )}
-        </span>
-        <span className="bc-page-button bc-page-next">
-          <span className="bc-page-arrow-md">
-            <ButtonArrow
-              size="md"
-              chrome="gray"
-              href={nextPage}
-              label={BLOG_CATEGORY_CONTENT.nextPageLabel}
-            />
+          <GridDecor band="rt" gx={11} gy={1}>
+            <span className="f-cell round" />
+          </GridDecor>
+        </div>
+
+        {model.featured && (
+          <div className="bc-featured" data-landmark="feat">
+            <FeaturedArticleCard post={model.featured} />
+          </div>
+        )}
+
+        <div className="bc-cards-frame" data-landmark="cards">
+          {model.posts.length > 0 ? (
+            <ul className="bc-cards">
+              {model.posts.map((post) => (
+                <li key={post.slug}>
+                  <ArticleCard post={post} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            model.type === "search" && (
+              <InterpText as="p" style="text-xl-light" className="bc-empty">
+                {BLOG_CATEGORY_CONTENT.emptyResults}
+              </InterpText>
+            )
+          )}
+        </div>
+
+        <nav
+          className="bc-pagination"
+          aria-label={BLOG_CATEGORY_CONTENT.pagesLabel}
+          data-landmark="pagination"
+          data-current-page={model.pagination.currentPage}
+          data-total-pages={model.pagination.totalPages}
+        >
+          <span className="bc-page-button bc-page-previous">
+            <span className="bc-page-arrow-md">
+              <ButtonArrow
+                size="md"
+                chrome="gray"
+                href={previousPage}
+                label={BLOG_CATEGORY_CONTENT.previousPageLabel}
+              />
+            </span>
+            <span className="bc-page-arrow-lg">
+              <ButtonArrow
+                size="lg"
+                chrome="gray"
+                href={previousPage}
+                label={BLOG_CATEGORY_CONTENT.previousPageLabel}
+              />
+            </span>
           </span>
-          <span className="bc-page-arrow-lg">
-            <ButtonArrow
-              size="lg"
-              chrome="gray"
-              href={nextPage}
-              label={BLOG_CATEGORY_CONTENT.nextPageLabel}
-            />
+          <span className="bc-page-window">
+            {blogPageWindow(
+              model.pagination.currentPage,
+              model.pagination.totalPages,
+            ).map((item) =>
+              item.type === "ellipsis" ? (
+                <span className="bc-page-cell" key={item.key} aria-hidden="true">
+                  {BLOG_CATEGORY_CONTENT.ellipsis}
+                </span>
+              ) : (
+                <a
+                  className="bc-page-cell"
+                  href={blogPageHref(model.pagination, item.page)}
+                  aria-current={
+                    item.page === model.pagination.currentPage ? "page" : undefined
+                  }
+                  key={item.page}
+                >
+                  {item.page}
+                </a>
+              ),
+            )}
           </span>
-        </span>
-      </nav>
+          <span className="bc-page-button bc-page-next">
+            <span className="bc-page-arrow-md">
+              <ButtonArrow
+                size="md"
+                chrome="gray"
+                href={nextPage}
+                label={BLOG_CATEGORY_CONTENT.nextPageLabel}
+              />
+            </span>
+            <span className="bc-page-arrow-lg">
+              <ButtonArrow
+                size="lg"
+                chrome="gray"
+                href={nextPage}
+                label={BLOG_CATEGORY_CONTENT.nextPageLabel}
+              />
+            </span>
+          </span>
+        </nav>
+      </div>
     </section>
   );
 }
