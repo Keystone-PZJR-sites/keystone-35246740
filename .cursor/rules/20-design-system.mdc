@@ -141,7 +141,7 @@ markup is the delivery mechanism.
 
 Static media lives under `public/media/`, organized by function
 (`hero-carousel/`, `portfolio/`, `engines/`, `testimonials/`, `brand/`,
-`fonts/`). Only favicons, `og-image.png`, and `site.webmanifest` sit at the
+`fonts/`). Only favicons, `og-image.jpg`, and `site.webmanifest` sit at the
 public root.
 
 `design-system/media.ts` is the single source of truth mapping every asset

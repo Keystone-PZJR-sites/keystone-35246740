@@ -22,8 +22,21 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   manifest: "/site.webmanifest",
-  openGraph: { images: [{ url: "/og-image.png" }] },
-  twitter: { card: "summary_large_image", images: ["/og-image.png"] },
+  openGraph: {
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "Great businesses deserve to be found.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export const viewport: Viewport = {
