@@ -2,7 +2,13 @@ import { GridDecor, GridRegion, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
 import { InterpText } from "../primitives/text";
 import { ENGINE_CUTS, ENGINE_MD_MEDIA, engineImageSrc } from "../media";
-import { ENGINES, ENGINES_SLUG, type EngineCopy } from "./engines-data";
+import {
+  ENGINES,
+  ENGINES_SLUG,
+  ENGINE_STAGE_ADVANCE,
+  engineAdvanceLabel,
+  type EngineCopy,
+} from "./engines-data";
 import { EnginesScroll } from "./engines-scroll";
 
 const STACK_BANDS: GridBand[] = ["rm", "rs"];
@@ -30,6 +36,15 @@ function EngineCopyBlock({ engine }: { engine: EngineCopy }) {
         </InterpText>
       </div>
     </div>
+  );
+}
+
+function EngineViewMarks({ className }: { className?: string }) {
+  return (
+    <span className={className ?? "e2-bc"} aria-hidden="true">
+      <i className="e2-bc-dot" data-view="a" />
+      <i className="e2-bc-dot" data-view="b" />
+    </span>
   );
 }
 
@@ -92,10 +107,7 @@ export function EnginesSection() {
                   <div className="e2-card">
                     <span className="e2-dot" aria-hidden="true" />
                     <EngineCopyBlock engine={engine} />
-                    <span className="e2-bc" aria-hidden="true">
-                      <i className="e2-bc-dot" />
-                      <i className="e2-bc-dot" />
-                    </span>
+                    <EngineViewMarks />
                   </div>
                 </li>
               ))}
@@ -103,24 +115,27 @@ export function EnginesSection() {
           </div>
 
           <div className="e2-rail">
-            <div className="e2-stage" aria-hidden="true">
-              {STAGE_STATES.map(({ engine, state }, i) => (
-                <div
-                  className="e2-drawing"
-                  key={`${engine.id}-${state}`}
-                  data-stage-index={i}
-                  data-active={i === 0 ? "" : undefined}
-                >
-                  <img
-                    src={engineImageSrc(engine.id, state)}
-                    width={ENGINE_CUTS.xl.width}
-                    height={ENGINE_CUTS.xl.height}
-                    alt=""
-                    loading={i <= 1 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                </div>
-              ))}
+            <div className="e2-stage">
+              <button type="button" className="e2-asset" aria-label={ENGINE_STAGE_ADVANCE}>
+                {STAGE_STATES.map(({ engine, state }, i) => (
+                  <span
+                    className="e2-drawing"
+                    key={`${engine.id}-${state}`}
+                    data-stage-index={i}
+                    data-active={i === 0 ? "" : undefined}
+                  >
+                    <img
+                      src={engineImageSrc(engine.id, state)}
+                      width={ENGINE_CUTS.xl.width}
+                      height={ENGINE_CUTS.xl.height}
+                      alt=""
+                      loading={i <= 1 ? "eager" : "lazy"}
+                      decoding="async"
+                      draggable={false}
+                    />
+                  </span>
+                ))}
+              </button>
             </div>
           </div>
         </div>
@@ -144,37 +159,41 @@ export function EnginesSection() {
                   <EngineCopyBlock engine={engine} />
                 </div>
               </div>
-              <div className="e2-svisual" aria-hidden="true">
-                <div className="e2-strack">
-                  {(["01", "02"] as const).map((state) => (
-                    <div
-                      className="e2-sdrawing"
-                      key={state}
-                      data-active={state === "01" ? "" : undefined}
-                    >
-                      <picture>
-                        <source
-                          media={ENGINE_MD_MEDIA}
-                          srcSet={engineImageSrc(engine.id, state, "md")}
-                          width={ENGINE_CUTS.md.width}
-                          height={ENGINE_CUTS.md.height}
-                        />
-                        <img
-                          src={engineImageSrc(engine.id, state, "xs")}
-                          width={ENGINE_CUTS.xs.width}
-                          height={ENGINE_CUTS.xs.height}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </picture>
-                    </div>
-                  ))}
-                </div>
-                <span className="e2-bc e2-sbc">
-                  <i className="e2-bc-dot" />
-                  <i className="e2-bc-dot" />
-                </span>
+              <div className="e2-svisual">
+                <button
+                  type="button"
+                  className="e2-asset"
+                  aria-label={engineAdvanceLabel(engine.name)}
+                >
+                  <span className="e2-strack">
+                    {(["01", "02"] as const).map((state) => (
+                      <span
+                        className="e2-sdrawing"
+                        key={state}
+                        data-active={state === "01" ? "" : undefined}
+                      >
+                        <picture>
+                          <source
+                            media={ENGINE_MD_MEDIA}
+                            srcSet={engineImageSrc(engine.id, state, "md")}
+                            width={ENGINE_CUTS.md.width}
+                            height={ENGINE_CUTS.md.height}
+                          />
+                          <img
+                            src={engineImageSrc(engine.id, state, "xs")}
+                            width={ENGINE_CUTS.xs.width}
+                            height={ENGINE_CUTS.xs.height}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            draggable={false}
+                          />
+                        </picture>
+                      </span>
+                    ))}
+                  </span>
+                </button>
+                <EngineViewMarks className="e2-bc e2-sbc" />
               </div>
             </li>
           ))}

@@ -61,6 +61,14 @@ export const ENGINES: EngineCopy[] = [
 /** The section slug appears in wide and tablet layouts. */
 export const ENGINES_SLUG = "Designed to drive growth";
 
+/** Accessible name for the control that advances an engine's diagram. */
+export function engineAdvanceLabel(name: string): string {
+  return `Show the next ${name} view`;
+}
+
+/** Shared name for the wide sticky stage, which covers every engine. */
+export const ENGINE_STAGE_ADVANCE = "Show the next view";
+
 /** Section anatomy in ticks. Page expectations import these values directly. */
 export const ENGINE_TICKS = {
   /** Leading full-lattice seam row. */
