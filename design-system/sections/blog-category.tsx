@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { GridDecor, GridRegion, type GridBand } from "../grid/region";
 import { ButtonArrow } from "../primitives/buttons";
+import { Slug } from "../primitives/slug";
 import { InterpText } from "../primitives/text";
 import { SITE_LINKS } from "../site-links";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
@@ -120,18 +121,15 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
       </div>
 
       <header className="bc-head" data-landmark="head">
-        <div className="bc-crumb">
-          <span className="bc-marker" aria-hidden="true" />
-          <InterpText as="span" style="text-xs-medium" className="bc-crumb-text">
-            <a href={SITE_LINKS.blog}>{BLOG_CATEGORY_CONTENT.blogLabel}</a>
-            <span aria-hidden="true">/</span>
-            <span>
-              {model.type === "search"
-                ? BLOG_CATEGORY_CONTENT.searchLabel
-                : BLOG_CATEGORY_CONTENT.categoryLabel}
-            </span>
-          </InterpText>
-        </div>
+        <Slug>
+          <a href={SITE_LINKS.blog}>{BLOG_CATEGORY_CONTENT.blogLabel}</a>
+          <span aria-hidden="true">/</span>
+          <span>
+            {model.type === "search"
+              ? BLOG_CATEGORY_CONTENT.searchLabel
+              : BLOG_CATEGORY_CONTENT.categoryLabel}
+          </span>
+        </Slug>
         <InterpText as="h1" style="display-serif-sm-plus-thin" className="bc-h1">
           {model.heading}
         </InterpText>

@@ -56,59 +56,6 @@
   }
 }
 
-.wd-slug {
-  display: flex;
-  align-items: center;
-  height: var(--t);
-  color: var(--color-text-400);
-  --fs0: 12;
-  --fs1: 12;
-  --lh0: 16;
-  --lh1: 16;
-}
-/* the square marker: 6px bg/400 (7 from the rd1 gate — material); at
-   384 its 1t cell IS the gap construction */
-.wd-marker {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: var(--t);
-  height: var(--t);
-}
-.wd-marker::before {
-  content: "";
-  width: var(--sys-marker);
-  height: var(--sys-marker);
-  background: var(--color-bg-400);
-}
-@container (min-width: 665px) {
-  .wd-slug {
-    height: auto;
-    gap: 1em;
-    /* Override the mounted style without duplicating its longhands. */
-    --ts-text-xs-medium-font: var(--ts-text-xs-regular-font);
-  }
-  .wd-marker {
-    width: auto;
-    height: auto;
-  }
-}
-@container (min-width: 860px) {
-  .wd-slug {
-    gap: 0.8571em;
-    --ts-text-xs-medium-font: var(--ts-text-sm-regular-font);
-    --ts-text-xs-medium-opsz: var(--ts-text-sm-regular-opsz);
-    --fs0: 10;
-    --fs1: 14;
-    --lh0: 12.8571;
-    --lh1: 18;
-  }
-  .wd-marker::before {
-    width: var(--sys-marker-rd);
-    height: var(--sys-marker-rd);
-  }
-}
-
 /* The headline wraps naturally and changes weight at wide desktop. */
 .wd-h2 {
   color: var(--color-text-100);

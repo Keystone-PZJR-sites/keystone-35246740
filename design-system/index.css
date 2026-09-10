@@ -30,6 +30,7 @@
 @import "./primitives/case-study-card.css";
 @import "./primitives/case-study-button.css";
 @import "./primitives/field.css";
+@import "./primitives/slug.css";
 
 /* Sections */
 @import "./sections/footer.css";

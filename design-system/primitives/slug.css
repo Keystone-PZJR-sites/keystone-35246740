@@ -1,0 +1,98 @@
+/* Hold-then-switch: one designed size per family, zoomed by the
+   tick in compressed slices. Interpolation mid-band wraps dynamic
+   crumbs (tags, titles) at widths no frame was drawn for. */
+
+.slug {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-none);
+  color: var(--color-text-400);
+  --slug-fs: 12;
+  --slug-lh: 16;
+  font: var(--ts-text-xs-medium-font);
+  font-size: calc((var(--wA) + var(--wB)) * var(--slug-fs));
+  line-height: calc((var(--wA) + var(--wB)) * var(--slug-lh));
+  letter-spacing: var(--ts-text-xs-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-medium-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+.slug-mark {
+  flex: none;
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
+}
+.slug-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 0;
+}
+.slug a {
+  color: inherit;
+  text-decoration: none;
+}
+.slug a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-bg-300);
+}
+
+@container (min-width: 860px) {
+  .slug {
+    gap: var(--space-lg);
+    --slug-fs: 14;
+    --slug-lh: 18;
+    font: var(--ts-text-sm-medium-font);
+    letter-spacing: var(--ts-text-sm-medium-ls);
+    font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  }
+  .slug-mark {
+    width: var(--sys-marker-rd);
+    height: var(--sys-marker-rd);
+  }
+}
+
+/* The mark occupies a 1t column so the label lines up with a
+   1t-indented headline. From tablet the inline mark is enough. */
+.slug[data-layout="rail"] {
+  height: var(--t);
+  gap: 0;
+}
+.slug[data-layout="rail"] .slug-mark {
+  width: var(--t);
+  height: var(--t);
+  background: none;
+  display: grid;
+  place-items: center;
+}
+.slug[data-layout="rail"] .slug-mark::before {
+  content: "";
+  width: var(--sys-marker);
+  height: var(--sys-marker);
+  background: var(--color-bg-400);
+}
+@container (min-width: 665px) {
+  .slug[data-layout="rail"] {
+    height: auto;
+    gap: var(--space-md);
+  }
+  .slug[data-layout="rail"] .slug-mark {
+    width: var(--sys-marker);
+    height: var(--sys-marker);
+    background: var(--color-bg-400);
+    display: block;
+  }
+  .slug[data-layout="rail"] .slug-mark::before {
+    content: none;
+  }
+}
+@container (min-width: 860px) {
+  .slug[data-layout="rail"] {
+    gap: var(--space-lg);
+  }
+  .slug[data-layout="rail"] .slug-mark {
+    width: var(--sys-marker-rd);
+    height: var(--sys-marker-rd);
+  }
+}

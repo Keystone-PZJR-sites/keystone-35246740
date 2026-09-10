@@ -5,6 +5,7 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { InterpText } from "../primitives/text";
 import { ButtonFill } from "../primitives/buttons";
+import { Slug } from "../primitives/slug";
 import { WorkDeckIsland } from "./work-deck-island";
 import { WORK_SITES } from "./work-deck-data";
 
@@ -37,10 +38,7 @@ export function WorkDeckSection() {
       </div>
 
       <div className="wd-head">
-        <InterpText as="p" style="text-xs-medium" className="wd-slug">
-          <span className="wd-marker" aria-hidden="true" />
-          <span>Work that creates demand</span>
-        </InterpText>
+        <Slug layout="rail">Work that creates demand</Slug>
         <InterpText as="h2" style="display-serif-xs-extralight" className="wd-h2">
           Beautiful websites, ads, social, and content that grow your business.
         </InterpText>

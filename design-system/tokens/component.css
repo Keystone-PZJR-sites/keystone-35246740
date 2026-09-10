@@ -399,8 +399,6 @@
   --bp-body-w-rd: calc(var(--t) * 7);
   --bp-text-w-rd: calc(var(--t) * 6);
   --bp-h1-w-rd: calc(var(--bp-u-rd) * 960);
-  --bp-marker-rm: calc(var(--bp-u-rm) * 6);
-  --bp-marker-rt: calc(var(--bp-u-rt) * 7);
   --bp-h1-gap-rm: calc(var(--bp-u-rm) * 16);
   --bp-h1-gap-rt: calc(var(--bp-u-rt) * 16);
   --bp-h1-gap-rd: calc(var(--bp-u-rd) * 24);

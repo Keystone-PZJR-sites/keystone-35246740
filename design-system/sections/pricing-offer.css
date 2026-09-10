@@ -95,7 +95,6 @@
 }
 
 /* Typed elements share responsive size variables. */
-.po-slug,
 .po-h1,
 .po-subhead,
 .po-fine,
@@ -107,38 +106,6 @@
   letter-spacing: var(--_ls);
   font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
   font-optical-sizing: none;
-}
-
-.po-slug {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin: var(--space-none);
-  color: var(--color-text-400);
-  --_f: var(--ts-text-xs-medium-font);
-  --_fs: 12;
-  --_lh: 16;
-  --_ls: var(--ts-text-xs-medium-ls);
-  --_opsz: var(--ts-text-xs-medium-opsz);
-}
-.po-slug-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--color-bg-400);
-}
-@container (min-width: 860px) {
-  .po-slug {
-    gap: var(--space-lg);
-    --_f: var(--ts-text-sm-medium-font);
-    --_fs: 14;
-    --_lh: 18;
-    --_ls: var(--ts-text-sm-medium-ls);
-    --_opsz: var(--ts-text-sm-medium-opsz);
-  }
-  .po-slug-dot {
-    width: 7px;
-    height: 7px;
-  }
 }
 
 .po-h1 {
