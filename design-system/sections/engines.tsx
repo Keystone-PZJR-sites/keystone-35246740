@@ -1,4 +1,5 @@
 import { GridDecor, GridRegion, type GridBand } from "../grid/region";
+import { Slug } from "../primitives/slug";
 import { InterpText } from "../primitives/text";
 import { ENGINE_CUTS, ENGINE_MD_MEDIA, engineImageSrc } from "../media";
 import { ENGINES, ENGINES_SLUG, type EngineCopy } from "./engines-data";
@@ -59,12 +60,7 @@ export function EnginesSection() {
       <div className="e2-io">
         <div className="e2-slughost">
           <div className="e2-slugrow">
-            <p className="e2-slug">
-              <span className="e2-marker" aria-hidden="true" />
-              <InterpText as="span" style="text-sm-medium" className="e2-sluglabel">
-                {ENGINES_SLUG}
-              </InterpText>
-            </p>
+            <Slug className="e2-slug">{ENGINES_SLUG}</Slug>
           </div>
         </div>
         <div className="e2-slugspace" aria-hidden="true" />
@@ -132,12 +128,7 @@ export function EnginesSection() {
 
       <div className="e2-stack">
         <div className="e2-stackslug">
-          <p className="e2-slug">
-            <span className="e2-marker" aria-hidden="true" />
-            <InterpText as="span" style="text-xs-regular" className="e2-sluglabel">
-              {ENGINES_SLUG}
-            </InterpText>
-          </p>
+          <Slug className="e2-slug">{ENGINES_SLUG}</Slug>
         </div>
         <ul className="e2-stacklist">
           {ENGINES.map((engine) => (
