@@ -131,11 +131,11 @@
   --csc-img-zoom: 1%;
 
   --bc-page-cell: 36px;
-  --bc-page-indicator-w: 180px;
   --bc-page-button-cell-rm: 48px;
   --bc-page-button-cell-lg: 56px;
-  --bc-pager-w-rt: 384px;
-  --bc-pager-w-rd: 352px;
+  --bc-page-gap-rm: var(--space-xs);
+  --bc-page-gap-rt: var(--space-lg);
+  --bc-page-gap-rd: var(--space-md);
 
   --wg-ghost-opacity: var(--motion-ghost-opacity);
 
@@ -380,7 +380,10 @@
   --bc-u-rm: calc(var(--t) / 32);
   --bc-u-rt: calc(var(--wA) + var(--wB));
   --bc-u-rd: calc(var(--t) / 112);
+  /* 10t / 6t / 4t. 384 931:50994 · 768 931:46081 · 1344 930:43589 (447 → 4t). */
   --bc-pager-w-rm: calc(var(--t) * 10);
+  --bc-pager-w-rt: calc(var(--t) * 6);
+  --bc-pager-w-rd: calc(var(--t) * 4);
 
   --bp-u-rm: calc(var(--t) / 32);
   --bp-u-rt: calc(var(--wA) + var(--wB));

@@ -9,6 +9,7 @@
   --bc-pager-gap: calc(var(--t) * 2);
   --bc-pager-h: calc(var(--t) * 2);
   --bc-pager-w: var(--bc-pager-w-rm);
+  --bc-page-gap: var(--bc-page-gap-rm);
   --bc-button-cell: var(--bc-page-button-cell-rm);
   --bl-u: var(--bc-u);
 }
@@ -20,6 +21,7 @@
     --bc-pager-gap: var(--t);
     --bc-pager-h: var(--t);
     --bc-pager-w: var(--bc-pager-w-rt);
+    --bc-page-gap: var(--bc-page-gap-rt);
     --bc-button-cell: var(--bc-page-button-cell-lg);
   }
 }
@@ -29,6 +31,7 @@
     --bc-u: var(--bc-u-rd);
     --bc-stack: var(--bc-stack-rd);
     --bc-pager-w: var(--bc-pager-w-rd);
+    --bc-page-gap: var(--bc-page-gap-rd);
   }
 }
 
@@ -191,10 +194,9 @@
 .bc-pagination {
   flex: none;
   align-self: center;
-  display: grid;
-  grid-template-columns: var(--bc-button-cell) var(--bc-page-indicator-w)
-    var(--bc-button-cell);
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   width: var(--bc-pager-w);
   height: var(--bc-pager-h);
   margin-top: var(--bc-pager-gap);
@@ -206,7 +208,11 @@
   height: 100%;
 }
 .bc-page-previous .btn-arrow {
-  transform: rotate(180deg);
+  /* Reverse travel so the pass-through follows the flipped glyph. */
+  --_thru: calc((var(--_d) + var(--_g)) / -2);
+}
+.bc-page-previous .btn-arrow svg {
+  transform: scaleX(-1);
 }
 .bc-page-arrow-md,
 .bc-page-arrow-lg {
@@ -222,7 +228,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--bc-page-indicator-w);
+  gap: var(--bc-page-gap);
   height: var(--bc-page-cell);
 }
 .bc-page-cell {
@@ -240,6 +246,19 @@
 }
 .bc-page-cell[aria-current="page"] {
   background: var(--color-bg-000);
+}
+a.bc-page-cell {
+  transition: background-color var(--motion-hover-duration) var(--motion-drawer-ease);
+}
+@media (hover: hover) {
+  a.bc-page-cell:hover {
+    background: var(--color-bg-200);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  a.bc-page-cell {
+    transition-duration: 0s;
+  }
 }
 .bc-page-cell:focus-visible {
   outline: none;
