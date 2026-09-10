@@ -17,19 +17,13 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
   return (
     <article className="sec blog-post" data-landmark="blog-post">
       <div className="gx" aria-hidden="true">
-        <GridRegion band="rm" gx={11} gy={6} gh={3} />
-        <GridRegion band="rs" gx={11} gy={6} gh={3} />
-        <GridRegion band="rm" gx={0} gy={9} gw={12} gh={7} />
-        <GridRegion band="rs" gx={0} gy={9} gw={12} gh={7} />
-        <GridRegion band="rt" gx={1} gy={5} gw={10} />
-        <GridRegion band="rt" gx={0} gy={6} gw={12} gh={5} />
         {(["rm", "rs", "rt", "rd1", "rd2"] as const).map((band) => (
           <GridRegion key={band} band={band} gx={0} gyb={0} gw={12} />
         ))}
       </div>
 
       <div className="bp-rounder">
-        <header className="flow-budget bp-head" data-landmark="head">
+        <header className="bp-head" data-landmark="head">
           <div className="bp-crumb">
             <span className="bp-marker" aria-hidden="true" />
             <InterpText as="span" style="text-xs-medium" className="bp-crumb-text">
@@ -49,22 +43,32 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
           </InterpText>
         </header>
 
-        <div className="bp-body" data-landmark="body">
-          <div className="bp-hero" data-landmark="hero">
-            <img src={post.imageUrl} alt="" width={784} height={448} fetchPriority="high" />
+        <div className="bp-content-row">
+          <div className="gx bp-content-grid" aria-hidden="true">
+            {/* Six rows start 1t down, so one exposed row remains below the 6t hero. */}
+            <GridRegion band="rm" gx={0} gy={1} gw={12} gh={6} />
+            <GridRegion band="rs" gx={0} gy={1} gw={12} gh={6} />
+            <GridRegion band="rt" gx={1} gy={0} gw={10} />
+            <GridRegion band="rt" gx={0} gy={1} gw={12} gh={6} />
           </div>
-          <BlogPostMarkdown markdown={post.ledeMarkdown} variant="lede" />
-          <div className="bp-section-stack">
-            {post.sections.map((section) => (
-              <section className="bp-article-section" id={section.id} key={section.id}>
-                <h2>{section.heading}</h2>
-                <BlogPostMarkdown markdown={section.markdown} variant="body" />
-              </section>
-            ))}
-          </div>
-        </div>
 
-        <BlogPostTocIsland items={tocItems} />
+          <div className="bp-body" data-landmark="body">
+            <div className="bp-hero" data-landmark="hero">
+              <img src={post.imageUrl} alt="" width={784} height={448} fetchPriority="high" />
+            </div>
+            <BlogPostMarkdown markdown={post.ledeMarkdown} variant="lede" />
+            <div className="bp-section-stack">
+              {post.sections.map((section) => (
+                <section className="bp-article-section" id={section.id} key={section.id}>
+                  <h2>{section.heading}</h2>
+                  <BlogPostMarkdown markdown={section.markdown} variant="body" />
+                </section>
+              ))}
+            </div>
+          </div>
+
+          <BlogPostTocIsland items={tocItems} />
+        </div>
       </div>
     </article>
   );

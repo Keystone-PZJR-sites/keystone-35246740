@@ -24,6 +24,10 @@ interface RegionGeometry {
   gh?: number;
 }
 
+interface GridRegionProps extends RegionGeometry {
+  className?: string;
+}
+
 type Anchor = "top" | "bottom" | "stretch";
 
 function anchorOf(gy: number | undefined, gyb: number | undefined): Anchor {
@@ -45,7 +49,15 @@ function geometryStyle({ gx, gy, gyb, gw, gh }: Omit<RegionGeometry, "band">): C
 }
 
 /** Exposure region: bordered rectangle plus its interior lattice lines. */
-export function GridRegion({ band, gx, gy, gyb, gw = 1, gh = 1 }: RegionGeometry) {
+export function GridRegion({
+  band,
+  gx,
+  gy,
+  gyb,
+  gw = 1,
+  gh = 1,
+  className,
+}: GridRegionProps) {
   const anchor = anchorOf(gy, gyb);
   const rows = anchor === "stretch" ? gh + STRETCH_SLACK_ROWS : gh;
   const lines = [];
@@ -62,7 +74,10 @@ export function GridRegion({ band, gx, gy, gyb, gw = 1, gh = 1 }: RegionGeometry
         ? { gx, gyb, gw, gh }
         : { gx, gy: gy ?? 0, gw, gh };
   return (
-    <div className={`grid-region ${band}${ANCHOR_CLASS[anchor]}`} style={geometryStyle(geometry)}>
+    <div
+      className={`grid-region ${band}${ANCHOR_CLASS[anchor]}${className ? ` ${className}` : ""}`}
+      style={geometryStyle(geometry)}
+    >
       {lines}
     </div>
   );

@@ -388,14 +388,11 @@
   --bp-min-rows-rm: 102;
   --bp-min-rows-rt: 45;
   --bp-min-rows-rd: 28;
-  --bp-head-rows-rm: calc(var(--t) * 9);
-  --bp-head-rows-rd: calc(var(--t) * 4);
   --bp-head-top-rm: calc(var(--bp-u-rm) * 80);
   --bp-head-top-rt: calc(var(--bp-u-rt) * 80);
   --bp-head-top-rd: calc(var(--bp-u-rd) * 176);
   --bp-page-inset: var(--t);
   --bp-page-content: calc(var(--t) * 10);
-  --bp-body-x-rd: calc(var(--t) * 4);
   --bp-body-w-rd: calc(var(--t) * 7);
   --bp-text-w-rd: calc(var(--t) * 6);
   --bp-h1-w-rd: calc(var(--bp-u-rd) * 960);
@@ -407,8 +404,12 @@
   --bp-tail: calc(var(--t) * 2);
   --bp-hero-h-rm: calc(var(--t) * 6);
   --bp-hero-h-rd: calc(var(--t) * 4);
-  --bp-body-pt-rt: var(--t);
-  --bp-body-pt-rd: calc(var(--bp-u-rd) * 64);
+  --bp-intro-gap-rm: var(--t);
+  --bp-intro-gap-rt: var(--t);
+  --bp-intro-gap-rd: calc(var(--bp-u-rd) * 64);
+  --bp-hero-content-gap-rm: calc(var(--t) * 2);
+  --bp-hero-content-gap-rt: var(--bp-hero-content-gap-rm);
+  --bp-hero-content-gap-rd: calc(var(--bp-u-rd) * 64);
   --bp-content-gap-rm: calc(var(--bp-u-rm) * 64);
   --bp-content-gap-rt: calc(var(--bp-u-rt) * 64);
   --bp-content-gap-rd: calc(var(--bp-u-rd) * 64);
@@ -441,8 +442,5 @@
   --bp-table-pad-rd: calc(var(--bp-u-rd) * 8);
   --bp-table-cell-min: calc(var(--t) * 2);
   --bp-scroll-inset: calc(var(--t) + var(--space-xl));
-  --bp-toc-top-rd: calc(var(--t) * 4 + var(--bp-u-rd) * 64);
-  --bp-toc-bottom: calc(var(--t) * 2);
-  --bp-toc-x: var(--t);
   --bp-toc-w: calc(var(--t) * 2);
 }

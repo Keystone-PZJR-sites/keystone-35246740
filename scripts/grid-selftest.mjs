@@ -769,6 +769,8 @@ async function main() {
         const state = await page.evaluate(() => {
           const section = document.querySelector(".blog-category");
           const cards = section?.querySelector(".bc-cards-frame");
+          const title = section?.querySelector(".bc-h1");
+          const firstContent = section?.querySelector(".bc-featured") ?? cards;
           const t = document.querySelector(".page").getBoundingClientRect().width / 12;
           const visibleArrow = (selector) =>
             [...document.querySelectorAll(selector)].find(
@@ -787,10 +789,10 @@ async function main() {
               visibleArrow(".bc-page-previous .btn-arrow")?.tagName ?? null,
             nextTag: visibleArrow(".bc-page-next .btn-arrow")?.tagName ?? null,
             empty: Boolean(section?.querySelector(".bc-empty")),
-            cardsTopTicks:
-              section && cards
-                ? (cards.getBoundingClientRect().top -
-                    section.getBoundingClientRect().top) /
+            headerGapTicks:
+              title && firstContent
+                ? (firstContent.getBoundingClientRect().top -
+                    title.getBoundingClientRect().bottom) /
                   t
                 : null,
           };
@@ -812,10 +814,14 @@ async function main() {
         if (Boolean(state.empty) !== Boolean(fixture.empty)) {
           fail(`${fixture.path} ${width} · empty state mismatch`);
         }
-        const shiftedTop = width === 384 ? 8 : 4;
-        if (!fixture.featured && Math.abs(state.cardsTopTicks - shiftedTop) > 0.02) {
+        if (
+          state.headerGapTicks === null ||
+          Math.abs(state.headerGapTicks - 1) > 0.02
+        ) {
           fail(
-            `${fixture.path} ${width} · cards top ${state.cardsTopTicks.toFixed(3)}t ≠ ${shiftedTop}t`,
+            `${fixture.path} ${width} · header gap ${
+              state.headerGapTicks?.toFixed(3) ?? "missing"
+            }t ≠ 1t`,
           );
         }
       }

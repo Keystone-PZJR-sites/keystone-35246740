@@ -10,6 +10,7 @@ const ROW_ROUNDING_EPSILON_PX = 0.5;
 const VIEWPORT_LINE_DIVISOR = 3;
 const TOC_ROOT_MARGIN = "0px 0px -66.667% 0px";
 const TOC_THRESHOLDS = [0, 1];
+const CONTENT_ROWS_PROPERTY = "--bp-content-rows";
 
 export interface BlogPostTocItem {
   id: string;
@@ -31,12 +32,12 @@ export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
 
     const publishContentRows = () => {
       const articleBox = article.getBoundingClientRect();
-      const bodyBox = body.getBoundingClientRect();
       const tick = Math.min(articleBox.width / PAGE_COLUMNS, MAX_TICK_PX);
+      const bodyBox = body.getBoundingClientRect();
       const tail = tick * TAIL_TICKS;
       const contentHeight = bodyBox.bottom - articleBox.top + tail;
       const rows = Math.ceil((contentHeight - ROW_ROUNDING_EPSILON_PX) / tick);
-      article.style.setProperty("--bp-content-rows", String(rows));
+      article.style.setProperty(CONTENT_ROWS_PROPERTY, String(rows));
     };
     const resizeObserver = new ResizeObserver(publishContentRows);
     resizeObserver.observe(page);
@@ -49,7 +50,7 @@ export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
     if (sections.length === 0) {
       return () => {
         resizeObserver.disconnect();
-        article.style.removeProperty("--bp-content-rows");
+        article.style.removeProperty(CONTENT_ROWS_PROPERTY);
       };
     }
 
@@ -71,7 +72,7 @@ export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
     return () => {
       sectionObserver.disconnect();
       resizeObserver.disconnect();
-      article.style.removeProperty("--bp-content-rows");
+      article.style.removeProperty(CONTENT_ROWS_PROPERTY);
     };
   }, [items]);
 

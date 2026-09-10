@@ -51,7 +51,7 @@ export function blogExpectations(model: BlogPageModel): GridExpectations {
       ],
       {
         clearanceExceptions: ["feat", "cards", "top", "nav"],
-        latticeExempt: ["head", "pagination"],
+        latticeExempt: ["head", "feat", "cards", "pagination"],
       },
     );
   }
