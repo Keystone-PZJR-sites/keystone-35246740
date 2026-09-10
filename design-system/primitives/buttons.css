@@ -12,6 +12,9 @@
   font-optical-sizing: none;
   text-decoration: none;
   white-space: nowrap;
+}
+.btn-fill,
+.btn-ghost {
   transition-property: background-color;
   transition-duration: var(--motion-hover-duration);
   transition-timing-function: var(--motion-hover-ease);
@@ -248,6 +251,7 @@
 /* ---------------- button-arrow ---------------- */
 
 .btn-arrow {
+  position: relative;
   display: inline-grid;
   place-items: center;
   box-sizing: border-box;
@@ -261,6 +265,17 @@
   /* The clipped circle hides the arrow's pass-through travel. */
   overflow: clip;
   --_thru: calc((var(--_d) + var(--_g)) / 2);
+}
+/* Hover fill lives on a child so this clip box never paint-transitions. */
+.btn-arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--_bg-hover);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-hover-duration) var(--motion-drawer-ease);
 }
 .btn-arrow[data-size="lg"] {
   --_d: 40px;
@@ -281,6 +296,7 @@
   /* relative left, not transform — same no-compositor rule as
      .btn-glyph; also keeps clear of the loading spin's transform */
   position: relative;
+  z-index: 1;
   left: 0;
 }
 /* Stacked glyphs sequence two half-duration legs and blend interruptions. */
@@ -325,8 +341,8 @@
 }
 
 @media (hover: hover) {
-  .btn-arrow:not(:disabled):not([data-state="disabled"]):not([data-loading]):hover {
-    background: var(--_bg-hover);
+  .btn-arrow:not(:disabled):not([data-state="disabled"]):not([data-loading]):hover::before {
+    opacity: 1;
   }
   .btn-arrow:not(:disabled):not([data-state="disabled"]):not([data-loading]):hover
     .btn-arrow-main {
@@ -341,8 +357,8 @@
       var(--btn-arrow-thru-enter-ease) calc(var(--btn-arrow-thru-dur) / 2);
   }
 }
-.btn-arrow[data-state="hover"] {
-  background: var(--_bg-hover);
+.btn-arrow[data-state="hover"]::before {
+  opacity: 1;
 }
 .btn-arrow[data-state="hover"] .btn-arrow-main {
   left: var(--_thru);
@@ -376,6 +392,7 @@
   .btn-fill,
   .btn-ghost,
   .btn-arrow,
+  .btn-arrow::before,
   .btn-fill .btn-glyph,
   .btn-arrow svg {
     transition-duration: 0s;
