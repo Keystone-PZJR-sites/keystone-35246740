@@ -103,6 +103,22 @@ interface BlogTag {
   slug: string;
 }
 
+/** Backend tag names are often the slug. Keep these uppercase in labels. */
+const TAG_ACRONYMS = new Set(["AI", "SEO", "CTA"]);
+
+function formatTagLabel(raw: string): string {
+  return raw
+    .split(/[\s_-]+/)
+    .filter(Boolean)
+    .map((word) => {
+      const acronym = word.toLocaleUpperCase("en");
+      if (TAG_ACRONYMS.has(acronym)) return acronym;
+      const lower = word.toLocaleLowerCase("en");
+      return lower.charAt(0).toLocaleUpperCase("en") + lower.slice(1);
+    })
+    .join(" ");
+}
+
 function isBlogTag(value: unknown): value is BlogTag {
   return isRecord(value) && nonEmptyString(value.name) && nonEmptyString(value.slug);
 }
@@ -126,7 +142,10 @@ function imageUrlOf(raw: Record<string, unknown>): string | null {
 function tagsOf(raw: Record<string, unknown>): { name: string; slug: string }[] {
   const tags = raw.blog_post_tags;
   if (!Array.isArray(tags)) return [];
-  return tags.filter(isBlogTag).map(({ name, slug }) => ({ name, slug }));
+  return tags.filter(isBlogTag).map(({ name, slug }) => ({
+    name: formatTagLabel(name),
+    slug,
+  }));
 }
 
 function readMinutesOf(content: string): number {
