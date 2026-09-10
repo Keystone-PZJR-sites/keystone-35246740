@@ -23,6 +23,7 @@ export const SITE_LINKS = {
   about: "#",
   leadership: "#",
   careers: "#",
+  contact: "/contact",
   terms: "/terms",
   privacy: "/privacy",
   accessibility: "/accessibility",

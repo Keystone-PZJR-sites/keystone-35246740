@@ -443,4 +443,9 @@
   --bp-table-cell-min: calc(var(--t) * 2);
   --bp-scroll-inset: calc(var(--t) + var(--space-xl));
   --bp-toc-w: calc(var(--t) * 2);
+
+  /* Contact / form field chrome — fixed material heights. */
+  --field-h: 48px;
+  --field-textarea-min-h: calc(var(--t) * 2);
+  --field-check-size: var(--space-2xl);
 }

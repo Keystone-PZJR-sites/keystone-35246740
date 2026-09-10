@@ -1,0 +1,169 @@
+/* Field chrome mirrors grader border/ring language with box radii
+   so single-line and textarea controls share one surface. */
+
+.ks-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  --_border: var(--color-border-000);
+  --_ring: var(--color-bg-200);
+  --_ph: var(--color-text-500);
+  --_ink: var(--color-text-200);
+}
+
+.ks-field-label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  color: var(--color-text-200);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.ks-field-req {
+  color: var(--color-teal-500);
+}
+
+.ks-field-help {
+  color: var(--color-text-400);
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.ks-field-control {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--field-h);
+  padding-inline: var(--space-xl);
+  background: var(--color-bg-000);
+  border: 1px solid var(--_border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 0 var(--ring-w) var(--_ring);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+
+.ks-field-control[data-kind="textarea"] {
+  align-items: stretch;
+  min-height: var(--field-textarea-min-h);
+  padding-block: var(--space-lg);
+}
+
+.ks-field-control :is(input, textarea) {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: var(--space-none);
+  background: none;
+  outline: none;
+  resize: vertical;
+  color: var(--_ink);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.ks-field-control :is(input, textarea)::placeholder {
+  color: var(--_ph);
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ks-field-control:hover {
+    --_border: var(--color-border-100);
+    --_ring: var(--color-bg-300);
+  }
+}
+
+.ks-field-control:focus-within {
+  --_border: var(--color-teal-300);
+  --_ring: var(--color-teal-100);
+}
+
+.ks-field-control:focus-within:has(:is(input, textarea):not(:placeholder-shown)) {
+  --_border: var(--color-teal-400);
+  --_ring: var(--color-teal-150);
+}
+
+.ks-field-check {
+  gap: var(--space-sm);
+}
+
+.ks-field-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.ks-field-check-row input[type="checkbox"] {
+  flex: none;
+  box-sizing: border-box;
+  width: var(--field-check-size);
+  height: var(--field-check-size);
+  margin-top: var(--space-2xs, 2px);
+  appearance: none;
+  background: var(--color-bg-000);
+  border: 1px solid var(--color-border-100);
+  border-radius: var(--radius-xs);
+  box-shadow: 0 0 0 var(--ring-w) var(--color-bg-200);
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
+}
+
+.ks-field-check-row input[type="checkbox"]:checked {
+  background: var(--color-teal-500);
+  border-color: var(--color-teal-500);
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6.2 4.8 8.5 9.5 3.5' stroke='%23f8f7f2' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.75em 0.75em;
+}
+
+.ks-field-check-row input[type="checkbox"]:focus-visible {
+  outline: none;
+  border-color: var(--color-teal-300);
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-100);
+}
+
+.ks-field-check-label {
+  color: var(--color-text-300);
+  font: var(--ts-text-sm-light-font);
+  letter-spacing: var(--ts-text-sm-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+}
+
+.ks-field-check-label a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-200);
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 0.18em;
+}
+
+.ks-field-check-label a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-200);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-field-control,
+  .ks-field-check-row input[type="checkbox"] {
+    transition: none;
+  }
+}
+
+.page[data-motion="reduce"] .ks-field-control,
+.page[data-motion="reduce"] .ks-field-check-row input[type="checkbox"] {
+  transition: none;
+}

@@ -1,0 +1,119 @@
+/* Contact page — legal-shell column with a lead form body. */
+
+.contact-section {
+  width: 100%;
+  min-height: calc(var(--t) * 8);
+  padding-block: calc(var(--t) * 3) calc(var(--t) * 2);
+}
+
+.contact-header,
+.contact-body {
+  width: calc(var(--t) * 10);
+  margin-left: var(--t);
+}
+
+.contact-header {
+  border-top: 1px solid var(--color-border-000);
+  padding-top: var(--space-xl);
+}
+
+.contact-eyebrow {
+  color: var(--color-text-400);
+  font: var(--ts-text-nav-label-font);
+  letter-spacing: var(--ts-text-nav-label-ls);
+  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
+  text-transform: var(--ts-text-nav-label-case);
+}
+
+.contact-header h1 {
+  max-width: calc(var(--t) * 9);
+  margin-top: var(--space-xl);
+  color: var(--color-text-100);
+  font: var(--ts-display-serif-md-extralight-font);
+  letter-spacing: var(--ts-display-serif-md-extralight-ls);
+}
+
+.contact-lede {
+  max-width: calc(var(--t) * 8);
+  margin-top: var(--space-xl);
+  color: var(--color-text-300);
+  font: var(--ts-text-md-light-font);
+  letter-spacing: var(--ts-text-md-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+}
+
+.contact-body {
+  margin-top: var(--t);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+}
+
+.contact-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xl);
+  padding-top: var(--space-md);
+}
+
+.contact-form-status {
+  min-height: 1.25em;
+  color: var(--color-text-200);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+}
+
+.contact-form-error {
+  color: var(--color-danger-500);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+}
+
+@container (min-width: 470px) {
+  .contact-section {
+    padding-top: calc(var(--t) * 2);
+  }
+
+  .contact-header h1 {
+    font: var(--ts-display-serif-lg-extralight-font);
+    letter-spacing: var(--ts-display-serif-lg-extralight-ls);
+  }
+
+  .contact-form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@container (min-width: 665px) {
+  .contact-header,
+  .contact-body {
+    width: calc(var(--t) * 7);
+    margin-left: calc(var(--t) * 4);
+  }
+}
+
+@container (min-width: 1130px) {
+  .contact-header,
+  .contact-body {
+    width: calc(var(--t) * 6);
+    margin-left: calc(var(--t) * 5);
+  }
+
+  .contact-lede {
+    font: var(--ts-text-lg-light-font);
+    letter-spacing: var(--ts-text-lg-light-ls);
+    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  }
+}

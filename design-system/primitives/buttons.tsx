@@ -17,6 +17,7 @@ interface ButtonFillProps {
   external?: boolean;
   /** Behavior hook rendered as data-action. */
   action?: string;
+  disabled?: boolean;
   forceState?: ForceableState;
   children: ReactNode;
 }
@@ -29,6 +30,7 @@ export function ButtonFill({
   href,
   external = false,
   action,
+  disabled = false,
   forceState,
   children,
 }: ButtonFillProps) {
@@ -65,6 +67,7 @@ export function ButtonFill({
       data-shape={shape}
       data-state={forceState}
       data-action={action}
+      disabled={disabled}
     >
       {label}
     </button>

@@ -29,6 +29,7 @@
 @import "./primitives/button-inline.css";
 @import "./primitives/case-study-card.css";
 @import "./primitives/case-study-button.css";
+@import "./primitives/field.css";
 
 /* Sections */
 @import "./sections/footer.css";
@@ -41,6 +42,7 @@
 @import "./sections/work-gallery.css";
 @import "./sections/gallery-overlay.css";
 @import "./sections/legal-content.css";
+@import "./sections/contact.css";
 @import "./sections/blog-top.css";
 @import "./sections/blog-cards.css";
 @import "./sections/blog-lists.css";
