@@ -1,0 +1,25 @@
+/* Content-sized flow frame: head → the investor wall → flow closer.
+   Columns: 3 across the rm family, 5 at rt, 6 at rd. */
+
+.cob-wall {
+  /* .sec children shrink to fit; the wall owns the content column. */
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: var(--co-head-gap);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--co-wall-gap-x);
+  row-gap: var(--co-wall-gap-y);
+}
+@container (min-width: 665px) {
+  .cob-wall {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@container (min-width: 860px) {
+  .cob-wall {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

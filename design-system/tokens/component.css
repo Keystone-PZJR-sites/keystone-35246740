@@ -445,6 +445,16 @@
   --bp-scroll-inset: calc(var(--t) + var(--space-xl));
   --bp-toc-w: calc(var(--t) * 2);
 
+  --co-u-rm: calc(var(--t) / 32);
+  --co-u-rt: calc(var(--wA) + var(--wB));
+  --co-u-rd: calc(var(--t) / 112);
+  /* Company section-heading measure, the wd/cc h2 token pattern:
+     320 → 480 → 560 flat → 832 at the anchors. */
+  --co-h2-w-rm: calc(var(--wA) * 320 + var(--wB) * 480);
+  --co-h2-w-rs: calc(var(--wA) * 480 + var(--wB) * 560);
+  --co-h2-w-rt: calc((var(--wA) + var(--wB)) * 560);
+  --co-h2-w-rd: calc((var(--wA) + var(--wB)) * 832);
+
   /* Contact / form field chrome — fixed material heights. */
   --field-h: 48px;
   --field-textarea-min-h: calc(var(--t) * 2);

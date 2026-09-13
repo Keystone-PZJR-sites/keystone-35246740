@@ -64,6 +64,15 @@
 @import "./sections/case-study-cta.css";
 @import "./sections/case-study-toc.css";
 
+/* Company — shared page utilities before section frames so per-section
+   rules win the cascade. */
+@import "./pages/company.css";
+@import "./sections/company-hero.css";
+@import "./sections/company-story.css";
+@import "./sections/company-backers.css";
+@import "./sections/company-team.css";
+@import "./sections/company-careers.css";
+
 /* Home */
 @import "./sections/hero.css";
 @import "./sections/system.css";

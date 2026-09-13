@@ -8,6 +8,13 @@ export interface MediaAsset {
   alt: string;
 }
 
+export interface VideoAsset {
+  src: string;
+  width: number;
+  height: number;
+  type: string;
+}
+
 /* Hero carousel: odd slides switch from square to wide at the rt gate;
  * even slides use their square cut everywhere. Tint is baked in and the
  * ambient strip stays aria-hidden with empty alts. */
@@ -198,6 +205,284 @@ export function caseCarouselSrc(file: number, cut: "portrait" | "landscape"): st
   const tier = cut === "portrait" ? 1344 : 384;
   return `/media/case-carousel/case-study-${tier}-${String(file).padStart(2, "0")}.webp`;
 }
+
+/* Company page media: portraits restored from the v1 archive (b0e6af3)
+ * and converted to WebP. Team keys are kebab-cased member names so the
+ * live getTeamMembers() result can resolve its static portrait. */
+
+export const TEAM_PORTRAIT_SIZE = { width: 800, height: 800 };
+
+/** Static team portraits under public/media/team, keyed by name slug. */
+export const TEAM_PORTRAITS: Record<string, MediaAsset> = {
+  "rahul-jaswa": {
+    src: "/media/team/rahul-jaswa.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Rahul Jaswa, Founder & CEO",
+  },
+  "amanjot-singh": {
+    src: "/media/team/amanjot-singh.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Amanjot Singh, Head of Engineering",
+  },
+  "sreenivasan-ac": {
+    src: "/media/team/sreenivasan-ac.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Sreenivasan AC, Founding AI Engineer",
+  },
+  "pawan-kumar": {
+    src: "/media/team/pawan-kumar.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Pawan Kumar, Backend Engineer",
+  },
+  "gaurav-labhane": {
+    src: "/media/team/gaurav-labhane.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Gaurav Labhane, Senior Software Development Engineer",
+  },
+  "gaurav-grover": {
+    src: "/media/team/gaurav-grover.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Gaurav Grover, Lead Software Engineer",
+  },
+  "manikya-singh": {
+    src: "/media/team/manikya-singh.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Manikya Singh, Founding Engineer",
+  },
+  "aasawari-vaidya": {
+    src: "/media/team/aasawari-vaidya.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Aasawari Vaidya, Strategy & Operations Lead",
+  },
+  "ishttartha-pujar": {
+    src: "/media/team/ishttartha-pujar.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Ishttartha Pujar, Growth Partner",
+  },
+  "atley-kasky": {
+    src: "/media/team/atley-kasky.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Atley Kasky, Brand & Design Lead",
+  },
+};
+
+/** Resolves a live team member's static portrait by kebab-casing the
+ * API name ("Sreenivasan AC" → "sreenivasan-ac"). Null when the member
+ * has no portrait in the registry. */
+export function teamPortrait(name: string): MediaAsset | null {
+  const slug = name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return TEAM_PORTRAITS[slug] ?? null;
+}
+
+export const INVESTOR_PORTRAIT_SIZE = { width: 400, height: 400 };
+
+/** Investor portraits under public/media/investors; name-only alt —
+ * the roster omits firms by design. */
+export const INVESTOR_PORTRAITS: Record<string, MediaAsset> = {
+  "adeyemi-ajao": {
+    src: "/media/investors/adeyemi-ajao.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Adeyemi Ajao",
+  },
+  "anthony-saleh": {
+    src: "/media/investors/anthony-saleh.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Anthony Saleh",
+  },
+  "caroline-broder": {
+    src: "/media/investors/caroline-broder.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Caroline Broder",
+  },
+  "chenli-wang": {
+    src: "/media/investors/chenli-wang.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Chenli Wang",
+  },
+  "colin-evans": {
+    src: "/media/investors/colin-evans.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Colin Evans",
+  },
+  "dan-gill": {
+    src: "/media/investors/dan-gill.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Dan Gill",
+  },
+  "ilya-fushman": {
+    src: "/media/investors/ilya-fushman.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Ilya Fushman",
+  },
+  "jai-ranganathan": {
+    src: "/media/investors/jai-ranganathan.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Jai Ranganathan",
+  },
+  "john-gleeson": {
+    src: "/media/investors/john-gleeson.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "John Gleeson",
+  },
+  "nick-tippman": {
+    src: "/media/investors/nick-tippman.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Nick Tippman",
+  },
+  "obaid-khan": {
+    src: "/media/investors/obaid-khan.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Obaid Khan",
+  },
+  "olivia-benjamin": {
+    src: "/media/investors/olivia-benjamin.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Olivia Benjamin",
+  },
+  "praveen-ramineni": {
+    src: "/media/investors/praveen-ramineni.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Praveen Ramineni",
+  },
+  "rexhi-dollaku": {
+    src: "/media/investors/rexhi-dollaku.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Rexhi Dollaku",
+  },
+  "shoaib-makani": {
+    src: "/media/investors/shoaib-makani.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Shoaib Makani",
+  },
+  "siva-gurumurthy": {
+    src: "/media/investors/siva-gurumurthy.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Siva Gurumurthy",
+  },
+  "somesh-dash": {
+    src: "/media/investors/somesh-dash.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Somesh Dash",
+  },
+  "sujay-jaswa": {
+    src: "/media/investors/sujay-jaswa.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Sujay Jaswa",
+  },
+  "tanuj-thapliyal": {
+    src: "/media/investors/tanuj-thapliyal.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Tanuj Thapliyal",
+  },
+  "ted-gill": {
+    src: "/media/investors/ted-gill.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Ted Gill",
+  },
+  "thomas-buley": {
+    src: "/media/investors/thomas-buley.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Thomas Buley",
+  },
+  "zach-goldstein": {
+    src: "/media/investors/zach-goldstein.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Zach Goldstein",
+  },
+};
+
+/* Company hero video: six clips, each art-directed for the phone,
+ * tablet, and desktop frame ratios. Sources stay largest-first so a
+ * matching higher tier wins before the lower-tier codec fallback. */
+
+export type CompanyHeroVideoTier = "phone" | "tablet" | "desktop";
+export type CompanyHeroVideoFormat = "webm" | "mp4";
+export type CompanyHeroVideoIndex = 1 | 2 | 3 | 4 | 5 | 6;
+
+export interface CompanyHeroVideoTierDefinition {
+  width: number;
+  height: number;
+  media: string | null;
+  webmType: string;
+  mp4Type: string;
+}
+
+export const COMPANY_HERO_VIDEO_TIERS: Record<
+  CompanyHeroVideoTier,
+  CompanyHeroVideoTierDefinition
+> = {
+  phone: {
+    width: 640,
+    height: 384,
+    media: null,
+    webmType: 'video/webm; codecs="vp9"',
+    mp4Type: 'video/mp4; codecs="avc1.640029"',
+  },
+  tablet: {
+    width: 1280,
+    height: 768,
+    media: "(min-width: 470px)",
+    webmType: 'video/webm; codecs="vp9"',
+    mp4Type: 'video/mp4; codecs="avc1.640029"',
+  },
+  desktop: {
+    width: 1600,
+    height: 800,
+    media: "(min-width: 860px)",
+    webmType: 'video/webm; codecs="vp9"',
+    mp4Type: 'video/mp4; codecs="av01.0.08M.08"',
+  },
+};
+
+/** company-hero-{01..06}-{phone|tablet|desktop}-{width}x{height}.{format}
+ * under public/media/company/hero. */
+export function companyHeroVideoAsset(
+  clip: CompanyHeroVideoIndex,
+  tier: CompanyHeroVideoTier,
+  format: CompanyHeroVideoFormat,
+): VideoAsset {
+  const definition = COMPANY_HERO_VIDEO_TIERS[tier];
+  const index = String(clip).padStart(2, "0");
+  return {
+    src: `/media/company/hero/company-hero-${index}-${tier}-${definition.width}x${definition.height}.${format}`,
+    width: definition.width,
+    height: definition.height,
+    type: format === "webm" ? definition.webmType : definition.mp4Type,
+  };
+}
+
+export interface CompanyHeroPosterTier extends MediaAsset {
+  media: string | null;
+}
+
+/** Largest-first source order; phone is the <img> fallback. */
+export const COMPANY_HERO_POSTERS: CompanyHeroPosterTier[] = [
+  {
+    src: "/media/company/hero/company-hero-poster-desktop-1600x800.webp",
+    width: 1600,
+    height: 800,
+    alt: "",
+    media: COMPANY_HERO_VIDEO_TIERS.desktop.media,
+  },
+  {
+    src: "/media/company/hero/company-hero-poster-tablet-1280x768.webp",
+    width: 1280,
+    height: 768,
+    alt: "",
+    media: COMPANY_HERO_VIDEO_TIERS.tablet.media,
+  },
+  {
+    src: "/media/company/hero/company-hero-poster-phone-640x384.webp",
+    width: 640,
+    height: 384,
+    alt: "",
+    media: null,
+  },
+];
 
 export const MEDIA = {
   brand: {
