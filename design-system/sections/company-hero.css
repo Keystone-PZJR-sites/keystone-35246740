@@ -78,15 +78,55 @@
   overflow: clip;
   background: var(--color-bg-300);
 }
-.coh-frame img {
+
+.coh-video-stack,
+.coh-video-poster,
+.coh-video-poster img,
+.coh-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+.coh-video-stack {
+  /* The island reads this container-gated key only when a resize
+     crosses into a differently art-directed source tier. */
+  --coh-video-tier: 0;
+}
+.coh-video-poster {
+  display: block;
+}
+.coh-video-poster img,
+.coh-video {
+  display: block;
   object-fit: cover;
+}
+.coh-video {
+  opacity: 0;
+}
+.coh-video[data-visible] {
+  opacity: 1;
+}
+.coh-video-stack[data-crossfading] .coh-video {
+  transition:
+    opacity var(--motion-video-crossfade-duration)
+    var(--motion-video-crossfade-ease);
+}
+@container (min-width: 470px) {
+  .coh-video-stack {
+    --coh-video-tier: 1;
+  }
 }
 @container (min-width: 860px) {
   .coh-frame {
     height: calc(var(--t) * 5);
+  }
+  .coh-video-stack {
+    --coh-video-tier: 2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coh-video {
+    transition: none;
   }
 }

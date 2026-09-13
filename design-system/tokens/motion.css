@@ -25,6 +25,11 @@
   --motion-carousel-dwell: 3500ms;
   --motion-carousel-first-advance: 4500ms;
 
+  /* Video sequences overlap the outgoing final frame and incoming
+     first frame in one quiet opacity crossfade. */
+  --motion-video-crossfade-duration: 400ms;
+  --motion-video-crossfade-ease: ease-in-out;
+
   /* Dots morph from circle to square and unwind more slowly on exit. */
   --motion-dot-morph-dur: 450ms;
   --motion-dot-morph-out-dur: 600ms;

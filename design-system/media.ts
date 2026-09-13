@@ -8,6 +8,13 @@ export interface MediaAsset {
   alt: string;
 }
 
+export interface VideoAsset {
+  src: string;
+  width: number;
+  height: number;
+  type: string;
+}
+
 /* Hero carousel: odd slides switch from square to wide at the rt gate;
  * even slides use their square cut everywhere. Tint is baked in and the
  * ambient strip stays aria-hidden with empty alts. */
@@ -388,13 +395,94 @@ export const INVESTOR_PORTRAITS: Record<string, MediaAsset> = {
   },
 };
 
-/** Company hero still. Ambient photography, so the alt stays empty. */
-export const SOCIAL_PROOF_STILL: MediaAsset = {
-  src: "/media/social-proof/stills/socialproof-01.webp",
-  width: 1600,
-  height: 900,
-  alt: "",
+/* Company hero video: six clips, each art-directed for the phone,
+ * tablet, and desktop frame ratios. Sources stay largest-first so a
+ * matching higher tier wins before the lower-tier codec fallback. */
+
+export type CompanyHeroVideoTier = "phone" | "tablet" | "desktop";
+export type CompanyHeroVideoFormat = "webm" | "mp4";
+export type CompanyHeroVideoIndex = 1 | 2 | 3 | 4 | 5 | 6;
+
+export interface CompanyHeroVideoTierDefinition {
+  width: number;
+  height: number;
+  media: string | null;
+  webmType: string;
+  mp4Type: string;
+}
+
+export const COMPANY_HERO_VIDEO_TIERS: Record<
+  CompanyHeroVideoTier,
+  CompanyHeroVideoTierDefinition
+> = {
+  phone: {
+    width: 640,
+    height: 384,
+    media: null,
+    webmType: 'video/webm; codecs="vp9"',
+    mp4Type: 'video/mp4; codecs="avc1.640029"',
+  },
+  tablet: {
+    width: 1280,
+    height: 768,
+    media: "(min-width: 470px)",
+    webmType: 'video/webm; codecs="vp9"',
+    mp4Type: 'video/mp4; codecs="avc1.640029"',
+  },
+  desktop: {
+    width: 1600,
+    height: 800,
+    media: "(min-width: 860px)",
+    webmType: 'video/webm; codecs="vp9"',
+    mp4Type: 'video/mp4; codecs="av01.0.08M.08"',
+  },
 };
+
+/** company-hero-{01..06}-{phone|tablet|desktop}-{width}x{height}.{format}
+ * under public/media/company/hero. */
+export function companyHeroVideoAsset(
+  clip: CompanyHeroVideoIndex,
+  tier: CompanyHeroVideoTier,
+  format: CompanyHeroVideoFormat,
+): VideoAsset {
+  const definition = COMPANY_HERO_VIDEO_TIERS[tier];
+  const index = String(clip).padStart(2, "0");
+  return {
+    src: `/media/company/hero/company-hero-${index}-${tier}-${definition.width}x${definition.height}.${format}`,
+    width: definition.width,
+    height: definition.height,
+    type: format === "webm" ? definition.webmType : definition.mp4Type,
+  };
+}
+
+export interface CompanyHeroPosterTier extends MediaAsset {
+  media: string | null;
+}
+
+/** Largest-first source order; phone is the <img> fallback. */
+export const COMPANY_HERO_POSTERS: CompanyHeroPosterTier[] = [
+  {
+    src: "/media/company/hero/company-hero-poster-desktop-1600x800.webp",
+    width: 1600,
+    height: 800,
+    alt: "",
+    media: COMPANY_HERO_VIDEO_TIERS.desktop.media,
+  },
+  {
+    src: "/media/company/hero/company-hero-poster-tablet-1280x768.webp",
+    width: 1280,
+    height: 768,
+    alt: "",
+    media: COMPANY_HERO_VIDEO_TIERS.tablet.media,
+  },
+  {
+    src: "/media/company/hero/company-hero-poster-phone-640x384.webp",
+    width: 640,
+    height: 384,
+    alt: "",
+    media: null,
+  },
+];
 
 export const MEDIA = {
   brand: {

@@ -1,8 +1,12 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { InterpText } from "../primitives/text";
 import { Slug } from "../primitives/slug";
-import { SOCIAL_PROOF_STILL } from "../media";
 import { COMPANY_HERO } from "./company-data";
+import {
+  COMPANY_HERO_VIDEO_POSTERS,
+  COMPANY_HERO_VIDEO_SEQUENCE,
+} from "./company-hero-data";
+import { CompanyHeroVideo } from "./company-hero-island";
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
@@ -66,11 +70,9 @@ export function CompanyHeroSection() {
           )}
         </div>
         <div className="coh-frame">
-          <img
-            src={SOCIAL_PROOF_STILL.src}
-            width={SOCIAL_PROOF_STILL.width}
-            height={SOCIAL_PROOF_STILL.height}
-            alt={SOCIAL_PROOF_STILL.alt}
+          <CompanyHeroVideo
+            clips={COMPANY_HERO_VIDEO_SEQUENCE}
+            posters={COMPANY_HERO_VIDEO_POSTERS}
           />
         </div>
       </figure>
