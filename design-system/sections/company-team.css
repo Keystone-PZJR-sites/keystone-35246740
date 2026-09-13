@@ -1,0 +1,35 @@
+/* Content-sized flow frame: head → the live team grid → flow closer.
+   Columns: 2 across the rm family, 3 at rt, 4 at rd. */
+
+.cot-desc {
+  margin-top: calc(var(--co-u) * 16);
+  max-width: calc(var(--co-u) * 320);
+}
+@container (min-width: 665px) {
+  .cot-desc {
+    max-width: calc(var(--t) * 6);
+  }
+}
+
+.cot-grid {
+  /* .sec children shrink to fit; the grid owns the content column. */
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: var(--co-head-gap);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--co-wall-gap-x);
+  row-gap: var(--co-wall-gap-y);
+}
+@container (min-width: 665px) {
+  .cot-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@container (min-width: 860px) {
+  .cot-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

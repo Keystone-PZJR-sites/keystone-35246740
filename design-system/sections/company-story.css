@@ -1,0 +1,16 @@
+/* Content-sized flow frame: head → paragraphs → flow closer. */
+
+.cos-body {
+  margin-top: calc(var(--co-u) * 24);
+  max-width: calc(var(--co-u) * 320);
+}
+@container (min-width: 665px) {
+  .cos-body {
+    /* The blog-post text column: 6t. */
+    max-width: calc(var(--t) * 6);
+  }
+}
+
+.cos-p + .cos-p {
+  margin-top: calc(var(--co-u) * 12);
+}

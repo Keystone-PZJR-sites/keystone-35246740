@@ -1,0 +1,29 @@
+/* Content-sized flow frame: a light closing band — head, one line of
+   copy, one CTA, flow closer. Placeholder content until a careers
+   page exists. */
+
+.coc-copy {
+  margin-top: calc(var(--co-u) * 16);
+  max-width: calc(var(--co-u) * 320);
+}
+@container (min-width: 665px) {
+  .coc-copy {
+    max-width: calc(var(--t) * 6);
+  }
+}
+
+.coc-cta {
+  margin-top: var(--co-head-gap);
+  display: flex;
+}
+.coc-cta-lg {
+  display: none;
+}
+@container (min-width: 860px) {
+  .coc-cta-md {
+    display: none;
+  }
+  .coc-cta-lg {
+    display: block;
+  }
+}

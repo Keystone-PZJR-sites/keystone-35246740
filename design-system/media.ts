@@ -199,6 +199,203 @@ export function caseCarouselSrc(file: number, cut: "portrait" | "landscape"): st
   return `/media/case-carousel/case-study-${tier}-${String(file).padStart(2, "0")}.webp`;
 }
 
+/* Company page media: portraits restored from the v1 archive (b0e6af3)
+ * and converted to WebP. Team keys are kebab-cased member names so the
+ * live getTeamMembers() result can resolve its static portrait. */
+
+export const TEAM_PORTRAIT_SIZE = { width: 800, height: 800 };
+
+/** Static team portraits under public/media/team, keyed by name slug. */
+export const TEAM_PORTRAITS: Record<string, MediaAsset> = {
+  "rahul-jaswa": {
+    src: "/media/team/rahul-jaswa.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Rahul Jaswa, Founder & CEO",
+  },
+  "amanjot-singh": {
+    src: "/media/team/amanjot-singh.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Amanjot Singh, Head of Engineering",
+  },
+  "sreenivasan-ac": {
+    src: "/media/team/sreenivasan-ac.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Sreenivasan AC, Founding AI Engineer",
+  },
+  "pawan-kumar": {
+    src: "/media/team/pawan-kumar.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Pawan Kumar, Backend Engineer",
+  },
+  "gaurav-labhane": {
+    src: "/media/team/gaurav-labhane.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Gaurav Labhane, Senior Software Development Engineer",
+  },
+  "gaurav-grover": {
+    src: "/media/team/gaurav-grover.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Gaurav Grover, Lead Software Engineer",
+  },
+  "manikya-singh": {
+    src: "/media/team/manikya-singh.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Manikya Singh, Founding Engineer",
+  },
+  "aasawari-vaidya": {
+    src: "/media/team/aasawari-vaidya.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Aasawari Vaidya, Strategy & Operations Lead",
+  },
+  "ishttartha-pujar": {
+    src: "/media/team/ishttartha-pujar.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Ishttartha Pujar, Growth Partner",
+  },
+  "atley-kasky": {
+    src: "/media/team/atley-kasky.webp",
+    ...TEAM_PORTRAIT_SIZE,
+    alt: "Atley Kasky, Brand & Design Lead",
+  },
+};
+
+/** Resolves a live team member's static portrait by kebab-casing the
+ * API name ("Sreenivasan AC" → "sreenivasan-ac"). Null when the member
+ * has no portrait in the registry. */
+export function teamPortrait(name: string): MediaAsset | null {
+  const slug = name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return TEAM_PORTRAITS[slug] ?? null;
+}
+
+export const INVESTOR_PORTRAIT_SIZE = { width: 400, height: 400 };
+
+/** Investor portraits under public/media/investors; name-only alt —
+ * the roster omits firms by design. */
+export const INVESTOR_PORTRAITS: Record<string, MediaAsset> = {
+  "adeyemi-ajao": {
+    src: "/media/investors/adeyemi-ajao.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Adeyemi Ajao",
+  },
+  "anthony-saleh": {
+    src: "/media/investors/anthony-saleh.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Anthony Saleh",
+  },
+  "caroline-broder": {
+    src: "/media/investors/caroline-broder.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Caroline Broder",
+  },
+  "chenli-wang": {
+    src: "/media/investors/chenli-wang.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Chenli Wang",
+  },
+  "colin-evans": {
+    src: "/media/investors/colin-evans.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Colin Evans",
+  },
+  "dan-gill": {
+    src: "/media/investors/dan-gill.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Dan Gill",
+  },
+  "ilya-fushman": {
+    src: "/media/investors/ilya-fushman.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Ilya Fushman",
+  },
+  "jai-ranganathan": {
+    src: "/media/investors/jai-ranganathan.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Jai Ranganathan",
+  },
+  "john-gleeson": {
+    src: "/media/investors/john-gleeson.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "John Gleeson",
+  },
+  "nick-tippman": {
+    src: "/media/investors/nick-tippman.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Nick Tippman",
+  },
+  "obaid-khan": {
+    src: "/media/investors/obaid-khan.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Obaid Khan",
+  },
+  "olivia-benjamin": {
+    src: "/media/investors/olivia-benjamin.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Olivia Benjamin",
+  },
+  "praveen-ramineni": {
+    src: "/media/investors/praveen-ramineni.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Praveen Ramineni",
+  },
+  "rexhi-dollaku": {
+    src: "/media/investors/rexhi-dollaku.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Rexhi Dollaku",
+  },
+  "shoaib-makani": {
+    src: "/media/investors/shoaib-makani.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Shoaib Makani",
+  },
+  "siva-gurumurthy": {
+    src: "/media/investors/siva-gurumurthy.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Siva Gurumurthy",
+  },
+  "somesh-dash": {
+    src: "/media/investors/somesh-dash.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Somesh Dash",
+  },
+  "sujay-jaswa": {
+    src: "/media/investors/sujay-jaswa.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Sujay Jaswa",
+  },
+  "tanuj-thapliyal": {
+    src: "/media/investors/tanuj-thapliyal.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Tanuj Thapliyal",
+  },
+  "ted-gill": {
+    src: "/media/investors/ted-gill.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Ted Gill",
+  },
+  "thomas-buley": {
+    src: "/media/investors/thomas-buley.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Thomas Buley",
+  },
+  "zach-goldstein": {
+    src: "/media/investors/zach-goldstein.webp",
+    ...INVESTOR_PORTRAIT_SIZE,
+    alt: "Zach Goldstein",
+  },
+};
+
+/** Company hero still. Ambient photography, so the alt stays empty. */
+export const SOCIAL_PROOF_STILL: MediaAsset = {
+  src: "/media/social-proof/stills/socialproof-01.webp",
+  width: 1600,
+  height: 900,
+  alt: "",
+};
+
 export const MEDIA = {
   brand: {
     /** Logomark + wordmark side by side. */

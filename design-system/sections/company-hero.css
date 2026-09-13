@@ -1,0 +1,92 @@
+/* Flow frame: head rows then the media tick block. Designed rows are
+   minimums (smallest whole tick that fits the copy at each anchor); the
+   media frame keeps its fixed tick height and cover-crops the still. */
+
+/* Content-sized flow frame: head, then the seated media frame. The
+   frame's exposed bottom row is the section's painted closer; the
+   story's 1t padding-top completes the seam. */
+
+/* The blog-top head-top idiom: 80 units, 176 from rd. */
+.coh-head {
+  padding-top: calc(var(--co-u) * 80);
+}
+@container (min-width: 860px) {
+  .coh-head {
+    padding-top: calc(var(--co-u) * 176);
+  }
+}
+
+/* The blog-top h1 ramp. */
+.coh-h1 {
+  color: var(--color-text-100);
+  margin-top: calc(var(--co-u) * 16);
+  max-width: calc(var(--co-u) * 320);
+  --fs0: 36;
+  --fs1: 54;
+  --lh0: 42;
+  --lh1: 63;
+}
+@container (min-width: 470px) {
+  .coh-h1 {
+    --fs0: 54;
+    --fs1: 72;
+    --lh0: 63;
+    --lh1: 84;
+  }
+}
+@container (min-width: 665px) {
+  .coh-h1 {
+    max-width: calc(var(--co-u) * 512);
+    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-lg-plus-thin-font);
+    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-lg-plus-thin-ls);
+    --fs0: 50;
+    --fs1: 50;
+    --lh0: 60;
+    --lh1: 60;
+  }
+}
+@container (min-width: 860px) {
+  .coh-h1 {
+    margin-top: calc(var(--co-u) * 24);
+    max-width: calc(var(--co-u) * 736);
+    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-3xl-thin-font);
+    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-3xl-thin-ls);
+    --fs0: 51.4286;
+    --fs1: 72;
+    --lh0: 55.7143;
+    --lh1: 78;
+  }
+}
+
+/* .sec children shrink to fit; blocks that own the content column
+   restate the full width. The figure hosts its own exposure frame, so
+   it is the local positioning context. The bottom padding keeps the
+   frame's exposed row inside the section, so the story's 1t padding
+   stays clear air between paint and slug. */
+.coh-media {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  margin-top: var(--t);
+  padding-bottom: var(--t);
+}
+/* Tick slab: the blog-post hero footprint through rt, plus one row at
+   rd — 6t through rt, 5t at rd. */
+.coh-frame {
+  position: relative;
+  height: calc(var(--t) * 6);
+  overflow: clip;
+  background: var(--color-bg-300);
+}
+.coh-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@container (min-width: 860px) {
+  .coh-frame {
+    height: calc(var(--t) * 5);
+  }
+}

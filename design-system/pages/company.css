@@ -1,0 +1,215 @@
+/* Company page shared utilities. The five /company sections share one
+   unit scale, the section heading ramp, the body-text ramp, and the
+   portrait-cell grammar. Section frames live in their own files
+   (company-hero.css …), imported after this one so their rules win. */
+
+.company-hero,
+.company-story,
+.company-backers,
+.company-team,
+.company-careers {
+  padding-inline: var(--t);
+  --co-u: var(--co-u-rm);
+  /* The section-internal rhythm: one material gap under the head,
+     before the content block (wall, grid, CTA). Declared here so the
+     inner var(--co-u) resolves against the section's band value. */
+  --co-head-gap: calc(var(--co-u) * 80);
+  /* Portrait-wall gutters: material, not tick-riding — the walls sit
+     in unpainted air, so nothing aligns them to the lattice. */
+  --co-wall-gap-x: calc(var(--co-u) * 8);
+  --co-wall-gap-y: calc(var(--co-u) * 16);
+}
+
+/* Local exposure frames escape the section's 1t inline padding so a
+   field spans all 12 columns — the bc-content-grid form. */
+.co-bleed-grid {
+  inset: 0 auto auto calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+  height: 100%;
+}
+
+/* Flow closer (the faq-gaprow idiom): the page's section rhythm is
+   [content] → 1t → [one painted row of 12 cells] → 1t (the next
+   section's padding-top) → [content]. Sections are content-sized —
+   the grid is perceptual, carried by these rows, not by whole-tick
+   section budgets. */
+.co-closer {
+  position: relative;
+  width: 100%;
+  height: var(--t);
+  margin-top: var(--t);
+}
+/* Every section after the hero opens with a full tick of clearance. */
+.company-story,
+.company-backers,
+.company-team,
+.company-careers {
+  padding-top: var(--t);
+}
+@container (min-width: 665px) {
+  .company-hero,
+  .company-story,
+  .company-backers,
+  .company-team,
+  .company-careers {
+    --co-u: var(--co-u-rt);
+    --co-wall-gap-x: calc(var(--co-u) * 16);
+    --co-wall-gap-y: calc(var(--co-u) * 32);
+  }
+}
+@container (min-width: 860px) {
+  .company-hero,
+  .company-story,
+  .company-backers,
+  .company-team,
+  .company-careers {
+    --co-u: var(--co-u-rd);
+    --co-wall-gap-x: calc(var(--co-u) * 28);
+    --co-wall-gap-y: calc(var(--co-u) * 56);
+  }
+}
+
+/* Section heading: the blog-top h2 ramp, capped at xl (not 3xl) so the
+   longer company titles hold their measure. Every company h2 wraps
+   inside the shared --co-h2-w-* measure tokens. */
+.co-h2 {
+  color: var(--color-text-100);
+  margin-top: calc(var(--co-u) * 16);
+  max-width: var(--co-h2-w-rm);
+  --fs0: 24;
+  --fs1: 36;
+  --lh0: 30;
+  --lh1: 45;
+}
+@container (min-width: 470px) {
+  .co-h2 {
+    max-width: var(--co-h2-w-rs);
+    --fs0: 36;
+    --fs1: 48;
+    --lh0: 45;
+    --lh1: 60;
+  }
+}
+@container (min-width: 665px) {
+  .co-h2 {
+    max-width: var(--co-h2-w-rt);
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-md-plus-extralight-font);
+    --ts-display-serif-xs-extralight-ls: var(--ts-display-serif-md-plus-extralight-ls);
+    --fs0: 42;
+    --fs1: 42;
+    --lh0: 50;
+    --lh1: 50;
+  }
+}
+@container (min-width: 860px) {
+  .co-h2 {
+    margin-top: calc(var(--co-u) * 24);
+    max-width: var(--co-h2-w-rd);
+    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-xl-extralight-font);
+    --ts-display-serif-xs-extralight-ls: var(--ts-display-serif-xl-extralight-ls);
+    /* xl token 56/62 at the 1344 anchor; 960 zooms by 80/112. */
+    --fs0: 40;
+    --fs1: 56;
+    --lh0: 44.2857;
+    --lh1: 62;
+  }
+}
+
+/* Body text: the blog-top card-desc ramp (md → lg at rt → xl at rd). */
+.co-body-text {
+  color: var(--color-text-300);
+  --fs0: 16;
+  --fs1: 24;
+  --lh0: 22;
+  --lh1: 33;
+}
+@container (min-width: 470px) {
+  .co-body-text {
+    --fs0: 24;
+    --fs1: 32;
+    --lh0: 33;
+    --lh1: 44;
+  }
+}
+@container (min-width: 665px) {
+  .co-body-text {
+    --ts-text-md-light-font: var(--ts-text-lg-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --fs0: 18;
+    --fs1: 18;
+    --lh0: 26;
+    --lh1: 26;
+  }
+}
+@container (min-width: 860px) {
+  .co-body-text {
+    --ts-text-md-light-font: var(--ts-text-xl-light-font);
+    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --fs0: 14.2857;
+    --fs1: 20;
+    --lh0: 18.5714;
+    --lh1: 26;
+  }
+}
+
+/* Portrait cell: square photo, name, optional role. Hold-then-switch
+   type per the slug idiom: one designed size per family, zoomed by the
+   tick in the compressed slices. */
+.co-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+.co-cell-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--color-bg-300);
+  overflow: clip;
+}
+.co-cell-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Fallback for a live member with no portrait anywhere. */
+.co-cell-initials {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-400);
+  font: var(--ts-display-serif-sm-extralight-font);
+  letter-spacing: var(--ts-display-serif-sm-extralight-ls);
+  font-size: calc((var(--wA) + var(--wB)) * 24);
+  line-height: calc((var(--wA) + var(--wB)) * 30);
+}
+.co-cell-name {
+  margin-top: calc(var(--co-u) * 8);
+  color: var(--color-text-100);
+  font: var(--ts-text-sm-medium-font);
+  letter-spacing: var(--ts-text-sm-medium-ls);
+  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+}
+.co-cell-role {
+  margin-top: calc(var(--co-u) * 4);
+  color: var(--color-text-400);
+  font: var(--ts-text-xs-light-font);
+  letter-spacing: var(--ts-text-xs-light-ls);
+  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
+  font-optical-sizing: none;
+  font-size: calc((var(--wA) + var(--wB)) * 12);
+  line-height: calc((var(--wA) + var(--wB)) * 16);
+}
+@container (min-width: 860px) {
+  .co-cell-name {
+    font-size: calc((var(--wA) + var(--wB)) * 14);
+    line-height: calc((var(--wA) + var(--wB)) * 18);
+  }
+}

@@ -138,6 +138,36 @@ pushes everything after it down by exactly what it needs.
 - Regions anchor to the section edge they belong to (`gy`, `gyb`, or both to
   stretch); nothing publishes per-content "extra ticks".
 
+## Lattice paint and photography
+
+Painting the lattice and placing content are one decision, made per section
+band before any region map is written. Three states, a closed set:
+
+- **unpainted** — objects follow type and `.gx` carries no content fields; at
+  most a one-row closer at the section bottom. The blog post is the model,
+  and its silence at `rd` is a format constraint (the sticky TOC rail), not a
+  default: a static marketing page paints at every band.
+- **bookend** — the composition is punctuation around photography that must
+  not wear hairlines. Paint stops at least one full tick before the object,
+  the object renders in unpainted air, and paint resumes at least one full
+  tick after (a closer row with a dedicated empty tick above it satisfies
+  the resume). Inside the unpainted field the object may use any unit —
+  `1fr` cells, aspect-ratio boxes, a tick slab after flowing type.
+- **seated** — objects are the grid: every cell solves in whole or half
+  ticks on its content column (`n·c + (n−1)·g`), cells have tick origins,
+  and the paint is exactly the rectangles the cells occupy.
+
+The test is mechanical: overlay the lattice; every painted line either
+coincides with a content box edge or crosses no photography. A field painted
+through off-grid media is a defect in every state. Each section file
+declares its state in a comment above its region map:
+`/* Lattice: bookend — paint band under the head, wall unpainted, closer. */`
+
+On a painted static page the last in-flow object keeps at least one full
+tick of empty rows before the next paint or the section end; a hug budget
+(the ceiling of measured content) does not satisfy this — the clearance
+tick is designed into the frame, never residual.
+
 ## Layout must scale — no fragile positioning
 
 Absolute positioning is acceptable only for: media fills (`inset: 0;

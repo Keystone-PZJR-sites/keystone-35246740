@@ -1,6 +1,5 @@
-/* Hold-then-switch: one designed size per family, zoomed by the
-   tick in compressed slices. Interpolation mid-band wraps dynamic
-   crumbs (tags, titles) at widths no frame was drawn for. */
+/* Material, like the buttons: text-xs-medium at its fixed token pixels
+   in every band. Only the marker and gap step at the rd gate. */
 
 .slug {
   display: flex;
@@ -8,11 +7,7 @@
   gap: var(--space-md);
   margin: var(--space-none);
   color: var(--color-text-400);
-  --slug-fs: 12;
-  --slug-lh: 16;
   font: var(--ts-text-xs-medium-font);
-  font-size: calc((var(--wA) + var(--wB)) * var(--slug-fs));
-  line-height: calc((var(--wA) + var(--wB)) * var(--slug-lh));
   letter-spacing: var(--ts-text-xs-medium-ls);
   font-variation-settings: "opsz" var(--ts-text-xs-medium-opsz), var(--font-sans-slnt);
   font-optical-sizing: none;
@@ -41,11 +36,6 @@
 @container (min-width: 860px) {
   .slug {
     gap: var(--space-lg);
-    --slug-fs: 14;
-    --slug-lh: 18;
-    font: var(--ts-text-sm-medium-font);
-    letter-spacing: var(--ts-text-sm-medium-ls);
-    font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
   }
   .slug-mark {
     width: var(--sys-marker-rd);
