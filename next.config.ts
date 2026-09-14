@@ -37,6 +37,18 @@ const nextConfig: NextConfig = {
         destination: "/our-work/?gallery=1",
         permanent: true,
       },
+      // Stripe Payment Links still return to these paths (configured in Stripe).
+      // The dedicated success/cancel pages were removed in the brand rebuild.
+      {
+        source: "/pricing/success",
+        destination: "/pricing/",
+        permanent: false,
+      },
+      {
+        source: "/pricing/cancel",
+        destination: "/pricing/",
+        permanent: false,
+      },
     ];
   },
   // The Keystone packages ship TypeScript; Next transpiles them.
