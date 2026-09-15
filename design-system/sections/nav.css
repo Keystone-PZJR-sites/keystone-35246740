@@ -203,6 +203,11 @@
     width: var(--knav-drawer-lg);
   }
 }
+/* The work drawer hugs its two cards; one width serves both bands, and
+   the higher specificity beats the banded .knav-drawer widths. */
+.knav-drawer[data-item="work"] {
+  width: var(--knav-drawer-work);
+}
 
 /* Delay block resets until the panel has finished fading. */
 .knav-blk {
@@ -221,9 +226,12 @@
     translate var(--knav-blk-slide) var(--motion-drawer-ease)
       calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger)));
 }
-/* Spread both content variants over the same reveal window. */
+/* Spread every content variant over the same reveal window. */
 .knav-dcontent[data-content="resources"] {
   --_stagger: var(--knav-stagger-res);
+}
+.knav-dcontent[data-content="work"] {
+  --_stagger: var(--knav-stagger-work);
 }
 
 /* subitems are cascade blocks AND highlight hosts; the combined rules
@@ -306,6 +314,7 @@
   transition: none;
 }
 .knav-drawer[data-open][data-item="solutions"] .knav-dcontent[data-content="solutions"],
+.knav-drawer[data-open][data-item="work"] .knav-dcontent[data-content="work"],
 .knav-drawer[data-open][data-item="resources"] .knav-dcontent[data-content="resources"] {
   visibility: visible;
 }
@@ -617,6 +626,46 @@
   --_desc: var(--color-yellow-600);
   --_hs: 3px 3px 0 0 var(--color-yellow-200);
   --_hs0: 0 0 0 0 var(--color-yellow-200);
+}
+
+/* Our Work cards (1038:13442, 1038:13472). Both icons carry intrinsic
+   two-tone palettes, so neither card sets --_chipink; the gallery card
+   re-inks IconWebsite through its --website-a/b hooks. The file's md
+   variants draw descriptions 16/22 where the shipped recipe (and the
+   approved spec) hold 18/26 at both sizes — flagged to design. */
+.knav-rcard[data-card="case-studies"] {
+  --_bg: var(--color-bg-100);
+  --_decor: var(--color-bg-200);
+  --_chipbg: var(--color-bg-400);
+  --_title: var(--color-text-200);
+  --_desc: var(--color-text-400);
+  --_hs: var(--shadow-hard-square-md);
+  --_hs0: var(--shadow-hard-square-md-0);
+}
+.knav-rcard[data-card="gallery"] {
+  --_bg: var(--color-teal-100);
+  --_decor: var(--knav-decor-teal);
+  --_chipbg: var(--color-teal-250);
+  --_title: var(--color-teal-700);
+  --_desc: var(--color-teal-600);
+  /* Teal cards drop their hard shadow on teal/200, like the approach card. */
+  --_hs: 3px 3px 0 0 var(--color-teal-200);
+  --_hs0: 0 0 0 0 var(--color-teal-200);
+  --website-a: var(--color-teal-550);
+  --website-b: var(--color-teal-700);
+}
+
+/* The work drawer keeps the lg recipe at both sizes: full-width label
+   cell, 16px body gap, and fixed 264 cards (no md narrowing). */
+.knav-dcontent[data-content="work"] .knav-dlabel {
+  width: var(--knav-label-w);
+}
+.knav-dcontent[data-content="work"] .knav-dbody {
+  gap: var(--space-xl);
+}
+.knav-dcontent[data-content="work"] .knav-rcard {
+  flex: none;
+  width: var(--knav-sub-w-lg);
 }
 
 @container (min-width: 1130px) {
@@ -1027,6 +1076,19 @@ a.knav-row {
   --_chipbg: var(--color-yellow-400);
   --_label: var(--color-yellow-700);
   --_icon: var(--color-yellow-600);
+}
+/* Our Work chips (1038:15838, 1038:15844): both icons keep intrinsic
+   two-tone fills, so neither sets --_icon; the gallery chip re-inks
+   IconWebsite through its --website-a/b hooks. */
+.knav-rchip[data-card="case-studies"] {
+  --_chipbg: var(--color-bg-400);
+  --_label: var(--color-text-200);
+}
+.knav-rchip[data-card="gallery"] {
+  --_chipbg: var(--color-teal-250);
+  --_label: var(--color-teal-700);
+  --website-a: var(--color-teal-550);
+  --website-b: var(--color-teal-700);
 }
 
 .knav-prail {

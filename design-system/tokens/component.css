@@ -33,6 +33,9 @@
   --knav-logomark: 18px;
   --knav-drawer-lg: 890px;
   --knav-drawer-md: 800px;
+  /* item=work hugs its two 264 cards at both sizes (1038:10215,
+     1039:19063): 16 + 264 + 16+1+16 + 264 + 16. */
+  --knav-drawer-work: 593px;
   --knav-drawer-h: 338px;
   --knav-sub-w-lg: 264px;
   --knav-sub-w-md: 255px;
@@ -59,6 +62,9 @@
   --knav-blk-rise: 12px;
   --knav-stagger: 50ms;
   --knav-stagger-res: calc(7 * var(--knav-stagger) / 3);
+  /* Two blocks after the label land the last one on the shared ~410ms
+     mark (base + 7 · stagger), like solutions (7) and resources (3). */
+  --knav-stagger-work: calc(7 * var(--knav-stagger) / 2);
   --knav-stagger-base: 60ms;
   --icon-swap-dur: 250ms;
   --icon-swap-blur: 2px;

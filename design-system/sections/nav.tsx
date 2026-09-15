@@ -1,5 +1,12 @@
 import type { CSSProperties } from "react";
-import { IconArrowRight, IconBlog, IconGrader, IconPodcast } from "../icons";
+import {
+  IconArrowRight,
+  IconBlog,
+  IconCaseStudies,
+  IconGrader,
+  IconPodcast,
+  IconWebsite,
+} from "../icons";
 import { ButtonFill } from "../primitives/buttons";
 import { EXTERNAL_LINK, SITE_LINKS } from "../site-links";
 import { NavDesktop } from "./nav-desktop";
@@ -67,6 +74,30 @@ const RESOURCE_CARDS = [
   },
 ] as const;
 
+/* Our Work drawer cards (nav-drawer item=work — 1038:10215 lg, 1039:19063 md).
+ * Both icons keep their intrinsic two-tone palettes; the gallery card
+ * re-inks IconWebsite teal through the --website-a/b hooks in nav.css. */
+const WORK_CARDS = [
+  {
+    id: "case-studies",
+    title: "Case Studies",
+    desc: "The leads, bookings, and reviews real businesses saw after switching to Keystone.",
+    chipLabel: "Case Studies",
+    Icon: IconCaseStudies,
+    href: SITE_LINKS.caseStudies,
+    external: false,
+  },
+  {
+    id: "gallery",
+    title: "The Gallery",
+    desc: "Live sites running on Keystone and built for businesses like yours.",
+    chipLabel: "The Gallery",
+    Icon: IconWebsite,
+    href: SITE_LINKS.gallery,
+    external: false,
+  },
+] as const;
+
 interface DecorCircle {
   i: number;
   dx?: number;
@@ -77,6 +108,13 @@ const DECOR_CIRCLES: Record<string, DecorCircle[]> = {
   blog: [{ i: 0 }, { i: 5, dx: 1 }, { i: 15, dy: -1 }],
   grader: [{ i: 0 }, { i: 7, dx: -1 }, { i: 15, dy: -1 }],
   podcast: [{ i: 0 }, { i: 2, dy: 1 }, { i: 10, dx: 1 }],
+  /* Rest cells from 1038:13442 and 1038:13472. The set carries no hover
+   * variants for these two cards, so the slides derive from the designed
+   * grammar (anchor circle holds; each mover slides one cell toward the
+   * hover cells (2,1)/(3,2); bottom-row circles rise) — flagged to design
+   * 2026-09-15. */
+  "case-studies": [{ i: 0 }, { i: 6 }, { i: 15, dy: -1 }],
+  gallery: [{ i: 0 }, { i: 7, dx: -1 }, { i: 13, dy: -1 }],
 };
 
 function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
@@ -201,6 +239,45 @@ function ResourcesDrawerContent() {
   );
 }
 
+function WorkDrawerContent() {
+  return (
+    <div className="knav-dcontent" data-content="work">
+      <div className="knav-dlabels">
+        <span className="knav-dlabel knav-blk" style={blk(0)}>
+          Proof, not promises
+        </span>
+      </div>
+      <div className="knav-dbody">
+        {WORK_CARDS.map((card, i) => [
+          i > 0 && <i key={`d${card.id}`} className="knav-dvr" aria-hidden="true" />,
+          <a
+            key={card.id}
+            className="knav-card knav-rcard knav-blk"
+            style={blk(i + 1)}
+            data-card={card.id}
+            href={card.href}
+            {...(card.external ? EXTERNAL_LINK : {})}
+          >
+            <Decor variant={card.id} />
+            <span className="knav-chiprow">
+              <span className="knav-cardchip">
+                <card.Icon size={16} />
+              </span>
+            </span>
+            <span className="knav-cbody">
+              <span className="knav-crow">
+                <span className="knav-ctitle">{card.title}</span>
+                <IconArrowRight />
+              </span>
+              <span className="knav-cdesc">{card.desc}</span>
+            </span>
+          </a>,
+        ])}
+      </div>
+    </div>
+  );
+}
+
 function EngineChips() {
   return (
     <>
@@ -213,6 +290,25 @@ function EngineChips() {
       <a className="knav-chip" href={SITE_LINKS.solutions}>
         All
       </a>
+    </>
+  );
+}
+
+function WorkChips() {
+  return (
+    <>
+      {WORK_CARDS.map((card) => (
+        <a
+          key={card.id}
+          className="knav-rchip"
+          data-card={card.id}
+          href={card.href}
+          {...(card.external ? EXTERNAL_LINK : {})}
+        >
+          <card.Icon className="knav-rchipicon" />
+          {card.chipLabel}
+        </a>
+      ))}
     </>
   );
 }
@@ -244,7 +340,13 @@ const MOBILE_ROWS: NavMobileRow[] = [
     group: { rm: 5, rs: 5, rt: 4 },
     boxTicks: { rm: 5, rs: 4, rt: 4 },
   },
-  { id: "our-work", label: "Our Work", href: SITE_LINKS.ourWork },
+  {
+    id: "our-work",
+    label: "Our Work",
+    drawer: <WorkChips />,
+    group: { rm: 4, rs: 4, rt: 4 },
+    boxTicks: { rm: 4, rs: 3, rt: 4 },
+  },
   { id: "pricing", label: "Pricing", href: SITE_LINKS.pricing },
   { id: "company", label: "Company", href: SITE_LINKS.company },
   {
@@ -263,6 +365,7 @@ export function NavChrome() {
         <NavDesktop
           links={SITE_LINKS}
           solutions={<SolutionsDrawerContent />}
+          work={<WorkDrawerContent />}
           resources={<ResourcesDrawerContent />}
         />
         <NavMobile
