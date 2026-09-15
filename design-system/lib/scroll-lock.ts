@@ -1,24 +1,25 @@
 /** Shared overlay scroll lock. Fixing the body handles iOS touch scroll;
- * forcing the scrollbar gutter keeps grid container width stable. */
+ * keeping the root scrollbar gutter preserves fixed-chrome coordinates. */
 export function lockScroll(): () => void {
   const savedY = window.scrollY;
+  const root = document.documentElement;
   const body = document.body;
   const prev = {
+    rootOverflowY: root.style.overflowY,
     position: body.style.position,
     top: body.style.top,
     width: body.style.width,
-    overflowY: body.style.overflowY,
   };
+  root.style.overflowY = "scroll";
   body.style.position = "fixed";
   body.style.top = `-${savedY}px`;
   body.style.width = "100%";
-  body.style.overflowY = "scroll";
 
   return () => {
+    root.style.overflowY = prev.rootOverflowY;
     body.style.position = prev.position;
     body.style.top = prev.top;
     body.style.width = prev.width;
-    body.style.overflowY = prev.overflowY;
     window.scrollTo(0, savedY);
   };
 }

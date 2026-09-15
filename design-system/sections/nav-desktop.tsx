@@ -8,7 +8,7 @@ import { EXTERNAL_LINK } from "../site-links";
 /** Allows the pointer to cross the trigger-to-panel gap without flicker. */
 const CLOSE_INTENT_MS = 140;
 
-type DrawerItem = "solutions" | "resources";
+type DrawerItem = "solutions" | "work" | "resources";
 
 interface NavLinks {
   home: string;
@@ -23,10 +23,12 @@ interface NavLinks {
 export function NavDesktop({
   links,
   solutions,
+  work,
   resources,
 }: {
   links: NavLinks;
   solutions: ReactNode;
+  work: ReactNode;
   resources: ReactNode;
 }) {
   const [item, setItem] = useState<DrawerItem | null>(null);
@@ -35,6 +37,7 @@ export function NavDesktop({
   const closeTimer = useRef<number | null>(null);
   const triggerRefs = useRef<Record<DrawerItem, HTMLAnchorElement | null>>({
     solutions: null,
+    work: null,
     resources: null,
   });
 
@@ -111,9 +114,7 @@ export function NavDesktop({
           <i className="knav-vr" aria-hidden="true" />
           {trigger("solutions", "Solutions", links.solutions)}
           <i className="knav-vr" aria-hidden="true" />
-          <a className="knav-btn" href={links.ourWork} onMouseEnter={scheduleClose}>
-            <span className="knav-item">Our Work</span>
-          </a>
+          {trigger("work", "Our Work", links.ourWork)}
           <i className="knav-vr" aria-hidden="true" />
           <a className="knav-btn" href={links.pricing} onMouseEnter={scheduleClose}>
             <span className="knav-item">Pricing</span>
@@ -150,6 +151,7 @@ export function NavDesktop({
         }}
       >
         {solutions}
+        {work}
         {resources}
       </div>
     </div>

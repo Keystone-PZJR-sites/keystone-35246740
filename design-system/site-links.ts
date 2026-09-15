@@ -15,6 +15,8 @@ export const SITE_LINKS = {
   grader: GRADER_URL,
   ourWork: "/our-work",
   caseStudies: "/our-work",
+  /* Deep link: the Our Work page opens the gallery overlay at site 1. */
+  gallery: "/our-work?gallery=1",
   pricing: "/pricing",
   company: "/company",
   resources: "/blog",
