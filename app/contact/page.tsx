@@ -4,7 +4,7 @@ import { ContactPage } from "@/design-system/pages/contact";
 export const metadata: Metadata = {
   title: "Contact | Keystone",
   description:
-    "Contact Keystone about sales, marketing, and growth support for your local business.",
+    "Contact Keystone about sales, marketing, and growth support for your business.",
 };
 
 export default function ContactRoute() {
