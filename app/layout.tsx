@@ -9,9 +9,9 @@ import { SITE_URL } from "@/design-system/site";
 /* Static metadata never blocks HTML delivery. */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Keystone | Sales & Marketing for Local Businesses",
+  title: "Keystone | Sales and marketing that runs itself.",
   description:
-    "Keystone is a sales and marketing team for local businesses. We help you grow your business by running your sales and marketing while you run your business.",
+    "Keystone powers your website and everything that runs through it: ads, social, reviews, content, and follow-ups that convert.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
