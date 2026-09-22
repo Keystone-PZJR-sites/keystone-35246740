@@ -23,11 +23,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Check types
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
 
       - name: Build with OpenNext
         run: npx opennextjs-cloudflare build
@@ -35,6 +41,9 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           API_KEY: ${{ secrets.API_KEY }}
           AUTH_API_URL: ${{ secrets.AUTH_API_URL }}
+          NEXT_PUBLIC_GRADER_URL: ${{ secrets.NEXT_PUBLIC_GRADER_URL }}
+          NEXT_PUBLIC_GRADER_API_URL: ${{ secrets.NEXT_PUBLIC_GRADER_API_URL }}
+          NEXT_PUBLIC_GRADER_SEARCH_PATHS: ${{ secrets.NEXT_PUBLIC_GRADER_SEARCH_PATHS }}
 
       - name: Upload Worker version (preview)
         id: upload

@@ -21,8 +21,8 @@ behavior and requirements.
 
 - Light mode only.
 - Acceptance and the grid sweep run on the live pages. Dev-only sweep hooks
-  mount through a `*-grid-check` wrapper that production aliases to a null component — no
-  panel, no dedicated URL.
+  mount through a `*-grid-check` wrapper gated on `NODE_ENV === "development"`, so
+  production bundles carry no panel and no dedicated URL.
 - The tick caps at 112px above a 1344 container; the 1344 design renders exact
   at every wider width and the side fields fill the gutters.
 
