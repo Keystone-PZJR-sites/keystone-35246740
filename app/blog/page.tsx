@@ -51,7 +51,9 @@ export default async function Blog({ searchParams }: BlogRouteProps) {
   if (hasFilter(params)) {
     const page = pageNumber(params.page);
     if (page === null) notFound();
-    const fixtureName = firstValue(params._grid);
+    // Grid-sweep fixtures exist only in development.
+    const fixtureName =
+      process.env.NODE_ENV === "development" ? firstValue(params._grid) : "";
     const fixture = fixtureName
       ? getBlogGridFixture(fixtureName, page, (await getBlogLanding()).featured)
       : null;
