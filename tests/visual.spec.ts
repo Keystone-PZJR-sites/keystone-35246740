@@ -9,6 +9,7 @@ const ROUTES = [
   "/pricing/",
   "/our-work/",
   "/company/",
+  "/for-dentists/",
   "/contact/",
   "/blog/",
   "/blog/resell-cancellations-without-discounting/",

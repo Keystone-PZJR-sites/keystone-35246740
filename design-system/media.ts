@@ -31,6 +31,22 @@ export interface VideoAsset {
   type: string;
 }
 
+/** One art-directed cut of a picture. `media` gates the `<source>`;
+ * the tier with `media: null` is the `<img>` fallback and comes last. */
+export interface PictureTier {
+  media: string | null;
+  src: string;
+  width: number;
+  height: number;
+}
+
+/** A complete `<picture>`: tiers ordered largest-first, then the alt.
+ * Render with `primitives/picture.tsx`. */
+export interface PictureSet {
+  tiers: readonly PictureTier[];
+  alt: string;
+}
+
 /* Hero carousel: odd slides switch from square to wide at the rt gate;
  * even slides use their square cut everywhere. Tint is baked in and the
  * ambient strip stays aria-hidden with empty alts. */
@@ -50,6 +66,18 @@ export function heroCarouselSrc(frame: number, cut: "wide" | "square"): string {
     return `/media/hero-carousel/hero-carousel-1344-${n}.webp`;
   }
   return `/media/hero-carousel/hero-carousel-384-${n}.webp`;
+}
+
+/** A hero-carousel frame as a standalone ambient picture (landing heroes):
+ * the wide cut from the rt gate, the square cut below it. */
+export function heroCarouselPicture(frame: number): PictureSet {
+  return {
+    tiers: [
+      { media: HERO_RT_GATE_MEDIA, src: heroCarouselSrc(frame, "wide"), ...HERO_WIDE },
+      { media: null, src: heroCarouselSrc(frame, "square"), ...HERO_SQUARE },
+    ],
+    alt: "",
+  };
 }
 
 /* Persona cuts are art-directed per band and ordered largest-first, with
