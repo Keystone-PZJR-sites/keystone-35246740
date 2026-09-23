@@ -39,6 +39,13 @@ Read this file, then `REFACTOR.md` if it exists.
   (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
   spacing come from tokens; controls are fixed material px. See
   `design-system/grid/engine.css`.
+- A control's size is a keyword its mount can set per band: `--btn-size` for
+  `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
+  `--pbtn-size` for `PricingButton`. Pass `size="inherit"` and declare the
+  keyword on the mount at each gate; never render one hidden copy per band.
+- Text is `.type` with `--font`/`--ls`/`--opsz` and the `--fs0/--fs1/--lh0/--lh1`
+  ramp (`type-fixed` for material sizes). Every state change is a CSS
+  transition or animation; `base.css` zeroes them all under reduced motion.
 - Motion is CSS only. Every duration, curve, and distance is a token in
   `tokens/motion.css`; read the laws in its header before adding any motion.
 - Data comes from `@keystone-sites/core` (`lib/server-api`) or a typed

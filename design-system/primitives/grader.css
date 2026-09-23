@@ -21,6 +21,9 @@
   border: 1px solid var(--_border);
   border-radius: var(--radius-full);
   box-shadow: 0 0 0 var(--ring-w) var(--_ring);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   /* default state palette (teal chrome) */
   --_border: var(--color-border-000);
   --_ring: var(--color-bg-200);
@@ -31,47 +34,33 @@
   transition-timing-function: var(--motion-hover-ease);
 }
 
-/* Fixed heights prevent type metrics from changing pill geometry. */
-.grader[data-size="lg"] .grader-field {
-  height: 56px;
-  --font: var(--ts-text-xl-light-font);
-  --ls: var(--ts-text-xl-light-ls);
-  --opsz: var(--ts-text-xl-light-opsz);
+/* Size: `--grader-size` comes from `data-size` or, for `size="inherit"`,
+   from an ancestor, so a mount can step it per band. The field, its
+   arrow and the menu read it. Fixed field heights keep type metrics from
+   changing pill geometry. */
+.grader[data-size="lg"] { --grader-size: lg; }
+.grader[data-size="md"] { --grader-size: md; }
+.grader[data-size="sm"] { --grader-size: sm; }
+@container style(--grader-size: lg) {
+  .grader-field {
+    height: 56px;
+    --btn-size: lg;
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
+  }
 }
-.grader[data-size="md"] .grader-field,
-.grader[data-size="sm"] .grader-field {
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
+@container style(--grader-size: md) {
+  .grader-field {
+    height: 48px;
+    --btn-size: md;
+  }
 }
-
-/* Menu type inherits from the grader size and can be restated by mounts. */
-.grader {
-  --_menu-name-font: var(--ts-text-md-medium-font);
-  --_menu-name-ls: var(--ts-text-md-medium-ls);
-  --_menu-name-opsz: var(--ts-text-md-medium-opsz);
-  --_menu-sub-font: var(--ts-text-md-light-font);
-  --_menu-sub-ls: var(--ts-text-md-light-ls);
-  --_menu-sub-opsz: var(--ts-text-md-light-opsz);
-  /* Large pills use a larger menu gap. */
-  --_menu-gap: var(--space-md);
-}
-.grader[data-size="lg"] {
-  --_menu-gap: var(--space-lg);
-}
-.grader[data-size="sm"] {
-  --_menu-name-font: var(--ts-text-sm-medium-font);
-  --_menu-name-ls: var(--ts-text-sm-medium-ls);
-  --_menu-name-opsz: var(--ts-text-sm-medium-opsz);
-  --_menu-sub-font: var(--ts-text-sm-light-font);
-  --_menu-sub-ls: var(--ts-text-sm-light-ls);
-  --_menu-sub-opsz: var(--ts-text-sm-light-opsz);
-}
-.grader[data-size="md"] .grader-field {
-  height: 48px;
-}
-.grader[data-size="sm"] .grader-field {
-  height: 44px;
+@container style(--grader-size: sm) {
+  .grader-field {
+    height: 44px;
+    --btn-size: sm;
+  }
 }
 
 .grader-sparkle {
@@ -198,6 +187,13 @@
 /* The suggestion menu overlays following content without shifting layout.
    Cap around five suggestion rows; longer lists scroll inside. */
 .grader-menu {
+  --_menu-name-font: var(--ts-text-md-medium-font);
+  --_menu-name-ls: var(--ts-text-md-medium-ls);
+  --_menu-name-opsz: var(--ts-text-md-medium-opsz);
+  --_menu-sub-font: var(--ts-text-md-light-font);
+  --_menu-sub-ls: var(--ts-text-md-light-ls);
+  --_menu-sub-opsz: var(--ts-text-md-light-opsz);
+  --_menu-gap: var(--space-md);
   position: absolute;
   inset-inline: 0;
   top: calc(100% + var(--_menu-gap));
@@ -218,6 +214,20 @@
   border: 1px solid var(--color-border-000);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-hard-square-md);
+}
+/* Large pills use a larger menu gap; small pills a smaller menu type. */
+@container style(--grader-size: lg) {
+  .grader-menu { --_menu-gap: var(--space-lg); }
+}
+@container style(--grader-size: sm) {
+  .grader-menu {
+    --_menu-name-font: var(--ts-text-sm-medium-font);
+    --_menu-name-ls: var(--ts-text-sm-medium-ls);
+    --_menu-name-opsz: var(--ts-text-sm-medium-opsz);
+    --_menu-sub-font: var(--ts-text-sm-light-font);
+    --_menu-sub-ls: var(--ts-text-sm-light-ls);
+    --_menu-sub-opsz: var(--ts-text-sm-light-opsz);
+  }
 }
 
 /* the two source groups (Google Places · websites): each a label over

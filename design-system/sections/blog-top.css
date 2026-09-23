@@ -372,19 +372,14 @@
 
 .bt-grader {
   width: 100%;
+  --grader-size: md;
 }
 .bt-grader .grader {
   width: 100%;
 }
-.bt-grader-lg {
-  display: none;
-}
 @container (min-width: 860px) {
-  .bt-grader-md {
-    display: none;
-  }
-  .bt-grader-lg {
-    display: block;
+  .bt-grader {
+    --grader-size: lg;
   }
 }
 

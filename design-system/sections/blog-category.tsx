@@ -183,22 +183,12 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
           data-total-pages={model.pagination.totalPages}
         >
           <span className="bc-page-button bc-page-previous">
-            <span className="bc-page-arrow-md">
-              <ButtonArrow
-                size="md"
-                chrome="gray"
-                href={previousPage}
-                label={BLOG_CATEGORY_CONTENT.previousPageLabel}
-              />
-            </span>
-            <span className="bc-page-arrow-lg">
-              <ButtonArrow
-                size="lg"
-                chrome="gray"
-                href={previousPage}
-                label={BLOG_CATEGORY_CONTENT.previousPageLabel}
-              />
-            </span>
+            <ButtonArrow
+              size="inherit"
+              chrome="gray"
+              href={previousPage}
+              label={BLOG_CATEGORY_CONTENT.previousPageLabel}
+            />
           </span>
           <span className="bc-page-window">
             {blogPageWindow(
@@ -224,22 +214,12 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             )}
           </span>
           <span className="bc-page-button bc-page-next">
-            <span className="bc-page-arrow-md">
-              <ButtonArrow
-                size="md"
-                chrome="gray"
-                href={nextPage}
-                label={BLOG_CATEGORY_CONTENT.nextPageLabel}
-              />
-            </span>
-            <span className="bc-page-arrow-lg">
-              <ButtonArrow
-                size="lg"
-                chrome="gray"
-                href={nextPage}
-                label={BLOG_CATEGORY_CONTENT.nextPageLabel}
-              />
-            </span>
+            <ButtonArrow
+              size="inherit"
+              chrome="gray"
+              href={nextPage}
+              label={BLOG_CATEGORY_CONTENT.nextPageLabel}
+            />
           </span>
         </nav>
       </div>

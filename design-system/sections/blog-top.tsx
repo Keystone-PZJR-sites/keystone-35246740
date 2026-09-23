@@ -167,11 +167,8 @@ export function BlogTopSection({
           </Text>
         </div>
         <div className="bt-card-action">
-          <div className="bt-grader bt-grader-md">
-            <GraderInput size="md" chrome="brown" />
-          </div>
-          <div className="bt-grader bt-grader-lg">
-            <GraderInput size="lg" chrome="brown" />
+          <div className="bt-grader">
+            <GraderInput size="inherit" chrome="brown" />
           </div>
         </div>
       </article>

@@ -27,11 +27,14 @@
 .btn-fill[data-size="xl"],
 .btn-ghost[data-size="xl"] { --btn-size: xl; }
 .btn-fill[data-size="lg"],
-.btn-ghost[data-size="lg"] { --btn-size: lg; }
+.btn-ghost[data-size="lg"],
+.btn-arrow[data-size="lg"] { --btn-size: lg; }
 .btn-fill[data-size="md"],
-.btn-ghost[data-size="md"] { --btn-size: md; }
+.btn-ghost[data-size="md"],
+.btn-arrow[data-size="md"] { --btn-size: md; }
 .btn-fill[data-size="sm"],
-.btn-ghost[data-size="sm"] { --btn-size: sm; }
+.btn-ghost[data-size="sm"],
+.btn-arrow[data-size="sm"] { --btn-size: sm; }
 .btn-ghost[data-size="xs"] { --btn-size: xs; }
 
 .btn-fill,
@@ -82,6 +85,10 @@
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
+  .btn-arrow-body {
+    --_d: 40px;
+    --_g: 24px;
+  }
 }
 @container style(--btn-size: lg) {
   .btn-body {
@@ -97,6 +104,10 @@
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
+  .btn-arrow-body {
+    --_d: 40px;
+    --_g: 24px;
+  }
 }
 @container style(--btn-size: md) {
   .btn-body {
@@ -111,6 +122,10 @@
     --font: var(--ts-text-md-light-font);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
+  }
+  .btn-arrow-body {
+    --_d: 32px;
+    --_g: 18px;
   }
 }
 @container style(--btn-size: sm) {
@@ -128,6 +143,10 @@
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
   }
+  .btn-arrow-body {
+    --_d: 28px;
+    --_g: 16px;
+  }
 }
 @container style(--btn-size: xs) {
   .btn-body {
@@ -138,6 +157,10 @@
     --font: var(--ts-text-xs-light-font);
     --ls: var(--ts-text-xs-light-ls);
     --opsz: var(--ts-text-xs-light-opsz);
+  }
+  .btn-arrow-body {
+    --_d: 28px;
+    --_g: 16px;
   }
 }
 
@@ -261,17 +284,21 @@
 .btn-arrow {
   position: relative;
   display: inline-grid;
-  place-items: center;
   box-sizing: border-box;
   border-radius: var(--radius-full);
   padding: var(--space-none);
-  width: var(--_d);
-  height: var(--_d);
   background: var(--_bg);
   color: var(--_glyph);
   flex: none;
   /* The clipped circle hides the arrow's pass-through travel. */
   overflow: clip;
+}
+/* The body carries the size the control's --btn-size selects. */
+.btn-arrow-body {
+  display: grid;
+  place-items: center;
+  width: var(--_d);
+  height: var(--_d);
   --_thru: calc((var(--_d) + var(--_g)) / 2);
 }
 /* Hover fill lives on a child so this clip box never paint-transitions. */
@@ -284,18 +311,6 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--motion-hover-duration) var(--motion-drawer-ease);
-}
-.btn-arrow[data-size="lg"] {
-  --_d: 40px;
-  --_g: 24px;
-}
-.btn-arrow[data-size="md"] {
-  --_d: 32px;
-  --_g: 18px;
-}
-.btn-arrow[data-size="sm"] {
-  --_d: 28px;
-  --_g: 16px;
 }
 .btn-arrow svg {
   grid-area: 1 / 1;

@@ -76,3 +76,7 @@ the end result differs slightly from today, if it is better.
 - P3 `refactor(pricing): one pricing button reads --pbtn-size` — five
   hidden per-band copies become one node; union lattice; `/pricing/`
   pixel-identical at all ten widths.
+- P3 `refactor(controls): arrow and grader inherit their size` — the last
+  four hidden-per-band mounts (careers CTA, blog-top grader, category
+  arrows, footer grader) become one node each; footer grader overrides
+  reduce to `--grader-size` per band. Geometry verified identical.
