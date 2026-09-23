@@ -21,7 +21,7 @@
   width: var(--_gw);
 }
 
-@container (min-width: 470px) {
+@container (--rs) {
   .f-top {
     min-height: calc(var(--t) * 7);
     padding: calc(var(--t)) 0 0 0;
@@ -53,7 +53,7 @@
   }
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .f-top {
     min-height: calc(var(--t) * 6);
   }
@@ -66,7 +66,7 @@
   }
 }
 
-@container (min-width: 860px) {
+@container (--rd1) {
   .f-top {
     min-height: calc(var(--t) * 3);
     /* The input's bottom border shares the pixel with the row below. */
@@ -107,7 +107,7 @@
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .f-top {
     --_gw: calc(var(--wB) * 528);
   }
@@ -162,7 +162,7 @@
   display: none;
 }
 
-@container (min-width: 470px) {
+@container (--rs) {
   .f-dot {
     width: 8px;
     height: 8px;
@@ -193,7 +193,7 @@
   }
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .f-tagrow {
     padding-left: var(--space-none);
   }
@@ -203,7 +203,7 @@
   }
 }
 
-@container (min-width: 860px) {
+@container (--rd1) {
   .f-tagrow {
     padding-left: var(--space-2xs);
   }
@@ -230,7 +230,7 @@
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .f-tagline {
     --font: var(--ts-display-serif-md-plus-thin-font);
     --ls: var(--ts-display-serif-md-plus-thin-ls);
@@ -251,7 +251,7 @@
 .f-grader .grader {
   width: 100%;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .f-grader {
     --grader-size: md;
   }
@@ -259,7 +259,7 @@
     height: 50px;
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .f-grader {
     --grader-size: lg;
   }
@@ -427,7 +427,7 @@
   --fs0: 14; --fs1: 16;
   --lh0: 18; --lh1: 22;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .f-nav {
     width: calc(var(--t) * 10 + 1px);
     margin-left: calc(var(--t));
@@ -462,7 +462,7 @@
   }
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .f-nav {
     width: calc(var(--t) * 12 + 1px);
     margin-left: 0;
@@ -525,7 +525,7 @@
   }
 }
 
-@container (min-width: 860px) {
+@container (--rd1) {
   .fnav-group,
   .fnav-group[data-open] {
     padding: var(--space-3xl) var(--space-4xl) 0;
@@ -556,7 +556,7 @@
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .fnav-group,
   .fnav-group[data-open] {
     height: calc(var(--t) * 3 + 1px);
@@ -606,11 +606,11 @@
 .f-ext.rs {
   display: none;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .f-ext.rm { display: none; }
   .f-ext.rs { display: block; }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .f-ext.rm,
   .f-ext.rs { display: none; }
 }
@@ -695,7 +695,7 @@
   box-shadow: 0 0 0 var(--ring-w) var(--color-bg-400);
 }
 
-@container (min-width: 470px) {
+@container (--rs) {
   .f-copy {
     --ls: var(--ts-text-xs-regular-ls);
     --fs-px: 12px;
@@ -703,7 +703,7 @@
   }
 }
 
-@container (min-width: 860px) {
+@container (--rd1) {
   /* +1px covers the line-inclusive r5 overlay so #042019 cannot
      leak under the copyright cell (the left cells already paint t+1). */
   .f-logo {
@@ -727,7 +727,7 @@
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .f-copy {
     gap: var(--space-6xl);
     padding-right: var(--space-none);

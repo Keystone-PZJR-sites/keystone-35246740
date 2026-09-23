@@ -10,7 +10,7 @@
 .coh-head {
   padding-top: calc(var(--co-u) * 80);
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .coh-head {
     padding-top: calc(var(--co-u) * 176);
   }
@@ -26,7 +26,7 @@
   --lh0: var(--ts-display-serif-sm-plus-thin-lh);
   --lh1: 63;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .coh-h1 {
     --fs0: 54;
     --fs1: 72;
@@ -34,7 +34,7 @@
     --lh1: 84;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .coh-h1 {
     max-width: calc(var(--co-u) * 512);
     --font: var(--ts-display-serif-lg-plus-thin-font);
@@ -45,7 +45,7 @@
     --lh1: 60;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .coh-h1 {
     margin-top: calc(var(--co-u) * 24);
     max-width: calc(var(--co-u) * 736);
@@ -112,12 +112,12 @@
     opacity var(--motion-video-crossfade-duration)
     var(--motion-video-crossfade-ease);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .coh-video-stack {
     --coh-video-tier: 1;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .coh-frame {
     height: calc(var(--t) * 5);
   }

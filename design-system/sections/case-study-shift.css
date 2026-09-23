@@ -9,20 +9,20 @@
   --cs-tag-r: var(--radius-sm);
   min-height: calc(var(--t) * 22);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csft-sec { min-height: calc(var(--t) * 13); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-sec { min-height: calc(var(--t) * 7); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csft-sec { min-height: calc(var(--t) * 6); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csft-sec { min-height: calc(var(--t) * 5); }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cs-content.csft-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
@@ -38,7 +38,7 @@
   align-items: flex-start;
   padding-bottom: var(--cs-tag-h);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-content { flex-direction: row; }
 }
 
@@ -65,13 +65,13 @@
   box-shadow: var(--shadow-hard-square);
   margin-top: -1px;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csft-card {
     width: calc(var(--t) * 10 + 1px);
     min-height: calc(var(--t) * 6 + 1px);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-card { width: calc(var(--t) * 5 + 1px); }
   .csft-after-card {
     margin-top: 0;
@@ -80,13 +80,13 @@
     margin-left: -1px;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csft-card {
     min-height: calc(var(--t) * 5 + 1px);
     padding-bottom: var(--space-4xl);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csft-card {
     width: calc(var(--t) * 4 + 1px);
     min-height: calc(var(--t) * 4 + 1px);
@@ -115,17 +115,17 @@
   justify-content: space-between;
   position: relative;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csft-stats { margin-bottom: calc((var(--wA) + var(--wB)) * 32); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-stats { margin-bottom: calc((var(--wA) + var(--wB)) * 24); }
 }
 .csft-stat {
   width: calc(50% - 8px);
   position: relative;
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csft-stat { width: calc(50% - 20.5px); }
   /* Center the divider in the gap between stat columns. */
   .csft-stat + .csft-stat::before {
@@ -138,7 +138,7 @@
     background: var(--color-bg-500);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csft-stat { width: calc(50% - 24.5px); }
   .csft-stat + .csft-stat::before { left: -25px; }
 }
@@ -153,7 +153,7 @@
   --ls: var(--ts-text-xl-regular-ls);
   --opsz: var(--ts-text-xl-regular-opsz);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-stat dd {
     --font: var(--ts-text-2xl-light-font);
     --fs0: var(--ts-text-2xl-light-fs);
@@ -162,7 +162,7 @@
     --opsz: var(--ts-text-2xl-light-opsz);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csft-stat dd {
     --font: var(--ts-display-sans-xs-light-font);
     --fs0: var(--ts-display-sans-xs-light-fs);
@@ -187,7 +187,7 @@
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-stat .cs-pill {
     --font: var(--ts-text-sm-regular-font);
     --fs0: var(--ts-text-sm-regular-fs);
@@ -196,7 +196,7 @@
     --opsz: var(--ts-text-sm-regular-opsz);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csft-stat .cs-pill {
     --font: var(--ts-text-md-light-font);
     --fs0: var(--ts-text-md-light-fs);
@@ -216,7 +216,7 @@
   list-style: disc outside;
   color: var(--color-text-300);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csft-lines {
     --font: var(--ts-text-sm-light-font);
     --fs0: var(--ts-text-sm-light-fs);
@@ -225,7 +225,7 @@
     --opsz: var(--ts-text-sm-light-opsz);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csft-lines {
     --font: var(--ts-text-md-light-font);
     --fs0: var(--ts-text-md-light-fs);
@@ -267,6 +267,6 @@
   color: var(--color-yellow-700);
   border-radius: 0 0 var(--cs-tag-r) var(--cs-tag-r);
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csft-tag { left: 24px; }
 }

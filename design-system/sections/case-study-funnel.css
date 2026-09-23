@@ -10,20 +10,20 @@
   --cs-bar-label-d: 104px;
   min-height: calc(var(--t) * 15);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-sec { min-height: calc(var(--t) * 10); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csf-sec { min-height: calc(var(--t) * 8); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-sec { min-height: calc(var(--t) * 7); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csf-sec { min-height: calc(var(--t) * 6); }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cs-content.csf-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 7 + 1px);
@@ -40,22 +40,22 @@
   flex-direction: column;
   align-items: stretch;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-box {
     min-height: calc(var(--t) * 9 + 1px);
     padding: var(--space-xl) var(--space-2xl);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csf-box { min-height: calc(var(--t) * 7 + 1px); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-box {
     min-height: calc(var(--t) * 6 + 1px);
     padding: var(--space-2xl);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csf-box { min-height: calc(var(--t) * 5 + 1px); }
 }
 
@@ -65,19 +65,19 @@
   margin-top: calc((var(--wA) + var(--wB)) * 12);
   max-width: calc((var(--wA) + var(--wB)) * 304);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-subhead {
     margin-top: calc((var(--wA) + var(--wB)) * 16);
     max-width: calc((var(--wA) + var(--wB)) * 440);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 480); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 608); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csf-subhead { max-width: calc((var(--wA) + var(--wB)) * 520); }
 }
 
@@ -90,10 +90,10 @@
   flex-direction: column;
   gap: calc((var(--wA) + var(--wB)) * 12);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csf-rows { gap: calc((var(--wA) + var(--wB)) * 16); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-rows { gap: calc((var(--wA) + var(--wB)) * 20); }
 }
 
@@ -104,7 +104,7 @@
   align-items: center;
   height: var(--cs-bar-h);
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-row { height: var(--cs-bar-h-d); }
 }
 
@@ -114,7 +114,7 @@
   width: var(--cs-bar-label);
   margin-right: var(--space-xl);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-label {
     width: var(--cs-bar-label-d);
     margin-right: var(--space-3xl);
@@ -128,7 +128,7 @@
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-label .cs-pill {
     --font: var(--ts-text-sm-regular-font);
     --fs0: var(--ts-text-sm-regular-fs);
@@ -137,7 +137,7 @@
     --opsz: var(--ts-text-sm-regular-opsz);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-label .cs-pill {
     --font: var(--ts-text-md-light-font);
     --fs0: var(--ts-text-md-light-fs);
@@ -178,7 +178,7 @@
 .csf-row[data-end] .csf-num {
   color: var(--color-teal-800);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-num {
     --font: var(--ts-text-2xl-regular-font);
     --fs0: var(--ts-text-2xl-regular-fs);
@@ -187,7 +187,7 @@
     --opsz: var(--ts-text-2xl-regular-opsz);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-num {
     --font: var(--ts-display-sans-2xs-light-font);
     --fs0: var(--ts-display-sans-2xs-light-fs);
@@ -204,7 +204,7 @@
   color: var(--color-text-400);
   max-width: calc((var(--wA) + var(--wB)) * 304);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csf-disclaimer {
     --font: var(--ts-text-sm-light-font);
     --fs0: var(--ts-text-sm-light-fs);
@@ -214,9 +214,9 @@
     max-width: calc((var(--wA) + var(--wB)) * 440);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csf-disclaimer { max-width: calc((var(--wA) + var(--wB)) * 600); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csf-disclaimer { max-width: calc((var(--wA) + var(--wB)) * 608); }
 }

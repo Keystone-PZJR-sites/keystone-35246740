@@ -36,7 +36,7 @@ html:has(.load-sequence-case-study) {
   margin-left: calc(var(--t) / 2);
   width: calc(var(--t) * 10.5 + 1px);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cs-content {
     margin-left: var(--t);
     width: calc(var(--t) * 10 + 1px);
@@ -49,7 +49,7 @@ html:has(.load-sequence-case-study) {
   margin: 0;
   color: var(--color-text-100);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cs-h2 {
     --font: var(--ts-text-2xl-regular-font);
     --fs0: var(--ts-text-2xl-regular-fs);
@@ -58,7 +58,7 @@ html:has(.load-sequence-case-study) {
     --opsz: var(--ts-text-2xl-regular-opsz);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cs-h2 {
     --font: var(--ts-display-sans-2xs-regular-font);
     --fs0: var(--ts-display-sans-2xs-regular-fs);
@@ -72,7 +72,7 @@ html:has(.load-sequence-case-study) {
 .cs-body {
   margin: 0;
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cs-body {
     --font: var(--ts-text-lg-light-font);
     --fs0: var(--ts-text-lg-light-fs);
@@ -167,7 +167,7 @@ html:has(.load-sequence-case-study) {
   color: var(--tag-ink);
   margin-bottom: var(--space-xs);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cs-tags {
     margin-bottom: calc(-1 * var(--space-md));
   }
@@ -192,7 +192,7 @@ html:has(.load-sequence-case-study) {
 .cs-tagbr-b {
   display: none;
 }
-@container (min-width: 665px) and (max-width: 859.98px) {
+@container (--rt-only) {
   /* Phone answering precedes Social visually in this band. */
   .cs-tag { order: var(--tag-order); }
   .cs-tagbr-a { order: 4; }

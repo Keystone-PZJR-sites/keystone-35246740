@@ -38,7 +38,7 @@
 .grader[data-size="lg"] { --grader-size: lg; }
 .grader[data-size="md"] { --grader-size: md; }
 .grader[data-size="sm"] { --grader-size: sm; }
-@container style(--grader-size: lg) {
+@container style(--grader-size: lg)  {
   .grader-field {
     height: 56px;
     --btn-size: lg;
@@ -47,13 +47,13 @@
     --opsz: var(--ts-text-xl-light-opsz);
   }
 }
-@container style(--grader-size: md) {
+@container style(--grader-size: md)  {
   .grader-field {
     height: 48px;
     --btn-size: md;
   }
 }
-@container style(--grader-size: sm) {
+@container style(--grader-size: sm)  {
   .grader-field {
     height: 44px;
     --btn-size: sm;
@@ -213,10 +213,10 @@
   box-shadow: var(--shadow-hard-square-md);
 }
 /* Large pills use a larger menu gap; small pills a smaller menu type. */
-@container style(--grader-size: lg) {
+@container style(--grader-size: lg)  {
   .grader-menu { --_menu-gap: var(--space-lg); }
 }
-@container style(--grader-size: sm) {
+@container style(--grader-size: sm)  {
   .grader-menu {
     --_menu-name-font: var(--ts-text-sm-medium-font);
     --_menu-name-ls: var(--ts-text-sm-medium-ls);

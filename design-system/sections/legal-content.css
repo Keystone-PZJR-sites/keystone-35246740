@@ -138,7 +138,7 @@
   font-weight: 500;
 }
 
-@container (min-width: 470px) {
+@container (--rs) {
   .legal-section {
     padding-top: calc(var(--t) * 2);
   }
@@ -149,14 +149,14 @@
   }
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .legal-prose {
     width: calc(var(--t) * 7);
     margin-left: calc(var(--t) * 4);
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .legal-prose {
     width: calc(var(--t) * 6);
     margin-left: calc(var(--t) * 5);

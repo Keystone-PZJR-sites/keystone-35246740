@@ -5,7 +5,7 @@
   margin-top: calc(var(--co-u) * 16);
   max-width: calc(var(--co-u) * 320);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cot-desc {
     max-width: calc(var(--t) * 6);
   }
@@ -23,12 +23,12 @@
   column-gap: var(--co-wall-gap-x);
   row-gap: var(--co-wall-gap-y);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cot-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cot-grid {
     grid-template-columns: repeat(4, 1fr);
   }

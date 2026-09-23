@@ -4,20 +4,20 @@
 .cst-sec {
   min-height: calc(var(--t) * 22);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cst-sec { min-height: calc(var(--t) * 13); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cst-sec { min-height: calc(var(--t) * 10); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-sec { min-height: calc(var(--t) * 9); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cst-sec { min-height: calc(var(--t) * 7); }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cs-content.cst-content {
     margin-left: calc(var(--t) * 3);
     width: calc(var(--t) * 8 + 1px);
@@ -31,10 +31,10 @@
   min-height: calc(var(--t) * 5 + 1px);
   padding: var(--space-xl);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cst-header { min-height: calc(var(--t) * 3 + 1px); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-header {
     min-height: calc(var(--t) * 2 + 1px);
     padding: var(--space-2xl);
@@ -46,16 +46,16 @@
   margin-top: calc((var(--wA) + var(--wB)) * 24);
   max-width: calc((var(--wA) + var(--wB)) * 304);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 415); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 480); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 480); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cst-subhead { max-width: calc((var(--wA) + var(--wB)) * 652); }
 }
 
@@ -71,7 +71,7 @@
 .cst-logo-cell {
   display: none;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cst-logo-cell {
     display: block;
     box-sizing: border-box;
@@ -81,7 +81,7 @@
     padding: var(--space-xl);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cst-logo-cell {
     width: calc(var(--t) * 2 + 1px);
     padding: var(--space-2xl);
@@ -103,11 +103,11 @@
   -webkit-mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
   mask: url("/media/brand/ks-logomark.svg") center / contain no-repeat;
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-logo-chip { width: 40px; height: 40px; }
   .cst-logomark { width: 20px; height: 20px; }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cst-logo-chip { width: 48px; height: 48px; }
   .cst-logomark { width: 24px; height: 24px; }
 }
@@ -131,14 +131,14 @@
   width: var(--cell-w);
   min-height: var(--cell-h);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cst-cells {
     --cell-w: calc(var(--t) * 5 + 1px);
     --cell-h: calc(var(--t) * 3 + 1px);
     width: calc(var(--t) * 10 + 2px);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   /* Preserve top padding so row one shares, rather than crosses, the header border. */
   .cst-cells {
     margin-left: -1px;
@@ -147,10 +147,10 @@
     width: calc(var(--t) * 9 + 2px);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-cells { --cell-pad: 20px; }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .cst-cells {
     --cell-w: calc(var(--t) * 2 + 1px);
     --cell-h: calc(var(--t) * 2 + 1px);
@@ -177,13 +177,13 @@
   width: 26px;
   height: 26px;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .cst-icon svg { width: 20px; height: 20px; }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cst-icon svg { width: 26px; height: 26px; }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-icon svg { width: auto; height: auto; }
 }
 
@@ -200,7 +200,7 @@
   margin: calc((var(--wA) + var(--wB)) * 12) 0 0;
   color: var(--color-text-300);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cst-title {
     --font: var(--ts-text-lg-medium-font);
     --fs0: var(--ts-text-lg-medium-fs);
@@ -216,7 +216,7 @@
     --opsz: var(--ts-text-sm-light-opsz);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cst-title {
     --font: var(--ts-text-xl-medium-font);
     --fs0: var(--ts-text-xl-medium-fs);
@@ -237,7 +237,7 @@
 .cst-desc-full {
   display: none;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cst-desc-short { display: none; }
   .cst-desc-full { display: inline; }
 }

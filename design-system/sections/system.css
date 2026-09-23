@@ -52,13 +52,13 @@
   /* Keep anchored content clear of the fixed navigation rail. */
   scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .system-section {
     min-height: calc(var(--t) * 12);
     --sys-r: var(--sys-r-rt);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .system-section {
     display: grid;
     grid-template-columns: var(--t) calc(var(--t) * 6) calc(var(--t) * 5) minmax(0, 1fr);
@@ -76,7 +76,7 @@
   flex-direction: column;
   justify-content: center;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .sys-head {
     margin-left: var(--t);
     width: auto;
@@ -84,7 +84,7 @@
     gap: var(--sys-head-gap-rt);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .sys-head {
     grid-column: 2;
     margin-left: 0;
@@ -103,7 +103,7 @@
   --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 36;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .sys-h2 {
     max-width: var(--sys-h2-w-rs);
     --fs0: 30;
@@ -112,7 +112,7 @@
     --lh1: 42;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .sys-h2 {
     margin: 0;
     max-width: var(--sys-h2-w-rt);
@@ -122,7 +122,7 @@
     --lh1: 42;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .sys-h2 {
     --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--sys-h2-w-rd);
@@ -140,12 +140,12 @@
   height: calc(var(--t) * 11);
   pointer-events: none;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .sys-diagram {
     height: calc(var(--t) * 7);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .sys-diagram {
     grid-column: 3;
     align-self: start;
@@ -162,13 +162,13 @@
   left: calc(var(--t) * 2);
   top: calc(var(--t) * 2);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .sys-stage {
     left: calc(var(--t) * 3);
     top: var(--t);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .sys-stage {
     left: var(--t);
     top: var(--t);
@@ -248,7 +248,7 @@
 .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rm); --_ty: var(--sys-tag-reception-y-rm); }
 .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rm); --_ty: var(--sys-tag-brand-y-rm); }
 .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rm); --_ty: var(--sys-tag-visibility-y-rm); }
-@container (min-width: 470px) {
+@container (--rs) {
   .sys-tag-label {
     --fs0: 14;
     --fs1: 16;
@@ -256,7 +256,7 @@
     --lh1: 22;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .sys-tag-label {
     --font: var(--ts-text-md-regular-font);
     --opsz: var(--ts-text-md-regular-opsz);
@@ -272,7 +272,7 @@
   .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rt); --_ty: var(--sys-tag-brand-y-rt); }
   .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rt); --_ty: var(--sys-tag-visibility-y-rt); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .sys-tag-label {
     --fs0: 11.4286;
     --fs1: 16;

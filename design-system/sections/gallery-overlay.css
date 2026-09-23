@@ -84,7 +84,7 @@
   white-space: nowrap;
   display: none;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .gv-label {
     display: block;
   }
@@ -102,7 +102,7 @@
   white-space: nowrap;
   display: none;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .gv-name {
     display: block;
   }

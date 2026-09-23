@@ -3,7 +3,7 @@
 .toc-rail {
   display: none;
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .toc-rail {
     display: block;
     position: absolute;

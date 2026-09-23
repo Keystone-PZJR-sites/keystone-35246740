@@ -6,16 +6,16 @@
   min-height: calc(var(--t) * 58);
   padding-bottom: var(--t);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .work-cases-section { min-height: calc(var(--t) * 42); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .work-cases-section { min-height: calc(var(--t) * 21); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .work-cases-section { min-height: calc(var(--t) * 18); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .work-cases-section { min-height: calc(var(--t) * 15); }
 }
 
@@ -28,7 +28,7 @@
   flex-direction: column;
   gap: var(--t);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .wkc-stack { margin-left: var(--t); }
 }
 
@@ -42,7 +42,7 @@
   width: calc(var(--t) * 10.5);
   min-height: calc(var(--t) * 18);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .work-cases-section .csc {
     width: calc(var(--t) * 10);
     min-height: calc(var(--t) * 13);
@@ -52,7 +52,7 @@
 /* Row bands: image and profile share one row split at the designed
    column; the flipped card mirrors the columns and paints the profile
    above the shared boundary. */
-@container (min-width: 665px) {
+@container (--rt) {
   .work-cases-section .csc {
     --wkc-split: 50%;
     min-height: calc(var(--t) * 6);
@@ -73,10 +73,10 @@
     z-index: 2;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .work-cases-section .csc { min-height: calc(var(--t) * 5); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .work-cases-section .csc {
     --wkc-split: 60%;
     min-height: calc(var(--t) * 4);
@@ -84,7 +84,7 @@
 }
 
 /* rm/rs ride the primitive's xs/sm defaults. rt: the md numbers. */
-@container (min-width: 665px) {
+@container (--rt) {
   .work-cases-section .csc {
     --csc-pt: 20;
     --csc-px: 20;
@@ -107,7 +107,7 @@
   }
 }
 /* rd1: the lg numbers */
-@container (min-width: 860px) {
+@container (--rd1) {
   .work-cases-section .csc {
     --csc-pt: 20;
     --csc-px: 24;
@@ -128,7 +128,7 @@
   }
 }
 /* rd2: the xl numbers */
-@container (min-width: 1130px) {
+@container (--rd2) {
   .work-cases-section .csc {
     --csc-pt: 24;
     --csc-px: 32;

@@ -58,7 +58,7 @@
 .company-careers {
   padding-top: var(--t);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .company-hero,
   .company-story,
   .company-backers,
@@ -69,7 +69,7 @@
     --co-wall-gap-y: calc(var(--co-u) * 32);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .company-hero,
   .company-story,
   .company-backers,
@@ -93,7 +93,7 @@
   --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 45;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .co-h2 {
     max-width: var(--co-h2-w-rs);
     --fs0: 36;
@@ -102,7 +102,7 @@
     --lh1: 60;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .co-h2 {
     max-width: var(--co-h2-w-rt);
     --font: var(--ts-display-serif-md-plus-extralight-font);
@@ -113,7 +113,7 @@
     --lh1: 50;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .co-h2 {
     margin-top: calc(var(--co-u) * 24);
     max-width: var(--co-h2-w-rd);
@@ -135,7 +135,7 @@
   --lh0: var(--ts-text-md-light-lh);
   --lh1: 33;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .co-body-text {
     --fs0: 24;
     --fs1: 32;
@@ -143,7 +143,7 @@
     --lh1: 44;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .co-body-text {
     --font: var(--ts-text-lg-light-font);
     --opsz: var(--ts-text-lg-light-opsz);
@@ -153,7 +153,7 @@
     --lh1: 26;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .co-body-text {
     --font: var(--ts-text-xl-light-font);
     --opsz: var(--ts-text-xl-light-opsz);
@@ -207,7 +207,7 @@
   margin-top: calc(var(--co-u) * 4);
   color: var(--color-text-400);
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .co-cell-name {
     --fs0: 14;
     --lh0: 18;

@@ -5,16 +5,16 @@
 .csi-sec {
   min-height: calc(var(--t) * 14);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csi-sec { min-height: calc(var(--t) * 7); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csi-sec { min-height: calc(var(--t) * 8); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csi-sec { min-height: calc(var(--t) * 4); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csi-sec { min-height: calc(var(--t) * 3); }
 }
 
@@ -28,12 +28,12 @@
   height: calc(var(--t) * 2);
   color: var(--color-text-100);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csi-head {
     height: var(--t);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csi-head {
     --font: var(--ts-text-2xl-regular-font);
     --fs0: var(--ts-text-2xl-regular-fs);
@@ -42,10 +42,10 @@
     --opsz: var(--ts-text-2xl-regular-opsz);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csi-head { align-items: center; }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csi-head {
     --font: var(--ts-display-sans-2xs-regular-font);
     --fs0: var(--ts-display-sans-2xs-regular-fs);
@@ -80,7 +80,7 @@
   height: calc(var(--t) * 2 + 1px);
 }
 
-@container (min-width: 470px) {
+@container (--rs) {
   .csi-grid {
     --cell-w: calc(var(--t) * 5 + 1px);
     --cell-h: calc(var(--t) * 2 + 1px);
@@ -95,7 +95,7 @@
     height: calc(var(--t) * 1 + 1px);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   /* Five cells naturally wrap as three plus two. */
   .csi-grid {
     --cell-w: calc(var(--t) * 3 + 1px);
@@ -112,7 +112,7 @@
     height: var(--cell-h);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csi-grid {
     --cell-w: calc(var(--t) * 2 + 1px);
     --cell-h: calc(var(--t) * 2 + 1px);
@@ -124,7 +124,7 @@
     --opsz: var(--ts-text-md-light-opsz);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csi-grid { --cs-cell-pad: 24px; }
 }
 
@@ -139,7 +139,7 @@
   /* With column-reverse, this margin separates the numeral from its label. */
   margin-bottom: var(--space-xs);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csi-grid .cs-cell-value {
     --font: var(--ts-display-sans-xs-light-font);
     --fs0: var(--ts-display-sans-xs-light-fs);
@@ -148,7 +148,7 @@
     --opsz: var(--ts-display-sans-xs-light-opsz);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csi-grid .cs-cell-value {
     --font: var(--ts-display-sans-lg-light-font);
     --fs0: var(--ts-display-sans-lg-light-fs);
@@ -157,7 +157,7 @@
     --opsz: var(--ts-display-sans-lg-light-opsz);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csi-grid .cs-cell-value {
     --font: var(--ts-display-sans-md-light-font);
     --fs0: var(--ts-display-sans-md-light-fs);
@@ -166,7 +166,7 @@
     --opsz: var(--ts-display-sans-md-light-opsz);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csi-grid .cs-cell-value {
     --font: var(--ts-display-sans-2xl-light-font);
     --fs0: var(--ts-display-sans-2xl-light-fs);
@@ -181,10 +181,10 @@
   width: auto;
   height: calc((var(--wA) + var(--wB)) * 12);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csi-grid .cs-cell-star svg { height: calc((var(--wA) + var(--wB)) * 18); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csi-grid .cs-cell-star svg { height: calc((var(--wA) + var(--wB)) * 24); }
 }
 
@@ -197,15 +197,15 @@
   --opsz: var(--ts-text-xs-regular-opsz);
   max-width: calc((var(--wA) + var(--wB)) * 196);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .csi-grid .cs-cell-disclaimer .cs-pill { max-width: none; }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 152); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 124); }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .csi-grid .cs-cell-disclaimer .cs-pill { max-width: calc((var(--wA) + var(--wB)) * 160); }
 }

@@ -260,7 +260,7 @@
   display: none;
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .blog-post {
     --bp-min-rows: var(--bp-min-rows-rt);
     --bp-u: var(--bp-u-rt);
@@ -307,7 +307,7 @@
   }
 }
 
-@container (min-width: 860px) {
+@container (--rd1) {
   .blog-post {
     --bp-min-rows: var(--bp-min-rows-rd);
     --bp-u: var(--bp-u-rd);
