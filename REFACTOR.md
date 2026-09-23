@@ -98,3 +98,6 @@ the end result differs slightly from today, if it is better.
   the element's className. Gate: 100/100 vs bc6e2dc.
 - P3 `refactor(type): ts- classes for templated classNames` — slug,
   button-inline, nav drawer labels, faq, funnel, stack. Gate 100/100.
+- P3 `refactor(css): ramp anchors name their step` — 53 raw fs/lh pairs
+  become `var(--ts-<step>-fs/-lh)` where the family and weight match.
+  Value-identical; gate 100/100.

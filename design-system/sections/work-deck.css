@@ -76,9 +76,9 @@
   margin-top: var(--wd-h2-gap-rm);
   margin-left: var(--t);
   max-width: var(--wd-h2-w-rm);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 30;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 36;
 }
 @container (min-width: 470px) {

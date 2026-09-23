@@ -21,9 +21,9 @@
   color: var(--color-text-100);
   margin-top: calc(var(--co-u) * 16);
   max-width: calc(var(--co-u) * 320);
-  --fs0: 36;
+  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
   --fs1: 54;
-  --lh0: 42;
+  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
   --lh1: 63;
 }
 @container (min-width: 470px) {

@@ -66,9 +66,9 @@
 
 .e2-name {
   color: var(--color-text-100);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 30;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 36;
 }
 @container (min-width: 470px) {
@@ -105,9 +105,9 @@
   --font: var(--ts-text-md-light-font);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
-  --fs0: 16;
+  --fs0: var(--ts-text-md-light-fs);
   --fs1: 18;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-light-lh);
   --lh1: 24;
 }
 .e2-desc .type + .type {
@@ -120,9 +120,9 @@
   }
   .e2-desc .type {
     --fs0: 18;
-    --fs1: 20;
+    --fs1: var(--ts-text-xl-light-fs);
     --lh0: 24;
-    --lh1: 26;
+    --lh1: var(--ts-text-xl-light-lh);
   }
 }
 @container (min-width: 665px) {
@@ -133,10 +133,10 @@
   .e2-desc .type {
     --font: var(--ts-text-xl-light-font);
     --opsz: var(--ts-text-xl-light-opsz);
-    --fs0: 20;
-    --fs1: 20;
-    --lh0: 26;
-    --lh1: 26;
+    --fs0: var(--ts-text-xl-light-fs);
+    --fs1: var(--ts-text-xl-light-fs);
+    --lh0: var(--ts-text-xl-light-lh);
+    --lh1: var(--ts-text-xl-light-lh);
   }
 }
 @container (min-width: 860px) {
@@ -146,9 +146,9 @@
   }
   .e2-desc .type {
     --fs0: 14.2857;
-    --fs1: 20;
+    --fs1: var(--ts-text-xl-light-fs);
     --lh0: 18.5714;
-    --lh1: 26;
+    --lh1: var(--ts-text-xl-light-lh);
   }
   .e2-desc .type + .type {
     margin-top: var(--e2-ps-rd);

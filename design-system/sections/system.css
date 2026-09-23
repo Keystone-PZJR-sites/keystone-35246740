@@ -98,9 +98,9 @@
   margin-top: var(--sys-h2-gap-rm);
   margin-left: var(--t);
   max-width: var(--sys-h2-w-rm);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 30;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 36;
 }
 @container (min-width: 470px) {
@@ -238,9 +238,9 @@
   border-radius: var(--radius-sm);
   white-space: nowrap;
   padding: 0.1667em 0.6667em 0.25em;
-  --fs0: 12;
+  --fs0: var(--ts-text-xs-regular-fs);
   --fs1: 14;
-  --lh0: 16;
+  --lh0: var(--ts-text-xs-regular-lh);
   --lh1: 19;
 }
 .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rm); --_ty: var(--sys-tag-ads-y-rm); }

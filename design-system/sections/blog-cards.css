@@ -69,9 +69,9 @@
   --ls: var(--ts-text-nav-label-ls);
   --opsz: var(--ts-text-nav-label-opsz);
   --case: var(--ts-text-nav-label-case);
-  --fs0: 10;
+  --fs0: var(--ts-text-nav-label-fs);
   --fs1: 15;
-  --lh0: 12;
+  --lh0: var(--ts-text-nav-label-lh);
   --lh1: 18;
 }
 @container (min-width: 470px) {
@@ -109,9 +109,9 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  --fs0: 16;
+  --fs0: var(--ts-text-md-medium-fs);
   --fs1: 24;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-medium-lh);
   --lh1: 33;
 }
 @container (min-width: 470px) {
@@ -153,9 +153,9 @@
   -webkit-line-clamp: 4;
   overflow: hidden;
   height: calc(var(--bl-u) * 96);
-  --fs0: 16;
+  --fs0: var(--ts-text-md-light-fs);
   --fs1: 24;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-light-lh);
   --lh1: 33;
 }
 @container (min-width: 470px) {
@@ -257,9 +257,9 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 36;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 45;
 }
 @container (min-width: 470px) {
@@ -297,9 +297,9 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   margin-top: calc(var(--bl-u) * 12);
-  --fs0: 16;
+  --fs0: var(--ts-text-md-light-fs);
   --fs1: 24;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-light-lh);
   --lh1: 33;
 }
 @container (min-width: 470px) {

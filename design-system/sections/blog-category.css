@@ -67,9 +67,9 @@
   color: var(--color-text-100);
   margin-top: calc(var(--bc-u) * 16);
   max-width: calc(var(--t) * 10);
-  --fs0: 36;
+  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
   --fs1: 54;
-  --lh0: 42;
+  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
   --lh1: 63;
 }
 @container (min-width: 665px) {
@@ -91,9 +91,9 @@
     --font: var(--ts-display-serif-3xl-thin-font);
     --ls: var(--ts-display-serif-3xl-thin-ls);
     --fs0: 51.4286;
-    --fs1: 72;
+    --fs1: var(--ts-display-serif-3xl-thin-fs);
     --lh0: 55.7143;
-    --lh1: 78;
+    --lh1: var(--ts-display-serif-3xl-thin-lh);
   }
 }
 
@@ -146,10 +146,10 @@
 
 .bc-empty {
   color: var(--color-text-300);
-  --fs0: 20;
-  --fs1: 20;
-  --lh0: 26;
-  --lh1: 26;
+  --fs0: var(--ts-text-xl-light-fs);
+  --fs1: var(--ts-text-xl-light-fs);
+  --lh0: var(--ts-text-xl-light-lh);
+  --lh1: var(--ts-text-xl-light-lh);
 }
 
 .bc-pagination {
