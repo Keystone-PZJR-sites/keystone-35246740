@@ -14,11 +14,19 @@
   --_u: calc(var(--sldr-w, calc(var(--_W0) * 1px)) / var(--_W0));
   width: calc(var(--_u) * var(--_W0));
 }
+/* Size is the slider's own data-size, or the mount's --sldr-size keyword
+   when it renders with size="inherit". W0 is the designed width. */
 .sldr[data-size="sm"] {
   --_W0: 160;
 }
 .sldr[data-size="md"] {
   --_W0: 192;
+}
+@container style(--sldr-size: sm) {
+  .sldr:not([data-size]) { --_W0: 160; }
+}
+@container style(--sldr-size: md) {
+  .sldr:not([data-size]) { --_W0: 192; }
 }
 
 /* rest fraction per snap state */

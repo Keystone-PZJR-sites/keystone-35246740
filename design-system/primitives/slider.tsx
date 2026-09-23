@@ -5,7 +5,7 @@ import { IconSliderArrow } from "../icons";
 
 export type SliderState = "less" | "middle" | "more";
 export type SliderHue = "pink" | "blue" | "purple";
-type SliderSize = "sm" | "md" | "lg";
+type SliderSize = "sm" | "md" | "lg" | "inherit";
 
 const STATE_VALUE: Record<SliderState, number> = { less: 0, middle: 1, more: 2 };
 
@@ -27,7 +27,12 @@ export function Slider({
   forceHue = "pink",
 }: SliderProps) {
   return (
-    <span className="sldr" data-size={size} data-state={forceState} data-hue={forceHue}>
+    <span
+      className="sldr"
+      data-size={size === "inherit" ? undefined : size}
+      data-state={forceState}
+      data-hue={forceHue}
+    >
       <span className="sldr-row">
         <i className="sldr-track" aria-hidden="true" />
         <i className="sldr-progress" aria-hidden="true">
