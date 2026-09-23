@@ -46,6 +46,7 @@
   border-radius: var(--radius-none);
 }
 .btn-body {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -55,6 +56,14 @@
   transition-property: background-color;
   transition-duration: var(--motion-hover-duration);
   transition-timing-function: var(--motion-hover-ease);
+}
+/* Touch target: the drawn heights are Figma's (md 40, sm 36, xs 32);
+   sizes under 44px extend their hit area invisibly, the .btn-inline
+   idiom, so geometry and the visual gate are untouched. */
+.btn-body::after {
+  content: "";
+  position: absolute;
+  inset: min(0px, calc((var(--_h) - 44px) / 2)) 0;
 }
 .btn-fill .btn-body {
   padding: var(--_py) var(--_pr) var(--_py) var(--_pl);

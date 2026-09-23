@@ -168,4 +168,8 @@ the end result differs slightly from today, if it is better.
   of `{ kind, …data }`; `pages/landing.tsx` renders through a kind→section
   registry, so a page chooses order and count and a new kind is one
   section file plus one registry line. /for-dentists/ pixel-identical.
+- `fix(buttons)` — fill and ghost buttons under 44px (md 40, sm 36, xs 32,
+  the mobile sizes nearly everywhere) extend their hit area to 44px with
+  an invisible pseudo, the `.btn-inline` idiom; drawn geometry unchanged,
+  110/110 on the visual gate. Found by the fresh-agent simulation.
 
