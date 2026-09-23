@@ -373,6 +373,8 @@
   background: var(--color-bg-000);
   color: var(--color-teal-600);
   padding: var(--space-2xl) var(--space-3xl) var(--space-3xl);
+  /* The card's type holds its phone sizes through the tablet band. */
+  --k: var(--k-late);
 }
 @container (--rs) {
   .po-card { padding: var(--space-lg) var(--space-xl) var(--space-xl); }

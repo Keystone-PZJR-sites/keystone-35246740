@@ -142,4 +142,10 @@ the end result differs slightly from today, if it is better.
   designed anchor). No `@container` block sets a type size anywhere;
   controls (`type-fixed`, `--pbtn-size`) stay keyword-sized. 384/1344/1600
   pixel-identical; open mobile menu identical at 384 and 768.
+- **Experiment** `--k-late` — a second progress (0 through 768, 1 at 1344)
+  for components whose design holds one size across phone and tablet; the
+  pricing card uses it (its $50 held 88px to 768 and fluid had it at 123).
+  Sweep vs production at 576/768/960: 238 type selectors differ ≥0.5px, up
+  to ±40%, because Figma bands hold or step non-monotonically; a two-anchor
+  line cannot reproduce that, only approximate it.
 
