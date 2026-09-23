@@ -199,11 +199,6 @@
 .cst-desc {
   margin: calc((var(--wA) + var(--wB)) * 12) 0 0;
   color: var(--color-text-300);
-  --font: var(--ts-text-xs-light-font);
-  --fs0: var(--ts-text-xs-light-fs);
-  --lh0: var(--ts-text-xs-light-lh);
-  --ls: var(--ts-text-xs-light-ls);
-  --opsz: var(--ts-text-xs-light-opsz);
 }
 @container (min-width: 665px) {
   .cst-title {

@@ -322,10 +322,6 @@
   align-items: center;
   width: 243px;
   padding-inline: var(--space-lg);
-  --font: var(--ts-text-nav-label-font);
-  --ls: var(--ts-text-nav-label-ls);
-  --opsz: var(--ts-text-nav-label-opsz);
-  --case: var(--ts-text-nav-label-case);
   color: var(--color-darkgray-100);
   white-space: nowrap;
 }

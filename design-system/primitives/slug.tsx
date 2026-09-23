@@ -22,7 +22,11 @@ export function Slug({
 }: SlugProps) {
   return (
     <Tag
-      className={className ? `type type-fixed slug ${className}` : "type type-fixed slug"}
+      className={
+        className
+          ? `type type-fixed ts-text-xs-medium slug ${className}`
+          : "type type-fixed ts-text-xs-medium slug"
+      }
       data-layout={layout === "rail" ? "rail" : undefined}
       aria-hidden={ariaHidden}
     >

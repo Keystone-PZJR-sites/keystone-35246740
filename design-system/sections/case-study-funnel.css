@@ -174,11 +174,6 @@
 .csf-num {
   margin-left: var(--space-xl);
   color: var(--color-text-200);
-  --font: var(--ts-text-xl-regular-font);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
-  --ls: var(--ts-text-xl-regular-ls);
-  --opsz: var(--ts-text-xl-regular-opsz);
 }
 .csf-row[data-end] .csf-num {
   color: var(--color-teal-800);

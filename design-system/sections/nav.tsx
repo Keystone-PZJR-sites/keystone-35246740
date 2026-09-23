@@ -154,10 +154,13 @@ function SolutionsDrawerContent() {
   return (
     <div className="knav-dcontent" data-content="solutions">
       <div className="type type-fixed knav-dlabels">
-        <span className="type type-fixed knav-dlabel knav-blk" style={blk(0)}>
+        <span className="type type-fixed ts-text-nav-label knav-dlabel knav-blk" style={blk(0)}>
           Marketing Engines
         </span>
-        <span className="type type-fixed knav-dlabel knav-dlabel-b knav-blk" style={blk(6)}>
+        <span
+          className="type type-fixed ts-text-nav-label knav-dlabel knav-dlabel-b knav-blk"
+          style={blk(6)}
+        >
           How it all works
         </span>
       </div>
@@ -203,7 +206,7 @@ function ResourcesDrawerContent() {
   return (
     <div className="knav-dcontent" data-content="resources">
       <div className="type type-fixed knav-dlabels">
-        <span className="type type-fixed knav-dlabel knav-blk" style={blk(0)}>
+        <span className="type type-fixed ts-text-nav-label knav-dlabel knav-blk" style={blk(0)}>
           Resources for small businesses
         </span>
       </div>
@@ -244,7 +247,7 @@ function WorkDrawerContent() {
   return (
     <div className="knav-dcontent" data-content="work">
       <div className="type type-fixed knav-dlabels">
-        <span className="type type-fixed knav-dlabel knav-blk" style={blk(0)}>
+        <span className="type type-fixed ts-text-nav-label knav-dlabel knav-blk" style={blk(0)}>
           Proof, not promises
         </span>
       </div>

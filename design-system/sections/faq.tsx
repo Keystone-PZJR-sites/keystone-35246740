@@ -28,7 +28,7 @@ const BANDS = Object.keys(RAIL) as GridBand[];
 function ChatRow() {
   return (
     <div className="faq-chat">
-      <span className="type faq-chat-label">
+      <span className="type ts-text-sm-light faq-chat-label">
         <span className="faq-chat-label-short">Got a question?</span>
         <span className="faq-chat-label-long">Got another question?</span>
       </span>
@@ -52,7 +52,7 @@ export function FaqSection() {
       {/* Header and responsive chat actions. */}
       <div className="faq-header" data-landmark="header">
         <div className="faq-head-box">
-          <h2 className="type faq-head">{FAQ_HEAD}</h2>
+          <h2 className="type ts-display-serif-xs-extralight faq-head">{FAQ_HEAD}</h2>
         </div>
         <ChatRow />
       </div>
