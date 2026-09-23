@@ -119,12 +119,13 @@
 
 .ds-tables {
   display: grid;
+  align-items: start;
   grid-template-columns: 1fr;
   gap: var(--space-5xl) var(--t);
   margin-top: var(--space-4xl);
   width: 100%;
 }
-@container (--rt) {
+@container (--rd1) {
   .ds-tables {
     grid-template-columns: 1fr 1fr;
   }
@@ -143,9 +144,13 @@
     display: table-cell;
   }
 }
-.ds-table td,
-.ds-table th {
-  overflow-wrap: anywhere;
+.ds-cell-name {
+  width: 100%;
+}
+.ds-cell-note {
+  display: block;
+  margin-top: var(--space-2xs);
+  color: var(--color-text-400);
 }
 .ds-tables .ds-table {
   margin-top: 0;
@@ -175,9 +180,8 @@
 .ds-cell-val {
   color: var(--color-text-400);
   white-space: nowrap;
-}
-.ds-cell-note {
-  color: var(--color-text-400);
+  text-align: right;
+  padding-right: 0;
 }
 .ds-swatch {
   display: block;

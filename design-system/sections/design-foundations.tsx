@@ -59,11 +59,13 @@ function TokenTable({ group, swatch }: { group: TokenGroup; swatch: "color" | "l
                 <i className="ds-bar" style={{ "--bar": `var(${row.name})` }} aria-hidden="true" />
               )}
             </td>
-            <td>
+            <td className="ds-cell-name">
               <code className="type type-fixed ts-text-sm-regular ds-code">{row.name}</code>
+              {row.note && (
+                <span className="type type-fixed ts-text-sm-light ds-cell-note">{row.note}</span>
+              )}
             </td>
             <td className="type type-fixed ts-text-sm-light ds-cell-val">{row.value}</td>
-            <td className="type type-fixed ts-text-sm-light ds-cell-note">{row.note ?? ""}</td>
           </tr>
         ))}
       </tbody>
