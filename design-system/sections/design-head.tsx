@@ -1,5 +1,4 @@
-/** Design page head: title, what the page is, and jump links to its
- * chapters. */
+/** Design page head and the chapter switcher. */
 
 import { Slug } from "../primitives/slug";
 
@@ -23,17 +22,21 @@ export function DesignHeadSection() {
         time; the components below are the real ones. If this page and the site disagree, the site
         is wrong.
       </p>
-      <nav className="ds-jump" aria-label="Chapters">
-        {DESIGN_CHAPTERS.map((c) => (
-          <a
-            key={c.id}
-            className="type type-fixed ts-text-sm-medium ds-jump-link"
-            href={`#${c.id}`}
-          >
-            {c.label}
-          </a>
-        ))}
-      </nav>
     </section>
+  );
+}
+
+/** The chapter switcher. State is the URL hash: `:target` shows one
+ * chapter (design.css), so `/design/#primitives` deep-links and nothing
+ * runs on the client. Foundations shows when no chapter is targeted. */
+export function DesignTabs() {
+  return (
+    <nav className="ds-tabs" aria-label="Chapters">
+      {DESIGN_CHAPTERS.map((c) => (
+        <a key={c.id} className="type type-fixed ts-text-md-medium ds-tab" href={`#${c.id}`}>
+          {c.label}
+        </a>
+      ))}
+    </nav>
   );
 }
