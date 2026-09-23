@@ -1,67 +1,74 @@
-# Agent rules — keystone-35246740
+# AGENTS.md — keystone-35246740
 
-Keystone's corporate site. The design system is `design-system/` on the
-five-anchor grid. The rules in `.cursor/rules/` load automatically; this
-file is the index and the short list you must never break.
-
-The live Figma file is the design intent. The code is the record of what
-ships. These rules are the contract.
-
-## Read order
-
-1. This file.
-2. `.cursor/rules/00-workflow.mdc` — how work happens here: sources of truth,
-   verification gates, git, and comments.
-3. `.cursor/rules/10-architecture.mdc` — server/client split, the design-system
-   layers, component and state rules.
-4. `.cursor/rules/20-design-system.mdc` — tokens, styling, motion, fonts, assets.
-5. `.cursor/rules/30-grid-and-layout.mdc` — the band system and the grid laws.
-6. `.cursor/rules/40-figma.mdc` — reading the design through the Figma MCP.
-7. `.cursor/rules/50-react-effects-a11y.mdc` — hydration, effects, accessibility.
-8. `.cursor/rules/60-data-and-integrations.mdc` — env, packages, the widgets, forms.
+Keystone's marketing site. Next.js App Router on Cloudflare (OpenNext).
+Design intent is the Figma file `ks-MarketingSite`; the code is what ships.
+Read this file, then `REFACTOR.md` if it exists.
 
 ## Never
 
-- Never read geometry, type, or tokens from screenshots, memory, or a prior
-  extraction. Read the live Figma file through the Figma MCP. If the MCP is
-  unreachable, stop and say so.
-- Never start your own dev server. The owner runs `npm run dev` on port 3000.
-  Two servers share one `.next` directory and corrupt each other. If port 3000
-  is not answering, say so and ask. The grid sweep runs against the owner's
-  server: `GRID_URL=http://localhost:3000 npm run test:grid`.
-- Never hardcode a value that means something: colors, spacing, type, motion,
-  z-index, URLs, copy, asset paths, endpoints. Tokens, data modules, the media
-  registry, and `.env` are the homes.
-- Never write CSS outside the `design-system/` layers; never use utility
-  classes, CSS modules, CSS-in-JS, `<style>` tags, or `!important`.
-- Never customize a `@keystone-sites/*` widget beyond its accepted props.
-- Never put `'use client'` on a page; interactivity lives in leaf islands.
-- Never suppress a lint or type error; fix the cause.
-- Never delete a page, route, or config file without explicit instruction.
-- Never commit, stage, or push unless the human asks in that turn.
+- Never read geometry, type, or color from screenshots or memory. Read the
+  live Figma node through the Figma MCP. If the MCP is unreachable, stop and say so.
+- Never start a dev server on port 3000. Run yours on another port, or use the
+  owner's if it is running.
+- Never hardcode a value that means something. Colors, spacing, type, motion,
+  z-index, URLs, copy, and asset paths live in `design-system/tokens/`,
+  `*-data.ts` modules, `design-system/media.ts`, or `.env`.
+- Never write CSS outside `design-system/`. No utility classes in site markup,
+  no CSS modules, no CSS-in-JS, no `<style>`, no `!important`.
+- Never customize a `@keystone-sites/*` widget beyond its props.
+- Never put `'use client'` on a page or layout. Interactivity is a leaf island.
+- Never suppress a lint or type error. Never use `any` or `as` at a data boundary.
+- Never invent copy, a component API, or a file. Read it first; ask if unclear.
+- Never delete a route or config file without being asked.
+- Never commit, stage, or push unless asked in that turn.
 
-## Required verification
+## How the site is built
 
-- `npx tsc --noEmit` — zero errors.
-- `npm run lint` — zero errors, zero warnings.
-- A visual change is verified in the browser at the five anchors
-  (384 · 576 · 768 · 960 · 1344) and one mid-band width per band.
-- The grid sweep is **not** the default layout gate. Run it only when the
-  lattice contract changes — `design-system/grid/`, `app/grid/`, or asserted
-  section tick geometry / exposure / stack order. See `00-workflow.mdc`.
-  A one-page lattice change uses `GRID_ROUTE`. Never use the sweep as a
-  mid-build loop. If it fails, stay on that route; do not restart the full
-  suite from `/`.
-- Every new value traces to a token, a named constant, or a data module.
-- The rules describe the code. Update them with the code.
+- `app/` routes only mount a `design-system/pages/*` composition and pass data.
+- `design-system/` layers build strictly upward: `tokens` → `base` → `grid`
+  → `primitives` → `sections` → `pages`. A layer imports only layers below it.
+  `index.css` assembles the cascade; add a file to its layer, never rules to the index.
+- A section owns `name.tsx`, `name.css`, `name-data.ts`, and at most one
+  island `name-island.tsx`. Sections compose primitives; pages compose sections.
+- Server Components by default. An island receives typed props or wraps
+  server-rendered children; it never fetches. Route JS is measured in bytes.
+- Layout is container-query driven on `.site-root` with the tick `--t`
+  (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
+  spacing come from tokens; controls are fixed material px. See
+  `design-system/grid/engine.css`.
+- Motion is CSS only, named in `tokens/motion.css`, and every grammar renders
+  settled under `prefers-reduced-motion`. Hover styles sit under `@media (hover: hover)`.
+- Data comes from `@keystone-sites/core` (`lib/server-api`) or a typed
+  `*-data.ts` module, validated at the boundary. Forms and chat go through the
+  Keystone route handlers in `app/api/`.
+- Images are art-directed `<picture>` tier sets from `media.ts`, with
+  `width`/`height`, WebP, `alt=""` when ambient. Fonts are licensed and
+  self-hosted; never load them from a URL.
+- Accessibility baseline: semantic HTML before ARIA, keyboard reachable,
+  visible `:focus-visible`, 44px targets, WCAG AA contrast, `<dialog>`
+  semantics for overlays with focus returned to the opener.
+
+## Adding a page
+
+1. Read the Figma frames for every band you will render.
+2. Reuse: search `primitives/` and `sections/` before writing a new one.
+3. Compose the page in `design-system/pages/name.tsx`; mount it from
+   `app/name/page.tsx` with `metadata`. Add the route to `site-links.ts`.
+4. Verify in the browser at 384 · 576 · 768 · 960 · 1344 and one width between.
+
+## Verify before you say done
+
+- `npx tsc --noEmit` and `npm run lint`: zero errors, zero warnings.
+- Visual change: checked in the browser at the widths above, reduced motion on
+  and off. Report what you measured, not "looks right".
+- Lattice change (`design-system/grid/`, section tick geometry): also
+  `GRID_URL=<dev url> npm run test:grid`. Not for copy, tokens, or motion.
 
 ## Git
 
-Commit only when asked. Conventional Commits (`feat:`, `fix:`, `docs:`,
-`chore:`, `refactor:`), written in ASD-STE100 Simplified Technical English:
-active voice, one idea per sentence, 20 words or fewer per sentence, plain
-words. The smallest complete commit — one primitive, one section, one token
-layer. `tsc` and `lint` pass before every commit. Never force-push `main`.
+Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`, `docs:`).
+Plain, short, active sentences. One logical change per commit; `tsc` and
+`lint` pass before each. Branches `feature/`, `fix/`, `chore/`. Never force-push `main`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

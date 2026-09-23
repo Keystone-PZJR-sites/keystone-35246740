@@ -1,61 +1,41 @@
-# Keystone Corporate Site — `keystone-35246740`
+# Keystone marketing site
 
-Keystone's corporate website. The design system lives under
-`design-system/` on the five-anchor grid. The Keystone data/API layer
-(`@keystone-sites/core` and `@keystone-sites/widgets`) powers backend data,
-chat, and forms; everything visual is custom.
+Next.js 16 (App Router, Turbopack) deployed to Cloudflare Workers via OpenNext.
+Agents and contributors: read `AGENTS.md` first.
 
-> **AI agents — read `AGENTS.md`, then every rule in `.cursor/rules/`.**
-> They are the binding contract for this codebase.
+## Run
 
----
+```bash
+cp .env.example .env   # fill in every variable; the build fails without them
+npm install
+npm run dev            # add -p <port> if 3000 is taken
+```
 
-Agent behavior is defined by `AGENTS.md` and `.cursor/rules/`. The live
-Figma file defines design intent, and the code defines the shipped site.
-
----
-
-## Key facts
-
-- **Design system:** `design-system/` — tokens → base → grid engine →
-  primitives → sections.
-- **Grid:** five anchors (384 · 576 · 768 · 960 · 1344), container-query
-  band gates at the geometric midpoints (470 · 665 · 860 · 1130),
-  nearest-anchor rendering, the tick capped at 112px.
-- **Fonts:** GT Standard Standard VF + PP Kyoto Variable Upright —
-  licensed, self-hosted.
-- **Motion:** CSS only — named grammars in `design-system/tokens/motion.css`.
-  No animation runtime ships.
-- **Design source:** the live Figma file `ks-MarketingSite`, read through
-  the Figma MCP only.
-- **Data layer:** `@keystone-sites/core` (`lib/server-api`, chat/form
-  route handlers under `app/api/`). Site chat is the
-  `@keystone-sites/widgets` `ChatWidget`, compiled through
-  `design-system/widgets.css`.
-- **Grader:** the grader input queries the Grader search API and
-  deep-links into the Grader app (`design-system/lib/grader.ts`); URLs come from
-  `.env`.
-- **Deploy:** Cloudflare via OpenNext (`npm run preview` / `deploy`).
-
-## Environment
-
-Copy the variables in `.env` for local work: `API_URL`, `AUTH_API_URL`,
-`API_KEY`, `NEXT_PUBLIC_GRADER_URL`, `NEXT_PUBLIC_GRADER_API_URL`,
-`NEXT_PUBLIC_GRADER_SEARCH_PATHS`. The Grader variables are required; a
-missing one fails the build. The public site origin is `SITE_URL` in
-`design-system/site.ts`.
-
-## Routes
-
-`/` · `/pricing` · `/our-work` · `/case-studies/[slug]`. The grid sweep
-runs on those pages.
-
-## Verification
+## Verify
 
 ```bash
 npx tsc --noEmit
 npm run lint
-# lattice contract only — not the default for a section or page build
-GRID_URL=http://localhost:3000 npm run test:grid
-GRID_URL=http://localhost:3000 GRID_ROUTE=/blog npm run test:grid  # one page
+GRID_URL=http://localhost:3000 npm run test:grid   # lattice changes only
+npm run preview                                     # OpenNext build + wrangler dev
 ```
+
+## Layout
+
+- `app/` — routes; each mounts a `design-system/pages/*` composition.
+- `design-system/` — tokens → base → grid → primitives → sections → pages.
+- `public/media/` — fonts and art-directed image tiers, indexed by `design-system/media.ts`.
+- `scripts/` — `generate-type-css.mjs` (Figma text styles → `tokens/type.css`), `grid-selftest.mjs`.
+
+## Routes
+
+`/` · `/pricing` · `/our-work` · `/case-studies/[slug]` · `/blog` · `/blog/[slug]`
+· `/company` · `/contact` · `/terms` · `/privacy` · `/privacy-policy` · `/accessibility`
+
+Blog and legal content come from the Keystone API; case studies, pricing, FAQ,
+and nav copy are typed `*-data.ts` modules.
+
+## Deploy
+
+`main` deploys through `.github/workflows/deploy.yml`; `website-mod-**` branches
+upload a preview version. Both run `tsc` and `lint` first.
