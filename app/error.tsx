@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { GridField } from "@/design-system/grid/field";
 import { LEGAL_EYEBROW } from "@/design-system/pages/legal-data";
 
@@ -24,7 +25,7 @@ export default function ErrorPage({ reset }: { error: Error; reset: () => void }
               <button type="button" onClick={reset}>
                 Try again
               </button>{" "}
-              · <a href="/">Back to the home page</a>
+              · <Link href="/">Back to the home page</Link>
             </p>
           </div>
         </article>
