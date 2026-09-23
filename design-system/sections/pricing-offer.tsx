@@ -189,7 +189,7 @@ function ItemList({ items }: { items: typeof INCLUDED_ITEMS }) {
   return (
     <ul className="po-items">
       {items.map((item) => (
-        <li key={item.icon}>
+        <li key={item.icon} className="type">
           <ItemIcon icon={item.icon} />
           <span className="po-item-text">{item.text}</span>
         </li>
@@ -237,9 +237,9 @@ export function PricingOfferSection() {
 
       <header className="po-header" data-landmark="head">
         <Slug>Pricing</Slug>
-        <h1 className="po-h1">Pay for the work, not the retainer.</h1>
+        <h1 className="type po-h1">Pay for the work, not the retainer.</h1>
         {/* Segments become one flowing paragraph at the widest band. */}
-        <p className="po-subhead">
+        <p className="type po-subhead">
           <span className="po-sub-seg">$50/month for a sales and marketing team.</span>{" "}
           <span className="po-sub-seg">Sounds ridiculous, but it’s true.</span>
         </p>
@@ -257,10 +257,10 @@ export function PricingOfferSection() {
           <MosaicStrip />
           <MosaicField />
           <p className="po-price">
-            <span className="po-price-num">$50</span>
+            <span className="type po-price-num">$50</span>
             <span className="type type-fixed po-price-per">/month</span>
           </p>
-          <p className="po-fine">
+          <p className="type po-fine">
             No setup fee. No contract.
             <br />
             Cancel anytime.
@@ -300,7 +300,7 @@ export function PricingOfferSection() {
 
       {/* Layout switches between one list box and a staggered pair. */}
       <div className="po-list po-list-single" data-landmark="list">
-        <h2 className="po-list-head">{LIST_HEAD}</h2>
+        <h2 className="type po-list-head">{LIST_HEAD}</h2>
         <ItemList items={INCLUDED_ITEMS} />
         <div className="po-list-cta">
           <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL} external>
@@ -310,7 +310,7 @@ export function PricingOfferSection() {
       </div>
       <div className="po-list po-list-pair" data-landmark="list">
         <div className="po-box po-box-l">
-          <h2 className="po-list-head">{LIST_HEAD}</h2>
+          <h2 className="type po-list-head">{LIST_HEAD}</h2>
           <ItemList items={INCLUDED_ITEMS.slice(0, 4)} />
         </div>
         <div className="po-box po-box-r">

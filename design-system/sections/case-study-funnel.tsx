@@ -9,10 +9,10 @@ export function CaseStudyFunnelSection({ study }: { study: CaseStudy }) {
       <CaseStudyLattice section="funnel" />
       <div className="cs-content csf-content" data-landmark="funnel">
         <div className="csf-box">
-          <h2 className="cs-h2 cs-type" id="funnel-h">
+          <h2 className="cs-h2 type" id="funnel-h">
             {study.funnel.head}
           </h2>
-          <p className="cs-body cs-type csf-subhead">{study.funnel.subhead}</p>
+          <p className="cs-body type csf-subhead">{study.funnel.subhead}</p>
           <dl className="csf-rows">
             {study.funnel.rows.map((row, i) => (
               <div className="csf-row" key={row.label} data-end={i === study.funnel.rows.length - 1 || undefined}>

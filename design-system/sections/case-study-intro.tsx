@@ -9,7 +9,7 @@ export function CaseStudyIntroSection({ study }: { study: CaseStudy }) {
     <section className="sec cs-sec csi-sec">
       <CaseStudyLattice section="intro" />
       <div className="cs-content" data-landmark="intro">
-        <h2 className="csi-head">{study.intro.head}</h2>
+        <h2 className="type csi-head">{study.intro.head}</h2>
         <div className="csi-grid">
           {study.intro.stats.map((stat) => (
             <CaseStudyStatCell key={stat.label} stat={stat} />

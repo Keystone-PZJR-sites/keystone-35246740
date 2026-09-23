@@ -9,12 +9,12 @@ export function CaseStudyBusinessSection({ study }: { study: CaseStudy }) {
     <section className="sec cs-sec csb-sec" id="business" aria-labelledby="business-h">
       <CaseStudyLattice section="business" />
       <div className="cs-content csb-content" data-landmark="business">
-        <h2 className="cs-h2 cs-type" id="business-h">
+        <h2 className="cs-h2 type" id="business-h">
           {study.business.head}
         </h2>
         <div className="csb-body">
           {study.business.body.map((para) => (
-            <p key={para.slice(0, 24)} className="cs-body cs-type">
+            <p key={para.slice(0, 24)} className="cs-body type">
               {para}
             </p>
           ))}
@@ -22,7 +22,7 @@ export function CaseStudyBusinessSection({ study }: { study: CaseStudy }) {
         <figure className="csb-callout">
           <div className="csb-quote">
             <blockquote className="type cs-quote csb-quote-body">{study.business.quote}</blockquote>
-            <figcaption className="cs-quote-attrib cs-body cs-type">
+            <figcaption className="cs-quote-attrib cs-body type">
               {study.business.attribution}
             </figcaption>
           </div>

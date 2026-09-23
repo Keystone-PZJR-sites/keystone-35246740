@@ -50,17 +50,17 @@ export function CaseStudyCard({ study, eager = false, flip = false, rise = false
       </div>
       <div className="csc-profile">
         <div className="csc-lede">
-          <p className="csc-category">{study.category}</p>
-          <h2 className="csc-title">{study.name}</h2>
-          <p className="csc-desc">{study.description}</p>
+          <p className="type csc-category">{study.category}</p>
+          <h2 className="type csc-title">{study.name}</h2>
+          <p className="type csc-desc">{study.description}</p>
         </div>
         <div className="csc-foot">
-          <p className="csc-slug">{study.statSlug}</p>
+          <p className="type csc-slug">{study.statSlug}</p>
           <dl className="csc-stats">
             {study.stats.map((stat) => (
               <div key={stat.label} className="csc-stat">
-                <dt className="csc-stat-label">{stat.label}</dt>
-                <dd className="csc-stat-value">
+                <dt className="type csc-stat-label">{stat.label}</dt>
+                <dd className="type csc-stat-value">
                   {stat.value}
                   {stat.star && (
                     <span className="csc-star" aria-hidden="true">

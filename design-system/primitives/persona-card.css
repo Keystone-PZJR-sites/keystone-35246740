@@ -14,13 +14,14 @@
     calc(var(--_tu) * var(--ptag-pt, 2))
     calc(var(--_tu) * var(--ptag-px, 6))
     calc(var(--_tu) * var(--ptag-pb, 3));
-  font: var(--ptag-f, var(--ts-text-2xs-regular-font));
-  font-size: calc(var(--_tu) * var(--ptag-fs, 10));
-  line-height: calc(var(--_tu) * var(--ptag-lh, 12));
-  letter-spacing: var(--ptag-ls, var(--ts-text-2xs-regular-ls));
-  font-variation-settings: "opsz" var(--ptag-opsz, var(--ts-text-2xs-regular-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ptag-f, var(--ts-text-2xs-regular-font));
+  --fs0: var(--ptag-fs, var(--ts-text-2xs-regular-fs));
+  --lh0: var(--ptag-lh, var(--ts-text-2xs-regular-lh));
+  --ls: var(--ptag-ls, var(--ts-text-2xs-regular-ls));
+  --opsz: var(--ptag-opsz, var(--ts-text-2xs-regular-opsz));
   white-space: nowrap;
+  --fs-px: calc(var(--_tu) * var(--fs0));
+  --lh-px: calc(var(--_tu) * var(--lh0));
 }
 /* Fixed tag sizes. */
 .ptag[data-size="md"] {
@@ -122,12 +123,13 @@
   margin: 0;
   color: var(--color-bg-000);
   max-width: calc(var(--_u) * var(--pc-title-w, 248));
-  font: var(--pc-title-f, var(--ts-text-lg-medium-font));
-  font-size: calc(var(--_u) * var(--pc-title-fs, 18));
-  line-height: calc(var(--_u) * var(--pc-title-lh, 26));
-  letter-spacing: var(--pc-title-ls, var(--ts-text-lg-medium-ls));
-  font-variation-settings: "opsz" var(--pc-title-opsz, var(--ts-text-lg-medium-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--pc-title-f, var(--ts-text-lg-medium-font));
+  --fs0: var(--pc-title-fs, var(--ts-text-lg-medium-fs));
+  --lh0: var(--pc-title-lh, var(--ts-text-lg-medium-lh));
+  --ls: var(--pc-title-ls, var(--ts-text-lg-medium-ls));
+  --opsz: var(--pc-title-opsz, var(--ts-text-lg-medium-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 
 /* the cost card — space-between: estimate + story anchored top, the
@@ -157,23 +159,25 @@
 .pcard-est {
   margin: 0;
   color: var(--pcard-hue, var(--color-text-100));
-  font: var(--pc-est-f, var(--ts-text-2xl-light-font));
-  font-size: calc(var(--_u) * var(--pc-est-fs, 24));
-  line-height: calc(var(--_u) * var(--pc-est-lh, 32));
-  letter-spacing: var(--pc-est-ls, var(--ts-text-2xl-light-ls));
-  font-variation-settings: "opsz" var(--pc-est-opsz, var(--ts-text-2xl-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--pc-est-f, var(--ts-text-2xl-light-font));
+  --fs0: var(--pc-est-fs, var(--ts-text-2xl-light-fs));
+  --lh0: var(--pc-est-lh, var(--ts-text-2xl-light-lh));
+  --ls: var(--pc-est-ls, var(--ts-text-2xl-light-ls));
+  --opsz: var(--pc-est-opsz, var(--ts-text-2xl-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 .pcard-story {
   margin: 0;
   color: var(--color-text-400);
   max-width: calc(var(--_u) * var(--pc-story-w, 272));
-  font: var(--pc-story-f, var(--ts-text-md-light-font));
-  font-size: calc(var(--_u) * var(--pc-story-fs, 16));
-  line-height: calc(var(--_u) * var(--pc-story-lh, 22));
-  letter-spacing: var(--pc-story-ls, var(--ts-text-md-light-ls));
-  font-variation-settings: "opsz" var(--pc-story-opsz, var(--ts-text-md-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--pc-story-f, var(--ts-text-md-light-font));
+  --fs0: var(--pc-story-fs, var(--ts-text-md-light-fs));
+  --lh0: var(--pc-story-lh, var(--ts-text-md-light-lh));
+  --ls: var(--pc-story-ls, var(--ts-text-md-light-ls));
+  --opsz: var(--pc-story-opsz, var(--ts-text-md-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 .pcard[data-state="inactive"] .pcard-est,
 .pcard[data-state="inactive"] .pcard-story {
@@ -210,13 +214,14 @@
   background: var(--pcard-hue, var(--color-text-100));
   color: var(--color-base-white);
   border-radius: 0 0 calc(var(--_u) * 6) calc(var(--_u) * 6);
-  font: var(--pc-tag-f, var(--ts-text-2xs-medium-font));
-  font-size: calc(var(--_u) * var(--pc-tag-fs, 10));
-  line-height: calc(var(--_u) * var(--pc-tag-lh, 12));
-  letter-spacing: var(--pc-tag-ls, var(--ts-text-2xs-medium-ls));
-  font-variation-settings: "opsz" var(--pc-tag-opsz, var(--ts-text-2xs-medium-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--pc-tag-f, var(--ts-text-2xs-medium-font));
+  --fs0: var(--pc-tag-fs, var(--ts-text-2xs-medium-fs));
+  --lh0: var(--pc-tag-lh, var(--ts-text-2xs-medium-lh));
+  --ls: var(--pc-tag-ls, var(--ts-text-2xs-medium-ls));
+  --opsz: var(--pc-tag-opsz, var(--ts-text-2xs-medium-opsz));
   white-space: nowrap;
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 .pcard[data-state="inactive"] .pcard-tag {
   background: var(--color-bg-300);

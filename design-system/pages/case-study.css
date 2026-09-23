@@ -45,61 +45,52 @@
   }
 }
 
-/* Type mounts set their font variables per responsive band. */
-.cs-type {
-  font: var(--_f);
-  font-size: calc((var(--wA) + var(--wB)) * var(--_fs));
-  line-height: calc((var(--wA) + var(--wB)) * var(--_lh));
-  letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
-  font-optical-sizing: none;
-}
 
 /* Section-heading type ramp. */
 .cs-h2 {
   margin: 0;
   color: var(--color-text-100);
-  --_f: var(--ts-text-xl-regular-font);
-  --_fs: 20;
-  --_lh: 26;
-  --_ls: var(--ts-text-xl-regular-ls);
-  --_opsz: var(--ts-text-xl-regular-opsz);
+  --font: var(--ts-text-xl-regular-font);
+  --fs0: var(--ts-text-xl-regular-fs);
+  --lh0: var(--ts-text-xl-regular-lh);
+  --ls: var(--ts-text-xl-regular-ls);
+  --opsz: var(--ts-text-xl-regular-opsz);
 }
 @container (min-width: 665px) {
   .cs-h2 {
-    --_f: var(--ts-text-2xl-regular-font);
-    --_fs: 24;
-    --_lh: 32;
-    --_ls: var(--ts-text-2xl-regular-ls);
-    --_opsz: var(--ts-text-2xl-regular-opsz);
+    --font: var(--ts-text-2xl-regular-font);
+    --fs0: var(--ts-text-2xl-regular-fs);
+    --lh0: var(--ts-text-2xl-regular-lh);
+    --ls: var(--ts-text-2xl-regular-ls);
+    --opsz: var(--ts-text-2xl-regular-opsz);
   }
 }
 @container (min-width: 1130px) {
   .cs-h2 {
-    --_f: var(--ts-display-sans-2xs-regular-font);
-    --_fs: 28;
-    --_lh: 36;
-    --_ls: var(--ts-display-sans-2xs-regular-ls);
-    --_opsz: var(--ts-display-sans-2xs-regular-opsz);
+    --font: var(--ts-display-sans-2xs-regular-font);
+    --fs0: var(--ts-display-sans-2xs-regular-fs);
+    --lh0: var(--ts-display-sans-2xs-regular-lh);
+    --ls: var(--ts-display-sans-2xs-regular-ls);
+    --opsz: var(--ts-display-sans-2xs-regular-opsz);
   }
 }
 
 /* Section-body type ramp; each mount supplies its own color. */
 .cs-body {
   margin: 0;
-  --_f: var(--ts-text-md-light-font);
-  --_fs: 16;
-  --_lh: 22;
-  --_ls: var(--ts-text-md-light-ls);
-  --_opsz: var(--ts-text-md-light-opsz);
+  --font: var(--ts-text-md-light-font);
+  --fs0: var(--ts-text-md-light-fs);
+  --lh0: var(--ts-text-md-light-lh);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 @container (min-width: 860px) {
   .cs-body {
-    --_f: var(--ts-text-lg-light-font);
-    --_fs: 18;
-    --_lh: 26;
-    --_ls: var(--ts-text-lg-light-ls);
-    --_opsz: var(--ts-text-lg-light-opsz);
+    --font: var(--ts-text-lg-light-font);
+    --fs0: var(--ts-text-lg-light-fs);
+    --lh0: var(--ts-text-lg-light-lh);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 

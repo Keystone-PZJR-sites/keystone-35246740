@@ -155,30 +155,34 @@
 .csc-category {
   margin: 0;
   color: var(--color-text-400);
-  font: var(--csc-cat-f, var(--ts-text-xs-light-font));
-  font-size: calc(var(--_u) * var(--csc-cat-fs, 12));
-  line-height: calc(var(--_u) * var(--csc-cat-lh, 16));
-  letter-spacing: var(--csc-cat-ls, var(--ts-text-xs-light-ls));
-  font-variation-settings: "opsz" var(--csc-cat-opsz, var(--ts-text-xs-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--csc-cat-f, var(--ts-text-xs-light-font));
+  --fs0: var(--csc-cat-fs, var(--ts-text-xs-light-fs));
+  --lh0: var(--csc-cat-lh, var(--ts-text-xs-light-lh));
+  --ls: var(--csc-cat-ls, var(--ts-text-xs-light-ls));
+  --opsz: var(--csc-cat-opsz, var(--ts-text-xs-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 .csc-title {
   margin: calc(var(--_u) * var(--csc-cat-gap, 6)) 0 0;
   color: var(--color-text-100);
-  font: var(--csc-title-f, var(--ts-display-serif-xs-light-font));
-  font-size: calc(var(--_u) * var(--csc-title-fs, 24));
-  line-height: calc(var(--_u) * var(--csc-title-lh, 30));
-  letter-spacing: var(--csc-title-ls, var(--ts-display-serif-xs-light-ls));
+  --font: var(--csc-title-f, var(--ts-display-serif-xs-light-font));
+  --fs0: var(--csc-title-fs, var(--ts-display-serif-xs-light-fs));
+  --lh0: var(--csc-title-lh, var(--ts-display-serif-xs-light-lh));
+  --ls: var(--csc-title-ls, var(--ts-display-serif-xs-light-ls));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 .csc-desc {
   margin: calc(var(--_u) * var(--csc-title-gap, 12)) 0 0;
   color: var(--color-text-300);
-  font: var(--csc-desc-f, var(--ts-text-md-light-font));
-  font-size: calc(var(--_u) * var(--csc-desc-fs, 16));
-  line-height: calc(var(--_u) * var(--csc-desc-lh, 22));
-  letter-spacing: var(--csc-desc-ls, var(--ts-text-md-light-ls));
-  font-variation-settings: "opsz" var(--csc-desc-opsz, var(--ts-text-md-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--csc-desc-f, var(--ts-text-md-light-font));
+  --fs0: var(--csc-desc-fs, var(--ts-text-md-light-fs));
+  --lh0: var(--csc-desc-lh, var(--ts-text-md-light-lh));
+  --ls: var(--csc-desc-ls, var(--ts-text-md-light-ls));
+  --opsz: var(--csc-desc-opsz, var(--ts-text-md-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 
 /* ---------------- the stats block ---------------- */
@@ -186,12 +190,13 @@
 .csc-slug {
   margin: 0;
   color: var(--color-text-400);
-  font: var(--csc-sslug-f, var(--ts-text-xs-light-font));
-  font-size: calc(var(--_u) * var(--csc-sslug-fs, 12));
-  line-height: calc(var(--_u) * var(--csc-sslug-lh, 16));
-  letter-spacing: var(--csc-sslug-ls, var(--ts-text-xs-light-ls));
-  font-variation-settings: "opsz" var(--csc-sslug-opsz, var(--ts-text-xs-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--csc-sslug-f, var(--ts-text-xs-light-font));
+  --fs0: var(--csc-sslug-fs, var(--ts-text-xs-light-fs));
+  --lh0: var(--csc-sslug-lh, var(--ts-text-xs-light-lh));
+  --ls: var(--csc-sslug-ls, var(--ts-text-xs-light-ls));
+  --opsz: var(--csc-sslug-opsz, var(--ts-text-xs-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 
 /* three equal cells on a 16 gap with 1px border/000 full-height
@@ -225,12 +230,13 @@
   display: flex;
   align-items: center;
   color: var(--color-text-300);
-  font: var(--csc-num-f, var(--ts-text-2xl-light-font));
-  font-size: calc(var(--_u) * var(--csc-num-fs, 24));
-  line-height: calc(var(--_u) * var(--csc-num-lh, 32));
-  letter-spacing: var(--csc-num-ls, var(--ts-text-2xl-light-ls));
-  font-variation-settings: "opsz" var(--csc-num-opsz, var(--ts-text-2xl-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--csc-num-f, var(--ts-text-2xl-light-font));
+  --fs0: var(--csc-num-fs, var(--ts-text-2xl-light-fs));
+  --lh0: var(--csc-num-lh, var(--ts-text-2xl-light-lh));
+  --ls: var(--csc-num-ls, var(--ts-text-2xl-light-ls));
+  --opsz: var(--csc-num-opsz, var(--ts-text-2xl-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 /* The star follows the numeral; labels wrap naturally in narrow cells. */
 .csc-star {
@@ -243,12 +249,13 @@
   /* Min-content preserves the intended per-word label wrap. */
   width: min-content;
   color: var(--color-text-400);
-  font: var(--csc-label-f, var(--ts-text-xs-light-font));
-  font-size: calc(var(--_u) * var(--csc-label-fs, 12));
-  line-height: calc(var(--_u) * var(--csc-label-lh, 16));
-  letter-spacing: var(--csc-label-ls, var(--ts-text-xs-light-ls));
-  font-variation-settings: "opsz" var(--csc-label-opsz, var(--ts-text-xs-light-opsz)), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--csc-label-f, var(--ts-text-xs-light-font));
+  --fs0: var(--csc-label-fs, var(--ts-text-xs-light-fs));
+  --lh0: var(--csc-label-lh, var(--ts-text-xs-light-lh));
+  --ls: var(--csc-label-ls, var(--ts-text-xs-light-ls));
+  --opsz: var(--csc-label-opsz, var(--ts-text-xs-light-opsz));
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 
 .csc-cta {

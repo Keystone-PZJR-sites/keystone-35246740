@@ -138,10 +138,10 @@ export function WorkHeaderSection() {
       {/* Header elements share the page entrance sequence. */}
       <header className="wkh" data-landmark="head">
         <Slug className="hx-rise">Our Work</Slug>
-        <h1 className="wkh-h1 hx-rise">
+        <h1 className="type wkh-h1 hx-rise">
           Beautiful websites, ads, social, and content that grow your business.
         </h1>
-        <p className="wkh-subhead hx-rise">
+        <p className="type wkh-subhead hx-rise">
           Designed to convert and built to rank, your website is the foundation
           for a system powered by five interconnected engines that drive your
           marketing.

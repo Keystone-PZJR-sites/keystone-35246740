@@ -76,14 +76,12 @@
   margin: var(--space-none);
   color: var(--color-text-100);
   max-width: var(--faq-head-w-rm);
-  font: var(--_f);
-  font-size: calc(var(--faq-u) * var(--_fs));
-  line-height: calc(var(--faq-u) * var(--_lh));
-  letter-spacing: var(--_ls);
-  --_f: var(--ts-display-serif-xs-extralight-font);
-  --_fs: 24;
-  --_lh: 30;
-  --_ls: var(--ts-display-serif-xs-extralight-ls);
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
+  --fs-px: calc(var(--faq-u) * var(--fs0));
+  --lh-px: calc(var(--faq-u) * var(--lh0));
 }
 @container (min-width: 470px) {
   /* one designed line inside the trued box — no wrap pin */
@@ -99,19 +97,19 @@
 @container (min-width: 860px) {
   .faq-head {
     max-width: var(--faq-head-w-rd1);
-    --_f: var(--ts-display-serif-sm-extralight-font);
-    --_fs: 32;
-    --_lh: 38;
-    --_ls: var(--ts-display-serif-sm-extralight-ls);
+    --font: var(--ts-display-serif-sm-extralight-font);
+    --fs0: var(--ts-display-serif-sm-extralight-fs);
+    --lh0: var(--ts-display-serif-sm-extralight-lh);
+    --ls: var(--ts-display-serif-sm-extralight-ls);
   }
 }
 @container (min-width: 1130px) {
   .faq-head {
     max-width: var(--faq-head-w-rd2);
-    --_f: var(--ts-display-serif-md-plus-extralight-font);
-    --_fs: 42;
-    --_lh: 50;
-    --_ls: var(--ts-display-serif-md-plus-extralight-ls);
+    --font: var(--ts-display-serif-md-plus-extralight-font);
+    --fs0: var(--ts-display-serif-md-plus-extralight-fs);
+    --lh0: var(--ts-display-serif-md-plus-extralight-lh);
+    --ls: var(--ts-display-serif-md-plus-extralight-ls);
   }
 }
 
@@ -126,17 +124,13 @@
 .faq-chat-label {
   padding-left: calc(var(--faq-u) * 12);
   color: var(--color-text-400);
-  font: var(--_f);
-  font-size: calc(var(--faq-u) * var(--_fs));
-  line-height: calc(var(--faq-u) * var(--_lh));
-  letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz, 10), var(--font-sans-slnt);
-  font-optical-sizing: none;
-  --_f: var(--ts-text-sm-light-font);
-  --_fs: 14;
-  --_lh: 18;
-  --_ls: var(--ts-text-sm-light-ls);
-  --_opsz: var(--ts-text-sm-light-opsz);
+  --font: var(--ts-text-sm-light-font);
+  --fs0: var(--ts-text-sm-light-fs);
+  --lh0: var(--ts-text-sm-light-lh);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
+  --fs-px: calc(var(--faq-u) * var(--fs0));
+  --lh-px: calc(var(--faq-u) * var(--lh0));
 }
 @container (min-width: 665px) {
   .faq-chat-rt {
@@ -151,11 +145,11 @@
     display: flex;
   }
   .faq-chat-rd1 .faq-chat-label {
-    --_f: var(--ts-text-md-light-font);
-    --_fs: 16;
-    --_lh: 22;
-    --_ls: var(--ts-text-md-light-ls);
-    --_opsz: var(--ts-text-md-light-opsz);
+    --font: var(--ts-text-md-light-font);
+    --fs0: var(--ts-text-md-light-fs);
+    --lh0: var(--ts-text-md-light-lh);
+    --ls: var(--ts-text-md-light-ls);
+    --opsz: var(--ts-text-md-light-opsz);
   }
 }
 @container (min-width: 1130px) {
@@ -169,11 +163,11 @@
   .faq-chat-rd2 .faq-chat-label {
     padding-left: calc(var(--faq-u) * 16);
     padding-bottom: calc(var(--faq-u) * 2);
-    --_f: var(--ts-text-xl-light-font);
-    --_fs: 20;
-    --_lh: 26;
-    --_ls: var(--ts-text-xl-light-ls);
-    --_opsz: var(--ts-text-xl-light-opsz);
+    --font: var(--ts-text-xl-light-font);
+    --fs0: var(--ts-text-xl-light-fs);
+    --lh0: var(--ts-text-xl-light-lh);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
   }
 }
 

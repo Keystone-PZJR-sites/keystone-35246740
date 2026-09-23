@@ -83,19 +83,19 @@ export function PricingScaleSection() {
       >
         <div className="ps-block" data-landmark="price-scale">
           <div className="ps-content">
-            <h2 className="ps-head">
+            <h2 className="type ps-head">
               {PRICE_SCALE_HEAD[0]}
               <br />
               {PRICE_SCALE_HEAD[1]}
             </h2>
             <ul className="ps-chips">
               {KEYWORD_CHIPS.map((chip) => (
-                <li key={chip.id} className={`ps-chip ps-chip-${chip.id}`}>
+                <li key={chip.id} className={`type ps-chip ps-chip-${chip.id}`}>
                   {chip.label}
                 </li>
               ))}
             </ul>
-            <p className="ps-subhead">{PRICE_SCALE_SUBHEAD}</p>
+            <p className="type ps-subhead">{PRICE_SCALE_SUBHEAD}</p>
             <div className="ps-sl ps-sl-rt">
               <Slider size="md" label={SLIDER_LABEL} valueText={rest.tagLabel} />
             </div>
