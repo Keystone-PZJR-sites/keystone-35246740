@@ -1,22 +1,23 @@
 /* Typography has one mechanism. An element with the `type` class carries
    its Figma step as a generated `ts-<step>` class (tokens/type.css), which
-   sets the variables below; a band that changes step or adds a second
-   anchor restates them in its own @container block:
+   sets the variables below; the element's own rule names where the ramp
+   ends:
 
      --font: var(--ts-<step>-font);   family and weight
      --ls:   var(--ts-<step>-ls);     tracking (em)
      --opsz: var(--ts-<step>-opsz);   GT Standard optical size (sans only)
      --case: var(--ts-<step>-case);   text-transform, where the step has one
-     --fs0 / --fs1, --lh0 / --lh1     size and line-height (px numbers) at
-                                      the band's two anchors; a step's own
-                                      size is var(--ts-<step>-fs / -lh)
+     --fs0 / --lh0                    size and line-height (px numbers) at
+                                      the 384 anchor (the ts- class sets them)
+     --fs1 / --lh1                    the same at the 1344 anchor; omitted,
+                                      the size holds
 
-   The band's weights (`--wA`, `--wB` from grid/engine.css) interpolate
-   size and line-height between the anchors and zoom them in compressed
-   slices. A band that holds one size sets `--fs0` only. A band that
-   switches step restates `--font`/`--ls`/`--opsz` in its @container block.
-   A band pinned to a px size sets `--fs-px`/`--lh-px` and the next band
-   resets them with `initial`.
+   Size is one straight line from --fs0 to --fs1 on --k (grid/engine.css:
+   0 at 384, 1 at 1344, flat beyond). No @container block sets a size; a
+   band that switches step restates only `--font`/`--ls`/`--opsz`. An
+   element inside a component that scales through its own unit pins
+   `--fs-px: calc(var(--_u) * var(--fs))` — `--fs`/`--lh` are the
+   interpolated numbers.
 
    `type type-fixed` is site chrome (nav, footer, buttons, forms) that keeps the
    step's px size instead of following the grid; it needs no --fs0/--lh0.

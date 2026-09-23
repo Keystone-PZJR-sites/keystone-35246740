@@ -420,6 +420,17 @@
   width: 100%;
   height: 100%;
   --pcard-u: var(--ps-u);
+  /* Type: the 1344 end of each ramp; the primitive's defaults are the 384 end. */
+  --pc-title-fs1: 24;
+  --pc-title-lh1: 32;
+  --pc-story-fs1: 18;
+  --pc-story-lh1: 26;
+  --ptag-fs1: 14;
+  --ptag-lh1: 18;
+  --pc-est-fs1: 36;
+  --pc-est-lh1: 42;
+  --pc-tag-fs1: 12;
+  --pc-tag-lh1: 16;
 }
 .ps-slot .pcard-box {
   flex: 1;
@@ -448,8 +459,6 @@
 @container (--rs) {
   .ps-slot .pcard {
     --pc-title-f: var(--ts-text-md-medium-font);
-    --pc-title-fs: 16;
-    --pc-title-lh: 22;
     --pc-title-ls: var(--ts-text-md-medium-ls);
     --pc-title-opsz: var(--ts-text-md-medium-opsz);
     --pc-title-w: 232;
@@ -459,21 +468,15 @@
 @container (--rt) {
   .ps-slot .pcard {
     --pc-title-f: var(--ts-text-lg-medium-font);
-    --pc-title-fs: 18;
-    --pc-title-lh: 26;
     --pc-title-ls: var(--ts-text-lg-medium-ls);
     --pc-title-opsz: var(--ts-text-lg-medium-opsz);
     --pc-title-w: 264;
     --pc-story-f: var(--ts-text-sm-light-font);
-    --pc-story-fs: 14;
-    --pc-story-lh: 18;
     --pc-story-ls: var(--ts-text-sm-light-ls);
     --pc-story-opsz: var(--ts-text-sm-light-opsz);
     --pc-story-w: 288;
     --pc-tag-inset: 32;
     --ptag-f: var(--ts-text-xs-regular-font);
-    --ptag-fs: 12;
-    --ptag-lh: 16;
     --ptag-ls: var(--ts-text-xs-regular-ls);
     --ptag-opsz: var(--ts-text-xs-regular-opsz);
   }
@@ -481,8 +484,6 @@
 @container (--rd1) {
   .ps-slot .pcard {
     --pc-title-f: var(--ts-text-xl-medium-font);
-    --pc-title-fs: 20;
-    --pc-title-lh: 26;
     --pc-title-ls: var(--ts-text-xl-medium-ls);
     --pc-title-opsz: var(--ts-text-xl-medium-opsz);
     --pc-title-w: 292;
@@ -490,14 +491,10 @@
     --pc-cost-px: 20;
     --pc-cost-pb: 20;
     --pc-est-f: var(--ts-display-sans-2xs-light-font);
-    --pc-est-fs: 28;
-    --pc-est-lh: 36;
     --pc-est-ls: var(--ts-display-sans-2xs-light-ls);
     --pc-est-opsz: var(--ts-display-sans-2xs-light-opsz);
     --pc-est-gap: 16;
     --pc-story-f: var(--ts-text-md-light-font);
-    --pc-story-fs: 16;
-    --pc-story-lh: 22;
     --pc-story-ls: var(--ts-text-md-light-ls);
     --pc-story-opsz: var(--ts-text-md-light-opsz);
     --pc-story-w: 360;
@@ -505,8 +502,6 @@
     --ptag-px: 8;
     --ptag-pb: 4;
     --ptag-f: var(--ts-text-sm-regular-font);
-    --ptag-fs: 14;
-    --ptag-lh: 18;
     --ptag-ls: var(--ts-text-sm-regular-ls);
     --ptag-opsz: var(--ts-text-sm-regular-opsz);
   }
@@ -519,8 +514,6 @@
     --pc-img-pl: 24;
     --pc-title-just: flex-start;
     --pc-title-f: var(--ts-text-2xl-medium-font);
-    --pc-title-fs: 24;
-    --pc-title-lh: 32;
     --pc-title-ls: var(--ts-text-2xl-medium-ls);
     --pc-title-opsz: var(--ts-text-2xl-medium-opsz);
     --pc-title-w: 232;
@@ -528,14 +521,10 @@
     --pc-cost-px: 32;
     --pc-cost-pb: 32;
     --pc-est-f: var(--ts-display-sans-sm-light-font);
-    --pc-est-fs: 36;
-    --pc-est-lh: 42;
     --pc-est-ls: var(--ts-display-sans-sm-light-ls);
     --pc-est-opsz: var(--ts-display-sans-sm-light-opsz);
     --pc-est-gap: 24;
     --pc-story-f: var(--ts-text-lg-light-font);
-    --pc-story-fs: 18;
-    --pc-story-lh: 26;
     --pc-story-ls: var(--ts-text-lg-light-ls);
     --pc-story-opsz: var(--ts-text-lg-light-opsz);
     --pc-story-w: 496;
@@ -543,8 +532,6 @@
     --pc-tag-h: 32;
     --pc-tag-px: 12;
     --pc-tag-f: var(--ts-text-xs-semibold-font);
-    --pc-tag-fs: 12;
-    --pc-tag-lh: 16;
     --pc-tag-ls: var(--ts-text-xs-semibold-ls);
     --pc-tag-opsz: var(--ts-text-xs-semibold-opsz);
     --pc-tag-inset: 32;

@@ -8,9 +8,8 @@
    (k·t + 1px) grow their row by the pixel; the following track gives it
    back so the section total stays on the tick. */
 .pricing-offer-section {
-  --po-price-rm: 88px;
-  --po-price-rd1: 128px;
-  --po-price-rd2: 176px;
+  --po-price-fs0: 88;
+  --po-price-fs1: 176;
   --po-price-gap: -4px;
   --po-tag-pad-x-rm: 10px;
   --po-chat-drop-card-rm: 38px;
@@ -419,23 +418,21 @@
 }
 .po-price-num {
   /* The 4xl display step at the price's own size, set solid (line-height = size). */
-  --fs-px: var(--po-price-rm);
-  --lh-px: var(--fs-px);
+  --fs0: var(--po-price-fs0);
+  --fs1: var(--po-price-fs1);
+  --lh0: var(--po-price-fs0);
+  --lh1: var(--po-price-fs1);
 }
 .po-price-per {
   margin-left: var(--po-price-gap);
   padding: var(--space-sm) var(--space-md) 0 0;
 }
 @container (--rd1) {
-  .po-price-num { --fs-px: var(--po-price-rd1); }
   .po-price-per {
     --font: var(--ts-text-lg-light-font);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
-}
-@container (--rd2) {
-  .po-price-num { --fs-px: var(--po-price-rd2); }
 }
 
 /* the fine print anchors to the bottom pad (the tick's slack sits

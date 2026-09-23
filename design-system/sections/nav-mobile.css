@@ -1,6 +1,12 @@
 /* Mobile navigation (below rd1): the fixed bar, the full-screen menu
    panel, accordion rows, and chips. Shared constants live in nav.css. */
 
+/* The mobile nav lives below rd1, so its type ramps 384 → 768 (its last
+   designed anchor) rather than to 1344: a local --k over that span. */
+.knav-m {
+  --k: clamp(0, tan(atan2(calc(var(--t) - 32px), 32px)), 1);
+}
+
 /* Pointer-initiated closes return focus without showing a keyboard ring. */
 .knav-mtoggle[data-quiet-focus]:focus-visible {
   box-shadow: none;
@@ -261,9 +267,10 @@ a.knav-row {
 }
 .knav-rlabel {
   padding-left: var(--space-2xs);
-  /* Holds the step's size below 470, rides the band to the xs step, then holds. */
-  --fs-px: calc(var(--ts-display-sans-2xs-light-fs) * 1px);
-  --lh-px: calc(var(--ts-display-sans-2xs-light-lh) * 1px);
+  --fs0: var(--ts-display-sans-2xs-light-fs);
+  --fs1: var(--ts-display-sans-xs-light-fs);
+  --lh0: var(--ts-display-sans-2xs-light-lh);
+  --lh1: var(--ts-display-sans-xs-light-lh);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -353,9 +360,9 @@ a.knav-row {
   color: var(--color-text-200);
   white-space: nowrap;
   --fs0: var(--ts-text-sm-regular-fs);
-  --fs1: var(--ts-text-xl-regular-fs);
+  --fs1: var(--ts-text-2xl-light-fs);
   --lh0: var(--ts-text-sm-regular-lh);
-  --lh1: var(--ts-text-xl-regular-lh);
+  --lh1: var(--ts-text-2xl-light-lh);
 }
 .knav-chipdot {
   flex: none;
@@ -375,9 +382,9 @@ a.knav-row {
   color: var(--_label);
   white-space: nowrap;
   --fs0: var(--ts-text-sm-regular-fs);
-  --fs1: var(--ts-text-xl-regular-fs);
+  --fs1: var(--ts-text-2xl-light-fs);
   --lh0: var(--ts-text-sm-regular-lh);
-  --lh1: var(--ts-text-xl-regular-lh);
+  --lh1: var(--ts-text-2xl-light-lh);
 }
 /* The icon uses independent ink from its label. */
 .knav-rchipicon {
@@ -481,12 +488,6 @@ a.knav-row {
     --_g: var(--g-rs);
     --_bt: var(--bt-rs);
   }
-  .knav-rlabel {
-    --fs-px: initial;
-    --lh-px: initial;
-    --fs0: var(--ts-display-sans-2xs-light-fs); --fs1: var(--ts-display-sans-xs-light-fs);
-    --lh0: var(--ts-display-sans-2xs-light-lh); --lh1: var(--ts-display-sans-xs-light-lh);
-  }
   .knav-chipsin {
     gap: var(--space-lg);
     /* Keep engine chips wrapping three per row. */
@@ -497,8 +498,6 @@ a.knav-row {
     --font: var(--ts-text-xl-light-font);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
-    --fs0: var(--ts-text-xl-light-fs); --fs1: var(--ts-text-2xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh); --lh1: var(--ts-text-2xl-light-lh);
   }
 }
 
@@ -515,8 +514,6 @@ a.knav-row {
     --font: var(--ts-display-sans-xs-light-font);
     --ls: var(--ts-display-sans-xs-light-ls);
     --opsz: var(--ts-display-sans-xs-light-opsz);
-    --fs-px: calc(var(--ts-display-sans-xs-light-fs) * 1px);
-    --lh-px: calc(var(--ts-display-sans-xs-light-lh) * 1px);
   }
   .knav-rchev {
     width: 20px;
@@ -533,8 +530,6 @@ a.knav-row {
     --font: var(--ts-text-2xl-light-font);
     --ls: var(--ts-text-2xl-light-ls);
     --opsz: var(--ts-text-2xl-light-opsz);
-    --fs-px: 24px;
-    --lh-px: 32px;
   }
   .knav-chipdot {
     width: 8px;

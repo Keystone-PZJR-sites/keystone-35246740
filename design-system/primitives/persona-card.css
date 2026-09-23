@@ -18,12 +18,14 @@
     calc(var(--_tu) * var(--ptag-pb, 3));
   --font: var(--ptag-f, var(--ts-text-2xs-regular-font));
   --fs0: var(--ptag-fs, var(--ts-text-2xs-regular-fs));
+  --fs1: var(--ptag-fs1);
   --lh0: var(--ptag-lh, var(--ts-text-2xs-regular-lh));
+  --lh1: var(--ptag-lh1);
   --ls: var(--ptag-ls, var(--ts-text-2xs-regular-ls));
   --opsz: var(--ptag-opsz, var(--ts-text-2xs-regular-opsz));
   white-space: nowrap;
-  --fs-px: calc(var(--_tu) * var(--fs0));
-  --lh-px: calc(var(--_tu) * var(--lh0));
+  --fs-px: calc(var(--_tu) * var(--fs));
+  --lh-px: calc(var(--_tu) * var(--lh));
 }
 /* Fixed tag sizes. */
 .ptag[data-size="md"] {
@@ -127,11 +129,13 @@
   max-width: calc(var(--_u) * var(--pc-title-w, 248));
   --font: var(--pc-title-f, var(--ts-text-lg-medium-font));
   --fs0: var(--pc-title-fs, var(--ts-text-lg-medium-fs));
+  --fs1: var(--pc-title-fs1);
   --lh0: var(--pc-title-lh, var(--ts-text-lg-medium-lh));
+  --lh1: var(--pc-title-lh1);
   --ls: var(--pc-title-ls, var(--ts-text-lg-medium-ls));
   --opsz: var(--pc-title-opsz, var(--ts-text-lg-medium-opsz));
-  --fs-px: calc(var(--_u) * var(--fs0));
-  --lh-px: calc(var(--_u) * var(--lh0));
+  --fs-px: calc(var(--_u) * var(--fs));
+  --lh-px: calc(var(--_u) * var(--lh));
 }
 
 /* the cost card — space-between: estimate + story anchored top, the
@@ -163,11 +167,13 @@
   color: var(--pcard-hue, var(--color-text-100));
   --font: var(--pc-est-f, var(--ts-text-2xl-light-font));
   --fs0: var(--pc-est-fs, var(--ts-text-2xl-light-fs));
+  --fs1: var(--pc-est-fs1);
   --lh0: var(--pc-est-lh, var(--ts-text-2xl-light-lh));
+  --lh1: var(--pc-est-lh1);
   --ls: var(--pc-est-ls, var(--ts-text-2xl-light-ls));
   --opsz: var(--pc-est-opsz, var(--ts-text-2xl-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs0));
-  --lh-px: calc(var(--_u) * var(--lh0));
+  --fs-px: calc(var(--_u) * var(--fs));
+  --lh-px: calc(var(--_u) * var(--lh));
 }
 .pcard-story {
   margin: 0;
@@ -175,11 +181,13 @@
   max-width: calc(var(--_u) * var(--pc-story-w, 272));
   --font: var(--pc-story-f, var(--ts-text-md-light-font));
   --fs0: var(--pc-story-fs, var(--ts-text-md-light-fs));
+  --fs1: var(--pc-story-fs1);
   --lh0: var(--pc-story-lh, var(--ts-text-md-light-lh));
+  --lh1: var(--pc-story-lh1);
   --ls: var(--pc-story-ls, var(--ts-text-md-light-ls));
   --opsz: var(--pc-story-opsz, var(--ts-text-md-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs0));
-  --lh-px: calc(var(--_u) * var(--lh0));
+  --fs-px: calc(var(--_u) * var(--fs));
+  --lh-px: calc(var(--_u) * var(--lh));
 }
 .pcard[data-state="inactive"] .pcard-est,
 .pcard[data-state="inactive"] .pcard-story {
@@ -218,12 +226,14 @@
   border-radius: 0 0 calc(var(--_u) * 6) calc(var(--_u) * 6);
   --font: var(--pc-tag-f, var(--ts-text-2xs-medium-font));
   --fs0: var(--pc-tag-fs, var(--ts-text-2xs-medium-fs));
+  --fs1: var(--pc-tag-fs1);
   --lh0: var(--pc-tag-lh, var(--ts-text-2xs-medium-lh));
+  --lh1: var(--pc-tag-lh1);
   --ls: var(--pc-tag-ls, var(--ts-text-2xs-medium-ls));
   --opsz: var(--pc-tag-opsz, var(--ts-text-2xs-medium-opsz));
   white-space: nowrap;
-  --fs-px: calc(var(--_u) * var(--fs0));
-  --lh-px: calc(var(--_u) * var(--lh0));
+  --fs-px: calc(var(--_u) * var(--fs));
+  --lh-px: calc(var(--_u) * var(--lh));
 }
 .pcard[data-state="inactive"] .pcard-tag {
   background: var(--color-bg-300);

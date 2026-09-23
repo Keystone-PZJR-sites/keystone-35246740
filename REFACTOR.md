@@ -134,4 +134,12 @@ the end result differs slightly from today, if it is better.
   **46** → 51 → 60 → 72; after: 32 → 35.6 → 40 → 43.7 → 48 → 51.8 → 56 →
   63 → 72). Pinned selectors (case-study-card, persona-card, faq, footer,
   nav-mobile) still switch per band. Decision pending on feel.
+- **Experiment** `fluid type: everything` — the pinned selectors follow:
+  card and FAQ pins become `calc(var(--_u) * var(--fs))` with the section
+  naming `--*-fs1` end anchors once; footer names/items/copyright, blog
+  card labels, work and case-study headings, the price numeral lose their
+  band blocks; the mobile nav ramps on a local `--k` (384 → 768, its last
+  designed anchor). No `@container` block sets a type size anywhere;
+  controls (`type-fixed`, `--pbtn-size`) stay keyword-sized. 384/1344/1600
+  pixel-identical; open mobile menu identical at 384 and 768.
 
