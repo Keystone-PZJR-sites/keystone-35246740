@@ -125,4 +125,13 @@ the end result differs slightly from today, if it is better.
   `swapDrawing`; scroll states and tap toggle verified identical. The rest
   of the island is one scroll state machine plus one gesture; no further
   duplication to remove.
+- **Experiment** (`experiment/fluid-type`, off `a1ef7e5`) `fluid type` —
+  `.type` interpolates `--fs0/--lh0` → `--fs1/--lh1` on `--k` (0 at the 384
+  anchor, 1 at 1344, unitless via `tan(atan2())`); 65 selectors lose their
+  per-band `--fs0/--lh0` switches (−416 lines). 384/1344/1600 are
+  pixel-identical; between, sizes rise monotonically instead of
+  sawtoothing at each gate (hero h1 before: 32 → 33.5 → 41 → 43 → 50 →
+  **46** → 51 → 60 → 72; after: 32 → 35.6 → 40 → 43.7 → 48 → 51.8 → 56 →
+  63 → 72). Pinned selectors (case-study-card, persona-card, faq, footer,
+  nav-mobile) still switch per band. Decision pending on feel.
 
