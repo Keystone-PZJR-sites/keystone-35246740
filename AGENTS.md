@@ -107,9 +107,32 @@ Read this file, then `REFACTOR.md` if it exists.
 2. Search before you build: `primitives/`, `sections/`, `icons.tsx`,
    `media.ts`, `tokens/`, and the existing `data-action` contracts.
 3. Compose the page in `design-system/pages/name.tsx`; mount it from
-   `app/name/page.tsx` with `metadata`. Add the route to `site-links.ts`.
+   `app/name/page.tsx` with `metadata` (title and description). Add the
+   route to `site-links.ts` and `app/sitemap.ts`.
 4. Verify in the browser at 384 · 576 · 768 · 960 · 1344 and one width between.
 5. A new dependency needs a reason in the change; prefer the platform.
+
+A section is this shape, and nothing in it is a number:
+
+```tsx
+<section className="sec my-sec" data-landmark="my">
+  <Slug>Eyebrow</Slug>
+  <h2 className="type ts-display-serif-sm-plus-thin my-head">Headline</h2>
+  <p className="type ts-text-md-light my-body">Body copy.</p>
+  <ButtonFill size="inherit" href={SITE_LINKS.pricing}>See pricing</ButtonFill>
+</section>
+```
+
+```css
+.my-sec { padding-block: var(--space-3xl); --btn-size: md; }
+.my-body { margin-top: var(--space-lg); max-width: calc(6 * var(--t)); }
+@container (min-width: 860px) {
+  .my-sec { --btn-size: lg; }
+  .my-head { --fs1: var(--ts-display-serif-md-thin-fs); --lh1: var(--ts-display-serif-md-thin-lh); }
+}
+```
+
+Gates are 470 · 665 · 860 · 1130; anchors are 384 · 576 · 768 · 960 · 1344.
 
 ## Verify before you say done
 
