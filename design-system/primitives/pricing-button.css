@@ -13,18 +13,12 @@
   overflow: clip;
   text-decoration: none;
   white-space: nowrap;
-  font-optical-sizing: none;
   background: var(--color-teal-400);
   color: var(--color-teal-800);
   --_c: var(--pbtn-cell, var(--_cell));
   height: var(--_h);
   padding-left: var(--_pl);
   padding-right: var(--_pr);
-  font: var(--_font);
-  font-size: var(--_fs);
-  line-height: var(--_lh);
-  letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
   /* resting lattice ink; the hover swap transitions on the elements */
   --_lat: var(--color-teal-450);
   transition-property: background-color;
@@ -38,11 +32,11 @@
   --_h: calc(var(--_c) * 64 / 32);
   --_pl: calc(var(--_c) * 24 / 32);
   --_pr: calc(var(--_c) * 16 / 32);
-  --_font: var(--ts-text-lg-medium-font);
-  --_fs: calc(var(--_c) * 18 / 32);
-  --_lh: calc(var(--_c) * 26 / 32);
-  --_ls: var(--ts-text-lg-medium-ls);
-  --_opsz: var(--ts-text-lg-medium-opsz);
+  --font: var(--ts-text-lg-medium-font);
+  --fs-px: calc(var(--_c) * 18 / 32);
+  --lh-px: calc(var(--_c) * 26 / 32);
+  --ls: var(--ts-text-lg-medium-ls);
+  --opsz: var(--ts-text-lg-medium-opsz);
   --_chip: calc(var(--_c) * 32 / 32);
   --_glyph: calc(var(--_c) * 18 / 32);
 }
@@ -51,11 +45,11 @@
   --_h: calc(var(--_c) * 48 / 48);
   --_pl: calc(var(--_c) * 16 / 48);
   --_pr: calc(var(--_c) * 8 / 48);
-  --_font: var(--ts-text-md-medium-font);
-  --_fs: calc(var(--_c) * 16 / 48);
-  --_lh: calc(var(--_c) * 22 / 48);
-  --_ls: var(--ts-text-md-medium-ls);
-  --_opsz: var(--ts-text-md-medium-opsz);
+  --font: var(--ts-text-md-medium-font);
+  --fs-px: calc(var(--_c) * 16 / 48);
+  --lh-px: calc(var(--_c) * 22 / 48);
+  --ls: var(--ts-text-md-medium-ls);
+  --opsz: var(--ts-text-md-medium-opsz);
   --_chip: calc(var(--_c) * 32 / 48);
   --_glyph: calc(var(--_c) * 18 / 48);
 }
@@ -64,11 +58,11 @@
   --_h: calc(var(--_c) * 64 / 64);
   --_pl: calc(var(--_c) * 24 / 64);
   --_pr: calc(var(--_c) * 16 / 64);
-  --_font: var(--ts-text-lg-medium-font);
-  --_fs: calc(var(--_c) * 18 / 64);
-  --_lh: calc(var(--_c) * 26 / 64);
-  --_ls: var(--ts-text-lg-medium-ls);
-  --_opsz: var(--ts-text-lg-medium-opsz);
+  --font: var(--ts-text-lg-medium-font);
+  --fs-px: calc(var(--_c) * 18 / 64);
+  --lh-px: calc(var(--_c) * 26 / 64);
+  --ls: var(--ts-text-lg-medium-ls);
+  --opsz: var(--ts-text-lg-medium-opsz);
   --_chip: calc(var(--_c) * 32 / 64);
   --_glyph: calc(var(--_c) * 18 / 64);
 }
@@ -77,11 +71,11 @@
   --_h: calc(var(--_c) * 80 / 80);
   --_pl: calc(var(--_c) * 24 / 80);
   --_pr: calc(var(--_c) * 16 / 80);
-  --_font: var(--ts-text-xl-medium-font);
-  --_fs: calc(var(--_c) * 20 / 80);
-  --_lh: calc(var(--_c) * 26 / 80);
-  --_ls: var(--ts-text-xl-medium-ls);
-  --_opsz: var(--ts-text-xl-medium-opsz);
+  --font: var(--ts-text-xl-medium-font);
+  --fs-px: calc(var(--_c) * 20 / 80);
+  --lh-px: calc(var(--_c) * 26 / 80);
+  --ls: var(--ts-text-xl-medium-ls);
+  --opsz: var(--ts-text-xl-medium-opsz);
   --_chip: calc(var(--_c) * 48 / 80);
   --_glyph: calc(var(--_c) * 24 / 80);
 }
@@ -90,11 +84,11 @@
   --_h: calc(var(--_c) * 80 / 112);
   --_pl: calc(var(--_c) * 32 / 112);
   --_pr: calc(var(--_c) * 32 / 112);
-  --_font: var(--ts-text-2xl-medium-font);
-  --_fs: calc(var(--_c) * 24 / 112);
-  --_lh: calc(var(--_c) * 32 / 112);
-  --_ls: var(--ts-text-2xl-medium-ls);
-  --_opsz: var(--ts-text-2xl-medium-opsz);
+  --font: var(--ts-text-2xl-medium-font);
+  --fs-px: calc(var(--_c) * 24 / 112);
+  --lh-px: calc(var(--_c) * 32 / 112);
+  --ls: var(--ts-text-2xl-medium-ls);
+  --opsz: var(--ts-text-2xl-medium-opsz);
   --_chip: calc(var(--_c) * 48 / 112);
   --_glyph: calc(var(--_c) * 24 / 112);
 }

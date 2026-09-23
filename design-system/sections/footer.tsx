@@ -236,7 +236,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
           <div className="f-tag">
             <div className="f-tagrow">
               <span className="f-dot f-dot-tag" aria-hidden="true" />
-              <p className="f-tagline">
+              <p className="type f-tagline">
                 Great businesses
                 <br className="f-brk-a" /> deserve
                 <br className="f-brk-b" /> to be found.
@@ -247,7 +247,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
             <div className="f-inpcol">
               <div className="f-promptrow">
                 <span className="f-dot f-dot-prompt" aria-hidden="true" />
-                <p className="f-prompt">
+                <p className="type f-prompt">
                   {/* Keep the phrase together at this comma. */}
                   Show us your site,{"\u00a0"} we’ll show
                   <br className="f-brk-c" /> you the rest.
@@ -272,7 +272,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
             aria-label={lockup.alt}
           />
         </div>
-        <div className="f-copy">
+        <div className="type f-copy">
           <span>© 2026 Keystone</span>
           <div className="f-legal-links">
             <a href={SITE_LINKS.terms}>Terms of Service</a>
