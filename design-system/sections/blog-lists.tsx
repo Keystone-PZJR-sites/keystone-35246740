@@ -1,9 +1,12 @@
 import { GridRegion, type GridBand } from "../grid/region";
-import { Text } from "../primitives/text";
 import { ButtonFill } from "../primitives/buttons";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import type { BlogCardModel, BlogLandingModel } from "./blog-data";
-import { BLOG_FEATURE_GAP_TICKS, BLOG_FEATURE_TICKS, blogStackTicks } from "./blog-layout";
+import {
+  BLOG_FEATURE_GAP_TICKS,
+  BLOG_FEATURE_TICKS,
+  blogStackTicks,
+} from "./blog-layout";
 
 const GAP_BEFORE_CATS = 3;
 const CAT_GAP = { rm: 2, rt: 2, rd: 1 } as const;
@@ -90,12 +93,7 @@ function CardRow({
   return (
     <ul
       className="bl-stack"
-      style={
-        {
-          "--bl-st-rm": stackTicks.rm,
-          "--bl-st-rt": stackTicks.rt,
-        } as React.CSSProperties
-      }
+      style={{ "--bl-st-rm": stackTicks.rm, "--bl-st-rt": stackTicks.rt }}
     >
       {posts.map((post) => (
         <li key={post.slug}>
@@ -116,7 +114,11 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
   if (!landing.featured) return null;
 
   return (
-    <section className="sec blog-lists" aria-label="Articles" data-landmark="blog-lists">
+    <section
+      className="sec blog-lists"
+      aria-label="Articles"
+      data-landmark="blog-lists"
+    >
       <div className="gx" aria-hidden="true">
         {FAMS.map(({ fam, bands }) => {
           const t = familyTicks(fam, landing);
@@ -136,13 +138,7 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
         <div className="bl-recent" data-landmark="recent">
           <div className="bl-sechead">
             <div className="bl-shrow">
-              <Text
-                as="h3"
-               
-                className="bl-h3"
-              >
-                Recent Posts
-              </Text>
+              <h3 className="type bl-h3">Recent Posts</h3>
             </div>
           </div>
           <CardRow
@@ -158,20 +154,10 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
       {landing.categories.length > 0 && (
         <div className="bl-cats" data-landmark="categories">
           {landing.categories.map((cat) => (
-            <section
-              key={cat.slug}
-              className="bl-catsec"
-              aria-label={cat.name}
-            >
+            <section key={cat.slug} className="bl-catsec" aria-label={cat.name}>
               <div className="bl-sechead">
                 <div className="bl-shrow">
-                  <Text
-                    as="h3"
-                   
-                    className="bl-h3"
-                  >
-                    {cat.name}
-                  </Text>
+                  <h3 className="type bl-h3">{cat.name}</h3>
                   <ButtonFill
                     size="sm"
                     chrome="gray"

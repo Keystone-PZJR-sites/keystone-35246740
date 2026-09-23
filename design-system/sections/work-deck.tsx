@@ -3,7 +3,6 @@
  * client island owns only the front-card index. */
 
 import { GridRegion, type GridBand } from "../grid/region";
-import { Text } from "../primitives/text";
 import { ButtonFill } from "../primitives/buttons";
 import { Slug } from "../primitives/slug";
 import { WorkDeckIsland } from "./work-deck-island";
@@ -39,9 +38,9 @@ export function WorkDeckSection() {
 
       <div className="wd-head">
         <Slug layout="rail">Work that creates demand</Slug>
-        <Text as="h2" className="wd-h2">
+        <h2 className="type wd-h2">
           Beautiful websites, ads, social, and content that grow your business.
-        </Text>
+        </h2>
         {/* The CTA moves into the header on wide bands. */}
         <div className="wd-cta-head">
           <ButtonFill size="lg" chrome="gray" href="/our-work">

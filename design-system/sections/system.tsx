@@ -1,7 +1,5 @@
-import type { CSSProperties } from "react";
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { Text } from "../primitives/text";
 import { IconSystemIntersect } from "../icons";
 import { NoiseDuo } from "../lib/noise";
 import { SystemBloom } from "./system-bloom";
@@ -90,9 +88,9 @@ export function SystemSection() {
 
       <div className="sys-head">
         <Slug layout="rail">A complete marketing system</Slug>
-        <Text as="h2" className="sys-h2">
+        <h2 className="type sys-h2">
           Five engines that deeply understand your business working together.
-        </Text>
+        </h2>
       </div>
 
       {/* The decorative diagram's labels are repeated for assistive technology. */}
@@ -105,14 +103,14 @@ export function SystemSection() {
       </p>
 
       <div className="sys-diagram" aria-hidden="true">
-        <div className="sys-stage" style={{ "--sys-petal-d": PETAL_D } as CSSProperties}>
+        <div className="sys-stage" style={{ "--sys-petal-d": PETAL_D }}>
           <div className="sys-ring">
             {ENGINES.map((e, i) => (
               <span
                 key={e.id}
                 className="sys-petal"
                 data-engine={e.id}
-                style={{ "--px": e.x, "--py": e.y, "--_bi": i } as CSSProperties}
+                style={{ "--px": e.x, "--py": e.y, "--_bi": i }}
               />
             ))}
             <NoiseDuo
@@ -133,11 +131,11 @@ export function SystemSection() {
               key={e.id}
               className="sys-tag"
               data-engine={e.id}
-              style={{ "--_bi": i } as CSSProperties}
+              style={{ "--_bi": i }}
             >
-              <Text as="span" className="sys-tag-label">
+              <span className="type sys-tag-label">
                 {e.label}
-              </Text>
+              </span>
             </span>
           ))}
         </div>

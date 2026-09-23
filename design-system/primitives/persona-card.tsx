@@ -3,7 +3,6 @@
 
 import { PERSONA_TIERS, personaSrc, type PersonaId } from "../media";
 import { PricingTag } from "./pricing-tag";
-import type { CSSProperties } from "react";
 import type { SliderHue } from "./slider";
 
 export interface PersonaContent {
@@ -25,7 +24,7 @@ interface PersonaCardProps {
 }
 
 export function PersonaCard({ persona, state = "active", size }: PersonaCardProps) {
-  const hueVar = { "--pcard-hue": `var(--color-${persona.hue}-400)` } as CSSProperties;
+  const hueVar = { "--pcard-hue": `var(--color-${persona.hue}-400)` };
   return (
     <article className="pcard" data-persona={persona.id} data-state={state} data-size={size} style={hueVar}>
       <div className="pcard-box">

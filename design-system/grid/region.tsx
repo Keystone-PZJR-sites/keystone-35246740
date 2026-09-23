@@ -45,7 +45,7 @@ function geometryStyle({ gx, gy, gyb, gw, gh }: Omit<RegionGeometry, "band">): C
     ...(gyb !== undefined && { "--gyb": gyb }),
     ...(gw !== undefined && { "--gw": gw }),
     ...(gh !== undefined && { "--gh": gh }),
-  } as CSSProperties;
+  };
 }
 
 /** Exposure region: bordered rectangle plus its interior lattice lines. */
@@ -62,10 +62,10 @@ export function GridRegion({
   const rows = anchor === "stretch" ? gh + STRETCH_SLACK_ROWS : gh;
   const lines = [];
   for (let n = 1; n < gw; n++) {
-    lines.push(<i key={`v${n}`} className="v" style={{ "--n": n } as CSSProperties} />);
+    lines.push(<i key={`v${n}`} className="v" style={{ "--n": n }} />);
   }
   for (let n = 1; n < rows; n++) {
-    lines.push(<i key={`h${n}`} className="h" style={{ "--n": n } as CSSProperties} />);
+    lines.push(<i key={`h${n}`} className="h" style={{ "--n": n }} />);
   }
   const geometry =
     anchor === "stretch"

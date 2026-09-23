@@ -2,7 +2,7 @@
  * sets `--pbtn-size`; `"inherit"` lets the mount set it per band, so one
  * button serves every width. */
 
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { IconArrowRight } from "../icons";
 import { EXTERNAL_LINK } from "../site-links";
 
@@ -25,11 +25,11 @@ function Lattice() {
   return (
     <span className="pbtn-lattice" aria-hidden="true">
       {[1, 2, 3, 4].map((n) => (
-        <i key={n} className={`v v${n}`} style={{ "--n": n } as CSSProperties} />
+        <i key={n} className={`v v${n}`} style={{ "--n": n }} />
       ))}
-      <i className="h" style={{ "--n": 1 } as CSSProperties} />
-      <i className="c cf" style={{ "--cx": 0, "--cy": 1, "--dx": 0 } as CSSProperties} />
-      <i className="c cr" style={{ "--cx": 1, "--cy": 0, "--dx": 1 } as CSSProperties} />
+      <i className="h" style={{ "--n": 1 }} />
+      <i className="c cf" style={{ "--cx": 0, "--cy": 1, "--dx": 0 }} />
+      <i className="c cr" style={{ "--cx": 1, "--cy": 0, "--dx": 1 }} />
     </span>
   );
 }

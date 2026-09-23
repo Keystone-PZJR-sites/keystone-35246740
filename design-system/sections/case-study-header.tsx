@@ -15,7 +15,7 @@ function Tag({ tag, index }: { tag: CaseStudyTag; index: number }) {
     <li
       className="type cs-tag"
       data-color={tag.color}
-      style={{ "--tag-order": RT_ORDER[index] } as React.CSSProperties}
+      style={{ "--tag-order": RT_ORDER[index] }}
     >
       {tag.label}
     </li>

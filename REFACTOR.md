@@ -80,3 +80,10 @@ the end result differs slightly from today, if it is better.
   four hidden-per-band mounts (careers CTA, blog-top grader, category
   arrows, footer grader) become one node each; footer grader overrides
   reduce to `--grader-size` per band. Geometry verified identical.
+- P4 `refactor(tsx): drop the Text wrapper; type custom properties once` —
+  40 `<Text>` become plain elements with `className="type …"` (the other 125
+  already were); `css-vars.d.ts` lets `style={{ "--n": 3 }}` type-check, so
+  29 `as CSSProperties` casts go. Visual gate settles images before shooting.
+- Known intentional deviation from main: `/company/` team cells are 3px
+  shorter per row below 860 — main held `.co-cell-role` at an unscaled 16px
+  line-height while `.co-cell-name` scaled; both now ride the ramp.

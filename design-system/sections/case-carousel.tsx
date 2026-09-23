@@ -1,6 +1,5 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { Text } from "../primitives/text";
 import { IconNavTrigger, IconStar } from "../icons";
 import {
   CASE_CAROUSEL_LANDSCAPE,
@@ -72,9 +71,9 @@ export function CaseCarouselSection() {
 
       <div className="cc-head flow-budget">
         <Slug layout="rail">Demand that turns into growth</Slug>
-        <Text as="h2" className="cc-h2">
+        <h2 className="type cc-h2">
           Marketing that delivers on its promise.
-        </Text>
+        </h2>
       </div>
 
       <CaseCarouselIsland>
@@ -99,13 +98,13 @@ export function CaseCarouselSection() {
                     />
                     <div className="cc-info">
                       <div className="cc-body">
-                        <Text as="p" className="cc-desc">
+                        <p className="type cc-desc">
                           <span className="hx-sr">{description}</span>
                           <span aria-hidden="true">
                             <span className="cc-wm" />
                             {` ${visualRest}`}
                           </span>
-                        </Text>
+                        </p>
                         <div className="cc-stats">
                           {study.stats.map((stat, si) => [
                             si > 0 && (
@@ -119,13 +118,13 @@ export function CaseCarouselSection() {
                               key={stat.label}
                               className={si === 2 ? "cc-stat cc-stat-3" : "cc-stat"}
                             >
-                              <Text as="span" className="cc-stat-v">
+                              <span className="type cc-stat-v">
                                 {stat.value}
                                 {stat.star && <IconStar className="cc-star" />}
-                              </Text>
-                              <Text as="span" className="cc-stat-l">
+                              </span>
+                              <span className="type cc-stat-l">
                                 {stat.label}
-                              </Text>
+                              </span>
                             </div>,
                           ])}
                         </div>

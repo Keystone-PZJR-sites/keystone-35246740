@@ -122,10 +122,10 @@ function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
   return (
     <span className="knav-decor" data-decor={variant} aria-hidden="true">
       {lines.map((n) => (
-        <i key={`v${n}`} className="v" style={{ "--n": n } as CSSProperties} />
+        <i key={`v${n}`} className="v" style={{ "--n": n }} />
       ))}
       {lines.map((n) => (
-        <i key={`h${n}`} className="h" style={{ "--n": n } as CSSProperties} />
+        <i key={`h${n}`} className="h" style={{ "--n": n }} />
       ))}
       {DECOR_CIRCLES[variant].map(({ i, dx, dy }) => (
         <i
@@ -137,7 +137,7 @@ function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
               "--cy": Math.floor(i / 4),
               ...(dx && { "--dx": dx }),
               ...(dy && { "--dy": dy }),
-            } as CSSProperties
+            }
           }
         />
       ))}
@@ -147,7 +147,7 @@ function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
 
 /* Labels and cards carry their reveal order through --i. */
 function blk(i: number): CSSProperties {
-  return { "--i": i } as CSSProperties;
+  return { "--i": i };
 }
 
 function SolutionsDrawerContent() {
