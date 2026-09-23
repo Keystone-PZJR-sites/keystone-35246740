@@ -31,10 +31,23 @@ const RAMPS = [
   },
 ] as const;
 
-function Chapter({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+function Chapter({
+  id,
+  title,
+  short,
+  children,
+}: {
+  id: string;
+  title: string;
+  /** Rail label, when the title runs long. */
+  short?: string;
+  children: ReactNode;
+}) {
   return (
     <div className="ds-chapter" id={id}>
-      <h3 className="type type-fixed ts-text-xl-medium ds-h3">{title}</h3>
+      <h3 className="type type-fixed ts-text-xl-medium ds-h3" data-toc={short ?? title}>
+        {title}
+      </h3>
       {children}
     </div>
   );
@@ -212,7 +225,7 @@ export function DesignFoundationsSection({ tokens, typeStyles }: Props) {
         </ul>
       </Chapter>
 
-      <Chapter id="space" title="Spacing, radius, and the clock">
+      <Chapter id="space" title="Spacing, radius, and the clock" short="Spacing and time">
         <p className="type ts-text-md-light ramp-body ds-copy">
           Material distances inside a section come from the spacing scale; distances between
           sections are ticks. The entrance delays are the beats of the page load, consumed by{" "}
