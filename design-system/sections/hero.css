@@ -108,7 +108,7 @@
 .hero-h1 {
   color: var(--color-text-100);
   max-width: var(--hero-h1-w-rm);
-  --fs0: 32; --fs1: 41; --lh0: 38; --lh1: 49;
+  --fs0: var(--ts-display-serif-sm-thin-fs); --fs1: 41; --lh0: var(--ts-display-serif-sm-thin-lh); --lh1: 49;
 }
 @container (min-width: 470px) {
   .hero-h1 {

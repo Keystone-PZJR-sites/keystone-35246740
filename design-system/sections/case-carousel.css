@@ -82,9 +82,9 @@
   margin-top: var(--cc-h2-gap-rm);
   margin-left: var(--t);
   max-width: var(--cc-h2-w-rm);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 30;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 36;
 }
 @container (min-width: 470px) {
@@ -266,9 +266,9 @@
 .cc-desc {
   color: var(--color-text-200);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
-  --fs0: 16;
+  --fs0: var(--ts-text-md-light-fs);
   --fs1: 17;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-light-lh);
   --lh1: 24;
 }
 @container (min-width: 470px) {
@@ -344,9 +344,9 @@
   gap: calc(var(--cc-u) * 4);
   color: var(--color-text-100);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
-  --fs0: 24;
+  --fs0: var(--ts-text-2xl-light-fs);
   --fs1: 26;
-  --lh0: 32;
+  --lh0: var(--ts-text-2xl-light-lh);
   --lh1: 34;
 }
 @container (min-width: 470px) {
@@ -391,10 +391,10 @@
   width: min-content;
   color: var(--color-text-400);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
-  --fs0: 12;
-  --fs1: 12;
-  --lh0: 16;
-  --lh1: 16;
+  --fs0: var(--ts-text-xs-regular-fs);
+  --fs1: var(--ts-text-xs-regular-fs);
+  --lh0: var(--ts-text-xs-regular-lh);
+  --lh1: var(--ts-text-xs-regular-lh);
 }
 @container (min-width: 860px) {
   .cc-stat-l {

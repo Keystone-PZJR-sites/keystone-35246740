@@ -55,9 +55,9 @@
 
 .bl-h3 {
   color: var(--color-text-100);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 36;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 45;
 }
 @container (min-width: 470px) {

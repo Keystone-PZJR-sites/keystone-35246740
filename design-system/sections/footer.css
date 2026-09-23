@@ -215,12 +215,12 @@
     margin-top: 19px;
   }
   .f-tagline {
-    --fs0: 32; --fs1: 42;
-    --lh0: 38; --lh1: 50;
+    --fs0: var(--ts-display-serif-sm-extralight-fs); --fs1: var(--ts-display-serif-md-plus-extralight-fs);
+    --lh0: var(--ts-display-serif-sm-extralight-lh); --lh1: var(--ts-display-serif-md-plus-extralight-lh);
   }
   .f-prompt {
-    --fs0: 16; --fs1: 18;
-    --lh0: 22; --lh1: 26;
+    --fs0: var(--ts-text-md-light-fs); --fs1: var(--ts-text-lg-light-fs);
+    --lh0: var(--ts-text-md-light-lh); --lh1: var(--ts-text-lg-light-lh);
   }
   .f-brk-a {
     display: revert;
@@ -238,8 +238,8 @@
     --lh0: 0; --lh1: var(--ts-display-serif-md-plus-thin-lh);
   }
   .f-prompt {
-    --fs0: 0; --fs1: 18;
-    --lh0: 0; --lh1: 26;
+    --fs0: 0; --fs1: var(--ts-text-lg-light-fs);
+    --lh0: 0; --lh1: var(--ts-text-lg-light-lh);
   }
 }
 
@@ -370,8 +370,8 @@
 .fnav-dot[data-g="findus"] { background: var(--color-blue-400); }
 
 .fnav-name {
-  --fs0: 16; --fs1: 20;
-  --lh0: 20; --lh1: 24;
+  --fs0: var(--ts-display-serif-3xs-regular-fs); --fs1: var(--ts-display-serif-2xs-plus-regular-fs);
+  --lh0: var(--ts-display-serif-3xs-regular-lh); --lh1: var(--ts-display-serif-2xs-plus-regular-lh);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -503,8 +503,8 @@
     --ls: var(--ts-display-serif-4xs-plus-medium-ls);
     --fs-px: initial;
     --lh-px: initial;
-    --fs0: 14; --fs1: 16;
-    --lh0: 18; --lh1: 20;
+    --fs0: var(--ts-display-serif-4xs-plus-medium-fs); --fs1: var(--ts-display-serif-3xs-medium-fs);
+    --lh0: var(--ts-display-serif-4xs-plus-medium-lh); --lh1: var(--ts-display-serif-3xs-medium-lh);
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -540,8 +540,8 @@
   .fnav-name {
     --font: var(--ts-display-serif-3xs-medium-font);
     --ls: var(--ts-display-serif-3xs-medium-ls);
-    --fs0: 16; --fs1: 18;
-    --lh0: 20; --lh1: 24;
+    --fs0: var(--ts-display-serif-3xs-medium-fs); --fs1: var(--ts-display-serif-2xs-medium-fs);
+    --lh0: var(--ts-display-serif-3xs-medium-lh); --lh1: var(--ts-display-serif-2xs-medium-lh);
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -565,8 +565,8 @@
   .fnav-name {
     --font: var(--ts-display-serif-2xs-medium-font);
     --ls: var(--ts-display-serif-2xs-medium-ls);
-    --fs0: 0; --fs1: 18;
-    --lh0: 0; --lh1: 24;
+    --fs0: 0; --fs1: var(--ts-display-serif-2xs-medium-fs);
+    --lh0: 0; --lh1: var(--ts-display-serif-2xs-medium-lh);
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {

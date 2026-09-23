@@ -83,9 +83,9 @@
   color: var(--color-text-100);
   margin-top: calc(var(--bt-u) * 16);
   max-width: calc(var(--bt-u) * 320);
-  --fs0: 36;
+  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
   --fs1: 54;
-  --lh0: 42;
+  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
   --lh1: 63;
 }
 @container (min-width: 470px) {
@@ -200,9 +200,9 @@
   justify-content: space-between;
 }
 .bt-card-title {
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-regular-fs);
   --fs1: 36;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-regular-lh);
   --lh1: 45;
 }
 @container (min-width: 470px) {
@@ -250,9 +250,9 @@
 
 .bt-card-desc {
   margin-top: calc(var(--bt-u) * 16);
-  --fs0: 16;
+  --fs0: var(--ts-text-md-light-fs);
   --fs1: 24;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-light-lh);
   --lh1: 33;
 }
 @container (min-width: 470px) {
@@ -296,9 +296,9 @@
 
 .bt-listen {
   padding-right: calc(var(--bt-u) * 48);
-  --fs0: 10;
+  --fs0: var(--ts-text-nav-label-fs);
   --fs1: 15;
-  --lh0: 12;
+  --lh0: var(--ts-text-nav-label-lh);
   --lh1: 18;
 }
 @container (min-width: 470px) {
@@ -422,9 +422,9 @@
 }
 .bt-bh-h2 {
   color: var(--color-text-100);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 36;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 45;
 }
 @container (min-width: 470px) {

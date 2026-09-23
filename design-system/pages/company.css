@@ -88,9 +88,9 @@
   color: var(--color-text-100);
   margin-top: calc(var(--co-u) * 16);
   max-width: var(--co-h2-w-rm);
-  --fs0: 24;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 36;
-  --lh0: 30;
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 45;
 }
 @container (min-width: 470px) {
@@ -130,9 +130,9 @@
 /* Body text: the blog-top card-desc ramp (md → lg at rt → xl at rd). */
 .co-body-text {
   color: var(--color-text-300);
-  --fs0: 16;
+  --fs0: var(--ts-text-md-light-fs);
   --fs1: 24;
-  --lh0: 22;
+  --lh0: var(--ts-text-md-light-lh);
   --lh1: 33;
 }
 @container (min-width: 470px) {
@@ -194,14 +194,14 @@
   display: grid;
   place-items: center;
   color: var(--color-text-400);
-  --fs0: 24;
-  --lh0: 30;
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
 }
 .co-cell-name {
   margin-top: calc(var(--co-u) * 8);
   color: var(--color-text-100);
-  --fs0: 12;
-  --lh0: 16;
+  --fs0: var(--ts-text-xs-medium-fs);
+  --lh0: var(--ts-text-xs-medium-lh);
 }
 .co-cell-role {
   margin-top: calc(var(--co-u) * 4);
