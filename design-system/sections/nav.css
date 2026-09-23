@@ -260,22 +260,25 @@
   width: var(--knav-drawer-work);
 }
 
-/* Delay block resets until the panel has finished fading. */
+/* Blocks stagger in when the drawer opens and hold their resets until
+   the panel has finished fading out. The reveal list lives in --_reveal so
+   a block that also transitions its own property (a fill, a shadow)
+   appends to it instead of restating it. */
 .knav-blk {
   opacity: 0;
   translate: 0 var(--knav-blk-rise);
-  transition:
+  --_reveal:
     opacity 0s linear var(--knav-reveal-slide),
     translate 0s linear var(--knav-reveal-slide);
+  transition: var(--_reveal);
 }
 .knav-drawer[data-open] .knav-blk {
   opacity: 1;
   translate: 0 0;
-  transition:
-    opacity var(--knav-blk-fade) ease
-      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    translate var(--knav-blk-slide) var(--motion-drawer-ease)
-      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger)));
+  --_delay: calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger)));
+  --_reveal:
+    opacity var(--knav-blk-fade) ease var(--_delay),
+    translate var(--knav-blk-slide) var(--motion-drawer-ease) var(--_delay);
 }
 /* Spread every content variant over the same reveal window. */
 .knav-dcontent[data-content="resources"] {
@@ -283,66 +286,6 @@
 }
 .knav-dcontent[data-content="work"] {
   --_stagger: var(--knav-stagger-work);
-}
-
-/* subitems are cascade blocks AND highlight hosts; the combined rules
-   restate both lists so the fill fade survives the block rule — the
-   arrival on the hover side, the slower release on the resting side.
-   The closed-state combo restates the block resets: without it,
-   .knav-sub's own resting transition wins the cascade and the subitem
-   snaps out instantly while the panel is still fading. */
-.knav-sub.knav-blk {
-  transition:
-    opacity 0s linear var(--knav-reveal-slide),
-    translate 0s linear var(--knav-reveal-slide),
-    background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
-}
-.knav-drawer[data-open] .knav-sub.knav-blk {
-  transition:
-    opacity var(--knav-blk-fade) ease
-      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    translate var(--knav-blk-slide) var(--motion-drawer-ease)
-      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
-}
-@media (hover: hover) {
-  .knav-drawer[data-open] .knav-sub.knav-blk:hover {
-    transition:
-      opacity var(--knav-blk-fade) ease
-        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-      translate var(--knav-blk-slide) var(--motion-drawer-ease)
-        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-      background-color var(--knav-sub-fill-dur) var(--motion-drawer-ease);
-  }
-}
-
-/* cards are cascade blocks AND hover-shadow hosts; transition is one
-   property, so the combined rules restate both lists — the shadow
-   reversing on the resting side and growing on hover. The closed-state
-   combo restates the block resets (same construction as .knav-sub). */
-.knav-card.knav-blk {
-  transition:
-    opacity 0s linear var(--knav-reveal-slide),
-    translate 0s linear var(--knav-reveal-slide),
-    box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
-}
-.knav-drawer[data-open] .knav-card.knav-blk {
-  transition:
-    opacity var(--knav-blk-fade) ease
-      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    translate var(--knav-blk-slide) var(--motion-drawer-ease)
-      calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-    box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
-}
-@media (hover: hover) {
-  .knav-drawer[data-open] .knav-card.knav-blk:hover {
-    transition:
-      opacity var(--knav-blk-fade) ease
-        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-      translate var(--knav-blk-slide) var(--motion-drawer-ease)
-        calc(var(--knav-stagger-base) + var(--i) * var(--_stagger, var(--knav-stagger))),
-      box-shadow var(--knav-card-shadow-dur) var(--knav-card-ease);
-  }
 }
 
 /* Keep both variants rendered so switching content preserves reveal styles. */
@@ -422,8 +365,9 @@
   padding: var(--knav-sub-pt) var(--space-lg) var(--space-lg);
   border-radius: var(--radius-md);
   text-decoration: none;
-  /* the resting rule times the release (slower than the arrival) */
-  transition: background-color var(--knav-sub-fill-out-dur) var(--motion-drawer-ease);
+  /* the fill releases more slowly than it arrives */
+  --_fill-dur: var(--knav-sub-fill-out-dur);
+  transition: var(--_reveal), background-color var(--_fill-dur) var(--motion-drawer-ease);
 }
 .knav-subhead {
   display: flex;
@@ -445,11 +389,13 @@
      few px of a 9999 → 0 run */
   border-radius: 50%;
   background: var(--_eng);
-  /* the resting rule times the return: 50% slower than the morph out,
-     easing in and out so the unwind starts lazy instead of snapping */
+  /* the return is 50% slower than the morph out, easing in and out so
+     the unwind starts lazy instead of snapping */
+  --_dur: var(--knav-dot-morph-out-dur);
+  --_ease: var(--knav-dot-morph-out-ease);
   transition:
-    border-radius var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease),
-    rotate var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease);
+    border-radius var(--_dur) var(--_ease),
+    rotate var(--_dur) var(--_ease);
 }
 .knav-subdesc {
   --font: var(--ts-text-sm-light-font);
@@ -461,13 +407,13 @@
 @media (hover: hover) {
   .knav-sub:hover {
     background: var(--color-bg-100);
+    --_fill-dur: var(--knav-sub-fill-dur);
   }
   .knav-sub:hover .knav-subdot {
     border-radius: var(--radius-none);
     rotate: var(--knav-dot-rotation);
-    transition:
-      border-radius var(--knav-dot-morph-dur) var(--motion-drawer-ease),
-      rotate var(--knav-dot-morph-dur) var(--motion-drawer-ease);
+    --_dur: var(--knav-dot-morph-dur);
+    --_ease: var(--motion-drawer-ease);
   }
 }
 
@@ -484,14 +430,16 @@
   border-radius: var(--radius-xl) var(--radius-xl) var(--radius-none) var(--radius-xl);
   text-decoration: none;
   align-self: stretch;
-  /* Shadows animate without changing card or drawer geometry. */
+  /* Shadows animate without changing card or drawer geometry, and
+     reverse faster than they grow. */
   box-shadow: var(--_hs0);
-  transition: box-shadow var(--knav-card-shadow-out-dur) var(--knav-card-ease);
+  --_hs-dur: var(--knav-card-shadow-out-dur);
+  transition: var(--_reveal), box-shadow var(--_hs-dur) var(--knav-card-ease);
 }
 @media (hover: hover) {
   .knav-card:hover {
     box-shadow: var(--_hs);
-    transition: box-shadow var(--knav-card-shadow-dur) var(--knav-card-ease);
+    --_hs-dur: var(--knav-card-shadow-dur);
   }
   /* the circles slide one cell in their designed directions and slide
      back on mouse-out on the same curve */
