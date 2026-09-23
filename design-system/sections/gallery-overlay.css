@@ -61,10 +61,9 @@
 .gv-label {
   padding: 0 var(--gv-rail-pad);
   color: var(--color-text-300);
-  font: var(--ts-text-sm-medium-font);
-  letter-spacing: var(--ts-text-sm-medium-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-sm-medium-font);
+  --ls: var(--ts-text-sm-medium-ls);
+  --opsz: var(--ts-text-sm-medium-opsz);
   white-space: nowrap;
   display: none;
 }
@@ -83,10 +82,9 @@
 }
 .gv-name {
   color: var(--color-text-300);
-  font: var(--ts-text-sm-light-font);
-  letter-spacing: var(--ts-text-sm-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
   white-space: nowrap;
   display: none;
 }

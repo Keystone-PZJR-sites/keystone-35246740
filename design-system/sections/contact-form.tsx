@@ -199,11 +199,11 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
         </ButtonFill>
       </div>
 
-      <div className="contact-form-status" aria-live="polite" role="status">
+      <div className="type type-fixed contact-form-status" aria-live="polite" role="status">
         {status === "success" ? CONTACT_SUCCESS_MESSAGE : null}
       </div>
       {status === "error" && errorMessage ? (
-        <p className="contact-form-error" role="alert">
+        <p className="type type-fixed contact-form-error" role="alert">
           {errorMessage}
         </p>
       ) : null}

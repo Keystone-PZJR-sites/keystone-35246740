@@ -10,9 +10,9 @@ export function ContactSection({ form }: { form: FormDefinition | null }) {
   return (
     <article className="sec contact-section">
       <header className="contact-header">
-        <p className="contact-eyebrow">{CONTACT_EYEBROW}</p>
-        <h1>{CONTACT_TITLE}</h1>
-        <p className="contact-lede">{CONTACT_LEDE}</p>
+        <p className="type type-fixed contact-eyebrow">{CONTACT_EYEBROW}</p>
+        <h1 className="type type-fixed contact-h1">{CONTACT_TITLE}</h1>
+        <p className="type type-fixed contact-lede">{CONTACT_LEDE}</p>
       </header>
       <div className="contact-body">
         <ContactFormIsland form={form} />

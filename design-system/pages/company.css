@@ -187,30 +187,28 @@
   display: grid;
   place-items: center;
   color: var(--color-text-400);
-  font: var(--ts-display-serif-sm-extralight-font);
-  letter-spacing: var(--ts-display-serif-sm-extralight-ls);
-  font-size: calc((var(--wA) + var(--wB)) * 24);
-  line-height: calc((var(--wA) + var(--wB)) * 30);
+  --font: var(--ts-display-serif-sm-extralight-font);
+  --ls: var(--ts-display-serif-sm-extralight-ls);
+  --fs0: 24;
+  --lh0: 30;
 }
 .co-cell-name {
   margin-top: calc(var(--co-u) * 8);
   color: var(--color-text-100);
-  font: var(--ts-text-sm-medium-font);
-  letter-spacing: var(--ts-text-sm-medium-ls);
-  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
-  font-size: calc((var(--wA) + var(--wB)) * 12);
-  line-height: calc((var(--wA) + var(--wB)) * 16);
+  --font: var(--ts-text-sm-medium-font);
+  --ls: var(--ts-text-sm-medium-ls);
+  --opsz: var(--ts-text-sm-medium-opsz);
+  --fs0: 12;
+  --lh0: 16;
 }
 .co-cell-role {
   margin-top: calc(var(--co-u) * 4);
   color: var(--color-text-400);
-  font: var(--ts-text-xs-light-font);
-  letter-spacing: var(--ts-text-xs-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
-  font-size: calc((var(--wA) + var(--wB)) * 12);
-  line-height: calc((var(--wA) + var(--wB)) * 16);
+  --font: var(--ts-text-xs-light-font);
+  --ls: var(--ts-text-xs-light-ls);
+  --opsz: var(--ts-text-xs-light-opsz);
+  --fs0: var(--ts-text-xs-light-fs);
+  --lh0: var(--ts-text-xs-light-lh);
 }
 @container (min-width: 860px) {
   .co-cell-name {

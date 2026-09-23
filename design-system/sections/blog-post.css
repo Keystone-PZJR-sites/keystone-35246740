@@ -42,7 +42,6 @@
   max-width: 100%;
   margin-top: var(--bp-h1-gap-rm);
   color: var(--color-text-100);
-  font: var(--ts-display-serif-sm-plus-thin-font);
 }
 
 .bp-body {
@@ -78,10 +77,9 @@
 .bp-markdown-lede {
   margin-top: var(--bp-hero-content-gap);
   color: var(--color-text-200);
-  font: var(--ts-text-xl-light-font);
-  letter-spacing: var(--ts-text-xl-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
 }
 .bp-section-stack {
   display: flex;
@@ -95,21 +93,19 @@
 .bp-article-section {
   scroll-margin-top: var(--bp-scroll-inset);
 }
-.bp-article-section h2 {
+.bp-h2 {
   margin: 0;
   color: var(--color-text-100);
-  font: var(--ts-text-2xl-regular-font);
-  letter-spacing: var(--ts-text-2xl-regular-ls);
-  font-variation-settings: "opsz" var(--ts-text-2xl-regular-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-2xl-regular-font);
+  --ls: var(--ts-text-2xl-regular-ls);
+  --opsz: var(--ts-text-2xl-regular-opsz);
 }
 .bp-markdown-body {
   margin-top: var(--bp-head-body-gap);
   color: var(--color-text-200);
-  font: var(--ts-text-md-light-font);
-  letter-spacing: var(--ts-text-md-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 .bp-markdown :is(p, ul, ol, blockquote, pre, table, h3) {
   margin: 0;
@@ -149,12 +145,11 @@
 .bp-markdown strong {
   font-weight: 500;
 }
-.bp-markdown h3 {
+.bp-h3 {
   color: var(--color-text-100);
-  font: var(--ts-text-lg-medium-font);
-  letter-spacing: var(--ts-text-lg-medium-ls);
-  font-variation-settings: "opsz" var(--ts-text-lg-medium-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-lg-medium-font);
+  --ls: var(--ts-text-lg-medium-ls);
+  --opsz: var(--ts-text-lg-medium-opsz);
 }
 .bp-markdown > h3:not(:first-child),
 .bp-markdown > h3 + * {
@@ -235,26 +230,24 @@
     --ls: var(--ts-display-serif-lg-thin-ls);
   }
   .bp-markdown-lede {
-    font: var(--ts-text-2xl-light-font);
-    letter-spacing: var(--ts-text-2xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-2xl-light-font);
+    --ls: var(--ts-text-2xl-light-ls);
+    --opsz: var(--ts-text-2xl-light-opsz);
   }
-  .bp-article-section h2 {
-    font: var(--ts-display-sans-2xs-regular-font);
-    letter-spacing: var(--ts-display-sans-2xs-regular-ls);
-    font-variation-settings:
-      "opsz" var(--ts-display-sans-2xs-regular-opsz),
-      var(--font-sans-slnt);
+  .bp-h2 {
+    --font: var(--ts-display-sans-2xs-regular-font);
+    --ls: var(--ts-display-sans-2xs-regular-ls);
+    --opsz: var(--ts-display-sans-2xs-regular-opsz);
   }
   .bp-markdown-body {
-    font: var(--ts-text-lg-light-font);
-    letter-spacing: var(--ts-text-lg-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
-  .bp-markdown h3 {
-    font: var(--ts-text-xl-medium-font);
-    letter-spacing: var(--ts-text-xl-medium-ls);
-    font-variation-settings: "opsz" var(--ts-text-xl-medium-opsz), var(--font-sans-slnt);
+  .bp-h3 {
+    --font: var(--ts-text-xl-medium-font);
+    --ls: var(--ts-text-xl-medium-ls);
+    --opsz: var(--ts-text-xl-medium-opsz);
   }
 }
 
@@ -326,11 +319,10 @@
     padding: var(--bp-toc-pad-y) var(--bp-toc-pad-r) var(--bp-toc-pad-y)
       var(--bp-toc-pad-l);
     color: var(--color-text-200);
-    font: var(--ts-text-nav-label-font);
-    letter-spacing: var(--ts-text-nav-label-ls);
-    font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
-    font-optical-sizing: none;
-    text-transform: var(--ts-text-nav-label-case);
+    --font: var(--ts-text-nav-label-font);
+    --ls: var(--ts-text-nav-label-ls);
+    --opsz: var(--ts-text-nav-label-opsz);
+    --case: var(--ts-text-nav-label-case);
   }
   .bp-toc-list {
     display: flex;
@@ -348,10 +340,9 @@
     border-left: 1px solid transparent;
     color: var(--color-text-300);
     text-decoration: none;
-    font: var(--ts-text-sm-light-font);
-    letter-spacing: var(--ts-text-sm-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
-    font-optical-sizing: none;
+    --font: var(--ts-text-sm-light-font);
+    --ls: var(--ts-text-sm-light-ls);
+    --opsz: var(--ts-text-sm-light-opsz);
     transition: color var(--motion-hover-duration) var(--motion-hover-ease);
   }
   @media (hover: hover) {
@@ -368,9 +359,9 @@
     padding-left: calc(var(--bp-toc-pad-l) - var(--bp-toc-rule) + 1px);
     border-left: var(--bp-toc-rule) solid var(--color-teal-400);
     color: var(--color-text-200);
-    font: var(--ts-text-sm-medium-font);
-    letter-spacing: var(--ts-text-sm-medium-ls);
-    font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-sm-medium-font);
+    --ls: var(--ts-text-sm-medium-ls);
+    --opsz: var(--ts-text-sm-medium-opsz);
   }
 }
 

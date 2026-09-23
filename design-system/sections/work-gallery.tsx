@@ -98,7 +98,7 @@ export function WorkGallerySection() {
 
       {/* The presentational break does not interrupt the accessible name. */}
       <header className="wg-head" data-landmark="gallery-head">
-        <h2 className="wg-title">
+        <h2 className="type type-fixed wg-title">
           The
           <br />
           Gallery

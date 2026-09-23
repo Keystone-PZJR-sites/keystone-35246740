@@ -12,7 +12,7 @@ interface CaseStudyButtonProps {
 
 export function CaseStudyButton({ label, href, size = "lg", forceState }: CaseStudyButtonProps) {
   return (
-    <a className="csb" href={href} {...EXTERNAL_LINK} data-size={size} data-state={forceState}>
+    <a className="type type-fixed csb" href={href} {...EXTERNAL_LINK} data-size={size} data-state={forceState}>
       <span className="csb-label">{label}</span>
       <span className="csb-glyph">
         <IconArrowRight size={size === "lg" ? 24 : 20} />

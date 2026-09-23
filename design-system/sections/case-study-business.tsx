@@ -21,7 +21,7 @@ export function CaseStudyBusinessSection({ study }: { study: CaseStudy }) {
         </div>
         <figure className="csb-callout">
           <div className="csb-quote">
-            <blockquote className="cs-quote csb-quote-body">{study.business.quote}</blockquote>
+            <blockquote className="type cs-quote csb-quote-body">{study.business.quote}</blockquote>
             <figcaption className="cs-quote-attrib cs-body cs-type">
               {study.business.attribution}
             </figcaption>

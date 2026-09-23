@@ -38,8 +38,8 @@ function ServiceCell({ cell }: { cell: StackCell }) {
         {CELL_ICONS[cell.icon](ICON_CUTS[cell.icon])}
       </span>
       <div className="cst-cell-text">
-        <p className="cst-title">{cell.title}</p>
-        <p className="cst-desc">
+        <p className="type cst-title">{cell.title}</p>
+        <p className="type cst-desc">
           {cell.descShort ? (
             <>
               {/* Narrow bands use the compact description. */}

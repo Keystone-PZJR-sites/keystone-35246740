@@ -206,12 +206,12 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
               model.pagination.totalPages,
             ).map((item) =>
               item.type === "ellipsis" ? (
-                <span className="bc-page-cell" key={item.key} aria-hidden="true">
+                <span className="type type-fixed bc-page-cell" key={item.key} aria-hidden="true">
                   {BLOG_CATEGORY_CONTENT.ellipsis}
                 </span>
               ) : (
                 <a
-                  className="bc-page-cell"
+                  className="type type-fixed bc-page-cell"
                   href={blogPageHref(model.pagination, item.page)}
                   aria-current={
                     item.page === model.pagination.currentPage ? "page" : undefined

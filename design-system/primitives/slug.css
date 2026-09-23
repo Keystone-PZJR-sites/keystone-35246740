@@ -7,10 +7,9 @@
   gap: var(--space-md);
   margin: var(--space-none);
   color: var(--color-text-400);
-  font: var(--ts-text-xs-medium-font);
-  letter-spacing: var(--ts-text-xs-medium-ls);
-  font-variation-settings: "opsz" var(--ts-text-xs-medium-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-xs-medium-font);
+  --ls: var(--ts-text-xs-medium-ls);
+  --opsz: var(--ts-text-xs-medium-opsz);
 }
 .slug-mark {
   flex: none;

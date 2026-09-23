@@ -37,50 +37,49 @@
   margin: 0;
   padding-top: calc((var(--wA) + var(--wB)) * 48);
   color: var(--color-text-200);
-  font: var(--ts-text-lg-light-font);
-  font-size: calc((var(--wA) + var(--wB)) * 18);
-  line-height: calc((var(--wA) + var(--wB)) * 26);
-  letter-spacing: var(--ts-text-lg-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-lg-light-font);
+  --fs0: var(--ts-text-lg-light-fs);
+  --lh0: var(--ts-text-lg-light-lh);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
 }
 @container (min-width: 470px) {
   .csc-boiler {
-    font: var(--ts-text-xl-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 20);
-    line-height: calc((var(--wA) + var(--wB)) * 26);
-    letter-spacing: var(--ts-text-xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-xl-light-font);
+    --fs0: var(--ts-text-xl-light-fs);
+    --lh0: var(--ts-text-xl-light-lh);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
   }
 }
 @container (min-width: 665px) {
   .csc-boiler {
     padding-top: calc((var(--wA) + var(--wB)) * 43);
-    font: var(--ts-text-lg-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 18);
-    line-height: calc((var(--wA) + var(--wB)) * 26);
-    letter-spacing: var(--ts-text-lg-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-light-font);
+    --fs0: var(--ts-text-lg-light-fs);
+    --lh0: var(--ts-text-lg-light-lh);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 @container (min-width: 860px) {
   .csc-boiler {
     padding-top: calc((var(--wA) + var(--wB)) * 64);
-    font: var(--ts-text-xl-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 20);
-    line-height: calc((var(--wA) + var(--wB)) * 26);
-    letter-spacing: var(--ts-text-xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-xl-light-font);
+    --fs0: var(--ts-text-xl-light-fs);
+    --lh0: var(--ts-text-xl-light-lh);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
   }
 }
 @container (min-width: 1130px) {
   .csc-boiler {
     padding-top: calc((var(--wA) + var(--wB)) * 72);
-    font: var(--ts-text-2xl-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 24);
-    line-height: calc((var(--wA) + var(--wB)) * 32);
-    letter-spacing: var(--ts-text-2xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-2xl-light-font);
+    --fs0: var(--ts-text-2xl-light-fs);
+    --lh0: var(--ts-text-2xl-light-lh);
+    --ls: var(--ts-text-2xl-light-ls);
+    --opsz: var(--ts-text-2xl-light-opsz);
   }
 }
 
@@ -173,25 +172,24 @@
 .csc-q {
   display: none;
   color: var(--color-text-400);
-  font: var(--ts-text-md-light-font);
-  letter-spacing: var(--ts-text-md-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 @container (min-width: 470px) {
   .csc-q { display: inline; }
 }
 @container (min-width: 665px) {
   .csc-q {
-    font: var(--ts-text-lg-light-font);
-    letter-spacing: var(--ts-text-lg-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 @container (min-width: 1130px) {
   .csc-q {
-    font: var(--ts-text-xl-light-font);
-    letter-spacing: var(--ts-text-xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
   }
 }

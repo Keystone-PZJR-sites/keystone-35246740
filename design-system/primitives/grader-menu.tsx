@@ -47,7 +47,7 @@ export function GraderSelectMenu({
         const labelId = `${id}-${section.key}`;
         return (
           <li key={section.key} className="grader-group" role="group" aria-labelledby={labelId}>
-            <span className="grader-group-label" id={labelId}>
+            <span className="type type-fixed grader-group-label" id={labelId}>
               {section.label}
             </span>
             <ul className="grader-group-rows" role="presentation">
@@ -69,8 +69,8 @@ export function GraderSelectMenu({
                       onMouseEnter={() => onActivate(index)}
                       onClick={() => onChoose(item)}
                     >
-                      <span className="grader-option-name">{item.name}</span>
-                      <span className="grader-option-sub">{item.address}</span>
+                      <span className="type type-fixed grader-option-name">{item.name}</span>
+                      <span className="type type-fixed grader-option-sub">{item.address}</span>
                     </button>
                   </li>
                 );

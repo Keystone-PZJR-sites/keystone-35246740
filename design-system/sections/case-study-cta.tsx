@@ -25,7 +25,7 @@ function CtaRow({ size }: { size: "md" | "lg" | "xl" }) {
       <ButtonFill size={size} chrome="gray" shape="pill" href={GET_STARTED_HREF}>
         Get Started
       </ButtonFill>
-      <span className="csc-q">Got a question?</span>
+      <span className="type type-fixed csc-q">Got a question?</span>
       <ButtonGhost size={size} color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
@@ -38,7 +38,7 @@ export function CaseStudyCtaSection() {
     <section className="sec cs-sec csc-sec">
       <CaseStudyLattice section="cta" />
       <div className="cs-content csc-band" data-landmark="cta">
-        <p className="csc-boiler">
+        <p className="type csc-boiler">
           {/* The wordmark is represented as text in the accessibility tree. */}
           <span className="hx-sr">
             keystone powers your website and everything that runs through

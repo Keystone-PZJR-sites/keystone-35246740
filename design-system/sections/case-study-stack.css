@@ -195,53 +195,51 @@
 .cst-title {
   margin: 0;
   color: var(--color-text-300);
-  font: var(--ts-text-md-medium-font);
-  font-size: calc((var(--wA) + var(--wB)) * 16);
-  line-height: calc((var(--wA) + var(--wB)) * 22);
-  letter-spacing: var(--ts-text-md-medium-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-medium-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-medium-font);
+  --fs0: var(--ts-text-md-medium-fs);
+  --lh0: var(--ts-text-md-medium-lh);
+  --ls: var(--ts-text-md-medium-ls);
+  --opsz: var(--ts-text-md-medium-opsz);
 }
 .cst-desc {
   margin: calc((var(--wA) + var(--wB)) * 12) 0 0;
   color: var(--color-text-300);
-  font: var(--ts-text-xs-light-font);
-  font-size: calc((var(--wA) + var(--wB)) * 12);
-  line-height: calc((var(--wA) + var(--wB)) * 16);
-  letter-spacing: var(--ts-text-xs-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-xs-light-font);
+  --fs0: var(--ts-text-xs-light-fs);
+  --lh0: var(--ts-text-xs-light-lh);
+  --ls: var(--ts-text-xs-light-ls);
+  --opsz: var(--ts-text-xs-light-opsz);
 }
 @container (min-width: 665px) {
   .cst-title {
-    font: var(--ts-text-lg-medium-font);
-    font-size: calc((var(--wA) + var(--wB)) * 18);
-    line-height: calc((var(--wA) + var(--wB)) * 26);
-    letter-spacing: var(--ts-text-lg-medium-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-medium-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-medium-font);
+    --fs0: var(--ts-text-lg-medium-fs);
+    --lh0: var(--ts-text-lg-medium-lh);
+    --ls: var(--ts-text-lg-medium-ls);
+    --opsz: var(--ts-text-lg-medium-opsz);
   }
   .cst-desc {
-    font: var(--ts-text-sm-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 14);
-    line-height: calc((var(--wA) + var(--wB)) * 18);
-    letter-spacing: var(--ts-text-sm-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-sm-light-font);
+    --fs0: var(--ts-text-sm-light-fs);
+    --lh0: var(--ts-text-sm-light-lh);
+    --ls: var(--ts-text-sm-light-ls);
+    --opsz: var(--ts-text-sm-light-opsz);
   }
 }
 @container (min-width: 860px) {
   .cst-title {
-    font: var(--ts-text-xl-medium-font);
-    font-size: calc((var(--wA) + var(--wB)) * 20);
-    line-height: calc((var(--wA) + var(--wB)) * 26);
-    letter-spacing: var(--ts-text-xl-medium-ls);
-    font-variation-settings: "opsz" var(--ts-text-xl-medium-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-xl-medium-font);
+    --fs0: var(--ts-text-xl-medium-fs);
+    --lh0: var(--ts-text-xl-medium-lh);
+    --ls: var(--ts-text-xl-medium-ls);
+    --opsz: var(--ts-text-xl-medium-opsz);
   }
   .cst-desc {
-    font: var(--ts-text-md-light-font);
-    font-size: calc((var(--wA) + var(--wB)) * 16);
-    line-height: calc((var(--wA) + var(--wB)) * 22);
-    letter-spacing: var(--ts-text-md-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-md-light-font);
+    --fs0: var(--ts-text-md-light-fs);
+    --lh0: var(--ts-text-md-light-lh);
+    --ls: var(--ts-text-md-light-ls);
+    --opsz: var(--ts-text-md-light-opsz);
   }
 }
 

@@ -48,6 +48,7 @@ export function BlogSearchIsland({ initialQuery = "" }: { initialQuery?: string 
       >
         <input
           ref={inputRef}
+          className="type type-fixed"
           type="text"
           name="q"
           defaultValue={initialQuery}

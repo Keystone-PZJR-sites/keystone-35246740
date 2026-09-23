@@ -9,7 +9,6 @@
   margin: 0;
   background: none;
   cursor: pointer;
-  font-optical-sizing: none;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -30,9 +29,6 @@
   border-radius: var(--radius-full);
   background: var(--_bg);
   color: var(--_ink);
-  font: var(--_font);
-  letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
 }
 .btn-fill[data-shape="box"] {
   border-radius: var(--radius-none);
@@ -47,25 +43,25 @@
 .btn-fill[data-size="xl"] {
   padding-left: var(--space-3xl);
   padding-right: var(--space-2xl);
-  --_font: var(--ts-text-xl-light-font);
-  --_ls: var(--ts-text-xl-light-ls);
-  --_opsz: var(--ts-text-xl-light-opsz);
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
 }
 .btn-fill[data-size="lg"] {
   padding-left: var(--space-2xl);
   padding-right: var(--space-xl);
-  --_font: var(--ts-text-lg-light-font);
-  --_ls: var(--ts-text-lg-light-ls);
-  --_opsz: var(--ts-text-lg-light-opsz);
+  --font: var(--ts-text-lg-light-font);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
 }
 .btn-fill[data-size="md"] {
   height: 40px;
   padding-block: var(--space-md);
   padding-left: var(--space-xl);
   padding-right: var(--space-lg);
-  --_font: var(--ts-text-md-light-font);
-  --_ls: var(--ts-text-md-light-ls);
-  --_opsz: var(--ts-text-md-light-opsz);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 .btn-fill[data-size="sm"] {
   height: 36px;
@@ -73,9 +69,9 @@
   /* Small buttons use an optical left inset. */
   padding-left: var(--btn-fill-pad-14);
   padding-right: var(--btn-fill-pad-10);
-  --_font: var(--ts-text-sm-light-font);
-  --_ls: var(--ts-text-sm-light-ls);
-  --_opsz: var(--ts-text-sm-light-opsz);
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
 }
 .btn-fill[data-size="xl"][data-shape="box"] {
   padding-left: var(--space-2xl);
@@ -175,9 +171,6 @@
   border-radius: var(--radius-full);
   background-color: transparent;
   color: var(--_ink);
-  font: var(--_font);
-  letter-spacing: var(--_ls);
-  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
   gap: var(--space-md);
 }
 
@@ -185,42 +178,42 @@
   height: 48px;
   padding-inline: var(--space-2xl);
   --_icon: 20px;
-  --_font: var(--ts-text-xl-light-font);
-  --_ls: var(--ts-text-xl-light-ls);
-  --_opsz: var(--ts-text-xl-light-opsz);
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
 }
 .btn-ghost[data-size="lg"] {
   height: 48px;
   padding-inline: var(--space-xl);
   --_icon: 20px;
-  --_font: var(--ts-text-lg-light-font);
-  --_ls: var(--ts-text-lg-light-ls);
-  --_opsz: var(--ts-text-lg-light-opsz);
+  --font: var(--ts-text-lg-light-font);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
 }
 .btn-ghost[data-size="md"] {
   height: 40px;
   padding-inline: var(--space-lg);
   --_icon: 18px;
-  --_font: var(--ts-text-md-light-font);
-  --_ls: var(--ts-text-md-light-ls);
-  --_opsz: var(--ts-text-md-light-opsz);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 .btn-ghost[data-size="sm"] {
   height: 36px;
   padding-inline: var(--space-lg);
   --_icon: 16px;
-  --_font: var(--ts-text-sm-light-font);
-  --_ls: var(--ts-text-sm-light-ls);
-  --_opsz: var(--ts-text-sm-light-opsz);
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
 }
 .btn-ghost[data-size="xs"] {
   height: 32px;
   padding-inline: var(--space-lg);
   gap: var(--space-sm);
   --_icon: 14px;
-  --_font: var(--ts-text-xs-light-font);
-  --_ls: var(--ts-text-xs-light-ls);
-  --_opsz: var(--ts-text-xs-light-opsz);
+  --font: var(--ts-text-xs-light-font);
+  --ls: var(--ts-text-xs-light-ls);
+  --opsz: var(--ts-text-xs-light-opsz);
 }
 
 .btn-ghost[data-color="brown"] {

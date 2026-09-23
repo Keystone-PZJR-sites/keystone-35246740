@@ -101,7 +101,7 @@ function CtaRow({ size }: { size: "sm" | "md" | "lg" }) {
       <ButtonFill size={size} chrome="teal" href={GET_STARTED_HREF}>
         Get Started
       </ButtonFill>
-      {size === "lg" && <span className="wkh-q">Got a question?</span>}
+      {size === "lg" && <span className="type type-fixed wkh-q">Got a question?</span>}
       <ButtonGhost size={size} color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>

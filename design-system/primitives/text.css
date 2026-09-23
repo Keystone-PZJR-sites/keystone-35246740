@@ -1,27 +1,37 @@
 /* Typography has one mechanism. An element with the `type` class declares,
-   in its own CSS:
+   in its own CSS, which Figma step it is and how it sizes:
 
-     --font: var(--ts-<step>-font);   family and weight from a Figma step
+     --font: var(--ts-<step>-font);   family and weight
      --ls:   var(--ts-<step>-ls);     tracking (em)
      --opsz: var(--ts-<step>-opsz);   GT Standard optical size (sans only)
      --case: var(--ts-<step>-case);   text-transform, where the step has one
      --fs0 / --fs1, --lh0 / --lh1     size and line-height (px numbers) at
-                                      the band's two anchors
+                                      the band's two anchors; a step's own
+                                      size is var(--ts-<step>-fs / -lh)
 
    The band's weights (`--wA`, `--wB` from grid/engine.css) interpolate
    size and line-height between the anchors and zoom them in compressed
-   slices. A band that switches step restates `--font`/`--ls`/`--opsz`
-   in its @container block; a band that holds one size sets `--fs0` only.
-   Nothing else about type is written anywhere. */
+   slices. A band that holds one size sets `--fs0` only. A band that
+   switches step restates `--font`/`--ls`/`--opsz` in its @container block.
+   A band pinned to a px size sets `--fs-px`/`--lh-px` and the next band
+   resets them with `initial`.
+
+   `type type-fixed` is site chrome (nav, footer, buttons, forms) that keeps the
+   step's px size instead of following the grid; it needs no --fs0/--lh0.
+
+   The only text written any other way is markdown output (`.legal-prose`,
+   `.bp-markdown`), whose elements cannot carry a class. */
 
 .type {
   margin: var(--space-none);
   font: var(--font);
-  font-size: calc(var(--wA) * var(--fs0) + var(--wB) * var(--fs1, var(--fs0)));
-  line-height: calc(var(--wA) * var(--lh0) + var(--wB) * var(--lh1, var(--lh0)));
   letter-spacing: var(--ls, normal);
   text-transform: var(--case, none);
   /* Pinning the slant axis stops WebKit rendering GT Standard oblique. */
   font-variation-settings: "opsz" var(--opsz, 10), var(--font-sans-slnt);
   font-optical-sizing: none;
+}
+.type:not(.type-fixed) {
+  font-size: var(--fs-px, calc(var(--wA) * var(--fs0) + var(--wB) * var(--fs1, var(--fs0))));
+  line-height: var(--lh-px, calc(var(--wA) * var(--lh0) + var(--wB) * var(--lh1, var(--lh0))));
 }

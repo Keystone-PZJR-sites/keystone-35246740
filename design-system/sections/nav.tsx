@@ -155,11 +155,11 @@ function SolutionsDrawerContent() {
   let i = 1;
   return (
     <div className="knav-dcontent" data-content="solutions">
-      <div className="knav-dlabels">
-        <span className="knav-dlabel knav-blk" style={blk(0)}>
+      <div className="type type-fixed knav-dlabels">
+        <span className="type type-fixed knav-dlabel knav-blk" style={blk(0)}>
           Marketing Engines
         </span>
-        <span className="knav-dlabel knav-dlabel-b knav-blk" style={blk(6)}>
+        <span className="type type-fixed knav-dlabel knav-dlabel-b knav-blk" style={blk(6)}>
           How it all works
         </span>
       </div>
@@ -175,10 +175,10 @@ function SolutionsDrawerContent() {
                 href={engineAnchor(e.id)}
               >
                 <span className="knav-subhead">
-                  <span className="knav-subtitle">{e.label}</span>
+                  <span className="type type-fixed knav-subtitle">{e.label}</span>
                   <i className="knav-subdot" data-engine={e.id} aria-hidden="true" />
                 </span>
-                <span className="knav-subdesc">{e.desc}</span>
+                <span className="type type-fixed knav-subdesc">{e.desc}</span>
               </a>
             ))}
           </div>,
@@ -186,12 +186,12 @@ function SolutionsDrawerContent() {
         <i className="knav-dvr" aria-hidden="true" />
         <a className="knav-card knav-fcard knav-blk" style={blk(7)} href={SITE_LINKS.approach}>
           <Decor variant="feature" />
-          <span className="knav-fcopy">
+          <span className="type type-fixed knav-fcopy">
             One system, one full picture of your business’s marketing,
             starting with your site.
           </span>
           <span className="knav-frow">
-            <span className="knav-flabel">Our approach</span>
+            <span className="type type-fixed knav-flabel">Our approach</span>
             <IconArrowRight />
           </span>
         </a>
@@ -203,8 +203,8 @@ function SolutionsDrawerContent() {
 function ResourcesDrawerContent() {
   return (
     <div className="knav-dcontent" data-content="resources">
-      <div className="knav-dlabels">
-        <span className="knav-dlabel knav-blk" style={blk(0)}>
+      <div className="type type-fixed knav-dlabels">
+        <span className="type type-fixed knav-dlabel knav-blk" style={blk(0)}>
           Resources for small businesses
         </span>
       </div>
@@ -227,10 +227,10 @@ function ResourcesDrawerContent() {
             </span>
             <span className="knav-cbody">
               <span className="knav-crow">
-                <span className="knav-ctitle">{card.title}</span>
+                <span className="type type-fixed knav-ctitle">{card.title}</span>
                 <IconArrowRight />
               </span>
-              <span className="knav-cdesc">{card.desc}</span>
+              <span className="type type-fixed knav-cdesc">{card.desc}</span>
             </span>
           </a>,
         ])}
@@ -242,8 +242,8 @@ function ResourcesDrawerContent() {
 function WorkDrawerContent() {
   return (
     <div className="knav-dcontent" data-content="work">
-      <div className="knav-dlabels">
-        <span className="knav-dlabel knav-blk" style={blk(0)}>
+      <div className="type type-fixed knav-dlabels">
+        <span className="type type-fixed knav-dlabel knav-blk" style={blk(0)}>
           Proof, not promises
         </span>
       </div>
@@ -266,10 +266,10 @@ function WorkDrawerContent() {
             </span>
             <span className="knav-cbody">
               <span className="knav-crow">
-                <span className="knav-ctitle">{card.title}</span>
+                <span className="type type-fixed knav-ctitle">{card.title}</span>
                 <IconArrowRight />
               </span>
-              <span className="knav-cdesc">{card.desc}</span>
+              <span className="type type-fixed knav-cdesc">{card.desc}</span>
             </span>
           </a>,
         ])}
@@ -282,12 +282,12 @@ function EngineChips() {
   return (
     <>
       {ENGINES.map((e) => (
-        <a key={e.id} className="knav-chip" href={engineAnchor(e.id)}>
+        <a key={e.id} className="type knav-chip" href={engineAnchor(e.id)}>
           <i className="knav-chipdot" data-engine={e.id} aria-hidden="true" />
           {e.label}
         </a>
       ))}
-      <a className="knav-chip" href={SITE_LINKS.solutions}>
+      <a className="type knav-chip" href={SITE_LINKS.solutions}>
         All
       </a>
     </>
@@ -300,7 +300,7 @@ function WorkChips() {
       {WORK_CARDS.map((card) => (
         <a
           key={card.id}
-          className="knav-rchip"
+          className="type knav-rchip"
           data-card={card.id}
           href={card.href}
           {...(card.external ? EXTERNAL_LINK : {})}
@@ -319,7 +319,7 @@ function ResourceChips() {
       {RESOURCE_CARDS.map((card) => (
         <a
           key={card.id}
-          className="knav-rchip"
+          className="type knav-rchip"
           data-card={card.id}
           href={card.href}
           {...(card.external ? EXTERNAL_LINK : {})}

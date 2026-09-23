@@ -46,7 +46,7 @@ export function ButtonFill({
     return (
       <a
         href={href}
-        className="btn-fill"
+        className="type type-fixed btn-fill"
         data-size={size}
         data-chrome={chrome}
         data-shape={shape}
@@ -61,7 +61,7 @@ export function ButtonFill({
   return (
     <button
       type={type}
-      className="btn-fill"
+      className="type type-fixed btn-fill"
       data-size={size}
       data-chrome={chrome}
       data-shape={shape}
@@ -112,7 +112,7 @@ export function ButtonGhost({
     return (
       <a
         href={href}
-        className="btn-ghost"
+        className="type type-fixed btn-ghost"
         data-size={size}
         data-color={color}
         data-state={forceState}
@@ -126,7 +126,7 @@ export function ButtonGhost({
   return (
     <button
       type="button"
-      className="btn-ghost"
+      className="type type-fixed btn-ghost"
       data-size={size}
       data-color={color}
       data-state={forceState}

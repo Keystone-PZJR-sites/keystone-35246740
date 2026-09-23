@@ -50,7 +50,7 @@ const SECTION_MAP: Record<GridBand, R[]> = {
 function CtaPill({ size, mount }: { size: "sm" | "md" | "lg"; mount: string }) {
   return (
     <span
-      className={`cc-cta ${mount} btn-fill`}
+      className={`type type-fixed cc-cta ${mount} btn-fill`}
       data-size={size}
       data-chrome="gray"
       data-shape="pill"
