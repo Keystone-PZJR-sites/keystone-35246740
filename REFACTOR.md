@@ -101,3 +101,5 @@ the end result differs slightly from today, if it is better.
 - P3 `refactor(css): ramp anchors name their step` — 53 raw fs/lh pairs
   become `var(--ts-<step>-fs/-lh)` where the family and weight match.
   Value-identical; gate 100/100.
+- P4 `refactor(cta): one CTA row in case-study CTA and gallery header` —
+  size="inherit" replaces three hidden copies each. Gate 20/20.

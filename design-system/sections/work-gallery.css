@@ -57,26 +57,21 @@
 
 /* CTA mounts switch size and placement by band. The mount sits in the
    header row after the title, so the title wraps short of it. */
+/* Button size per band: sm rm/rs · md rt/rd1 · lg rd2; centered in a 3t cell from 860. */
 .wg-cta {
   flex: none;
   margin-left: auto;
-}
-.wg-cta-md,
-.wg-cta-lg {
-  display: none;
-}
-.wg-cta-sm {
   margin-right: var(--t);
+  --btn-size: sm;
 }
 @container (min-width: 665px) {
-  .wg-cta-sm { display: none; }
-  .wg-cta-md {
-    display: block;
+  .wg-cta {
     margin-right: calc(var(--t) / 2);
+    --btn-size: md;
   }
 }
 @container (min-width: 860px) {
-  .wg-cta-md {
+  .wg-cta {
     margin-right: 0;
     width: calc(var(--t) * 3);
     display: flex;
@@ -84,12 +79,7 @@
   }
 }
 @container (min-width: 1130px) {
-  .wg-cta-md { display: none; }
-  .wg-cta-lg {
-    width: calc(var(--t) * 3);
-    display: flex;
-    justify-content: center;
-  }
+  .wg-cta { --btn-size: lg; }
 }
 
 /* The island makes the strip viewport focusable on narrow bands. */
