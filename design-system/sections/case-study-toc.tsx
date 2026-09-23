@@ -1,9 +1,8 @@
 "use client";
 
-/** Desktop-only sticky table of contents.
- * The active item is the last section above one-third of the viewport. */
+/** Desktop-only sticky table of contents. */
 
-import { useLayoutEffect, useState } from "react";
+import { useActiveSection } from "../lib/use-active-section";
 
 const ITEMS = [
   { id: "overview", label: "Overview" },
@@ -13,36 +12,10 @@ const ITEMS = [
   { id: "stack", label: "The Stack" },
   { id: "result", label: "The Result" },
 ] as const;
+const IDS = ITEMS.map((item) => item.id);
 
 export function CaseStudyToc() {
-  const [active, setActive] = useState<string>(ITEMS[0].id);
-
-  useLayoutEffect(() => {
-    const sections = ITEMS.map((item) => document.getElementById(item.id)).filter(
-      (el): el is HTMLElement => el !== null,
-    );
-    if (sections.length === 0) return;
-
-    // Start at the first section so the active range clamps at both ends.
-    const compute = () => {
-      const line = window.innerHeight / 3;
-      let current = sections[0].id;
-      for (const sec of sections) {
-        if (sec.getBoundingClientRect().top <= line) current = sec.id;
-      }
-      setActive(current);
-    };
-
-    // Pin the observer boundary to one-third of the viewport.
-    const io = new IntersectionObserver(compute, {
-      rootMargin: "0px 0px -66.667% 0px",
-      threshold: [0, 1],
-    });
-    sections.forEach((sec) => io.observe(sec));
-    compute();
-    return () => io.disconnect();
-  }, []);
-
+  const active = useActiveSection(IDS);
   return (
     <nav className="toc" aria-label="On this page" data-active={active} data-landmark="toc">
       <ul className="toc-list">

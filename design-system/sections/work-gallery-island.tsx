@@ -1,19 +1,14 @@
 "use client";
 
 /** Controls the narrow gallery strip through swipe, click, and arrow
- * keys. Pointer capture starts only after movement clears the slop so
- * slide buttons retain normal clicks. Native image dragging is blocked
- * to keep the pointer stream intact.
- *
- * The island disables itself at the mosaic gate. In strip mode it
+ * keys. The island disables itself at the mosaic gate. In strip mode it
  * publishes the active index for the gallery overlay's open action. */
 
 import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { attachArrowKeys, attachSwipe } from "../lib/swipe";
 
 /* The strip renders below the rt gate. */
 const RT_GATE = 665;
-/* Horizontal movement required before a gesture becomes a swipe. */
-const SWIPE_SLOP = 6;
 
 export function WorkGalleryIsland({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -65,96 +60,31 @@ export function WorkGalleryIsland({ children }: { children: ReactNode }) {
       });
     };
 
-    /* Swipe tracks live and snaps to the nearest slot on release. */
-
-    let dragging = false;
-    let suppressClick = false;
-    let startX = 0;
-    let dx = 0;
-    let pitch = 1;
-
-    const onDown = (e: PointerEvent) => {
-      if (!strip || !e.isPrimary || slides.length < 2) return;
+    const detachSwipe = attachSwipe({
+      viewport: view,
+      track: list,
+      offsetVar: "--wg-drag-dx",
+      enabled: () => strip && slides.length >= 2,
       /* Rects account for the live translate. */
-      pitch = slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
-      if (pitch <= 0) return;
-      dragging = true;
-      suppressClick = false;
-      startX = e.clientX;
-      dx = 0;
-      list.dataset.dragging = "";
-      /* Delay capture so overlay buttons still receive ordinary clicks. */
-    };
-    const onMove = (e: PointerEvent) => {
-      if (!dragging) return;
+      pitch: () => slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left,
       /* Clamp the live offset to the track's travel. */
-      dx = Math.max((k - COUNT) * pitch, Math.min((k - 1) * pitch, e.clientX - startX));
-      list.style.setProperty("--wg-drag-dx", `${dx}px`);
-      if (!suppressClick && Math.abs(e.clientX - startX) > SWIPE_SLOP) {
-        suppressClick = true;
-        try {
-          view.setPointerCapture(e.pointerId);
-        } catch {
-          /* uncapturable pointer — move/up still arrive through the viewport */
-        }
-      }
-    };
-    const onUp = () => {
-      if (!dragging) return;
-      dragging = false;
-      delete list.dataset.dragging;
-      commit(Math.round(k - dx / pitch));
-      list.style.removeProperty("--wg-drag-dx");
-    };
-    /* Swallow the click emitted after a completed swipe. */
-    const onClickCapture = (e: MouseEvent) => {
-      if (!suppressClick) return;
-      e.stopPropagation();
-      e.preventDefault();
-      suppressClick = false;
-    };
-    /* Native image dragging would cancel the pointer stream. */
-    const onDragStart = (e: DragEvent) => e.preventDefault();
+      clamp: (dx, pitch) => Math.max((k - COUNT) * pitch, Math.min((k - 1) * pitch, dx)),
+      onRelease: (steps) => commit(k - steps),
+    });
+    const detachKeys = attachArrowKeys(view, (delta) => commit(k + delta), () => strip);
 
     const showHandlers = shows.map((_, i) => () => {
       if (strip) commit(i + 1);
     });
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (!strip) return;
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        commit(k - 1);
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        commit(k + 1);
-      }
-    };
-
-    /* ---- wiring ---- */
-
     shows.forEach((b, i) => b?.addEventListener("click", showHandlers[i]));
-    view.addEventListener("pointerdown", onDown);
-    view.addEventListener("pointermove", onMove);
-    view.addEventListener("pointerup", onUp);
-    view.addEventListener("pointercancel", onUp);
-    view.addEventListener("click", onClickCapture, true);
-    view.addEventListener("dragstart", onDragStart);
-    view.addEventListener("keydown", onKeyDown);
 
     return () => {
       ro.disconnect();
+      detachSwipe();
+      detachKeys();
       shows.forEach((b, i) => b?.removeEventListener("click", showHandlers[i]));
-      view.removeEventListener("pointerdown", onDown);
-      view.removeEventListener("pointermove", onMove);
-      view.removeEventListener("pointerup", onUp);
-      view.removeEventListener("pointercancel", onUp);
-      view.removeEventListener("click", onClickCapture, true);
-      view.removeEventListener("dragstart", onDragStart);
-      view.removeEventListener("keydown", onKeyDown);
       view.removeAttribute("tabindex");
       if (sec) delete sec.dataset.k;
-      delete list.dataset.dragging;
-      list.style.removeProperty("--wg-drag-dx");
     };
   }, []);
 

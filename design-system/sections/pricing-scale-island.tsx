@@ -3,6 +3,7 @@
 /** Keeps slider, persona cards, and swipe position on one shared index. */
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { attachSwipe } from "../lib/swipe";
 import type { SliderHue, SliderState } from "../primitives/slider";
 
 const STATES: SliderState[] = ["less", "middle", "more"];
@@ -147,57 +148,17 @@ export function PricingScaleIsland({ personas, children }: PricingScaleIslandPro
       };
     });
 
-    /* A real swipe suppresses the following overlay click. */
-
-    let stripDragging = false;
-    let suppressClick = false;
-    let startX = 0;
-    let dx = 0;
-    let pitch = 1;
-
-    const onStripDown = (e: PointerEvent) => {
-      if (!e.isPrimary || slots.length < 2) return;
+    const detachSwipe = attachSwipe({
+      viewport,
+      track: strip,
+      offsetVar: "--ps-drag-dx",
+      enabled: () => slots.length >= 2,
       /* Rects account for the live translate. */
-      pitch = slots[1].getBoundingClientRect().left - slots[0].getBoundingClientRect().left;
-      if (pitch <= 0) return;
-      stripDragging = true;
-      suppressClick = false;
-      startX = e.clientX;
-      dx = 0;
-      strip.dataset.dragging = "";
-      /* Delay capture so overlay buttons still receive ordinary clicks. */
-    };
-    const onStripMove = (e: PointerEvent) => {
-      if (!stripDragging) return;
+      pitch: () => slots[1].getBoundingClientRect().left - slots[0].getBoundingClientRect().left,
       /* Clamp the live offset to the strip's travel. */
-      dx = Math.max((k - (COUNT - 1)) * pitch, Math.min(k * pitch, e.clientX - startX));
-      strip.style.setProperty("--ps-drag-dx", `${dx}px`);
-      if (!suppressClick && Math.abs(e.clientX - startX) > 6) {
-        suppressClick = true;
-        try {
-          viewport.setPointerCapture(e.pointerId);
-        } catch {
-          /* uncapturable pointer — move/up still arrive through the viewport */
-        }
-      }
-    };
-    const onStripUp = () => {
-      if (!stripDragging) return;
-      stripDragging = false;
-      delete strip.dataset.dragging;
-      commit(Math.round(k - dx / pitch));
-      strip.style.removeProperty("--ps-drag-dx");
-    };
-    /* the suppressed click fires after pointerup — swallow it once */
-    const onClickCapture = (e: MouseEvent) => {
-      if (!suppressClick) return;
-      e.stopPropagation();
-      e.preventDefault();
-      suppressClick = false;
-    };
-    /* a swipe starting on a card photo must not become a native image
-       drag — the browser would cancel the pointer stream mid-gesture */
-    const onDragStart = (e: DragEvent) => e.preventDefault();
+      clamp: (dx, pitch) => Math.max((k - (COUNT - 1)) * pitch, Math.min(k * pitch, dx)),
+      onRelease: (steps) => commit(k - steps),
+    });
 
     /* ---- inactive-card overlays ---- */
 
@@ -212,12 +173,6 @@ export function PricingScaleIsland({ personas, children }: PricingScaleIslandPro
       if (handler) input.addEventListener("input", handler);
     });
     overlays.forEach((b, i) => b?.addEventListener("click", overlayHandlers[i]));
-    viewport.addEventListener("pointerdown", onStripDown);
-    viewport.addEventListener("pointermove", onStripMove);
-    viewport.addEventListener("pointerup", onStripUp);
-    viewport.addEventListener("pointercancel", onStripUp);
-    viewport.addEventListener("click", onClickCapture, true);
-    viewport.addEventListener("dragstart", onDragStart);
 
     return () => {
       inputs.forEach((input, i) => {
@@ -227,15 +182,8 @@ export function PricingScaleIsland({ personas, children }: PricingScaleIslandPro
         if (handler) input.removeEventListener("input", handler);
       });
       overlays.forEach((b, i) => b?.removeEventListener("click", overlayHandlers[i]));
-      viewport.removeEventListener("pointerdown", onStripDown);
-      viewport.removeEventListener("pointermove", onStripMove);
-      viewport.removeEventListener("pointerup", onStripUp);
-      viewport.removeEventListener("pointercancel", onStripUp);
-      viewport.removeEventListener("click", onClickCapture, true);
-      viewport.removeEventListener("dragstart", onDragStart);
+      detachSwipe();
       sliderCleanups.forEach((cleanup) => cleanup());
-      delete strip.dataset.dragging;
-      strip.style.removeProperty("--ps-drag-dx");
     };
   }, []);
 

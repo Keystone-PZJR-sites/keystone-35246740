@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { attachAutoplayGate } from "../lib/autoplay-gate";
 
 export function HeroCarousel({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,13 +37,11 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
     let snapTimer: number | undefined;
     let cancelled = false;
     let ready = false;
-    let visible = false;
-    let hovered = false;
-    let focused = false;
     let firstRun = true;
 
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const canRun = () => ready && visible && !hovered && !focused && !document.hidden && !motion.matches;
+    /* The gate attaches below; `ready` waits for fonts and first paint. */
+    let gateOpen = () => false;
+    const canRun = () => ready && gateOpen();
 
     const apply = () => {
       track.style.setProperty("--hc-r", String(rects));
@@ -113,30 +112,6 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       schedule(firstRun ? firstAdvance : dwell);
       firstRun = false;
     };
-    const onVisibility = () => {
-      if (document.hidden) clear();
-      else resume();
-    };
-    const onPointerEnter = () => {
-      hovered = true;
-      clear();
-    };
-    const onPointerLeave = () => {
-      hovered = false;
-      resume();
-    };
-    const onFocusIn = () => {
-      focused = true;
-      clear();
-    };
-    const onFocusOut = (event: FocusEvent) => {
-      focused = event.relatedTarget instanceof Node && root.contains(event.relatedTarget);
-      if (!focused) resume();
-    };
-    const onMotionChange = () => {
-      if (motion.matches) clear();
-      else resume();
-    };
     /* Circle (and sometimes rect) widths change at band gates. The
        transform tallies --hc-r/--hc-c in those widths, so a mid-scroll
        resize leaves the track translated into empty space. Snap home. */
@@ -149,36 +124,13 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       snapHome();
       resume();
     };
-    const resize = new ResizeObserver(onBandChange);
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting;
-        if (visible) resume();
-        else clear();
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(root);
-    resize.observe(root);
-    document.addEventListener("visibilitychange", onVisibility);
-    root.addEventListener("pointerenter", onPointerEnter);
-    root.addEventListener("pointerleave", onPointerLeave);
-    root.addEventListener("focusin", onFocusIn);
-    root.addEventListener("focusout", onFocusOut);
-    motion.addEventListener("change", onMotionChange);
+    const gate = attachAutoplayGate(root, { onResume: resume, onPause: clear, onResize: onBandChange });
+    gateOpen = gate.canRun;
 
     return () => {
       cancelled = true;
       clear();
-      observer.disconnect();
-      resize.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
-      root.removeEventListener("pointerenter", onPointerEnter);
-      root.removeEventListener("pointerleave", onPointerLeave);
-      root.removeEventListener("focusin", onFocusIn);
-      root.removeEventListener("focusout", onFocusOut);
-      motion.removeEventListener("change", onMotionChange);
+      gate.detach();
     };
   }, []);
 

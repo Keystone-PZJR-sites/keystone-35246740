@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { attachAutoplayGate } from "./autoplay-gate";
 
 const PLAY_RETRIES = 3;
 const PLAY_RETRY_MS = 250;
-const VISIBILITY_THRESHOLD = 0.1;
 
 interface UseVideoCarouselResult {
   rootRef: React.RefObject<HTMLDivElement | null>;
@@ -21,7 +21,6 @@ export function useVideoCarousel(videoCount: number): UseVideoCarouselResult {
     if (!root || videos.length !== videoCount || videos.some((video) => video === null)) return;
 
     const media = videos as HTMLVideoElement[];
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const retryWaiters = new Map<number, () => void>();
     const failed = new Set<number>();
     const unlocked = new Set<number>();
@@ -31,20 +30,13 @@ export function useVideoCarousel(videoCount: number): UseVideoCarouselResult {
     let starting = false;
     let transitioning = false;
     let pendingAdvance = false;
-    let visible = false;
-    let hovered = false;
-    let focused = false;
     let cancelled = false;
     let settleCrossfade: (() => void) | null = null;
     let sourceTier = getComputedStyle(root).getPropertyValue("--coh-video-tier").trim();
 
-    const canRun = () =>
-      !cancelled &&
-      visible &&
-      !hovered &&
-      !focused &&
-      !document.hidden &&
-      !reducedMotion.matches;
+    /* The gate attaches below, once the handlers it calls exist. */
+    let gateOpen = () => false;
+    const canRun = () => !cancelled && gateOpen();
 
     const waitToRetry = () =>
       new Promise<void>((resolve) => {
@@ -203,33 +195,12 @@ export function useVideoCarousel(videoCount: number): UseVideoCarouselResult {
     const resume = () => {
       if (canRun()) void startActive();
     };
-    const onVisibilityChange = () => {
-      if (document.hidden) pauseAll();
-      else resume();
-    };
-    const onPointerEnter = () => {
-      hovered = true;
-      pauseAll();
-    };
-    const onPointerLeave = () => {
-      hovered = false;
-      resume();
-    };
-    const onFocusIn = () => {
-      focused = true;
-      pauseAll();
-    };
-    const onFocusOut = (event: FocusEvent) => {
-      focused = event.relatedTarget instanceof Node && root.contains(event.relatedTarget);
-      if (!focused) resume();
-    };
     const onMotionChange = () => {
       pauseAll();
       activeIndex = 0;
       pendingAdvance = false;
       media.forEach(resetVideo);
       showPoster();
-      if (!reducedMotion.matches) resume();
     };
     const onTierChange = () => {
       const nextTier = getComputedStyle(root).getPropertyValue("--coh-video-tier").trim();
@@ -273,39 +244,21 @@ export function useVideoCarousel(videoCount: number): UseVideoCarouselResult {
       video.preload = "none";
     });
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting;
-        if (visible) resume();
-        else pauseAll();
-      },
-      { threshold: VISIBILITY_THRESHOLD },
-    );
-    const resizeObserver = new ResizeObserver(onTierChange);
-
-    observer.observe(root);
-    resizeObserver.observe(root);
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    root.addEventListener("pointerenter", onPointerEnter);
-    root.addEventListener("pointerleave", onPointerLeave);
-    root.addEventListener("focusin", onFocusIn);
-    root.addEventListener("focusout", onFocusOut);
-    reducedMotion.addEventListener("change", onMotionChange);
+    const gate = attachAutoplayGate(root, {
+      onResume: resume,
+      onPause: pauseAll,
+      onMotionChange,
+      onResize: onTierChange,
+    });
+    gateOpen = gate.canRun;
 
     return () => {
       cancelled = true;
       operation += 1;
       settleCrossfade?.();
-      observer.disconnect();
-      resizeObserver.disconnect();
+      gate.detach();
       retryWaiters.forEach((cancelWait) => cancelWait());
       retryWaiters.clear();
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-      root.removeEventListener("pointerenter", onPointerEnter);
-      root.removeEventListener("pointerleave", onPointerLeave);
-      root.removeEventListener("focusin", onFocusIn);
-      root.removeEventListener("focusout", onFocusOut);
-      reducedMotion.removeEventListener("change", onMotionChange);
       media.forEach((video, index) => {
         video.removeEventListener("ended", endedHandlers[index]);
         video.removeEventListener("error", errorHandlers[index]);

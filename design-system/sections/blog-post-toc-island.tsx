@@ -1,15 +1,13 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useMemo } from "react";
+import { useActiveSection } from "../lib/use-active-section";
 import { BLOG_POST_CONTENT } from "./blog-post-data";
 
 const PAGE_COLUMNS = 12;
 const MAX_TICK_PX = 112;
 const TAIL_TICKS = 2;
 const ROW_ROUNDING_EPSILON_PX = 0.5;
-const VIEWPORT_LINE_DIVISOR = 3;
-const TOC_ROOT_MARGIN = "0px 0px -66.667% 0px";
-const TOC_THRESHOLDS = [0, 1];
 const CONTENT_ROWS_PROPERTY = "--bp-content-rows";
 
 export interface BlogPostTocItem {
@@ -22,8 +20,10 @@ export interface BlogPostTocIslandProps {
 }
 
 export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
-  const [active, setActive] = useState(items[0]?.id ?? "");
+  const ids = useMemo(() => items.map((item) => item.id), [items]);
+  const active = useActiveSection(ids);
 
+  /* Publish the article's row count so the lattice grows with the copy. */
   useLayoutEffect(() => {
     const page = document.querySelector<HTMLElement>(".page");
     const article = document.querySelector<HTMLElement>(".blog-post");
@@ -43,38 +43,11 @@ export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
     resizeObserver.observe(page);
     resizeObserver.observe(body);
     publishContentRows();
-
-    const sections = items
-      .map((item) => document.getElementById(item.id))
-      .filter((element): element is HTMLElement => element !== null);
-    if (sections.length === 0) {
-      return () => {
-        resizeObserver.disconnect();
-        article.style.removeProperty(CONTENT_ROWS_PROPERTY);
-      };
-    }
-
-    const compute = () => {
-      const line = window.innerHeight / VIEWPORT_LINE_DIVISOR;
-      let current = sections[0].id;
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= line) current = section.id;
-      }
-      setActive(current);
-    };
-
-    const sectionObserver = new IntersectionObserver(compute, {
-      rootMargin: TOC_ROOT_MARGIN,
-      threshold: TOC_THRESHOLDS,
-    });
-    sections.forEach((section) => sectionObserver.observe(section));
-    compute();
     return () => {
-      sectionObserver.disconnect();
       resizeObserver.disconnect();
       article.style.removeProperty(CONTENT_ROWS_PROPERTY);
     };
-  }, [items]);
+  }, []);
 
   if (items.length === 0) return null;
   return (
