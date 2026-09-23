@@ -37,6 +37,7 @@
 @import "./primitives/case-study-button.css" layer(primitives);
 @import "./primitives/field.css" layer(primitives);
 @import "./primitives/slug.css" layer(primitives);
+@import "./primitives/picture.css" layer(primitives);
 
 /* Shared: page-level utilities that sections refine. */
 @import "./pages/case-study.css" layer(shared);
@@ -76,6 +77,7 @@
 @import "./sections/company-backers.css" layer(sections);
 @import "./sections/company-team.css" layer(sections);
 @import "./sections/company-careers.css" layer(sections);
+@import "./sections/landing.css" layer(sections);
 @import "./sections/hero.css" layer(sections);
 @import "./sections/system.css" layer(sections);
 @import "./sections/engines.css" layer(sections);

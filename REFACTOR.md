@@ -152,4 +152,13 @@ the end result differs slightly from today, if it is better.
   gate's reference is now this build; 384/1344/1600 stay identical to main.
 - `fix(pricing)` — the included-list CTA keeps a gap when the list fills
   the box (`margin-top: auto` alone collapses to 0).
+- Landing kit — the audit's newcomer simulation produced a conformant but
+  flat page (grammar documented, vocabulary not). `sections/landing.*` is
+  the vocabulary pre-assembled: hero with seated media frame and entrance,
+  three seated benefit cards, hanging quote, closer CTA row; painted closer
+  rows between. A landing page is now a `LandingPageData` module plus a
+  route (`/for-dentists/` is the first). `primitives/picture.tsx` renders
+  a `PictureSet` from `media.ts`. AGENTS.md gains "Adding a landing page"
+  and the vocabulary list; the skeleton example gets its inline padding.
+  Existing routes 100/100 on the visual gate.
 

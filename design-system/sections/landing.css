@@ -1,0 +1,349 @@
+/* The landing kit (sections/landing.tsx). Four flow frames sharing one
+   rhythm: every section pads 1t inline, sits in unpainted air, and hands
+   off through a painted closer row (the faq-gaprow idiom) so the page
+   reads [content] → 1t → [12-cell row] → 1t → [content]. Type uses the
+   site's standard ramps; nothing in here sets a size inside a gate. */
+
+/* ---- frame ---- */
+
+.ld-sec {
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: var(--t);
+}
+/* Every section after the hero opens with a full tick of clearance. */
+.ld-sec + .ld-sec {
+  padding-top: var(--t);
+}
+
+/* Local exposure frames escape the 1t inline padding so a field spans
+   all 12 columns (the co-bleed-grid form). */
+.ld-bleed {
+  inset: 0 auto auto calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+  height: 100%;
+}
+/* Flow content that is itself the lattice (seated cards) does the same. */
+.ld-bleed-flow {
+  margin-inline: calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+}
+
+/* Flow closer: one painted 12-cell row, one tick below the content. */
+.ld-closer {
+  position: relative;
+  width: 100%;
+  height: var(--t);
+  margin-top: var(--t);
+}
+
+/* ---- type ramps ---- */
+
+/* h1: the blog-top ramp — sm-plus-thin 36/42 → 3xl-thin 72/78, with the
+   font switching at rt and rd1. */
+.ld-h1 {
+  margin: 0;
+  color: var(--color-text-100);
+  --fs1: var(--ts-display-serif-3xl-thin-fs);
+  --lh1: var(--ts-display-serif-3xl-thin-lh);
+}
+@container (--rt) {
+  .ld-h1 {
+    --font: var(--ts-display-serif-lg-plus-thin-font);
+    --ls: var(--ts-display-serif-lg-plus-thin-ls);
+  }
+}
+@container (--rd1) {
+  .ld-h1 {
+    --font: var(--ts-display-serif-3xl-thin-font);
+    --ls: var(--ts-display-serif-3xl-thin-ls);
+  }
+}
+
+/* h2: xs-extralight 24/30 → xl-extralight 56/62. */
+.ld-h2 {
+  margin: 0;
+  color: var(--color-text-100);
+  --fs1: var(--ts-display-serif-xl-extralight-fs);
+  --lh1: var(--ts-display-serif-xl-extralight-lh);
+}
+@container (--rt) {
+  .ld-h2 {
+    --font: var(--ts-display-serif-md-plus-extralight-font);
+    --ls: var(--ts-display-serif-md-plus-extralight-ls);
+  }
+}
+@container (--rd1) {
+  .ld-h2 {
+    --font: var(--ts-display-serif-xl-extralight-font);
+    --ls: var(--ts-display-serif-xl-extralight-ls);
+  }
+}
+
+/* Body: md-light 16/22 → xl-light 20/26. */
+.ld-body {
+  margin: 0;
+  color: var(--color-text-300);
+  --fs1: var(--ts-text-xl-light-fs);
+  --lh1: var(--ts-text-xl-light-lh);
+}
+@container (--rt) {
+  .ld-body {
+    --font: var(--ts-text-lg-light-font);
+    --opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+@container (--rd1) {
+  .ld-body {
+    --font: var(--ts-text-xl-light-font);
+    --opsz: var(--ts-text-xl-light-opsz);
+  }
+}
+
+/* ---- heads and measures ---- */
+
+.ld-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ld-head .ld-h2 {
+  margin-top: var(--space-lg);
+  max-width: calc(var(--t) * 10);
+}
+@container (--rt) {
+  .ld-head .ld-h2 {
+    max-width: calc(var(--t) * 8);
+  }
+}
+@container (--rd1) {
+  .ld-head .ld-h2 {
+    margin-top: var(--space-3xl);
+    max-width: calc(var(--t) * 7);
+  }
+}
+
+/* ---- CTA row (the case-study-cta idiom) ---- */
+
+.ld-ctas {
+  display: flex;
+  align-items: center;
+  --btn-size: md;
+}
+.ld-ctas > * + * {
+  margin-left: var(--space-3xl);
+}
+.ld-ctas-q {
+  display: none;
+  color: var(--color-text-400);
+}
+@container (--rs) {
+  .ld-ctas-q {
+    display: inline;
+  }
+}
+@container (--rt) {
+  .ld-ctas {
+    --btn-size: lg;
+  }
+}
+@container (--rd2) {
+  .ld-ctas {
+    --btn-size: xl;
+  }
+}
+
+/* ---- hero ---- */
+
+.ld-hero-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: calc(var(--t) * 2.5);
+}
+.ld-hero-head .ld-h1 {
+  margin-top: var(--space-lg);
+  max-width: calc(var(--t) * 10);
+}
+.ld-hero-sub {
+  margin-top: var(--space-2xl);
+  max-width: calc(var(--t) * 10);
+}
+.ld-hero-cta {
+  margin-top: var(--space-4xl);
+}
+@container (--rt) {
+  .ld-hero-head .ld-h1 {
+    max-width: calc(var(--t) * 8);
+  }
+  .ld-hero-sub {
+    max-width: calc(var(--t) * 6);
+  }
+}
+@container (--rd1) {
+  .ld-hero-head {
+    padding-top: calc(var(--t) * 1.5);
+  }
+  .ld-hero-head .ld-h1 {
+    margin-top: var(--space-3xl);
+    max-width: calc(var(--t) * 7);
+  }
+  .ld-hero-cta {
+    margin-top: var(--space-5xl);
+  }
+}
+
+/* The shared entrance rule consumes these delays (hero.css). */
+.ld-hero .slug {
+  --_d: var(--hx-d-h1a);
+}
+.ld-hero .ld-h1 {
+  --_d: var(--hx-d-h1b);
+}
+.ld-hero-sub {
+  --_d: var(--hx-d-sub1);
+}
+.ld-hero-cta {
+  --_d: var(--hx-d-cta);
+}
+.ld-hero-media {
+  --_d: var(--hx-d-rect);
+}
+
+/* Seated media frame (company-hero): the figure hosts its own exposure
+   frame, so it is the local positioning context; the bottom padding
+   keeps the frame's exposed row inside the section. Slab 6t through rt,
+   5t from rd. */
+.ld-hero-media {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  margin-top: var(--t);
+  padding-bottom: var(--t);
+}
+.ld-hero-frame {
+  position: relative;
+  height: calc(var(--t) * 6);
+  overflow: clip;
+  background: var(--color-bg-300);
+}
+@container (--rd1) {
+  .ld-hero-frame {
+    height: calc(var(--t) * 5);
+  }
+}
+
+/* ---- benefits: seated cards ---- */
+
+.ld-cards {
+  list-style: none;
+  margin: var(--t) calc(var(--t) * -1) 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* Cells are line-inclusive (k·t + 1px) and overlap by the shared pixel. */
+.ld-card {
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-000);
+  min-height: calc(var(--t) * 3 + 1px);
+  padding: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ld-card + .ld-card {
+  margin-top: -1px;
+}
+.ld-card-icon {
+  display: block;
+  color: var(--color-text-100);
+}
+.ld-card-title {
+  margin: 0;
+  color: var(--color-text-100);
+}
+.ld-card-icon + .ld-card-title {
+  margin-top: var(--space-xl);
+}
+.ld-card-copy {
+  margin: var(--space-md) 0 0;
+  color: var(--color-text-300);
+  --fs1: var(--ts-text-lg-light-fs);
+  --lh1: var(--ts-text-lg-light-lh);
+}
+@container (--rt) {
+  .ld-cards {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .ld-card {
+    width: calc(var(--t) * 4 + 1px);
+    min-height: calc(var(--t) * 3 + 1px);
+    padding: calc(var(--t) / 2);
+  }
+  .ld-card + .ld-card {
+    margin-top: 0;
+    margin-left: -1px;
+  }
+  .ld-card-copy {
+    --font: var(--ts-text-lg-light-font);
+    --opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+
+/* ---- quote ---- */
+
+.ld-quote-fig {
+  margin: var(--space-2xl) 0 0;
+}
+/* 2xs-plus-extralight 20/24 → sm-plus-extralight 36/42; the opening
+   quote hangs into the margin (the cs-quote idiom). */
+.ld-quote-body {
+  margin: 0;
+  color: var(--color-text-100);
+  max-width: calc(var(--t) * 10);
+  text-indent: -0.434em;
+  --fs1: var(--ts-display-serif-sm-plus-extralight-fs);
+  --lh1: var(--ts-display-serif-sm-plus-extralight-lh);
+}
+@supports (hanging-punctuation: first) {
+  .ld-quote-body {
+    text-indent: 0;
+    hanging-punctuation: first;
+  }
+}
+.ld-quote-attrib {
+  margin: var(--space-xl) 0 0;
+  color: var(--color-text-400);
+}
+@container (--rt) {
+  .ld-quote-body {
+    max-width: calc(var(--t) * 8);
+    --font: var(--ts-display-serif-sm-plus-extralight-font);
+    --ls: var(--ts-display-serif-sm-plus-extralight-ls);
+  }
+}
+
+/* ---- closer ---- */
+
+.ld-close {
+  padding-bottom: calc(var(--t) * 2);
+}
+.ld-close-copy {
+  margin-top: var(--space-2xl);
+  max-width: calc(var(--t) * 10);
+}
+.ld-close-cta {
+  margin-top: var(--space-4xl);
+}
+@container (--rt) {
+  .ld-close-copy {
+    max-width: calc(var(--t) * 6);
+  }
+}
+@container (--rd1) {
+  .ld-close-cta {
+    margin-top: var(--space-5xl);
+  }
+}
