@@ -2,14 +2,7 @@
 export const PRICING_CHECKOUT_URL = "https://pay.keystone.app/b/fZucN6fhC7vhe6j5ux0VO02";
 
 export type IncludedIcon =
-  | "logomark"
-  | "website"
-  | "search"
-  | "ai-chat"
-  | "maps"
-  | "reception"
-  | "reviews"
-  | "tokens";
+  "logomark" | "website" | "search" | "ai-chat" | "maps" | "reception" | "reviews" | "tokens";
 
 export interface IncludedItem {
   icon: IncludedIcon;

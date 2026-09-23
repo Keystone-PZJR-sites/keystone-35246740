@@ -104,7 +104,11 @@ export function attachSwipe(o: SwipeOptions): () => void {
 }
 
 /** Left/right arrow keys step a strip. */
-export function attachArrowKeys(el: HTMLElement, step: (delta: 1 | -1) => void, enabled = () => true) {
+export function attachArrowKeys(
+  el: HTMLElement,
+  step: (delta: 1 | -1) => void,
+  enabled = () => true,
+) {
   const onKeyDown = (e: KeyboardEvent) => {
     if (!enabled()) return;
     if (e.key === "ArrowRight") {

@@ -25,7 +25,8 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "account-manager",
     question: "Will I have an account manager?",
-    answer: "Every client gets a real human who knows digital marketing and is available when you need them.",
+    answer:
+      "Every client gets a real human who knows digital marketing and is available when you need them.",
   },
   {
     id: "credits",

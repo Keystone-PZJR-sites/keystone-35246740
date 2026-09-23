@@ -74,8 +74,7 @@ export function GraderInput({
     active.resultsFor === search.resultsFor
       ? Math.min(active.index, Math.max(search.results.length - 1, 0))
       : 0;
-  const open =
-    focused && !dismissed && !chosen && !error && !pending && search.results.length > 0;
+  const open = focused && !dismissed && !chosen && !error && !pending && search.results.length > 0;
   const searching = search.status === "loading";
 
   function openGrader(item: GraderSuggestion) {

@@ -2,11 +2,7 @@
  * Header and studio canvases include their visual treatment and overflow
  * the wrapper by the pad configured in section CSS. */
 
-import {
-  CASE_STUDY_PAGE_TIERS,
-  caseStudyPageSrc,
-  type CaseStudyPageImage,
-} from "../media";
+import { CASE_STUDY_PAGE_TIERS, caseStudyPageSrc, type CaseStudyPageImage } from "../media";
 import type { CaseStudy } from "./case-study-data";
 
 interface CaseStudyPhotoProps {

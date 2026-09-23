@@ -87,3 +87,5 @@ the end result differs slightly from today, if it is better.
 - Known intentional deviation from main: `/company/` team cells are 3px
   shorter per row below 860 — main held `.co-cell-role` at an unscaled 16px
   line-height while `.co-cell-name` scaled; both now ride the ramp.
+- P5 `style: prettier` — `.prettierrc` (width 100), TS/TSX only; CSS keeps
+  its hand-set one-line band rules. `format`/`format:check` scripts.

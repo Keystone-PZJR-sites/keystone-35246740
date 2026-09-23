@@ -15,7 +15,11 @@ export function CaseStudyFunnelSection({ study }: { study: CaseStudy }) {
           <p className="cs-body type csf-subhead">{study.funnel.subhead}</p>
           <dl className="csf-rows">
             {study.funnel.rows.map((row, i) => (
-              <div className="csf-row" key={row.label} data-end={i === study.funnel.rows.length - 1 || undefined}>
+              <div
+                className="csf-row"
+                key={row.label}
+                data-end={i === study.funnel.rows.length - 1 || undefined}
+              >
                 <dt className="csf-label">
                   <span className="type cs-pill">{row.label}</span>
                 </dt>

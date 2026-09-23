@@ -116,12 +116,8 @@ export function CompanyTeamSection({ members }: { members: TeamRosterMember[] })
     >
       <header className="cot-head" data-landmark="head">
         <Slug>{COMPANY_TEAM.eyebrow}</Slug>
-        <h2 className="type co-h2">
-          {COMPANY_TEAM.title}
-        </h2>
-        <p className="type cot-desc co-body-text">
-          {COMPANY_TEAM.description}
-        </p>
+        <h2 className="type co-h2">{COMPANY_TEAM.title}</h2>
+        <p className="type cot-desc co-body-text">{COMPANY_TEAM.description}</p>
       </header>
 
       {/* Names and roles render as visible captions; portraits stay alt="". */}

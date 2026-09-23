@@ -26,12 +26,22 @@ interface PersonaCardProps {
 export function PersonaCard({ persona, state = "active", size }: PersonaCardProps) {
   const hueVar = { "--pcard-hue": `var(--color-${persona.hue}-400)` };
   return (
-    <article className="pcard" data-persona={persona.id} data-state={state} data-size={size} style={hueVar}>
+    <article
+      className="pcard"
+      data-persona={persona.id}
+      data-state={state}
+      data-size={size}
+      style={hueVar}
+    >
       <div className="pcard-box">
         <div className="pcard-image">
           <picture>
             {PERSONA_TIERS.filter((t) => t.media !== null).map((t) => (
-              <source key={t.cut} media={t.media ?? undefined} srcSet={personaSrc(persona.id, t.cut)} />
+              <source
+                key={t.cut}
+                media={t.media ?? undefined}
+                srcSet={personaSrc(persona.id, t.cut)}
+              />
             ))}
             <img
               src={personaSrc(persona.id, "xs")}
@@ -59,7 +69,11 @@ export function PersonaCard({ persona, state = "active", size }: PersonaCardProp
         </div>
       </div>
       <span className="type pcard-tag">{persona.tagLabel}</span>
-      <button type="button" className="pcard-overlay" aria-label={`Show the ${persona.tagLabel} example`} />
+      <button
+        type="button"
+        className="pcard-overlay"
+        aria-label={`Show the ${persona.tagLabel} example`}
+      />
     </article>
   );
 }

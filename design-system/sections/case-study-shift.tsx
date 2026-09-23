@@ -21,11 +21,7 @@ function StatPair({ stats }: { stats: CaseStudyStat[] }) {
 
 export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
   return (
-    <section
-      className="sec cs-sec csft-sec"
-      id="shift"
-      aria-labelledby="shift-h"
-    >
+    <section className="sec cs-sec csft-sec" id="shift" aria-labelledby="shift-h">
       <CaseStudyLattice section="shift" />
       <h2 className="hx-sr" id="shift-h">
         The Shift
@@ -47,7 +43,11 @@ export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
             <p className="type type-fixed csft-label">{study.shift.afterLabel}</p>
             <div className="csft-body">
               <StatPair stats={study.shift.afterStats} />
-              <CaseStudyFeatureList items={study.shift.afterItems} icon={20} className="csft-list" />
+              <CaseStudyFeatureList
+                items={study.shift.afterItems}
+                icon={20}
+                className="csft-list"
+              />
             </div>
           </div>
           <p className="type type-fixed csft-tag">{study.shift.tag}</p>

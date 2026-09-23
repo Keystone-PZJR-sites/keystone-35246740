@@ -59,11 +59,27 @@ const MAP = {
       ],
     },
     circles: {
-      rm: [[11, 5], [9, 7], [10, 14]],
-      rs: [[11, 5], [9, 7]],
-      rt: [[11, 3], [8, 5]],
-      rd1: [[11, 3], [8, 5]],
-      rd2: [[11, 3], [8, 5]],
+      rm: [
+        [11, 5],
+        [9, 7],
+        [10, 14],
+      ],
+      rs: [
+        [11, 5],
+        [9, 7],
+      ],
+      rt: [
+        [11, 3],
+        [8, 5],
+      ],
+      rd1: [
+        [11, 3],
+        [8, 5],
+      ],
+      rd2: [
+        [11, 3],
+        [8, 5],
+      ],
     },
     squares: { rm: [[11, 10]] },
   },
@@ -207,7 +223,13 @@ const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
 function ornament(band: GridBand, key: string, [gx, gy, gyb]: Orn, shape: string) {
   return (
-    <GridDecor key={`${band}-${key}${gx}-${gy ?? `b${gyb}`}`} band={band} gx={gx} gy={gy ?? undefined} gyb={gyb}>
+    <GridDecor
+      key={`${band}-${key}${gx}-${gy ?? `b${gyb}`}`}
+      band={band}
+      gx={gx}
+      gy={gy ?? undefined}
+      gyb={gyb}
+    >
       <span className={shape} />
     </GridDecor>
   );
@@ -218,7 +240,9 @@ export function CaseStudyLattice({ section }: { section: CaseStudySectionId }) {
   return (
     <div className="gx" aria-hidden="true">
       {BANDS.map((band) => [
-        ...(map.regions[band] ?? []).map((r, i) => <GridRegion key={`${band}-r${i}`} band={band} {...r} />),
+        ...(map.regions[band] ?? []).map((r, i) => (
+          <GridRegion key={`${band}-r${i}`} band={band} {...r} />
+        )),
         ...(map.circles?.[band] ?? []).map((o) => ornament(band, "o", o, "f-cell round")),
         ...(map.fillCircles?.[band] ?? []).map((o) => ornament(band, "fo", o, "f-cell fill round")),
         ...(map.squares?.[band] ?? []).map((o) => ornament(band, "f", o, "f-cell fill")),

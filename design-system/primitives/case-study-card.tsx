@@ -18,7 +18,13 @@ interface CaseStudyCardProps {
   forceState?: "hover";
 }
 
-export function CaseStudyCard({ study, eager = false, flip = false, rise = false, forceState }: CaseStudyCardProps) {
+export function CaseStudyCard({
+  study,
+  eager = false,
+  flip = false,
+  rise = false,
+  forceState,
+}: CaseStudyCardProps) {
   const fallback = CASE_STUDY_TIERS[CASE_STUDY_TIERS.length - 1];
   return (
     <article

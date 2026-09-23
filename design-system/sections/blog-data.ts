@@ -77,8 +77,7 @@ export type BlogPageModel =
   | { type: "filtered"; filtered: BlogFilteredModel };
 
 export type BlogPageWindowItem =
-  | { type: "page"; page: number }
-  | { type: "ellipsis"; key: "leading" | "trailing" };
+  { type: "page"; page: number } | { type: "ellipsis"; key: "leading" | "trailing" };
 
 const RECENT_COUNT = 3;
 const CATEGORY_COUNT = 5;
@@ -393,7 +392,7 @@ export async function getBlogFiltered(
   return {
     type: "category",
     heading: tag.name,
-    featured: request.page === 1 ? matches[0] ?? null : null,
+    featured: request.page === 1 ? (matches[0] ?? null) : null,
     posts: rows.slice(start, start + BLOG_POSTS_PER_PAGE),
     pagination: {
       currentPage: request.page,
@@ -412,10 +411,7 @@ export function blogPageHref(pagination: BlogPaginationModel, page: number): str
   return query ? `${SITE_LINKS.blog}?${query}` : SITE_LINKS.blog;
 }
 
-export function blogPageWindow(
-  currentPage: number,
-  totalPageCount: number,
-): BlogPageWindowItem[] {
+export function blogPageWindow(currentPage: number, totalPageCount: number): BlogPageWindowItem[] {
   if (totalPageCount <= 5) {
     return Array.from({ length: totalPageCount }, (_, index) => ({
       type: "page" as const,

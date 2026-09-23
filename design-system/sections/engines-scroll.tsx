@@ -147,9 +147,12 @@ export function EnginesScroll() {
       }
       incoming.removeAttribute("data-leaving");
       incoming.setAttribute("data-active", "");
-      incoming.querySelector("img")?.decode().catch(() => {
-        /* decode is a hint; the swap proceeds regardless */
-      });
+      incoming
+        .querySelector("img")
+        ?.decode()
+        .catch(() => {
+          /* decode is a hint; the swap proceeds regardless */
+        });
     };
 
     const setStackView = (panel: HTMLElement, b: boolean) => {
@@ -183,10 +186,8 @@ export function EnginesScroll() {
     const clampState = (v: number) => Math.max(0, Math.min(STATE_COUNT - 1, v));
 
     /* Both directions share each boundary to avoid asymmetric state changes. */
-    const upAt = (i: number) =>
-      i === STATE_COUNT - 2 ? i + LAST_BOUNDARY : i + HYST;
-    const downAt = (i: number) =>
-      i === STATE_COUNT - 1 ? i - 1 + LAST_BOUNDARY : i - HYST;
+    const upAt = (i: number) => (i === STATE_COUNT - 2 ? i + LAST_BOUNDARY : i + HYST);
+    const downAt = (i: number) => (i === STATE_COUNT - 1 ? i - 1 + LAST_BOUNDARY : i - HYST);
 
     const update = () => {
       if (!ioOn) return;
@@ -251,8 +252,7 @@ export function EnginesScroll() {
       const k = panels.findIndex((p) => p.dataset.engine === match[1]);
       if (k < 0) return;
       const stride = PANEL_T * (section.clientWidth / 12);
-      const top =
-        window.scrollY + body.getBoundingClientRect().top + k * stride - cssPin;
+      const top = window.scrollY + body.getBoundingClientRect().top + k * stride - cssPin;
       window.scrollTo({ top, behavior: "auto" });
     };
     window.addEventListener("hashchange", jumpToHash);

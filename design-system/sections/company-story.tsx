@@ -16,9 +16,7 @@ export function CompanyStorySection() {
     >
       <header className="cos-head" data-landmark="head">
         <Slug>{COMPANY_STORY.eyebrow}</Slug>
-        <h2 className="type co-h2">
-          {COMPANY_STORY.title}
-        </h2>
+        <h2 className="type co-h2">{COMPANY_STORY.title}</h2>
       </header>
 
       <div className="cos-body" data-landmark="body">

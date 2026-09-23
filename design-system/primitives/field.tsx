@@ -16,7 +16,11 @@ function FieldShell({ id, label, required, helpText, children }: FieldShellProps
     <div className="ks-field">
       <label className="type type-fixed ks-field-label" htmlFor={id}>
         <span>{label}</span>
-        {required ? <span className="ks-field-req" aria-hidden="true">*</span> : null}
+        {required ? (
+          <span className="ks-field-req" aria-hidden="true">
+            *
+          </span>
+        ) : null}
       </label>
       {children}
       {helpText ? (
@@ -39,7 +43,13 @@ export function FieldText({ id, label, helpText, required, ...input }: TextInput
   return (
     <FieldShell id={id} label={label} required={required} helpText={helpText}>
       <div className="ks-field-control">
-        <input className="type type-fixed" id={id} required={required} aria-describedby={helpId} {...input} />
+        <input
+          className="type type-fixed"
+          id={id}
+          required={required}
+          aria-describedby={helpId}
+          {...input}
+        />
       </div>
     </FieldShell>
   );
@@ -51,12 +61,26 @@ type FieldTextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "id"
   helpText?: string | null;
 };
 
-export function FieldTextarea({ id, label, helpText, required, rows = 5, ...input }: FieldTextareaProps) {
+export function FieldTextarea({
+  id,
+  label,
+  helpText,
+  required,
+  rows = 5,
+  ...input
+}: FieldTextareaProps) {
   const helpId = helpText ? `${id}-help` : undefined;
   return (
     <FieldShell id={id} label={label} required={required} helpText={helpText}>
       <div className="ks-field-control" data-kind="textarea">
-        <textarea className="type type-fixed" id={id} required={required} rows={rows} aria-describedby={helpId} {...input} />
+        <textarea
+          className="type type-fixed"
+          id={id}
+          required={required}
+          rows={rows}
+          aria-describedby={helpId}
+          {...input}
+        />
       </div>
     </FieldShell>
   );
@@ -94,7 +118,11 @@ export function FieldCheckbox({
         />
         <label id={labelId} htmlFor={id} className="type type-fixed ks-field-check-label">
           {label}
-          {required ? <span className="ks-field-req" aria-hidden="true">*</span> : null}
+          {required ? (
+            <span className="ks-field-req" aria-hidden="true">
+              *
+            </span>
+          ) : null}
         </label>
       </div>
       {helpText ? (

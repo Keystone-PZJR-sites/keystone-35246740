@@ -41,8 +41,8 @@ export function CaseStudyCtaSection() {
         <p className="type csc-boiler">
           {/* The wordmark is represented as text in the accessibility tree. */}
           <span className="hx-sr">
-            keystone powers your website and everything that runs through
-            it: ads social reviews content and follow-ups that convert.
+            keystone powers your website and everything that runs through it: ads social reviews
+            content and follow-ups that convert.
           </span>
           <span className="csc-vis" aria-hidden="true">
             <span className="csc-wm" />

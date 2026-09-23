@@ -1,10 +1,7 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
 import { COMPANY_HERO } from "./company-data";
-import {
-  COMPANY_HERO_VIDEO_POSTERS,
-  COMPANY_HERO_VIDEO_SEQUENCE,
-} from "./company-hero-data";
+import { COMPANY_HERO_VIDEO_POSTERS, COMPANY_HERO_VIDEO_SEQUENCE } from "./company-hero-data";
 import { CompanyHeroVideo } from "./company-hero-island";
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
@@ -48,16 +45,10 @@ const MEDIA_FRAME: Record<GridBand, R[]> = {
 
 export function CompanyHeroSection() {
   return (
-    <section
-      className="sec company-hero"
-      aria-label="About Keystone"
-      data-landmark="company-hero"
-    >
+    <section className="sec company-hero" aria-label="About Keystone" data-landmark="company-hero">
       <header className="coh-head" data-landmark="head">
         <Slug>{COMPANY_HERO.eyebrow}</Slug>
-        <h1 className="type coh-h1">
-          {COMPANY_HERO.title}
-        </h1>
+        <h1 className="type coh-h1">{COMPANY_HERO.title}</h1>
       </header>
 
       <figure className="coh-media" data-landmark="media">

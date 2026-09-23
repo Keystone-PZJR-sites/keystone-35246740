@@ -8,9 +8,7 @@ interface BlogPostRouteProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: BlogPostRouteProps): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogPostRouteProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getBlogPostDetail(slug);
   if (!post) return { title: "Keystone" };

@@ -7,11 +7,7 @@ import { CaseStudyStatCell } from "./case-study-stat-cell";
 
 export function CaseStudyOverviewSection({ study }: { study: CaseStudy }) {
   return (
-    <section
-      className="sec cs-sec cso-sec"
-      id="overview"
-      aria-labelledby="overview-h"
-    >
+    <section className="sec cs-sec cso-sec" id="overview" aria-labelledby="overview-h">
       <CaseStudyLattice section="overview" />
       <div className="cs-content cso-content" data-landmark="overview">
         <div className="cso-frame">

@@ -38,9 +38,15 @@ function toChatTeam(raw: unknown): ChatTeamMember[] {
   for (const item of raw) {
     if (!isRecord(item) || typeof item.id !== "number" || typeof item.name !== "string") continue;
     const flat = typeof item.photo_url === "string" ? item.photo_url : undefined;
-    const attachment = Array.isArray(item.photo_attachments) ? item.photo_attachments[0] : undefined;
+    const attachment = Array.isArray(item.photo_attachments)
+      ? item.photo_attachments[0]
+      : undefined;
     const photo = isRecord(attachment) && isRecord(attachment.photo) ? attachment.photo : undefined;
-    const photo_url = flat ?? photoString(photo, "large_url") ?? photoString(photo, "medium_url") ?? photoString(photo, "original_url");
+    const photo_url =
+      flat ??
+      photoString(photo, "large_url") ??
+      photoString(photo, "medium_url") ??
+      photoString(photo, "original_url");
     out.push({
       id: item.id,
       name: item.name,

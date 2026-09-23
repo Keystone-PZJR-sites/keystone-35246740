@@ -20,16 +20,8 @@ export async function generateMetadata({
   return { title: study ? `${study.name} | Keystone` : "Keystone" };
 }
 
-export default async function CaseStudyRoute({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function CaseStudyRoute({ params }: { params: Promise<{ slug: string }> }) {
   const study = getCaseStudy((await params).slug);
   if (!study) notFound();
-  return (
-    <CaseStudyPage
-      study={study}
-    />
-  );
+  return <CaseStudyPage study={study} />;
 }

@@ -3,8 +3,12 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const PROSE_COMPONENTS: Components = {
-  h2: ({ children }: { children?: ReactNode }) => <h2 className="type type-fixed legal-h2">{children}</h2>,
-  h3: ({ children }: { children?: ReactNode }) => <h3 className="type type-fixed legal-h3">{children}</h3>,
+  h2: ({ children }: { children?: ReactNode }) => (
+    <h2 className="type type-fixed legal-h2">{children}</h2>
+  ),
+  h3: ({ children }: { children?: ReactNode }) => (
+    <h3 className="type type-fixed legal-h3">{children}</h3>
+  ),
 };
 
 export interface LegalContentSectionProps {

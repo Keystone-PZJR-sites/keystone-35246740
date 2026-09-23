@@ -22,11 +22,7 @@ function Strip({ side }: { side: FieldSide }) {
       // page edge — rightmost in the west strip, leftmost in the east
       const gx = side === 1 ? FIELD_COLS - col : col - 1;
       cells.push(
-        <div
-          key={`c${col}-${row}`}
-          className="gf-cell"
-          style={{ "--gx": gx, "--gy": row }}
-        >
+        <div key={`c${col}-${row}`} className="gf-cell" style={{ "--gx": gx, "--gy": row }}>
           <span className={shape} />
         </div>,
       );

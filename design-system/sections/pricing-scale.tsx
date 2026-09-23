@@ -78,9 +78,7 @@ export function PricingScaleSection() {
         ])}
       </div>
 
-      <PricingScaleIsland
-        personas={PERSONAS.map(({ hue, tagLabel }) => ({ hue, tagLabel }))}
-      >
+      <PricingScaleIsland personas={PERSONAS.map(({ hue, tagLabel }) => ({ hue, tagLabel }))}>
         <div className="ps-block" data-landmark="price-scale">
           <div className="ps-content">
             <h2 className="type ps-head">

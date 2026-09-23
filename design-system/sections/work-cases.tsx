@@ -90,7 +90,13 @@ export function WorkCasesSection() {
       {/* The first image loads eagerly; the second card flips at row layouts. */}
       <div className="wkc-stack">
         {CASE_STUDIES.map((study, i) => (
-          <CaseStudyCard key={study.slug} study={study} eager={i === 0} flip={i === 1} rise={i === 0} />
+          <CaseStudyCard
+            key={study.slug}
+            study={study}
+            eager={i === 0}
+            flip={i === 1}
+            rise={i === 0}
+          />
         ))}
       </div>
     </section>

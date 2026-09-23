@@ -41,9 +41,7 @@ export function GalleryOverlay({
 }) {
   const portalTarget = typeof document === "undefined" ? null : document.body;
   const initialSite =
-    openSite !== undefined
-      ? Math.max(1, Math.min(sites.length || 1, openSite || 1))
-      : null;
+    openSite !== undefined ? Math.max(1, Math.min(sites.length || 1, openSite || 1)) : null;
   const [phase, setPhase] = useState<Phase>(initialSite ? "open" : "closed");
   const [s, setS] = useState(initialSite ?? 1);
   const [v, setV] = useState<ViewMode>("desktop");
@@ -58,7 +56,8 @@ export function GalleryOverlay({
       const trigger = target?.closest<HTMLElement>('[data-action="open-gallery"]');
       if (!trigger) return;
       // A thumbnail provides its site; a section CTA falls back to its published index.
-      const read = trigger.dataset.gallerySite ?? trigger.closest<HTMLElement>("[data-k]")?.dataset.k;
+      const read =
+        trigger.dataset.gallerySite ?? trigger.closest<HTMLElement>("[data-k]")?.dataset.k;
       const next = read ? parseInt(read, 10) : 1;
       openerRef.current = trigger;
       setS(Number.isFinite(next) ? Math.max(1, Math.min(sites.length, next)) : 1);

@@ -20,19 +20,11 @@ const STAGE_STATES = ENGINES.flatMap((engine) =>
 function EngineCopyBlock({ engine }: { engine: EngineCopy }) {
   return (
     <div className="e2-text">
-      <h3 className="type e2-name">
-        {engine.name}
-      </h3>
+      <h3 className="type e2-name">{engine.name}</h3>
       <div className="e2-desc">
-        <p className="type">
-          {engine.tagline}
-        </p>
-        <p className="type">
-          {engine.body[0]}
-        </p>
-        <p className="type">
-          {engine.body[1]}
-        </p>
+        <p className="type">{engine.tagline}</p>
+        <p className="type">{engine.body[0]}</p>
+        <p className="type">{engine.body[1]}</p>
       </div>
     </div>
   );

@@ -71,8 +71,7 @@ export function BlogTopSection({
       {/* Set before paint so JavaScript users do not see the no-JS search state flash. */}
       <script
         dangerouslySetInnerHTML={{
-          __html:
-            "document.currentScript.parentElement.setAttribute('data-js','')",
+          __html: "document.currentScript.parentElement.setAttribute('data-js','')",
         }}
       />
 
@@ -91,29 +90,21 @@ export function BlogTopSection({
 
       <header className="bt-head">
         <Slug>{BLOG_TOP_CONTENT.eyebrow}</Slug>
-        <h1 className="type bt-h1">
-          {BLOG_TOP_CONTENT.title}
-        </h1>
+        <h1 className="type bt-h1">{BLOG_TOP_CONTENT.title}</h1>
       </header>
 
       <article className="bt-card bt-podcast">
         <div className="bt-card-top">
           <div className="bt-card-titlerow">
-            <h2 className="type bt-card-title">
-              {BLOG_TOP_CONTENT.podcastTitle}
-            </h2>
+            <h2 className="type bt-card-title">{BLOG_TOP_CONTENT.podcastTitle}</h2>
             <span className="bt-chip" aria-hidden="true">
               <IconPodcast size={16} />
             </span>
           </div>
-          <p className="type bt-card-desc">
-            {BLOG_TOP_CONTENT.podcastDescription}
-          </p>
+          <p className="type bt-card-desc">{BLOG_TOP_CONTENT.podcastDescription}</p>
         </div>
         <div className="bt-card-action">
-          <p className="type bt-listen">
-            {BLOG_TOP_CONTENT.listenLabel}
-          </p>
+          <p className="type bt-listen">{BLOG_TOP_CONTENT.listenLabel}</p>
           <ul className="bt-socials">
             <li>
               <a
@@ -154,16 +145,12 @@ export function BlogTopSection({
       <article className="bt-card bt-gcard">
         <div className="bt-card-top">
           <div className="bt-card-titlerow">
-            <h2 className="type bt-card-title">
-              {BLOG_TOP_CONTENT.graderTitle}
-            </h2>
+            <h2 className="type bt-card-title">{BLOG_TOP_CONTENT.graderTitle}</h2>
             <span className="bt-chip" aria-hidden="true">
               <IconGrader size={16} />
             </span>
           </div>
-          <p className="type bt-card-desc">
-            {BLOG_TOP_CONTENT.graderDescription}
-          </p>
+          <p className="type bt-card-desc">{BLOG_TOP_CONTENT.graderDescription}</p>
         </div>
         <div className="bt-card-action">
           <div className="bt-grader">
@@ -178,9 +165,7 @@ export function BlogTopSection({
             <span className="bt-bh-chip" aria-hidden="true">
               <IconBlog size={16} />
             </span>
-            <h2 className="type bt-bh-h2">
-              {BLOG_TOP_CONTENT.blogHeading}
-            </h2>
+            <h2 className="type bt-bh-h2">{BLOG_TOP_CONTENT.blogHeading}</h2>
           </div>
           <BlogSearchIsland initialQuery={searchQuery} />
         </div>

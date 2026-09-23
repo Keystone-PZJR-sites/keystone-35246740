@@ -16,6 +16,7 @@ npm run dev            # add -p <port> if 3000 is taken
 ```bash
 npx tsc --noEmit
 npm run lint
+npm run format:check                                # prettier, TS/TSX only
 BASE_URL=http://localhost:3000 npm run test:visual  # screenshots vs tests/__screenshots__
 npm run preview                                     # OpenNext build + wrangler dev
 ```

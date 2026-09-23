@@ -76,9 +76,7 @@ function logoMap(r5Cells: number | null, sideCells = 3): BandMap {
       { gx: 0, gy: 0, gw: 12, gh: 1 },
       { gx: 0, gy: 1, gw: 1, gh: sideCells },
       { gx: 11, gy: 1, gw: 1, gh: sideCells },
-      r5Cells === null
-        ? { gx: 0, gy: 4, gw: 12, gh: 1 }
-        : { gx: 0, gy: 4, gw: r5Cells, gh: 1 },
+      r5Cells === null ? { gx: 0, gy: 4, gw: 12, gh: 1 } : { gx: 0, gy: 4, gw: r5Cells, gh: 1 },
     ],
     ornaments: [
       { gx: 8, gy: 0, shape: "square" },
@@ -144,9 +142,12 @@ function navGroups(social: FooterSocial): Array<{
   items: NavItem[];
 }> {
   const socialItems: NavItem[] = [];
-  if (social.linkedin) socialItems.push({ label: "LinkedIn", href: social.linkedin, external: true });
-  if (social.facebook) socialItems.push({ label: "Facebook", href: social.facebook, external: true });
-  if (social.instagram) socialItems.push({ label: "Instagram", href: social.instagram, external: true });
+  if (social.linkedin)
+    socialItems.push({ label: "LinkedIn", href: social.linkedin, external: true });
+  if (social.facebook)
+    socialItems.push({ label: "Facebook", href: social.facebook, external: true });
+  if (social.instagram)
+    socialItems.push({ label: "Instagram", href: social.instagram, external: true });
   if (social.youtube) socialItems.push({ label: "YouTube", href: social.youtube, external: true });
 
   return [
@@ -252,7 +253,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
                   <br className="f-brk-c" /> you the rest.
                 </p>
               </div>
-            <div className="f-grader" id="grader">
+              <div className="f-grader" id="grader">
                 <GraderInput size="inherit" />
               </div>
             </div>
@@ -265,11 +266,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
       <div className="f-logo" data-landmark="logo">
         <Overlay maps={LOGO_MAP} />
         <div className="f-lockband">
-          <div
-            className="f-lockup"
-            role="img"
-            aria-label={lockup.alt}
-          />
+          <div className="f-lockup" role="img" aria-label={lockup.alt} />
         </div>
         <div className="type f-copy">
           <span>© 2026 Keystone</span>

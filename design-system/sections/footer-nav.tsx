@@ -26,13 +26,11 @@ function extCells(
       <div
         key={`${band}-${gx}-${i}`}
         className={`f-ext ${band}${i < active ? " on" : ""}`}
-        style={
-          {
-            "--gx": gx,
-            "--gy": cfg.gy0 + i,
-            "--i": i,
-          }
-        }
+        style={{
+          "--gx": gx,
+          "--gy": cfg.gy0 + i,
+          "--i": i,
+        }}
       />
     )),
   );
@@ -58,14 +56,12 @@ export function FooterNav({ groups }: { groups: FooterNavGroup[] }) {
                 className="fnav-group"
                 data-drawer=""
                 data-open={isOpen || undefined}
-                style={
-                  {
-                    "--open-rm": g.openRm,
-                    "--open-rs": g.openRs,
-                    "--fnav-extra-rm": g.openRm - 2,
-                    "--fnav-extra-rs": g.openRs - 2,
-                  }
-                }
+                style={{
+                  "--open-rm": g.openRm,
+                  "--open-rs": g.openRs,
+                  "--fnav-extra-rm": g.openRm - 2,
+                  "--fnav-extra-rs": g.openRs - 2,
+                }}
               >
                 <h3 className="fnav-h">
                   <button
