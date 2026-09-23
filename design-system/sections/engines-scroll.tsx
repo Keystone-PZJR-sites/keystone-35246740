@@ -79,13 +79,16 @@ export function EnginesScroll() {
     let shown: number | null = state;
     const primed = new Set<number>([0]);
 
+    /* Decode the neighbouring drawings ahead of the scroll. */
     const prime = (i: number) => {
       if (i < 0 || i >= STATE_COUNT || primed.has(i)) return;
       primed.add(i);
-      const img = drawings[i].querySelector("img");
-      img?.decode().catch(() => {
-        /* decode is a hint; the swap proceeds regardless */
-      });
+      drawings[i]
+        .querySelector("img")
+        ?.decode()
+        .catch(() => {
+          /* decode is a hint */
+        });
     };
 
     const onLeaveEnd = (e: TransitionEvent) => {
@@ -96,22 +99,29 @@ export function EnginesScroll() {
     drawings.forEach((d) => d.addEventListener("transitionend", onLeaveEnd));
     sdrawings.forEach((d) => d.addEventListener("transitionend", onLeaveEnd));
 
-    const applyShown = (next: number) => {
-      if (shown === next) return;
-      const outgoing = shown !== null ? drawings[shown] : null;
-      const incoming = drawings[next];
-      shown = next;
-      prime(next);
+    /* The outgoing drawing fades under the incoming one; reduced motion
+       swaps in place. Decoding ahead keeps the swap from flashing. */
+    const swapDrawing = (outgoing: HTMLElement | null, incoming: HTMLElement) => {
       if (outgoing) {
         outgoing.removeAttribute("data-active");
-        if (reduced()) {
-          outgoing.removeAttribute("data-leaving");
-        } else {
-          outgoing.setAttribute("data-leaving", "");
-        }
+        if (reduced()) outgoing.removeAttribute("data-leaving");
+        else outgoing.setAttribute("data-leaving", "");
       }
       incoming.removeAttribute("data-leaving");
       incoming.setAttribute("data-active", "");
+      incoming
+        .querySelector("img")
+        ?.decode()
+        .catch(() => {
+          /* decode is a hint; the swap proceeds regardless */
+        });
+    };
+
+    const applyShown = (next: number) => {
+      if (shown === next) return;
+      const outgoing = shown !== null ? drawings[shown] : null;
+      shown = next;
+      swapDrawing(outgoing, drawings[next]);
       prime(next + 1);
       prime(next - 1);
     };
@@ -137,22 +147,6 @@ export function EnginesScroll() {
       rdSlides[k] = b;
       if (b) panels[k].setAttribute("data-slide", "b");
       else panels[k].removeAttribute("data-slide");
-    };
-
-    const swapDrawing = (outgoing: HTMLElement | null, incoming: HTMLElement) => {
-      if (outgoing) {
-        outgoing.removeAttribute("data-active");
-        if (reduced()) outgoing.removeAttribute("data-leaving");
-        else outgoing.setAttribute("data-leaving", "");
-      }
-      incoming.removeAttribute("data-leaving");
-      incoming.setAttribute("data-active", "");
-      incoming
-        .querySelector("img")
-        ?.decode()
-        .catch(() => {
-          /* decode is a hint; the swap proceeds regardless */
-        });
     };
 
     const setStackView = (panel: HTMLElement, b: boolean) => {

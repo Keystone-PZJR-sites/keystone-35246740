@@ -121,3 +121,8 @@ the end result differs slightly from today, if it is better.
   and deck; below rd1 nothing changes. `/` pixel-identical at ten widths.
 - P3 `refactor(nav): split nav.css` — 1188 lines become shared 120 ·
   desktop 530 · mobile 543; same cascade order; open states identical.
+- P4 `refactor(engines): one drawing swap` — `applyShown` reuses
+  `swapDrawing`; scroll states and tap toggle verified identical. The rest
+  of the island is one scroll state machine plus one gesture; no further
+  duplication to remove.
+
