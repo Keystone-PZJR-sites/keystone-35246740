@@ -16,9 +16,9 @@ the end result differs slightly from today, if it is better.
   env. Tailwind stays (widgets need it). *Blocked:* `proxy.ts` — OpenNext
   cannot bundle a Node-runtime proxy while `@opentelemetry/api` is installed
   (pulled in by `@keystone-sites/services`); revisit on the next OpenNext release.
-- [ ] **2. AGENTS.md** — ≤ 80 lines: read order, Never list, verification, git.
-  System descriptions move to `design-system/README.md`. Rules state what
-  tooling cannot enforce; the rest becomes lint/tests.
+- [x] **2. AGENTS.md** — one file, ~70 lines: Never list, how the site is built,
+  adding a page, verification, git. Deleted `.cursor/rules/*`, `.agents/`,
+  `.claude/`, `skills-lock.json`. README rewritten and accurate.
 - [ ] **3. CSS / tokens / type** — `@layer` cascade; `component.css` dissolved
   into semantic tokens + per-file `--_locals`; one fluid type class per step
   (`clamp()`, `rem`) replacing 142 hand-copied blocks and the `--wA/--wB`
@@ -39,3 +39,5 @@ the end result differs slightly from today, if it is better.
 
 - P1 `chore: build with Turbopack and gate the dev grid panel on NODE_ENV` — also
   services dep, `.nvmrc`/`engines`, `.env.example`, preview CI gates + env.
+- P2 `docs: replace the rules tree with one AGENTS.md` — 600+ lines of rules and
+  third-party skills → 70 lines; README matches the actual routes.
