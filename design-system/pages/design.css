@@ -30,20 +30,62 @@
   margin-top: var(--space-2xl);
   max-width: calc(var(--t) * 10);
 }
-.ds-jump {
+/* ---- chapter switcher ---- */
+
+/* The chapters are siblings; the hash targets one. With no target the
+   first shows; with a target inside a chapter (a deep link to a token
+   table or primitive) that chapter shows. */
+.ds-body {
+  width: 100%;
+}
+.ds-body:not(:has(:target)) .ds-chapters > .ds-sec:not(:first-child),
+.ds-body:has(:target) .ds-chapters > .ds-sec:not(:target):not(:has(:target)) {
+  display: none;
+}
+/* The shown chapter follows the tab bar with a tick of clearance and
+   opens at the top of the viewport under the sticky bar. */
+.ds-chapters > .ds-sec {
+  padding-top: var(--t);
+  scroll-margin-top: calc(var(--knav-bar-h) + var(--space-8xl));
+}
+/* Sticks at the top and pads for the fixed nav bar, so its background
+   sits under the bar and chapter content never scrolls through it. */
+.ds-tabs {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md) var(--space-3xl);
+  gap: var(--space-3xl);
+  width: 100%;
+  box-sizing: border-box;
   margin-top: var(--space-4xl);
+  padding-top: var(--knav-bar-h);
+  padding-inline: var(--t);
+  background: var(--color-bg-100);
+  border-bottom: 1px solid var(--color-border-000);
+  overflow-x: auto;
 }
-.ds-jump-link {
-  color: var(--color-text-300);
+.ds-tab {
+  flex: none;
+  padding: var(--space-lg) 0;
+  margin-bottom: -1px;
+  color: var(--color-text-400);
   text-decoration: none;
-  border-bottom: 1px solid var(--color-border-100);
-  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--motion-hover-duration) var(--motion-hover-ease),
+    border-color var(--motion-hover-duration) var(--motion-hover-ease);
 }
-.ds-jump-link:hover {
+.ds-tab:hover {
   color: var(--color-text-100);
+}
+.ds-body:not(:has(:target)) .ds-tab:first-child,
+.ds-body:has(#foundations:target, #foundations :target) .ds-tab[href="#foundations"],
+.ds-body:has(#primitives:target, #primitives :target) .ds-tab[href="#primitives"],
+.ds-body:has(#sections:target, #sections :target) .ds-tab[href="#sections"],
+.ds-body:has(#rules:target, #rules :target) .ds-tab[href="#rules"] {
+  color: var(--color-text-100);
+  border-bottom-color: var(--color-text-100);
 }
 
 .ds-sec-head {

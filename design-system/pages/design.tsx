@@ -2,7 +2,7 @@ import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { GridField } from "@/design-system/grid/field";
 import { NavChrome } from "@/design-system/sections/nav";
 import { FooterSection } from "@/design-system/sections/footer";
-import { DesignHeadSection } from "@/design-system/sections/design-head";
+import { DesignHeadSection, DesignTabs } from "@/design-system/sections/design-head";
 import { DesignFoundationsSection } from "@/design-system/sections/design-foundations";
 import { DesignPrimitivesSection } from "@/design-system/sections/design-primitives";
 import { DesignSectionsSection } from "@/design-system/sections/design-sections";
@@ -24,10 +24,16 @@ export async function DesignPage() {
       <NavChrome />
       <main>
         <DesignHeadSection />
-        <DesignFoundationsSection tokens={tokens} typeStyles={typeStyles} />
-        <DesignPrimitivesSection />
-        <DesignSectionsSection />
-        <DesignRulesSection markdown={rules} />
+        {/* One chapter at a time; the hash picks it (design.css). */}
+        <div className="ds-body">
+          <DesignTabs />
+          <div className="ds-chapters">
+            <DesignFoundationsSection tokens={tokens} typeStyles={typeStyles} />
+            <DesignPrimitivesSection />
+            <DesignSectionsSection />
+            <DesignRulesSection markdown={rules} />
+          </div>
+        </div>
       </main>
       <FooterSection
         social={{
