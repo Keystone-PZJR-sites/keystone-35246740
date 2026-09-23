@@ -11,6 +11,8 @@ const ROUTES = [
   "/company/",
   "/for-dentists/",
   "/design/",
+  "/design/#primitives",
+  "/design/#rules",
   "/contact/",
   "/blog/",
   "/blog/resell-cancellations-without-discounting/",
@@ -55,8 +57,27 @@ for (const route of ROUTES) {
         await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
         await new Promise((r) => setTimeout(r, 300));
       });
-      const name = `${route.replace(/\//g, "_") || "_"}@${width}.png`;
+      const name = `${route.replace(/\//g, "_").replace("#", "-") || "_"}@${width}.png`;
       await expect(page).toHaveScreenshot(name, { fullPage: true, maxDiffPixelRatio: 0.0002 });
     });
   }
+}
+
+/* /design/#sections mounts every section on one ~50k px page. Chrome's tiled
+ * full-page capture is not pixel-stable at that height (photos drift by a
+ * hair between runs), and each section is already pixel-gated on its own
+ * route, so the chapter is checked structurally: it renders every mount,
+ * throws nothing, and never overflows the viewport. */
+for (const width of WIDTHS) {
+  test(`/design/#sections mounts @${width}`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/design/#sections", { waitUntil: "networkidle" });
+    await expect(page.locator("#sections")).toBeVisible();
+    expect(await page.locator("#sections .ds-kind-frame").count()).toBeGreaterThan(30);
+    const sw = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(sw).toBe(width);
+    expect(errors).toEqual([]);
+  });
 }
