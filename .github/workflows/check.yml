@@ -1,0 +1,33 @@
+name: Check
+
+# Every pull request: types, lint, formatting, and a production build. The
+# visual gate (npm run test:visual) needs a reference build to diff against
+# and runs locally; see AGENTS.md "Verify before you say done".
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run build
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          AUTH_API_URL: ${{ secrets.AUTH_API_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          NEXT_PUBLIC_GRADER_URL: ${{ secrets.NEXT_PUBLIC_GRADER_URL }}
+          NEXT_PUBLIC_GRADER_API_URL: ${{ secrets.NEXT_PUBLIC_GRADER_API_URL }}
+          NEXT_PUBLIC_GRADER_SEARCH_PATHS: ${{ secrets.NEXT_PUBLIC_GRADER_SEARCH_PATHS }}

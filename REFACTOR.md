@@ -89,3 +89,4 @@ the end result differs slightly from today, if it is better.
   line-height while `.co-cell-name` scaled; both now ride the ramp.
 - P5 `style: prettier` — `.prettierrc` (width 100), TS/TSX only; CSS keeps
   its hand-set one-line band rules. `format`/`format:check` scripts.
+- P5 `ci: one check workflow` — PRs run types, lint, format, build.
