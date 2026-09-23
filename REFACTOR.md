@@ -28,9 +28,9 @@ the end result differs slightly from today, if it is better.
   `useModal` (native `<dialog>` + `inert`), `cssVars()`, `useSyncExternalStore`
   for `matchMedia`; discriminated unions where `!` lives; `useActionState` +
   server action for the contact form; zod at every boundary.
-- [ ] **5. Tests & tooling** — port grid contract checks to Playwright; delete
-  the bespoke Puppeteer runner and dev panel; axe per route; vitest for
-  schemas; Prettier; stricter tsconfig; one PR `check` workflow.
+- [ ] **5. Tests & tooling** — one Playwright visual gate (routes × anchors
+  and gates) replaces the bespoke Puppeteer runner and dev panel; Prettier;
+  stricter tsconfig; one PR `check` workflow.
 - [ ] **6. Site hygiene** — `sitemap.ts`, `robots.ts`, `not-found.tsx`,
   `error.tsx`, per-route metadata, security headers, `next/image` for CMS
   imagery, sandboxed gallery iframe.
@@ -60,3 +60,12 @@ the end result differs slightly from today, if it is better.
   inherits it), so hero, work header, FAQ, pricing offer, pricing scale, and
   case carousel render one CTA row instead of one hidden copy per band
   (−17 duplicated button rows, −70 CSS gate rules).
+- P3 `refactor(css): tokenize literal spacing; footer nav items ride the .type
+  ramp` — 41 literal gaps/paddings → `--space-*`; dead one-off tokens gone.
+- P4 `refactor(islands): one swipe engine, one autoplay gate, one
+  active-section hook` — `lib/swipe.ts`, `lib/autoplay-gate.ts`,
+  `lib/use-active-section.ts`; three copies of each pattern collapse.
+- P4 `refactor(islands): discriminated unions` — nav rows, contact status.
+- P5 `test: Playwright visual gate` — `tests/visual.spec.ts` + config; system
+  Chrome, baselines gitignored and refreshed from the reference build;
+  `puppeteer-core` removed.
