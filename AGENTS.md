@@ -19,7 +19,9 @@ Read this file, then `REFACTOR.md` if it exists.
   exceptions: the reduced-motion law in `base.css` and the packaged consent
   widget's bridge in `widgets.css`).
 - Never customize a `@keystone-sites/*` widget beyond its props.
-- Never put `'use client'` on a page or layout. Interactivity is a leaf island.
+- Never put `'use client'` on a page or layout (`app/error.tsx`, which Next
+  requires to be a client component, stays markup-only). Interactivity is a
+  leaf island.
 - Never suppress a lint or type error. Never use `any` or `as` at a data boundary.
 - Never invent copy, a component API, or a file. Read it first; ask if unclear.
 - Never delete a route or config file without being asked.

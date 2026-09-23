@@ -81,7 +81,13 @@
   color: var(--color-teal-500);
 }
 
-.legal-prose a {
+/* Links, and the error page's retry control, read as prose links. */
+.legal-prose a,
+.legal-prose button {
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  background: none;
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--color-border-200);
@@ -89,7 +95,8 @@
   text-underline-offset: 0.18em;
 }
 
-.legal-prose a:focus-visible {
+.legal-prose a:focus-visible,
+.legal-prose button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--ring-w) var(--color-teal-200);
 }

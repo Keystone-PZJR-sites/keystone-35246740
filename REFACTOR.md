@@ -90,3 +90,6 @@ the end result differs slightly from today, if it is better.
 - P5 `style: prettier` — `.prettierrc` (width 100), TS/TSX only; CSS keeps
   its hand-set one-line band rules. `format`/`format:check` scripts.
 - P5 `ci: one check workflow` — PRs run types, lint, format, build.
+- P6 `feat(routes): error boundary, descriptions, security headers` —
+  `error.tsx` on the legal classes (markup only); every route has a
+  description; nosniff, referrer and permissions policies.
