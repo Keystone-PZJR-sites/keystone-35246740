@@ -15,7 +15,28 @@ import {
   CONTACT_SUCCESS_MESSAGE,
 } from "../pages/contact-data";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status =
+  | { kind: "idle" }
+  | { kind: "submitting" }
+  | { kind: "success" }
+  | { kind: "error"; message: string };
+
+interface FormResult {
+  success?: boolean;
+  error?: string;
+  eventId?: string;
+}
+
+/** The route handler's JSON, read defensively. */
+function readResult(json: unknown): FormResult {
+  if (typeof json !== "object" || json === null) return {};
+  const o = json as Record<string, unknown>;
+  return {
+    success: typeof o.success === "boolean" ? o.success : undefined,
+    error: typeof o.error === "string" ? o.error : undefined,
+    eventId: typeof o.eventId === "string" ? o.eventId : undefined,
+  };
+}
 
 interface ContactFormIslandProps {
   form: FormDefinition | null;
@@ -134,13 +155,12 @@ function fallbackItems(): FormFieldItem[] {
 }
 
 export function ContactFormIsland({ form }: ContactFormIslandProps) {
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [status, setStatus] = useState<Status>({ kind: "idle" });
   const fields = form?.fields?.length ? form.fields : fallbackItems();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status === "submitting") return;
+    if (status.kind === "submitting") return;
 
     const formElement = event.currentTarget;
     const values: Record<string, string> = {};
@@ -148,8 +168,7 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
       if (typeof value === "string") values[key] = value;
     });
 
-    setStatus("submitting");
-    setErrorMessage(null);
+    setStatus({ kind: "submitting" });
 
     try {
       const response = await fetch("/api/form", {
@@ -157,12 +176,7 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ formType: "lead", ...values }),
       });
-      const result = (await response.json()) as {
-        success?: boolean;
-        error?: string;
-        message?: string;
-        eventId?: string;
-      };
+      const result = readResult(await response.json());
 
       if (result.success) {
         await setPixelUserData({ email: values.email, phone: values.phone });
@@ -171,7 +185,7 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
           form_type: "lead",
           ...(result.eventId ? { event_id: result.eventId } : {}),
         });
-        setStatus("success");
+        setStatus({ kind: "success" });
         formElement.reset();
         return;
       }
@@ -180,12 +194,10 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
         form_type: "lead",
         error: result.error ?? "unknown",
       });
-      setErrorMessage(result.error ?? CONTACT_ERROR_FALLBACK);
-      setStatus("error");
+      setStatus({ kind: "error", message: result.error ?? CONTACT_ERROR_FALLBACK });
     } catch {
       captureEvent("form_failed", { form_type: "lead", error: "network" });
-      setErrorMessage(CONTACT_NETWORK_ERROR);
-      setStatus("error");
+      setStatus({ kind: "error", message: CONTACT_NETWORK_ERROR });
     }
   }
 
@@ -194,17 +206,17 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
       {renderItems(fields)}
 
       <div className="contact-form-actions">
-        <ButtonFill type="submit" size="lg" chrome="teal" disabled={status === "submitting"}>
-          {status === "submitting" ? CONTACT_SUBMITTING_LABEL : CONTACT_SUBMIT_LABEL}
+        <ButtonFill type="submit" size="lg" chrome="teal" disabled={status.kind === "submitting"}>
+          {status.kind === "submitting" ? CONTACT_SUBMITTING_LABEL : CONTACT_SUBMIT_LABEL}
         </ButtonFill>
       </div>
 
       <div className="type type-fixed contact-form-status" aria-live="polite" role="status">
-        {status === "success" ? CONTACT_SUCCESS_MESSAGE : null}
+        {status.kind === "success" ? CONTACT_SUCCESS_MESSAGE : null}
       </div>
-      {status === "error" && errorMessage ? (
+      {status.kind === "error" ? (
         <p className="type type-fixed contact-form-error" role="alert">
-          {errorMessage}
+          {status.message}
         </p>
       ) : null}
     </form>
