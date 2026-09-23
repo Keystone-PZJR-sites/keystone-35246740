@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { GridField } from "@/design-system/grid/field";
 import { NavChrome } from "@/design-system/sections/nav";
@@ -14,20 +15,40 @@ import {
   type LandingCloserData,
 } from "@/design-system/sections/landing-closer";
 
-/** Everything a landing page needs, as data. A new page is one of these
- * plus a route file — see pages/for-dentists-data.ts and
- * app/for-dentists/page.tsx. */
+/** One section of a landing page: its kind names the component, the
+ * rest is that section's data. Order and count are the page's; a kind
+ * may repeat. To add a kind, write the section (sections/landing-*.tsx),
+ * add its variant here, and add one line to `SECTIONS`. */
+export type LandingSection =
+  | ({ kind: "hero" } & LandingHeroData)
+  | ({ kind: "benefits" } & LandingBenefitsData)
+  | ({ kind: "quote" } & LandingQuoteData)
+  | ({ kind: "closer" } & LandingCloserData);
+
 export interface LandingPageData {
   meta: { title: string; description: string };
-  hero: LandingHeroData;
-  benefits: LandingBenefitsData;
-  quote: LandingQuoteData;
-  closer: LandingCloserData;
+  sections: readonly LandingSection[];
 }
 
-/** Landing page composition: the four kit sections between the site's
- * chrome, with the Our Work entrance (copy rises once fonts are ready;
- * the media frame is the last beat). */
+const SECTIONS: {
+  [K in LandingSection["kind"]]: (data: Extract<LandingSection, { kind: K }>) => ReactNode;
+} = {
+  hero: (data) => <LandingHeroSection data={data} />,
+  benefits: (data) => <LandingBenefitsSection data={data} />,
+  quote: (data) => <LandingQuoteSection data={data} />,
+  closer: (data) => <LandingCloserSection data={data} />,
+};
+
+function renderSection(section: LandingSection): ReactNode {
+  /* The map is exhaustive and keyed by kind; the union cannot be
+     narrowed through the lookup, so the call is widened once here. */
+  const render = SECTIONS[section.kind] as (data: LandingSection) => ReactNode;
+  return render(section);
+}
+
+/** Landing page composition: the data's sections, in its order, between
+ * the site's chrome, with the Our Work entrance (copy rises once fonts
+ * are ready; a hero's media frame is the last beat). */
 export async function LandingPage({ data }: { data: LandingPageData }) {
   const companyInfo = await getCompanyInformation();
   return (
@@ -35,10 +56,9 @@ export async function LandingPage({ data }: { data: LandingPageData }) {
       <GridField />
       <NavChrome />
       <main>
-        <LandingHeroSection data={data.hero} />
-        <LandingBenefitsSection data={data.benefits} />
-        <LandingQuoteSection data={data.quote} />
-        <LandingCloserSection data={data.closer} />
+        {data.sections.map((section, i) => (
+          <Fragment key={`${section.kind}-${i}`}>{renderSection(section)}</Fragment>
+        ))}
       </main>
       <FooterSection
         social={{
