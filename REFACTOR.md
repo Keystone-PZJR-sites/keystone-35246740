@@ -21,8 +21,9 @@ the end result differs slightly from today, if it is better.
   `.claude/`, `skills-lock.json`. README rewritten and accurate.
 - [x] **3. CSS / tokens / type** — `@layer` cascade; `component.css` dissolved
   into semantic tokens + per-file `--_locals`; one generated `ts-<style>`
-  class per Figma step (the `--wA/--wB` ramp stays: it is what makes the
-  anchors pixel-true); ramp anchors name their step; one reduced-motion
+  class per Figma step; type is fluid — one straight line from the 384
+  size to the 1344 size on `--k` (`--k-late` holds through tablet), no
+  `@container` block sets a size; ramp anchors name their step; one reduced-motion
   law; controls inherit size from their mount (no hidden per-band copies).
   *Kept on purpose:* the desktop bar-with-drawers and the mobile full-screen
   menu are two designed components, not one design across bands, so both
@@ -125,7 +126,7 @@ the end result differs slightly from today, if it is better.
   `swapDrawing`; scroll states and tap toggle verified identical. The rest
   of the island is one scroll state machine plus one gesture; no further
   duplication to remove.
-- **Experiment** (`experiment/fluid-type`, off `a1ef7e5`) `fluid type` —
+- P3 `fluid type` (adopted from `experiment/fluid-type`) —
   `.type` interpolates `--fs0/--lh0` → `--fs1/--lh1` on `--k` (0 at the 384
   anchor, 1 at 1344, unitless via `tan(atan2())`); 65 selectors lose their
   per-band `--fs0/--lh0` switches (−416 lines). 384/1344/1600 are
@@ -133,8 +134,8 @@ the end result differs slightly from today, if it is better.
   sawtoothing at each gate (hero h1 before: 32 → 33.5 → 41 → 43 → 50 →
   **46** → 51 → 60 → 72; after: 32 → 35.6 → 40 → 43.7 → 48 → 51.8 → 56 →
   63 → 72). Pinned selectors (case-study-card, persona-card, faq, footer,
-  nav-mobile) still switch per band. Decision pending on feel.
-- **Experiment** `fluid type: everything` — the pinned selectors follow:
+  nav-mobile) followed in the next commit.
+- P3 `fluid type: everything` — the pinned selectors follow:
   card and FAQ pins become `calc(var(--_u) * var(--fs))` with the section
   naming `--*-fs1` end anchors once; footer names/items/copyright, blog
   card labels, work and case-study headings, the price numeral lose their
@@ -142,10 +143,13 @@ the end result differs slightly from today, if it is better.
   designed anchor). No `@container` block sets a type size anywhere;
   controls (`type-fixed`, `--pbtn-size`) stay keyword-sized. 384/1344/1600
   pixel-identical; open mobile menu identical at 384 and 768.
-- **Experiment** `--k-late` — a second progress (0 through 768, 1 at 1344)
+- P3 `--k-late` — a second progress (0 through 768, 1 at 1344)
   for components whose design holds one size across phone and tablet; the
   pricing card uses it (its $50 held 88px to 768 and fluid had it at 123).
   Sweep vs production at 576/768/960: 238 type selectors differ ≥0.5px, up
   to ±40%, because Figma bands hold or step non-monotonically; a two-anchor
-  line cannot reproduce that, only approximate it.
+  line cannot reproduce that, only approximate it. Adopted: the visual
+  gate's reference is now this build; 384/1344/1600 stay identical to main.
+- `fix(pricing)` — the included-list CTA keeps a gap when the list fills
+  the box (`margin-top: auto` alone collapses to 0).
 
