@@ -164,4 +164,8 @@ the end result differs slightly from today, if it is better.
   `PictureSet` from `media.ts`. AGENTS.md: "Building new pages" starts
   from the kit and lists the vocabulary; the skeleton example uses the
   primitives. Existing routes 100/100 on the visual gate.
+- Landing kit, composable — `LandingPageData.sections` is an ordered list
+  of `{ kind, …data }`; `pages/landing.tsx` renders through a kind→section
+  registry, so a page chooses order and count and a new kind is one
+  section file plus one registry line. /for-dentists/ pixel-identical.
 

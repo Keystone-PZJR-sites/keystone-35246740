@@ -112,16 +112,19 @@ with the site's craft — lattice paint, an image slot, the entrance, seated
 cards, a quote — because the kit sections already carry it:
 
 1. `design-system/pages/name-data.ts`: a `LandingPageData` (see
-   `pages/for-dentists-data.ts`). Hero, three benefits (icon from the
-   `LandingIcon` list), a quote with its own curly quotes, a closer. The hero
+   `pages/for-dentists-data.ts`): `meta`, then `sections`, an ordered list
+   where each entry is `{ kind, ...data }`. Kinds today: `hero`, `benefits`,
+   `quote`, `closer`. Any order, any count, kinds may repeat. The hero
    picture is `heroCarouselPicture(n)` from `media.ts` until the page has
    its own photography.
 2. `app/name/page.tsx`: `metadata` from `data.meta`, then
    `<LandingPage data={NAME} />`. Add the route to `site-links.ts`,
    `app/sitemap.ts`, and `tests/visual.spec.ts`.
 
-If the kit cannot say what the page needs, extend the kit
-(`sections/landing-*.tsx`) so every landing page gets it; do not add a
+When no kind says what a page needs, add one — a section file pair
+(`sections/landing-<kind>.tsx/.css`, registered in `index.css`), its
+variant in `LandingSection`, and one line in `SECTIONS`
+(`pages/landing.tsx`) — so every landing page can use it. Never a
 page-local section or CSS file.
 
 A page with its own Figma frames is composed from sections instead:
