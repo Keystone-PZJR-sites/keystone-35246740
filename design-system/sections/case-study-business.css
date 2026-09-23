@@ -150,10 +150,6 @@
 }
 .csb-quote-body {
   margin: 0;
-  --font: var(--ts-display-serif-2xs-plus-extralight-font);
-  --fs0: var(--ts-display-serif-2xs-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-2xs-plus-extralight-lh);
-  --ls: var(--ts-display-serif-2xs-plus-extralight-ls);
   max-width: calc((var(--wA) + var(--wB)) * 304);
 }
 .csb-quote .cs-quote-attrib {

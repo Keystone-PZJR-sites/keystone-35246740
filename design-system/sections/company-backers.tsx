@@ -14,7 +14,7 @@ export function CompanyBackersSection() {
     <section className="sec company-backers" aria-label="Investors" data-landmark="company-backers">
       <header className="cob-head" data-landmark="head">
         <Slug>{COMPANY_BACKERS.eyebrow}</Slug>
-        <h2 className="type co-h2">{COMPANY_BACKERS.title}</h2>
+        <h2 className="type ts-display-serif-xs-extralight co-h2">{COMPANY_BACKERS.title}</h2>
       </header>
 
       {/* Names render as visible captions, so the portraits stay alt="". */}
@@ -30,7 +30,7 @@ export function CompanyBackersSection() {
                 loading="lazy"
               />
             </span>
-            <span className="type co-cell-name">{investor.name}</span>
+            <span className="type ts-text-sm-medium co-cell-name">{investor.name}</span>
           </li>
         ))}
       </ul>

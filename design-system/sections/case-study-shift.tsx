@@ -28,10 +28,10 @@ export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
       </h2>
       <div className="cs-content csft-content" data-landmark="shift">
         <div className="csft-card csft-before">
-          <p className="type type-fixed csft-label">{study.shift.beforeLabel}</p>
+          <p className="type type-fixed ts-text-nav-label csft-label">{study.shift.beforeLabel}</p>
           <div className="csft-body">
             <StatPair stats={study.shift.beforeStats} />
-            <ul className="type csft-lines">
+            <ul className="type ts-text-md-light csft-lines">
               {study.shift.beforeLines.map((line) => (
                 <li key={line}>{line}</li>
               ))}
@@ -40,7 +40,7 @@ export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
         </div>
         <div className="csft-after">
           <div className="csft-card csft-after-card">
-            <p className="type type-fixed csft-label">{study.shift.afterLabel}</p>
+            <p className="type type-fixed ts-text-nav-label csft-label">{study.shift.afterLabel}</p>
             <div className="csft-body">
               <StatPair stats={study.shift.afterStats} />
               <CaseStudyFeatureList
@@ -50,7 +50,7 @@ export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
               />
             </div>
           </div>
-          <p className="type type-fixed csft-tag">{study.shift.tag}</p>
+          <p className="type type-fixed ts-text-xs-medium csft-tag">{study.shift.tag}</p>
         </div>
       </div>
     </section>

@@ -149,13 +149,13 @@ export function HeroSection() {
       </div>
 
       <div className="hero-head flow-budget">
-        <h1 className="type hero-h1">
+        <h1 className="type ts-display-serif-sm-thin hero-h1">
           <span className="hx-rise" id="hero-heading">
             Sales and marketing that runs itself.
           </span>
         </h1>
 
-        <p className="type hero-sub">
+        <p className="type ts-text-xl-light hero-sub">
           {/* The accessible sentence includes text represented visually by the wordmark. */}
           <span className="hx-sr">
             keystone powers your website and everything that runs through it: ads social reviews

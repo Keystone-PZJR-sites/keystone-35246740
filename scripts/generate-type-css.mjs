@@ -85,7 +85,10 @@ lines.push(`   -fs and -lh are the same size and line-height as unitless design`
 lines.push(`   px (for .type ramps: --fs0: var(--ts-x-fs)); -ls is letter-spacing;`);
 lines.push(`   -opsz is the pinned GT Standard optical size; -ps is Figma`);
 lines.push(`   paragraph spacing; -case is text-transform. Kyoto styles have no`);
-lines.push(`   -opsz. Consume through the .type class (primitives/text.css).`);
+lines.push(`   -opsz. Consume through the .type class (primitives/text.css),`);
+lines.push(`   usually via the .ts-<style> class generated below. */`);
+lines.push(``);
+lines.push(`/* Per-style opsz:`);
 lines.push(``);
 lines.push(`   opsz is set on the variable font directly (not via Figma L/M/S`);
 lines.push(`   named instances): text 3xs/2xs/xs/nav-label = 24; text sm–2xl`);
@@ -106,6 +109,21 @@ for (const s of styles) {
 }
 
 lines.push(`}`);
+lines.push(``);
+lines.push(`/* One class per style. \`type ts-<style>\` is the whole declaration for`);
+lines.push(`   text that keeps one style; a band that switches style restates the`);
+lines.push(`   variables in its own @container block, which wins by layer order. */`);
+lines.push(``);
+
+for (const s of styles) {
+  const { opsz } = parseStyle(s);
+  const b = varBase(s.name);
+  const decls = [`--font: var(${b}-font)`, `--ls: var(${b}-ls)`];
+  if (opsz !== null) decls.push(`--opsz: var(${b}-opsz)`);
+  if (s.case === "UPPER") decls.push(`--case: var(${b}-case)`);
+  decls.push(`--fs0: var(${b}-fs)`, `--lh0: var(${b}-lh)`);
+  lines.push(`.${b.slice(2)} {`, ...decls.map((d) => `  ${d};`), `}`);
+}
 lines.push(``);
 
 writeFileSync(out, lines.join("\n"));

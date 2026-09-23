@@ -38,7 +38,7 @@ export function WorkDeckSection() {
 
       <div className="wd-head">
         <Slug layout="rail">Work that creates demand</Slug>
-        <h2 className="type wd-h2">
+        <h2 className="type ts-display-serif-xs-extralight wd-h2">
           Beautiful websites, ads, social, and content that grow your business.
         </h2>
         {/* The CTA moves into the header on wide bands. */}

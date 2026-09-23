@@ -78,8 +78,6 @@
 }
 
 .cc-h2 {
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: var(--cc-h2-gap-rm);
   margin-left: var(--t);
@@ -266,9 +264,6 @@
 }
 
 .cc-desc {
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-200);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
   --fs0: 16;
@@ -344,9 +339,6 @@
 }
 
 .cc-stat-v {
-  --font: var(--ts-text-2xl-light-font);
-  --ls: var(--ts-text-2xl-light-ls);
-  --opsz: var(--ts-text-2xl-light-opsz);
   display: flex;
   align-items: center;
   gap: calc(var(--cc-u) * 4);
@@ -396,9 +388,6 @@
 }
 
 .cc-stat-l {
-  --font: var(--ts-text-xs-regular-font);
-  --ls: var(--ts-text-xs-regular-ls);
-  --opsz: var(--ts-text-xs-regular-opsz);
   width: min-content;
   color: var(--color-text-400);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);

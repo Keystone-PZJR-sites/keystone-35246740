@@ -80,7 +80,7 @@ export function NavDesktop({
       onMouseEnter={() => open(id)}
       onFocus={() => open(id)}
     >
-      <span className="type type-fixed knav-item">
+      <span className="type type-fixed ts-text-sm-medium knav-item">
         {label}
         <IconNavTrigger className="knav-tick" variant="chevron" />
       </span>
@@ -113,11 +113,11 @@ export function NavDesktop({
           {trigger("work", "Our Work", links.ourWork)}
           <i className="knav-vr" aria-hidden="true" />
           <a className="knav-btn" href={links.pricing} onMouseEnter={scheduleClose}>
-            <span className="type type-fixed knav-item">Pricing</span>
+            <span className="type type-fixed ts-text-sm-medium knav-item">Pricing</span>
           </a>
           <i className="knav-vr" aria-hidden="true" />
           <a className="knav-btn" href={links.company} onMouseEnter={scheduleClose}>
-            <span className="type type-fixed knav-item">Company</span>
+            <span className="type type-fixed ts-text-sm-medium knav-item">Company</span>
           </a>
           <i className="knav-vr" aria-hidden="true" />
           {trigger("resources", "Resources", links.resources)}
@@ -128,7 +128,7 @@ export function NavDesktop({
           onMouseEnter={scheduleClose}
           {...EXTERNAL_LINK}
         >
-          <span className="type type-fixed knav-item">
+          <span className="type type-fixed ts-text-sm-medium knav-item">
             Login
             <IconNavTrigger className="knav-tick" variant="arrow" />
           </span>

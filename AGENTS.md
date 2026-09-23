@@ -45,9 +45,12 @@ Read this file, then `REFACTOR.md` if it exists.
   `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
   `--pbtn-size` for `PricingButton`. Pass `size="inherit"` and declare the
   keyword on the mount at each gate; never render one hidden copy per band.
-- Text is `.type` with `--font`/`--ls`/`--opsz` and the `--fs0/--fs1/--lh0/--lh1`
-  ramp (`type-fixed` for material sizes). Every state change is a CSS
-  transition or animation; `base.css` zeroes them all under reduced motion.
+- Text is `type ts-<figma-style>` (for example `type ts-text-md-light`;
+  `type-fixed` for material sizes). The generated class sets `--font`/`--ls`/
+  `--opsz` and the `--fs0/--lh0` ramp start; a band that switches style or
+  adds `--fs1/--lh1` restates those variables in its own `@container` block.
+  Every state change is a CSS transition or animation; `base.css` zeroes them
+  all under reduced motion.
 - Motion is CSS only. Every duration, curve, and distance is a token in
   `tokens/motion.css`; read the laws in its header before adding any motion.
 - Data comes from `@keystone-sites/core` (`lib/server-api`) or a typed

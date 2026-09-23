@@ -80,8 +80,6 @@
 }
 
 .bt-h1 {
-  --font: var(--ts-display-serif-sm-plus-thin-font);
-  --ls: var(--ts-display-serif-sm-plus-thin-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--bt-u) * 16);
   max-width: calc(var(--bt-u) * 320);
@@ -202,8 +200,6 @@
   justify-content: space-between;
 }
 .bt-card-title {
-  --font: var(--ts-display-serif-xs-regular-font);
-  --ls: var(--ts-display-serif-xs-regular-ls);
   --fs0: 24;
   --fs1: 36;
   --lh0: 30;
@@ -253,9 +249,6 @@
 }
 
 .bt-card-desc {
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
   margin-top: calc(var(--bt-u) * 16);
   --fs0: 16;
   --fs1: 24;
@@ -302,10 +295,6 @@
 }
 
 .bt-listen {
-  --font: var(--ts-text-nav-label-font);
-  --ls: var(--ts-text-nav-label-ls);
-  --opsz: var(--ts-text-nav-label-opsz);
-  --case: var(--ts-text-nav-label-case);
   padding-right: calc(var(--bt-u) * 48);
   --fs0: 10;
   --fs1: 15;
@@ -432,8 +421,6 @@
   place-items: center;
 }
 .bt-bh-h2 {
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   --fs0: 24;
   --fs1: 36;

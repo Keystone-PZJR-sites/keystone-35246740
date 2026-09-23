@@ -100,7 +100,7 @@ function CtaRow() {
       <ButtonFill size="inherit" chrome="teal" href={GET_STARTED_HREF}>
         Get Started
       </ButtonFill>
-      <span className="type type-fixed wkh-q">Got a question?</span>
+      <span className="type type-fixed ts-text-lg-light wkh-q">Got a question?</span>
       <ButtonGhost size="inherit" color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
@@ -137,10 +137,10 @@ export function WorkHeaderSection() {
       {/* Header elements share the page entrance sequence. */}
       <header className="wkh" data-landmark="head">
         <Slug className="hx-rise">Our Work</Slug>
-        <h1 className="type wkh-h1 hx-rise">
+        <h1 className="type ts-display-serif-sm-plus-thin wkh-h1 hx-rise">
           Beautiful websites, ads, social, and content that grow your business.
         </h1>
-        <p className="type wkh-subhead hx-rise">
+        <p className="type ts-text-md-light wkh-subhead hx-rise">
           Designed to convert and built to rank, your website is the foundation for a system powered
           by five interconnected engines that drive your marketing.
         </p>

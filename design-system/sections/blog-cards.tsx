@@ -17,8 +17,8 @@ export function ArticleCard({ post }: { post: BlogCardModel }) {
       </div>
       <div className="blc-info">
         <Eyebrow post={post} />
-        <h4 className="type blc-title">{post.title}</h4>
-        <p className="type blc-desc">{post.description}</p>
+        <h4 className="type ts-text-md-medium blc-title">{post.title}</h4>
+        <p className="type ts-text-md-light blc-desc">{post.description}</p>
       </div>
     </a>
   );
@@ -33,9 +33,9 @@ export function FeaturedArticleCard({ post }: { post: BlogCardModel }) {
       <div className="blf-info">
         <div className="blf-info-top">
           <Eyebrow post={post} />
-          <h3 className="type blf-title">{post.title}</h3>
+          <h3 className="type ts-display-serif-xs-extralight blf-title">{post.title}</h3>
         </div>
-        <p className="type blf-desc">{post.description}</p>
+        <p className="type ts-text-md-light blf-desc">{post.description}</p>
       </div>
     </a>
   );

@@ -207,11 +207,6 @@
   margin: auto 0 0;
   padding-top: var(--space-md);
   color: var(--color-text-400);
-  --font: var(--ts-text-xs-light-font);
-  --fs0: var(--ts-text-xs-light-fs);
-  --lh0: var(--ts-text-xs-light-lh);
-  --ls: var(--ts-text-xs-light-ls);
-  --opsz: var(--ts-text-xs-light-opsz);
   max-width: calc((var(--wA) + var(--wB)) * 304);
 }
 @container (min-width: 470px) {

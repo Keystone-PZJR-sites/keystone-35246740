@@ -236,7 +236,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
           <div className="f-tag">
             <div className="f-tagrow">
               <span className="f-dot f-dot-tag" aria-hidden="true" />
-              <p className="type f-tagline">
+              <p className="type ts-display-serif-sm-light f-tagline">
                 Great businesses
                 <br className="f-brk-a" /> deserve
                 <br className="f-brk-b" /> to be found.
@@ -247,7 +247,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
             <div className="f-inpcol">
               <div className="f-promptrow">
                 <span className="f-dot f-dot-prompt" aria-hidden="true" />
-                <p className="type f-prompt">
+                <p className="type ts-text-md-light f-prompt">
                   {/* Keep the phrase together at this comma. */}
                   Show us your site,{"\u00a0"} we’ll show
                   <br className="f-brk-c" /> you the rest.

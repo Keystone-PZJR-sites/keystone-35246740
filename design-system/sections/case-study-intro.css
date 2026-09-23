@@ -27,11 +27,6 @@
   align-items: flex-start;
   height: calc(var(--t) * 2);
   color: var(--color-text-100);
-  --font: var(--ts-text-xl-regular-font);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
-  --ls: var(--ts-text-xl-regular-ls);
-  --opsz: var(--ts-text-xl-regular-opsz);
 }
 @container (min-width: 470px) {
   .csi-head {
@@ -73,11 +68,6 @@
   --cell-w: calc(var(--t) * 5.25 + 1px);
   --cell-h: calc(var(--t) * 4 + 1px);
   --cs-cell-pad: 12px;
-  --font: var(--ts-text-sm-regular-font);
-  --fs0: var(--ts-text-sm-regular-fs);
-  --lh0: var(--ts-text-sm-regular-lh);
-  --ls: var(--ts-text-sm-regular-ls);
-  --opsz: var(--ts-text-sm-regular-opsz);
 }
 .csi-grid > .cs-cell {
   margin: -1px 0 0 -1px;

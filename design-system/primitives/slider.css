@@ -154,11 +154,6 @@
   align-items: center;
   justify-content: space-between;
   color: var(--color-text-400);
-  --font: var(--ts-text-xs-regular-font);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
-  --ls: var(--ts-text-xs-regular-ls);
-  --opsz: var(--ts-text-xs-regular-opsz);
   white-space: nowrap;
   --fs-px: calc(var(--_u) * var(--fs0));
   --lh-px: calc(var(--_u) * var(--lh0));

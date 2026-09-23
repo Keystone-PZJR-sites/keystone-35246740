@@ -93,3 +93,6 @@ the end result differs slightly from today, if it is better.
 - P6 `feat(routes): error boundary, descriptions, security headers` —
   `error.tsx` on the legal classes (markup only); every route has a
   description; nosniff, referrer and permissions policies.
+- P3 `refactor(type): generated ts-<style> classes` — type.css emits one
+  class per Figma style; 92 five-line declarations move from section CSS to
+  the element's className. Gate: 100/100 vs bc6e2dc.

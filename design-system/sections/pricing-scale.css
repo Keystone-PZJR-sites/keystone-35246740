@@ -145,10 +145,6 @@
   margin: 0;
   color: var(--color-text-100);
   max-width: calc(var(--ps-u) * 288);
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
 }
 @container (min-width: 470px) {
   .ps-head { max-width: calc(var(--ps-u) * 160); }
@@ -179,11 +175,6 @@
   margin: calc(var(--ps-u) * 24) 0 0;
   color: var(--color-text-400);
   max-width: calc(var(--ps-u) * 288);
-  --font: var(--ts-text-md-light-font);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
 }
 @container (min-width: 470px) {
   .ps-subhead { max-width: calc(var(--ps-u) * 160); }

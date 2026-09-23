@@ -104,10 +104,6 @@
   margin: calc((var(--wA) + var(--wB)) * 16) 0 0;
   color: var(--color-text-100);
   max-width: var(--cs-h1-w-rm);
-  --font: var(--ts-display-serif-sm-plus-thin-font);
-  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --ls: var(--ts-display-serif-sm-plus-thin-ls);
 }
 .csh-br-rt,
 .csh-br-rsd2 {

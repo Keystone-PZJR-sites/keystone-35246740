@@ -18,8 +18,6 @@
 
 /* The blog-top h1 ramp. */
 .coh-h1 {
-  --font: var(--ts-display-serif-sm-plus-thin-font);
-  --ls: var(--ts-display-serif-sm-plus-thin-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--co-u) * 16);
   max-width: calc(var(--co-u) * 320);

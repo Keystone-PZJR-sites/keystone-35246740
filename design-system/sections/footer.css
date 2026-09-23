@@ -150,18 +150,11 @@
 }
 
 .f-tagline {
-  --font: var(--ts-display-serif-sm-light-font);
-  --ls: var(--ts-display-serif-sm-light-ls);
   --fs0: var(--ts-display-serif-xs-plus-light-fs); --fs1: var(--ts-display-serif-sm-light-fs);
   --lh0: var(--ts-display-serif-xs-plus-light-lh); --lh1: var(--ts-display-serif-sm-light-lh);
   color: var(--color-text-200);
 }
 .f-prompt {
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
   color: var(--color-text-300);
 }
 
@@ -377,8 +370,6 @@
 .fnav-dot[data-g="findus"] { background: var(--color-blue-400); }
 
 .fnav-name {
-  --font: var(--ts-display-serif-3xs-medium-font);
-  --ls: var(--ts-display-serif-3xs-medium-ls);
   --fs0: 16; --fs1: 20;
   --lh0: 20; --lh1: 24;
   color: var(--color-text-200);

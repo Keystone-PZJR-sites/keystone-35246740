@@ -65,8 +65,6 @@
 }
 
 .e2-name {
-  --font: var(--ts-display-serif-md-plus-extralight-font);
-  --ls: var(--ts-display-serif-md-plus-extralight-ls);
   color: var(--color-text-100);
   --fs0: 24;
   --fs1: 30;

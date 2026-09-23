@@ -103,9 +103,6 @@
 }
 
 .blc-title {
-  --font: var(--ts-text-md-medium-font);
-  --ls: var(--ts-text-md-medium-ls);
-  --opsz: var(--ts-text-md-medium-opsz);
   color: var(--color-text-100);
   margin-top: calc(var(--bl-u) * 8);
   display: -webkit-box;
@@ -149,9 +146,6 @@
 }
 
 .blc-desc {
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-300);
   margin-top: calc(var(--bl-u) * 8);
   display: -webkit-box;
@@ -257,8 +251,6 @@
 }
 
 .blf-title {
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--bl-u) * 8);
   display: -webkit-box;
@@ -299,9 +291,6 @@
 }
 
 .blf-desc {
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-300);
   display: -webkit-box;
   -webkit-box-orient: vertical;

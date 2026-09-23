@@ -1,5 +1,7 @@
-/* Typography has one mechanism. An element with the `type` class declares,
-   in its own CSS, which Figma step it is and how it sizes:
+/* Typography has one mechanism. An element with the `type` class carries
+   its Figma step as a generated `ts-<step>` class (tokens/type.css), which
+   sets the variables below; a band that changes step or adds a second
+   anchor restates them in its own @container block:
 
      --font: var(--ts-<step>-font);   family and weight
      --ls:   var(--ts-<step>-ls);     tracking (em)
