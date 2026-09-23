@@ -1,6 +1,13 @@
 "use client";
 
+/** Three-slot circular carousel: cards revolve around the strip so the
+ * active card always has a neighbour on each side. Swipe, arrow keys, and
+ * clicks on an inactive card step it. */
+
 import { useEffect, useRef, type ReactNode } from "react";
+import { attachArrowKeys, attachSwipe } from "../lib/swipe";
+
+const FALLBACK_SNAP_MS = 450;
 
 export function CaseCarouselIsland({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -51,7 +58,7 @@ export function CaseCarouselIsland({ children }: { children: ReactNode }) {
     };
     const snapMs = () => {
       const s = parseFloat(getComputedStyle(strip).transitionDuration);
-      return Number.isFinite(s) ? s * 1000 : 450;
+      return Number.isFinite(s) ? s * 1000 : FALLBACK_SNAP_MS;
     };
 
     const commit = (next: number) => {
@@ -76,103 +83,41 @@ export function CaseCarouselIsland({ children }: { children: ReactNode }) {
       });
     };
 
-    let dragging = false;
-    let suppressClick = false;
-    let startX = 0;
-    let dx = 0;
-    let pitch = 1;
-
-    const onDown = (e: PointerEvent) => {
-      if (!e.isPrimary || slots.length < 2) return;
-      flushPending();
+    const detachSwipe = attachSwipe({
+      viewport,
+      track: strip,
+      offsetVar: "--cc-drag-dx",
+      enabled: () => slots.length >= 2,
+      onStart: flushPending,
       /* Remove revolution offsets when measuring the card pitch. */
-      const raw = slots[1].getBoundingClientRect().left - slots[0].getBoundingClientRect().left;
-      pitch = raw / (1 + COUNT * (revs[1] - revs[0]));
-      if (!(pitch > 0)) return;
-      dragging = true;
-      suppressClick = false;
-      startX = e.clientX;
-      dx = 0;
-      strip.dataset.dragging = "";
-      /* Delay capture so ordinary clicks still reach card links. */
-    };
-    const onMove = (e: PointerEvent) => {
-      if (!dragging) return;
-      dx = Math.max(-pitch, Math.min(pitch, e.clientX - startX));
-      strip.style.setProperty("--cc-drag-dx", `${dx}px`);
+      pitch: () => {
+        const raw = slots[1].getBoundingClientRect().left - slots[0].getBoundingClientRect().left;
+        return raw / (1 + COUNT * (revs[1] - revs[0]));
+      },
       /* Park the third card offscreen on the approach side. */
-      const third = mod(K + 2);
-      if (dx > 0) {
-        applyRev(third, restFor(third, K) - 1);
-      } else if (dx < 0) {
-        applyRev(third, restFor(third, K));
-      }
-      if (!suppressClick && Math.abs(e.clientX - startX) > 6) {
-        suppressClick = true;
-        try {
-          viewport.setPointerCapture(e.pointerId);
-        } catch {
-          /* The viewport still receives uncaptured pointer events. */
+      onMove: (dx) => {
+        const third = mod(K + 2);
+        if (dx > 0) applyRev(third, restFor(third, K) - 1);
+        else if (dx < 0) applyRev(third, restFor(third, K));
+      },
+      onRelease: (steps) => commit(K - steps),
+      /* A click on an inactive card steps toward it. */
+      onClick: (e) => {
+        const card = (e.target as HTMLElement).closest<HTMLElement>(".cc-card");
+        if (card && card.dataset.state === "inactive") {
+          e.stopPropagation();
+          e.preventDefault();
+          const d = mod(Number(card.dataset.index) - K);
+          commit(d === 1 ? K + 1 : K - 1);
         }
-      }
-    };
-    const onUp = () => {
-      if (!dragging) return;
-      dragging = false;
-      delete strip.dataset.dragging;
-      commit(K - Math.round(dx / pitch));
-      strip.style.removeProperty("--cc-drag-dx");
-    };
-
-    /* Swipes suppress their derived click; inactive-card clicks select. */
-    const onClickCapture = (e: MouseEvent) => {
-      if (suppressClick) {
-        e.stopPropagation();
-        e.preventDefault();
-        suppressClick = false;
-        return;
-      }
-      const card = (e.target as HTMLElement).closest<HTMLElement>(".cc-card");
-      if (card && card.dataset.state === "inactive") {
-        e.stopPropagation();
-        e.preventDefault();
-        const d = mod(Number(card.dataset.index) - K);
-        commit(d === 1 ? K + 1 : K - 1);
-      }
-    };
-
-    /* Native image dragging would cancel the pointer gesture. */
-    const onDragStart = (e: DragEvent) => e.preventDefault();
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        commit(K + 1);
-      } else if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        commit(K - 1);
-      }
-    };
-
-    viewport.addEventListener("pointerdown", onDown);
-    viewport.addEventListener("pointermove", onMove);
-    viewport.addEventListener("pointerup", onUp);
-    viewport.addEventListener("pointercancel", onUp);
-    viewport.addEventListener("click", onClickCapture, true);
-    viewport.addEventListener("dragstart", onDragStart);
-    viewport.addEventListener("keydown", onKeyDown);
+      },
+    });
+    const detachKeys = attachArrowKeys(viewport, (delta) => commit(K + delta));
 
     return () => {
-      viewport.removeEventListener("pointerdown", onDown);
-      viewport.removeEventListener("pointermove", onMove);
-      viewport.removeEventListener("pointerup", onUp);
-      viewport.removeEventListener("pointercancel", onUp);
-      viewport.removeEventListener("click", onClickCapture, true);
-      viewport.removeEventListener("dragstart", onDragStart);
-      viewport.removeEventListener("keydown", onKeyDown);
+      detachSwipe();
+      detachKeys();
       flushPending();
-      delete strip.dataset.dragging;
-      strip.style.removeProperty("--cc-drag-dx");
     };
   }, []);
 
