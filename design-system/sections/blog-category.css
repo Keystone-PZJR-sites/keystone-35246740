@@ -172,23 +172,14 @@
   place-items: center;
   width: var(--bc-button-cell);
   height: 100%;
+  --btn-size: md;
 }
-.bc-page-previous .btn-arrow {
+.bc-page-previous .btn-arrow-body {
   /* Reverse travel so the pass-through follows the flipped glyph. */
   --_thru: calc((var(--_d) + var(--_g)) / -2);
 }
 .bc-page-previous .btn-arrow svg {
   transform: scaleX(-1);
-}
-.bc-page-arrow-md,
-.bc-page-arrow-lg {
-  place-items: center;
-}
-.bc-page-arrow-md {
-  display: grid;
-}
-.bc-page-arrow-lg {
-  display: none;
 }
 .bc-page-window {
   display: flex;
@@ -226,10 +217,7 @@ a.bc-page-cell {
   box-shadow: inset 0 0 0 var(--ring-w) var(--color-bg-300);
 }
 @container (min-width: 665px) {
-  .bc-page-arrow-md {
-    display: none;
-  }
-  .bc-page-arrow-lg {
-    display: grid;
+  .bc-page-button {
+    --btn-size: lg;
   }
 }

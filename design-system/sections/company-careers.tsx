@@ -29,18 +29,10 @@ export function CompanyCareersSection() {
         </Text>
       </header>
 
-      {/* Primitives are material: the section mounts one size per band. */}
       <div className="coc-cta" data-landmark="cta">
-        <span className="coc-cta-md">
-          <ButtonFill size="md" chrome="teal" href={SITE_LINKS.contact}>
-            {COMPANY_CAREERS.ctaLabel}
-          </ButtonFill>
-        </span>
-        <span className="coc-cta-lg">
-          <ButtonFill size="lg" chrome="teal" href={SITE_LINKS.contact}>
-            {COMPANY_CAREERS.ctaLabel}
-          </ButtonFill>
-        </span>
+        <ButtonFill size="inherit" chrome="teal" href={SITE_LINKS.contact}>
+          {COMPANY_CAREERS.ctaLabel}
+        </ButtonFill>
       </div>
 
       <div className="co-closer" aria-hidden="true">

@@ -148,7 +148,7 @@ export function ButtonGhost({
 }
 
 interface ButtonArrowProps {
-  size?: "lg" | "md" | "sm";
+  size?: "lg" | "md" | "sm" | "inherit";
   chrome?: "teal" | "gray" | "brown";
   /** A URL renders link chrome; null renders disabled non-link chrome. */
   href?: string | null;
@@ -170,21 +170,25 @@ export function ButtonArrow({
   label,
   type = "button",
 }: ButtonArrowProps) {
-  const glyph = loading ? (
-    <IconLoadingCircle />
-  ) : (
-    <>
-      {/* Stacked glyphs create the hover pass-through. */}
-      <IconArrowRight className="btn-arrow-main" />
-      <IconArrowRight className="btn-arrow-ghost" />
-    </>
+  const glyph = (
+    <span className="btn-arrow-body">
+      {loading ? (
+        <IconLoadingCircle />
+      ) : (
+        <>
+          {/* Stacked glyphs create the hover pass-through. */}
+          <IconArrowRight className="btn-arrow-main" />
+          <IconArrowRight className="btn-arrow-ghost" />
+        </>
+      )}
+    </span>
   );
   if (typeof href === "string") {
     return (
       <a
         href={href}
         className="btn-arrow"
-        data-size={size}
+        data-size={sizeAttr(size)}
         data-chrome={chrome}
         data-state={forceState}
         aria-label={label}
@@ -197,7 +201,7 @@ export function ButtonArrow({
     return (
       <span
         className="btn-arrow"
-        data-size={size}
+        data-size={sizeAttr(size)}
         data-chrome={chrome}
         data-state="disabled"
         aria-disabled="true"
@@ -211,7 +215,7 @@ export function ButtonArrow({
     <button
       type={type}
       className="btn-arrow"
-      data-size={size}
+      data-size={sizeAttr(size)}
       data-chrome={chrome}
       data-state={forceState}
       data-loading={loading || undefined}

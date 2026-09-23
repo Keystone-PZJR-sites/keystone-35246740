@@ -15,15 +15,10 @@
 .coc-cta {
   margin-top: var(--co-head-gap);
   display: flex;
-}
-.coc-cta-lg {
-  display: none;
+  --btn-size: md;
 }
 @container (min-width: 860px) {
-  .coc-cta-md {
-    display: none;
-  }
-  .coc-cta-lg {
-    display: block;
+  .coc-cta {
+    --btn-size: lg;
   }
 }

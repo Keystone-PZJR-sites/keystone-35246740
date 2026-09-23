@@ -19,7 +19,7 @@ const WINDOW_FEATURES = "noopener,noreferrer";
 const GROUP_LABELS: GraderMenuLabels = { places: "Google Places", web: "Websites" };
 
 interface GraderInputProps {
-  size?: "lg" | "md" | "sm";
+  size?: "lg" | "md" | "sm" | "inherit";
   chrome?: "teal" | "brown";
   label?: string;
   placeholder?: string;
@@ -192,7 +192,7 @@ export function GraderInput({
   return (
     <form
       className="grader"
-      data-size={size}
+      data-size={size === "inherit" ? undefined : size}
       data-chrome={chrome}
       data-error={error ? "" : undefined}
       data-state={forceState}
@@ -238,7 +238,7 @@ export function GraderInput({
         />
         <ButtonArrow
           type="submit"
-          size={size}
+          size="inherit"
           chrome={error ? "gray" : chrome}
           // Show loading during search and deferred hand-off.
           loading={pending || searching}

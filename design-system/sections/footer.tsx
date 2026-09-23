@@ -253,7 +253,7 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
                 </p>
               </div>
             <div className="f-grader" id="grader">
-                <GraderInput size="md" />
+                <GraderInput size="inherit" />
               </div>
             </div>
           </div>
