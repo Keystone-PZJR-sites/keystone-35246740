@@ -18,11 +18,9 @@
   width: 100%;
 }
 
-/* Anchor scrolling is smooth only when motion is allowed. */
-@media (prefers-reduced-motion: no-preference) {
-  html:has(.load-sequence-case-study) {
-    scroll-behavior: smooth;
-  }
+/* Anchor scrolling is smooth; base.css turns it off under reduced motion. */
+html:has(.load-sequence-case-study) {
+  scroll-behavior: smooth;
 }
 
 /* Shared section frame. Heights live with each section. */

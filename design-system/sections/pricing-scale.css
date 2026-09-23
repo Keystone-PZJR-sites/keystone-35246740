@@ -607,17 +607,3 @@
   box-shadow: var(--shadow-hard-square);
   transition: box-shadow var(--motion-card-shadow-dur) var(--motion-drawer-ease) var(--ps-snap-dur);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .ps-strip,
-  .ps-slot .pcard-cost,
-  .ps-slot .pcard-est,
-  .ps-slot .pcard-story,
-  .ps-slot .pcard-tag,
-  .ps-slot .ptag,
-  .ps-slot .pcard-box::after,
-  .ps-slot .pcard[data-state="active"] .pcard-box::after {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}

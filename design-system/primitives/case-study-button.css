@@ -69,10 +69,3 @@
 
 /* reduced motion: state-to-state — the dressed state still applies
    while hovered, the transitions are off */
-@media (prefers-reduced-motion: reduce) {
-  .csb,
-  .csb-glyph {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}

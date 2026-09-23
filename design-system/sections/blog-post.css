@@ -429,13 +429,6 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html:has(.blog-post) {
-    scroll-behavior: smooth;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .bp-toc-item a {
-    transition-duration: 0s;
-  }
+html:has(.blog-post) {
+  scroll-behavior: smooth;
 }

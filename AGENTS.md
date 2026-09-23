@@ -15,8 +15,9 @@ Read this file, then `REFACTOR.md` if it exists.
   `*-data.ts` modules, `design-system/media.ts`, or `.env`. A constant only
   one file needs is a custom property on that file's root selector, at the top.
 - Never write CSS outside `design-system/`. No utility classes in site markup,
-  no CSS modules, no CSS-in-JS, no `<style>`, no `!important` (the packaged
-  consent widget's bridge in `widgets.css` is the one exception).
+  no CSS modules, no CSS-in-JS, no `<style>`, no `!important` (two
+  exceptions: the reduced-motion law in `base.css` and the packaged consent
+  widget's bridge in `widgets.css`).
 - Never customize a `@keystone-sites/*` widget beyond its props.
 - Never put `'use client'` on a page or layout. Interactivity is a leaf island.
 - Never suppress a lint or type error. Never use `any` or `as` at a data boundary.

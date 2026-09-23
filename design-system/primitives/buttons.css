@@ -396,19 +396,7 @@
 .btn-arrow[data-loading] svg {
   animation: btn-arrow-spin 1s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  .btn-body,
-  .btn-arrow,
-  .btn-arrow::before,
-  .btn-fill .btn-glyph,
-  .btn-arrow svg {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-  .btn-arrow[data-loading] svg {
-    animation: none;
-  }
-}
+
 @keyframes btn-arrow-spin {
   to {
     transform: rotate(360deg);

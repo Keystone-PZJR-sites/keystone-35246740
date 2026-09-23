@@ -168,12 +168,3 @@
   height: calc(var(--_u) * 10);
   color: var(--color-bg-600);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .sldr-thumb,
-  .sldr-progress,
-  .sldr-p {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}

@@ -268,12 +268,3 @@
 /* reduced motion: the hover dressing swaps state-to-state (last in
    the file — the base rules' transition shorthands must not outrank
    the kill by order) */
-@media (prefers-reduced-motion: reduce) {
-  .csc,
-  .csc-profile,
-  .csc-img,
-  .csc-img img {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}

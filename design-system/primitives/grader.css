@@ -300,11 +300,3 @@
   --opsz: var(--ts-text-sm-light-opsz);
   color: var(--color-red-500);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .grader-field,
-  .grader-field input::placeholder,
-  .grader-option {
-    transition-duration: 0s;
-  }
-}

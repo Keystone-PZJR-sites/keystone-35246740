@@ -886,10 +886,3 @@
   .po-list-cta { --btn-size: md; }
   .po-box-r .po-list-cta { margin-right: calc(var(--space-3xl) - var(--space-4xl)); }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .po-mosaic i.c {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}

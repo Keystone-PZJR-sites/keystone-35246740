@@ -156,13 +156,6 @@
   box-shadow: 0 0 0 var(--ring-w) var(--color-teal-200);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ks-field-control,
-  .ks-field-check-row input[type="checkbox"] {
-    transition: none;
-  }
-}
-
 .page[data-motion="reduce"] .ks-field-control,
 .page[data-motion="reduce"] .ks-field-check-row input[type="checkbox"] {
   transition: none;

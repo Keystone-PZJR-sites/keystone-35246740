@@ -71,3 +71,5 @@ the end result differs slightly from today, if it is better.
   `puppeteer-core` removed.
 - P6 `feat(routes): not-found, robots, sitemap; pricing title` — the 404
   reuses the legal composition; `/privacy-policy` is a config redirect.
+- P3 `refactor(css): one reduced-motion law in base.css` — 28 per-file
+  cancel lists (−280 lines) replaced by one reset; smooth scroll ungated.

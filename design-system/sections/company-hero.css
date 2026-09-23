@@ -127,8 +127,3 @@
     --coh-video-tier: 2;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .coh-video {
-    transition: none;
-  }
-}

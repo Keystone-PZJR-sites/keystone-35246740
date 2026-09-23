@@ -288,12 +288,6 @@
   animation: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .load-active .hero-chip::after,
-  .load-active .hero-chip-label {
-    animation: none;
-  }
-}
 /* The CTA row wraps when the buttons outgrow the column at narrow
    widths; the buttons grow a size per band. */
 .hx-cta {
@@ -531,19 +525,6 @@
   animation: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .load-active .grid-region,
-  .load-active .decor,
-  .load-active .grid-region i.v,
-  .load-active .grid-region i.h,
-  .load-active .knav-bar,
-  .load-active .knav-mbar,
-  .load-active .hx-rise,
-  .load-active .hx-frame:nth-child(-n + 3) {
-    animation: none;
-  }
-  .hx-track { transition: none; }
-}
 .hx-sr {
   position: absolute;
   width: 1px;

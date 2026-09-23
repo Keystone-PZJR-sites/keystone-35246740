@@ -257,9 +257,3 @@
     align-self: start;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .wg-list {
-    transition: none;
-  }
-}

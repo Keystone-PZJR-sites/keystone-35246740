@@ -89,3 +89,23 @@ input:where([type="button"], [type="submit"]) {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Reduced motion renders every state change directly: one law for the
+   whole site, so no file restates it. Animations complete on the spot;
+   a sequence whose end frame is not its settled state says so itself
+   (see system.css). `!important` is what lets one rule outrank every
+   state selector below it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}
