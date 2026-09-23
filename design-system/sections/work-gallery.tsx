@@ -7,7 +7,6 @@ import { ButtonFill } from "../primitives/buttons";
 import { GALLERY_TIERS, gallerySrc } from "../media";
 import { GALLERY_SITES } from "./work-gallery-data";
 import { WorkGalleryIsland } from "./work-gallery-island";
-import type { CSSProperties } from "react";
 
 /* East rail and pre-footer lattice in section-local ticks. */
 
@@ -131,7 +130,7 @@ export function WorkGallerySection() {
                 data-active={i === 0 ? "" : undefined}
                 data-east={site.east || undefined}
                 data-south={site.south || undefined}
-                style={{ "--wg-area": site.area } as CSSProperties}
+                style={{ "--wg-area": site.area }}
               >
                 <picture>
                   {GALLERY_TIERS.filter((t) => t.media !== null).map((t) => (

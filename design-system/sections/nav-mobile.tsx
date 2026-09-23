@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { trapModalTab } from "@/design-system/lib/focus-trap";
 import { lockScroll } from "@/design-system/lib/scroll-lock";
 import { IconChevronDownMedium, IconNavMenu } from "../icons";
@@ -183,7 +183,7 @@ export function NavMobile({
                       "--bt-rm": row.boxTicks.rm,
                       "--bt-rs": row.boxTicks.rs,
                       "--bt-rt": row.boxTicks.rt,
-                    } as CSSProperties
+                    }
                   }
                 >
                   <div className="knav-gbox">

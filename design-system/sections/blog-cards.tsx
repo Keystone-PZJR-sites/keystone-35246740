@@ -1,15 +1,14 @@
-import { Text } from "../primitives/text";
 import type { BlogCardModel } from "./blog-data";
 
 function Eyebrow({ post }: { post: BlogCardModel }) {
   return (
     <p className="blc-eyebrow">
-      <Text as="span" className="blc-topic">
+      <span className="type blc-topic">
         {post.topic}
-      </Text>
-      <Text as="span" className="blc-time">
+      </span>
+      <span className="type blc-time">
         {post.readMinutes} min read
-      </Text>
+      </span>
     </p>
   );
 }
@@ -22,12 +21,12 @@ export function ArticleCard({ post }: { post: BlogCardModel }) {
       </div>
       <div className="blc-info">
         <Eyebrow post={post} />
-        <Text as="h4" className="blc-title">
+        <h4 className="type blc-title">
           {post.title}
-        </Text>
-        <Text as="p" className="blc-desc">
+        </h4>
+        <p className="type blc-desc">
           {post.description}
-        </Text>
+        </p>
       </div>
     </a>
   );
@@ -42,13 +41,13 @@ export function FeaturedArticleCard({ post }: { post: BlogCardModel }) {
       <div className="blf-info">
         <div className="blf-info-top">
           <Eyebrow post={post} />
-          <Text as="h3" className="blf-title">
+          <h3 className="type blf-title">
             {post.title}
-          </Text>
+          </h3>
         </div>
-        <Text as="p" className="blf-desc">
+        <p className="type blf-desc">
           {post.description}
-        </Text>
+        </p>
       </div>
     </a>
   );

@@ -2,16 +2,15 @@
  * Their dedicated classes keep page-wide region animations from catching
  * them. Real 1px lines remain in global page phase as the page grows. */
 
-import type { CSSProperties } from "react";
 import { FIELD_COLS, FIELD_ROWS, fieldCellClass, type FieldSide } from "./field-hash";
 
 function Strip({ side }: { side: FieldSide }) {
   const lines = [];
   for (let n = 1; n < FIELD_COLS; n++) {
-    lines.push(<i key={`v${n}`} className="v" style={{ "--n": n } as CSSProperties} />);
+    lines.push(<i key={`v${n}`} className="v" style={{ "--n": n }} />);
   }
   for (let n = 1; n < FIELD_ROWS; n++) {
-    lines.push(<i key={`h${n}`} className="h" style={{ "--n": n } as CSSProperties} />);
+    lines.push(<i key={`h${n}`} className="h" style={{ "--n": n }} />);
   }
 
   const cells = [];
@@ -26,7 +25,7 @@ function Strip({ side }: { side: FieldSide }) {
         <div
           key={`c${col}-${row}`}
           className="gf-cell"
-          style={{ "--gx": gx, "--gy": row } as CSSProperties}
+          style={{ "--gx": gx, "--gy": row }}
         >
           <span className={shape} />
         </div>,

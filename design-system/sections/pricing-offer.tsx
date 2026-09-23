@@ -127,15 +127,15 @@ const BANDS = Object.keys(FIELD) as GridBand[];
 /* Card mosaics use page-tick cells; --dx and --dy set hover movement. */
 
 function cellStyle(cx: number, cy: number, dx = 0, dy = 0): CSSProperties {
-  return { "--cx": cx, "--cy": cy, "--dx": dx, "--dy": dy } as CSSProperties;
+  return { "--cx": cx, "--cy": cy, "--dx": dx, "--dy": dy };
 }
 
 function MosaicStrip() {
   return (
     <span className="po-mosaic po-mosaic-strip" aria-hidden="true">
-      <i className="v" style={{ "--n": 1 } as CSSProperties} />
+      <i className="v" style={{ "--n": 1 }} />
       {[1, 2, 3, 4, 5, 6].map((n) => (
-        <i key={n} className="h" style={{ "--n": n } as CSSProperties} />
+        <i key={n} className="h" style={{ "--n": n }} />
       ))}
       <i className="c fillc" style={cellStyle(1, 2, 0, 1)} />
     </span>
@@ -146,10 +146,10 @@ function MosaicField() {
   return (
     <span className="po-mosaic po-mosaic-field" aria-hidden="true">
       {[1, 2, 3, 4].map((n) => (
-        <i key={`v${n}`} className="v" style={{ "--n": n } as CSSProperties} />
+        <i key={`v${n}`} className="v" style={{ "--n": n }} />
       ))}
       {[1, 2, 3, 4].map((n) => (
-        <i key={`h${n}`} className="h" style={{ "--n": n } as CSSProperties} />
+        <i key={`h${n}`} className="h" style={{ "--n": n }} />
       ))}
       <i className="c" style={cellStyle(3, 0, 0, 1)} />
       <i className="c" style={cellStyle(4, 3, -1, 0)} />

@@ -28,14 +28,27 @@ for (const route of ROUTES) {
       await page.evaluate(() => document.fonts.ready);
       /* A dev server's issue badge is not part of the page. */
       await page.addStyleTag({ content: "nextjs-portal{display:none!important}" });
-      /* Reach every lazy image and intersection entrance, then return to the top. */
+      /* Load every image now, reach every intersection entrance, return to the top. */
       await page.evaluate(async () => {
+        for (const img of document.images) img.loading = "eager";
         const h = document.documentElement.scrollHeight;
         for (let y = 0; y < h; y += 600) {
           window.scrollTo(0, y);
           await new Promise((r) => setTimeout(r, 30));
         }
         window.scrollTo(0, 0);
+        /* Every image decoded before the shot. */
+        const settled = (img: HTMLImageElement) =>
+          img.complete && img.naturalWidth
+            ? Promise.resolve()
+            : new Promise<void>((r) => {
+                img.addEventListener("load", () => r(), { once: true });
+                img.addEventListener("error", () => r(), { once: true });
+              });
+        await Promise.all(
+          [...document.images].map((img) => settled(img).then(() => img.decode().catch(() => undefined))),
+        );
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
         await new Promise((r) => setTimeout(r, 300));
       });
       const name = `${route.replace(/\//g, "_") || "_"}@${width}.png`;

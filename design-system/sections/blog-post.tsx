@@ -1,6 +1,5 @@
 import { GridRegion } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { Text } from "../primitives/text";
 import { SITE_LINKS } from "../site-links";
 import type { BlogPostDetailModel } from "./blog-data";
 import { BLOG_POST_CONTENT } from "./blog-post-data";
@@ -36,9 +35,9 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
               </>
             )}
           </Slug>
-          <Text as="h1" fixed className="bp-h1">
+          <h1 className="type type-fixed bp-h1">
             {post.title}
-          </Text>
+          </h1>
         </header>
 
         <div className="bp-content-row">

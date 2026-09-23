@@ -1,8 +1,6 @@
-import type { CSSProperties } from "react";
 import { GridDecor, GridRegion, type GridBand } from "../grid/region";
 import { ButtonArrow } from "../primitives/buttons";
 import { Slug } from "../primitives/slug";
-import { Text } from "../primitives/text";
 import { SITE_LINKS } from "../site-links";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import { BLOG_CATEGORY_CONTENT } from "./blog-category-data";
@@ -101,7 +99,7 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
     "--bc-stack-rm": ticks.stack.rm,
     "--bc-stack-rt": ticks.stack.rt,
     "--bc-stack-rd": ticks.stack.rd,
-  } as CSSProperties;
+  };
 
   return (
     <section
@@ -130,9 +128,9 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
               : BLOG_CATEGORY_CONTENT.categoryLabel}
           </span>
         </Slug>
-        <Text as="h1" className="bc-h1">
+        <h1 className="type bc-h1">
           {model.heading}
-        </Text>
+        </h1>
       </header>
 
       <div className="bc-content">
@@ -168,9 +166,9 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             </ul>
           ) : (
             model.type === "search" && (
-              <Text as="p" className="bc-empty">
+              <p className="type bc-empty">
                 {BLOG_CATEGORY_CONTENT.emptyResults}
-              </Text>
+              </p>
             )
           )}
         </div>

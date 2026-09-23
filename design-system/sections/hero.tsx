@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
 import { ButtonFill, ButtonGhost } from "../primitives/buttons";
-import { Text } from "../primitives/text";
 import { IconChat } from "../icons";
 import {
   HERO_CAROUSEL_FRAMES,
@@ -150,13 +149,13 @@ export function HeroSection() {
       </div>
 
       <div className="hero-head flow-budget">
-        <Text as="h1" className="hero-h1">
+        <h1 className="type hero-h1">
           <span className="hx-rise" id="hero-heading">
             Sales and marketing that runs itself.
           </span>
-        </Text>
+        </h1>
 
-        <Text as="p" className="hero-sub">
+        <p className="type hero-sub">
           {/* The accessible sentence includes text represented visually by the wordmark. */}
           <span className="hx-sr">
             keystone powers your website and everything that runs through
@@ -175,7 +174,7 @@ export function HeroSection() {
             <Chip id="follow-ups">follow-ups</Chip>
             {" that convert."}
           </span>
-        </Text>
+        </p>
 
         <CtaRow />
       </div>

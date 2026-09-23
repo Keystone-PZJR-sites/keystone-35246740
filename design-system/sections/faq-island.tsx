@@ -2,7 +2,7 @@
 
 /** Single-open FAQ state, content measurement, and rail extension cells. */
 
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { FaqQuestion } from "../primitives/faq-question";
 import type { FaqItem } from "./faq-data";
 
@@ -71,7 +71,7 @@ export function FaqIsland({ items }: { items: FaqItem[] }) {
               <i
                 key={`${band}-${col}-${i}`}
                 className={`faq-ext ${band}${i < activeExtra ? " on" : ""}`}
-                style={{ "--gx": col, "--gy": gy0 + i, "--i": i } as CSSProperties}
+                style={{ "--gx": col, "--gy": gy0 + i, "--i": i }}
               />
             )),
           ),

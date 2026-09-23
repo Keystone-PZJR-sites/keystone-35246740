@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { IconChevronDownMedium } from "../icons";
 
 export interface FooterNavGroup {
@@ -31,7 +31,7 @@ function extCells(
             "--gx": gx,
             "--gy": cfg.gy0 + i,
             "--i": i,
-          } as CSSProperties
+          }
         }
       />
     )),
@@ -64,7 +64,7 @@ export function FooterNav({ groups }: { groups: FooterNavGroup[] }) {
                     "--open-rs": g.openRs,
                     "--fnav-extra-rm": g.openRm - 2,
                     "--fnav-extra-rs": g.openRs - 2,
-                  } as CSSProperties
+                  }
                 }
               >
                 <h3 className="fnav-h">
