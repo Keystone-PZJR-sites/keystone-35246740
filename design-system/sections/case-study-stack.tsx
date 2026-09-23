@@ -61,10 +61,10 @@ export function CaseStudyStackSection({ study }: { study: CaseStudy }) {
       <CaseStudyLattice section="stack" />
       <div className="cs-content cst-content" data-landmark="stack">
         <div className="cst-header">
-          <h2 className="cs-h2 cs-type" id="stack-h">
+          <h2 className="cs-h2 type" id="stack-h">
             {study.stack.head}
           </h2>
-          <p className="cs-body cs-type cst-subhead">{study.stack.subhead}</p>
+          <p className="cs-body type cst-subhead">{study.stack.subhead}</p>
         </div>
         <div className="cst-table">
           <div className="cst-logo-cell" aria-hidden="true">

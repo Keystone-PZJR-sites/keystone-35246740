@@ -48,12 +48,11 @@
 }
 
 .fq-q {
-  font: var(--fq-q-f);
-  font-size: var(--fq-q-fs);
-  line-height: var(--fq-q-lh);
-  letter-spacing: var(--fq-q-ls);
-  font-variation-settings: "opsz" var(--fq-q-opsz, 10), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--fq-q-f);
+  --fs-px: var(--fq-q-fs);
+  --lh-px: var(--fq-q-lh);
+  --ls: var(--fq-q-ls);
+  --opsz: var(--fq-q-opsz);
   color: var(--color-text-200);
 }
 
@@ -88,12 +87,11 @@
 
 .fq-a {
   margin: var(--space-none);
-  font: var(--fq-a-f);
-  font-size: var(--fq-a-fs);
-  line-height: var(--fq-a-lh);
-  letter-spacing: var(--fq-a-ls);
-  font-variation-settings: "opsz" var(--fq-a-opsz, 10), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--fq-a-f);
+  --fs-px: var(--fq-a-fs);
+  --lh-px: var(--fq-a-lh);
+  --ls: var(--fq-a-ls);
+  --opsz: var(--fq-a-opsz);
   color: var(--color-text-400);
 }
 

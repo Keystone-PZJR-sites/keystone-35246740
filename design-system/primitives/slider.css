@@ -148,13 +148,14 @@
   align-items: center;
   justify-content: space-between;
   color: var(--color-text-400);
-  font: var(--ts-text-xs-regular-font);
-  font-size: calc(var(--_u) * 12);
-  line-height: calc(var(--_u) * 16);
-  letter-spacing: var(--ts-text-xs-regular-ls);
-  font-variation-settings: "opsz" var(--ts-text-xs-regular-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-xs-regular-font);
+  --fs0: var(--ts-text-xs-regular-fs);
+  --lh0: var(--ts-text-xs-regular-lh);
+  --ls: var(--ts-text-xs-regular-ls);
+  --opsz: var(--ts-text-xs-regular-opsz);
   white-space: nowrap;
+  --fs-px: calc(var(--_u) * var(--fs0));
+  --lh-px: calc(var(--_u) * var(--lh0));
 }
 .sldr-glyph {
   width: calc(var(--_u) * 13);

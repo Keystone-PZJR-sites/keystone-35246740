@@ -43,12 +43,12 @@ export function PersonaCard({ persona, state = "active", size }: PersonaCardProp
               decoding="async"
             />
           </picture>
-          <h3 className="pcard-title">{persona.title}</h3>
+          <h3 className="type pcard-title">{persona.title}</h3>
         </div>
         <div className="pcard-cost">
           <div className="pcard-desc">
-            <p className="pcard-est">{persona.estimate}</p>
-            <p className="pcard-story">{persona.story}</p>
+            <p className="type pcard-est">{persona.estimate}</p>
+            <p className="type pcard-story">{persona.story}</p>
           </div>
           <ul className="pcard-chips">
             {persona.chips.map((chip) => (
@@ -59,7 +59,7 @@ export function PersonaCard({ persona, state = "active", size }: PersonaCardProp
           </ul>
         </div>
       </div>
-      <span className="pcard-tag">{persona.tagLabel}</span>
+      <span className="type pcard-tag">{persona.tagLabel}</span>
       <button type="button" className="pcard-overlay" aria-label={`Show the ${persona.tagLabel} example`} />
     </article>
   );

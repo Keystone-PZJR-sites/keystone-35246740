@@ -34,7 +34,7 @@ function ChatRow({
 }) {
   return (
     <div className={`faq-chat ${className}`}>
-      <span className="faq-chat-label">{label}</span>
+      <span className="type faq-chat-label">{label}</span>
       <ButtonGhost size={ghost} color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
@@ -55,7 +55,7 @@ export function FaqSection() {
       {/* Header and responsive chat actions. */}
       <div className="faq-header" data-landmark="header">
         <div className="faq-head-box">
-          <h2 className="faq-head">{FAQ_HEAD}</h2>
+          <h2 className="type faq-head">{FAQ_HEAD}</h2>
         </div>
         <ChatRow ghost="sm" label="Got a question?" className="faq-chat-rt" />
         <ChatRow ghost="md" label="Got a question?" className="faq-chat-rd1" />

@@ -13,7 +13,7 @@ const RT_ORDER: Record<number, number> = { 0: 1, 1: 2, 2: 5, 3: 3, 4: 7, 5: 9 };
 function Tag({ tag, index }: { tag: CaseStudyTag; index: number }) {
   return (
     <li
-      className="cs-tag"
+      className="type cs-tag"
       data-color={tag.color}
       style={{ "--tag-order": RT_ORDER[index] } as React.CSSProperties}
     >
@@ -32,7 +32,7 @@ export function CaseStudyHeaderSection({ study }: { study: CaseStudy }) {
             <Slug className="hx-rise" aria-hidden>
               Case Study
             </Slug>
-            <h1 className="csh-h1 hx-rise">
+            <h1 className="type csh-h1 hx-rise">
               {study.h1.seg1}
               {study.h1.seg2 && <br className="csh-br-rt" aria-hidden="true" />}
               {study.h1.seg2}
@@ -51,22 +51,22 @@ export function CaseStudyHeaderSection({ study }: { study: CaseStudy }) {
             <dl className="csh-pairs">
               <div className="csh-col">
                 <div className="csh-pair">
-                  <dt>Category</dt>
-                  <dd>{study.metadata.category}</dd>
+                  <dt className="type">Category</dt>
+                  <dd className="type">{study.metadata.category}</dd>
                 </div>
                 <div className="csh-pair">
-                  <dt>Location</dt>
-                  <dd>{study.metadata.location}</dd>
+                  <dt className="type">Location</dt>
+                  <dd className="type">{study.metadata.location}</dd>
                 </div>
               </div>
               <div className="csh-col">
                 <div className="csh-pair">
-                  <dt>Founders</dt>
-                  <dd>{study.metadata.founders}</dd>
+                  <dt className="type">Founders</dt>
+                  <dd className="type">{study.metadata.founders}</dd>
                 </div>
                 <div className="csh-pair">
-                  <dt>On Keystone Since</dt>
-                  <dd>{study.metadata.since}</dd>
+                  <dt className="type">On Keystone Since</dt>
+                  <dd className="type">{study.metadata.since}</dd>
                 </div>
               </div>
             </dl>

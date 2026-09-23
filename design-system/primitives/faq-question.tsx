@@ -28,12 +28,12 @@ export function FaqQuestion({ id, question, answer, size, open = false, onToggle
           aria-controls={answerId}
           onClick={onToggle}
         >
-          <span className="fq-q">{question}</span>
+          <span className="type fq-q">{question}</span>
           <IconChevronDownSmall className="fq-chevron" />
         </button>
       </h3>
       <div className="fq-answer" id={answerId}>
-        <p className="fq-a">{answer}</p>
+        <p className="type fq-a">{answer}</p>
       </div>
     </li>
   );

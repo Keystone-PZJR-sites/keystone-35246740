@@ -14,7 +14,7 @@ interface PricingTagProps {
 
 export function PricingTag({ size, muted, children }: PricingTagProps) {
   return (
-    <span className="ptag" data-size={size} data-muted={muted ? "" : undefined}>
+    <span className="type ptag" data-size={size} data-muted={muted ? "" : undefined}>
       {children}
     </span>
   );

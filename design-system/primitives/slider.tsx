@@ -44,7 +44,7 @@ export function Slider({ size = "lg", label, valueText, forceState = "less", for
           aria-valuetext={valueText}
         />
       </span>
-      <span className="sldr-labels">
+      <span className="type sldr-labels">
         <span>Less work</span>
         <IconSliderArrow className="sldr-glyph" />
         <span>More work</span>

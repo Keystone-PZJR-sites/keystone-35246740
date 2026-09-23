@@ -23,7 +23,6 @@
    `.bp-markdown`), whose elements cannot carry a class. */
 
 .type {
-  margin: var(--space-none);
   font: var(--font);
   letter-spacing: var(--ls, normal);
   text-transform: var(--case, none);
