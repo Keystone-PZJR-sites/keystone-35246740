@@ -24,8 +24,11 @@ the end result differs slightly from today, if it is better.
   class per Figma step (the `--wA/--wB` ramp stays: it is what makes the
   anchors pixel-true); ramp anchors name their step; one reduced-motion
   law; controls inherit size from their mount (no hidden per-band copies).
-  *Left:* the mobile/desktop nav pair; footer/FAQ rail cells are per-band
-  geometry.
+  *Kept on purpose:* the desktop bar-with-drawers and the mobile full-screen
+  menu are two designed components, not one design across bands, so both
+  trees stay (the hidden one is `display: none`); their CSS is split into
+  `nav.css` (shared) · `nav-desktop.css` · `nav-mobile.css`. Footer/FAQ rail
+  cells are per-band geometry.
 - [ ] **4. DRY the islands** — `useSwipe`, `useAutoplayGate`, `useActiveSection`,
   `useModal` (native `<dialog>` + `inert`), `cssVars()`, `useSyncExternalStore`
   for `matchMedia`; discriminated unions where `!` lives; `useActionState` +
@@ -116,3 +119,5 @@ the end result differs slightly from today, if it is better.
 - P3 `refactor(work-deck): one CTA` — from rd1 the head and band wrappers
   are `display: contents` and the section grid places slug, headline, CTA
   and deck; below rd1 nothing changes. `/` pixel-identical at ten widths.
+- P3 `refactor(nav): split nav.css` — 1188 lines become shared 120 ·
+  desktop 530 · mobile 543; same cascade order; open states identical.

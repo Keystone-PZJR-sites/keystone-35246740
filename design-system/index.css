@@ -45,6 +45,8 @@
 /* Sections */
 @import "./sections/footer.css" layer(sections);
 @import "./sections/nav.css" layer(sections);
+@import "./sections/nav-desktop.css" layer(sections);
+@import "./sections/nav-mobile.css" layer(sections);
 @import "./sections/pricing-offer.css" layer(sections);
 @import "./sections/pricing-scale.css" layer(sections);
 @import "./sections/faq.css" layer(sections);
