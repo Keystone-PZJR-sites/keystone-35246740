@@ -1,84 +1,85 @@
-/* Import order defines the cascade: fonts → tokens → base → grid →
-   primitives → sections. Component rules belong in their layer. */
+/* The cascade is declared, not implied by import order. A later layer
+   beats an earlier one regardless of specificity, so a section rule always
+   wins over a primitive, and a page rule over a section. Add a file to its
+   layer; never add rules here.
 
-/* Fonts */
-@import "./tokens/fonts.css";
+   `theme` is the Tailwind theme that `widgets.css` imports for the
+   packaged widgets. It is declared first so the site's tokens win every
+   shared name (`--font-serif`, `--radius-*`, `--font-weight-*`). The
+   widget utilities themselves stay unlayered on purpose; see widgets.css. */
 
-/* Tokens */
-@import "./tokens/primitives.css";
-@import "./tokens/semantic.css";
-@import "./tokens/type.css";
-@import "./tokens/motion.css";
-@import "./tokens/component.css";
+@layer theme, tokens, base, grid, primitives, shared, sections, pages;
 
-/* Base — the document reset and the site root */
-@import "./base.css";
+/* Tokens: fonts, palette, semantic roles, type, motion, designed constants. */
+@import "./tokens/fonts.css" layer(tokens);
+@import "./tokens/primitives.css" layer(tokens);
+@import "./tokens/semantic.css" layer(tokens);
+@import "./tokens/type.css" layer(tokens);
+@import "./tokens/motion.css" layer(tokens);
+@import "./tokens/component.css" layer(tokens);
 
-/* Grid */
-@import "./grid/engine.css";
+/* Base: the document reset and the site root. */
+@import "./base.css" layer(base);
+
+/* Grid: the tick engine, exposure vocabulary, side fields, band gates. */
+@import "./grid/engine.css" layer(grid);
 
 /* Primitives */
-@import "./primitives/buttons.css";
-@import "./primitives/grader.css";
-@import "./primitives/text.css";
-@import "./primitives/faq-question.css";
-@import "./primitives/footer-item.css";
-@import "./primitives/pricing-button.css";
-@import "./primitives/slider.css";
-@import "./primitives/persona-card.css";
-@import "./primitives/button-inline.css";
-@import "./primitives/case-study-card.css";
-@import "./primitives/case-study-button.css";
-@import "./primitives/field.css";
-@import "./primitives/slug.css";
+@import "./primitives/buttons.css" layer(primitives);
+@import "./primitives/grader.css" layer(primitives);
+@import "./primitives/text.css" layer(primitives);
+@import "./primitives/faq-question.css" layer(primitives);
+@import "./primitives/footer-item.css" layer(primitives);
+@import "./primitives/pricing-button.css" layer(primitives);
+@import "./primitives/slider.css" layer(primitives);
+@import "./primitives/persona-card.css" layer(primitives);
+@import "./primitives/button-inline.css" layer(primitives);
+@import "./primitives/case-study-card.css" layer(primitives);
+@import "./primitives/case-study-button.css" layer(primitives);
+@import "./primitives/field.css" layer(primitives);
+@import "./primitives/slug.css" layer(primitives);
+
+/* Shared: page-level utilities that sections refine. */
+@import "./pages/case-study.css" layer(shared);
+@import "./pages/company.css" layer(shared);
 
 /* Sections */
-@import "./sections/footer.css";
-@import "./sections/nav.css";
-@import "./sections/pricing-offer.css";
-@import "./sections/pricing-scale.css";
-@import "./sections/faq.css";
-@import "./sections/work-header.css";
-@import "./sections/work-cases.css";
-@import "./sections/work-gallery.css";
-@import "./sections/gallery-overlay.css";
-@import "./sections/legal-content.css";
-@import "./sections/contact.css";
-@import "./sections/blog-top.css";
-@import "./sections/blog-cards.css";
-@import "./sections/blog-lists.css";
-@import "./sections/blog-category.css";
-@import "./sections/blog-post.css";
-
-/* Case studies — shared page utilities before section overrides so
-   per-section content columns (rd2 TOC inset) win the cascade. */
-@import "./pages/case-study.css";
-@import "./sections/case-study-header.css";
-@import "./sections/case-study-intro.css";
-@import "./sections/case-study-overview.css";
-@import "./sections/case-study-business.css";
-@import "./sections/case-study-shift.css";
-@import "./sections/case-study-funnel.css";
-@import "./sections/case-study-stack.css";
-@import "./sections/case-study-result.css";
-@import "./sections/case-study-cta.css";
-@import "./sections/case-study-toc.css";
-
-/* Company — shared page utilities before section frames so per-section
-   rules win the cascade. */
-@import "./pages/company.css";
-@import "./sections/company-hero.css";
-@import "./sections/company-story.css";
-@import "./sections/company-backers.css";
-@import "./sections/company-team.css";
-@import "./sections/company-careers.css";
-
-/* Home */
-@import "./sections/hero.css";
-@import "./sections/system.css";
-@import "./sections/engines.css";
-@import "./sections/work-deck.css";
-@import "./sections/case-carousel.css";
+@import "./sections/footer.css" layer(sections);
+@import "./sections/nav.css" layer(sections);
+@import "./sections/pricing-offer.css" layer(sections);
+@import "./sections/pricing-scale.css" layer(sections);
+@import "./sections/faq.css" layer(sections);
+@import "./sections/work-header.css" layer(sections);
+@import "./sections/work-cases.css" layer(sections);
+@import "./sections/work-gallery.css" layer(sections);
+@import "./sections/gallery-overlay.css" layer(sections);
+@import "./sections/legal-content.css" layer(sections);
+@import "./sections/contact.css" layer(sections);
+@import "./sections/blog-top.css" layer(sections);
+@import "./sections/blog-cards.css" layer(sections);
+@import "./sections/blog-lists.css" layer(sections);
+@import "./sections/blog-category.css" layer(sections);
+@import "./sections/blog-post.css" layer(sections);
+@import "./sections/case-study-header.css" layer(sections);
+@import "./sections/case-study-intro.css" layer(sections);
+@import "./sections/case-study-overview.css" layer(sections);
+@import "./sections/case-study-business.css" layer(sections);
+@import "./sections/case-study-shift.css" layer(sections);
+@import "./sections/case-study-funnel.css" layer(sections);
+@import "./sections/case-study-stack.css" layer(sections);
+@import "./sections/case-study-result.css" layer(sections);
+@import "./sections/case-study-cta.css" layer(sections);
+@import "./sections/case-study-toc.css" layer(sections);
+@import "./sections/company-hero.css" layer(sections);
+@import "./sections/company-story.css" layer(sections);
+@import "./sections/company-backers.css" layer(sections);
+@import "./sections/company-team.css" layer(sections);
+@import "./sections/company-careers.css" layer(sections);
+@import "./sections/hero.css" layer(sections);
+@import "./sections/system.css" layer(sections);
+@import "./sections/engines.css" layer(sections);
+@import "./sections/work-deck.css" layer(sections);
+@import "./sections/case-carousel.css" layer(sections);
 
 /* Pages */
-@import "./pages/our-work.css";
+@import "./pages/our-work.css" layer(pages);
