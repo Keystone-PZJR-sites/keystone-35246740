@@ -19,21 +19,26 @@ the end result differs slightly from today, if it is better.
 - [x] **2. AGENTS.md** — one file, ~70 lines: Never list, how the site is built,
   adding a page, verification, git. Deleted `.cursor/rules/*`, `.agents/`,
   `.claude/`, `skills-lock.json`. README rewritten and accurate.
-- [ ] **3. CSS / tokens / type** — `@layer` cascade; `component.css` dissolved
-  into semantic tokens + per-file `--_locals`; one fluid type class per step
-  (`clamp()`, `rem`) replacing 142 hand-copied blocks and the `--wA/--wB`
-  weight ladder; accent token family for chips; kill dead tokens; one class
-  naming scheme; no DOM band duplicates (`.rm/.rs/…` toggles); no magic px.
+- [x] **3. CSS / tokens / type** — `@layer` cascade; `component.css` dissolved
+  into semantic tokens + per-file `--_locals`; one generated `ts-<style>`
+  class per Figma step (the `--wA/--wB` ramp stays: it is what makes the
+  anchors pixel-true); ramp anchors name their step; one reduced-motion
+  law; controls inherit size from their mount (no hidden per-band copies).
+  *Left:* the mobile/desktop nav pair, the pricing sliders and work-deck
+  CTA move between DOM positions; footer/FAQ rail cells are per-band
+  geometry; gate widths repeat because container queries cannot read vars.
 - [ ] **4. DRY the islands** — `useSwipe`, `useAutoplayGate`, `useActiveSection`,
   `useModal` (native `<dialog>` + `inert`), `cssVars()`, `useSyncExternalStore`
   for `matchMedia`; discriminated unions where `!` lives; `useActionState` +
   server action for the contact form; zod at every boundary.
-- [ ] **5. Tests & tooling** — one Playwright visual gate (routes × anchors
+- [x] **5. Tests & tooling** — one Playwright visual gate (routes × anchors
   and gates) replaces the bespoke Puppeteer runner and dev panel; Prettier;
-  stricter tsconfig; one PR `check` workflow.
-- [ ] **6. Site hygiene** — `sitemap.ts`, `robots.ts`, `not-found.tsx`,
-  `error.tsx`, per-route metadata, security headers, `next/image` for CMS
-  imagery, sandboxed gallery iframe.
+  `noImplicitReturns`/`noImplicitOverride`/`noFallthroughCasesInSwitch`
+  (`noUnused*` blocked by widgets source in node_modules); one PR `check`
+  workflow.
+- [~] **6. Site hygiene** — `sitemap.ts`, `robots.ts`, `not-found.tsx`,
+  `error.tsx`, per-route metadata, security headers done. *Left:*
+  `next/image` for CMS imagery, sandboxed gallery iframe.
 
 ## Log
 
@@ -103,3 +108,4 @@ the end result differs slightly from today, if it is better.
   Value-identical; gate 100/100.
 - P4 `refactor(cta): one CTA row in case-study CTA and gallery header` —
   size="inherit" replaces three hidden copies each. Gate 20/20.
+- P5 `chore(ts): three free strictness flags` — zero new errors.
