@@ -47,8 +47,10 @@ export const viewport: Viewport = {
 /** `.site-root` provides the grid's size container. Site chat mounts
  * outside `.page`, so fixed chat chrome does not affect grid geometry. */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  /* The consent bootstrap stamps data-consent-regime on <html> before
+   * hydration; React must not treat that attribute as a mismatch. */
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: CONSENT_REGIME_BOOTSTRAP_SCRIPT }} />
         {/*
