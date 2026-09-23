@@ -10,7 +10,7 @@ import { FooterSection } from "@/design-system/sections/footer";
 
 /** Homepage composition. The grid check renders inside `.page` so its
  * probes can resolve the page's tick and interpolation weights. */
-export async function HomePage({ gridCheck }: { gridCheck?: React.ReactNode }) {
+export async function HomePage() {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page load-sequence">
@@ -32,7 +32,6 @@ export async function HomePage({ gridCheck }: { gridCheck?: React.ReactNode }) {
           youtube: companyInfo?.youtube_url,
         }}
       />
-      {gridCheck}
     </div>
   );
 }

@@ -16,7 +16,6 @@ npm run dev            # add -p <port> if 3000 is taken
 ```bash
 npx tsc --noEmit
 npm run lint
-GRID_URL=http://localhost:3000 npm run test:grid   # lattice changes only
 npm run preview                                     # OpenNext build + wrangler dev
 ```
 
@@ -25,7 +24,7 @@ npm run preview                                     # OpenNext build + wrangler 
 - `app/` — routes; each mounts a `design-system/pages/*` composition.
 - `design-system/` — tokens → base → grid → primitives → sections → pages.
 - `public/media/` — fonts and art-directed image tiers, indexed by `design-system/media.ts`.
-- `scripts/` — `generate-type-css.mjs` (Figma text styles → `tokens/type.css`), `grid-selftest.mjs`.
+- `scripts/` — `generate-type-css.mjs` (Figma text styles → `tokens/type.css`).
 
 ## Routes
 

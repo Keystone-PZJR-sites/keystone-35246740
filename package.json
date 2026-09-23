@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "npx opennextjs-cloudflare build && npx wrangler dev",
     "deploy": "npx opennextjs-cloudflare build && npx wrangler deploy",
-    "cf-typegen": "wrangler types --include-runtime false --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "test:grid": "node scripts/grid-selftest.mjs"
+    "cf-typegen": "wrangler types --include-runtime false --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@keystone-sites/core": "^1.1.4",

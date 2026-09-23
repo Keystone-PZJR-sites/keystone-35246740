@@ -1,5 +1,4 @@
 import { getCompanyInformation, getTeamMembers } from "@keystone-sites/core/lib/server-api";
-import type { ReactNode } from "react";
 import { GridField } from "../grid/field";
 import { FooterSection } from "../sections/footer";
 import { NavChrome } from "../sections/nav";
@@ -9,11 +8,7 @@ import { CompanyBackersSection } from "../sections/company-backers";
 import { CompanyTeamSection, toTeamRoster } from "../sections/company-team";
 import { CompanyCareersSection } from "../sections/company-careers";
 
-export interface CompanyPageProps {
-  gridCheck?: ReactNode;
-}
-
-export async function CompanyPage({ gridCheck }: CompanyPageProps) {
+export async function CompanyPage() {
   const [company, team] = await Promise.all([getCompanyInformation(), getTeamMembers()]);
   return (
     <div className="page">
@@ -34,7 +29,6 @@ export async function CompanyPage({ gridCheck }: CompanyPageProps) {
           youtube: company?.youtube_url,
         }}
       />
-      {gridCheck}
     </div>
   );
 }

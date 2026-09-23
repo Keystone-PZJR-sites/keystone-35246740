@@ -9,7 +9,7 @@ import { FooterSection } from "@/design-system/sections/footer";
 /** Pricing page composition. It renders settled without a load
  * choreography. The grid check lives inside `.page` so its probes can
  * resolve the page's tick and interpolation weights. */
-export async function PricingPage({ gridCheck }: { gridCheck?: React.ReactNode }) {
+export async function PricingPage() {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page">
@@ -29,7 +29,6 @@ export async function PricingPage({ gridCheck }: { gridCheck?: React.ReactNode }
           youtube: companyInfo?.youtube_url,
         }}
       />
-      {gridCheck}
     </div>
   );
 }
