@@ -60,6 +60,8 @@
   display: flex;
   gap: var(--space-3xl);
   width: 100%;
+  /* A fieldset refuses to shrink below its content unless told. */
+  min-inline-size: 0;
   box-sizing: border-box;
   margin: var(--space-4xl) 0 0;
   padding: var(--knav-bar-h) var(--t) 0;
