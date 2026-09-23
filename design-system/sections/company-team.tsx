@@ -1,5 +1,5 @@
 import { GridRegion, type GridBand } from "../grid/region";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { Slug } from "../primitives/slug";
 import { teamPortrait } from "../media";
 import { COMPANY_TEAM } from "./company-data";
@@ -117,12 +117,12 @@ export function CompanyTeamSection({ members }: { members: TeamRosterMember[] })
     >
       <header className="cot-head" data-landmark="head">
         <Slug>{COMPANY_TEAM.eyebrow}</Slug>
-        <InterpText as="h2" style="display-serif-xs-extralight" className="co-h2">
+        <Text as="h2" className="co-h2">
           {COMPANY_TEAM.title}
-        </InterpText>
-        <InterpText as="p" style="text-md-light" className="cot-desc co-body-text">
+        </Text>
+        <Text as="p" className="cot-desc co-body-text">
           {COMPANY_TEAM.description}
-        </InterpText>
+        </Text>
       </header>
 
       {/* Names and roles render as visible captions; portraits stay alt="". */}

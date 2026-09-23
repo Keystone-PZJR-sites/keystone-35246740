@@ -1,12 +1,27 @@
-/* Interpolated type uses section-defined size and line-height pairs. */
+/* Typography has one mechanism. An element with the `type` class declares,
+   in its own CSS:
 
-.interpolated-text {
+     --font: var(--ts-<step>-font);   family and weight from a Figma step
+     --ls:   var(--ts-<step>-ls);     tracking (em)
+     --opsz: var(--ts-<step>-opsz);   GT Standard optical size (sans only)
+     --case: var(--ts-<step>-case);   text-transform, where the step has one
+     --fs0 / --fs1, --lh0 / --lh1     size and line-height (px numbers) at
+                                      the band's two anchors
+
+   The band's weights (`--wA`, `--wB` from grid/engine.css) interpolate
+   size and line-height between the anchors and zoom them in compressed
+   slices. A band that switches step restates `--font`/`--ls`/`--opsz`
+   in its @container block; a band that holds one size sets `--fs0` only.
+   Nothing else about type is written anywhere. */
+
+.type {
   margin: var(--space-none);
-  font-optical-sizing: none;
-  /* the token style's family and weight come in through the shorthand;
-     the longhands after it replace its size and line-height with the
-     weight-interpolated values */
-  font: var(--_ts-font);
+  font: var(--font);
   font-size: calc(var(--wA) * var(--fs0) + var(--wB) * var(--fs1, var(--fs0)));
   line-height: calc(var(--wA) * var(--lh0) + var(--wB) * var(--lh1, var(--lh0)));
+  letter-spacing: var(--ls, normal);
+  text-transform: var(--case, none);
+  /* Pinning the slant axis stops WebKit rendering GT Standard oblique. */
+  font-variation-settings: "opsz" var(--opsz, 10), var(--font-sans-slnt);
+  font-optical-sizing: none;
 }

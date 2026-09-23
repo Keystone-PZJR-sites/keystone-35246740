@@ -58,6 +58,8 @@
 
 /* The headline wraps naturally and changes weight at wide desktop. */
 .wd-h2 {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: var(--wd-h2-gap-rm);
   margin-left: var(--t);
@@ -88,7 +90,7 @@
 }
 @container (min-width: 860px) {
   .wd-h2 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-lg-plus-thin-font);
+    --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--wd-h2-w-rd);
     --fs0: 35.7143;
     --fs1: 50;

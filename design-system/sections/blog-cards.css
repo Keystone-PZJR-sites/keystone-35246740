@@ -57,16 +57,18 @@
 .blc-eyebrow .blc-topic,
 .blf-info .blc-topic {
   color: var(--color-text-200);
-  text-transform: uppercase;
 }
 .blc-eyebrow .blc-time,
 .blf-info .blc-time {
   color: var(--color-text-300);
-  text-transform: uppercase;
   white-space: nowrap;
 }
 .blc-topic,
 .blc-time {
+  --font: var(--ts-text-nav-label-font);
+  --ls: var(--ts-text-nav-label-ls);
+  --opsz: var(--ts-text-nav-label-opsz);
+  --case: var(--ts-text-nav-label-case);
   --fs0: 10;
   --fs1: 15;
   --lh0: 12;
@@ -101,6 +103,9 @@
 }
 
 .blc-title {
+  --font: var(--ts-text-md-medium-font);
+  --ls: var(--ts-text-md-medium-ls);
+  --opsz: var(--ts-text-md-medium-opsz);
   color: var(--color-text-100);
   margin-top: calc(var(--bl-u) * 8);
   display: -webkit-box;
@@ -123,8 +128,8 @@
 @container (min-width: 665px) {
   .blc-title {
     -webkit-line-clamp: 1;
-    --ts-text-md-medium-font: var(--ts-text-lg-medium-font);
-    --ts-text-md-medium-opsz: var(--ts-text-lg-medium-opsz);
+    --font: var(--ts-text-lg-medium-font);
+    --opsz: var(--ts-text-lg-medium-opsz);
     --fs0: 18;
     --fs1: 18;
     --lh0: 26;
@@ -134,8 +139,8 @@
 @container (min-width: 860px) {
   .blc-title {
     -webkit-line-clamp: 2;
-    --ts-text-md-medium-font: var(--ts-text-xl-medium-font);
-    --ts-text-md-medium-opsz: var(--ts-text-xl-medium-opsz);
+    --font: var(--ts-text-xl-medium-font);
+    --opsz: var(--ts-text-xl-medium-opsz);
     --fs0: 14.2857;
     --fs1: 20;
     --lh0: 18.5714;
@@ -144,6 +149,9 @@
 }
 
 .blc-desc {
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-300);
   margin-top: calc(var(--bl-u) * 8);
   display: -webkit-box;
@@ -168,8 +176,8 @@
   .blc-desc {
     -webkit-line-clamp: 2;
     height: auto;
-    --ts-text-md-light-font: var(--ts-text-lg-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --font: var(--ts-text-lg-light-font);
+    --opsz: var(--ts-text-lg-light-opsz);
     --fs0: 18;
     --fs1: 18;
     --lh0: 26;
@@ -179,8 +187,8 @@
 @container (min-width: 860px) {
   .blc-desc {
     -webkit-line-clamp: 3;
-    --ts-text-md-light-font: var(--ts-text-xl-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --font: var(--ts-text-xl-light-font);
+    --opsz: var(--ts-text-xl-light-opsz);
     --fs0: 14.2857;
     --fs1: 20;
     --lh0: 18.5714;
@@ -249,6 +257,8 @@
 }
 
 .blf-title {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--bl-u) * 8);
   display: -webkit-box;
@@ -280,7 +290,7 @@
   .blf-title {
     -webkit-line-clamp: 2;
     max-width: calc(var(--bl-u) * 507);
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-sm-plus-extralight-font);
+    --font: var(--ts-display-serif-sm-plus-extralight-font);
     --fs0: 25.7143;
     --fs1: 36;
     --lh0: 30;
@@ -289,6 +299,9 @@
 }
 
 .blf-desc {
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-300);
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -310,8 +323,8 @@
 }
 @container (min-width: 665px) {
   .blf-desc {
-    --ts-text-md-light-font: var(--ts-text-lg-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --font: var(--ts-text-lg-light-font);
+    --opsz: var(--ts-text-lg-light-opsz);
     --fs0: 18;
     --fs1: 18;
     --lh0: 26;
@@ -320,8 +333,8 @@
 }
 @container (min-width: 860px) {
   .blf-desc {
-    --ts-text-md-light-font: var(--ts-text-xl-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --font: var(--ts-text-xl-light-font);
+    --opsz: var(--ts-text-xl-light-opsz);
     --fs0: 14.2857;
     --fs1: 20;
     --lh0: 18.5714;

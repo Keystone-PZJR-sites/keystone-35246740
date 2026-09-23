@@ -39,6 +39,8 @@
 }
 
 .e2-name {
+  --font: var(--ts-display-serif-md-plus-extralight-font);
+  --ls: var(--ts-display-serif-md-plus-extralight-ls);
   color: var(--color-text-100);
   --fs0: 24;
   --fs1: 30;
@@ -75,13 +77,16 @@
   margin-top: var(--e2-hd-gap-rm);
   width: var(--e2-desc-w-rm);
 }
-.e2-desc .interpolated-text {
+.e2-desc .type {
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   --fs0: 16;
   --fs1: 18;
   --lh0: 22;
   --lh1: 24;
 }
-.e2-desc .interpolated-text + .interpolated-text {
+.e2-desc .type + .type {
   margin-top: var(--e2-ps-sub);
 }
 @container (min-width: 470px) {
@@ -89,7 +94,7 @@
     margin-top: var(--e2-hd-gap-rs);
     width: var(--e2-desc-w-rs);
   }
-  .e2-desc .interpolated-text {
+  .e2-desc .type {
     --fs0: 18;
     --fs1: 20;
     --lh0: 24;
@@ -100,10 +105,10 @@
   .e2-desc {
     margin-top: var(--e2-hd-gap-rt);
     width: var(--e2-desc-w-rt);
-    --ts-text-md-light-font: var(--ts-text-xl-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
   }
-  .e2-desc .interpolated-text {
+  .e2-desc .type {
+    --font: var(--ts-text-xl-light-font);
+    --opsz: var(--ts-text-xl-light-opsz);
     --fs0: 20;
     --fs1: 20;
     --lh0: 26;
@@ -115,13 +120,13 @@
     margin-top: var(--e2-hd-gap-rd);
     width: var(--e2-desc-w-rd);
   }
-  .e2-desc .interpolated-text {
+  .e2-desc .type {
     --fs0: 14.2857;
     --fs1: 20;
     --lh0: 18.5714;
     --lh1: 26;
   }
-  .e2-desc .interpolated-text + .interpolated-text {
+  .e2-desc .type + .type {
     margin-top: var(--e2-ps-rd);
   }
 }

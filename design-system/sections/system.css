@@ -50,6 +50,8 @@
 }
 
 .sys-h2 {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: var(--sys-h2-gap-rm);
   margin-left: var(--t);
@@ -80,7 +82,7 @@
 }
 @container (min-width: 860px) {
   .sys-h2 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-lg-plus-thin-font);
+    --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--sys-h2-w-rd);
     --fs0: 35.7143;
     --fs1: 50;
@@ -188,6 +190,9 @@
   transform: translate(-50%, -50%);
 }
 .sys-tag-label {
+  --font: var(--ts-text-xs-regular-font);
+  --ls: var(--ts-text-xs-regular-ls);
+  --opsz: var(--ts-text-xs-regular-opsz);
   display: block;
   background: var(--color-bg-300);
   color: var(--color-text-200);
@@ -214,8 +219,8 @@
 }
 @container (min-width: 665px) {
   .sys-tag-label {
-    --ts-text-xs-regular-font: var(--ts-text-md-regular-font);
-    --ts-text-xs-regular-opsz: var(--ts-text-md-regular-opsz);
+    --font: var(--ts-text-md-regular-font);
+    --opsz: var(--ts-text-md-regular-opsz);
     padding: 0.125em 0.5em 0.1875em;
     --fs0: 16;
     --fs1: 16;

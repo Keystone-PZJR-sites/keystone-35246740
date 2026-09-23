@@ -1,5 +1,5 @@
 import { GridRegion, type GridBand } from "../grid/region";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { Slug } from "../primitives/slug";
 import { COMPANY_HERO } from "./company-data";
 import {
@@ -56,9 +56,9 @@ export function CompanyHeroSection() {
     >
       <header className="coh-head" data-landmark="head">
         <Slug>{COMPANY_HERO.eyebrow}</Slug>
-        <InterpText as="h1" style="display-serif-sm-plus-thin" className="coh-h1">
+        <Text as="h1" className="coh-h1">
           {COMPANY_HERO.title}
-        </InterpText>
+        </Text>
       </header>
 
       <figure className="coh-media" data-landmark="media">

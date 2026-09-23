@@ -72,6 +72,8 @@
 }
 
 .bt-h1 {
+  --font: var(--ts-display-serif-sm-plus-thin-font);
+  --ls: var(--ts-display-serif-sm-plus-thin-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--bt-u) * 16);
   max-width: calc(var(--bt-u) * 320);
@@ -91,8 +93,8 @@
 @container (min-width: 665px) {
   .bt-h1 {
     max-width: calc(var(--bt-u) * 512);
-    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-lg-plus-thin-font);
-    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-lg-plus-thin-ls);
+    --font: var(--ts-display-serif-lg-plus-thin-font);
+    --ls: var(--ts-display-serif-lg-plus-thin-ls);
     --fs0: 50;
     --fs1: 50;
     --lh0: 60;
@@ -103,8 +105,8 @@
   .bt-h1 {
     margin-top: calc(var(--bt-u) * 24);
     max-width: calc(var(--bt-u) * 736);
-    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-3xl-thin-font);
-    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-3xl-thin-ls);
+    --font: var(--ts-display-serif-3xl-thin-font);
+    --ls: var(--ts-display-serif-3xl-thin-ls);
     --fs0: 51.4286;
     --fs1: 72;
     --lh0: 55.7143;
@@ -192,6 +194,8 @@
   justify-content: space-between;
 }
 .bt-card-title {
+  --font: var(--ts-display-serif-xs-regular-font);
+  --ls: var(--ts-display-serif-xs-regular-ls);
   --fs0: 24;
   --fs1: 36;
   --lh0: 30;
@@ -215,8 +219,8 @@
 }
 @container (min-width: 860px) {
   .bt-card-title {
-    --ts-display-serif-xs-regular-font: var(--ts-display-serif-xs-plus-regular-font);
-    --ts-display-serif-xs-regular-ls: var(--ts-display-serif-xs-plus-regular-ls);
+    --font: var(--ts-display-serif-xs-plus-regular-font);
+    --ls: var(--ts-display-serif-xs-plus-regular-ls);
     --fs0: 20;
     --fs1: 28;
     --lh0: 24.2857;
@@ -241,6 +245,9 @@
 }
 
 .bt-card-desc {
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   margin-top: calc(var(--bt-u) * 16);
   --fs0: 16;
   --fs1: 24;
@@ -258,8 +265,8 @@
 @container (min-width: 665px) {
   .bt-card-desc {
     padding-right: calc(var(--bt-u) * 48);
-    --ts-text-md-light-font: var(--ts-text-lg-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --font: var(--ts-text-lg-light-font);
+    --opsz: var(--ts-text-lg-light-opsz);
     --fs0: 18;
     --fs1: 18;
     --lh0: 26;
@@ -270,8 +277,8 @@
   .bt-card-desc {
     margin-top: calc(var(--bt-u) * 24);
     padding-right: calc(var(--bt-u) * 112);
-    --ts-text-md-light-font: var(--ts-text-xl-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --font: var(--ts-text-xl-light-font);
+    --opsz: var(--ts-text-xl-light-opsz);
     --fs0: 14.2857;
     --fs1: 20;
     --lh0: 18.5714;
@@ -287,6 +294,10 @@
 }
 
 .bt-listen {
+  --font: var(--ts-text-nav-label-font);
+  --ls: var(--ts-text-nav-label-ls);
+  --opsz: var(--ts-text-nav-label-opsz);
+  --case: var(--ts-text-nav-label-case);
   padding-right: calc(var(--bt-u) * 48);
   --fs0: 10;
   --fs1: 15;
@@ -418,6 +429,8 @@
   place-items: center;
 }
 .bt-bh-h2 {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   --fs0: 24;
   --fs1: 36;
@@ -434,7 +447,7 @@
 }
 @container (min-width: 665px) {
   .bt-bh-h2 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-md-plus-extralight-font);
+    --font: var(--ts-display-serif-md-plus-extralight-font);
     --fs0: 42;
     --fs1: 42;
     --lh0: 50;
@@ -443,8 +456,8 @@
 }
 @container (min-width: 860px) {
   .bt-bh-h2 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-3xl-thin-font);
-    --ts-display-serif-xs-extralight-ls: var(--ts-display-serif-3xl-thin-ls);
+    --font: var(--ts-display-serif-3xl-thin-font);
+    --ls: var(--ts-display-serif-3xl-thin-ls);
     --fs0: 51.4286;
     --fs1: 72;
     --lh0: 55.7143;

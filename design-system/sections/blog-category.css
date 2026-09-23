@@ -52,6 +52,8 @@
   height: 100%;
 }
 .bc-h1 {
+  --font: var(--ts-display-serif-sm-plus-thin-font);
+  --ls: var(--ts-display-serif-sm-plus-thin-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--bc-u) * 16);
   max-width: calc(var(--t) * 10);
@@ -62,8 +64,8 @@
 }
 @container (min-width: 665px) {
   .bc-h1 {
-    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-lg-thin-font);
-    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-lg-thin-ls);
+    --font: var(--ts-display-serif-lg-thin-font);
+    --ls: var(--ts-display-serif-lg-thin-ls);
     --fs0: 48;
     --fs1: 48;
     --lh0: 56;
@@ -76,8 +78,8 @@
   }
   .bc-h1 {
     margin-top: calc(var(--bc-u) * 24);
-    --ts-display-serif-sm-plus-thin-font: var(--ts-display-serif-3xl-thin-font);
-    --ts-display-serif-sm-plus-thin-ls: var(--ts-display-serif-3xl-thin-ls);
+    --font: var(--ts-display-serif-3xl-thin-font);
+    --ls: var(--ts-display-serif-3xl-thin-ls);
     --fs0: 51.4286;
     --fs1: 72;
     --lh0: 55.7143;
@@ -133,6 +135,9 @@
 }
 
 .bc-empty {
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
   color: var(--color-text-300);
   --fs0: 20;
   --fs1: 20;

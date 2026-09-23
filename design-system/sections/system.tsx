@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { IconSystemIntersect } from "../icons";
 import { NoiseDuo } from "../lib/noise";
 import { SystemBloom } from "./system-bloom";
@@ -90,9 +90,9 @@ export function SystemSection() {
 
       <div className="sys-head">
         <Slug layout="rail">A complete marketing system</Slug>
-        <InterpText as="h2" style="display-serif-xs-extralight" className="sys-h2">
+        <Text as="h2" className="sys-h2">
           Five engines that deeply understand your business working together.
-        </InterpText>
+        </Text>
       </div>
 
       {/* The decorative diagram's labels are repeated for assistive technology. */}
@@ -135,9 +135,9 @@ export function SystemSection() {
               data-engine={e.id}
               style={{ "--_bi": i } as CSSProperties}
             >
-              <InterpText as="span" style="text-xs-regular" className="sys-tag-label">
+              <Text as="span" className="sys-tag-label">
                 {e.label}
-              </InterpText>
+              </Text>
             </span>
           ))}
         </div>
