@@ -80,40 +80,27 @@ export function PricingScaleSection() {
 
       <PricingScaleIsland personas={PERSONAS.map(({ hue, tagLabel }) => ({ hue, tagLabel }))}>
         <div className="ps-block" data-landmark="price-scale">
-          <div className="ps-content">
-            <h2 className="type ts-display-serif-xs-extralight ps-head">
-              {PRICE_SCALE_HEAD[0]}
-              <br />
-              {PRICE_SCALE_HEAD[1]}
-            </h2>
-            <ul className="ps-chips">
-              {KEYWORD_CHIPS.map((chip) => (
-                <li key={chip.id} className={`type ps-chip ps-chip-${chip.id}`}>
-                  {chip.label}
-                </li>
-              ))}
-            </ul>
-            <p className="type ts-text-md-light ps-subhead">{PRICE_SCALE_SUBHEAD}</p>
-            <div className="ps-sl ps-sl-rt">
-              <Slider size="md" label={SLIDER_LABEL} valueText={rest.tagLabel} />
-            </div>
-            <div className="ps-sl ps-sl-rd">
-              <Slider size="lg" label={SLIDER_LABEL} valueText={rest.tagLabel} />
-            </div>
+          <h2 className="type ts-display-serif-xs-extralight ps-head">
+            {PRICE_SCALE_HEAD[0]}
+            <br />
+            {PRICE_SCALE_HEAD[1]}
+          </h2>
+          <ul className="ps-chips">
+            {KEYWORD_CHIPS.map((chip) => (
+              <li key={chip.id} className={`type ps-chip ps-chip-${chip.id}`}>
+                {chip.label}
+              </li>
+            ))}
+          </ul>
+          <p className="type ts-text-md-light ps-subhead">{PRICE_SCALE_SUBHEAD}</p>
+          {/* Bottom-anchored on narrow bands; follows the subhead from rt. */}
+          <div className="ps-sl">
+            <Slider size="inherit" label={SLIDER_LABEL} valueText={rest.tagLabel} />
           </div>
-          <div className="ps-bottom">
-            {/* Narrow-band sliders align with the block's bottom edge. */}
-            <div className="ps-sl ps-sl-rm">
-              <Slider size="lg" label={SLIDER_LABEL} valueText={rest.tagLabel} />
-            </div>
-            <div className="ps-sl ps-sl-rs">
-              <Slider size="sm" label={SLIDER_LABEL} valueText={rest.tagLabel} />
-            </div>
-            <div className="ps-cta">
-              <ButtonFill size="inherit" chrome="teal" href={PRICING_CHECKOUT_URL} external>
-                Start today
-              </ButtonFill>
-            </div>
+          <div className="ps-cta">
+            <ButtonFill size="inherit" chrome="teal" href={PRICING_CHECKOUT_URL} external>
+              Start today
+            </ButtonFill>
           </div>
         </div>
 
