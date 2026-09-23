@@ -11,12 +11,10 @@ import { LoadOrchestrator } from "@/design-system/sections/load-orchestrator";
 
 /** Our Work page composition. The portal-mounted viewer uses the same
  * gallery data as the page. The orchestrator settles after the last
- * card rise. The grid check lives inside `.page` to read grid variables. */
+ * card rise. */
 export async function OurWorkPage({
-  gridCheck,
   openGallerySite,
 }: {
-  gridCheck?: React.ReactNode;
   /** 1-based gallery site to open on load (from `?gallery=`). */
   openGallerySite?: number;
 }) {
@@ -45,7 +43,6 @@ export async function OurWorkPage({
         sites={GALLERY_SITES.map(({ name, url }) => ({ name, url }))}
         openSite={openGallerySite}
       />
-      {gridCheck}
     </div>
   );
 }

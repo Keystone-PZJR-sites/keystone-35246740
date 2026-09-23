@@ -102,8 +102,6 @@ Read this file, then `REFACTOR.md` if it exists.
 - `npx tsc --noEmit` and `npm run lint`: zero errors, zero warnings.
 - Visual change: checked in the browser at the widths above, reduced motion on
   and off. Report what you measured, not "looks right".
-- Lattice change (`design-system/grid/`, section tick geometry): also
-  `GRID_URL=<dev url> npm run test:grid`. Not for copy, tokens, or motion.
 
 ## Git
 

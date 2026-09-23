@@ -41,3 +41,15 @@ the end result differs slightly from today, if it is better.
   services dep, `.nvmrc`/`engines`, `.env.example`, preview CI gates + env.
 - P2 `docs: replace the rules tree with one AGENTS.md` — 600+ lines of rules and
   third-party skills → 70 lines; README matches the actual routes.
+- P3 `refactor(css): declare the cascade with @layer` — import order no longer
+  decides; `theme` (Tailwind) first so widgets cannot win shared vars.
+- P3 `refactor(css): one type mechanism` … `footer tagline … onto .type` (4
+  commits) — every typeset element is `.type`; a step is `--font/--ls/--opsz`
+  (+ `--fs0/--lh0` when it rides the grid, `--fs-px` for a pinned band,
+  `type-fixed` for chrome). Tokens gain unitless `-fs/-lh`. Removed the
+  `InterpText` inline-style path, ~60 token-alias hacks, the `--_font`,
+  `--_f`, `--csc-*-f`, `--pc-*-f`, `--fq-*` local copies.
+- P5 (pulled forward) `chore: delete the grid self-test harness` — `app/grid/*`
+  (dev panel, expectations, fixtures), `scripts/grid-selftest.mjs`, the
+  `gridCheck` prop threaded through every page, the `?_grid=` fixture param.
+  Regression gate is now the visual snapshot diff (see Verify).

@@ -1,5 +1,4 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
-import type { ReactNode } from "react";
 import { GridField } from "../grid/field";
 import { FooterSection } from "../sections/footer";
 import { BlogCategorySection } from "../sections/blog-category";
@@ -10,10 +9,9 @@ import { NavChrome } from "../sections/nav";
 
 export interface BlogPageProps {
   model: BlogPageModel;
-  gridCheck?: ReactNode;
 }
 
-export async function BlogPage({ model, gridCheck }: BlogPageProps) {
+export async function BlogPage({ model }: BlogPageProps) {
   const company = await getCompanyInformation();
   return (
     <div className="page">
@@ -37,7 +35,6 @@ export async function BlogPage({ model, gridCheck }: BlogPageProps) {
           youtube: company?.youtube_url,
         }}
       />
-      {gridCheck}
     </div>
   );
 }

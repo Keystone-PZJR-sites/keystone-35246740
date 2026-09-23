@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import BlogGridCheck, { getBlogGridFixture } from "../grid/pages/blog";
 import { BlogPage } from "@/design-system/pages/blog";
 import {
   getBlogFiltered,
@@ -14,7 +13,6 @@ interface BlogRouteProps {
     q?: string | string[];
     tag?: string | string[];
     page?: string | string[];
-    _grid?: string | string[];
   }>;
 }
 
@@ -51,19 +49,11 @@ export default async function Blog({ searchParams }: BlogRouteProps) {
   if (hasFilter(params)) {
     const page = pageNumber(params.page);
     if (page === null) notFound();
-    // Grid-sweep fixtures exist only in development.
-    const fixtureName =
-      process.env.NODE_ENV === "development" ? firstValue(params._grid) : "";
-    const fixture = fixtureName
-      ? getBlogGridFixture(fixtureName, page, (await getBlogLanding()).featured)
-      : null;
-    const filtered =
-      fixture ??
-      (await getBlogFiltered({
-        query: firstValue(params.q),
-        tag: firstValue(params.tag),
-        page,
-      }));
+    const filtered = await getBlogFiltered({
+      query: firstValue(params.q),
+      tag: firstValue(params.tag),
+      page,
+    });
     if (!filtered) notFound();
     model = { type: "filtered", filtered };
   } else {
@@ -72,7 +62,6 @@ export default async function Blog({ searchParams }: BlogRouteProps) {
   return (
     <BlogPage
       model={model}
-      gridCheck={<BlogGridCheck model={model} />}
     />
   );
 }

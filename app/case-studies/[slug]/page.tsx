@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyPage } from "@/design-system/pages/case-study";
-import { CASE_STUDIES, getCaseStudy, ZIVEL } from "@/design-system/sections/case-study-data";
-import CaseStudyGridCheck from "../../grid/pages/case-study";
+import { CASE_STUDIES, getCaseStudy } from "@/design-system/sections/case-study-data";
 
 /** Only populated case studies receive static routes. Unknown slugs 404. */
 
@@ -31,7 +30,6 @@ export default async function CaseStudyRoute({
   return (
     <CaseStudyPage
       study={study}
-      gridCheck={study.slug === ZIVEL.slug ? <CaseStudyGridCheck /> : undefined}
     />
   );
 }

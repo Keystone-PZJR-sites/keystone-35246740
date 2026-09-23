@@ -15,16 +15,8 @@ import { FooterSection } from "@/design-system/sections/footer";
 import { LoadOrchestrator } from "@/design-system/sections/load-orchestrator";
 import type { CaseStudy } from "@/design-system/sections/case-study-data";
 
-/** Assembles a case study from its typed record.
- * The grid check stays inside `.page` so probes inherit its tick and
- * interpolation variables. */
-export async function CaseStudyPage({
-  study,
-  gridCheck,
-}: {
-  study: CaseStudy;
-  gridCheck?: React.ReactNode;
-}) {
+/** Assembles a case study from its typed record. */
+export async function CaseStudyPage({ study }: { study: CaseStudy }) {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page load-sequence-case-study">
@@ -58,7 +50,6 @@ export async function CaseStudyPage({
       />
       {/* The header photo's rise is the final animation. */}
       <LoadOrchestrator finalAnimation="hx-rise" finalSelector=".csh-img" />
-      {gridCheck}
     </div>
   );
 }
