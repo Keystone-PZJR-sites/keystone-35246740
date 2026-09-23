@@ -264,28 +264,8 @@ export function PricingOfferSection() {
             Cancel anytime.
           </p>
         </div>
-        <div className="po-cardbtn po-cardbtn-xs">
-          <PricingButton size="xs" href={PRICING_CHECKOUT_URL} external>
-            Start today
-          </PricingButton>
-        </div>
-        <div className="po-cardbtn po-cardbtn-sm">
-          <PricingButton size="sm" href={PRICING_CHECKOUT_URL} external>
-            Start today
-          </PricingButton>
-        </div>
-        <div className="po-cardbtn po-cardbtn-md">
-          <PricingButton size="md" href={PRICING_CHECKOUT_URL} external>
-            Start today
-          </PricingButton>
-        </div>
-        <div className="po-cardbtn po-cardbtn-lg">
-          <PricingButton size="lg" href={PRICING_CHECKOUT_URL} external>
-            Start today
-          </PricingButton>
-        </div>
-        <div className="po-cardbtn po-cardbtn-xl">
-          <PricingButton size="xl" href={PRICING_CHECKOUT_URL} external>
+        <div className="po-cardbtn">
+          <PricingButton size="inherit" href={PRICING_CHECKOUT_URL} external>
             Start today
           </PricingButton>
         </div>

@@ -73,3 +73,6 @@ the end result differs slightly from today, if it is better.
   reuses the legal composition; `/privacy-policy` is a config redirect.
 - P3 `refactor(css): one reduced-motion law in base.css` — 28 per-file
   cancel lists (−280 lines) replaced by one reset; smooth scroll ungated.
+- P3 `refactor(pricing): one pricing button reads --pbtn-size` — five
+  hidden per-band copies become one node; union lattice; `/pricing/`
+  pixel-identical at all ten widths.
