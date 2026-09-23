@@ -1,5 +1,32 @@
-/* Shared motion tokens. Drawers reveal content with their moving clip
-   edge; hard shadows appear only after the box lands. */
+/* Motion grammars. Every transition and animation on the site references
+   a token from this file; no duration, curve, or distance is written
+   anywhere else. Motion is CSS only — no animation runtime ships.
+
+   Laws for new motion (each one is a bug we shipped once):
+   - Reuse a grammar before inventing one. A new grammar gets a name and a
+     one-line prose definition here first, then its tokens.
+   - Opens run the ease-in-out curve; closes run the ease-out curve.
+   - A hard shadow never paints while its box moves: it grows from 0,0
+     after the box lands and drops at once on close.
+   - Never transition transform/translate inside an element whose paint
+     (color, opacity) is transitioning; the compositor re-rasters the
+     ancestor mid-paint and flickers for a frame. Move a relative offset
+     instead, or move the paint to an absolute child.
+   - Colors never transition on gradients; cross-fade the opacity of an
+     absolute child that carries the gradient.
+   - A load choreography ends explicitly on its final beat's `animationend`
+     so a band-gated variant re-entering the tree replays nothing.
+   - Timers are not a sync primitive. Wait for `animationend`,
+     `transitionend`, `decode()`, or `requestAnimationFrame`. Timers are
+     for things that fire on a timer: auto-advance, debounce.
+   - `prefers-reduced-motion: reduce` renders every grammar state-to-state:
+     no transitions, no timers, elements born settled. A no-JS render shows
+     the same settled state.
+   - Hover styles sit under `@media (hover: hover)`; every state also works
+     on touch. Auto-rotation pauses on hover, focus, and hidden documents.
+
+   Drawers reveal content with their moving clip edge; hard shadows appear
+   only after the box lands. */
 
 :root {
   --motion-drawer-duration: 250ms;
