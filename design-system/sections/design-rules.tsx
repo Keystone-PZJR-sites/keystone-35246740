@@ -7,11 +7,37 @@ import remarkGfm from "remark-gfm";
 import { CloserRow } from "../primitives/closer-row";
 import { Slug } from "../primitives/slug";
 
+/* Rule headings become rail entries; ids are the heading text, slugged. */
+function textOf(node: ReactNode): string {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join("");
+  if (typeof node === "object" && "props" in node) {
+    return textOf((node.props as { children?: ReactNode }).children);
+  }
+  return "";
+}
+function slug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 const PROSE: Components = {
   h1: () => null,
-  h2: ({ children }: { children?: ReactNode }) => (
-    <h3 className="type type-fixed ts-display-serif-xs-light ds-rules-h2">{children}</h3>
-  ),
+  h2: ({ children }: { children?: ReactNode }) => {
+    const text = textOf(children);
+    return (
+      <h3
+        className="type type-fixed ts-display-serif-xs-light ds-rules-h2"
+        id={`r-${slug(text)}`}
+        data-toc={text}
+      >
+        {children}
+      </h3>
+    );
+  },
   h3: ({ children }: { children?: ReactNode }) => (
     <h4 className="type type-fixed ts-text-xl-medium ds-rules-h3">{children}</h4>
   ),

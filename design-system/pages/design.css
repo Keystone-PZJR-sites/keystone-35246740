@@ -37,6 +37,8 @@
    chapter. Each rule hides every chapter but the chosen one. */
 .ds-body {
   width: 100%;
+  --ds-tab-h: 47px;
+  --ds-tabs-h: calc(var(--knav-bar-h) + var(--ds-tab-h));
 }
 .ds-body:has([value="foundations"]:checked) .ds-chapters > .ds-sec:not(#foundations),
 .ds-body:has([value="primitives"]:checked) .ds-chapters > .ds-sec:not(#primitives),
@@ -46,9 +48,57 @@
 .ds-body:not(:has(:checked)):not(:has(:target)) .ds-chapters > .ds-sec:not(:first-child) {
   display: none;
 }
+.ds-chapters {
+  position: relative;
+  width: 100%;
+}
 .ds-chapters > .ds-sec {
   padding-top: var(--t);
-  scroll-margin-top: calc(var(--knav-bar-h) + var(--space-8xl));
+  scroll-margin-top: calc(var(--ds-tabs-h) + var(--space-8xl));
+}
+.ds-chapters > .ds-sec [id] {
+  scroll-margin-top: calc(var(--ds-tabs-h) + var(--space-3xl));
+}
+
+/* ---- side rail (rd2) ---- */
+
+/* At 1344 the open chapter gets a table of contents in a 2t rail on the
+   left and its content moves to the third column. Mounted sections keep
+   the full 1344 design at three-quarter scale so the rail never covers
+   them; the primitives and tables simply take the narrower measure. */
+.ds-toc-rail {
+  display: none;
+}
+@container (--rd2) {
+  .ds-toc-rail {
+    display: block;
+    position: absolute;
+    inset: var(--t) auto 0 var(--t);
+    width: calc(var(--t) * 2 - var(--space-3xl));
+    z-index: var(--z-sticky);
+    pointer-events: none;
+  }
+  .ds-toc-rail .toc {
+    --toc-top: calc(var(--ds-tabs-h) + var(--t) / 2);
+  }
+  .ds-chapters > .ds-sec {
+    padding-left: calc(var(--t) * 3);
+  }
+  /* The chapter's own bleeds still span the page from column 0; bleeds
+     inside a mounted section belong to that section's frame. */
+  .ds-chapters > .ds-sec .closer-row-bleed:not(.ds-kind-frame *),
+  .ds-chapters > .ds-sec .ds-bleed:not(.ds-kind-frame *) {
+    left: calc(var(--t) * -3);
+  }
+  .ds-kind-frame {
+    zoom: 0.75;
+    width: calc(var(--t) * 12);
+    margin-inline: 0;
+  }
+  /* The work card is designed 10t wide; it shows at four-fifths in 8t. */
+  .ds-card-host {
+    zoom: 0.8;
+  }
 }
 
 /* Sticks at the top and pads for the fixed nav bar, so its background
@@ -72,8 +122,12 @@
 }
 .ds-tab {
   position: relative;
+  display: flex;
+  align-items: center;
   flex: none;
-  padding: var(--space-lg) 0;
+  box-sizing: border-box;
+  /* A known height lets the rail and scroll margins clear the bar. */
+  height: var(--ds-tab-h);
   margin-bottom: -1px;
   color: var(--color-text-400);
   border-bottom: 1px solid transparent;
@@ -508,6 +562,10 @@
   margin: 0;
   padding: 0;
   max-width: calc(var(--t) * 8);
+}
+/* The demo TOC must not stick; it sits in flow like any other row. */
+.ds-toc-host .toc {
+  position: static;
 }
 .ds-dark-host {
   display: inline-flex;

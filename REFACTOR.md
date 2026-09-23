@@ -194,3 +194,10 @@ the end result differs slightly from today, if it is better.
   sections they neutralise. `#primitives` and `#rules` joined the pixel
   gate; `#sections` (~50k px, not tile-stable in Chrome) is gated
   structurally instead. 150/150.
+- `/design/` side rail — at rd2 the open chapter gets a sticky table of
+  contents in a 2t rail beside the content, read from the chapter's
+  `data-toc` headings and re-read when a tab or the hash changes; the
+  mounted sections keep the full 1344 design at three-quarter scale
+  (`zoom`) so the rail never covers them. The case-study list became the
+  `Toc` primitive (`primitives/toc.tsx/.css`) the rail reuses, catalogued
+  on the page; case studies pixel-identical. 150/150.

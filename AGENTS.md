@@ -178,6 +178,10 @@ The vocabulary, each with its home:
   beat (`pages/landing.tsx`).
 - The CTA row, `primitives/cta-row.tsx`: fill button, "Got a question?" from
   rs, ghost `open-chat`; it sets `--btn-size` per band.
+- A long page's side rail, `primitives/toc.tsx`: `Toc items` in a
+  desktop-only absolute rail beside the content (`sections/case-study-toc.css`,
+  `.ds-toc-rail` in `pages/design.css`); the active row follows
+  `lib/use-active-section`.
 
 ## Verify before you say done
 

@@ -1,4 +1,5 @@
-/* The desktop rail spans the Overview-through-Result portion of the stack. */
+/* The desktop rail spans the Overview-through-Result portion of the stack.
+   The list itself is the Toc primitive (primitives/toc.css). */
 
 .toc-rail {
   display: none;
@@ -17,64 +18,4 @@
     z-index: var(--z-sticky);
     pointer-events: none;
   }
-}
-
-.toc {
-  --cs-toc-top: calc(var(--t));
-  --cs-toc-item-h: 30px;
-  --cs-toc-gap: 8px;
-  --cs-toc-pad-l: 16px;
-  --cs-toc-pad-r: 8px;
-  --cs-toc-pad-y: 4px;
-  --cs-toc-rule: 2px;
-  position: sticky;
-  top: var(--cs-toc-top);
-  pointer-events: auto;
-}
-
-.toc-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-toc-gap);
-  /* Align the left rail to the first lattice column. */
-  border-left: 1px solid var(--color-border-000);
-}
-
-.toc-item a {
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  height: var(--cs-toc-item-h);
-  padding: var(--cs-toc-pad-y) var(--cs-toc-pad-r) var(--cs-toc-pad-y) var(--cs-toc-pad-l);
-  margin-left: -1px;
-  border-left: 1px solid transparent;
-  text-decoration: none;
-  color: var(--color-text-400);
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
-  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
-}
-@media (hover: hover) {
-  .toc-item a:hover {
-    color: var(--color-text-200);
-  }
-}
-.toc-item a:focus-visible {
-  outline: none;
-  background: var(--color-bg-300);
-  color: var(--color-text-200);
-}
-
-/* The active rule replaces the one-pixel rail for this row. */
-.toc-item a[aria-current="true"] {
-  border-left: var(--cs-toc-rule) solid var(--color-teal-400);
-  padding-left: calc(var(--cs-toc-pad-l) - var(--cs-toc-rule) + 1px);
-  color: var(--color-text-200);
-  --font: var(--ts-text-md-medium-font);
-  --ls: var(--ts-text-md-medium-ls);
-  --opsz: var(--ts-text-md-medium-opsz);
 }

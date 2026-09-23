@@ -21,6 +21,7 @@ import { GraderInput } from "../primitives/grader";
 import { PersonaCard } from "../primitives/persona-card";
 import { PricingButton } from "../primitives/pricing-button";
 import { Slider } from "../primitives/slider";
+import { Toc } from "../primitives/toc";
 import { FAQ_ITEMS } from "./faq-data";
 import { LANDING_ICONS } from "./landing-benefits";
 import { PERSONAS } from "./pricing-scale-data";
@@ -44,7 +45,9 @@ function Spec({
   return (
     <div className="ds-spec-block" id={`p-${title.toLowerCase()}`}>
       <div className="ds-spec-head">
-        <h3 className="type type-fixed ts-text-xl-medium ds-h3">{title}</h3>
+        <h3 className="type type-fixed ts-text-xl-medium ds-h3" data-toc={title}>
+          {title}
+        </h3>
         <code className="type type-fixed ts-text-sm-regular ds-code">{file}</code>
       </div>
       {note && <p className="type type-fixed ts-text-md-light ds-note">{note}</p>}
@@ -379,6 +382,24 @@ export function DesignPrimitivesSection() {
               Login
             </FooterItem>
           </span>
+        </Row>
+      </Spec>
+
+      <Spec
+        title="Toc"
+        file="primitives/toc.tsx"
+        note="A sticky table of contents; the active row follows the section past a third of the viewport (lib/use-active-section). Case studies, blog posts, and this page's side rail at rd2 host it."
+      >
+        <Row label="items · aria-current on the active row">
+          <div className="ds-toc-host">
+            <Toc
+              items={[
+                { id: "p-toc", label: "Overview" },
+                { id: "p-toc-b", label: "The Business" },
+                { id: "p-toc-c", label: "The Result" },
+              ]}
+            />
+          </div>
         </Row>
       </Spec>
 

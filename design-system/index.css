@@ -41,6 +41,7 @@
 @import "./primitives/ramps.css" layer(primitives);
 @import "./primitives/closer-row.css" layer(primitives);
 @import "./primitives/cta-row.css" layer(primitives);
+@import "./primitives/toc.css" layer(primitives);
 
 /* Shared: page-level utilities that sections refine. */
 @import "./pages/case-study.css" layer(shared);

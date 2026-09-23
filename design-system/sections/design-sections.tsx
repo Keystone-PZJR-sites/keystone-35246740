@@ -416,7 +416,7 @@ export function DesignSectionsSection({ data }: { data: DesignSectionsData }) {
       </header>
 
       <div className="ds-group" id="g-landing">
-        <h3 className="type type-fixed ts-text-xl-medium ds-h3">
+        <h3 className="type type-fixed ts-text-xl-medium ds-h3" data-toc="Landing kit">
           Landing kit <span className="ds-group-route">any /page/ · pages/landing.tsx</span>
         </h3>
         <p className="type type-fixed ts-text-md-light ds-note">
@@ -446,7 +446,7 @@ export function DesignSectionsSection({ data }: { data: DesignSectionsData }) {
 
       {groups(data).map((g) => (
         <div key={g.id} className="ds-group" id={`g-${g.id}`}>
-          <h3 className="type type-fixed ts-text-xl-medium ds-h3">
+          <h3 className="type type-fixed ts-text-xl-medium ds-h3" data-toc={g.page}>
             {g.page} <span className="ds-group-route">{g.route}</span>
           </h3>
           <div className="ds-kinds">
@@ -461,7 +461,7 @@ export function DesignSectionsSection({ data }: { data: DesignSectionsData }) {
       ))}
 
       <div className="ds-group" id="g-chrome">
-        <h3 className="type type-fixed ts-text-xl-medium ds-h3">
+        <h3 className="type type-fixed ts-text-xl-medium ds-h3" data-toc="Chrome and behaviour">
           Chrome and behaviour <span className="ds-group-route">every page</span>
         </h3>
         <table className="ds-table">

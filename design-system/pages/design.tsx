@@ -11,6 +11,7 @@ import { DesignFoundationsSection } from "@/design-system/sections/design-founda
 import { DesignPrimitivesSection } from "@/design-system/sections/design-primitives";
 import { DesignSectionsSection } from "@/design-system/sections/design-sections";
 import { DesignRulesSection } from "@/design-system/sections/design-rules";
+import { DesignToc } from "@/design-system/sections/design-toc";
 import {
   getBlogFiltered,
   getBlogLanding,
@@ -60,6 +61,7 @@ export async function DesignPage() {
               }}
             />
             <DesignRulesSection markdown={rules} />
+            <DesignToc />
           </div>
         </div>
       </main>
