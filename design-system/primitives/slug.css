@@ -10,9 +10,6 @@
   gap: var(--space-md);
   margin: var(--space-none);
   color: var(--color-text-400);
-  --font: var(--ts-text-xs-medium-font);
-  --ls: var(--ts-text-xs-medium-ls);
-  --opsz: var(--ts-text-xs-medium-opsz);
 }
 .slug-mark {
   flex: none;

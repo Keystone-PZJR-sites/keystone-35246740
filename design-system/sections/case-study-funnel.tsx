@@ -30,9 +30,13 @@ export function CaseStudyFunnelSection({ study }: { study: CaseStudy }) {
                     data-fill={row.bar === "fill" || undefined}
                     style={row.bar !== "fill" ? { width: `${row.bar}px` } : undefined}
                   >
-                    {(i === 0 || i === 1) && <span className="type csf-num">{row.value}</span>}
+                    {(i === 0 || i === 1) && (
+                      <span className="type ts-text-xl-regular csf-num">{row.value}</span>
+                    )}
                   </i>
-                  {i > 1 && <span className="type csf-num csf-num-out">{row.value}</span>}
+                  {i > 1 && (
+                    <span className="type ts-text-xl-regular csf-num csf-num-out">{row.value}</span>
+                  )}
                 </dd>
               </div>
             ))}

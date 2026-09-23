@@ -82,10 +82,6 @@
   margin: var(--space-none);
   color: var(--color-text-100);
   max-width: var(--faq-head-w-rm);
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   --fs-px: calc(var(--faq-u) * var(--fs0));
   --lh-px: calc(var(--faq-u) * var(--lh0));
 }
@@ -132,11 +128,6 @@
 .faq-chat-label {
   padding-left: calc(var(--faq-u) * 12);
   color: var(--color-text-400);
-  --font: var(--ts-text-sm-light-font);
-  --fs0: var(--ts-text-sm-light-fs);
-  --lh0: var(--ts-text-sm-light-lh);
-  --ls: var(--ts-text-sm-light-ls);
-  --opsz: var(--ts-text-sm-light-opsz);
   --fs-px: calc(var(--faq-u) * var(--fs0));
   --lh-px: calc(var(--faq-u) * var(--lh0));
 }

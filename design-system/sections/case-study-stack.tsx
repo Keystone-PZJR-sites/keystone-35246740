@@ -39,7 +39,7 @@ function ServiceCell({ cell }: { cell: StackCell }) {
       </span>
       <div className="cst-cell-text">
         <p className="type ts-text-md-medium cst-title">{cell.title}</p>
-        <p className="type cst-desc">
+        <p className="type ts-text-xs-light cst-desc">
           {cell.descShort ? (
             <>
               {/* Narrow bands use the compact description. */}

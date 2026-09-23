@@ -96,3 +96,5 @@ the end result differs slightly from today, if it is better.
 - P3 `refactor(type): generated ts-<style> classes` — type.css emits one
   class per Figma style; 92 five-line declarations move from section CSS to
   the element's className. Gate: 100/100 vs bc6e2dc.
+- P3 `refactor(type): ts- classes for templated classNames` — slug,
+  button-inline, nav drawer labels, faq, funnel, stack. Gate 100/100.
