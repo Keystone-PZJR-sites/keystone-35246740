@@ -22,27 +22,15 @@
   margin-top: calc(var(--co-u) * 16);
   max-width: calc(var(--co-u) * 320);
   --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --fs1: 54;
+  --fs1: 72;
   --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --lh1: 63;
-}
-@container (--rs) {
-  .coh-h1 {
-    --fs0: 54;
-    --fs1: 72;
-    --lh0: 63;
-    --lh1: 84;
-  }
+  --lh1: 78;
 }
 @container (--rt) {
   .coh-h1 {
     max-width: calc(var(--co-u) * 512);
     --font: var(--ts-display-serif-lg-plus-thin-font);
     --ls: var(--ts-display-serif-lg-plus-thin-ls);
-    --fs0: 50;
-    --fs1: 50;
-    --lh0: 60;
-    --lh1: 60;
   }
 }
 @container (--rd1) {
@@ -51,10 +39,6 @@
     max-width: calc(var(--co-u) * 736);
     --font: var(--ts-display-serif-3xl-thin-font);
     --ls: var(--ts-display-serif-3xl-thin-ls);
-    --fs0: 51.4286;
-    --fs1: 72;
-    --lh0: 55.7143;
-    --lh1: 78;
   }
 }
 

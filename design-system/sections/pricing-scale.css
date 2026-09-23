@@ -126,14 +126,18 @@
 .ps-head,
 .ps-subhead,
 .ps-chip {
-  --fs-px: calc(var(--ps-u) * var(--fs0));
-  --lh-px: calc(var(--ps-u) * var(--lh0));
+  --fs-px: calc(var(--ps-u) * var(--fs));
+  --lh-px: calc(var(--ps-u) * var(--lh));
 }
 
 .ps-head {
   margin: 0;
   color: var(--color-text-100);
   max-width: calc(var(--ps-u) * 288);
+  --fs0: var(--ts-display-serif-xs-extralight-fs);
+  --fs1: var(--ts-display-serif-md-plus-extralight-fs);
+  --lh0: var(--ts-display-serif-xs-extralight-lh);
+  --lh1: var(--ts-display-serif-md-plus-extralight-lh);
 }
 @container (--rs) {
   .ps-head { max-width: calc(var(--ps-u) * 160); }
@@ -145,8 +149,6 @@
   .ps-head {
     max-width: calc(var(--ps-u) * 240);
     --font: var(--ts-display-serif-sm-extralight-font);
-    --fs0: var(--ts-display-serif-sm-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-extralight-lh);
     --ls: var(--ts-display-serif-sm-extralight-ls);
   }
 }
@@ -154,8 +156,6 @@
   .ps-head {
     max-width: calc(var(--ps-u) * 408);
     --font: var(--ts-display-serif-md-plus-extralight-font);
-    --fs0: var(--ts-display-serif-md-plus-extralight-fs);
-    --lh0: var(--ts-display-serif-md-plus-extralight-lh);
     --ls: var(--ts-display-serif-md-plus-extralight-ls);
   }
 }
@@ -164,6 +164,10 @@
   margin: calc(var(--ps-u) * 24) 0 0;
   color: var(--color-text-400);
   max-width: calc(var(--ps-u) * 288);
+  --fs0: var(--ts-text-md-light-fs);
+  --fs1: var(--ts-text-lg-light-fs);
+  --lh0: var(--ts-text-md-light-lh);
+  --lh1: var(--ts-text-lg-light-lh);
 }
 @container (--rs) {
   .ps-subhead { max-width: calc(var(--ps-u) * 160); }
@@ -172,8 +176,6 @@
   .ps-subhead {
     max-width: calc(var(--ps-u) * 192);
     --font: var(--ts-text-sm-light-font);
-    --fs0: var(--ts-text-sm-light-fs);
-    --lh0: var(--ts-text-sm-light-lh);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
   }
@@ -183,8 +185,6 @@
     margin-top: calc(var(--ps-u) * 32);
     max-width: calc(var(--ps-u) * 240);
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
@@ -193,8 +193,6 @@
   .ps-subhead {
     max-width: calc(var(--ps-u) * 336);
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -239,16 +237,16 @@
     calc(var(--ps-u) * 2);
   white-space: nowrap;
   --font: var(--ts-text-xs-regular-font);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
+  --fs0: var(--ts-text-xs-regular-fs);
+  --fs1: var(--ts-text-md-regular-fs);
+  --lh0: var(--ts-text-xs-regular-lh);
+  --lh1: var(--ts-text-md-regular-lh);
 }
 @container (--rs) {
   .ps-chip {
     --font: var(--ts-text-2xs-regular-font);
-    --fs0: var(--ts-text-2xs-regular-fs);
-    --lh0: var(--ts-text-2xs-regular-lh);
     --ls: var(--ts-text-2xs-regular-ls);
     --opsz: var(--ts-text-2xs-regular-opsz);
   }
@@ -256,8 +254,6 @@
 @container (--rt) {
   .ps-chip {
     --font: var(--ts-text-xs-regular-font);
-    --fs0: var(--ts-text-xs-regular-fs);
-    --lh0: var(--ts-text-xs-regular-lh);
     --ls: var(--ts-text-xs-regular-ls);
     --opsz: var(--ts-text-xs-regular-opsz);
   }
@@ -270,8 +266,6 @@
       calc(var(--ps-u) * 6)
       calc(var(--ps-u) * 2);
     --font: var(--ts-text-md-regular-font);
-    --fs0: var(--ts-text-md-regular-fs);
-    --lh0: var(--ts-text-md-regular-lh);
     --ls: var(--ts-text-md-regular-ls);
     --opsz: var(--ts-text-md-regular-opsz);
   }

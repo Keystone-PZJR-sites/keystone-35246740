@@ -103,17 +103,17 @@
   gap: var(--space-md);
   color: var(--color-text-300);
   --font: var(--ts-text-md-light-font);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
+  --fs0: var(--ts-text-md-light-fs);
+  --fs1: var(--ts-text-lg-light-fs);
+  --lh0: var(--ts-text-md-light-lh);
+  --lh1: var(--ts-text-lg-light-lh);
 }
 @container (--rd1) {
   .cso-list { gap: calc((var(--wA) + var(--wB)) * 12); }
   .cso-list li {
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -170,17 +170,17 @@
 /* Numerals use the responsive display-sans ramp. */
 .cso-stats .cs-cell-value {
   --font: var(--ts-display-sans-xs-light-font);
-  --fs0: var(--ts-display-sans-xs-light-fs);
-  --lh0: var(--ts-display-sans-xs-light-lh);
   --ls: var(--ts-display-sans-xs-light-ls);
   --opsz: var(--ts-display-sans-xs-light-opsz);
   margin-bottom: var(--space-xs);
+  --fs0: var(--ts-display-sans-xs-light-fs);
+  --fs1: var(--ts-display-sans-lg-light-fs);
+  --lh0: var(--ts-display-sans-xs-light-lh);
+  --lh1: var(--ts-display-sans-lg-light-lh);
 }
 @container (--rt) {
   .cso-stats .cs-cell-value {
     --font: var(--ts-display-sans-lg-light-font);
-    --fs0: var(--ts-display-sans-lg-light-fs);
-    --lh0: var(--ts-display-sans-lg-light-lh);
     --ls: var(--ts-display-sans-lg-light-ls);
     --opsz: var(--ts-display-sans-lg-light-opsz);
   }
@@ -188,8 +188,6 @@
 @container (--rd1) {
   .cso-stats .cs-cell-value {
     --font: var(--ts-display-sans-md-light-font);
-    --fs0: var(--ts-display-sans-md-light-fs);
-    --lh0: var(--ts-display-sans-md-light-lh);
     --ls: var(--ts-display-sans-md-light-ls);
     --opsz: var(--ts-display-sans-md-light-opsz);
   }
@@ -197,8 +195,6 @@
 @container (--rd2) {
   .cso-stats .cs-cell-value {
     --font: var(--ts-display-sans-lg-light-font);
-    --fs0: var(--ts-display-sans-lg-light-fs);
-    --lh0: var(--ts-display-sans-lg-light-lh);
     --ls: var(--ts-display-sans-lg-light-ls);
     --opsz: var(--ts-display-sans-lg-light-opsz);
   }
@@ -207,16 +203,16 @@
 /* Pill labels use the responsive text ramp. */
 .cso-stats .cs-pill {
   --font: var(--ts-text-xs-regular-font);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
+  --fs0: var(--ts-text-xs-regular-fs);
+  --fs1: var(--ts-text-md-light-fs);
+  --lh0: var(--ts-text-xs-regular-lh);
+  --lh1: var(--ts-text-md-light-lh);
 }
 @container (--rs) {
   .cso-stats .cs-pill {
     --font: var(--ts-text-sm-regular-font);
-    --fs0: var(--ts-text-sm-regular-fs);
-    --lh0: var(--ts-text-sm-regular-lh);
     --ls: var(--ts-text-sm-regular-ls);
     --opsz: var(--ts-text-sm-regular-opsz);
   }
@@ -224,8 +220,6 @@
 @container (--rd1) {
   .cso-stats .cs-pill {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }

@@ -108,24 +108,24 @@
 .hero-h1 {
   color: var(--color-text-100);
   max-width: var(--hero-h1-w-rm);
-  --fs0: var(--ts-display-serif-sm-thin-fs); --fs1: 41; --lh0: var(--ts-display-serif-sm-thin-lh); --lh1: 49;
+  --fs0: var(--ts-display-serif-sm-thin-fs);
+  --fs1: 72;
+  --lh0: var(--ts-display-serif-sm-thin-lh);
+  --lh1: 78;
 }
 @container (--rs) {
   .hero-h1 {
     max-width: var(--hero-h1-w-rs);
-    --fs0: 41; --fs1: 50; --lh0: 49; --lh1: 60;
   }
 }
 @container (--rt) {
   .hero-h1 {
     max-width: var(--hero-h1-w-rt);
-    --fs0: 50; --fs1: 50; --lh0: 60; --lh1: 60;
   }
 }
 @container (--rd1) {
   .hero-h1 {
     max-width: var(--hero-h1-w-rd);
-    --fs0: 51.4286; --fs1: 72; --lh0: 55.7143; --lh1: 78;
     --ls: var(--ts-display-serif-3xl-thin-ls);
   }
 }
@@ -141,10 +141,13 @@
   );
   max-width: var(--hero-sub-w-rm);
   color: var(--color-text-200);
-  --fs0: 20; --fs1: 20; --lh0: 28; --lh1: 28;
   --hero-pill-h: 1.2em;
   --hero-pill-shift: 0.075em;
   --hero-pill-px: 0.15em;
+  --fs0: 20;
+  --fs1: 24;
+  --lh0: 28;
+  --lh1: 34;
 }
 @container (--rs) {
   .hero-sub { max-width: var(--hero-sub-w-rs); }
@@ -165,7 +168,6 @@
       calc(var(--hero-sub-top-rd) - var(--hero-head-top-rd) - var(--_h1-lines) * var(--_h1-lh))
     );
     max-width: var(--hero-sub-w-rd);
-    --fs0: 17.1429; --fs1: 24; --lh0: 24.2857; --lh1: 34;
     --hero-pill-h: 1.25em;
     --hero-pill-shift: 0.0625em;
     --hero-pill-px: 0.25em;

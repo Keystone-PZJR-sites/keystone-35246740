@@ -84,6 +84,10 @@
 .csr-quote-body {
   margin: 0;
   max-width: calc((var(--wA) + var(--wB)) * 304);
+  --fs0: var(--ts-display-serif-2xs-plus-extralight-fs);
+  --fs1: var(--ts-display-serif-sm-plus-extralight-fs);
+  --lh0: var(--ts-display-serif-2xs-plus-extralight-lh);
+  --lh1: var(--ts-display-serif-sm-plus-extralight-lh);
 }
 .csr-quote .cs-quote-attrib {
   margin-top: calc((var(--wA) + var(--wB)) * 24);
@@ -91,8 +95,6 @@
 @container (--rs) {
   .csr-quote-body {
     --font: var(--ts-display-serif-xs-extralight-font);
-    --fs0: var(--ts-display-serif-xs-extralight-fs);
-    --lh0: var(--ts-display-serif-xs-extralight-lh);
     --ls: var(--ts-display-serif-xs-extralight-ls);
     max-width: calc((var(--wA) + var(--wB)) * 432);
   }
@@ -100,8 +102,6 @@
 @container (--rt) {
   .csr-quote-body {
     --font: var(--ts-display-serif-sm-extralight-font);
-    --fs0: var(--ts-display-serif-sm-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-extralight-lh);
     --ls: var(--ts-display-serif-sm-extralight-ls);
     max-width: calc((var(--wA) + var(--wB)) * 512);
   }
@@ -113,8 +113,6 @@
 @container (--rd2) {
   .csr-quote-body {
     --font: var(--ts-display-serif-sm-plus-extralight-font);
-    --fs0: var(--ts-display-serif-sm-plus-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-plus-extralight-lh);
     --ls: var(--ts-display-serif-sm-plus-extralight-ls);
     max-width: calc((var(--wA) + var(--wB)) * 784);
   }

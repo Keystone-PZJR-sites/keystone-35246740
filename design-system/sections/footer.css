@@ -150,12 +150,18 @@
 }
 
 .f-tagline {
-  --fs0: var(--ts-display-serif-xs-plus-light-fs); --fs1: var(--ts-display-serif-sm-light-fs);
-  --lh0: var(--ts-display-serif-xs-plus-light-lh); --lh1: var(--ts-display-serif-sm-light-lh);
   color: var(--color-text-200);
+  --fs0: var(--ts-display-serif-xs-plus-light-fs);
+  --fs1: var(--ts-display-serif-md-plus-thin-fs);
+  --lh0: var(--ts-display-serif-xs-plus-light-lh);
+  --lh1: var(--ts-display-serif-md-plus-thin-lh);
 }
 .f-prompt {
   color: var(--color-text-300);
+  --fs0: var(--ts-text-md-light-fs);
+  --fs1: var(--ts-text-lg-light-fs);
+  --lh0: var(--ts-text-md-light-lh);
+  --lh1: var(--ts-text-lg-light-lh);
 }
 
 .f-brk-b {
@@ -179,8 +185,6 @@
   .f-tagline {
     --font: var(--ts-display-serif-sm-extralight-font);
     --ls: var(--ts-display-serif-sm-extralight-ls);
-    --fs0: var(--ts-display-serif-sm-extralight-fs); --fs1: initial;
-    --lh0: var(--ts-display-serif-sm-extralight-lh); --lh1: initial;
   }
   .f-brk-a {
     display: none;
@@ -214,14 +218,6 @@
   .f-dot-tag {
     margin-top: 19px;
   }
-  .f-tagline {
-    --fs0: var(--ts-display-serif-sm-extralight-fs); --fs1: var(--ts-display-serif-md-plus-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-extralight-lh); --lh1: var(--ts-display-serif-md-plus-extralight-lh);
-  }
-  .f-prompt {
-    --fs0: var(--ts-text-md-light-fs); --fs1: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-md-light-lh); --lh1: var(--ts-text-lg-light-lh);
-  }
   .f-brk-a {
     display: revert;
   }
@@ -234,12 +230,6 @@
   .f-tagline {
     --font: var(--ts-display-serif-md-plus-thin-font);
     --ls: var(--ts-display-serif-md-plus-thin-ls);
-    --fs0: 0; --fs1: var(--ts-display-serif-md-plus-thin-fs);
-    --lh0: 0; --lh1: var(--ts-display-serif-md-plus-thin-lh);
-  }
-  .f-prompt {
-    --fs0: 0; --fs1: var(--ts-text-lg-light-fs);
-    --lh0: 0; --lh1: var(--ts-text-lg-light-lh);
   }
 }
 

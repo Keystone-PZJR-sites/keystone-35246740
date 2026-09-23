@@ -89,17 +89,13 @@
   margin-top: calc(var(--co-u) * 16);
   max-width: var(--co-h2-w-rm);
   --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 36;
+  --fs1: 56;
   --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 45;
+  --lh1: 62;
 }
 @container (--rs) {
   .co-h2 {
     max-width: var(--co-h2-w-rs);
-    --fs0: 36;
-    --fs1: 48;
-    --lh0: 45;
-    --lh1: 60;
   }
 }
 @container (--rt) {
@@ -107,10 +103,6 @@
     max-width: var(--co-h2-w-rt);
     --font: var(--ts-display-serif-md-plus-extralight-font);
     --ls: var(--ts-display-serif-md-plus-extralight-ls);
-    --fs0: 42;
-    --fs1: 42;
-    --lh0: 50;
-    --lh1: 50;
   }
 }
 @container (--rd1) {
@@ -120,10 +112,6 @@
     --font: var(--ts-display-serif-xl-extralight-font);
     --ls: var(--ts-display-serif-xl-extralight-ls);
     /* xl token 56/62 at the 1344 anchor; 960 zooms by 80/112. */
-    --fs0: 40;
-    --fs1: 56;
-    --lh0: 44.2857;
-    --lh1: 62;
   }
 }
 
@@ -131,36 +119,20 @@
 .co-body-text {
   color: var(--color-text-300);
   --fs0: var(--ts-text-md-light-fs);
-  --fs1: 24;
+  --fs1: 20;
   --lh0: var(--ts-text-md-light-lh);
-  --lh1: 33;
-}
-@container (--rs) {
-  .co-body-text {
-    --fs0: 24;
-    --fs1: 32;
-    --lh0: 33;
-    --lh1: 44;
-  }
+  --lh1: 26;
 }
 @container (--rt) {
   .co-body-text {
     --font: var(--ts-text-lg-light-font);
     --opsz: var(--ts-text-lg-light-opsz);
-    --fs0: 18;
-    --fs1: 18;
-    --lh0: 26;
-    --lh1: 26;
   }
 }
 @container (--rd1) {
   .co-body-text {
     --font: var(--ts-text-xl-light-font);
     --opsz: var(--ts-text-xl-light-opsz);
-    --fs0: 14.2857;
-    --fs1: 20;
-    --lh0: 18.5714;
-    --lh1: 26;
   }
 }
 
@@ -201,15 +173,11 @@
   margin-top: calc(var(--co-u) * 8);
   color: var(--color-text-100);
   --fs0: var(--ts-text-xs-medium-fs);
+  --fs1: 14;
   --lh0: var(--ts-text-xs-medium-lh);
+  --lh1: 18;
 }
 .co-cell-role {
   margin-top: calc(var(--co-u) * 4);
   color: var(--color-text-400);
-}
-@container (--rd1) {
-  .co-cell-name {
-    --fs0: 14;
-    --lh0: 18;
-  }
 }

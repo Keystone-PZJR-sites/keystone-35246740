@@ -351,9 +351,11 @@ a.knav-row {
   background: var(--color-bg-000);
   text-decoration: none;
   color: var(--color-text-200);
-  --fs0: var(--ts-text-sm-regular-fs); --fs1: var(--ts-text-xl-regular-fs);
-  --lh0: var(--ts-text-sm-regular-lh); --lh1: var(--ts-text-xl-regular-lh);
   white-space: nowrap;
+  --fs0: var(--ts-text-sm-regular-fs);
+  --fs1: var(--ts-text-xl-regular-fs);
+  --lh0: var(--ts-text-sm-regular-lh);
+  --lh1: var(--ts-text-xl-regular-lh);
 }
 .knav-chipdot {
   flex: none;
@@ -371,9 +373,11 @@ a.knav-row {
   background: var(--_chipbg);
   text-decoration: none;
   color: var(--_label);
-  --fs0: var(--ts-text-sm-regular-fs); --fs1: var(--ts-text-xl-regular-fs);
-  --lh0: var(--ts-text-sm-regular-lh); --lh1: var(--ts-text-xl-regular-lh);
   white-space: nowrap;
+  --fs0: var(--ts-text-sm-regular-fs);
+  --fs1: var(--ts-text-xl-regular-fs);
+  --lh0: var(--ts-text-sm-regular-lh);
+  --lh1: var(--ts-text-xl-regular-lh);
 }
 /* The icon uses independent ink from its label. */
 .knav-rchipicon {

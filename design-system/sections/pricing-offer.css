@@ -129,6 +129,10 @@
   margin: var(--space-lg) 0 0;
   color: var(--color-text-100);
   max-width: var(--po-h1-w-rm);
+  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
+  --fs1: var(--ts-display-serif-3xl-thin-fs);
+  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
+  --lh1: var(--ts-display-serif-3xl-thin-lh);
 }
 @container (--rs) {
   .po-h1 { max-width: var(--po-h1-w-rs); }
@@ -138,8 +142,6 @@
     margin-top: var(--space-xl);
     max-width: var(--po-h1-w-rt);
     --font: var(--ts-display-serif-md-thin-font);
-    --fs0: var(--ts-display-serif-md-thin-fs);
-    --lh0: var(--ts-display-serif-md-thin-lh);
     --ls: var(--ts-display-serif-md-thin-ls);
   }
 }
@@ -148,8 +150,6 @@
     margin-top: var(--space-5xl);
     max-width: var(--po-h1-w-rd1);
     --font: var(--ts-display-serif-lg-thin-font);
-    --fs0: var(--ts-display-serif-lg-thin-fs);
-    --lh0: var(--ts-display-serif-lg-thin-lh);
     --ls: var(--ts-display-serif-lg-thin-ls);
   }
 }
@@ -157,8 +157,6 @@
   .po-h1 {
     max-width: var(--po-h1-w-rd2);
     --font: var(--ts-display-serif-3xl-thin-font);
-    --fs0: var(--ts-display-serif-3xl-thin-fs);
-    --lh0: var(--ts-display-serif-3xl-thin-lh);
     --ls: var(--ts-display-serif-3xl-thin-ls);
   }
 }
@@ -167,6 +165,10 @@
   margin: var(--space-3xl) 0 0;
   color: var(--color-text-400);
   max-width: var(--po-sub-w-rm);
+  --fs0: var(--ts-text-md-light-fs);
+  --fs1: var(--ts-text-2xl-light-fs);
+  --lh0: var(--ts-text-md-light-lh);
+  --lh1: var(--ts-text-2xl-light-lh);
 }
 /* the two designed paragraphs (rm/rt/rd1): block segments with the
    12px paragraph spacing; at the 1130 gate they return to inline flow
@@ -185,8 +187,6 @@
   .po-subhead {
     max-width: var(--po-sub-w-rt);
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -196,8 +196,6 @@
     margin-top: var(--space-5xl);
     max-width: var(--po-sub-w-rd1);
     --font: var(--ts-text-xl-light-font);
-    --fs0: var(--ts-text-xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
@@ -206,8 +204,6 @@
   .po-subhead {
     max-width: var(--po-sub-w-rd2);
     --font: var(--ts-text-2xl-light-font);
-    --fs0: var(--ts-text-2xl-light-fs);
-    --lh0: var(--ts-text-2xl-light-lh);
     --ls: var(--ts-text-2xl-light-ls);
     --opsz: var(--ts-text-2xl-light-opsz);
   }
@@ -446,12 +442,14 @@
    above it — "the tick wins") */
 .po-fine {
   margin: auto 0 0;
+  --fs0: var(--ts-text-lg-light-fs);
+  --fs1: var(--ts-text-2xl-light-fs);
+  --lh0: var(--ts-text-lg-light-lh);
+  --lh1: var(--ts-text-2xl-light-lh);
 }
 @container (--rs) {
   .po-fine {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
@@ -459,8 +457,6 @@
 @container (--rt) {
   .po-fine {
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -468,8 +464,6 @@
 @container (--rd1) {
   .po-fine {
     --font: var(--ts-text-xl-light-font);
-    --fs0: var(--ts-text-xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
@@ -477,8 +471,6 @@
 @container (--rd2) {
   .po-fine {
     --font: var(--ts-text-2xl-light-font);
-    --fs0: var(--ts-text-2xl-light-fs);
-    --lh0: var(--ts-text-2xl-light-lh);
     --ls: var(--ts-text-2xl-light-ls);
     --opsz: var(--ts-text-2xl-light-opsz);
   }
@@ -676,6 +668,10 @@
 .po-list-head {
   margin: 0 0 calc((var(--wA) + var(--wB)) * 20);
   color: var(--color-text-300);
+  --fs0: var(--ts-text-md-medium-fs);
+  --fs1: var(--ts-text-2xl-medium-fs);
+  --lh0: var(--ts-text-md-medium-lh);
+  --lh1: var(--ts-text-2xl-medium-lh);
 }
 @container (--rs) {
   .po-list-head { margin-bottom: calc((var(--wA) + var(--wB)) * 16); }
@@ -686,8 +682,6 @@
 @container (--rd1) {
   .po-list-head {
     --font: var(--ts-text-xl-medium-font);
-    --fs0: var(--ts-text-xl-medium-fs);
-    --lh0: var(--ts-text-xl-medium-lh);
     --ls: var(--ts-text-xl-medium-ls);
     --opsz: var(--ts-text-xl-medium-opsz);
   }
@@ -696,8 +690,6 @@
   .po-list-head {
     margin-bottom: calc((var(--wA) + var(--wB)) * 12);
     --font: var(--ts-text-2xl-medium-font);
-    --fs0: var(--ts-text-2xl-medium-fs);
-    --lh0: var(--ts-text-2xl-medium-lh);
     --ls: var(--ts-text-2xl-medium-ls);
     --opsz: var(--ts-text-2xl-medium-opsz);
   }
@@ -721,10 +713,12 @@
   gap: var(--space-lg);
   color: var(--color-text-300);
   --font: var(--ts-text-md-light-font);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
+  --fs0: var(--ts-text-md-light-fs);
+  --fs1: var(--ts-text-lg-light-fs);
+  --lh0: var(--ts-text-md-light-lh);
+  --lh1: var(--ts-text-lg-light-lh);
 }
 @container (--rs) {
   .po-items li { gap: var(--space-xl); }
@@ -733,8 +727,6 @@
   .po-items li {
     gap: var(--space-lg);
     --font: var(--ts-text-sm-light-font);
-    --fs0: var(--ts-text-sm-light-fs);
-    --lh0: var(--ts-text-sm-light-lh);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
   }
@@ -743,8 +735,6 @@
   .po-items { gap: calc((var(--wA) + var(--wB)) * 20); }
   .po-items li {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
@@ -754,8 +744,6 @@
   .po-items li {
     gap: var(--space-3xl);
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }

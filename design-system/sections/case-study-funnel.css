@@ -123,16 +123,16 @@
 .csf-label .cs-pill {
   color: var(--color-text-300);
   --font: var(--ts-text-xs-regular-font);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
+  --fs0: var(--ts-text-xs-regular-fs);
+  --fs1: var(--ts-text-md-light-fs);
+  --lh0: var(--ts-text-xs-regular-lh);
+  --lh1: var(--ts-text-md-light-lh);
 }
 @container (--rs) {
   .csf-label .cs-pill {
     --font: var(--ts-text-sm-regular-font);
-    --fs0: var(--ts-text-sm-regular-fs);
-    --lh0: var(--ts-text-sm-regular-lh);
     --ls: var(--ts-text-sm-regular-ls);
     --opsz: var(--ts-text-sm-regular-opsz);
   }
@@ -140,8 +140,6 @@
 @container (--rd1) {
   .csf-label .cs-pill {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
@@ -174,6 +172,10 @@
 .csf-num {
   margin-left: var(--space-xl);
   color: var(--color-text-200);
+  --fs0: var(--ts-text-xl-regular-fs);
+  --fs1: var(--ts-display-sans-2xs-light-fs);
+  --lh0: var(--ts-text-xl-regular-lh);
+  --lh1: var(--ts-display-sans-2xs-light-lh);
 }
 .csf-row[data-end] .csf-num {
   color: var(--color-teal-800);
@@ -181,8 +183,6 @@
 @container (--rs) {
   .csf-num {
     --font: var(--ts-text-2xl-regular-font);
-    --fs0: var(--ts-text-2xl-regular-fs);
-    --lh0: var(--ts-text-2xl-regular-lh);
     --ls: var(--ts-text-2xl-regular-ls);
     --opsz: var(--ts-text-2xl-regular-opsz);
   }
@@ -190,8 +190,6 @@
 @container (--rd1) {
   .csf-num {
     --font: var(--ts-display-sans-2xs-light-font);
-    --fs0: var(--ts-display-sans-2xs-light-fs);
-    --lh0: var(--ts-display-sans-2xs-light-lh);
     --ls: var(--ts-display-sans-2xs-light-ls);
     --opsz: var(--ts-display-sans-2xs-light-opsz);
   }
@@ -203,12 +201,14 @@
   padding-top: var(--space-md);
   color: var(--color-text-400);
   max-width: calc((var(--wA) + var(--wB)) * 304);
+  --fs0: var(--ts-text-xs-light-fs);
+  --fs1: var(--ts-text-sm-light-fs);
+  --lh0: var(--ts-text-xs-light-lh);
+  --lh1: var(--ts-text-sm-light-lh);
 }
 @container (--rs) {
   .csf-disclaimer {
     --font: var(--ts-text-sm-light-font);
-    --fs0: var(--ts-text-sm-light-fs);
-    --lh0: var(--ts-text-sm-light-lh);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
     max-width: calc((var(--wA) + var(--wB)) * 440);
