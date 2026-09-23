@@ -26,17 +26,21 @@ export function DesignHeadSection() {
   );
 }
 
-/** The chapter switcher. State is the URL hash: `:target` shows one
- * chapter (design.css), so `/design/#primitives` deep-links and nothing
- * runs on the client. Foundations shows when no chapter is targeted. */
+/** The chapter switcher: a radio group. `:has(:checked)` shows the chosen
+ * chapter (design.css), so a click changes nothing but state — no scroll,
+ * nothing on the client. Until a tab is clicked, a hash deep link
+ * (`/design/#primitives`, `/design/#p-slug`) picks the chapter; with
+ * neither, Foundations shows. */
 export function DesignTabs() {
   return (
-    <nav className="ds-tabs" aria-label="Chapters">
+    <fieldset className="ds-tabs">
+      <legend className="hx-sr">Chapter</legend>
       {DESIGN_CHAPTERS.map((c) => (
-        <a key={c.id} className="type type-fixed ts-text-md-medium ds-tab" href={`#${c.id}`}>
+        <label key={c.id} className="type type-fixed ts-text-md-medium ds-tab">
+          <input type="radio" name="ds-chapter" value={c.id} className="ds-tab-input" />
           {c.label}
-        </a>
+        </label>
       ))}
-    </nav>
+    </fieldset>
   );
 }

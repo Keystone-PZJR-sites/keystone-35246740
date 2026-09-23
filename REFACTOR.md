@@ -179,7 +179,8 @@ the end result differs slightly from today, if it is better.
   the for-dentists data. No sitemap entry, `robots: noindex`, in the
   visual gate. Answers "is there a catalog" with something that cannot
   drift.
-- `/design/` chapters — a sticky tab switcher; the URL hash is the state
-  (`:target` + `:has()`, no island), so `/design/#primitives` deep-links
-  and a link to a token table or primitive opens its chapter.
+- `/design/` chapters — a sticky tab switcher: a radio group read with
+  `:has(:checked)`, so a click changes state without scrolling and no
+  island is needed; a hash deep link (`/design/#p-slug`) picks the chapter
+  until a tab is clicked.
 

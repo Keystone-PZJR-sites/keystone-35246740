@@ -32,22 +32,25 @@
 }
 /* ---- chapter switcher ---- */
 
-/* The chapters are siblings; the hash targets one. With no target the
-   first shows; with a target inside a chapter (a deep link to a token
-   table or primitive) that chapter shows. */
+/* State, in order of precedence: a checked radio (the user clicked a
+   tab) · a hash target inside a chapter (a deep link) · the first
+   chapter. Each rule hides every chapter but the chosen one. */
 .ds-body {
   width: 100%;
 }
-.ds-body:not(:has(:target)) .ds-chapters > .ds-sec:not(:first-child),
-.ds-body:has(:target) .ds-chapters > .ds-sec:not(:target):not(:has(:target)) {
+.ds-body:has([value="foundations"]:checked) .ds-chapters > .ds-sec:not(#foundations),
+.ds-body:has([value="primitives"]:checked) .ds-chapters > .ds-sec:not(#primitives),
+.ds-body:has([value="sections"]:checked) .ds-chapters > .ds-sec:not(#sections),
+.ds-body:has([value="rules"]:checked) .ds-chapters > .ds-sec:not(#rules),
+.ds-body:not(:has(:checked)):has(:target) .ds-chapters > .ds-sec:not(:target):not(:has(:target)),
+.ds-body:not(:has(:checked)):not(:has(:target)) .ds-chapters > .ds-sec:not(:first-child) {
   display: none;
 }
-/* The shown chapter follows the tab bar with a tick of clearance and
-   opens at the top of the viewport under the sticky bar. */
 .ds-chapters > .ds-sec {
   padding-top: var(--t);
   scroll-margin-top: calc(var(--knav-bar-h) + var(--space-8xl));
 }
+
 /* Sticks at the top and pads for the fixed nav bar, so its background
    sits under the bar and chapter content never scrolls through it. */
 .ds-tabs {
@@ -58,20 +61,21 @@
   gap: var(--space-3xl);
   width: 100%;
   box-sizing: border-box;
-  margin-top: var(--space-4xl);
-  padding-top: var(--knav-bar-h);
-  padding-inline: var(--t);
-  background: var(--color-bg-100);
+  margin: var(--space-4xl) 0 0;
+  padding: var(--knav-bar-h) var(--t) 0;
+  border: 0;
   border-bottom: 1px solid var(--color-border-000);
+  background: var(--color-bg-100);
   overflow-x: auto;
 }
 .ds-tab {
+  position: relative;
   flex: none;
   padding: var(--space-lg) 0;
   margin-bottom: -1px;
   color: var(--color-text-400);
-  text-decoration: none;
   border-bottom: 1px solid transparent;
+  cursor: pointer;
   transition:
     color var(--motion-hover-duration) var(--motion-hover-ease),
     border-color var(--motion-hover-duration) var(--motion-hover-ease);
@@ -79,11 +83,24 @@
 .ds-tab:hover {
   color: var(--color-text-100);
 }
-.ds-body:not(:has(:target)) .ds-tab:first-child,
-.ds-body:has(#foundations:target, #foundations :target) .ds-tab[href="#foundations"],
-.ds-body:has(#primitives:target, #primitives :target) .ds-tab[href="#primitives"],
-.ds-body:has(#sections:target, #sections :target) .ds-tab[href="#sections"],
-.ds-body:has(#rules:target, #rules :target) .ds-tab[href="#rules"] {
+/* The radio is the keyboard surface; the label is the drawn tab. */
+.ds-tab-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ds-tab:has(.ds-tab-input:focus-visible) {
+  outline: var(--ring-w) solid var(--color-teal-500);
+  outline-offset: 2px;
+}
+.ds-tab:has(:checked),
+.ds-body:not(:has(:checked)):has(#foundations:target, #foundations :target) .ds-tab:has([value="foundations"]),
+.ds-body:not(:has(:checked)):has(#primitives:target, #primitives :target) .ds-tab:has([value="primitives"]),
+.ds-body:not(:has(:checked)):has(#sections:target, #sections :target) .ds-tab:has([value="sections"]),
+.ds-body:not(:has(:checked)):has(#rules:target, #rules :target) .ds-tab:has([value="rules"]),
+.ds-body:not(:has(:checked)):not(:has(:target)) .ds-tab:first-of-type {
   color: var(--color-text-100);
   border-bottom-color: var(--color-text-100);
 }
