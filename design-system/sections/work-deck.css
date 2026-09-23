@@ -32,7 +32,9 @@
   .work-section {
     display: grid;
     grid-template-columns: repeat(2, calc(var(--t) * 6));
-    grid-template-rows: minmax(0, 1fr);
+    /* Slug, headline and CTA stack in column 1 between two centering
+       tracks; the deck spans every row in column 2. */
+    grid-template-rows: minmax(0, 1fr) repeat(3, auto) minmax(0, 1fr);
     /* The top rule stays inside the section height, so the bottom pad
        gives back its pixel. */
     padding-block: var(--t) calc(var(--t) - 1px);
@@ -63,10 +65,11 @@
 }
 @container (--rd1) {
   .wd-head {
-    grid-column: 1;
-    margin-left: 0;
-    padding-left: var(--t);
-    gap: var(--wd-head-gap-rd);
+    display: contents;
+  }
+  .wd-slug {
+    grid-area: 2 / 1;
+    margin-left: var(--t);
   }
 }
 
@@ -102,26 +105,14 @@
 }
 @container (--rd1) {
   .wd-h2 {
+    grid-area: 3 / 1;
+    margin: var(--wd-head-gap-rd) 0 0 var(--t);
     --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--wd-h2-w-rd);
     --fs0: 35.7143;
     --fs1: 50;
     --lh0: 42.8571;
     --lh1: 60;
-  }
-}
-
-/* CTA mounts switch between the band and header. */
-.wd-cta-head {
-  display: none;
-}
-@container (--rd1) {
-  .wd-cta-head {
-    display: block;
-    margin-top: calc(var(--wd-cta-gap-rd) - var(--wd-head-gap-rd));
-  }
-  .wd-cta-band {
-    display: none;
   }
 }
 
@@ -154,26 +145,29 @@
     gap: var(--wd-band-gap-rt);
   }
 }
-@container (--rd1) {
-  .wd-band {
-    grid-column: 2;
-    width: calc(var(--t) * 6);
-    min-height: 0;
-    height: calc(var(--t) * 5);
-    margin-bottom: 0;
-    background: none;
-    border: 0;
-    padding-bottom: 0;
-    overflow: clip;
-    gap: 0;
-  }
-}
 
-/* the band CTA left-aligns with the stack (drawn x = 1t at both
-   anchors — the stack's own centered margin) */
-.wd-cta-band {
+/* The CTA left-aligns with the stack (drawn x = 1t) and grows a size at
+   rd1, where it sits under the headline. */
+.wd-cta {
   align-self: flex-start;
   margin-left: var(--t);
+  --btn-size: md;
+}
+@container (--rd1) {
+  .wd-band {
+    display: contents;
+  }
+  .wd-cta {
+    grid-area: 4 / 1;
+    justify-self: start;
+    margin-top: var(--wd-cta-gap-rd);
+    --btn-size: lg;
+  }
+  .wd-deck {
+    grid-area: 1 / 2 / -1 / 3;
+    align-self: center;
+    justify-self: center;
+  }
 }
 
 /* Unitless card metrics scale through --wd-u. */

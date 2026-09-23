@@ -24,9 +24,8 @@ the end result differs slightly from today, if it is better.
   class per Figma step (the `--wA/--wB` ramp stays: it is what makes the
   anchors pixel-true); ramp anchors name their step; one reduced-motion
   law; controls inherit size from their mount (no hidden per-band copies).
-  *Left:* the mobile/desktop nav pair, the pricing sliders and work-deck
-  CTA move between DOM positions; footer/FAQ rail cells are per-band
-  geometry; (gate widths now named, see below).
+  *Left:* the mobile/desktop nav pair; footer/FAQ rail cells are per-band
+  geometry.
 - [ ] **4. DRY the islands** — `useSwipe`, `useAutoplayGate`, `useActiveSection`,
   `useModal` (native `<dialog>` + `inert`), `cssVars()`, `useSyncExternalStore`
   for `matchMedia`; discriminated unions where `!` lives; `useActionState` +
@@ -112,3 +111,8 @@ the end result differs slightly from today, if it is better.
 - P3 `refactor(css): named gates` — 626 `@container (min-width: 665px)`
   become `@container (--rt)` etc.; widths live once in `grid/gates.js`, a
   30-line PostCSS plugin. Gate 100/100.
+- P3 `refactor(pricing): one slider` — the scale block is one flex column;
+  the mount names the slider size per band; five width tokens go.
+- P3 `refactor(work-deck): one CTA` — from rd1 the head and band wrappers
+  are `display: contents` and the section grid places slug, headline, CTA
+  and deck; below rd1 nothing changes. `/` pixel-identical at ten widths.
