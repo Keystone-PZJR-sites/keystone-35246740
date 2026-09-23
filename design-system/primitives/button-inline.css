@@ -8,10 +8,9 @@
   text-decoration: none;
   white-space: nowrap;
   color: var(--color-text-300);
-  font: var(--ts-text-md-regular-font);
-  letter-spacing: var(--ts-text-md-regular-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-regular-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-regular-font);
+  --ls: var(--ts-text-md-regular-ls);
+  --opsz: var(--ts-text-md-regular-opsz);
   /* on the resting rule so mouse-out reverses on the same curve */
   transition: color var(--motion-hover-duration) var(--motion-hover-ease);
 }

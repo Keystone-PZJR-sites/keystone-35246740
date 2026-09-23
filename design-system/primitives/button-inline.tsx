@@ -21,13 +21,13 @@ export function ButtonInline({ href, forceState, children }: ButtonInlineProps) 
   );
   if (href !== undefined) {
     return (
-      <a className="btn-inline" href={href} data-state={forceState}>
+      <a className="type type-fixed btn-inline" href={href} data-state={forceState}>
         {content}
       </a>
     );
   }
   return (
-    <span className="btn-inline" data-state={forceState}>
+    <span className="type type-fixed btn-inline" data-state={forceState}>
       {content}
     </span>
   );

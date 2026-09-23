@@ -16,10 +16,9 @@
   align-items: baseline;
   gap: var(--space-xs);
   color: var(--color-text-200);
-  font: var(--ts-text-sm-medium-font);
-  letter-spacing: var(--ts-text-sm-medium-ls);
-  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-sm-medium-font);
+  --ls: var(--ts-text-sm-medium-ls);
+  --opsz: var(--ts-text-sm-medium-opsz);
 }
 
 .ks-field-req {
@@ -28,10 +27,9 @@
 
 .ks-field-help {
   color: var(--color-text-400);
-  font: var(--ts-text-sm-light-font);
-  letter-spacing: var(--ts-text-sm-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
 }
 
 .ks-field-control {
@@ -65,10 +63,9 @@
   outline: none;
   resize: vertical;
   color: var(--_ink);
-  font: var(--ts-text-md-light-font);
-  letter-spacing: var(--ts-text-md-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 
 .ks-field-control :is(input, textarea)::placeholder {
@@ -137,10 +134,9 @@
 
 .ks-field-check-label {
   color: var(--color-text-300);
-  font: var(--ts-text-sm-light-font);
-  letter-spacing: var(--ts-text-sm-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
 }
 
 .ks-field-check-label a {

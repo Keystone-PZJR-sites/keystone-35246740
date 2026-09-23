@@ -148,10 +148,10 @@
 }
 .csb-quote-body {
   margin: 0;
-  font: var(--ts-display-serif-2xs-plus-extralight-font);
-  font-size: calc((var(--wA) + var(--wB)) * 20);
-  line-height: calc((var(--wA) + var(--wB)) * 24);
-  letter-spacing: var(--ts-display-serif-2xs-plus-extralight-ls);
+  --font: var(--ts-display-serif-2xs-plus-extralight-font);
+  --fs0: var(--ts-display-serif-2xs-plus-extralight-fs);
+  --lh0: var(--ts-display-serif-2xs-plus-extralight-lh);
+  --ls: var(--ts-display-serif-2xs-plus-extralight-ls);
   max-width: calc((var(--wA) + var(--wB)) * 304);
 }
 .csb-quote .cs-quote-attrib {
@@ -159,10 +159,10 @@
 }
 @container (min-width: 470px) {
   .csb-quote-body {
-    font: var(--ts-display-serif-xs-extralight-font);
-    font-size: calc((var(--wA) + var(--wB)) * 24);
-    line-height: calc((var(--wA) + var(--wB)) * 30);
-    letter-spacing: var(--ts-display-serif-xs-extralight-ls);
+    --font: var(--ts-display-serif-xs-extralight-font);
+    --fs0: var(--ts-display-serif-xs-extralight-fs);
+    --lh0: var(--ts-display-serif-xs-extralight-lh);
+    --ls: var(--ts-display-serif-xs-extralight-ls);
     max-width: none;
   }
 }
@@ -179,19 +179,19 @@
     width: calc(var(--t) * 5);
   }
   .csb-quote-body {
-    font: var(--ts-display-serif-sm-extralight-font);
-    font-size: calc((var(--wA) + var(--wB)) * 32);
-    line-height: calc((var(--wA) + var(--wB)) * 38);
-    letter-spacing: var(--ts-display-serif-sm-extralight-ls);
+    --font: var(--ts-display-serif-sm-extralight-font);
+    --fs0: var(--ts-display-serif-sm-extralight-fs);
+    --lh0: var(--ts-display-serif-sm-extralight-lh);
+    --ls: var(--ts-display-serif-sm-extralight-ls);
   }
 }
 @container (min-width: 1130px) {
   .csb-quote { width: calc((var(--wA) + var(--wB)) * 496); }
   .csb-quote-body {
-    font: var(--ts-display-serif-sm-plus-extralight-font);
-    font-size: calc((var(--wA) + var(--wB)) * 36);
-    line-height: calc((var(--wA) + var(--wB)) * 42);
-    letter-spacing: var(--ts-display-serif-sm-plus-extralight-ls);
+    --font: var(--ts-display-serif-sm-plus-extralight-font);
+    --fs0: var(--ts-display-serif-sm-plus-extralight-fs);
+    --lh0: var(--ts-display-serif-sm-plus-extralight-lh);
+    --ls: var(--ts-display-serif-sm-plus-extralight-ls);
   }
 }
 

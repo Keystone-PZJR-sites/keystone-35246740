@@ -7,9 +7,9 @@ export function CaseStudyStatCell({ stat }: { stat: CaseStudyStat }) {
   return (
     <dl className="cs-cell">
       <dt className="cs-cell-label">
-        <span className="cs-pill">{stat.label}</span>
+        <span className="type cs-pill">{stat.label}</span>
       </dt>
-      <dd className="cs-cell-value">
+      <dd className="type cs-cell-value">
         {stat.value}
         {stat.star && (
           <span className="cs-cell-star" aria-hidden="true">
@@ -24,7 +24,7 @@ export function CaseStudyStatCell({ stat }: { stat: CaseStudyStat }) {
 export function CaseStudyDisclaimerCell({ text }: { text: string }) {
   return (
     <p className="cs-cell cs-cell-disclaimer">
-      <span className="cs-pill">{text}</span>
+      <span className="type cs-pill">{text}</span>
     </p>
   );
 }

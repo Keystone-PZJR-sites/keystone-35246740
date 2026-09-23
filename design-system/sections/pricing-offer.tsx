@@ -201,7 +201,7 @@ function ItemList({ items }: { items: typeof INCLUDED_ITEMS }) {
 function ChatRow({ ghost, className }: { ghost: "sm" | "md" | "lg"; className?: string }) {
   return (
     <span className={className ? `po-chat-row ${className}` : "po-chat-row"}>
-      <span className="po-chat-label">Got a question?</span>
+      <span className="type type-fixed po-chat-label">Got a question?</span>
       <ButtonGhost size={ghost} color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
@@ -258,7 +258,7 @@ export function PricingOfferSection() {
           <MosaicField />
           <p className="po-price">
             <span className="po-price-num">$50</span>
-            <span className="po-price-per">/month</span>
+            <span className="type type-fixed po-price-per">/month</span>
           </p>
           <p className="po-fine">
             No setup fee. No contract.
@@ -291,7 +291,7 @@ export function PricingOfferSection() {
             Start today
           </PricingButton>
         </div>
-        <span className="po-tag">No asterisks.</span>
+        <span className="type type-fixed po-tag">No asterisks.</span>
       </div>
 
       <div className="po-chat po-chat-card" data-landmark="chat">

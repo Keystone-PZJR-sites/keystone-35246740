@@ -36,7 +36,7 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
               </>
             )}
           </Slug>
-          <Text as="h1" className="bp-h1">
+          <Text as="h1" fixed className="bp-h1">
             {post.title}
           </Text>
         </header>
@@ -58,7 +58,7 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
             <div className="bp-section-stack">
               {post.sections.map((section) => (
                 <section className="bp-article-section" id={section.id} key={section.id}>
-                  <h2>{section.heading}</h2>
+                  <h2 className="type type-fixed bp-h2">{section.heading}</h2>
                   <BlogPostMarkdown markdown={section.markdown} variant="body" />
                 </section>
               ))}

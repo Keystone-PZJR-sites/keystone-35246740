@@ -32,15 +32,15 @@
 /* Fixed heights prevent type metrics from changing pill geometry. */
 .grader[data-size="lg"] .grader-field {
   height: 56px;
-  --_font: var(--ts-text-xl-light-font);
-  --_ls: var(--ts-text-xl-light-ls);
-  --_opsz: var(--ts-text-xl-light-opsz);
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
 }
 .grader[data-size="md"] .grader-field,
 .grader[data-size="sm"] .grader-field {
-  --_font: var(--ts-text-md-light-font);
-  --_ls: var(--ts-text-md-light-ls);
-  --_opsz: var(--ts-text-md-light-opsz);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 
 /* Menu type inherits from the grader size and can be restated by mounts. */
@@ -84,10 +84,6 @@
   padding: var(--space-none);
   background: none;
   outline: none;
-  font: var(--_font);
-  letter-spacing: var(--_ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--_opsz), var(--font-sans-slnt);
   color: var(--_ink);
 }
 .grader-field input::placeholder {
@@ -246,11 +242,10 @@
   display: block;
   padding: var(--space-sm) var(--space-md) var(--space-none);
   color: var(--color-text-400);
-  font: var(--ts-text-nav-label-font);
-  letter-spacing: var(--ts-text-nav-label-ls);
-  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
-  text-transform: var(--ts-text-nav-label-case);
+  --font: var(--ts-text-nav-label-font);
+  --ls: var(--ts-text-nav-label-ls);
+  --opsz: var(--ts-text-nav-label-opsz);
+  --case: var(--ts-text-nav-label-case);
 }
 
 .grader-option {
@@ -281,28 +276,26 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-optical-sizing: none;
 }
 .grader-option-name {
-  font: var(--_menu-name-font);
-  letter-spacing: var(--_menu-name-ls);
-  font-variation-settings: "opsz" var(--_menu-name-opsz), var(--font-sans-slnt);
+  --font: var(--_menu-name-font);
+  --ls: var(--_menu-name-ls);
+  --opsz: var(--_menu-name-opsz);
   color: var(--color-text-200);
 }
 .grader-option-sub {
-  font: var(--_menu-sub-font);
-  letter-spacing: var(--_menu-sub-ls);
-  font-variation-settings: "opsz" var(--_menu-sub-opsz), var(--font-sans-slnt);
+  --font: var(--_menu-sub-font);
+  --ls: var(--_menu-sub-ls);
+  --opsz: var(--_menu-sub-opsz);
   color: var(--color-text-400);
 }
 
 .grader-error {
   margin: var(--space-none);
   padding-inline: var(--space-xl);
-  font: var(--ts-text-sm-light-font);
-  letter-spacing: var(--ts-text-sm-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
   color: var(--color-red-500);
 }
 

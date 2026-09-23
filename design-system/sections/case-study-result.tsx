@@ -18,7 +18,7 @@ export function CaseStudyResultSection({ study }: { study: CaseStudy }) {
           <CaseStudyPhoto study={study} image="result" />
         </div>
         <figure className="csr-quote">
-          <blockquote className="cs-quote csr-quote-body">{study.result.quote}</blockquote>
+          <blockquote className="type cs-quote csr-quote-body">{study.result.quote}</blockquote>
           <figcaption className="cs-quote-attrib cs-body cs-type">
             {study.result.attribution}
           </figcaption>

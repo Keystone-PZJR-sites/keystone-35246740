@@ -13,7 +13,7 @@ export function CaseStudyFeatureList({ items, icon = 24, className }: CaseStudyF
   return (
     <ul className={className ? `cs-check ${className}` : "cs-check"}>
       {items.map((item) => (
-        <li key={item}>
+        <li key={item} className="type">
           <IconDoubleCheckmark size={icon} />
           <span>{item}</span>
         </li>

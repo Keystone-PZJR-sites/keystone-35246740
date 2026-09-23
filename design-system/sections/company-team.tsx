@@ -100,7 +100,7 @@ function Portrait({ member }: { member: TeamRosterMember }) {
       return <img src={member.portrait.url} width={400} height={400} alt="" loading="lazy" />;
     case "initials":
       return (
-        <span className="co-cell-initials" aria-hidden="true">
+        <span className="type co-cell-initials" aria-hidden="true">
           {initials(member.name)}
         </span>
       );
@@ -132,8 +132,8 @@ export function CompanyTeamSection({ members }: { members: TeamRosterMember[] })
             <span className="co-cell-photo">
               <Portrait member={member} />
             </span>
-            <span className="co-cell-name">{member.name}</span>
-            {member.position && <span className="co-cell-role">{member.position}</span>}
+            <span className="type co-cell-name">{member.name}</span>
+            {member.position && <span className="type co-cell-role">{member.position}</span>}
           </li>
         ))}
       </ul>

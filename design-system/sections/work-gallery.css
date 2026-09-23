@@ -36,22 +36,22 @@
 .wg-title {
   margin: 0 0 0 calc(var(--t) / 2);
   color: var(--color-text-100);
-  font: var(--ts-display-serif-xs-extralight-font);
-  letter-spacing: var(--ts-display-serif-xs-extralight-ls);
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
 }
 @container (min-width: 470px) {
   .wg-title { margin-left: var(--t); }
 }
 @container (min-width: 665px) {
   .wg-title {
-    font: var(--ts-display-serif-xs-plus-extralight-font);
-    letter-spacing: var(--ts-display-serif-xs-plus-extralight-ls);
+    --font: var(--ts-display-serif-xs-plus-extralight-font);
+    --ls: var(--ts-display-serif-xs-plus-extralight-ls);
   }
 }
 @container (min-width: 1130px) {
   .wg-title {
-    font: var(--ts-display-serif-md-plus-thin-font);
-    letter-spacing: var(--ts-display-serif-md-plus-thin-ls);
+    --font: var(--ts-display-serif-md-plus-thin-font);
+    --ls: var(--ts-display-serif-md-plus-thin-ls);
   }
 }
 

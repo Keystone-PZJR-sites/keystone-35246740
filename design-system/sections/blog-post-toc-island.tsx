@@ -80,11 +80,11 @@ export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
   return (
     <div className="bp-toc-rail" data-landmark="toc">
       <nav className="bp-toc" aria-label={BLOG_POST_CONTENT.tocAriaLabel} data-active={active}>
-        <p className="bp-toc-label">{BLOG_POST_CONTENT.tocLabel}</p>
+        <p className="type type-fixed bp-toc-label">{BLOG_POST_CONTENT.tocLabel}</p>
         <ul className="bp-toc-list">
           {items.map((item) => (
             <li className="bp-toc-item" key={item.id}>
-              <a href={`#${item.id}`} aria-current={active === item.id ? "true" : undefined}>
+              <a className="type type-fixed" href={`#${item.id}`} aria-current={active === item.id ? "true" : undefined}>
                 {item.label}
               </a>
             </li>

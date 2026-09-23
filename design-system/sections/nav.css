@@ -121,10 +121,9 @@
   display: flex;
   align-items: center;
   gap: var(--fitem-gap);
-  font: var(--ts-text-sm-medium-font);
-  letter-spacing: var(--ts-text-sm-medium-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-medium-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-sm-medium-font);
+  --ls: var(--ts-text-sm-medium-ls);
+  --opsz: var(--ts-text-sm-medium-opsz);
   color: var(--color-text-300);
   transition: color var(--knav-ink-dur) var(--motion-hover-ease);
 }
@@ -331,11 +330,10 @@
   align-items: center;
   width: 243px;
   padding-inline: var(--space-lg);
-  font: var(--ts-text-nav-label-font);
-  letter-spacing: var(--ts-text-nav-label-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-nav-label-opsz), var(--font-sans-slnt);
-  text-transform: var(--ts-text-nav-label-case);
+  --font: var(--ts-text-nav-label-font);
+  --ls: var(--ts-text-nav-label-ls);
+  --opsz: var(--ts-text-nav-label-opsz);
+  --case: var(--ts-text-nav-label-case);
   color: var(--color-darkgray-100);
   white-space: nowrap;
 }
@@ -382,8 +380,8 @@
   gap: var(--space-md);
 }
 .knav-subtitle {
-  font: var(--ts-display-serif-2xs-medium-font);
-  letter-spacing: var(--ts-display-serif-2xs-medium-ls);
+  --font: var(--ts-display-serif-2xs-medium-font);
+  --ls: var(--ts-display-serif-2xs-medium-ls);
   color: var(--color-text-100);
 }
 .knav-subdot {
@@ -402,10 +400,9 @@
     rotate var(--knav-dot-morph-out-dur) var(--knav-dot-morph-out-ease);
 }
 .knav-subdesc {
-  font: var(--ts-text-sm-light-font);
-  letter-spacing: var(--ts-text-sm-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-sm-light-font);
+  --ls: var(--ts-text-sm-light-ls);
+  --opsz: var(--ts-text-sm-light-opsz);
   color: var(--color-text-300);
 }
 /* Rotate while morphing the engine marker from circle to square. */
@@ -506,10 +503,9 @@
 .knav-fcopy {
   position: relative;
   width: min(var(--knav-copy-w), 100%);
-  font: var(--ts-text-xl-light-font);
-  letter-spacing: var(--ts-text-xl-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
   color: var(--color-teal-600);
 }
 .knav-frow {
@@ -521,10 +517,9 @@
 }
 .knav-flabel {
   flex: 1;
-  font: var(--ts-text-lg-light-font);
-  letter-spacing: var(--ts-text-lg-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-lg-light-font);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
 }
 .knav-frow svg {
   flex: none;
@@ -582,18 +577,17 @@
   color: var(--_title);
 }
 .knav-ctitle {
-  font: var(--ts-display-serif-xs-regular-font);
-  letter-spacing: var(--ts-display-serif-xs-regular-ls);
+  --font: var(--ts-display-serif-xs-regular-font);
+  --ls: var(--ts-display-serif-xs-regular-ls);
   white-space: nowrap;
 }
 .knav-crow svg {
   flex: none;
 }
 .knav-cdesc {
-  font: var(--ts-text-lg-light-font);
-  letter-spacing: var(--ts-text-lg-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-lg-light-font);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
   color: var(--_desc);
 }
 
@@ -930,12 +924,9 @@ a.knav-row {
 }
 .knav-rlabel {
   padding-left: var(--space-2xs);
-  font: var(--ts-display-sans-2xs-light-font);
-  letter-spacing: var(--ts-display-sans-2xs-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-display-sans-2xs-light-opsz), var(--font-sans-slnt);
-  font-size: 28px;
-  line-height: 36px;
+  --font: var(--ts-display-sans-2xs-light-font);
+  --ls: var(--ts-display-sans-2xs-light-ls);
+  --opsz: var(--ts-display-sans-2xs-light-opsz);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -1023,12 +1014,11 @@ a.knav-row {
   background: var(--color-bg-000);
   text-decoration: none;
   color: var(--color-text-200);
-  font: var(--ts-text-sm-regular-font);
-  letter-spacing: var(--ts-text-sm-regular-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
-  font-size: calc(var(--wA) * 14 + var(--wB) * 20);
-  line-height: calc(var(--wA) * 18 + var(--wB) * 26);
+  --font: var(--ts-text-sm-regular-font);
+  --ls: var(--ts-text-sm-regular-ls);
+  --opsz: var(--ts-text-sm-regular-opsz);
+  --fs0: 14; --fs1: 20;
+  --lh0: 18; --lh1: 26;
   white-space: nowrap;
 }
 .knav-chipdot {
@@ -1047,12 +1037,11 @@ a.knav-row {
   background: var(--_chipbg);
   text-decoration: none;
   color: var(--_label);
-  font: var(--ts-text-sm-regular-font);
-  letter-spacing: var(--ts-text-sm-regular-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-sm-regular-opsz), var(--font-sans-slnt);
-  font-size: calc(var(--wA) * 14 + var(--wB) * 20);
-  line-height: calc(var(--wA) * 18 + var(--wB) * 26);
+  --font: var(--ts-text-sm-regular-font);
+  --ls: var(--ts-text-sm-regular-ls);
+  --opsz: var(--ts-text-sm-regular-opsz);
+  --fs0: 14; --fs1: 20;
+  --lh0: 18; --lh1: 26;
   white-space: nowrap;
 }
 /* The icon uses independent ink from its label. */
@@ -1168,11 +1157,11 @@ a.knav-row {
   }
   .knav-chip,
   .knav-rchip {
-    font: var(--ts-text-xl-light-font);
-    letter-spacing: var(--ts-text-xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-xl-light-opsz), var(--font-sans-slnt);
-    font-size: calc(var(--wA) * 20 + var(--wB) * 24);
-    line-height: calc(var(--wA) * 26 + var(--wB) * 32);
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
+    --fs0: 20; --fs1: 24;
+    --lh0: 26; --lh1: 32;
   }
 }
 
@@ -1202,11 +1191,11 @@ a.knav-row {
   }
   .knav-chip,
   .knav-rchip {
-    font: var(--ts-text-2xl-light-font);
-    letter-spacing: var(--ts-text-2xl-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-2xl-light-opsz), var(--font-sans-slnt);
-    font-size: 24px;
-    line-height: 32px;
+    --font: var(--ts-text-2xl-light-font);
+    --ls: var(--ts-text-2xl-light-ls);
+    --opsz: var(--ts-text-2xl-light-opsz);
+    --fs-px: 24px;
+    --lh-px: 32px;
   }
   .knav-chipdot {
     width: 8px;

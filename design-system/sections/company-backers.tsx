@@ -37,7 +37,7 @@ export function CompanyBackersSection() {
                 loading="lazy"
               />
             </span>
-            <span className="co-cell-name">{investor.name}</span>
+            <span className="type co-cell-name">{investor.name}</span>
           </li>
         ))}
       </ul>

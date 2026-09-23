@@ -193,10 +193,9 @@
   height: var(--bc-page-cell);
   color: var(--color-text-300);
   text-decoration: none;
-  font: var(--ts-text-md-light-font);
-  letter-spacing: var(--ts-text-md-light-ls);
-  font-optical-sizing: none;
-  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 .bc-page-cell[aria-current="page"] {
   background: var(--color-bg-000);

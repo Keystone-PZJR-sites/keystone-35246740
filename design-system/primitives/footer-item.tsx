@@ -27,7 +27,7 @@ export function FooterItem({
 }: FooterItemProps) {
   return (
     <a
-      className="fitem"
+      className="type type-fixed fitem"
       data-size={size}
       data-chrome={chrome}
       data-state={forceState}

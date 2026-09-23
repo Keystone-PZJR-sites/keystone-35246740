@@ -10,9 +10,9 @@ function StatPair({ stats }: { stats: CaseStudyStat[] }) {
       {stats.map((stat) => (
         <div className="csft-stat" key={stat.label}>
           <dt>
-            <span className="cs-pill">{stat.label}</span>
+            <span className="type cs-pill">{stat.label}</span>
           </dt>
-          <dd>{stat.value}</dd>
+          <dd className="type">{stat.value}</dd>
         </div>
       ))}
     </dl>
@@ -32,10 +32,10 @@ export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
       </h2>
       <div className="cs-content csft-content" data-landmark="shift">
         <div className="csft-card csft-before">
-          <p className="csft-label">{study.shift.beforeLabel}</p>
+          <p className="type type-fixed csft-label">{study.shift.beforeLabel}</p>
           <div className="csft-body">
             <StatPair stats={study.shift.beforeStats} />
-            <ul className="csft-lines">
+            <ul className="type csft-lines">
               {study.shift.beforeLines.map((line) => (
                 <li key={line}>{line}</li>
               ))}
@@ -44,13 +44,13 @@ export function CaseStudyShiftSection({ study }: { study: CaseStudy }) {
         </div>
         <div className="csft-after">
           <div className="csft-card csft-after-card">
-            <p className="csft-label">{study.shift.afterLabel}</p>
+            <p className="type type-fixed csft-label">{study.shift.afterLabel}</p>
             <div className="csft-body">
               <StatPair stats={study.shift.afterStats} />
               <CaseStudyFeatureList items={study.shift.afterItems} icon={20} className="csft-list" />
             </div>
           </div>
-          <p className="csft-tag">{study.shift.tag}</p>
+          <p className="type type-fixed csft-tag">{study.shift.tag}</p>
         </div>
       </div>
     </section>

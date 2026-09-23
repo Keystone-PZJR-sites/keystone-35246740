@@ -14,13 +14,13 @@ function FieldShell({ id, label, required, helpText, children }: FieldShellProps
   const helpId = helpText ? `${id}-help` : undefined;
   return (
     <div className="ks-field">
-      <label className="ks-field-label" htmlFor={id}>
+      <label className="type type-fixed ks-field-label" htmlFor={id}>
         <span>{label}</span>
         {required ? <span className="ks-field-req" aria-hidden="true">*</span> : null}
       </label>
       {children}
       {helpText ? (
-        <p className="ks-field-help" id={helpId}>
+        <p className="type type-fixed ks-field-help" id={helpId}>
           {helpText}
         </p>
       ) : null}
@@ -39,7 +39,7 @@ export function FieldText({ id, label, helpText, required, ...input }: TextInput
   return (
     <FieldShell id={id} label={label} required={required} helpText={helpText}>
       <div className="ks-field-control">
-        <input id={id} required={required} aria-describedby={helpId} {...input} />
+        <input className="type type-fixed" id={id} required={required} aria-describedby={helpId} {...input} />
       </div>
     </FieldShell>
   );
@@ -56,7 +56,7 @@ export function FieldTextarea({ id, label, helpText, required, rows = 5, ...inpu
   return (
     <FieldShell id={id} label={label} required={required} helpText={helpText}>
       <div className="ks-field-control" data-kind="textarea">
-        <textarea id={id} required={required} rows={rows} aria-describedby={helpId} {...input} />
+        <textarea className="type type-fixed" id={id} required={required} rows={rows} aria-describedby={helpId} {...input} />
       </div>
     </FieldShell>
   );
@@ -92,13 +92,13 @@ export function FieldCheckbox({
           required={required}
           aria-describedby={[labelId, helpId].filter(Boolean).join(" ") || undefined}
         />
-        <label id={labelId} htmlFor={id} className="ks-field-check-label">
+        <label id={labelId} htmlFor={id} className="type type-fixed ks-field-check-label">
           {label}
           {required ? <span className="ks-field-req" aria-hidden="true">*</span> : null}
         </label>
       </div>
       {helpText ? (
-        <p className="ks-field-help" id={helpId}>
+        <p className="type type-fixed ks-field-help" id={helpId}>
           {helpText}
         </p>
       ) : null}

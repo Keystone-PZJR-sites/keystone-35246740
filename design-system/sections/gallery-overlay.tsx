@@ -199,9 +199,9 @@ export function GalleryOverlay({
           <i className="gv-mark" />
         </span>
         <i className="gv-divider" aria-hidden="true" />
-        <span className="gv-label">Keystone Gallery</span>
+        <span className="type type-fixed gv-label">Keystone Gallery</span>
         <div className="gv-east">
-          <span className="gv-name">{site.name}</span>
+          <span className="type type-fixed gv-name">{site.name}</span>
           <div className="gv-pager">
             <button
               type="button"

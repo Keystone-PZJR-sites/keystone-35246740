@@ -230,10 +230,9 @@
 /* Chat labels use fixed material sizes per band. */
 .po-chat-label {
   color: var(--color-text-400);
-  font: var(--ts-text-md-light-font);
-  letter-spacing: var(--ts-text-md-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 @container (min-width: 470px) {
   .po-chat-card .po-chat-label,
@@ -245,9 +244,9 @@
   .po-chat-list .po-chat-label,
   .po-chat-head-rt .po-chat-label {
     padding-left: var(--space-none);
-    font: var(--ts-text-sm-light-font);
-    letter-spacing: var(--ts-text-sm-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-sm-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-sm-light-font);
+    --ls: var(--ts-text-sm-light-ls);
+    --opsz: var(--ts-text-sm-light-opsz);
   }
 }
 
@@ -271,9 +270,9 @@
     margin-top: var(--space-5xl);
   }
   .po-chat-head-rd1 .po-chat-label {
-    font: var(--ts-text-lg-light-font);
-    letter-spacing: var(--ts-text-lg-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 @container (min-width: 1130px) {
@@ -321,9 +320,9 @@
   }
   .po-chat-list-rd2 .po-chat-label {
     padding-left: var(--space-lg);
-    font: var(--ts-text-lg-light-font);
-    letter-spacing: var(--ts-text-lg-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 
@@ -443,17 +442,16 @@
 .po-price-per {
   margin-left: var(--po-price-gap);
   padding: var(--space-sm) var(--space-md) 0 0;
-  font: var(--ts-text-xs-light-font);
-  letter-spacing: var(--ts-text-xs-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-xs-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-xs-light-font);
+  --ls: var(--ts-text-xs-light-ls);
+  --opsz: var(--ts-text-xs-light-opsz);
 }
 @container (min-width: 860px) {
   .po-price-num { font: 300 var(--po-price-rd1) / var(--po-price-rd1) var(--font-sans); }
   .po-price-per {
-    font: var(--ts-text-lg-light-font);
-    letter-spacing: var(--ts-text-lg-light-ls);
-    font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 @container (min-width: 1130px) {
@@ -520,10 +518,9 @@
   background: var(--color-teal-200);
   color: var(--color-teal-600);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  font: var(--ts-text-2xs-medium-font);
-  letter-spacing: var(--ts-text-2xs-medium-ls);
-  font-variation-settings: "opsz" var(--ts-text-2xs-medium-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-2xs-medium-font);
+  --ls: var(--ts-text-2xs-medium-ls);
+  --opsz: var(--ts-text-2xs-medium-opsz);
   white-space: nowrap;
 }
 @container (min-width: 860px) {
@@ -531,9 +528,9 @@
     left: var(--space-4xl);
     height: 32px;
     padding: var(--space-xs) var(--space-lg) var(--space-md);
-    font: var(--ts-text-xs-medium-font);
-    letter-spacing: var(--ts-text-xs-medium-ls);
-    font-variation-settings: "opsz" var(--ts-text-xs-medium-opsz), var(--font-sans-slnt);
+    --font: var(--ts-text-xs-medium-font);
+    --ls: var(--ts-text-xs-medium-ls);
+    --opsz: var(--ts-text-xs-medium-opsz);
   }
 }
 

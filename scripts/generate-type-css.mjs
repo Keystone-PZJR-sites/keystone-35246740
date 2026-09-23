@@ -81,10 +81,11 @@ lines.push(`   Source: type-styles.json (Figma text styles, extracted ${extracte
 lines.push(`   Regenerate: node scripts/generate-type-css.mjs`);
 lines.push(``);
 lines.push(`   Per style: -font is a CSS font shorthand (weight size/lh family);`);
-lines.push(`   -ls is letter-spacing; -opsz is the pinned GT Standard optical`);
-lines.push(`   size (consume as font-variation-settings: "opsz" var(...) with`);
-lines.push(`   font-optical-sizing: none); -ps is Figma paragraph spacing; -case`);
-lines.push(`   is text-transform. Kyoto styles have no -opsz.`);
+lines.push(`   -fs and -lh are the same size and line-height as unitless design`);
+lines.push(`   px (for .type ramps: --fs0: var(--ts-x-fs)); -ls is letter-spacing;`);
+lines.push(`   -opsz is the pinned GT Standard optical size; -ps is Figma`);
+lines.push(`   paragraph spacing; -case is text-transform. Kyoto styles have no`);
+lines.push(`   -opsz. Consume through the .type class (primitives/text.css).`);
 lines.push(``);
 lines.push(`   opsz is set on the variable font directly (not via Figma L/M/S`);
 lines.push(`   named instances): text 3xs/2xs/xs/nav-label = 24; text sm–2xl`);
@@ -96,6 +97,8 @@ for (const s of styles) {
   const { font, weight, opsz } = parseStyle(s);
   const b = varBase(s.name);
   lines.push(`  ${b}-font: ${weight} ${s.size}px/${s.lh}px ${font};`);
+  lines.push(`  ${b}-fs: ${s.size};`);
+  lines.push(`  ${b}-lh: ${s.lh};`);
   lines.push(`  ${b}-ls: ${em(s.ls)};`);
   if (opsz !== null) lines.push(`  ${b}-opsz: ${opsz};`);
   if (s.ps) lines.push(`  ${b}-ps: ${s.ps}px;`);

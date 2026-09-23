@@ -18,16 +18,14 @@
   transition: color var(--motion-hover-duration) var(--motion-hover-ease);
 }
 .csb[data-size="lg"] {
-  font: var(--ts-text-lg-light-font);
-  letter-spacing: var(--ts-text-lg-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-lg-light-font);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
 }
 .csb[data-size="sm"] {
-  font: var(--ts-text-md-light-font);
-  letter-spacing: var(--ts-text-md-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-md-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
 }
 
 /* Extend the hit area without changing row geometry. */

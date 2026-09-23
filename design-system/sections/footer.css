@@ -296,9 +296,9 @@
   .f-grader .grader .grader-field {
     height: 66px;
     padding-inline: var(--space-xl) var(--space-lg);
-    --_font: var(--ts-text-xl-light-font);
-    --_ls: var(--ts-text-xl-light-ls);
-    --_opsz: var(--ts-text-xl-light-opsz);
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
   }
   .f-grader .grader .btn-arrow {
     --_d: 40px;
@@ -407,10 +407,10 @@
 .fnav-dot[data-g="findus"] { background: var(--color-blue-400); }
 
 .fnav-name {
-  font: var(--ts-display-serif-3xs-medium-font);
-  letter-spacing: var(--ts-display-serif-3xs-medium-ls);
-  font-size: calc(var(--wA) * 16 + var(--wB) * 20);
-  line-height: calc(var(--wA) * 20 + var(--wB) * 24);
+  --font: var(--ts-display-serif-3xs-medium-font);
+  --ls: var(--ts-display-serif-3xs-medium-ls);
+  --fs0: 16; --fs1: 20;
+  --lh0: 20; --lh1: 24;
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -482,10 +482,10 @@
     height: 8px;
   }
   .fnav-name {
-    font: var(--ts-display-serif-2xs-plus-regular-font);
-    letter-spacing: var(--ts-display-serif-2xs-plus-regular-ls);
-    font-size: 20px;
-    line-height: 24px;
+    --font: var(--ts-display-serif-2xs-plus-regular-font);
+    --ls: var(--ts-display-serif-2xs-plus-regular-ls);
+    --fs-px: 20px;
+    --lh-px: 24px;
   }
   .fnav-listwrap {
     margin-top: 12px;
@@ -537,10 +537,12 @@
     height: 6px;
   }
   .fnav-name {
-    font: var(--ts-display-serif-4xs-plus-medium-font);
-    letter-spacing: var(--ts-display-serif-4xs-plus-medium-ls);
-    font-size: calc(var(--wA) * 14 + var(--wB) * 16);
-    line-height: calc(var(--wA) * 18 + var(--wB) * 20);
+    --font: var(--ts-display-serif-4xs-plus-medium-font);
+    --ls: var(--ts-display-serif-4xs-plus-medium-ls);
+    --fs-px: initial;
+    --lh-px: initial;
+    --fs0: 14; --fs1: 16;
+    --lh0: 18; --lh1: 20;
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -573,10 +575,10 @@
     height: 8px;
   }
   .fnav-name {
-    font: var(--ts-display-serif-3xs-medium-font);
-    letter-spacing: var(--ts-display-serif-3xs-medium-ls);
-    font-size: calc(var(--wA) * 16 + var(--wB) * 18);
-    line-height: calc(var(--wA) * 20 + var(--wB) * 24);
+    --font: var(--ts-display-serif-3xs-medium-font);
+    --ls: var(--ts-display-serif-3xs-medium-ls);
+    --fs0: 16; --fs1: 18;
+    --lh0: 20; --lh1: 24;
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -598,10 +600,10 @@
     padding: 48px 56px 0;
   }
   .fnav-name {
-    font: var(--ts-display-serif-2xs-medium-font);
-    letter-spacing: var(--ts-display-serif-2xs-medium-ls);
-    font-size: calc(var(--wB) * 18);
-    line-height: calc(var(--wB) * 24);
+    --font: var(--ts-display-serif-2xs-medium-font);
+    --ls: var(--ts-display-serif-2xs-medium-ls);
+    --fs0: 0; --fs1: 18;
+    --lh0: 0; --lh1: 24;
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {

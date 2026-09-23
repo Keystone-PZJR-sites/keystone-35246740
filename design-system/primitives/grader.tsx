@@ -209,6 +209,7 @@ export function GraderInput({
           <IconSparkle />
         </span>
         <input
+          className="type type-fixed"
           type="text"
           name={FIELD_NAME}
           value={query}
@@ -257,7 +258,7 @@ export function GraderInput({
         />
       )}
       {error && (
-        <p className="grader-error" id={errorId} role="alert">
+        <p className="type type-fixed grader-error" id={errorId} role="alert">
           {noMatchMessage}
         </p>
       )}

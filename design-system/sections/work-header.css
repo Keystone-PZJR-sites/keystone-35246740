@@ -189,10 +189,9 @@
 .wkh-q {
   display: none;
   color: var(--color-text-400);
-  font: var(--ts-text-lg-light-font);
-  letter-spacing: var(--ts-text-lg-light-ls);
-  font-variation-settings: "opsz" var(--ts-text-lg-light-opsz), var(--font-sans-slnt);
-  font-optical-sizing: none;
+  --font: var(--ts-text-lg-light-font);
+  --ls: var(--ts-text-lg-light-ls);
+  --opsz: var(--ts-text-lg-light-opsz);
 }
 @container (min-width: 860px) {
   .wkh-q { display: inline; }
