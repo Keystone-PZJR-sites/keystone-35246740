@@ -36,6 +36,7 @@ export async function generateMetadata({ searchParams }: BlogRouteProps): Promis
   const params = await searchParams;
   return {
     title: "Blog | Keystone",
+    description: "Practical playbooks on marketing, sales and operations for local businesses.",
     ...(hasFilter(params) && {
       robots: { index: false, follow: true },
       alternates: { canonical: SITE_LINKS.blog },

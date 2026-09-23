@@ -4,6 +4,7 @@ import { OurWorkPage } from "@/design-system/pages/our-work";
 /** The Our Work page with its development-only sweep hook. */
 export const metadata: Metadata = {
   title: "Our Work | Keystone",
+  description: "Case studies and a gallery of the local-business websites Keystone runs.",
 };
 
 export default async function OurWork({
