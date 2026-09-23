@@ -1,5 +1,5 @@
 import { GridRegion, type GridBand } from "../grid/region";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { Slug } from "../primitives/slug";
 import { COMPANY_BACKERS } from "./company-data";
 import { COMPANY_INVESTORS } from "./company-backers-data";
@@ -19,9 +19,9 @@ export function CompanyBackersSection() {
     >
       <header className="cob-head" data-landmark="head">
         <Slug>{COMPANY_BACKERS.eyebrow}</Slug>
-        <InterpText as="h2" style="display-serif-xs-extralight" className="co-h2">
+        <Text as="h2" className="co-h2">
           {COMPANY_BACKERS.title}
-        </InterpText>
+        </Text>
       </header>
 
       {/* Names render as visible captions, so the portraits stay alt="". */}

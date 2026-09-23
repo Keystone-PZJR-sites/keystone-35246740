@@ -1,6 +1,6 @@
 import { GridDecor, GridRegion, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { ENGINE_CUTS, ENGINE_MD_MEDIA, engineImageSrc } from "../media";
 import {
   ENGINES,
@@ -21,19 +21,19 @@ const STAGE_STATES = ENGINES.flatMap((engine) =>
 function EngineCopyBlock({ engine }: { engine: EngineCopy }) {
   return (
     <div className="e2-text">
-      <InterpText as="h3" style="display-serif-md-plus-extralight" className="e2-name">
+      <Text as="h3" className="e2-name">
         {engine.name}
-      </InterpText>
+      </Text>
       <div className="e2-desc">
-        <InterpText as="p" style="text-md-light">
+        <Text as="p">
           {engine.tagline}
-        </InterpText>
-        <InterpText as="p" style="text-md-light">
+        </Text>
+        <Text as="p">
           {engine.body[0]}
-        </InterpText>
-        <InterpText as="p" style="text-md-light">
+        </Text>
+        <Text as="p">
           {engine.body[1]}
-        </InterpText>
+        </Text>
       </div>
     </div>
   );

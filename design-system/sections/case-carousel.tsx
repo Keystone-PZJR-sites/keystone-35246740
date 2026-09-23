@@ -1,6 +1,6 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { IconNavTrigger, IconStar } from "../icons";
 import {
   CASE_CAROUSEL_LANDSCAPE,
@@ -77,9 +77,9 @@ export function CaseCarouselSection() {
 
       <div className="cc-head flow-budget">
         <Slug layout="rail">Demand that turns into growth</Slug>
-        <InterpText as="h2" style="display-serif-xs-extralight" className="cc-h2">
+        <Text as="h2" className="cc-h2">
           Marketing that delivers on its promise.
-        </InterpText>
+        </Text>
       </div>
 
       <CaseCarouselIsland>
@@ -104,13 +104,13 @@ export function CaseCarouselSection() {
                     />
                     <div className="cc-info">
                       <div className="cc-body">
-                        <InterpText as="p" style="text-md-light" className="cc-desc">
+                        <Text as="p" className="cc-desc">
                           <span className="hx-sr">{description}</span>
                           <span aria-hidden="true">
                             <span className="cc-wm" />
                             {` ${visualRest}`}
                           </span>
-                        </InterpText>
+                        </Text>
                         <div className="cc-stats">
                           {study.stats.map((stat, si) => [
                             si > 0 && (
@@ -124,13 +124,13 @@ export function CaseCarouselSection() {
                               key={stat.label}
                               className={si === 2 ? "cc-stat cc-stat-3" : "cc-stat"}
                             >
-                              <InterpText as="span" style="text-2xl-light" className="cc-stat-v">
+                              <Text as="span" className="cc-stat-v">
                                 {stat.value}
                                 {stat.star && <IconStar className="cc-star" />}
-                              </InterpText>
-                              <InterpText as="span" style="text-xs-regular" className="cc-stat-l">
+                              </Text>
+                              <Text as="span" className="cc-stat-l">
                                 {stat.label}
-                              </InterpText>
+                              </Text>
                             </div>,
                           ])}
                         </div>

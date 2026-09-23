@@ -1,5 +1,5 @@
 import { GridRegion, type GridBand } from "../grid/region";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { ButtonFill } from "../primitives/buttons";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import type { BlogCardModel, BlogLandingModel } from "./blog-data";
@@ -136,13 +136,13 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
         <div className="bl-recent" data-landmark="recent">
           <div className="bl-sechead">
             <div className="bl-shrow">
-              <InterpText
+              <Text
                 as="h3"
-                style="display-serif-xs-extralight"
+               
                 className="bl-h3"
               >
                 Recent Posts
-              </InterpText>
+              </Text>
             </div>
           </div>
           <CardRow
@@ -165,13 +165,13 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
             >
               <div className="bl-sechead">
                 <div className="bl-shrow">
-                  <InterpText
+                  <Text
                     as="h3"
-                    style="display-serif-xs-extralight"
+                   
                     className="bl-h3"
                   >
                     {cat.name}
-                  </InterpText>
+                  </Text>
                   <ButtonFill
                     size="sm"
                     chrome="gray"

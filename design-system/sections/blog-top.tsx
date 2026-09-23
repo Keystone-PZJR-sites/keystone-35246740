@@ -1,5 +1,5 @@
 import { GridRegion, GridDecor, type GridBand } from "../grid/region";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { GraderInput } from "../primitives/grader";
 import { Slug } from "../primitives/slug";
 import {
@@ -92,29 +92,29 @@ export function BlogTopSection({
 
       <header className="bt-head">
         <Slug>{BLOG_TOP_CONTENT.eyebrow}</Slug>
-        <InterpText as="h1" style="display-serif-sm-plus-thin" className="bt-h1">
+        <Text as="h1" className="bt-h1">
           {BLOG_TOP_CONTENT.title}
-        </InterpText>
+        </Text>
       </header>
 
       <article className="bt-card bt-podcast">
         <div className="bt-card-top">
           <div className="bt-card-titlerow">
-            <InterpText as="h2" style="display-serif-xs-regular" className="bt-card-title">
+            <Text as="h2" className="bt-card-title">
               {BLOG_TOP_CONTENT.podcastTitle}
-            </InterpText>
+            </Text>
             <span className="bt-chip" aria-hidden="true">
               <IconPodcast size={16} />
             </span>
           </div>
-          <InterpText as="p" style="text-md-light" className="bt-card-desc">
+          <Text as="p" className="bt-card-desc">
             {BLOG_TOP_CONTENT.podcastDescription}
-          </InterpText>
+          </Text>
         </div>
         <div className="bt-card-action">
-          <InterpText as="p" style="text-nav-label" className="bt-listen">
+          <Text as="p" className="bt-listen">
             {BLOG_TOP_CONTENT.listenLabel}
-          </InterpText>
+          </Text>
           <ul className="bt-socials">
             <li>
               <a
@@ -155,16 +155,16 @@ export function BlogTopSection({
       <article className="bt-card bt-gcard">
         <div className="bt-card-top">
           <div className="bt-card-titlerow">
-            <InterpText as="h2" style="display-serif-xs-regular" className="bt-card-title">
+            <Text as="h2" className="bt-card-title">
               {BLOG_TOP_CONTENT.graderTitle}
-            </InterpText>
+            </Text>
             <span className="bt-chip" aria-hidden="true">
               <IconGrader size={16} />
             </span>
           </div>
-          <InterpText as="p" style="text-md-light" className="bt-card-desc">
+          <Text as="p" className="bt-card-desc">
             {BLOG_TOP_CONTENT.graderDescription}
-          </InterpText>
+          </Text>
         </div>
         <div className="bt-card-action">
           <div className="bt-grader bt-grader-md">
@@ -182,9 +182,9 @@ export function BlogTopSection({
             <span className="bt-bh-chip" aria-hidden="true">
               <IconBlog size={16} />
             </span>
-            <InterpText as="h2" style="display-serif-xs-extralight" className="bt-bh-h2">
+            <Text as="h2" className="bt-bh-h2">
               {BLOG_TOP_CONTENT.blogHeading}
-            </InterpText>
+            </Text>
           </div>
           <BlogSearchIsland initialQuery={searchQuery} />
         </div>

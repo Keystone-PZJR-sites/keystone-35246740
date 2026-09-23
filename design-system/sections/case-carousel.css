@@ -66,6 +66,8 @@
 }
 
 .cc-h2 {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: var(--cc-h2-gap-rm);
   margin-left: var(--t);
@@ -96,7 +98,7 @@
 }
 @container (min-width: 860px) {
   .cc-h2 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-lg-plus-thin-font);
+    --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--cc-h2-w-rd);
     --fs0: 35.7143;
     --fs1: 50;
@@ -252,6 +254,9 @@
 }
 
 .cc-desc {
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-200);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
   --fs0: 16;
@@ -327,6 +332,9 @@
 }
 
 .cc-stat-v {
+  --font: var(--ts-text-2xl-light-font);
+  --ls: var(--ts-text-2xl-light-ls);
+  --opsz: var(--ts-text-2xl-light-opsz);
   display: flex;
   align-items: center;
   gap: calc(var(--cc-u) * 4);
@@ -347,7 +355,7 @@
 }
 @container (min-width: 665px) {
   .cc-stat-v {
-    --ts-text-2xl-light-opsz: var(--ts-display-sans-2xs-light-opsz);
+    --opsz: var(--ts-display-sans-2xs-light-opsz);
     --fs0: 28;
     --fs1: 28;
     --lh0: 36;
@@ -356,7 +364,7 @@
 }
 @container (min-width: 860px) {
   .cc-stat-v {
-    --ts-text-2xl-light-opsz: var(--ts-display-sans-xs-light-opsz);
+    --opsz: var(--ts-display-sans-xs-light-opsz);
     --fs0: 22.8571;
     --fs1: 32;
     --lh0: 27.1429;
@@ -376,6 +384,9 @@
 }
 
 .cc-stat-l {
+  --font: var(--ts-text-xs-regular-font);
+  --ls: var(--ts-text-xs-regular-ls);
+  --opsz: var(--ts-text-xs-regular-opsz);
   width: min-content;
   color: var(--color-text-400);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
@@ -386,8 +397,8 @@
 }
 @container (min-width: 860px) {
   .cc-stat-l {
-    --ts-text-xs-regular-font: var(--ts-text-sm-regular-font);
-    --ts-text-xs-regular-opsz: var(--ts-text-sm-regular-opsz);
+    --font: var(--ts-text-sm-regular-font);
+    --opsz: var(--ts-text-sm-regular-opsz);
     --fs0: 10;
     --fs1: 14;
     --lh0: 12.8571;

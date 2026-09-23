@@ -73,6 +73,8 @@
    longer company titles hold their measure. Every company h2 wraps
    inside the shared --co-h2-w-* measure tokens. */
 .co-h2 {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--co-u) * 16);
   max-width: var(--co-h2-w-rm);
@@ -93,8 +95,8 @@
 @container (min-width: 665px) {
   .co-h2 {
     max-width: var(--co-h2-w-rt);
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-md-plus-extralight-font);
-    --ts-display-serif-xs-extralight-ls: var(--ts-display-serif-md-plus-extralight-ls);
+    --font: var(--ts-display-serif-md-plus-extralight-font);
+    --ls: var(--ts-display-serif-md-plus-extralight-ls);
     --fs0: 42;
     --fs1: 42;
     --lh0: 50;
@@ -105,8 +107,8 @@
   .co-h2 {
     margin-top: calc(var(--co-u) * 24);
     max-width: var(--co-h2-w-rd);
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-xl-extralight-font);
-    --ts-display-serif-xs-extralight-ls: var(--ts-display-serif-xl-extralight-ls);
+    --font: var(--ts-display-serif-xl-extralight-font);
+    --ls: var(--ts-display-serif-xl-extralight-ls);
     /* xl token 56/62 at the 1344 anchor; 960 zooms by 80/112. */
     --fs0: 40;
     --fs1: 56;
@@ -117,6 +119,9 @@
 
 /* Body text: the blog-top card-desc ramp (md → lg at rt → xl at rd). */
 .co-body-text {
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
   color: var(--color-text-300);
   --fs0: 16;
   --fs1: 24;
@@ -133,8 +138,8 @@
 }
 @container (min-width: 665px) {
   .co-body-text {
-    --ts-text-md-light-font: var(--ts-text-lg-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-lg-light-opsz);
+    --font: var(--ts-text-lg-light-font);
+    --opsz: var(--ts-text-lg-light-opsz);
     --fs0: 18;
     --fs1: 18;
     --lh0: 26;
@@ -143,8 +148,8 @@
 }
 @container (min-width: 860px) {
   .co-body-text {
-    --ts-text-md-light-font: var(--ts-text-xl-light-font);
-    --ts-text-md-light-opsz: var(--ts-text-xl-light-opsz);
+    --font: var(--ts-text-xl-light-font);
+    --opsz: var(--ts-text-xl-light-opsz);
     --fs0: 14.2857;
     --fs1: 20;
     --lh0: 18.5714;

@@ -51,6 +51,8 @@
 }
 
 .bl-h3 {
+  --font: var(--ts-display-serif-xs-extralight-font);
+  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   --fs0: 24;
   --fs1: 36;
@@ -67,7 +69,7 @@
 }
 @container (min-width: 665px) {
   .bl-h3 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-sm-plus-extralight-font);
+    --font: var(--ts-display-serif-sm-plus-extralight-font);
     --fs0: 36;
     --fs1: 36;
     --lh0: 42;
@@ -76,7 +78,7 @@
 }
 @container (min-width: 860px) {
   .bl-h3 {
-    --ts-display-serif-xs-extralight-font: var(--ts-display-serif-md-extralight-font);
+    --font: var(--ts-display-serif-md-extralight-font);
     --fs0: 28.5714;
     --fs1: 40;
     --lh0: 34.2857;

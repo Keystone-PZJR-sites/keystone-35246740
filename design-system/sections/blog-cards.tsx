@@ -1,15 +1,15 @@
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import type { BlogCardModel } from "./blog-data";
 
 function Eyebrow({ post }: { post: BlogCardModel }) {
   return (
     <p className="blc-eyebrow">
-      <InterpText as="span" style="text-nav-label" className="blc-topic">
+      <Text as="span" className="blc-topic">
         {post.topic}
-      </InterpText>
-      <InterpText as="span" style="text-nav-label" className="blc-time">
+      </Text>
+      <Text as="span" className="blc-time">
         {post.readMinutes} min read
-      </InterpText>
+      </Text>
     </p>
   );
 }
@@ -22,12 +22,12 @@ export function ArticleCard({ post }: { post: BlogCardModel }) {
       </div>
       <div className="blc-info">
         <Eyebrow post={post} />
-        <InterpText as="h4" style="text-md-medium" className="blc-title">
+        <Text as="h4" className="blc-title">
           {post.title}
-        </InterpText>
-        <InterpText as="p" style="text-md-light" className="blc-desc">
+        </Text>
+        <Text as="p" className="blc-desc">
           {post.description}
-        </InterpText>
+        </Text>
       </div>
     </a>
   );
@@ -42,13 +42,13 @@ export function FeaturedArticleCard({ post }: { post: BlogCardModel }) {
       <div className="blf-info">
         <div className="blf-info-top">
           <Eyebrow post={post} />
-          <InterpText as="h3" style="display-serif-xs-extralight" className="blf-title">
+          <Text as="h3" className="blf-title">
             {post.title}
-          </InterpText>
+          </Text>
         </div>
-        <InterpText as="p" style="text-md-light" className="blf-desc">
+        <Text as="p" className="blf-desc">
           {post.description}
-        </InterpText>
+        </Text>
       </div>
     </a>
   );

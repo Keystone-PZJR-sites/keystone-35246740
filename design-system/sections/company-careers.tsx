@@ -1,6 +1,6 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { ButtonFill } from "../primitives/buttons";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { Slug } from "../primitives/slug";
 import { SITE_LINKS } from "../site-links";
 import { COMPANY_CAREERS } from "./company-data";
@@ -21,12 +21,12 @@ export function CompanyCareersSection() {
     >
       <header className="coc-head" data-landmark="head">
         <Slug>{COMPANY_CAREERS.eyebrow}</Slug>
-        <InterpText as="h2" style="display-serif-xs-extralight" className="co-h2">
+        <Text as="h2" className="co-h2">
           {COMPANY_CAREERS.title}
-        </InterpText>
-        <InterpText as="p" style="text-md-light" className="coc-copy co-body-text">
+        </Text>
+        <Text as="p" className="coc-copy co-body-text">
           {COMPANY_CAREERS.copy}
-        </InterpText>
+        </Text>
       </header>
 
       {/* Primitives are material: the section mounts one size per band. */}

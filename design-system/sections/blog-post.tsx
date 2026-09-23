@@ -1,6 +1,6 @@
 import { GridRegion } from "../grid/region";
 import { Slug } from "../primitives/slug";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { SITE_LINKS } from "../site-links";
 import type { BlogPostDetailModel } from "./blog-data";
 import { BLOG_POST_CONTENT } from "./blog-post-data";
@@ -36,9 +36,9 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
               </>
             )}
           </Slug>
-          <InterpText as="h1" style="display-serif-sm-plus-thin" className="bp-h1">
+          <Text as="h1" className="bp-h1">
             {post.title}
-          </InterpText>
+          </Text>
         </header>
 
         <div className="bp-content-row">

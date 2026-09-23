@@ -70,6 +70,8 @@
 }
 
 .hero-h1 {
+  --font: var(--ts-display-serif-sm-thin-font);
+  --ls: var(--ts-display-serif-sm-thin-ls);
   color: var(--color-text-100);
   max-width: var(--hero-h1-w-rm);
   --fs0: 32; --fs1: 41; --lh0: 38; --lh1: 49;
@@ -90,7 +92,7 @@
   .hero-h1 {
     max-width: var(--hero-h1-w-rd);
     --fs0: 51.4286; --fs1: 72; --lh0: 55.7143; --lh1: 78;
-    --ts-display-serif-sm-thin-ls: var(--ts-display-serif-3xl-thin-ls);
+    --ls: var(--ts-display-serif-3xl-thin-ls);
   }
 }
 /* Derived gaps: the designed next-block top minus the designed bottom of
@@ -98,6 +100,9 @@
    Type stops zooming below the smallest anchor while the tick keeps
    shrinking, so each gap floors at one spacing cell and never collapses. */
 .hero-sub {
+  --font: var(--ts-text-xl-light-font);
+  --ls: var(--ts-text-xl-light-ls);
+  --opsz: var(--ts-text-xl-light-opsz);
   position: relative;
   margin-top: max(
     var(--space-xl),

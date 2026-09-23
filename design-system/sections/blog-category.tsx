@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { GridDecor, GridRegion, type GridBand } from "../grid/region";
 import { ButtonArrow } from "../primitives/buttons";
 import { Slug } from "../primitives/slug";
-import { InterpText } from "../primitives/text";
+import { Text } from "../primitives/text";
 import { SITE_LINKS } from "../site-links";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import { BLOG_CATEGORY_CONTENT } from "./blog-category-data";
@@ -130,9 +130,9 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
               : BLOG_CATEGORY_CONTENT.categoryLabel}
           </span>
         </Slug>
-        <InterpText as="h1" style="display-serif-sm-plus-thin" className="bc-h1">
+        <Text as="h1" className="bc-h1">
           {model.heading}
-        </InterpText>
+        </Text>
       </header>
 
       <div className="bc-content">
@@ -168,9 +168,9 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             </ul>
           ) : (
             model.type === "search" && (
-              <InterpText as="p" style="text-xl-light" className="bc-empty">
+              <Text as="p" className="bc-empty">
                 {BLOG_CATEGORY_CONTENT.emptyResults}
-              </InterpText>
+              </Text>
             )
           )}
         </div>
