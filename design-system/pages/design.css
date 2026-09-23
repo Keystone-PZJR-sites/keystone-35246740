@@ -1,0 +1,482 @@
+/* Design page. Five content-sized sections sharing the landing rhythm
+   (1t inline, 1t clearance, CloserRow between); inside, catalog
+   furniture — tables, specimen rows, swatches — at material sizes. The
+   things on display carry their own styles; this file only arranges them. */
+
+.ds-sec {
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: var(--t);
+}
+.ds-sec + .ds-sec {
+  padding-top: var(--t);
+}
+.ds-bleed {
+  inset: 0 auto auto calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+  height: 100%;
+}
+
+/* ---- heads and copy ---- */
+
+.ds-head {
+  padding-top: calc(var(--t) * 2.5);
+}
+.ds-h1 {
+  margin: var(--space-lg) 0 0;
+  max-width: calc(var(--t) * 10);
+}
+.ds-lede {
+  margin-top: var(--space-2xl);
+  max-width: calc(var(--t) * 10);
+}
+.ds-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-3xl);
+  margin-top: var(--space-4xl);
+}
+.ds-jump-link {
+  color: var(--color-text-300);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border-100);
+  transition: color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.ds-jump-link:hover {
+  color: var(--color-text-100);
+}
+
+.ds-sec-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ds-h2 {
+  margin: var(--space-lg) 0 0;
+  max-width: calc(var(--t) * 10);
+}
+.ds-copy {
+  margin: var(--space-2xl) 0 0;
+  max-width: calc(var(--t) * 8);
+}
+.ds-copy code,
+.ds-lede code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  color: var(--color-text-100);
+  background: var(--color-bg-200);
+  padding: 0 var(--space-xs);
+  border-radius: var(--radius-sm);
+}
+.ds-h3 {
+  margin: 0;
+  color: var(--color-text-100);
+}
+.ds-h4 {
+  margin: var(--space-5xl) 0 0;
+  color: var(--color-text-100);
+}
+.ds-note {
+  margin: var(--space-md) 0 0;
+  color: var(--color-text-400);
+  max-width: calc(var(--t) * 8);
+}
+.ds-note code,
+.ds-fig-cap code,
+.ds-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  color: var(--color-text-100);
+}
+
+.ds-chapter {
+  width: 100%;
+  margin-top: calc(var(--t) * 1.5);
+  padding-top: var(--space-3xl);
+  border-top: 1px solid var(--color-border-000);
+}
+@container (--rt) {
+  .ds-h1,
+  .ds-h2 {
+    max-width: calc(var(--t) * 8);
+  }
+  .ds-lede {
+    max-width: calc(var(--t) * 7);
+  }
+}
+@container (--rd1) {
+  .ds-head {
+    padding-top: calc(var(--t) * 1.5);
+  }
+  .ds-h1,
+  .ds-h2 {
+    margin-top: var(--space-3xl);
+    max-width: calc(var(--t) * 7);
+  }
+}
+
+/* ---- tables ---- */
+
+.ds-tables {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5xl) var(--t);
+  margin-top: var(--space-4xl);
+  width: 100%;
+}
+@container (--rt) {
+  .ds-tables {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-3xl);
+}
+/* Below rt the resolved value column yields; the name and note stay. */
+.ds-cell-val {
+  display: none;
+}
+@container (--rt) {
+  .ds-cell-val {
+    display: table-cell;
+  }
+}
+.ds-table td,
+.ds-table th {
+  overflow-wrap: anywhere;
+}
+.ds-tables .ds-table {
+  margin-top: 0;
+}
+.ds-caption {
+  text-align: left;
+  color: var(--color-text-100);
+  padding-bottom: var(--space-md);
+}
+.ds-table th,
+.ds-table td {
+  text-align: left;
+  vertical-align: middle;
+  padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+  border-top: 1px solid var(--color-border-000);
+  color: var(--color-text-300);
+}
+.ds-table th {
+  color: var(--color-text-100);
+}
+.ds-cell-swatch {
+  width: var(--space-6xl);
+}
+.ds-table .ds-code {
+  white-space: nowrap;
+}
+.ds-cell-val {
+  color: var(--color-text-400);
+  white-space: nowrap;
+}
+.ds-cell-note {
+  color: var(--color-text-400);
+}
+.ds-swatch {
+  display: block;
+  width: var(--space-4xl);
+  height: var(--space-4xl);
+  border-radius: var(--radius-sm);
+  background: var(--sw);
+  border: 1px solid var(--color-border-000);
+}
+.ds-bar {
+  display: block;
+  height: var(--space-md);
+  width: var(--bar);
+  max-width: var(--space-12xl);
+  background: var(--color-teal-500);
+}
+
+/* ---- lattice figure ---- */
+
+.ds-lattice {
+  position: relative;
+  width: 100%;
+  margin: var(--space-4xl) 0 0;
+  padding-top: calc(var(--t) * 2);
+}
+.ds-fig-cap {
+  margin-top: var(--space-md);
+  color: var(--color-text-400);
+}
+
+/* ---- type specimens ---- */
+
+.ds-ramps,
+.ds-specimens {
+  list-style: none;
+  margin: var(--space-3xl) 0 0;
+  padding: 0;
+  width: 100%;
+}
+.ds-ramp,
+.ds-specimen {
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border-000);
+}
+.ds-ramp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.ds-ramp-meta {
+  color: var(--color-text-400);
+}
+.ds-ramp-spec {
+  margin: 0;
+  max-width: calc(var(--t) * 10);
+}
+.ds-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.ds-spec {
+  display: block;
+  color: var(--color-text-100);
+  overflow-wrap: anywhere;
+}
+.ds-spec-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-xl);
+  color: var(--color-text-400);
+}
+@container (--rt) {
+  .ds-specimen {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3xl);
+  }
+  .ds-spec-meta {
+    flex: none;
+    justify-content: flex-end;
+    width: calc(var(--t) * 4);
+  }
+}
+
+/* ---- primitive specs ---- */
+
+.ds-spec-block {
+  width: 100%;
+  margin-top: calc(var(--t) * 1.5);
+  padding-top: var(--space-3xl);
+  border-top: 1px solid var(--color-border-000);
+}
+.ds-spec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-md) var(--space-xl);
+}
+.ds-spec-body {
+  margin-top: var(--space-3xl);
+  width: 100%;
+}
+.ds-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border-000);
+}
+.ds-row-label {
+  color: var(--color-text-400);
+}
+.ds-row-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xl) var(--space-3xl);
+}
+@container (--rt) {
+  .ds-row {
+    flex-direction: row;
+    align-items: center;
+  }
+  .ds-row-label {
+    flex: none;
+    width: calc(var(--t) * 2);
+  }
+}
+.ds-closer-demo {
+  position: relative;
+  width: 100%;
+  /* The row's 1t margin-top is the idiom; the demo shows it as-is. */
+  min-height: calc(var(--t) * 2);
+}
+.ds-pictures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+@container (--rt) {
+  .ds-pictures {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.ds-picture {
+  margin: 0;
+}
+.ds-picture-box {
+  aspect-ratio: 3 / 2;
+  overflow: clip;
+  background: var(--color-bg-300);
+}
+.ds-picture figcaption {
+  margin-top: var(--space-sm);
+  color: var(--color-text-400);
+}
+.ds-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: calc(var(--t) * 6);
+}
+.ds-icons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl) var(--space-3xl);
+}
+@container (--rs) {
+  .ds-icons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@container (--rt) {
+  .ds-icons {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.ds-icon {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border-000);
+}
+.ds-icon-glyph {
+  display: inline-flex;
+  color: var(--color-text-100);
+}
+/* Decorative marks ignore the size prop; the catalog cell holds 24px. */
+.ds-icon-glyph svg {
+  width: var(--space-3xl);
+  height: var(--space-3xl);
+}
+.ds-icon .ds-code {
+  overflow-wrap: anywhere;
+}
+.ds-icon-kit {
+  color: var(--color-teal-600);
+}
+
+/* ---- kinds ---- */
+
+.ds-kinds {
+  width: 100%;
+  margin-top: var(--t);
+}
+.ds-kind-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-md) var(--space-xl);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border-000);
+}
+.ds-kind-fields {
+  color: var(--color-text-400);
+}
+.ds-kind-file {
+  color: var(--color-text-400);
+}
+/* A kit section pads 1t inline itself; the frame hands it the full
+   12 columns and clips its bleed frames to the page. */
+.ds-kind-frame {
+  width: calc(var(--t) * 12);
+  margin-inline: calc(var(--t) * -1);
+  padding-block: var(--space-3xl) var(--t);
+  overflow: clip;
+}
+.ds-kind-frame .ld-sec {
+  padding-top: 0;
+}
+.ds-kind-frame .ld-hero-head {
+  padding-top: 0;
+}
+.ds-shared-head {
+  margin-top: calc(var(--t) * 1.5);
+}
+
+/* ---- rules prose ---- */
+
+.ds-prose {
+  margin-top: var(--space-4xl);
+  color: var(--color-text-300);
+  max-width: calc(var(--t) * 10);
+}
+.ds-prose > * + * {
+  margin-top: var(--space-xl);
+}
+.ds-rules-h2 {
+  margin-top: var(--space-6xl);
+  color: var(--color-text-100);
+}
+.ds-rules-h3 {
+  margin-top: var(--space-4xl);
+  color: var(--color-text-100);
+}
+.ds-prose :is(ul, ol) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-left: var(--space-2xl);
+}
+.ds-prose ul {
+  list-style: disc;
+}
+.ds-prose ol {
+  list-style: decimal;
+}
+.ds-prose li::marker {
+  color: var(--color-teal-500);
+}
+.ds-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  color: var(--color-text-100);
+  background: var(--color-bg-200);
+  padding: 0 var(--space-xs);
+  border-radius: var(--radius-sm);
+}
+.ds-prose pre {
+  overflow-x: auto;
+  padding: var(--space-xl);
+  background: var(--color-bg-200);
+  border-radius: var(--radius-md);
+}
+.ds-prose pre code {
+  background: none;
+  padding: 0;
+}
+.ds-prose a {
+  color: var(--color-teal-600);
+}
+@container (--rt) {
+  .ds-prose {
+    max-width: calc(var(--t) * 8);
+  }
+}

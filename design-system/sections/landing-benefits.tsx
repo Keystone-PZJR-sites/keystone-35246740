@@ -1,7 +1,7 @@
 /** Landing benefits: eyebrow, h2, and seated cards — the cards are the
  * grid. Part of the landing kit — see pages/landing.tsx. */
 
-import type { ReactNode } from "react";
+import type { ComponentType } from "react";
 import {
   IconAiChat,
   IconMaps,
@@ -32,15 +32,25 @@ export interface LandingBenefitsData {
   items: readonly LandingBenefit[];
 }
 
-const ICONS: Record<LandingIcon, () => ReactNode> = {
-  website: () => <IconWebsite />,
-  search: () => <IconSearch />,
-  maps: () => <IconMaps />,
-  reviews: () => <IconReviews />,
-  reception: () => <IconReception />,
-  aiChat: () => <IconAiChat />,
-  sparkle: () => <IconSparkle />,
+/** The icon each name renders; the design page reads this map too. */
+export const LANDING_ICONS: Record<LandingIcon, ComponentType<{ size?: number }>> = {
+  website: IconWebsite,
+  search: IconSearch,
+  maps: IconMaps,
+  reviews: IconReviews,
+  reception: IconReception,
+  aiChat: IconAiChat,
+  sparkle: IconSparkle,
 };
+
+function BenefitIcon({ name }: { name: LandingIcon }) {
+  const Icon = LANDING_ICONS[name];
+  return (
+    <span className="ld-card-icon" aria-hidden="true">
+      <Icon />
+    </span>
+  );
+}
 
 /* Lattice: seated — stacked 12-wide cells below rt, three 4-column
  * cells from rt, bordered line-inclusively so neighbours share one
@@ -59,11 +69,7 @@ export function LandingBenefitsSection({ data }: { data: LandingBenefitsData }) 
       <ul className="ld-cards" data-landmark="cards">
         {data.items.map((item) => (
           <li key={item.id} className="ld-card">
-            {item.icon && (
-              <span className="ld-card-icon" aria-hidden="true">
-                {ICONS[item.icon]()}
-              </span>
-            )}
+            {item.icon && <BenefitIcon name={item.icon} />}
             <h3 className="type ts-text-lg-medium ld-card-title">{item.title}</h3>
             <p className="type ts-text-md-light ld-card-copy">{item.copy}</p>
           </li>
