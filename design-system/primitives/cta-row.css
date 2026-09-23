@@ -1,0 +1,41 @@
+/* Button size per band: md rm/rs · lg rt/rd1 · xl rd2 (the
+   case-study-cta idiom). The question label is hidden at the
+   narrowest band and grows with the body ramp. */
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  --btn-size: md;
+}
+.cta-row > * + * {
+  margin-left: var(--space-3xl);
+}
+.cta-row-q {
+  display: none;
+  color: var(--color-text-400);
+}
+@container (--rs) {
+  .cta-row-q {
+    display: inline;
+  }
+}
+@container (--rt) {
+  .cta-row {
+    --btn-size: lg;
+  }
+  .cta-row-q {
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+@container (--rd2) {
+  .cta-row {
+    --btn-size: xl;
+  }
+  .cta-row-q {
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
+  }
+}

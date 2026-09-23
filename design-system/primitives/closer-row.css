@@ -1,0 +1,14 @@
+/* One tick tall, one tick below the content; the overlay escapes the
+   owning section's 1t inline padding to span all 12 columns. */
+
+.closer-row {
+  position: relative;
+  width: 100%;
+  height: var(--t);
+  margin-top: var(--t);
+}
+.closer-row-bleed {
+  inset: 0 auto auto calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+  height: 100%;
+}

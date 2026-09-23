@@ -157,8 +157,11 @@ the end result differs slightly from today, if it is better.
   the vocabulary pre-assembled: hero with seated media frame and entrance,
   three seated benefit cards, hanging quote, closer CTA row; painted closer
   rows between. A landing page is now a `LandingPageData` module plus a
-  route (`/for-dentists/` is the first). `primitives/picture.tsx` renders
-  a `PictureSet` from `media.ts`. AGENTS.md gains "Adding a landing page"
-  and the vocabulary list; the skeleton example gets its inline padding.
-  Existing routes 100/100 on the visual gate.
+  route (`/for-dentists/` is the first). Idioms the kit needed became
+  primitives instead of local copies: `CloserRow` (was `.co-closer` ×4
+  in /company, now one component), `CtaRow` (the case-study row),
+  `ramps.css` (the standard h1/h2/body/quote pairs), `Picture` over a
+  `PictureSet` from `media.ts`. AGENTS.md: "Building new pages" starts
+  from the kit and lists the vocabulary; the skeleton example uses the
+  primitives. Existing routes 100/100 on the visual gate.
 

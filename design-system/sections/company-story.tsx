@@ -1,8 +1,6 @@
-import { GridRegion, type GridBand } from "../grid/region";
+import { CloserRow } from "../primitives/closer-row";
 import { Slug } from "../primitives/slug";
 import { COMPANY_STORY } from "./company-data";
-
-const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
 /* Lattice: copy renders in unpainted air; the flow closer (the
  * faq-gaprow idiom) ends the section exactly one tick below the last
@@ -27,13 +25,7 @@ export function CompanyStorySection() {
         ))}
       </div>
 
-      <div className="co-closer" aria-hidden="true">
-        <div className="gx co-bleed-grid">
-          {BANDS.map((band) => (
-            <GridRegion key={band} band={band} gx={0} gy={0} gw={12} />
-          ))}
-        </div>
-      </div>
+      <CloserRow />
     </section>
   );
 }

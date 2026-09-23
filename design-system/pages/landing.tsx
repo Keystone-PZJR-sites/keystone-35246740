@@ -3,16 +3,16 @@ import { GridField } from "@/design-system/grid/field";
 import { NavChrome } from "@/design-system/sections/nav";
 import { FooterSection } from "@/design-system/sections/footer";
 import { LoadOrchestrator } from "@/design-system/sections/load-orchestrator";
+import { LandingHeroSection, type LandingHeroData } from "@/design-system/sections/landing-hero";
 import {
   LandingBenefitsSection,
-  LandingCloserSection,
-  LandingHeroSection,
-  LandingQuoteSection,
   type LandingBenefitsData,
+} from "@/design-system/sections/landing-benefits";
+import { LandingQuoteSection, type LandingQuoteData } from "@/design-system/sections/landing-quote";
+import {
+  LandingCloserSection,
   type LandingCloserData,
-  type LandingHeroData,
-  type LandingQuoteData,
-} from "@/design-system/sections/landing";
+} from "@/design-system/sections/landing-closer";
 
 /** Everything a landing page needs, as data. A new page is one of these
  * plus a route file — see pages/for-dentists-data.ts and

@@ -1,0 +1,80 @@
+/* Content-sized flow frame: head, then the seated media frame. The
+   frame's exposed bottom row is the section's painted closer; the next
+   section's 1t padding-top completes the seam. */
+
+.ld-hero-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: calc(var(--t) * 2.5);
+}
+.ld-hero-h1 {
+  margin-top: var(--space-lg);
+  max-width: calc(var(--t) * 10);
+}
+.ld-hero-sub {
+  margin-top: var(--space-2xl);
+  max-width: calc(var(--t) * 10);
+}
+.ld-hero-cta {
+  margin-top: var(--space-4xl);
+}
+@container (--rt) {
+  .ld-hero-h1 {
+    max-width: calc(var(--t) * 8);
+  }
+  .ld-hero-sub {
+    max-width: calc(var(--t) * 6);
+  }
+}
+@container (--rd1) {
+  .ld-hero-head {
+    padding-top: calc(var(--t) * 1.5);
+  }
+  .ld-hero-h1 {
+    margin-top: var(--space-3xl);
+    max-width: calc(var(--t) * 7);
+  }
+  .ld-hero-cta {
+    margin-top: var(--space-5xl);
+  }
+}
+
+/* The shared entrance rule consumes these delays (hero.css). */
+.ld-hero .slug {
+  --_d: var(--hx-d-h1a);
+}
+.ld-hero-h1 {
+  --_d: var(--hx-d-h1b);
+}
+.ld-hero-sub {
+  --_d: var(--hx-d-sub1);
+}
+.ld-hero-cta {
+  --_d: var(--hx-d-cta);
+}
+.ld-hero-media {
+  --_d: var(--hx-d-rect);
+}
+
+/* The figure hosts its own exposure frame, so it is the local
+   positioning context; the bottom padding keeps the frame's exposed row
+   inside the section. Slab 6t through rt, 5t from rd. */
+.ld-hero-media {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  margin-top: var(--t);
+  padding-bottom: var(--t);
+}
+.ld-hero-frame {
+  position: relative;
+  height: calc(var(--t) * 6);
+  overflow: clip;
+  background: var(--color-bg-300);
+}
+@container (--rd1) {
+  .ld-hero-frame {
+    height: calc(var(--t) * 5);
+  }
+}
