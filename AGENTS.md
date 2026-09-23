@@ -12,7 +12,8 @@ Read this file, then `REFACTOR.md` if it exists.
   owner's if it is running.
 - Never hardcode a value that means something. Colors, spacing, type, motion,
   z-index, URLs, copy, and asset paths live in `design-system/tokens/`,
-  `*-data.ts` modules, `design-system/media.ts`, or `.env`.
+  `*-data.ts` modules, `design-system/media.ts`, or `.env`. A constant only
+  one file needs is a custom property on that file's root selector, at the top.
 - Never write CSS outside `design-system/`. No utility classes in site markup,
   no CSS modules, no CSS-in-JS, no `<style>`, no `!important` (the packaged
   consent widget's bridge in `widgets.css` is the one exception).

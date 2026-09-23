@@ -1,6 +1,8 @@
 /* The focus highlight extends without shifting layout. */
 
+
 .fitem {
+  --fitem-bar: 3px;
   display: inline-flex;
   align-items: center;
   gap: var(--fitem-gap);

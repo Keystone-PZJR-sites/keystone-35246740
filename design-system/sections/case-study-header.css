@@ -1,11 +1,24 @@
 /* Header geometry, typography, and entrance delays vary by responsive band. */
 
+
 /* ---------------- section frame ---------------- */
 
 /* Flow frame: the content column starts the head at its designed tick
    row and the section holds its tick budget as a minimum, growing with
    the copy. */
 .csh-sec {
+  --cs-head-top-rm: calc(var(--t) * 80 / 32);
+  --cs-head-top-rs: calc(var(--t) * 112 / 48);
+  --cs-head-top-rt: calc(var(--t) * 80 / 64);
+  --cs-head-top-rd1: calc(var(--t) * 112 / 80);
+  --cs-head-top-rd2: calc(var(--t) * 174 / 112);
+  --cs-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
+  --cs-h1-w-rs: calc((var(--wA) + var(--wB)) * 384);
+  --cs-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
+  --cs-h1-w-rd1: calc((var(--wA) + var(--wB)) * 320);
+  --cs-h1-w-rd2: calc((var(--wA) + var(--wB)) * 448);
+  --cs-shadow-pad: calc((var(--wA) + var(--wB)) * 4);
+  --cs-d-img: 440ms;
   min-height: calc(var(--t) * 25);
   padding-bottom: var(--t);
 }

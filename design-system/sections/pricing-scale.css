@@ -1,9 +1,16 @@
 /* Geometry scales from page ticks; interiors scale through --ps-u. */
 
+
 /* Tick grid: the block and the persona strip stack at the base band and
    share a row from rs up. Row tracks are designed budgets that grow
    with their content. */
 .pricing-scale-section {
+  --ps-u: calc(var(--wA) + var(--wB));
+  --ps-slider-w-rm: calc((var(--wA) + var(--wB)) * 224);
+  --ps-slider-w-rs: calc((var(--wA) + var(--wB)) * 160);
+  --ps-slider-w-rt: calc((var(--wA) + var(--wB)) * 192);
+  --ps-slider-w-rd1: calc((var(--wA) + var(--wB)) * 224);
+  --ps-slider-w-rd2: calc((var(--wA) + var(--wB)) * 224);
   display: grid;
   align-items: start;
   width: 100%;
@@ -376,19 +383,18 @@
   }
 }
 
+/* The CTA appears from the tablet band and grows a size per band. */
 .ps-cta {
   display: none;
 }
 @container (min-width: 665px) {
-  .ps-cta-rt { display: inline-block; }
+  .ps-cta { display: inline-block; --btn-size: sm; }
 }
 @container (min-width: 860px) {
-  .ps-cta-rt { display: none; }
-  .ps-cta-rd1 { display: inline-block; }
+  .ps-cta { --btn-size: md; }
 }
 @container (min-width: 1130px) {
-  .ps-cta-rd1 { display: none; }
-  .ps-cta-rd2 { display: inline-block; }
+  .ps-cta { --btn-size: lg; }
 }
 
 /* The viewport clips the strip at its origin and the page edge. */

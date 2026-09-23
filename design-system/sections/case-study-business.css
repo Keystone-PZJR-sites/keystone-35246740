@@ -1,6 +1,8 @@
 /* The callout stacks on narrow bands and runs beside a bleeding image on wide bands. */
 
+
 .csb-sec {
+  --cs-shadow-pad-md: calc((var(--wA) + var(--wB)) * 3);
   min-height: calc(var(--t) * 35);
 }
 @container (min-width: 470px) {

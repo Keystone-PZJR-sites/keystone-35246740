@@ -53,3 +53,10 @@ the end result differs slightly from today, if it is better.
   (dev panel, expectations, fixtures), `scripts/grid-selftest.mjs`, the
   `gridCheck` prop threaded through every page, the `?_grid=` fixture param.
   Regression gate is now the visual snapshot diff (see Verify).
+- P3 `refactor(css): dissolve component.css; size controls per band with one
+  DOM node` — the 406 designed constants move to the top of the file that
+  uses them (27 shared ones to `semantic.css`); `--z-base` was dead. Buttons
+  read their size from `--btn-size` (`data-size` sets it; `size="inherit"`
+  inherits it), so hero, work header, FAQ, pricing offer, pricing scale, and
+  case carousel render one CTA row instead of one hidden copy per band
+  (−17 duplicated button rows, −70 CSS gate rules).

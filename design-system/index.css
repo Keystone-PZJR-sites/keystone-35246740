@@ -10,13 +10,12 @@
 
 @layer theme, tokens, base, grid, primitives, shared, sections, pages;
 
-/* Tokens: fonts, palette, semantic roles, type, motion, designed constants. */
+/* Tokens: fonts, palette, semantic roles, type, motion. */
 @import "./tokens/fonts.css" layer(tokens);
 @import "./tokens/primitives.css" layer(tokens);
 @import "./tokens/semantic.css" layer(tokens);
 @import "./tokens/type.css" layer(tokens);
 @import "./tokens/motion.css" layer(tokens);
-@import "./tokens/component.css" layer(tokens);
 
 /* Base: the document reset and the site root. */
 @import "./base.css" layer(base);

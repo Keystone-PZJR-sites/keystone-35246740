@@ -6,8 +6,13 @@ import { EXTERNAL_LINK } from "../site-links";
 
 type ForceableState = "hover" | "focus";
 
+/** `inherit` takes `--btn-size` from an ancestor, which a section sets per
+ * band so one control serves every band. */
+type FillSize = "xl" | "lg" | "md" | "sm" | "inherit";
+type GhostSize = FillSize | "xs";
+
 interface ButtonFillProps {
-  size?: "xl" | "lg" | "md" | "sm";
+  size?: FillSize;
   chrome?: "teal" | "gray";
   shape?: "pill" | "box";
   type?: "button" | "submit";
@@ -20,6 +25,10 @@ interface ButtonFillProps {
   disabled?: boolean;
   forceState?: ForceableState;
   children: ReactNode;
+}
+
+function sizeAttr(size: GhostSize): string | undefined {
+  return size === "inherit" ? undefined : size;
 }
 
 export function ButtonFill({
@@ -35,7 +44,7 @@ export function ButtonFill({
   children,
 }: ButtonFillProps) {
   const label = (
-    <span className="btn-label">
+    <span className="type type-fixed btn-body">
       {children}
       <span className="btn-glyph">
         <IconNavTrigger variant="arrow" />
@@ -46,8 +55,8 @@ export function ButtonFill({
     return (
       <a
         href={href}
-        className="type type-fixed btn-fill"
-        data-size={size}
+        className="btn-fill"
+        data-size={sizeAttr(size)}
         data-chrome={chrome}
         data-shape={shape}
         data-state={forceState}
@@ -61,8 +70,8 @@ export function ButtonFill({
   return (
     <button
       type={type}
-      className="type type-fixed btn-fill"
-      data-size={size}
+      className="btn-fill"
+      data-size={sizeAttr(size)}
       data-chrome={chrome}
       data-shape={shape}
       data-state={forceState}
@@ -75,7 +84,7 @@ export function ButtonFill({
 }
 
 interface ButtonGhostProps {
-  size?: "xl" | "lg" | "md" | "sm" | "xs";
+  size?: GhostSize;
   color?: "brown" | "teal" | "gray";
   /** Leading icon; icons keep their intrinsic two-tone palettes. */
   icon?: ReactNode;
@@ -103,17 +112,17 @@ export function ButtonGhost({
   children,
 }: ButtonGhostProps) {
   const content = (
-    <>
+    <span className="type type-fixed btn-body">
       <span className="btn-icon">{icon}</span>
       {children}
-    </>
+    </span>
   );
   if (href !== undefined) {
     return (
       <a
         href={href}
-        className="type type-fixed btn-ghost"
-        data-size={size}
+        className="btn-ghost"
+        data-size={sizeAttr(size)}
         data-color={color}
         data-state={forceState}
         data-action={action}
@@ -126,8 +135,8 @@ export function ButtonGhost({
   return (
     <button
       type="button"
-      className="type type-fixed btn-ghost"
-      data-size={size}
+      className="btn-ghost"
+      data-size={sizeAttr(size)}
       data-color={color}
       data-state={forceState}
       data-action={action}

@@ -1,8 +1,10 @@
 /* One image list reflows from a narrow strip to a wide mosaic. */
 
+
 /* Flow frame: the section and its header hold their tick rows as
    minimums and grow with the title. */
 .work-gallery-section {
+  --wg-ghost-opacity: var(--motion-ghost-opacity);
   width: 100%;
   min-height: calc(var(--t) * 12);
 }

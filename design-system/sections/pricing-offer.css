@@ -1,5 +1,6 @@
 /* Geometry uses page ticks; typography scales through responsive variables. */
 
+
 /* The section is a tick grid: columns are the designed tick columns and
    each row track is a designed row budget, `minmax(rows·t, auto)`, so an
    anchor renders the designed frame and content that outgrows a budget
@@ -7,6 +8,35 @@
    (k·t + 1px) grow their row by the pixel; the following track gives it
    back so the section total stays on the tick. */
 .pricing-offer-section {
+  --po-price-rm: 88px;
+  --po-price-rd1: 128px;
+  --po-price-rd2: 176px;
+  --po-price-gap: -4px;
+  --po-tag-pad-x-rm: 10px;
+  --po-chat-drop-card-rm: 38px;
+  --po-chat-drop-list: 30px;
+  --po-chat-drop-rd2: 88px;
+  --po-chat-half-md: 20px;
+  --po-head-top-rm: calc(var(--t) * 100 / 32);
+  --po-head-top-rs: calc(var(--t) * 112 / 48);
+  --po-head-top-rt: calc(var(--t) * 80 / 64);
+  --po-head-top-rd1: calc(var(--t) * 112 / 80);
+  --po-head-top-rd2: calc(var(--t) * 174 / 112);
+  --po-h1-w-rm: calc((var(--wA) + var(--wB)) * 305);
+  --po-h1-w-rs: calc((var(--wA) + var(--wB)) * 160);
+  --po-h1-w-rt: calc((var(--wA) + var(--wB)) * 288);
+  --po-h1-w-rd1: calc((var(--wA) + var(--wB)) * 328);
+  --po-h1-w-rd2: calc((var(--wA) + var(--wB)) * 724);
+  --po-sub-w-rm: calc((var(--wA) + var(--wB)) * 240);
+  --po-sub-w-rs: calc((var(--wA) + var(--wB)) * 192);
+  --po-sub-w-rt: calc((var(--wA) + var(--wB)) * 288);
+  --po-sub-w-rd1: calc((var(--wA) + var(--wB)) * 320);
+  --po-sub-w-rd2: calc((var(--wA) + var(--wB)) * 485);
+  --po-item-w-rm: calc((var(--wA) + var(--wB)) * 260);
+  --po-item-w-rs: calc((var(--wA) + var(--wB)) * 392);
+  --po-item-w-rt: calc((var(--wA) + var(--wB)) * 240);
+  --po-item-w-rd1: calc((var(--wA) + var(--wB)) * 300);
+  --po-item-w-rd2: calc((var(--wA) + var(--wB)) * 440);
   display: grid;
   align-items: start;
   width: 100%;
@@ -207,14 +237,10 @@
   align-items: center;
   gap: var(--space-xl);
 }
-.po-cl-sm {
-  display: none;
+/* Chat labels and buttons use fixed material sizes per band. */
+.po-chat {
+  --btn-size: md;
 }
-@container (min-width: 665px) {
-  .po-cl-md { display: none; }
-  .po-cl-sm { display: flex; }
-}
-/* Chat labels use fixed material sizes per band. */
 .po-chat-label {
   color: var(--color-text-400);
   --font: var(--ts-text-md-light-font);
@@ -228,8 +254,12 @@
   }
 }
 @container (min-width: 665px) {
+  .po-chat-list,
+  .po-chat-head {
+    --btn-size: sm;
+  }
   .po-chat-list .po-chat-label,
-  .po-chat-head-rt .po-chat-label {
+  .po-chat-head .po-chat-label {
     padding-left: var(--space-none);
     --font: var(--ts-text-sm-light-font);
     --ls: var(--ts-text-sm-light-ls);
@@ -237,33 +267,29 @@
   }
 }
 
-/* the header rows: rt 48 below the subhead, rd1 40 below (in flow) */
-.po-chat-head-rt {
-  display: none;
-}
-.po-chat-head-rd1 {
+/* the header row: rt 48 below the subhead, rd1 40 below (in flow) */
+.po-chat-head {
   display: none;
 }
 @container (min-width: 665px) {
-  .po-chat-head-rt {
+  .po-chat-head {
     display: flex;
     margin-top: var(--space-6xl);
   }
 }
 @container (min-width: 860px) {
-  .po-chat-head-rt { display: none; }
-  .po-chat-head-rd1 {
-    display: flex;
+  .po-chat-head {
     margin-top: var(--space-5xl);
+    --btn-size: lg;
   }
-  .po-chat-head-rd1 .po-chat-label {
+  .po-chat-head .po-chat-label {
     --font: var(--ts-text-lg-light-font);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
 }
 @container (min-width: 1130px) {
-  .po-chat-head-rd1 { display: none; }
+  .po-chat-head { display: none; }
 }
 
 /* Chat rows are material (40/48px) blocks centered on a half-tick line:
@@ -295,17 +321,13 @@
 @container (min-width: 860px) {
   .po-chat-list { display: none; }
 }
-
-.po-chat-list-rd2 {
-  display: none;
-}
 @container (min-width: 1130px) {
-  .po-chat-list-rd2 {
+  .po-chat-list {
     display: flex;
-    grid-area: chatl;
     margin-top: calc(var(--po-chat-drop-rd2) - 1px);
+    --btn-size: lg;
   }
-  .po-chat-list-rd2 .po-chat-label {
+  .po-chat-list .po-chat-label {
     padding-left: var(--space-lg);
     --font: var(--ts-text-lg-light-font);
     --ls: var(--ts-text-lg-light-ls);
@@ -855,16 +877,13 @@
 .po-list-cta {
   margin-top: auto;
   align-self: flex-end;
+  --btn-size: sm;
 }
 @container (min-width: 1130px) {
   .po-list-single .po-list-cta { display: none; }
 }
-.po-cta-rd1 {
-  display: none;
-}
 @container (min-width: 860px) {
-  .po-cta-rt { display: none; }
-  .po-cta-rd1 { display: inline-block; }
+  .po-list-cta { --btn-size: md; }
   .po-box-r .po-list-cta { margin-right: calc(var(--space-3xl) - var(--space-4xl)); }
 }
 

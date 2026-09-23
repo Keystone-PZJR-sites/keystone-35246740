@@ -1,4 +1,24 @@
+/* Reference frame widths the viewer script reads from the root. */
+:root {
+  --gv-ref-mobile: 384;
+  --gv-ref-tablet: 768;
+  --gv-ref-desktop: 1344;
+  --gv-mobile-float-h: 832;
+}
+
 .gv {
+  --z-modal: 100;
+  --gv-rail-h: 56px;
+  --gv-logo-box-w: 56px;
+  --gv-logo-box-h: 48px;
+  --gv-divider-w: 1px;
+  --gv-divider-h: 24px;
+  --gv-rail-pad: 16px;
+  --gv-group-gap: 24px;
+  --gv-chevron-gap: 8px;
+  --gv-btn: 24px;
+  --gv-switch-pad: 4px;
+  --gv-switch-gap: 8px;
   position: fixed;
   inset: 0;
   z-index: var(--z-modal);

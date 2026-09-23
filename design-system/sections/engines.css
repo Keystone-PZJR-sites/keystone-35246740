@@ -1,4 +1,30 @@
 .engines-section {
+  --e2-pin-line: calc(var(--knav-bar-h) + var(--t) * 45 / 112);
+  --e2-cont-x-rd: calc(var(--t) * 64 / 112);
+  --e2-cont-h-rd: calc(var(--t) * 528 / 112);
+  --e2-text-pl-rd: calc(var(--t) * 48 / 112);
+  --e2-dot-rd: calc(var(--t) * 20 / 112);
+  --e2-dotrow-rd: calc(var(--t) * 48 / 112);
+  --e2-desc-w-rd: calc(var(--t) * 432 / 112);
+  --e2-hd-gap-rd: calc(var(--t) * 32 / 112);
+  --e2-ps-rd: calc(var(--t) * 12 / 112);
+  --e2-det-pad-rd: calc(var(--t) * 64 / 112);
+  --e2-det-s-rd: calc(var(--t) * 608 / 112);
+  --e2-bc-dot: calc(var(--t) * 8 / 112);
+  --e2-bc-gap: calc(var(--t) * 8 / 112);
+  --e2-desc-w-rm: calc(var(--wA) * 288 + var(--wB) * 368);
+  --e2-desc-w-rs: calc(var(--wA) * 368 + var(--wB) * 448);
+  --e2-desc-w-rt: calc((var(--wA) + var(--wB)) * 448);
+  --e2-hd-gap-rm: calc(var(--wA) * 12 + var(--wB) * 22);
+  --e2-hd-gap-rs: calc(var(--wA) * 22 + var(--wB) * 32);
+  --e2-hd-gap-rt: calc((var(--wA) + var(--wB)) * 32);
+  --e2-dot-rm: calc(var(--wA) * 7 + var(--wB) * 11.5);
+  --e2-dot-rs: calc(var(--wA) * 11.5 + var(--wB) * 16);
+  --e2-dot-rt: calc((var(--wA) + var(--wB)) * 16);
+  --e2-dotrow-rt: calc((var(--wA) + var(--wB)) * 48);
+  --e2-text-pl-rt: calc((var(--wA) + var(--wB)) * 40);
+  --e2-ps-sub: calc((var(--wA) + var(--wB)) * 12);
+  --e2-det-s-rt: calc(var(--t) * 708 / 64);
   width: 100%;
 }
 

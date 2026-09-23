@@ -82,13 +82,14 @@ function Chip({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
-function CtaRow({ variant, size }: { variant: "a" | "b" | "c" | "d"; size: "xl" | "lg" | "md" }) {
+/** One CTA row; the buttons take their size per band from `.hx-cta`. */
+function CtaRow() {
   return (
-    <div className={`hx-cta hx-rise hx-cta-${variant}`}>
-      <ButtonFill size={size} chrome="gray" shape="pill" href="/pricing">
+    <div className="hx-cta hx-rise">
+      <ButtonFill size="inherit" chrome="gray" shape="pill" href="/pricing">
         Get Started
       </ButtonFill>
-      <ButtonGhost size={size} color="brown" icon={<IconChat />} action="open-chat">
+      <ButtonGhost size="inherit" color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
     </div>
@@ -176,10 +177,7 @@ export function HeroSection() {
           </span>
         </Text>
 
-        <CtaRow variant="a" size="md" />
-        <CtaRow variant="b" size="md" />
-        <CtaRow variant="c" size="lg" />
-        <CtaRow variant="d" size="xl" />
+        <CtaRow />
       </div>
 
       {/* Tail clones make the ambient carousel loop seamlessly. */}

@@ -1,8 +1,12 @@
 /* Before-and-after cards stack on narrow bands and share an edge from tablet. */
 
+
 /* Flow frame: the section holds its tick budget as a minimum and grows
    with the cards. */
 .csft-sec {
+  --cs-tag-w: 52px;
+  --cs-tag-h: 28px;
+  --cs-tag-r: var(--radius-sm);
   min-height: calc(var(--t) * 22);
 }
 @container (min-width: 470px) {

@@ -1,4 +1,5 @@
 /* The desktop rail spans the Overview-through-Result portion of the stack. */
+
 .toc-rail {
   display: none;
 }
@@ -19,6 +20,13 @@
 }
 
 .toc {
+  --cs-toc-top: calc(var(--t));
+  --cs-toc-item-h: 30px;
+  --cs-toc-gap: 8px;
+  --cs-toc-pad-l: 16px;
+  --cs-toc-pad-r: 8px;
+  --cs-toc-pad-y: 4px;
+  --cs-toc-rule: 2px;
   position: sticky;
   top: var(--cs-toc-top);
   pointer-events: auto;
