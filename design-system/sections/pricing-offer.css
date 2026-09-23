@@ -823,7 +823,10 @@
    inside the right box; none at rd2 — the card's xl button is the
    block's only CTA) */
 .po-list-cta {
+  /* Sinks to the bottom pad; when the list fills the box the auto margin
+     collapses to zero, so the pad keeps a gap above the button. */
   margin-top: auto;
+  padding-top: var(--space-2xl);
   align-self: flex-end;
   --btn-size: sm;
 }
