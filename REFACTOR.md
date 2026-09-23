@@ -69,3 +69,5 @@ the end result differs slightly from today, if it is better.
 - P5 `test: Playwright visual gate` — `tests/visual.spec.ts` + config; system
   Chrome, baselines gitignored and refreshed from the reference build;
   `puppeteer-core` removed.
+- P6 `feat(routes): not-found, robots, sitemap; pricing title` — the 404
+  reuses the legal composition; `/privacy-policy` is a config redirect.
