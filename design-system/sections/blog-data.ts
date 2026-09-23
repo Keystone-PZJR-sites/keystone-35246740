@@ -448,3 +448,8 @@ export function blogPageWindow(
     { type: "page", page: totalPageCount },
   ];
 }
+
+/** Every published post's slug and date, for the sitemap. */
+export async function getBlogPostIndex(): Promise<{ slug: string; publishedAt: number }[]> {
+  return (await getBlogPostList()).map(({ slug, publishedAt }) => ({ slug, publishedAt }));
+}

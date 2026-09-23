@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   async redirects() {
     return [
+      { source: "/privacy-policy", destination: "/privacy/", permanent: true },
       {
         source: "/gallery",
         destination: "/our-work/?gallery=1",
