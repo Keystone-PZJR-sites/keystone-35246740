@@ -49,8 +49,12 @@
 
 .fq-q {
   --font: var(--fq-q-f);
-  --fs-px: var(--fq-q-fs);
-  --lh-px: var(--fq-q-lh);
+  --fs0: var(--fq-q-fs0);
+  --fs1: var(--fq-q-fs1);
+  --lh0: var(--fq-q-lh0);
+  --lh1: var(--fq-q-lh1);
+  --fs-px: calc(var(--fq-u, 1px) * var(--fs));
+  --lh-px: calc(var(--fq-u, 1px) * var(--lh));
   --ls: var(--fq-q-ls);
   --opsz: var(--fq-q-opsz);
   color: var(--color-text-200);
@@ -88,24 +92,28 @@
 .fq-a {
   margin: var(--space-none);
   --font: var(--fq-a-f);
-  --fs-px: var(--fq-a-fs);
-  --lh-px: var(--fq-a-lh);
+  --fs0: var(--fq-a-fs0);
+  --fs1: var(--fq-a-fs1);
+  --lh0: var(--fq-a-lh0);
+  --lh1: var(--fq-a-lh1);
+  --fs-px: calc(var(--fq-u, 1px) * var(--fs));
+  --lh-px: calc(var(--fq-u, 1px) * var(--lh));
   --ls: var(--fq-a-ls);
   --opsz: var(--fq-a-opsz);
   color: var(--color-text-400);
 }
 
-/* Fixed-size mounts; the section restates these values by band. */
+/* Fixed-size mounts (catalog only); the section sets --fq-u and the ramp ends. */
 
 .fq[data-size] {
   --fq-q-f: var(--ts-text-md-light-font);
-  --fq-q-fs: 16px;
-  --fq-q-lh: 22px;
+  --fq-q-fs0: 16;
+  --fq-q-lh0: 22;
   --fq-q-ls: var(--ts-text-md-light-ls);
   --fq-q-opsz: var(--ts-text-md-light-opsz);
   --fq-a-f: var(--ts-text-md-light-font);
-  --fq-a-fs: 16px;
-  --fq-a-lh: 22px;
+  --fq-a-fs0: 16;
+  --fq-a-lh0: 22;
   --fq-a-ls: var(--ts-text-md-light-ls);
   --fq-a-opsz: var(--ts-text-md-light-opsz);
   --fq-a-inset: 0px;
@@ -169,13 +177,13 @@
   --fq-qrow: 32px;
   --fq-a-inset: 96px;
   --fq-q-f: var(--ts-text-xl-light-font);
-  --fq-q-fs: 20px;
-  --fq-q-lh: 26px;
+  --fq-q-fs0: 20;
+  --fq-q-lh0: 26;
   --fq-q-ls: var(--ts-text-xl-light-ls);
   --fq-q-opsz: var(--ts-text-xl-light-opsz);
   --fq-a-f: var(--ts-text-lg-light-font);
-  --fq-a-fs: 18px;
-  --fq-a-lh: 26px;
+  --fq-a-fs0: 18;
+  --fq-a-lh0: 26;
   --fq-a-ls: var(--ts-text-lg-light-ls);
   --fq-a-opsz: var(--ts-text-lg-light-opsz);
   height: 112px;

@@ -75,6 +75,8 @@
   margin: calc((var(--wA) + var(--wB)) * 12) 0 0;
   color: var(--color-text-100);
   max-width: var(--wk-h1-w-rm);
+  --fs1: var(--ts-display-serif-3xl-thin-fs);
+  --lh1: var(--ts-display-serif-3xl-thin-lh);
 }
 @container (--rs) {
   .wkh-h1 { max-width: var(--wk-h1-w-rs); }
@@ -84,8 +86,6 @@
     margin-top: calc((var(--wA) + var(--wB)) * 16);
     max-width: var(--wk-h1-w-rt);
     --font: var(--ts-display-serif-md-thin-font);
-    --fs0: var(--ts-display-serif-md-thin-fs);
-    --lh0: var(--ts-display-serif-md-thin-lh);
     --ls: var(--ts-display-serif-md-thin-ls);
   }
 }
@@ -94,8 +94,6 @@
     margin-top: calc((var(--wA) + var(--wB)) * 24);
     max-width: var(--wk-h1-w-rd1);
     --font: var(--ts-display-serif-lg-thin-font);
-    --fs0: var(--ts-display-serif-lg-thin-fs);
-    --lh0: var(--ts-display-serif-lg-thin-lh);
     --ls: var(--ts-display-serif-lg-thin-ls);
   }
 }
@@ -103,8 +101,6 @@
   .wkh-h1 {
     max-width: var(--wk-h1-w-rd2);
     --font: var(--ts-display-serif-3xl-thin-font);
-    --fs0: var(--ts-display-serif-3xl-thin-fs);
-    --lh0: var(--ts-display-serif-3xl-thin-lh);
     --ls: var(--ts-display-serif-3xl-thin-ls);
   }
 }
@@ -113,6 +109,8 @@
   margin: calc((var(--wA) + var(--wB)) * 24) 0 0;
   color: var(--color-text-400);
   max-width: var(--wk-sub-w-rm);
+  --fs1: var(--ts-text-2xl-light-fs);
+  --lh1: var(--ts-text-2xl-light-lh);
 }
 @container (--rs) {
   .wkh-subhead { max-width: var(--wk-sub-w-rs); }
@@ -121,8 +119,6 @@
   .wkh-subhead {
     max-width: var(--wk-sub-w-rt);
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -132,8 +128,6 @@
     margin-top: calc((var(--wA) + var(--wB)) * 40);
     max-width: var(--wk-sub-w-rd1);
     --font: var(--ts-text-xl-light-font);
-    --fs0: var(--ts-text-xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
@@ -142,8 +136,6 @@
   .wkh-subhead {
     max-width: var(--wk-sub-w-rd2);
     --font: var(--ts-text-2xl-light-font);
-    --fs0: var(--ts-text-2xl-light-fs);
-    --lh0: var(--ts-text-2xl-light-lh);
     --ls: var(--ts-text-2xl-light-ls);
     --opsz: var(--ts-text-2xl-light-opsz);
   }

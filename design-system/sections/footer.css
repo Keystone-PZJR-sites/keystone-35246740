@@ -360,8 +360,8 @@
 .fnav-dot[data-g="findus"] { background: var(--color-blue-400); }
 
 .fnav-name {
-  --fs0: var(--ts-display-serif-3xs-regular-fs); --fs1: var(--ts-display-serif-2xs-plus-regular-fs);
-  --lh0: var(--ts-display-serif-3xs-regular-lh); --lh1: var(--ts-display-serif-2xs-plus-regular-lh);
+  --fs0: var(--ts-display-serif-3xs-regular-fs); --fs1: var(--ts-display-serif-2xs-medium-fs);
+  --lh0: var(--ts-display-serif-3xs-regular-lh); --lh1: var(--ts-display-serif-2xs-medium-lh);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -436,8 +436,6 @@
   .fnav-name {
     --font: var(--ts-display-serif-2xs-plus-regular-font);
     --ls: var(--ts-display-serif-2xs-plus-regular-ls);
-    --fs-px: 20px;
-    --lh-px: 24px;
   }
   .fnav-listwrap {
     margin-top: var(--space-lg);
@@ -445,10 +443,6 @@
   }
   .fnav-list {
     gap: 10px;
-  }
-  .fnav-list .fitem {
-    --fs-px: 16px;
-    --lh-px: 22px;
   }
 }
 
@@ -491,10 +485,6 @@
   .fnav-name {
     --font: var(--ts-display-serif-4xs-plus-medium-font);
     --ls: var(--ts-display-serif-4xs-plus-medium-ls);
-    --fs-px: initial;
-    --lh-px: initial;
-    --fs0: var(--ts-display-serif-4xs-plus-medium-fs); --fs1: var(--ts-display-serif-3xs-medium-fs);
-    --lh0: var(--ts-display-serif-4xs-plus-medium-lh); --lh1: var(--ts-display-serif-3xs-medium-lh);
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -507,11 +497,6 @@
   }
   .fnav-list {
     gap: var(--space-md);
-  }
-  .fnav-list .fitem {
-    --fs-px: initial; --lh-px: initial;
-    --fs0: 14; --fs1: 16;
-    --lh0: 18; --lh1: 22;
   }
 }
 
@@ -530,8 +515,6 @@
   .fnav-name {
     --font: var(--ts-display-serif-3xs-medium-font);
     --ls: var(--ts-display-serif-3xs-medium-ls);
-    --fs0: var(--ts-display-serif-3xs-medium-fs); --fs1: var(--ts-display-serif-2xs-medium-fs);
-    --lh0: var(--ts-display-serif-3xs-medium-lh); --lh1: var(--ts-display-serif-2xs-medium-lh);
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -539,10 +522,6 @@
   }
   .fnav-list {
     gap: var(--space-lg);
-  }
-  .fnav-list .fitem {
-    --fs-px: 16px;
-    --lh-px: 22px;
   }
 }
 
@@ -555,17 +534,10 @@
   .fnav-name {
     --font: var(--ts-display-serif-2xs-medium-font);
     --ls: var(--ts-display-serif-2xs-medium-ls);
-    --fs0: 0; --fs1: var(--ts-display-serif-2xs-medium-fs);
-    --lh0: 0; --lh1: var(--ts-display-serif-2xs-medium-lh);
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
     margin-top: var(--space-xl);
-  }
-  .fnav-list .fitem {
-    --fs-px: initial; --lh-px: initial;
-    --fs0: 0; --fs1: 16;
-    --lh0: 0; --lh1: 22;
   }
 }
 
@@ -648,8 +620,8 @@
   --font: var(--ts-text-2xs-regular-font);
   --opsz: var(--ts-text-2xs-regular-opsz);
   --ls: -0.02em;
-  --fs0: var(--ts-text-2xs-regular-fs); --fs1: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh); --lh1: var(--ts-text-xs-regular-lh);
+  --fs0: var(--ts-text-2xs-regular-fs); --fs1: var(--ts-text-sm-regular-fs);
+  --lh0: var(--ts-text-2xs-regular-lh); --lh1: var(--ts-text-sm-regular-lh);
   color: var(--color-text-500);
   white-space: nowrap;
 }
@@ -688,8 +660,6 @@
 @container (--rs) {
   .f-copy {
     --ls: var(--ts-text-xs-regular-ls);
-    --fs-px: 12px;
-    --lh-px: 16px;
   }
 }
 
@@ -710,10 +680,6 @@
     padding-inline: var(--space-none);
     padding-right: var(--t);
     border-bottom: none;
-    --fs-px: initial;
-    --lh-px: initial;
-    --fs0: var(--ts-text-xs-regular-fs); --fs1: var(--ts-text-sm-regular-fs);
-    --lh0: var(--ts-text-xs-regular-lh); --lh1: var(--ts-text-sm-regular-lh);
   }
 }
 
@@ -722,7 +688,5 @@
     gap: var(--space-6xl);
     padding-right: var(--space-none);
     --opsz: var(--ts-text-sm-regular-opsz);
-    --fs0: 0; --fs1: var(--ts-text-sm-regular-fs);
-    --lh0: 0; --lh1: var(--ts-text-sm-regular-lh);
   }
 }

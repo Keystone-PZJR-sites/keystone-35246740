@@ -77,13 +77,15 @@
   }
 }
 
-/* Typography follows the active band weight. */
+/* Typography: one ramp 384→1344, scaled by the section unit. */
 .faq-head {
   margin: var(--space-none);
   color: var(--color-text-100);
   max-width: var(--faq-head-w-rm);
-  --fs-px: calc(var(--faq-u) * var(--fs0));
-  --lh-px: calc(var(--faq-u) * var(--lh0));
+  --fs1: var(--ts-display-serif-md-plus-extralight-fs);
+  --lh1: var(--ts-display-serif-md-plus-extralight-lh);
+  --fs-px: calc(var(--faq-u) * var(--fs));
+  --lh-px: calc(var(--faq-u) * var(--lh));
 }
 @container (--rs) {
   /* one designed line inside the trued box — no wrap pin */
@@ -100,8 +102,6 @@
   .faq-head {
     max-width: var(--faq-head-w-rd1);
     --font: var(--ts-display-serif-sm-extralight-font);
-    --fs0: var(--ts-display-serif-sm-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-extralight-lh);
     --ls: var(--ts-display-serif-sm-extralight-ls);
   }
 }
@@ -109,8 +109,6 @@
   .faq-head {
     max-width: var(--faq-head-w-rd2);
     --font: var(--ts-display-serif-md-plus-extralight-font);
-    --fs0: var(--ts-display-serif-md-plus-extralight-fs);
-    --lh0: var(--ts-display-serif-md-plus-extralight-lh);
     --ls: var(--ts-display-serif-md-plus-extralight-ls);
   }
 }
@@ -128,8 +126,10 @@
 .faq-chat-label {
   padding-left: calc(var(--faq-u) * 12);
   color: var(--color-text-400);
-  --fs-px: calc(var(--faq-u) * var(--fs0));
-  --lh-px: calc(var(--faq-u) * var(--lh0));
+  --fs1: var(--ts-text-xl-light-fs);
+  --lh1: var(--ts-text-xl-light-lh);
+  --fs-px: calc(var(--faq-u) * var(--fs));
+  --lh-px: calc(var(--faq-u) * var(--lh));
 }
 .faq-chat-label-long {
   display: none;
@@ -145,8 +145,6 @@
   }
   .faq-chat-label {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
@@ -160,8 +158,6 @@
     padding-left: calc(var(--faq-u) * 16);
     padding-bottom: calc(var(--faq-u) * 2);
     --font: var(--ts-text-xl-light-font);
-    --fs0: var(--ts-text-xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
@@ -208,13 +204,14 @@
   --fq-gap: calc(var(--faq-u) * 16);
   --fq-a-inset: 0px;
   --fq-q-f: var(--ts-text-md-light-font);
-  --fq-q-fs: calc(var(--faq-u) * 16);
-  --fq-q-lh: calc(var(--faq-u) * 22);
+  --fq-u: var(--faq-u);
+  --fq-q-fs0: 16; --fq-q-fs1: 20;
+  --fq-q-lh0: 22; --fq-q-lh1: 26;
   --fq-q-ls: var(--ts-text-md-light-ls);
   --fq-q-opsz: var(--ts-text-md-light-opsz);
   --fq-a-f: var(--ts-text-md-light-font);
-  --fq-a-fs: calc(var(--faq-u) * 16);
-  --fq-a-lh: calc(var(--faq-u) * 22);
+  --fq-a-fs0: 16; --fq-a-fs1: 18;
+  --fq-a-lh0: 22; --fq-a-lh1: 26;
   --fq-a-ls: var(--ts-text-md-light-ls);
   --fq-a-opsz: var(--ts-text-md-light-opsz);
 }
@@ -249,13 +246,9 @@
     --fq-gap: calc(var(--faq-u) * 16);
     --fq-a-inset: calc(var(--faq-u) * 96);
     --fq-q-f: var(--ts-text-xl-light-font);
-    --fq-q-fs: calc(var(--faq-u) * 20);
-    --fq-q-lh: calc(var(--faq-u) * 26);
     --fq-q-ls: var(--ts-text-xl-light-ls);
     --fq-q-opsz: var(--ts-text-xl-light-opsz);
     --fq-a-f: var(--ts-text-lg-light-font);
-    --fq-a-fs: calc(var(--faq-u) * 18);
-    --fq-a-lh: calc(var(--faq-u) * 26);
     --fq-a-ls: var(--ts-text-lg-light-ls);
     --fq-a-opsz: var(--ts-text-lg-light-opsz);
   }

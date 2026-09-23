@@ -104,6 +104,8 @@
   margin: calc((var(--wA) + var(--wB)) * 16) 0 0;
   color: var(--color-text-100);
   max-width: var(--cs-h1-w-rm);
+  --fs1: var(--ts-display-serif-lg-plus-thin-fs);
+  --lh1: var(--ts-display-serif-lg-plus-thin-lh);
 }
 .csh-br-rt,
 .csh-br-rsd2 {
@@ -113,8 +115,6 @@
   .csh-h1 {
     max-width: var(--cs-h1-w-rs);
     --font: var(--ts-display-serif-md-thin-font);
-    --fs0: var(--ts-display-serif-md-thin-fs);
-    --lh0: var(--ts-display-serif-md-thin-lh);
     --ls: var(--ts-display-serif-md-thin-ls);
   }
   .csh-br-rsd2 { display: inline; }
@@ -129,8 +129,6 @@
     margin-top: calc((var(--wA) + var(--wB)) * 24);
     max-width: var(--cs-h1-w-rd1);
     --font: var(--ts-display-serif-md-plus-thin-font);
-    --fs0: var(--ts-display-serif-md-plus-thin-fs);
-    --lh0: var(--ts-display-serif-md-plus-thin-lh);
     --ls: var(--ts-display-serif-md-plus-thin-ls);
   }
   .csh-br-rt { display: none; }
@@ -139,8 +137,6 @@
   .csh-h1 {
     max-width: var(--cs-h1-w-rd2);
     --font: var(--ts-display-serif-lg-plus-thin-font);
-    --fs0: var(--ts-display-serif-lg-plus-thin-fs);
-    --lh0: var(--ts-display-serif-lg-plus-thin-lh);
     --ls: var(--ts-display-serif-lg-plus-thin-ls);
   }
   .csh-br-rsd2 { display: inline; }

@@ -70,36 +70,9 @@
   --opsz: var(--ts-text-nav-label-opsz);
   --case: var(--ts-text-nav-label-case);
   --fs0: var(--ts-text-nav-label-fs);
-  --fs1: 15;
+  --fs1: 10;
   --lh0: var(--ts-text-nav-label-lh);
-  --lh1: 18;
-}
-@container (--rs) {
-  .blc-topic,
-  .blc-time {
-    --fs0: 15;
-    --fs1: 20;
-    --lh0: 18;
-    --lh1: 24;
-  }
-}
-@container (--rt) {
-  .blc-topic,
-  .blc-time {
-    --fs0: 10;
-    --fs1: 10;
-    --lh0: 12;
-    --lh1: 12;
-  }
-}
-@container (--rd1) {
-  .blc-topic,
-  .blc-time {
-    --fs0: 7.1429;
-    --fs1: 10;
-    --lh0: 8.5714;
-    --lh1: 12;
-  }
+  --lh1: 12;
 }
 
 .blc-title {

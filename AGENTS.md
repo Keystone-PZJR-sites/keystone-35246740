@@ -48,8 +48,10 @@ Read this file, then `REFACTOR.md` if it exists.
   keyword on the mount at each gate; never render one hidden copy per band.
 - Text is `type ts-<figma-style>` (for example `type ts-text-md-light`;
   `type-fixed` for material sizes). The generated class sets `--font`/`--ls`/
-  `--opsz` and the `--fs0/--lh0` ramp start; a band that switches style or
-  adds `--fs1/--lh1` restates those variables in its own `@container` block.
+  `--opsz` and the 384 size (`--fs0/--lh0`); the element's base rule sets
+  `--fs1/--lh1` for its 1344 size and the size runs fluidly between. Never
+  set a size inside `@container`; a band that switches style restates only
+  `--font`/`--ls`/`--opsz`.
   Every state change is a CSS transition or animation; `base.css` zeroes them
   all under reduced motion.
 - Motion is CSS only. Every duration, curve, and distance is a token in
@@ -126,10 +128,10 @@ A section is this shape, and nothing in it is a number:
 
 ```css
 .my-sec { padding-block: var(--space-3xl); --btn-size: md; }
+.my-head { --fs1: var(--ts-display-serif-md-thin-fs); --lh1: var(--ts-display-serif-md-thin-lh); }
 .my-body { margin-top: var(--space-lg); max-width: calc(6 * var(--t)); }
 @container (--rd1) {
   .my-sec { --btn-size: lg; }
-  .my-head { --fs1: var(--ts-display-serif-md-thin-fs); --lh1: var(--ts-display-serif-md-thin-lh); }
 }
 ```
 
