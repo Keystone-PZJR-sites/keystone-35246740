@@ -6,17 +6,24 @@ import { trapModalTab } from "@/design-system/lib/focus-trap";
 import { lockScroll } from "@/design-system/lib/scroll-lock";
 import { IconChevronDownMedium, IconNavMenu } from "../icons";
 
-export interface NavMobileRow {
-  id: string;
-  label: string;
-  /** Plain rows link; drawer rows disclose. */
-  href?: string;
-  drawer?: ReactNode;
-  /** Whole-tick push-down per band. */
-  group?: { rm: number; rs: number; rt: number };
-  /** The open box height; it can be shorter than its push-down group. */
-  boxTicks?: { rm: number; rs: number; rt: number };
+interface BandTicks {
+  rm: number;
+  rs: number;
+  rt: number;
 }
+
+/** Plain rows link; drawer rows disclose. */
+export type NavMobileRow =
+  | { id: string; label: string; href: string }
+  | {
+      id: string;
+      label: string;
+      drawer: ReactNode;
+      /** Whole-tick push-down per band. */
+      group: BandTicks;
+      /** The open box height; it can be shorter than its push-down group. */
+      boxTicks: BandTicks;
+    };
 
 /** Both glyphs share a grid cell so CSS can crossfade them. */
 function GlyphStack() {
@@ -153,7 +160,7 @@ export function NavMobile({
 
           <ul className="knav-list">
             {rows.map((row) => {
-              if (!row.drawer) {
+              if ("href" in row) {
                 return (
                   <li key={row.id} className="knav-slot">
                     <a className="knav-row" href={row.href}>
@@ -170,12 +177,12 @@ export function NavMobile({
                   data-open={isOpen || undefined}
                   style={
                     {
-                      "--g-rm": row.group!.rm,
-                      "--g-rs": row.group!.rs,
-                      "--g-rt": row.group!.rt,
-                      "--bt-rm": row.boxTicks!.rm,
-                      "--bt-rs": row.boxTicks!.rs,
-                      "--bt-rt": row.boxTicks!.rt,
+                      "--g-rm": row.group.rm,
+                      "--g-rs": row.group.rs,
+                      "--g-rt": row.group.rt,
+                      "--bt-rm": row.boxTicks.rm,
+                      "--bt-rs": row.boxTicks.rs,
+                      "--bt-rt": row.boxTicks.rt,
                     } as CSSProperties
                   }
                 >
