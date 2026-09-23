@@ -4,11 +4,7 @@
  * a small cache prevent stale results and backspace flicker. */
 
 import { useEffect, useMemo, useState } from "react";
-import {
-  fetchGraderSuggestions,
-  type GraderSearchResponse,
-  type GraderSuggestion,
-} from "./grader";
+import { fetchGraderSuggestions, type GraderSearchResponse, type GraderSuggestion } from "./grader";
 
 /** Keystroke settle time before a request goes out. */
 const DEBOUNCE_MS = 200;
@@ -75,7 +71,11 @@ function remember(query: string, groups: GraderSearchGroups) {
   cache.set(query, groups);
 }
 
-function state(status: GraderSearchStatus, groups: GraderSearchGroups, resultsFor: string): GraderSearchState {
+function state(
+  status: GraderSearchStatus,
+  groups: GraderSearchGroups,
+  resultsFor: string,
+): GraderSearchState {
   return { status, groups, results: [...groups.places, ...groups.web], resultsFor };
 }
 

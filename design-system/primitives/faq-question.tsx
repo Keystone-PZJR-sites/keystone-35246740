@@ -16,10 +16,23 @@ export interface FaqQuestionProps {
   onToggle?: () => void;
 }
 
-export function FaqQuestion({ id, question, answer, size, open = false, onToggle }: FaqQuestionProps) {
+export function FaqQuestion({
+  id,
+  question,
+  answer,
+  size,
+  open = false,
+  onToggle,
+}: FaqQuestionProps) {
   const answerId = `${id}-answer`;
   return (
-    <li className="fq" data-size={size} data-open={open || undefined} data-drawer="" data-landmark="item">
+    <li
+      className="fq"
+      data-size={size}
+      data-open={open || undefined}
+      data-drawer=""
+      data-landmark="item"
+    >
       <h3 className="fq-h">
         <button
           type="button"

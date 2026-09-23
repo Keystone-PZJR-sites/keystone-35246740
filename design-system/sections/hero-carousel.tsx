@@ -124,7 +124,11 @@ export function HeroCarousel({ children }: { children: ReactNode }) {
       snapHome();
       resume();
     };
-    const gate = attachAutoplayGate(root, { onResume: resume, onPause: clear, onResize: onBandChange });
+    const gate = attachAutoplayGate(root, {
+      onResume: resume,
+      onPause: clear,
+      onResize: onBandChange,
+    });
     gateOpen = gate.canRun;
 
     return () => {

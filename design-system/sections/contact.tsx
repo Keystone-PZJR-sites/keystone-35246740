@@ -1,10 +1,6 @@
 import type { FormDefinition } from "@keystone-sites/core/types";
 import { ContactFormIsland } from "./contact-form";
-import {
-  CONTACT_EYEBROW,
-  CONTACT_LEDE,
-  CONTACT_TITLE,
-} from "../pages/contact-data";
+import { CONTACT_EYEBROW, CONTACT_LEDE, CONTACT_TITLE } from "../pages/contact-data";
 
 export function ContactSection({ form }: { form: FormDefinition | null }) {
   return (

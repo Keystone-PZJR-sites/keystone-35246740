@@ -131,14 +131,12 @@ function Decor({ variant }: { variant: keyof typeof DECOR_CIRCLES }) {
         <i
           key={`c${i}`}
           className="c"
-          style={
-            {
-              "--cx": i % 4,
-              "--cy": Math.floor(i / 4),
-              ...(dx && { "--dx": dx }),
-              ...(dy && { "--dy": dy }),
-            }
-          }
+          style={{
+            "--cx": i % 4,
+            "--cy": Math.floor(i / 4),
+            ...(dx && { "--dx": dx }),
+            ...(dy && { "--dy": dy }),
+          }}
         />
       ))}
     </span>
@@ -187,8 +185,7 @@ function SolutionsDrawerContent() {
         <a className="knav-card knav-fcard knav-blk" style={blk(7)} href={SITE_LINKS.approach}>
           <Decor variant="feature" />
           <span className="type type-fixed knav-fcopy">
-            One system, one full picture of your business’s marketing,
-            starting with your site.
+            One system, one full picture of your business’s marketing, starting with your site.
           </span>
           <span className="knav-frow">
             <span className="type type-fixed knav-flabel">Our approach</span>

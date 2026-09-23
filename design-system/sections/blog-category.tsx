@@ -4,16 +4,8 @@ import { Slug } from "../primitives/slug";
 import { SITE_LINKS } from "../site-links";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import { BLOG_CATEGORY_CONTENT } from "./blog-category-data";
-import {
-  blogPageHref,
-  blogPageWindow,
-  type BlogFilteredModel,
-} from "./blog-data";
-import {
-  BLOG_FEATURE_GAP_TICKS,
-  BLOG_FEATURE_TICKS,
-  blogStackTicks,
-} from "./blog-layout";
+import { blogPageHref, blogPageWindow, type BlogFilteredModel } from "./blog-data";
+import { BLOG_FEATURE_GAP_TICKS, BLOG_FEATURE_TICKS, blogStackTicks } from "./blog-layout";
 
 const HEADER_TICKS = { rm: 8, rt: 4, rd: 4 } as const;
 const PAGINATION_GAP_TICKS = { rm: 2, rt: 1, rd: 1 } as const;
@@ -55,10 +47,7 @@ interface Region {
   gh?: number;
 }
 
-function exposedField(
-  family: "rm" | "rt" | "rd",
-  hasFeatured: boolean,
-): Region {
+function exposedField(family: "rm" | "rt" | "rd", hasFeatured: boolean): Region {
   const firstFullRow = family === "rm" ? 8 : 4;
   const drawnFullEnd = (hasFeatured ? FEATURED_FIELD_END : ROWS_FIELD_END)[family];
   return {
@@ -128,9 +117,7 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
               : BLOG_CATEGORY_CONTENT.categoryLabel}
           </span>
         </Slug>
-        <h1 className="type bc-h1">
-          {model.heading}
-        </h1>
+        <h1 className="type bc-h1">{model.heading}</h1>
       </header>
 
       <div className="bc-content">
@@ -166,9 +153,7 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             </ul>
           ) : (
             model.type === "search" && (
-              <p className="type bc-empty">
-                {BLOG_CATEGORY_CONTENT.emptyResults}
-              </p>
+              <p className="type bc-empty">{BLOG_CATEGORY_CONTENT.emptyResults}</p>
             )
           )}
         </div>
@@ -189,26 +174,22 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             />
           </span>
           <span className="bc-page-window">
-            {blogPageWindow(
-              model.pagination.currentPage,
-              model.pagination.totalPages,
-            ).map((item) =>
-              item.type === "ellipsis" ? (
-                <span className="type type-fixed bc-page-cell" key={item.key} aria-hidden="true">
-                  {BLOG_CATEGORY_CONTENT.ellipsis}
-                </span>
-              ) : (
-                <a
-                  className="type type-fixed bc-page-cell"
-                  href={blogPageHref(model.pagination, item.page)}
-                  aria-current={
-                    item.page === model.pagination.currentPage ? "page" : undefined
-                  }
-                  key={item.page}
-                >
-                  {item.page}
-                </a>
-              ),
+            {blogPageWindow(model.pagination.currentPage, model.pagination.totalPages).map(
+              (item) =>
+                item.type === "ellipsis" ? (
+                  <span className="type type-fixed bc-page-cell" key={item.key} aria-hidden="true">
+                    {BLOG_CATEGORY_CONTENT.ellipsis}
+                  </span>
+                ) : (
+                  <a
+                    className="type type-fixed bc-page-cell"
+                    href={blogPageHref(model.pagination, item.page)}
+                    aria-current={item.page === model.pagination.currentPage ? "page" : undefined}
+                    key={item.page}
+                  >
+                    {item.page}
+                  </a>
+                ),
             )}
           </span>
           <span className="bc-page-button bc-page-next">

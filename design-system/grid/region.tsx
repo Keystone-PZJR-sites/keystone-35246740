@@ -49,15 +49,7 @@ function geometryStyle({ gx, gy, gyb, gw, gh }: Omit<RegionGeometry, "band">): C
 }
 
 /** Exposure region: bordered rectangle plus its interior lattice lines. */
-export function GridRegion({
-  band,
-  gx,
-  gy,
-  gyb,
-  gw = 1,
-  gh = 1,
-  className,
-}: GridRegionProps) {
+export function GridRegion({ band, gx, gy, gyb, gw = 1, gh = 1, className }: GridRegionProps) {
   const anchor = anchorOf(gy, gyb);
   const rows = anchor === "stretch" ? gh + STRETCH_SLACK_ROWS : gh;
   const lines = [];

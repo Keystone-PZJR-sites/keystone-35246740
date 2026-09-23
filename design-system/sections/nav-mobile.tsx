@@ -175,16 +175,14 @@ export function NavMobile({
                   key={row.id}
                   className="knav-slot knav-gslot"
                   data-open={isOpen || undefined}
-                  style={
-                    {
-                      "--g-rm": row.group.rm,
-                      "--g-rs": row.group.rs,
-                      "--g-rt": row.group.rt,
-                      "--bt-rm": row.boxTicks.rm,
-                      "--bt-rs": row.boxTicks.rs,
-                      "--bt-rt": row.boxTicks.rt,
-                    }
-                  }
+                  style={{
+                    "--g-rm": row.group.rm,
+                    "--g-rs": row.group.rs,
+                    "--g-rt": row.group.rt,
+                    "--bt-rm": row.boxTicks.rm,
+                    "--bt-rs": row.boxTicks.rs,
+                    "--bt-rt": row.boxTicks.rt,
+                  }}
                 >
                   <div className="knav-gbox">
                     <button

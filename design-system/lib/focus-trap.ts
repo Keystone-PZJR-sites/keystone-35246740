@@ -18,7 +18,8 @@ export function trapModalTab(event: TabKeyEvent, container: HTMLElement): void {
   if (event.key !== "Tab") return;
 
   const focusable = [...container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)].filter(
-    (element) => element.getClientRects().length > 0 && element.getAttribute("aria-hidden") !== "true",
+    (element) =>
+      element.getClientRects().length > 0 && element.getAttribute("aria-hidden") !== "true",
   );
 
   if (!focusable.length) {

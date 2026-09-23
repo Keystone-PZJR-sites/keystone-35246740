@@ -127,15 +127,8 @@ export function SystemSection() {
             </span>
           </div>
           {ENGINES.map((e, i) => (
-            <span
-              key={e.id}
-              className="sys-tag"
-              data-engine={e.id}
-              style={{ "--_bi": i }}
-            >
-              <span className="type sys-tag-label">
-                {e.label}
-              </span>
+            <span key={e.id} className="sys-tag" data-engine={e.id} style={{ "--_bi": i }}>
+              <span className="type sys-tag-label">{e.label}</span>
             </span>
           ))}
         </div>

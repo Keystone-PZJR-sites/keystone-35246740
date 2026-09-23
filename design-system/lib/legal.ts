@@ -7,10 +7,7 @@ function siteHost(): string {
 }
 
 /** Replaces backend legal-markdown tokens with current company values. */
-export function replaceLegalPlaceholders(
-  markdown: string,
-  company: CompanyInformation,
-): string {
+export function replaceLegalPlaceholders(markdown: string, company: CompanyInformation): string {
   const name = company.company_name?.trim() || "Keystone";
   const email = company.primary_email || company.support_email || null;
   const phone = company.primary_phone || null;

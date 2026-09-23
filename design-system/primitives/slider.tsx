@@ -19,7 +19,13 @@ interface SliderProps {
   forceHue?: SliderHue;
 }
 
-export function Slider({ size = "lg", label, valueText, forceState = "less", forceHue = "pink" }: SliderProps) {
+export function Slider({
+  size = "lg",
+  label,
+  valueText,
+  forceState = "less",
+  forceHue = "pink",
+}: SliderProps) {
   return (
     <span className="sldr" data-size={size} data-state={forceState} data-hue={forceHue}>
       <span className="sldr-row">

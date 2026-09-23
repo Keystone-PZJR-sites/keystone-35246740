@@ -9,7 +9,9 @@ function opensExternally(href: string | undefined): boolean {
   return new URL(href).origin !== SITE_URL;
 }
 
-const H3 = ({ children }: { children?: ReactNode }) => <h3 className="type type-fixed bp-h3">{children}</h3>;
+const H3 = ({ children }: { children?: ReactNode }) => (
+  <h3 className="type type-fixed bp-h3">{children}</h3>
+);
 
 const BODY_COMPONENTS: Components = {
   h1: H3,

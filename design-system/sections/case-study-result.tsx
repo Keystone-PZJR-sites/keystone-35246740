@@ -7,11 +7,7 @@ import { CaseStudyPhoto } from "./case-study-photo";
 
 export function CaseStudyResultSection({ study }: { study: CaseStudy }) {
   return (
-    <section
-      className="sec cs-sec csr-sec"
-      id="result"
-      aria-labelledby="result-h"
-    >
+    <section className="sec cs-sec csr-sec" id="result" aria-labelledby="result-h">
       <CaseStudyLattice section="result" />
       <div className="cs-content csr-content" data-landmark="result">
         <div className="csr-img">

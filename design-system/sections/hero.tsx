@@ -158,18 +158,16 @@ export function HeroSection() {
         <p className="type hero-sub">
           {/* The accessible sentence includes text represented visually by the wordmark. */}
           <span className="hx-sr">
-            keystone powers your website and everything that runs through
-            it: ads social reviews content and follow-ups that convert.
+            keystone powers your website and everything that runs through it: ads social reviews
+            content and follow-ups that convert.
           </span>
           <span className="hero-flow hx-rise" aria-hidden="true">
             <span className="hx-wm" />
             {" powers your "}
             <Chip id="website">website</Chip>
             {" and everything that runs through it: "}
-            <Chip id="ads">ads</Chip>{" "}
-            <Chip id="social">social</Chip>{" "}
-            <Chip id="reviews">reviews</Chip>{" "}
-            <Chip id="content">content</Chip>
+            <Chip id="ads">ads</Chip> <Chip id="social">social</Chip>{" "}
+            <Chip id="reviews">reviews</Chip> <Chip id="content">content</Chip>
             {" and "}
             <Chip id="follow-ups">follow-ups</Chip>
             {" that convert."}

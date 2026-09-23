@@ -145,7 +145,6 @@ export function caseStudyPageSrc(
  * mosaic slots under cover. Customer-site images use meaningful alt text
  * and lazy loading because the gallery is below the fold. */
 
-
 export interface GalleryTier {
   cut: "sm" | "md" | "lg";
   /** null on the sm tier — it is the <img> fallback, not a <source>. */
@@ -182,11 +181,7 @@ export const ENGINE_CUTS: Record<EngineCut, { width: number; height: number }> =
 export const ENGINE_MD_MEDIA = "(min-width: 665px)";
 
 /** xl files have no suffix; md and xs include their cut suffix. */
-export function engineImageSrc(
-  engine: string,
-  state: EngineState,
-  cut: EngineCut = "xl",
-): string {
+export function engineImageSrc(engine: string, state: EngineState, cut: EngineCut = "xl"): string {
   const suffix = cut === "xl" ? "" : `-${cut}`;
   return `/media/engines/engine-${engine}-${state}${suffix}.webp`;
 }

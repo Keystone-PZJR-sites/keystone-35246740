@@ -11,16 +11,10 @@ const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
  * the closer rows. No gutter furniture. */
 export function CompanyBackersSection() {
   return (
-    <section
-      className="sec company-backers"
-      aria-label="Investors"
-      data-landmark="company-backers"
-    >
+    <section className="sec company-backers" aria-label="Investors" data-landmark="company-backers">
       <header className="cob-head" data-landmark="head">
         <Slug>{COMPANY_BACKERS.eyebrow}</Slug>
-        <h2 className="type co-h2">
-          {COMPANY_BACKERS.title}
-        </h2>
+        <h2 className="type co-h2">{COMPANY_BACKERS.title}</h2>
       </header>
 
       {/* Names render as visible captions, so the portraits stay alt="". */}

@@ -12,11 +12,7 @@ const RT_ORDER: Record<number, number> = { 0: 1, 1: 2, 2: 5, 3: 3, 4: 7, 5: 9 };
 
 function Tag({ tag, index }: { tag: CaseStudyTag; index: number }) {
   return (
-    <li
-      className="type cs-tag"
-      data-color={tag.color}
-      style={{ "--tag-order": RT_ORDER[index] }}
-    >
+    <li className="type cs-tag" data-color={tag.color} style={{ "--tag-order": RT_ORDER[index] }}>
       {tag.label}
     </li>
   );

@@ -2,11 +2,7 @@ import { GridRegion, type GridBand } from "../grid/region";
 import { ButtonFill } from "../primitives/buttons";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import type { BlogCardModel, BlogLandingModel } from "./blog-data";
-import {
-  BLOG_FEATURE_GAP_TICKS,
-  BLOG_FEATURE_TICKS,
-  blogStackTicks,
-} from "./blog-layout";
+import { BLOG_FEATURE_GAP_TICKS, BLOG_FEATURE_TICKS, blogStackTicks } from "./blog-layout";
 
 const GAP_BEFORE_CATS = 3;
 const CAT_GAP = { rm: 2, rt: 2, rd: 1 } as const;
@@ -19,22 +15,16 @@ interface FamilyTicks {
   total: number;
 }
 
-function familyTicks(
-  fam: "rm" | "rt" | "rd",
-  landing: BlogLandingModel,
-): FamilyTicks {
+function familyTicks(fam: "rm" | "rt" | "rd", landing: BlogLandingModel): FamilyTicks {
   const nRecent = landing.recent.length;
   const stack = (n: number) => blogStackTicks(n)[fam];
   const titleT = fam === "rm" ? 2 : 1;
   const recent = nRecent > 0 ? titleT + stack(nRecent) : 0;
   const catTitleT = fam === "rm" ? 3 : 1;
-  const catSections = landing.categories.map(
-    (c) => catTitleT + stack(c.posts.length),
-  );
+  const catSections = landing.categories.map((c) => catTitleT + stack(c.posts.length));
   const catsT =
     catSections.length > 0
-      ? catSections.reduce((a, b) => a + b, 0) +
-        CAT_GAP[fam] * (catSections.length - 1)
+      ? catSections.reduce((a, b) => a + b, 0) + CAT_GAP[fam] * (catSections.length - 1)
       : 0;
   const feat = BLOG_FEATURE_TICKS[fam];
   let total = feat;
@@ -91,10 +81,7 @@ function CardRow({
   stackTicks: { rm: number; rt: number };
 }) {
   return (
-    <ul
-      className="bl-stack"
-      style={{ "--bl-st-rm": stackTicks.rm, "--bl-st-rt": stackTicks.rt }}
-    >
+    <ul className="bl-stack" style={{ "--bl-st-rm": stackTicks.rm, "--bl-st-rt": stackTicks.rt }}>
       {posts.map((post) => (
         <li key={post.slug}>
           <ArticleCard post={post} />
@@ -114,11 +101,7 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
   if (!landing.featured) return null;
 
   return (
-    <section
-      className="sec blog-lists"
-      aria-label="Articles"
-      data-landmark="blog-lists"
-    >
+    <section className="sec blog-lists" aria-label="Articles" data-landmark="blog-lists">
       <div className="gx" aria-hidden="true">
         {FAMS.map(({ fam, bands }) => {
           const t = familyTicks(fam, landing);

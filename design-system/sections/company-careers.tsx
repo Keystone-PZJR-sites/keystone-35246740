@@ -20,12 +20,8 @@ export function CompanyCareersSection() {
     >
       <header className="coc-head" data-landmark="head">
         <Slug>{COMPANY_CAREERS.eyebrow}</Slug>
-        <h2 className="type co-h2">
-          {COMPANY_CAREERS.title}
-        </h2>
-        <p className="type coc-copy co-body-text">
-          {COMPANY_CAREERS.copy}
-        </p>
+        <h2 className="type co-h2">{COMPANY_CAREERS.title}</h2>
+        <p className="type coc-copy co-body-text">{COMPANY_CAREERS.copy}</p>
       </header>
 
       <div className="coc-cta" data-landmark="cta">

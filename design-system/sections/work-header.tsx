@@ -141,9 +141,8 @@ export function WorkHeaderSection() {
           Beautiful websites, ads, social, and content that grow your business.
         </h1>
         <p className="type wkh-subhead hx-rise">
-          Designed to convert and built to rank, your website is the foundation
-          for a system powered by five interconnected engines that drive your
-          marketing.
+          Designed to convert and built to rank, your website is the foundation for a system powered
+          by five interconnected engines that drive your marketing.
         </p>
         <div className="wkh-cta hx-rise" data-landmark="cta">
           <CtaRow />

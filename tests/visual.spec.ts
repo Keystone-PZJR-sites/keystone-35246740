@@ -46,7 +46,9 @@ for (const route of ROUTES) {
                 img.addEventListener("error", () => r(), { once: true });
               });
         await Promise.all(
-          [...document.images].map((img) => settled(img).then(() => img.decode().catch(() => undefined))),
+          [...document.images].map((img) =>
+            settled(img).then(() => img.decode().catch(() => undefined)),
+          ),
         );
         await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
         await new Promise((r) => setTimeout(r, 300));

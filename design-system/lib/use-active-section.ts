@@ -28,7 +28,10 @@ export function useActiveSection(ids: readonly string[]): string {
       }
       setActive(current);
     };
-    const io = new IntersectionObserver(compute, { rootMargin: ROOT_MARGIN, threshold: THRESHOLDS });
+    const io = new IntersectionObserver(compute, {
+      rootMargin: ROOT_MARGIN,
+      threshold: THRESHOLDS,
+    });
     sections.forEach((section) => io.observe(section));
     compute();
     return () => io.disconnect();

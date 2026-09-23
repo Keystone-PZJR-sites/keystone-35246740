@@ -119,8 +119,7 @@ export const ZIVEL: CaseStudy = {
   },
   overview: {
     head: "The Overview",
-    body:
-      "Palm Coast Zivel is a performance-and-recovery studio in Palm Coast, FL — sauna, cryotherapy, red-light, float, compression, and body contouring. Keystone replaced a patchwork of manual follow-up with one connected system: managed Meta ads, a conversion-focused website, and an AI front desk that texts every new lead back in under a minute.",
+    body: "Palm Coast Zivel is a performance-and-recovery studio in Palm Coast, FL — sauna, cryotherapy, red-light, float, compression, and body contouring. Keystone replaced a patchwork of manual follow-up with one connected system: managed Meta ads, a conversion-focused website, and an AI front desk that texts every new lead back in under a minute.",
     items: [
       "257 leads captured and tracked in the Keystone CRM since going live.",
       "22 consults booked and 14 leads converted to paying members.",
@@ -307,8 +306,7 @@ const YOUR_HEALTH_SOLUTIONS: CaseStudy = {
   },
   overview: {
     head: "The Overview",
-    body:
-      "Your Health Solutions is a wellness-and-aesthetics med spa in Portland, CT — injectables, body contouring, facials, and IV therapy. It opened in January 2026 and went live on the full Keystone stack the same week: managed Meta ads, a conversion-focused website, social, content, reviews, and an AI front desk that texts every new lead back in under a minute.",
+    body: "Your Health Solutions is a wellness-and-aesthetics med spa in Portland, CT — injectables, body contouring, facials, and IV therapy. It opened in January 2026 and went live on the full Keystone stack the same week: managed Meta ads, a conversion-focused website, social, content, reviews, and an AI front desk that texts every new lead back in under a minute.",
     items: [
       "320 leads captured and tracked in the Keystone CRM since opening week.",
       "Meta ads tuned to about $3.50 per lead on a $10-a-day budget.",
@@ -494,8 +492,7 @@ const BARE_LUX_STUDIO: CaseStudy = {
   },
   overview: {
     head: "The Overview",
-    body:
-      "Bare Lúx Studio is a medical spa in Bordentown, NJ, serving all of Central Jersey — laser treatments, skin care, and injectables. Keystone gives a newer studio the reach of a much larger one: high-reach managed Meta ads, an on-brand website, and an AI front desk that texts every new lead back in under a minute — even in Spanish.",
+    body: "Bare Lúx Studio is a medical spa in Bordentown, NJ, serving all of Central Jersey — laser treatments, skin care, and injectables. Keystone gives a newer studio the reach of a much larger one: high-reach managed Meta ads, an on-brand website, and an AI front desk that texts every new lead back in under a minute — even in Spanish.",
     items: [
       "94,493 ad impressions — the most reach of any studio we run — on about $1,785 in spend.",
       "109 leads captured and tracked in the Keystone CRM, 17 flagged hot by the AI.",
@@ -545,8 +542,7 @@ const BARE_LUX_STUDIO: CaseStudy = {
   },
   funnel: {
     head: "From impressions to hot leads",
-    subhead:
-      "How the most ad reach of any studio we run turned into a qualified pipeline.",
+    subhead: "How the most ad reach of any studio we run turned into a qualified pipeline.",
     rows: [
       { label: "Ad impressions", value: "94,493", bar: "fill" },
       { label: "Ad clicks", value: "4,736", bar: 150 },

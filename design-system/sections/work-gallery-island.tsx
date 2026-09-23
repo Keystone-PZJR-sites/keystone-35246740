@@ -71,7 +71,11 @@ export function WorkGalleryIsland({ children }: { children: ReactNode }) {
       clamp: (dx, pitch) => Math.max((k - COUNT) * pitch, Math.min((k - 1) * pitch, dx)),
       onRelease: (steps) => commit(k - steps),
     });
-    const detachKeys = attachArrowKeys(view, (delta) => commit(k + delta), () => strip);
+    const detachKeys = attachArrowKeys(
+      view,
+      (delta) => commit(k + delta),
+      () => strip,
+    );
 
     const showHandlers = shows.map((_, i) => () => {
       if (strip) commit(i + 1);

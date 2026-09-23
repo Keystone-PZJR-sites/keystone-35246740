@@ -11,13 +11,13 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-      
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
 
@@ -36,7 +36,7 @@ jobs:
           NEXT_PUBLIC_GRADER_URL: ${{ secrets.NEXT_PUBLIC_GRADER_URL }}
           NEXT_PUBLIC_GRADER_API_URL: ${{ secrets.NEXT_PUBLIC_GRADER_API_URL }}
           NEXT_PUBLIC_GRADER_SEARCH_PATHS: ${{ secrets.NEXT_PUBLIC_GRADER_SEARCH_PATHS }}
-      
+
       - name: Set Cloudflare Worker Secrets
         run: |
           echo "${{ secrets.API_KEY }}" | npx wrangler secret put API_KEY --name ${{ github.event.repository.name }}
@@ -45,7 +45,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      
+
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy --name ${{ github.event.repository.name }}
         env:

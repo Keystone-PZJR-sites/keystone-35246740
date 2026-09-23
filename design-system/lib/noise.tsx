@@ -57,7 +57,14 @@ export function NoiseDuo({
   return (
     <svg className={className} aria-hidden="true" focusable="false">
       <defs>
-        <filter id={filterId} x="0" y="0" width="100%" height="100%" primitiveUnits="userSpaceOnUse">
+        <filter
+          id={filterId}
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          primitiveUnits="userSpaceOnUse"
+        >
           <feTurbulence
             type="fractalNoise"
             baseFrequency={BASE_FREQUENCY}

@@ -57,7 +57,11 @@ export function BlogPostTocIsland({ items }: BlogPostTocIslandProps) {
         <ul className="bp-toc-list">
           {items.map((item) => (
             <li className="bp-toc-item" key={item.id}>
-              <a className="type type-fixed" href={`#${item.id}`} aria-current={active === item.id ? "true" : undefined}>
+              <a
+                className="type type-fixed"
+                href={`#${item.id}`}
+                aria-current={active === item.id ? "true" : undefined}
+              >
                 {item.label}
               </a>
             </li>

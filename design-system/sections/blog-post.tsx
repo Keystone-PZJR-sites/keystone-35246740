@@ -35,9 +35,7 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
               </>
             )}
           </Slug>
-          <h1 className="type type-fixed bp-h1">
-            {post.title}
-          </h1>
+          <h1 className="type type-fixed bp-h1">{post.title}</h1>
         </header>
 
         <div className="bp-content-row">

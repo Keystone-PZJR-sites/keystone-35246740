@@ -17,7 +17,7 @@ interface BlogRouteProps {
 }
 
 function firstValue(value: string | string[] | undefined): string {
-  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
+  return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
 }
 
 function hasFilter(params: { q?: string | string[]; tag?: string | string[] }): boolean {
@@ -59,9 +59,5 @@ export default async function Blog({ searchParams }: BlogRouteProps) {
   } else {
     model = { type: "landing", landing: await getBlogLanding() };
   }
-  return (
-    <BlogPage
-      model={model}
-    />
-  );
+  return <BlogPage model={model} />;
 }

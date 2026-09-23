@@ -68,11 +68,7 @@ export function NavDesktop({
     setItem(null);
   };
 
-  const trigger = (
-    id: DrawerItem,
-    label: string,
-    href: string,
-  ) => (
+  const trigger = (id: DrawerItem, label: string, href: string) => (
     <a
       ref={(el) => {
         triggerRefs.current[id] = el;

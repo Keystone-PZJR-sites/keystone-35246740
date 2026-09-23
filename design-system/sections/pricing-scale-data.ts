@@ -21,7 +21,15 @@ export const PERSONAS: [PersonaContent, PersonaContent, PersonaContent] = [
     estimate: "$250 – $450",
     story:
       "A conversion site with landing pages for every city, service, and question they get asked. Service areas and pricing stay current. Calls get answered so jobs get booked and ads run for the high-margin services. After every job, we ask for the review.",
-    chips: ["Website", "Social", "Ads", "Content", "Reviews & Listings", "Lead follow-up", "Growth Partner"],
+    chips: [
+      "Website",
+      "Social",
+      "Ads",
+      "Content",
+      "Reviews & Listings",
+      "Lead follow-up",
+      "Growth Partner",
+    ],
     tagLabel: "Active",
   },
   {
@@ -31,7 +39,15 @@ export const PERSONAS: [PersonaContent, PersonaContent, PersonaContent] = [
     estimate: "$1,000 – $3,000",
     story:
       "One system across all three locations. A beautiful site with seamless booking integrations, dynamic pricing, and new photography every week. Spending $30,000 every month on highly optimized ads, pursuing thousands of leads seamlessly, with heavy seasonal swings.",
-    chips: ["Website", "Social", "Ads", "Content", "Reviews & Listings", "Lead follow-up", "Growth Partner"],
+    chips: [
+      "Website",
+      "Social",
+      "Ads",
+      "Content",
+      "Reviews & Listings",
+      "Lead follow-up",
+      "Growth Partner",
+    ],
     tagLabel: "High Growth",
   },
 ];

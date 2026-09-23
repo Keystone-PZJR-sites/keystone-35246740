@@ -21,7 +21,11 @@ export function CaseStudyToc() {
       <ul className="toc-list">
         {ITEMS.map((item) => (
           <li key={item.id} className="toc-item" data-id={item.id}>
-            <a className="type type-fixed" href={`#${item.id}`} aria-current={active === item.id ? "true" : undefined}>
+            <a
+              className="type type-fixed"
+              href={`#${item.id}`}
+              aria-current={active === item.id ? "true" : undefined}
+            >
               {item.label}
             </a>
           </li>

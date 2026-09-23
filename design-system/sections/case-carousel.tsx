@@ -1,17 +1,9 @@
 import { GridRegion, type GridBand } from "../grid/region";
 import { Slug } from "../primitives/slug";
 import { IconNavTrigger, IconStar } from "../icons";
-import {
-  CASE_CAROUSEL_LANDSCAPE,
-  CASE_CAROUSEL_RT_GATE_MEDIA,
-  caseCarouselSrc,
-} from "../media";
+import { CASE_CAROUSEL_LANDSCAPE, CASE_CAROUSEL_RT_GATE_MEDIA, caseCarouselSrc } from "../media";
 import { CaseCarouselIsland } from "./case-carousel-island";
-import {
-  CAROUSEL_DESCRIPTIONS,
-  CAROUSEL_STUDIES,
-  caseCarouselFile,
-} from "./case-carousel-data";
+import { CAROUSEL_DESCRIPTIONS, CAROUSEL_STUDIES, caseCarouselFile } from "./case-carousel-data";
 
 const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
@@ -62,7 +54,11 @@ function CtaPill() {
 
 export function CaseCarouselSection() {
   return (
-    <section className="sec case-carousel-section" aria-label="Case studies" data-landmark="case-carousel">
+    <section
+      className="sec case-carousel-section"
+      aria-label="Case studies"
+      data-landmark="case-carousel"
+    >
       <div className="gx" aria-hidden="true">
         {BANDS.map((band) =>
           SECTION_MAP[band].map((r, i) => <GridRegion key={`${band}-r${i}`} band={band} {...r} />),
@@ -71,9 +67,7 @@ export function CaseCarouselSection() {
 
       <div className="cc-head flow-budget">
         <Slug layout="rail">Demand that turns into growth</Slug>
-        <h2 className="type cc-h2">
-          Marketing that delivers on its promise.
-        </h2>
+        <h2 className="type cc-h2">Marketing that delivers on its promise.</h2>
       </div>
 
       <CaseCarouselIsland>
@@ -122,9 +116,7 @@ export function CaseCarouselSection() {
                                 {stat.value}
                                 {stat.star && <IconStar className="cc-star" />}
                               </span>
-                              <span className="type cc-stat-l">
-                                {stat.label}
-                              </span>
+                              <span className="type cc-stat-l">{stat.label}</span>
                             </div>,
                           ])}
                         </div>
