@@ -80,27 +80,19 @@
   margin-left: var(--t);
   max-width: var(--wd-h2-w-rm);
   --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 30;
+  --fs1: 50;
   --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 36;
+  --lh1: 60;
 }
 @container (--rs) {
   .wd-h2 {
     max-width: var(--wd-h2-w-rs);
-    --fs0: 30;
-    --fs1: 36;
-    --lh0: 36;
-    --lh1: 42;
   }
 }
 @container (--rt) {
   .wd-h2 {
     margin: 0;
     max-width: var(--wd-h2-w-rt);
-    --fs0: 36;
-    --fs1: 36;
-    --lh0: 42;
-    --lh1: 42;
   }
 }
 @container (--rd1) {
@@ -109,10 +101,6 @@
     margin: var(--wd-head-gap-rd) 0 0 var(--t);
     --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--wd-h2-w-rd);
-    --fs0: 35.7143;
-    --fs1: 50;
-    --lh0: 42.8571;
-    --lh1: 60;
   }
 }
 

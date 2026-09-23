@@ -37,12 +37,14 @@
   margin: 0;
   padding-top: calc((var(--wA) + var(--wB)) * 48);
   color: var(--color-text-200);
+  --fs0: var(--ts-text-lg-light-fs);
+  --fs1: var(--ts-text-2xl-light-fs);
+  --lh0: var(--ts-text-lg-light-lh);
+  --lh1: var(--ts-text-2xl-light-lh);
 }
 @container (--rs) {
   .csc-boiler {
     --font: var(--ts-text-xl-light-font);
-    --fs0: var(--ts-text-xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
@@ -51,8 +53,6 @@
   .csc-boiler {
     padding-top: calc((var(--wA) + var(--wB)) * 43);
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -61,8 +61,6 @@
   .csc-boiler {
     padding-top: calc((var(--wA) + var(--wB)) * 64);
     --font: var(--ts-text-xl-light-font);
-    --fs0: var(--ts-text-xl-light-fs);
-    --lh0: var(--ts-text-xl-light-lh);
     --ls: var(--ts-text-xl-light-ls);
     --opsz: var(--ts-text-xl-light-opsz);
   }
@@ -71,8 +69,6 @@
   .csc-boiler {
     padding-top: calc((var(--wA) + var(--wB)) * 72);
     --font: var(--ts-text-2xl-light-font);
-    --fs0: var(--ts-text-2xl-light-fs);
-    --lh0: var(--ts-text-2xl-light-lh);
     --ls: var(--ts-text-2xl-light-ls);
     --opsz: var(--ts-text-2xl-light-opsz);
   }

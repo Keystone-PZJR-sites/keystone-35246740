@@ -151,6 +151,10 @@
 .csb-quote-body {
   margin: 0;
   max-width: calc((var(--wA) + var(--wB)) * 304);
+  --fs0: var(--ts-display-serif-2xs-plus-extralight-fs);
+  --fs1: var(--ts-display-serif-sm-plus-extralight-fs);
+  --lh0: var(--ts-display-serif-2xs-plus-extralight-lh);
+  --lh1: var(--ts-display-serif-sm-plus-extralight-lh);
 }
 .csb-quote .cs-quote-attrib {
   margin-top: calc((var(--wA) + var(--wB)) * 32);
@@ -158,8 +162,6 @@
 @container (--rs) {
   .csb-quote-body {
     --font: var(--ts-display-serif-xs-extralight-font);
-    --fs0: var(--ts-display-serif-xs-extralight-fs);
-    --lh0: var(--ts-display-serif-xs-extralight-lh);
     --ls: var(--ts-display-serif-xs-extralight-ls);
     max-width: none;
   }
@@ -178,8 +180,6 @@
   }
   .csb-quote-body {
     --font: var(--ts-display-serif-sm-extralight-font);
-    --fs0: var(--ts-display-serif-sm-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-extralight-lh);
     --ls: var(--ts-display-serif-sm-extralight-ls);
   }
 }
@@ -187,8 +187,6 @@
   .csb-quote { width: calc((var(--wA) + var(--wB)) * 496); }
   .csb-quote-body {
     --font: var(--ts-display-serif-sm-plus-extralight-font);
-    --fs0: var(--ts-display-serif-sm-plus-extralight-fs);
-    --lh0: var(--ts-display-serif-sm-plus-extralight-lh);
     --ls: var(--ts-display-serif-sm-plus-extralight-ls);
   }
 }

@@ -225,34 +225,34 @@
 .csh-pair dt {
   color: var(--color-text-500);
   --font: var(--ts-text-2xs-regular-font);
-  --fs0: var(--ts-text-2xs-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh);
   --ls: var(--ts-text-2xs-regular-ls);
   --opsz: var(--ts-text-2xs-regular-opsz);
   margin-bottom: var(--space-2xs);
+  --fs0: var(--ts-text-2xs-regular-fs);
+  --fs1: var(--ts-text-sm-regular-fs);
+  --lh0: var(--ts-text-2xs-regular-lh);
+  --lh1: var(--ts-text-sm-regular-lh);
 }
 .csh-pair dd {
   margin: 0;
   color: var(--color-text-100);
   --font: var(--ts-text-sm-light-font);
-  --fs0: var(--ts-text-sm-light-fs);
-  --lh0: var(--ts-text-sm-light-lh);
   --ls: var(--ts-text-sm-light-ls);
   --opsz: var(--ts-text-sm-light-opsz);
+  --fs0: var(--ts-text-sm-light-fs);
+  --fs1: var(--ts-text-lg-light-fs);
+  --lh0: var(--ts-text-sm-light-lh);
+  --lh1: var(--ts-text-lg-light-lh);
 }
 @container (--rs) {
   .csh-pair dt {
     margin-bottom: 0;
     --font: var(--ts-text-xs-regular-font);
-    --fs0: var(--ts-text-xs-regular-fs);
-    --lh0: var(--ts-text-xs-regular-lh);
     --ls: var(--ts-text-xs-regular-ls);
     --opsz: var(--ts-text-xs-regular-opsz);
   }
   .csh-pair dd {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
@@ -260,8 +260,6 @@
 @container (--rd1) {
   .csh-pair dt {
     --font: var(--ts-text-sm-regular-font);
-    --fs0: var(--ts-text-sm-regular-fs);
-    --lh0: var(--ts-text-sm-regular-lh);
     --ls: var(--ts-text-sm-regular-ls);
     --opsz: var(--ts-text-sm-regular-opsz);
   }
@@ -269,8 +267,6 @@
 @container (--rd2) {
   .csh-pair dd {
     --font: var(--ts-text-lg-light-font);
-    --fs0: var(--ts-text-lg-light-fs);
-    --lh0: var(--ts-text-lg-light-lh);
     --ls: var(--ts-text-lg-light-ls);
     --opsz: var(--ts-text-lg-light-opsz);
   }
@@ -285,18 +281,18 @@
 .csh-meta .cs-tag {
   padding: 1.5px 4px;
   --font: var(--ts-text-2xs-regular-font);
-  --fs0: var(--ts-text-2xs-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh);
   --ls: var(--ts-text-2xs-regular-ls);
   --opsz: var(--ts-text-2xs-regular-opsz);
+  --fs0: var(--ts-text-2xs-regular-fs);
+  --fs1: var(--ts-text-md-regular-fs);
+  --lh0: var(--ts-text-2xs-regular-lh);
+  --lh1: var(--ts-text-md-regular-lh);
 }
 @container (--rs) {
   .csh-meta .cs-tags { column-gap: var(--space-md); }
   .csh-meta .cs-tag {
     padding: var(--space-2xs) var(--space-sm);
     --font: var(--ts-text-sm-regular-font);
-    --fs0: var(--ts-text-sm-regular-fs);
-    --lh0: var(--ts-text-sm-regular-lh);
     --ls: var(--ts-text-sm-regular-ls);
     --opsz: var(--ts-text-sm-regular-opsz);
   }
@@ -314,8 +310,6 @@
   .csh-meta .cs-tags { margin-top: calc((var(--wA) + var(--wB)) * 40); }
   .csh-meta .cs-tag {
     --font: var(--ts-text-md-regular-font);
-    --fs0: var(--ts-text-md-regular-fs);
-    --lh0: var(--ts-text-md-regular-lh);
     --ls: var(--ts-text-md-regular-ls);
     --opsz: var(--ts-text-md-regular-opsz);
   }

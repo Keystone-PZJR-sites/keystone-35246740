@@ -32,7 +32,12 @@
   font-variation-settings: "opsz" var(--opsz, 10), var(--font-sans-slnt);
   font-optical-sizing: none;
 }
+/* Fluid: --fs0/--lh0 at the 384 anchor, --fs1/--lh1 at 1344, one straight
+   line between them (--k, grid/engine.css) and flat beyond. --fs/--lh are
+   the unitless results; --fs-px/--lh-px pin a length instead. */
 .type:not(.type-fixed) {
-  font-size: var(--fs-px, calc(var(--wA) * var(--fs0) + var(--wB) * var(--fs1, var(--fs0))));
-  line-height: var(--lh-px, calc(var(--wA) * var(--lh0) + var(--wB) * var(--lh1, var(--lh0))));
+  --fs: calc(var(--fs0) + (var(--fs1, var(--fs0)) - var(--fs0)) * var(--k));
+  --lh: calc(var(--lh0) + (var(--lh1, var(--lh0)) - var(--lh0)) * var(--k));
+  font-size: var(--fs-px, calc(var(--fs) * 1px));
+  line-height: var(--lh-px, calc(var(--lh) * 1px));
 }

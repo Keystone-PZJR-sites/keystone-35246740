@@ -56,34 +56,18 @@
 .bl-h3 {
   color: var(--color-text-100);
   --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 36;
+  --fs1: 40;
   --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 45;
-}
-@container (--rs) {
-  .bl-h3 {
-    --fs0: 36;
-    --fs1: 48;
-    --lh0: 45;
-    --lh1: 60;
-  }
+  --lh1: 48;
 }
 @container (--rt) {
   .bl-h3 {
     --font: var(--ts-display-serif-sm-plus-extralight-font);
-    --fs0: 36;
-    --fs1: 36;
-    --lh0: 42;
-    --lh1: 42;
   }
 }
 @container (--rd1) {
   .bl-h3 {
     --font: var(--ts-display-serif-md-extralight-font);
-    --fs0: 28.5714;
-    --fs1: 40;
-    --lh0: 34.2857;
-    --lh1: 48;
   }
 }
 

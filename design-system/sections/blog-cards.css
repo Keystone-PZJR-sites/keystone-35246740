@@ -110,27 +110,15 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   --fs0: var(--ts-text-md-medium-fs);
-  --fs1: 24;
+  --fs1: 20;
   --lh0: var(--ts-text-md-medium-lh);
-  --lh1: 33;
-}
-@container (--rs) {
-  .blc-title {
-    --fs0: 24;
-    --fs1: 32;
-    --lh0: 33;
-    --lh1: 44;
-  }
+  --lh1: 26;
 }
 @container (--rt) {
   .blc-title {
     -webkit-line-clamp: 1;
     --font: var(--ts-text-lg-medium-font);
     --opsz: var(--ts-text-lg-medium-opsz);
-    --fs0: 18;
-    --fs1: 18;
-    --lh0: 26;
-    --lh1: 26;
   }
 }
 @container (--rd1) {
@@ -138,10 +126,6 @@
     -webkit-line-clamp: 2;
     --font: var(--ts-text-xl-medium-font);
     --opsz: var(--ts-text-xl-medium-opsz);
-    --fs0: 14.2857;
-    --fs1: 20;
-    --lh0: 18.5714;
-    --lh1: 26;
   }
 }
 
@@ -154,17 +138,9 @@
   overflow: hidden;
   height: calc(var(--bl-u) * 96);
   --fs0: var(--ts-text-md-light-fs);
-  --fs1: 24;
+  --fs1: 20;
   --lh0: var(--ts-text-md-light-lh);
-  --lh1: 33;
-}
-@container (--rs) {
-  .blc-desc {
-    --fs0: 24;
-    --fs1: 32;
-    --lh0: 33;
-    --lh1: 44;
-  }
+  --lh1: 26;
 }
 @container (--rt) {
   .blc-desc {
@@ -172,10 +148,6 @@
     height: auto;
     --font: var(--ts-text-lg-light-font);
     --opsz: var(--ts-text-lg-light-opsz);
-    --fs0: 18;
-    --fs1: 18;
-    --lh0: 26;
-    --lh1: 26;
   }
 }
 @container (--rd1) {
@@ -183,10 +155,6 @@
     -webkit-line-clamp: 3;
     --font: var(--ts-text-xl-light-font);
     --opsz: var(--ts-text-xl-light-opsz);
-    --fs0: 14.2857;
-    --fs1: 20;
-    --lh0: 18.5714;
-    --lh1: 26;
   }
 }
 
@@ -260,33 +228,13 @@
   --fs0: var(--ts-display-serif-xs-extralight-fs);
   --fs1: 36;
   --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 45;
-}
-@container (--rs) {
-  .blf-title {
-    --fs0: 36;
-    --fs1: 48;
-    --lh0: 45;
-    --lh1: 60;
-  }
-}
-@container (--rt) {
-  .blf-title {
-    --fs0: 24;
-    --fs1: 24;
-    --lh0: 30;
-    --lh1: 30;
-  }
+  --lh1: 42;
 }
 @container (--rd1) {
   .blf-title {
     -webkit-line-clamp: 2;
     max-width: calc(var(--bl-u) * 507);
     --font: var(--ts-display-serif-sm-plus-extralight-font);
-    --fs0: 25.7143;
-    --fs1: 36;
-    --lh0: 30;
-    --lh1: 42;
   }
 }
 
@@ -298,36 +246,20 @@
   overflow: hidden;
   margin-top: calc(var(--bl-u) * 12);
   --fs0: var(--ts-text-md-light-fs);
-  --fs1: 24;
+  --fs1: 20;
   --lh0: var(--ts-text-md-light-lh);
-  --lh1: 33;
-}
-@container (--rs) {
-  .blf-desc {
-    --fs0: 24;
-    --fs1: 32;
-    --lh0: 33;
-    --lh1: 44;
-  }
+  --lh1: 26;
 }
 @container (--rt) {
   .blf-desc {
     --font: var(--ts-text-lg-light-font);
     --opsz: var(--ts-text-lg-light-opsz);
-    --fs0: 18;
-    --fs1: 18;
-    --lh0: 26;
-    --lh1: 26;
   }
 }
 @container (--rd1) {
   .blf-desc {
     --font: var(--ts-text-xl-light-font);
     --opsz: var(--ts-text-xl-light-opsz);
-    --fs0: 14.2857;
-    --fs1: 20;
-    --lh0: 18.5714;
-    --lh1: 26;
   }
 }
 

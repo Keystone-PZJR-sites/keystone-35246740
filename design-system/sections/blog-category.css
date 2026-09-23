@@ -68,18 +68,14 @@
   margin-top: calc(var(--bc-u) * 16);
   max-width: calc(var(--t) * 10);
   --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --fs1: 54;
+  --fs1: var(--ts-display-serif-3xl-thin-fs);
   --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --lh1: 63;
+  --lh1: var(--ts-display-serif-3xl-thin-lh);
 }
 @container (--rt) {
   .bc-h1 {
     --font: var(--ts-display-serif-lg-thin-font);
     --ls: var(--ts-display-serif-lg-thin-ls);
-    --fs0: 48;
-    --fs1: 48;
-    --lh0: 56;
-    --lh1: 56;
   }
 }
 @container (--rd1) {
@@ -90,10 +86,6 @@
     margin-top: calc(var(--bc-u) * 24);
     --font: var(--ts-display-serif-3xl-thin-font);
     --ls: var(--ts-display-serif-3xl-thin-ls);
-    --fs0: 51.4286;
-    --fs1: var(--ts-display-serif-3xl-thin-fs);
-    --lh0: 55.7143;
-    --lh1: var(--ts-display-serif-3xl-thin-lh);
   }
 }
 
@@ -147,9 +139,7 @@
 .bc-empty {
   color: var(--color-text-300);
   --fs0: var(--ts-text-xl-light-fs);
-  --fs1: var(--ts-text-xl-light-fs);
   --lh0: var(--ts-text-xl-light-lh);
-  --lh1: var(--ts-text-xl-light-lh);
 }
 
 .bc-pagination {

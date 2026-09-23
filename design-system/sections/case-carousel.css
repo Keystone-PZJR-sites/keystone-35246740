@@ -83,37 +83,25 @@
   margin-left: var(--t);
   max-width: var(--cc-h2-w-rm);
   --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 30;
+  --fs1: 50;
   --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 36;
+  --lh1: 60;
 }
 @container (--rs) {
   .cc-h2 {
     max-width: var(--cc-h2-w-rs);
-    --fs0: 30;
-    --fs1: 36;
-    --lh0: 36;
-    --lh1: 42;
   }
 }
 @container (--rt) {
   .cc-h2 {
     margin: 0;
     max-width: var(--cc-h2-w-rt);
-    --fs0: 36;
-    --fs1: 36;
-    --lh0: 42;
-    --lh1: 42;
   }
 }
 @container (--rd1) {
   .cc-h2 {
     --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--cc-h2-w-rd);
-    --fs0: 35.7143;
-    --fs1: 50;
-    --lh0: 42.8571;
-    --lh1: 60;
   }
 }
 
@@ -267,33 +255,9 @@
   color: var(--color-text-200);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
   --fs0: var(--ts-text-md-light-fs);
-  --fs1: 17;
+  --fs1: 20;
   --lh0: var(--ts-text-md-light-lh);
-  --lh1: 24;
-}
-@container (--rs) {
-  .cc-desc {
-    --fs0: 17;
-    --fs1: 18;
-    --lh0: 24;
-    --lh1: 26;
-  }
-}
-@container (--rt) {
-  .cc-desc {
-    --fs0: 18;
-    --fs1: 18;
-    --lh0: 26;
-    --lh1: 26;
-  }
-}
-@container (--rd1) {
-  .cc-desc {
-    --fs0: 14.2857;
-    --fs1: 20;
-    --lh0: 18.5714;
-    --lh1: 26;
-  }
+  --lh1: 26;
 }
 
 .cc-wm {
@@ -345,34 +309,18 @@
   color: var(--color-text-100);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
   --fs0: var(--ts-text-2xl-light-fs);
-  --fs1: 26;
+  --fs1: 32;
   --lh0: var(--ts-text-2xl-light-lh);
-  --lh1: 34;
-}
-@container (--rs) {
-  .cc-stat-v {
-    --fs0: 26;
-    --fs1: 28;
-    --lh0: 34;
-    --lh1: 36;
-  }
+  --lh1: 38;
 }
 @container (--rt) {
   .cc-stat-v {
     --opsz: var(--ts-display-sans-2xs-light-opsz);
-    --fs0: 28;
-    --fs1: 28;
-    --lh0: 36;
-    --lh1: 36;
   }
 }
 @container (--rd1) {
   .cc-stat-v {
     --opsz: var(--ts-display-sans-xs-light-opsz);
-    --fs0: 22.8571;
-    --fs1: 32;
-    --lh0: 27.1429;
-    --lh1: 38;
   }
 }
 .cc-star {
@@ -392,18 +340,14 @@
   color: var(--color-text-400);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
   --fs0: var(--ts-text-xs-regular-fs);
-  --fs1: var(--ts-text-xs-regular-fs);
+  --fs1: 14;
   --lh0: var(--ts-text-xs-regular-lh);
-  --lh1: var(--ts-text-xs-regular-lh);
+  --lh1: 18;
 }
 @container (--rd1) {
   .cc-stat-l {
     --font: var(--ts-text-sm-regular-font);
     --opsz: var(--ts-text-sm-regular-opsz);
-    --fs0: 10;
-    --fs1: 14;
-    --lh0: 12.8571;
-    --lh1: 18;
   }
 }
 

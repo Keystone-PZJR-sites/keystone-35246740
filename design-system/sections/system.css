@@ -99,37 +99,25 @@
   margin-left: var(--t);
   max-width: var(--sys-h2-w-rm);
   --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 30;
+  --fs1: 50;
   --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 36;
+  --lh1: 60;
 }
 @container (--rs) {
   .sys-h2 {
     max-width: var(--sys-h2-w-rs);
-    --fs0: 30;
-    --fs1: 36;
-    --lh0: 36;
-    --lh1: 42;
   }
 }
 @container (--rt) {
   .sys-h2 {
     margin: 0;
     max-width: var(--sys-h2-w-rt);
-    --fs0: 36;
-    --fs1: 36;
-    --lh0: 42;
-    --lh1: 42;
   }
 }
 @container (--rd1) {
   .sys-h2 {
     --font: var(--ts-display-serif-lg-plus-thin-font);
     max-width: var(--sys-h2-w-rd);
-    --fs0: 35.7143;
-    --fs1: 50;
-    --lh0: 42.8571;
-    --lh1: 60;
   }
 }
 
@@ -239,32 +227,20 @@
   white-space: nowrap;
   padding: 0.1667em 0.6667em 0.25em;
   --fs0: var(--ts-text-xs-regular-fs);
-  --fs1: 14;
+  --fs1: 16;
   --lh0: var(--ts-text-xs-regular-lh);
-  --lh1: 19;
+  --lh1: 22;
 }
 .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rm); --_ty: var(--sys-tag-ads-y-rm); }
 .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rm); --_ty: var(--sys-tag-engagement-y-rm); }
 .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rm); --_ty: var(--sys-tag-reception-y-rm); }
 .sys-tag[data-engine="brand"] { --_tx: var(--sys-tag-brand-x-rm); --_ty: var(--sys-tag-brand-y-rm); }
 .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rm); --_ty: var(--sys-tag-visibility-y-rm); }
-@container (--rs) {
-  .sys-tag-label {
-    --fs0: 14;
-    --fs1: 16;
-    --lh0: 19;
-    --lh1: 22;
-  }
-}
 @container (--rt) {
   .sys-tag-label {
     --font: var(--ts-text-md-regular-font);
     --opsz: var(--ts-text-md-regular-opsz);
     padding: 0.125em 0.5em 0.1875em;
-    --fs0: 16;
-    --fs1: 16;
-    --lh0: 22;
-    --lh1: 22;
   }
   .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rt); --_ty: var(--sys-tag-ads-y-rt); }
   .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rt); --_ty: var(--sys-tag-engagement-y-rt); }
@@ -273,12 +249,6 @@
   .sys-tag[data-engine="visibility"] { --_tx: var(--sys-tag-visibility-x-rt); --_ty: var(--sys-tag-visibility-y-rt); }
 }
 @container (--rd1) {
-  .sys-tag-label {
-    --fs0: 11.4286;
-    --fs1: 16;
-    --lh0: 15.7143;
-    --lh1: 22;
-  }
   .sys-tag[data-engine="ads"] { --_tx: var(--sys-tag-ads-x-rd); --_ty: var(--sys-tag-ads-y-rd); }
   .sys-tag[data-engine="engagement"] { --_tx: var(--sys-tag-engagement-x-rd); --_ty: var(--sys-tag-engagement-y-rd); }
   .sys-tag[data-engine="reception"] { --_tx: var(--sys-tag-reception-x-rd); --_ty: var(--sys-tag-reception-y-rd); }

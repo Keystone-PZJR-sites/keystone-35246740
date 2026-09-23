@@ -195,23 +195,27 @@
 .cst-title {
   margin: 0;
   color: var(--color-text-300);
+  --fs0: var(--ts-text-md-medium-fs);
+  --fs1: var(--ts-text-xl-medium-fs);
+  --lh0: var(--ts-text-md-medium-lh);
+  --lh1: var(--ts-text-xl-medium-lh);
 }
 .cst-desc {
   margin: calc((var(--wA) + var(--wB)) * 12) 0 0;
   color: var(--color-text-300);
+  --fs0: var(--ts-text-xs-light-fs);
+  --fs1: var(--ts-text-md-light-fs);
+  --lh0: var(--ts-text-xs-light-lh);
+  --lh1: var(--ts-text-md-light-lh);
 }
 @container (--rt) {
   .cst-title {
     --font: var(--ts-text-lg-medium-font);
-    --fs0: var(--ts-text-lg-medium-fs);
-    --lh0: var(--ts-text-lg-medium-lh);
     --ls: var(--ts-text-lg-medium-ls);
     --opsz: var(--ts-text-lg-medium-opsz);
   }
   .cst-desc {
     --font: var(--ts-text-sm-light-font);
-    --fs0: var(--ts-text-sm-light-fs);
-    --lh0: var(--ts-text-sm-light-lh);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
   }
@@ -219,15 +223,11 @@
 @container (--rd1) {
   .cst-title {
     --font: var(--ts-text-xl-medium-font);
-    --fs0: var(--ts-text-xl-medium-fs);
-    --lh0: var(--ts-text-xl-medium-lh);
     --ls: var(--ts-text-xl-medium-ls);
     --opsz: var(--ts-text-xl-medium-opsz);
   }
   .cst-desc {
     --font: var(--ts-text-md-light-font);
-    --fs0: var(--ts-text-md-light-fs);
-    --lh0: var(--ts-text-md-light-lh);
     --ls: var(--ts-text-md-light-ls);
     --opsz: var(--ts-text-md-light-opsz);
   }
