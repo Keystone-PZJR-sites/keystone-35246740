@@ -26,7 +26,7 @@ the end result differs slightly from today, if it is better.
   law; controls inherit size from their mount (no hidden per-band copies).
   *Left:* the mobile/desktop nav pair, the pricing sliders and work-deck
   CTA move between DOM positions; footer/FAQ rail cells are per-band
-  geometry; gate widths repeat because container queries cannot read vars.
+  geometry; (gate widths now named, see below).
 - [ ] **4. DRY the islands** — `useSwipe`, `useAutoplayGate`, `useActiveSection`,
   `useModal` (native `<dialog>` + `inert`), `cssVars()`, `useSyncExternalStore`
   for `matchMedia`; discriminated unions where `!` lives; `useActionState` +
@@ -109,3 +109,6 @@ the end result differs slightly from today, if it is better.
 - P4 `refactor(cta): one CTA row in case-study CTA and gallery header` —
   size="inherit" replaces three hidden copies each. Gate 20/20.
 - P5 `chore(ts): three free strictness flags` — zero new errors.
+- P3 `refactor(css): named gates` — 626 `@container (min-width: 665px)`
+  become `@container (--rt)` etc.; widths live once in `grid/gates.js`, a
+  30-line PostCSS plugin. Gate 100/100.

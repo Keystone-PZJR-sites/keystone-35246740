@@ -22,14 +22,14 @@
   min-height: calc(var(--t) * 3);
   padding: 0 calc(var(--faq-u) * 160) 0 calc(var(--faq-u) * 16);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .faq-header {
     width: calc(var(--t) * 10);
     min-height: calc(var(--t) * 2);
     padding: 0 calc(var(--faq-u) * 48) 0 calc(var(--faq-u) * 48);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-header {
     position: absolute;
     top: 0;
@@ -40,7 +40,7 @@
     padding: 0 0 calc(var(--faq-u) * 20) calc(var(--faq-u) * 64);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .faq-header {
     padding:
       calc(var(--faq-u) * 32)
@@ -49,7 +49,7 @@
       calc(var(--faq-u) * 80);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .faq-header {
     width: calc(var(--t) * 5);
     padding:
@@ -64,14 +64,14 @@
 .faq-head-box {
   display: contents;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-head-box {
     display: flex;
     align-items: center;
     height: calc(var(--t) * 2);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .faq-head-box {
     display: contents;
   }
@@ -85,18 +85,18 @@
   --fs-px: calc(var(--faq-u) * var(--fs0));
   --lh-px: calc(var(--faq-u) * var(--lh0));
 }
-@container (min-width: 470px) {
+@container (--rs) {
   /* one designed line inside the trued box — no wrap pin */
   .faq-head {
     max-width: none;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-head {
     max-width: var(--faq-head-w-rt);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .faq-head {
     max-width: var(--faq-head-w-rd1);
     --font: var(--ts-display-serif-sm-extralight-font);
@@ -105,7 +105,7 @@
     --ls: var(--ts-display-serif-sm-extralight-ls);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .faq-head {
     max-width: var(--faq-head-w-rd2);
     --font: var(--ts-display-serif-md-plus-extralight-font);
@@ -134,12 +134,12 @@
 .faq-chat-label-long {
   display: none;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-chat {
     display: flex;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .faq-chat {
     --btn-size: md;
   }
@@ -151,7 +151,7 @@
     --opsz: var(--ts-text-md-light-opsz);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .faq-chat {
     gap: calc(var(--faq-u) * 24);
     --btn-size: lg;
@@ -177,18 +177,18 @@
   padding: var(--space-none);
   width: calc(var(--t) * 11);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .faq-questions {
     width: calc(var(--t) * 10);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-questions {
     width: calc(var(--t) * 7);
     margin-left: calc(var(--t) * 4);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .faq-questions {
     width: calc(var(--t) * 6);
     margin-left: calc(var(--t) * 5);
@@ -218,7 +218,7 @@
   --fq-a-ls: var(--ts-text-md-light-ls);
   --fq-a-opsz: var(--ts-text-md-light-opsz);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .faq-section .fq {
     height: var(--t);
     --fq-closed: 1;
@@ -228,7 +228,7 @@
     --fq-pl: calc(var(--faq-u) * 48);
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-section .fq {
     --fq-pt: calc(var(--faq-u) * 20);
     --fq-pr: calc(var(--faq-u) * 40);
@@ -236,13 +236,13 @@
     --fq-pl: calc(var(--faq-u) * 40);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .faq-section .fq {
     --fq-qrow: calc(var(--faq-u) * 40);
     --fq-gap: calc(var(--faq-u) * 8);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .faq-section .fq {
     --fq-pt: calc(var(--faq-u) * 40);
     --fq-qrow: calc(var(--faq-u) * 32);
@@ -305,19 +305,19 @@
 .faq-ext.rd2 {
   display: none;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .faq-ext.rm { display: none; }
   .faq-ext.rs { display: block; }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .faq-ext.rs { display: none; }
   .faq-ext.rt { display: block; }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .faq-ext.rt { display: none; }
   .faq-ext.rd1 { display: block; }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .faq-ext.rd1 { display: none; }
   .faq-ext.rd2 { display: block; }
 }

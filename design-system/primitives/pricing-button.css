@@ -110,7 +110,7 @@
 }
 
 /* Sizes remain proportional to their anchor cells. */
-@container style(--pbtn-size: xs) {
+@container style(--pbtn-size: xs)  {
   .pbtn-box {
     --_cell: var(--pbtn-cell-xs);
     --_h: calc(var(--_c) * 64 / 32);
@@ -140,7 +140,7 @@
     display: block;
   }
 }
-@container style(--pbtn-size: sm) {
+@container style(--pbtn-size: sm)  {
   .pbtn-box {
     --_cell: var(--pbtn-cell-sm);
     --_h: calc(var(--_c) * 48 / 48);
@@ -155,7 +155,7 @@
     --_glyph: calc(var(--_c) * 18 / 48);
   }
 }
-@container style(--pbtn-size: md) {
+@container style(--pbtn-size: md)  {
   .pbtn-box {
     --_cell: var(--pbtn-cell-md);
     --_h: calc(var(--_c) * 64 / 64);
@@ -170,7 +170,7 @@
     --_glyph: calc(var(--_c) * 18 / 64);
   }
 }
-@container style(--pbtn-size: lg) {
+@container style(--pbtn-size: lg)  {
   .pbtn-box {
     --_cell: var(--pbtn-cell-lg);
     --_h: calc(var(--_c) * 80 / 80);
@@ -185,7 +185,7 @@
     --_glyph: calc(var(--_c) * 24 / 80);
   }
 }
-@container style(--pbtn-size: xl) {
+@container style(--pbtn-size: xl)  {
   .pbtn-box {
     --_cell: var(--pbtn-cell-xl);
     --_h: calc(var(--_c) * 80 / 112);

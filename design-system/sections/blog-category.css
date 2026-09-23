@@ -25,7 +25,7 @@
   --bc-button-cell: var(--bc-page-button-cell-rm);
   --bl-u: var(--bc-u);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .blog-category {
     min-height: calc(var(--t) * var(--bc-total-rt));
     --bc-u: var(--bc-u-rt);
@@ -37,7 +37,7 @@
     --bc-button-cell: var(--bc-page-button-cell-lg);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .blog-category {
     min-height: calc(var(--t) * var(--bc-total-rd));
     --bc-u: var(--bc-u-rd);
@@ -72,7 +72,7 @@
   --lh0: var(--ts-display-serif-sm-plus-thin-lh);
   --lh1: 63;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .bc-h1 {
     --font: var(--ts-display-serif-lg-thin-font);
     --ls: var(--ts-display-serif-lg-thin-ls);
@@ -82,7 +82,7 @@
     --lh1: 56;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .bc-head {
     padding-top: calc(var(--bc-u) * 176);
   }
@@ -124,7 +124,7 @@
 .bc-cards .blc {
   height: calc(var(--t) * 10);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .bc-cards {
     gap: calc(var(--bc-u) * 48);
   }
@@ -132,7 +132,7 @@
     height: calc(var(--bc-u) * 352);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .bc-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-auto-rows: calc(var(--t) * 3);
@@ -208,7 +208,7 @@ a.bc-page-cell {
   outline: none;
   box-shadow: inset 0 0 0 var(--ring-w) var(--color-bg-300);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .bc-page-button {
     --btn-size: lg;
   }

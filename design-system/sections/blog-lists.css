@@ -6,12 +6,12 @@
   padding: 0 var(--t) calc(var(--t) * 2);
   --bl-u: var(--bl-u-rm);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .blog-lists {
     --bl-u: var(--bl-u-rt);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .blog-lists {
     --bl-u: var(--bl-u-rd);
   }
@@ -26,7 +26,7 @@
 .bl-catsec + .bl-catsec {
   margin-top: calc(var(--t) * 2);
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .bl-catsec + .bl-catsec {
     margin-top: var(--t);
   }
@@ -39,7 +39,7 @@
 .bl-catsec .bl-sechead {
   min-height: calc(var(--t) * 2);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .bl-sechead,
   .bl-catsec .bl-sechead {
     min-height: var(--t);
@@ -60,7 +60,7 @@
   --lh0: var(--ts-display-serif-xs-extralight-lh);
   --lh1: 45;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .bl-h3 {
     --fs0: 36;
     --fs1: 48;
@@ -68,7 +68,7 @@
     --lh1: 60;
   }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .bl-h3 {
     --font: var(--ts-display-serif-sm-plus-extralight-font);
     --fs0: 36;
@@ -77,7 +77,7 @@
     --lh1: 42;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .bl-h3 {
     --font: var(--ts-display-serif-md-extralight-font);
     --fs0: 28.5714;
@@ -110,7 +110,7 @@
      designed card slot instead of letting its min-content size grow it. */
   overflow: hidden;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .bl-stack {
     gap: calc(var(--bl-u) * 48);
     min-height: calc(var(--t) * var(--bl-st-rt));
@@ -121,7 +121,7 @@
     height: calc(var(--bl-u) * 352);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .bl-stack {
     flex-direction: row;
     gap: calc(var(--bl-u) * 32);

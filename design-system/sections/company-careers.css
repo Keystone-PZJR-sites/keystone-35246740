@@ -6,7 +6,7 @@
   margin-top: calc(var(--co-u) * 16);
   max-width: calc(var(--co-u) * 320);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .coc-copy {
     max-width: calc(var(--t) * 6);
   }
@@ -17,7 +17,7 @@
   display: flex;
   --btn-size: md;
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .coc-cta {
     --btn-size: lg;
   }

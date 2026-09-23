@@ -32,7 +32,7 @@
   box-shadow: 0 0 0 var(--ring-w) var(--color-bg-300);
 }
 
-@container (min-width: 860px) {
+@container (--rd1) {
   .slug {
     gap: var(--space-lg);
   }
@@ -61,7 +61,7 @@
   height: var(--sys-marker);
   background: var(--color-bg-400);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .slug[data-layout="rail"] {
     height: auto;
     gap: var(--space-md);
@@ -76,7 +76,7 @@
     content: none;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .slug[data-layout="rail"] {
     gap: var(--space-lg);
   }

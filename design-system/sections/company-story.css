@@ -4,7 +4,7 @@
   margin-top: calc(var(--co-u) * 24);
   max-width: calc(var(--co-u) * 320);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cos-body {
     /* The blog-post text column: 6t. */
     max-width: calc(var(--t) * 6);

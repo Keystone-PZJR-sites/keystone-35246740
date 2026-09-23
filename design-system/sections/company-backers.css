@@ -13,12 +13,12 @@
   column-gap: var(--co-wall-gap-x);
   row-gap: var(--co-wall-gap-y);
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .cob-wall {
     grid-template-columns: repeat(5, 1fr);
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .cob-wall {
     grid-template-columns: repeat(6, 1fr);
   }

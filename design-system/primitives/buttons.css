@@ -71,7 +71,7 @@
   color: var(--_ink);
 }
 
-@container style(--btn-size: xl) {
+@container style(--btn-size: xl)  {
   .btn-body {
     --_h: 48px;
     --_py: calc(var(--space-md) + var(--space-2xs));
@@ -90,7 +90,7 @@
     --_g: 24px;
   }
 }
-@container style(--btn-size: lg) {
+@container style(--btn-size: lg)  {
   .btn-body {
     --_h: 48px;
     --_py: calc(var(--space-md) + var(--space-2xs));
@@ -109,7 +109,7 @@
     --_g: 24px;
   }
 }
-@container style(--btn-size: md) {
+@container style(--btn-size: md)  {
   .btn-body {
     --_h: 40px;
     --_py: var(--space-md);
@@ -128,7 +128,7 @@
     --_g: 18px;
   }
 }
-@container style(--btn-size: sm) {
+@container style(--btn-size: sm)  {
   .btn-body {
     --_h: 36px;
     --_py: var(--space-sm);
@@ -148,7 +148,7 @@
     --_g: 16px;
   }
 }
-@container style(--btn-size: xs) {
+@container style(--btn-size: xs)  {
   .btn-body {
     --_h: 32px;
     --_px: var(--space-lg);

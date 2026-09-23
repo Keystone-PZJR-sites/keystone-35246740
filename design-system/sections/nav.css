@@ -60,7 +60,7 @@
 .knav-d {
   display: none;
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .knav-d {
     display: block;
   }
@@ -246,7 +246,7 @@
     translate var(--knav-reveal-slide) var(--motion-drawer-ease);
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .knav-drawer {
     width: var(--knav-drawer-lg);
   }
@@ -405,7 +405,7 @@
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .knav-sub {
     width: var(--knav-sub-w-lg);
   }
@@ -507,7 +507,7 @@
   flex: none;
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .knav-dbody {
     gap: var(--space-xl);
   }
@@ -639,14 +639,14 @@
   width: var(--knav-sub-w-lg);
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .knav-rcard {
     flex: none;
     width: var(--knav-sub-w-lg);
   }
 }
 
-@container (max-width: 859px) {
+@container (--below-rd1) {
   /* Lift the page stacking context while the mobile menu is open so
      body-level widget portals stay behind the modal navigation surface. */
   .page:has(.knav-m[data-open]) {
@@ -1087,7 +1087,7 @@ a.knav-row {
 
 /* ================= mobile band overrides (rs, rt) ================= */
 
-@container (min-width: 470px) {
+@container (--rs) {
   .knav-panel {
     box-shadow: var(--shadow-hard-square-0);
   }
@@ -1138,7 +1138,7 @@ a.knav-row {
   }
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .knav-gslot {
     --_g: var(--g-rt);
     --_bt: var(--bt-rt);

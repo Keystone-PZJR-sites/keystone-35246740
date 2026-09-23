@@ -66,7 +66,7 @@
   color: var(--color-danger-500);
 }
 
-@container (min-width: 470px) {
+@container (--rs) {
   .contact-section {
     padding-top: calc(var(--t) * 2);
   }
@@ -81,7 +81,7 @@
   }
 }
 
-@container (min-width: 665px) {
+@container (--rt) {
   .contact-header,
   .contact-body {
     width: calc(var(--t) * 7);
@@ -89,7 +89,7 @@
   }
 }
 
-@container (min-width: 1130px) {
+@container (--rd2) {
   .contact-header,
   .contact-body {
     width: calc(var(--t) * 6);

@@ -39,8 +39,9 @@ Read this file, then `REFACTOR.md` if it exists.
   server-rendered children; it never fetches. Route JS is measured in bytes.
 - Layout is container-query driven on `.site-root` with the tick `--t`
   (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
-  spacing come from tokens; controls are fixed material px. See
-  `design-system/grid/engine.css`.
+  spacing come from tokens; controls are fixed material px. Gates are named
+  by the band they open: `@container (--rs)`, `(--rt)`, `(--rd1)`, `(--rd2)`;
+  never a pixel width. See `design-system/grid/engine.css` and `gates.js`.
 - A control's size is a keyword its mount can set per band: `--btn-size` for
   `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
   `--pbtn-size` for `PricingButton`. Pass `size="inherit"` and declare the
@@ -126,13 +127,13 @@ A section is this shape, and nothing in it is a number:
 ```css
 .my-sec { padding-block: var(--space-3xl); --btn-size: md; }
 .my-body { margin-top: var(--space-lg); max-width: calc(6 * var(--t)); }
-@container (min-width: 860px) {
+@container (--rd1) {
   .my-sec { --btn-size: lg; }
   .my-head { --fs1: var(--ts-display-serif-md-thin-fs); --lh1: var(--ts-display-serif-md-thin-lh); }
 }
 ```
 
-Gates are 470 · 665 · 860 · 1130; anchors are 384 · 576 · 768 · 960 · 1344.
+Bands rm · rs · rt · rd1 · rd2 sit at 384 · 576 · 768 · 960 · 1344; a gate opens the next band.
 
 ## Verify before you say done
 

@@ -8,13 +8,13 @@
   width: 100%;
   min-height: calc(var(--t) * 12);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .work-gallery-section { min-height: calc(var(--t) * 11); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .work-gallery-section { min-height: calc(var(--t) * 16); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .work-gallery-section { min-height: calc(var(--t) * 15); }
 }
 
@@ -27,10 +27,10 @@
   display: flex;
   align-items: center;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .wg-head { min-height: calc(var(--t) * 3); }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .wg-head { min-height: calc(var(--t) * 2); }
 }
 
@@ -39,16 +39,16 @@
   margin: 0 0 0 calc(var(--t) / 2);
   color: var(--color-text-100);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .wg-title { margin-left: var(--t); }
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .wg-title {
     --font: var(--ts-display-serif-xs-plus-extralight-font);
     --ls: var(--ts-display-serif-xs-plus-extralight-ls);
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .wg-title {
     --font: var(--ts-display-serif-md-plus-thin-font);
     --ls: var(--ts-display-serif-md-plus-thin-ls);
@@ -64,13 +64,13 @@
   margin-right: var(--t);
   --btn-size: sm;
 }
-@container (min-width: 665px) {
+@container (--rt) {
   .wg-cta {
     margin-right: calc(var(--t) / 2);
     --btn-size: md;
   }
 }
-@container (min-width: 860px) {
+@container (--rd1) {
   .wg-cta {
     margin-right: 0;
     width: calc(var(--t) * 3);
@@ -78,7 +78,7 @@
     justify-content: center;
   }
 }
-@container (min-width: 1130px) {
+@container (--rd2) {
   .wg-cta { --btn-size: lg; }
 }
 
@@ -120,7 +120,7 @@
 .wg-list[data-dragging] {
   transition: none;
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .wg-list {
     margin-left: var(--t);
     --wg-pitch: calc(var(--t) * 10);
@@ -135,7 +135,7 @@
   height: calc(var(--t) * 6);
   border: 1px solid var(--line);
 }
-@container (min-width: 470px) {
+@container (--rs) {
   .wg-slide { width: calc(var(--t) * 9); }
 }
 
@@ -202,7 +202,7 @@
    on t/2 gutters in the 10t box (ticks 1–11); the two features span
    2×2 on explicit areas. The strip's island state is inert here: the
    translate resets, the ghosts undress, the overlays leave. */
-@container (min-width: 665px) {
+@container (--rt) {
   .wg-view {
     overflow: visible;
     touch-action: auto;
