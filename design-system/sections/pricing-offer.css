@@ -406,32 +406,24 @@
 
 .po-cardbtn {
   flex: none;
+  /* One button; its size steps per band. */
+  --pbtn-size: xs;
 }
 /* The button cell follows the page tick to align both lattices. */
 .po-cardbtn .pbtn {
   --pbtn-cell: var(--t);
 }
-.po-cardbtn-sm,
-.po-cardbtn-md,
-.po-cardbtn-lg,
-.po-cardbtn-xl {
-  display: none;
-}
 @container (min-width: 470px) {
-  .po-cardbtn-xs { display: none; }
-  .po-cardbtn-sm { display: block; }
+  .po-cardbtn { --pbtn-size: sm; }
 }
 @container (min-width: 665px) {
-  .po-cardbtn-sm { display: none; }
-  .po-cardbtn-md { display: block; }
+  .po-cardbtn { --pbtn-size: md; }
 }
 @container (min-width: 860px) {
-  .po-cardbtn-md { display: none; }
-  .po-cardbtn-lg { display: block; }
+  .po-cardbtn { --pbtn-size: lg; }
 }
 @container (min-width: 1130px) {
-  .po-cardbtn-lg { display: none; }
-  .po-cardbtn-xl { display: block; }
+  .po-cardbtn { --pbtn-size: xl; }
 }
 
 /* the price row — /month sits on the $50 baseline (flex baseline; its
