@@ -46,6 +46,7 @@
 @import "./pages/case-study.css" layer(shared);
 @import "./pages/company.css" layer(shared);
 @import "./pages/landing.css" layer(shared);
+@import "./pages/design.css" layer(shared);
 
 /* Sections */
 @import "./sections/footer.css" layer(sections);

@@ -39,7 +39,8 @@ const SECTIONS: {
   closer: (data) => <LandingCloserSection data={data} />,
 };
 
-function renderSection(section: LandingSection): ReactNode {
+/** Render one section by kind; the design page uses this too. */
+export function renderLandingSection(section: LandingSection): ReactNode {
   /* The map is exhaustive and keyed by kind; the union cannot be
      narrowed through the lookup, so the call is widened once here. */
   const render = SECTIONS[section.kind] as (data: LandingSection) => ReactNode;
@@ -57,7 +58,7 @@ export async function LandingPage({ data }: { data: LandingPageData }) {
       <NavChrome />
       <main>
         {data.sections.map((section, i) => (
-          <Fragment key={`${section.kind}-${i}`}>{renderSection(section)}</Fragment>
+          <Fragment key={`${section.kind}-${i}`}>{renderLandingSection(section)}</Fragment>
         ))}
       </main>
       <FooterSection

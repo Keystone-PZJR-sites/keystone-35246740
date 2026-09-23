@@ -106,7 +106,10 @@ Read this file, then `REFACTOR.md` if it exists.
 
 ## Building new pages
 
-Start from the landing kit. A page without its own Figma frames (a
+Open `/design/` first (`app/design/`): the tokens, type styles, every
+primitive at every size, the landing kit's kinds, and this file, rendered
+from the source. It is not indexed and lives in the visual gate like any
+route. Then start from the landing kit. A page without its own Figma frames (a
 vertical, a campaign, a persona) is copy plus two files, and it arrives
 with the site's craft — lattice paint, an image slot, the entrance, seated
 cards, a quote — because the kit sections already carry it:

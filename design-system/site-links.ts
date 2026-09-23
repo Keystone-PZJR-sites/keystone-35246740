@@ -20,6 +20,7 @@ export const SITE_LINKS = {
   pricing: "/pricing",
   company: "/company",
   forDentists: "/for-dentists",
+  design: "/design",
   resources: "/blog",
   blog: "/blog",
   marketingReport: GRADER_URL,

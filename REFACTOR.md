@@ -172,4 +172,11 @@ the end result differs slightly from today, if it is better.
   the mobile sizes nearly everywhere) extend their hit area to 44px with
   an invisible pseudo, the `.btn-inline` idiom; drawn geometry unchanged,
   110/110 on the visual gate. Found by the fresh-agent simulation.
+- `/design/` — the design system as a page, built from the system: tokens
+  read from `tokens/semantic.css`, type styles from `type-styles.json`,
+  rules from `AGENTS.md` at build time; primitives mounted at every size
+  and state; the landing kinds rendered through the real registry from
+  the for-dentists data. No sitemap entry, `robots: noindex`, in the
+  visual gate. Answers "is there a catalog" with something that cannot
+  drift.
 
