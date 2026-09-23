@@ -1,9 +1,7 @@
-import { GridRegion, type GridBand } from "../grid/region";
+import { CloserRow } from "../primitives/closer-row";
 import { Slug } from "../primitives/slug";
 import { COMPANY_BACKERS } from "./company-data";
 import { COMPANY_INVESTORS } from "./company-backers-data";
-
-const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
 /* Lattice: the 1fr wall renders in unpainted air; the flow closer ends
  * the section exactly one tick below the last portrait row. The
@@ -35,13 +33,7 @@ export function CompanyBackersSection() {
         ))}
       </ul>
 
-      <div className="co-closer" aria-hidden="true">
-        <div className="gx co-bleed-grid">
-          {BANDS.map((band) => (
-            <GridRegion key={band} band={band} gx={0} gy={0} gw={12} />
-          ))}
-        </div>
-      </div>
+      <CloserRow />
     </section>
   );
 }

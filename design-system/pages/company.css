@@ -40,17 +40,8 @@
   height: 100%;
 }
 
-/* Flow closer (the faq-gaprow idiom): the page's section rhythm is
-   [content] → 1t → [one painted row of 12 cells] → 1t (the next
-   section's padding-top) → [content]. Sections are content-sized —
-   the grid is perceptual, carried by these rows, not by whole-tick
-   section budgets. */
-.co-closer {
-  position: relative;
-  width: 100%;
-  height: var(--t);
-  margin-top: var(--t);
-}
+/* Sections close with a CloserRow (primitives/closer-row.tsx): the grid
+   is perceptual, carried by those rows, not by whole-tick budgets. */
 /* Every section after the hero opens with a full tick of clearance. */
 .company-story,
 .company-backers,

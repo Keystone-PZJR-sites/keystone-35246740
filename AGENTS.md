@@ -104,12 +104,12 @@ Read this file, then `REFACTOR.md` if it exists.
 - When a node disagrees with its siblings or the pattern, flag it to design
   and record the resolution in a comment at the value. Never build the error.
 
-## Adding a landing page
+## Building new pages
 
-A marketing landing page (a vertical, a campaign, a persona) has no Figma
-frame; it is built from the landing kit, which already carries the site's
-craft — lattice paint, an image slot, the entrance, seated cards, a quote.
-It is copy plus two files:
+Start from the landing kit. A page without its own Figma frames (a
+vertical, a campaign, a persona) is copy plus two files, and it arrives
+with the site's craft — lattice paint, an image slot, the entrance, seated
+cards, a quote — because the kit sections already carry it:
 
 1. `design-system/pages/name-data.ts`: a `LandingPageData` (see
    `pages/for-dentists-data.ts`). Hero, three benefits (icon from the
@@ -120,61 +120,58 @@ It is copy plus two files:
    `<LandingPage data={NAME} />`. Add the route to `site-links.ts`,
    `app/sitemap.ts`, and `tests/visual.spec.ts`.
 
-Then verify (below). Do not add a fifth section or a local CSS file; if the
-kit cannot say what the page needs, extend the kit in `sections/landing.*`
-so every landing page gets it.
+If the kit cannot say what the page needs, extend the kit
+(`sections/landing-*.tsx`) so every landing page gets it; do not add a
+page-local section or CSS file.
 
-## Adding a designed page
+A page with its own Figma frames is composed from sections instead:
 
-1. Read the Figma frames for every band you will render.
+1. Read the frames for every band you will render.
 2. Search before you build: `primitives/`, `sections/`, `icons.tsx`,
    `media.ts`, `tokens/`, and the existing `data-action` contracts.
 3. Compose the page in `design-system/pages/name.tsx`; mount it from
-   `app/name/page.tsx` with `metadata` (title and description). Add the
-   route to `site-links.ts`, `app/sitemap.ts`, and `tests/visual.spec.ts`.
-4. Verify in the browser at 384 · 576 · 768 · 960 · 1344 and one width between.
-5. A new dependency needs a reason in the change; prefer the platform.
+   `app/name/page.tsx` with `metadata`. Add the route to `site-links.ts`,
+   `app/sitemap.ts`, and `tests/visual.spec.ts`.
+4. A new dependency needs a reason in the change; prefer the platform.
 
 A section is this shape, and nothing in it is a number:
 
 ```tsx
 <section className="sec my-sec" data-landmark="my">
   <Slug>Eyebrow</Slug>
-  <h2 className="type ts-display-serif-xs-extralight my-head">Headline</h2>
-  <p className="type ts-text-md-light my-body">Body copy.</p>
-  <ButtonFill size="inherit" href={SITE_LINKS.pricing}>See pricing</ButtonFill>
+  <h2 className="type ts-display-serif-xs-extralight ramp-h2 my-head">Headline</h2>
+  <p className="type ts-text-md-light ramp-body my-body">Body copy.</p>
+  <CtaRow cta={{ label: "See pricing", href: SITE_LINKS.pricing }} />
+  <CloserRow />
 </section>
 ```
 
 ```css
-.my-sec { padding-inline: var(--t); padding-top: var(--t); --btn-size: md; }
-.my-head { --fs1: var(--ts-display-serif-xl-extralight-fs); --lh1: var(--ts-display-serif-xl-extralight-lh); }
-.my-body { margin-top: var(--space-lg); max-width: calc(6 * var(--t)); }
-@container (--rt) {
-  .my-head { --font: var(--ts-display-serif-md-plus-extralight-font); --ls: var(--ts-display-serif-md-plus-extralight-ls); }
-  .my-sec { --btn-size: lg; }
-}
+.my-sec { padding-inline: var(--t); padding-top: var(--t); }
+.my-head { margin-top: var(--space-lg); max-width: calc(8 * var(--t)); }
+.my-body { margin-top: var(--space-2xl); max-width: calc(6 * var(--t)); }
 ```
 
 Bands rm · rs · rt · rd1 · rd2 sit at 384 · 576 · 768 · 960 · 1344; a gate opens the next band.
 
-The vocabulary a section is built from, each with its reference file:
+The vocabulary, each with its home:
 
-- Type ramps (384 → 1344): h1 `sm-plus-thin` → `3xl-thin`; h2 `xs-extralight`
-  → `xl-extralight`; body `text-md-light` → `text-xl-light`; quote
-  `2xs-plus-extralight` → `sm-plus-extralight`. `sections/landing.css`.
-- Lattice paint: a section sits in unpainted air, hosts a seated `GridRegion`
-  frame in a `.gx` overlay (`sections/company-hero.tsx`), or closes with one
-  painted 12-cell row a tick below its content (`Closer` in
-  `sections/landing.tsx`). Cells that are the grid are line-inclusive,
-  `k·t + 1px`, and overlap neighbours by that pixel.
+- Type ramps (384 → 1344), `primitives/ramps.css`: `ramp-h1` sm-plus-thin →
+  3xl-thin; `ramp-h2` xs-extralight → xl-extralight; `ramp-body` text-md-light
+  → text-xl-light; `ramp-quote` 2xs-plus-extralight → sm-plus-extralight
+  with the opening mark hanging. Pair each with its 384 `ts-` class.
+- Lattice paint: a section sits in unpainted air, hosts a seated
+  `GridRegion` frame in a `.gx` overlay (`sections/landing-hero.tsx`), or
+  closes with a `CloserRow` (`primitives/closer-row.tsx`) a tick below its
+  content. Cells that are the grid are line-inclusive, `k·t + 1px`, and
+  overlap neighbours by that pixel (`sections/landing-benefits.css`).
 - Imagery: a `PictureSet` from `media.ts` rendered by `primitives/picture.tsx`
   inside a fixed-tick frame.
 - Entrance: the page class `load-sequence-rise`, `hx-rise` on each rising
   element with a `--_d` delay token, and a `LoadOrchestrator` naming the last
   beat (`pages/landing.tsx`).
-- The CTA row: `ButtonFill size="inherit"`, the "Got a question?" label from
-  rs, and `ButtonGhost action="open-chat"`; the row sets `--btn-size` per band.
+- The CTA row, `primitives/cta-row.tsx`: fill button, "Got a question?" from
+  rs, ghost `open-chat`; it sets `--btn-size` per band.
 
 ## Verify before you say done
 

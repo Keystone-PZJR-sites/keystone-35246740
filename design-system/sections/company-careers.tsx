@@ -1,10 +1,8 @@
-import { GridRegion, type GridBand } from "../grid/region";
+import { CloserRow } from "../primitives/closer-row";
 import { ButtonFill } from "../primitives/buttons";
 import { Slug } from "../primitives/slug";
 import { SITE_LINKS } from "../site-links";
 import { COMPANY_CAREERS } from "./company-data";
-
-const BANDS: GridBand[] = ["rm", "rs", "rt", "rd1", "rd2"];
 
 /* Lattice: head, copy, and CTA in unpainted air; the flow closer sits
  * flush at the section end — it meets the footer's own top row like
@@ -30,13 +28,7 @@ export function CompanyCareersSection() {
         </ButtonFill>
       </div>
 
-      <div className="co-closer" aria-hidden="true">
-        <div className="gx co-bleed-grid">
-          {BANDS.map((band) => (
-            <GridRegion key={band} band={band} gx={0} gy={0} gw={12} />
-          ))}
-        </div>
-      </div>
+      <CloserRow />
     </section>
   );
 }

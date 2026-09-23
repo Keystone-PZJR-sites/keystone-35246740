@@ -38,10 +38,14 @@
 @import "./primitives/field.css" layer(primitives);
 @import "./primitives/slug.css" layer(primitives);
 @import "./primitives/picture.css" layer(primitives);
+@import "./primitives/ramps.css" layer(primitives);
+@import "./primitives/closer-row.css" layer(primitives);
+@import "./primitives/cta-row.css" layer(primitives);
 
 /* Shared: page-level utilities that sections refine. */
 @import "./pages/case-study.css" layer(shared);
 @import "./pages/company.css" layer(shared);
+@import "./pages/landing.css" layer(shared);
 
 /* Sections */
 @import "./sections/footer.css" layer(sections);
@@ -77,7 +81,10 @@
 @import "./sections/company-backers.css" layer(sections);
 @import "./sections/company-team.css" layer(sections);
 @import "./sections/company-careers.css" layer(sections);
-@import "./sections/landing.css" layer(sections);
+@import "./sections/landing-hero.css" layer(sections);
+@import "./sections/landing-benefits.css" layer(sections);
+@import "./sections/landing-quote.css" layer(sections);
+@import "./sections/landing-closer.css" layer(sections);
 @import "./sections/hero.css" layer(sections);
 @import "./sections/system.css" layer(sections);
 @import "./sections/engines.css" layer(sections);

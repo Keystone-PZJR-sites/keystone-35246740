@@ -1,0 +1,45 @@
+/* Landing kit shared frame. The four sections share one rhythm: each
+   pads 1t inline, sits in unpainted air, and hands off through a
+   CloserRow, so the page reads [content] → 1t → [12-cell row] → 1t →
+   [content]. Section frames live in their own files (landing-hero.css …),
+   imported after this one so their rules win. */
+
+.ld-sec {
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: var(--t);
+}
+/* Every section after the hero opens with a full tick of clearance. */
+.ld-sec + .ld-sec {
+  padding-top: var(--t);
+}
+
+/* Local exposure frames escape the 1t inline padding so a field spans
+   all 12 columns. */
+.ld-bleed {
+  inset: 0 auto auto calc(var(--t) * -1);
+  width: calc(var(--t) * 12);
+  height: 100%;
+}
+
+/* Section head: eyebrow, then the h2 inside its measure. */
+.ld-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ld-h2 {
+  margin: var(--space-lg) 0 0;
+  max-width: calc(var(--t) * 10);
+}
+@container (--rt) {
+  .ld-h2 {
+    max-width: calc(var(--t) * 8);
+  }
+}
+@container (--rd1) {
+  .ld-h2 {
+    margin-top: var(--space-3xl);
+    max-width: calc(var(--t) * 7);
+  }
+}
