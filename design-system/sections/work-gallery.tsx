@@ -102,18 +102,8 @@ export function WorkGallerySection() {
           <br />
           Gallery
         </h2>
-        <div className="wg-cta wg-cta-sm">
-          <ButtonFill size="sm" chrome="gray" action="open-gallery">
-            {CTA_LABEL}
-          </ButtonFill>
-        </div>
-        <div className="wg-cta wg-cta-md">
-          <ButtonFill size="md" chrome="gray" action="open-gallery">
-            {CTA_LABEL}
-          </ButtonFill>
-        </div>
-        <div className="wg-cta wg-cta-lg">
-          <ButtonFill size="lg" chrome="gray" action="open-gallery">
+        <div className="wg-cta">
+          <ButtonFill size="inherit" chrome="gray" action="open-gallery">
             {CTA_LABEL}
           </ButtonFill>
         </div>

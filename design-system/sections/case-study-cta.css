@@ -139,28 +139,20 @@
   .csc-ctas { margin-top: calc((var(--wA) + var(--wB)) * 64); }
 }
 
+/* Button size per band: md rm/rs · lg rt/rd1 · xl rd2. */
 .csc-cta-row {
+  display: flex;
   align-items: center;
+  --btn-size: md;
 }
 .csc-cta-row > * + * {
   margin-left: var(--space-3xl);
 }
-
-/* band-gated per button size (md rm/rs · lg rt/rd1 · xl rd2) */
-.csc-cta-md {
-  display: flex;
-}
-.csc-cta-lg,
-.csc-cta-xl {
-  display: none;
-}
 @container (min-width: 665px) {
-  .csc-cta-md { display: none; }
-  .csc-cta-lg { display: flex; }
+  .csc-cta-row { --btn-size: lg; }
 }
 @container (min-width: 1130px) {
-  .csc-cta-lg { display: none; }
-  .csc-cta-xl { display: flex; }
+  .csc-cta-row { --btn-size: xl; }
 }
 
 /* The material label is hidden at the narrowest band. */

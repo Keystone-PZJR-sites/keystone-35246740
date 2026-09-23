@@ -19,20 +19,6 @@ function words(text: string) {
   return text.split(" ").map((w, i) => <span key={`${w}${i}`}>{w}</span>);
 }
 
-function CtaRow({ size }: { size: "md" | "lg" | "xl" }) {
-  return (
-    <span className={`csc-cta-row csc-cta-${size}`}>
-      <ButtonFill size={size} chrome="gray" shape="pill" href={GET_STARTED_HREF}>
-        Get Started
-      </ButtonFill>
-      <span className="type type-fixed ts-text-md-light csc-q">Got a question?</span>
-      <ButtonGhost size={size} color="brown" icon={<IconChat />} action="open-chat">
-        Talk to us
-      </ButtonGhost>
-    </span>
-  );
-}
-
 export function CaseStudyCtaSection() {
   return (
     <section className="sec cs-sec csc-sec">
@@ -64,11 +50,15 @@ export function CaseStudyCtaSection() {
             {words("that convert.")}
           </span>
         </p>
-        {/* Only the button row for the current band is visible. */}
-        <div className="csc-ctas">
-          <CtaRow size="md" />
-          <CtaRow size="lg" />
-          <CtaRow size="xl" />
+        {/* The row sets the button size per band. */}
+        <div className="csc-ctas csc-cta-row">
+          <ButtonFill size="inherit" chrome="gray" shape="pill" href={GET_STARTED_HREF}>
+            Get Started
+          </ButtonFill>
+          <span className="type type-fixed ts-text-md-light csc-q">Got a question?</span>
+          <ButtonGhost size="inherit" color="brown" icon={<IconChat />} action="open-chat">
+            Talk to us
+          </ButtonGhost>
         </div>
       </div>
     </section>
