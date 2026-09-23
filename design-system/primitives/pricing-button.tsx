@@ -47,7 +47,7 @@ export function PricingButton({
 }: PricingButtonProps) {
   return (
     <a
-      className="pbtn"
+      className="type pbtn"
       data-size={size}
       data-state={forceState}
       href={href}

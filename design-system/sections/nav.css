@@ -927,6 +927,9 @@ a.knav-row {
   --font: var(--ts-display-sans-2xs-light-font);
   --ls: var(--ts-display-sans-2xs-light-ls);
   --opsz: var(--ts-display-sans-2xs-light-opsz);
+  /* Holds the step's size below 470, rides the band to the xs step, then holds. */
+  --fs-px: calc(var(--ts-display-sans-2xs-light-fs) * 1px);
+  --lh-px: calc(var(--ts-display-sans-2xs-light-lh) * 1px);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -1147,8 +1150,10 @@ a.knav-row {
     --_bt: var(--bt-rs);
   }
   .knav-rlabel {
-    font-size: calc(var(--wA) * 28 + var(--wB) * 32);
-    line-height: calc(var(--wA) * 36 + var(--wB) * 38);
+    --fs-px: initial;
+    --lh-px: initial;
+    --fs0: var(--ts-display-sans-2xs-light-fs); --fs1: var(--ts-display-sans-xs-light-fs);
+    --lh0: var(--ts-display-sans-2xs-light-lh); --lh1: var(--ts-display-sans-xs-light-lh);
   }
   .knav-chipsin {
     gap: var(--space-lg);
@@ -1175,9 +1180,11 @@ a.knav-row {
     padding-top: calc(var(--t) - 20px);
   }
   .knav-rlabel {
-    font-variation-settings: "opsz" var(--ts-display-sans-xs-light-opsz), var(--font-sans-slnt);
-    font-size: 32px;
-    line-height: 38px;
+    --font: var(--ts-display-sans-xs-light-font);
+    --ls: var(--ts-display-sans-xs-light-ls);
+    --opsz: var(--ts-display-sans-xs-light-opsz);
+    --fs-px: calc(var(--ts-display-sans-xs-light-fs) * 1px);
+    --lh-px: calc(var(--ts-display-sans-xs-light-lh) * 1px);
   }
   .knav-rchev {
     width: 20px;

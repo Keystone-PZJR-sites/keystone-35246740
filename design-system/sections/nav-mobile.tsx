@@ -157,7 +157,7 @@ export function NavMobile({
                 return (
                   <li key={row.id} className="knav-slot">
                     <a className="knav-row" href={row.href}>
-                      <span className="type type-fixed knav-rlabel">{row.label}</span>
+                      <span className="type knav-rlabel">{row.label}</span>
                     </a>
                   </li>
                 );
@@ -187,7 +187,7 @@ export function NavMobile({
                       aria-controls={`knav-g-${row.id}`}
                       onClick={() => setOpenDrawer(isOpen ? null : row.id)}
                     >
-                      <span className="type type-fixed knav-rlabel">{row.label}</span>
+                      <span className="type knav-rlabel">{row.label}</span>
                       <IconChevronDownMedium className="knav-rchev" />
                     </button>
                     <div className="knav-chips" id={`knav-g-${row.id}`}>
