@@ -1,3 +1,8 @@
+/** The single composition for every long-form legal page. Terms and
+ * Privacy render the backend markdown fields after `replaceLegalPlaceholders`
+ * fills the template tokens; Accessibility is owned in `legal-data.ts`.
+ * Routes select a document; they never duplicate this markup. Markdown is
+ * rendered with react-markdown; backend HTML is never injected. */
 import { notFound } from "next/navigation";
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { GridField } from "@/design-system/grid/field";

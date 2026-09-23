@@ -14,7 +14,8 @@ Read this file, then `REFACTOR.md` if it exists.
   z-index, URLs, copy, and asset paths live in `design-system/tokens/`,
   `*-data.ts` modules, `design-system/media.ts`, or `.env`.
 - Never write CSS outside `design-system/`. No utility classes in site markup,
-  no CSS modules, no CSS-in-JS, no `<style>`, no `!important`.
+  no CSS modules, no CSS-in-JS, no `<style>`, no `!important` (the packaged
+  consent widget's bridge in `widgets.css` is the one exception).
 - Never customize a `@keystone-sites/*` widget beyond its props.
 - Never put `'use client'` on a page or layout. Interactivity is a leaf island.
 - Never suppress a lint or type error. Never use `any` or `as` at a data boundary.
@@ -46,15 +47,55 @@ Read this file, then `REFACTOR.md` if it exists.
   self-hosted; never load them from a URL.
 - Accessibility baseline: semantic HTML before ARIA, keyboard reachable,
   visible `:focus-visible`, 44px targets, WCAG AA contrast, `<dialog>`
-  semantics for overlays with focus returned to the opener.
+  semantics for overlays with focus returned to the opener. Overlays lock
+  scroll only through `lib/scroll-lock.ts`.
+- Inline `style` carries only per-instance values the CSS cannot know
+  (a CSS custom property, a color role, a frame index). Anything constant
+  is a class.
+- Comments say why, never what, and record the Figma node id a value came
+  from. User-facing strings use literal Unicode, not escapes.
+
+## React islands
+
+- Browser APIs (`window`, `document`, measurement) run only in effects or
+  handlers, never during render; the first client render matches the SSR HTML.
+- One owner per piece of state: React, or a timer/animation the component
+  reads through a ref. No module-level mutable state. Derive, don't sync:
+  status computed from other state is computed in render, not stored.
+- Every effect cleans up (listeners, timers, observers) and survives Strict
+  Mode double-mount and HMR. Timers are not a sync primitive.
+- Prefer native CSS state (`:hover`, `:focus-within`, `:has()`, `data-*`)
+  over JS. Classify external data into a discriminated union at the boundary.
+- Cross-section behaviour is a declarative `data-action` attribute on the
+  control (`open-chat`, `open-gallery`), handled by one delegated document
+  listener in the owning island. Never wire `onClick` across sections.
+- Forms are uncontrolled, work without JS (real `action`), and submit
+  through the Keystone route handlers. No `console.log` in shipped code.
+
+## Reading Figma
+
+- Before building or changing anything designed, run `get_metadata`,
+  `get_variable_defs`, and `get_design_context` on the node, fresh.
+- Read every variant of a component set; never scale one to derive another.
+  Cells equal to the anchor ticks (32/48/64/80/112) are `1t`, not px.
+- Metadata `x`/`y` inside a grid auto-layout can be stale; verify geometry
+  against rendered bounds through the Figma console bridge. Strokes produce
+  ±0.5px artifacts (23/31/33 mean 24/32): transcribe the intended value.
+- Token values come from the variables API and text styles, not rendered
+  frames. Type changes: update `tokens/type-styles.json`, then run
+  `node scripts/generate-type-css.mjs`.
+- When a node disagrees with its siblings or the pattern, flag it to design
+  and record the resolution in a comment at the value. Never build the error.
 
 ## Adding a page
 
 1. Read the Figma frames for every band you will render.
-2. Reuse: search `primitives/` and `sections/` before writing a new one.
+2. Search before you build: `primitives/`, `sections/`, `icons.tsx`,
+   `media.ts`, `tokens/`, and the existing `data-action` contracts.
 3. Compose the page in `design-system/pages/name.tsx`; mount it from
    `app/name/page.tsx` with `metadata`. Add the route to `site-links.ts`.
 4. Verify in the browser at 384 · 576 · 768 · 960 · 1344 and one width between.
+5. A new dependency needs a reason in the change; prefer the platform.
 
 ## Verify before you say done
 
