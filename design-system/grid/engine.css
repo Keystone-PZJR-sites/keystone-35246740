@@ -1,6 +1,49 @@
 /* Container-query grid engine. Bands and interpolation weights read the
    same page-container width. `--t` is fluid structural geometry; `--c`
-   is fixed material geometry. Literal 1px values are lattice hairlines. */
+   is fixed material geometry. Literal 1px values are lattice hairlines.
+
+   Bands. Five anchors where a Figma frame exists: 384 · 576 · 768 · 960 ·
+   1344 (tick 32 · 48 · 64 · 80 · 112). Gates at the midpoints 470 · 665 ·
+   860 · 1130, always `@container` on `.site-root`, never `@media`. Base
+   CSS is the 384 design; each gate overrides upward. Above 1344 the tick
+   caps and the 1344 design renders exact; gutters paint the side fields.
+   JS that needs the band measures the container, never `matchMedia`.
+   Light mode only.
+
+   Every dimension is one of three kinds:
+   - structure (columns, section heights, exposure regions, footprints)
+     is written in `--t` and is fluid by construction;
+   - type and spacing come from tokens;
+   - material (buttons, icons, marks, control inners) is fixed px per
+     size variant and never band-aware; the section picks the variant.
+   A px value that secretly encodes structure breaks fit between anchors.
+
+   Laws:
+   - Flow frames. A section or text block declares its designed rows as
+     `min-height: calc(var(--t) * k)`, never `height`; only tick blocks
+     (k·t media frames, controls) keep `height`. Blocks stack in normal
+     flow with `margin-top` offsets; a bottom-anchored block is
+     `margin-top: auto`. Text wraps inside `max-width`, never `width`.
+     A gap derived by subtraction floors with `max()` at a spacing token.
+   - Line-inclusive boxes. A bordered box whose edge sits on the lattice
+     is `k·t + 1px` so its border lands on the line's pixel; `k·t` exactly
+     doubles the hairline.
+   - Content clears the lattice: flowed content never touches a tick line
+     and keeps half a tick before the next block; when copy needs room the
+     frame grows and the painted lattice rides with it (`gy` anchors to the
+     section top, `gyb` to its bottom, both to stretch).
+   - Absolute positioning only for media fills, the exposure vocabulary
+     (`--gx/--gy/--gyb`), overlay chrome, and true escapes from flow
+     (viewport-fixed controls). Ordinary content is grid or flex order.
+   - Lattice paint per section band is one of three states, declared in a
+     comment above the region map: unpainted, bookend (paint stops one
+     full tick before photography and resumes one tick after), or seated
+     (cells are the grid). A line painted through off-grid media is a defect.
+   - Nothing overflows at 384; touch targets are 44px; no hover-only states.
+
+   The grid sweep (`npm run test:grid`) asserts these at rest at every
+   anchor and one width per slice. Run it only when this file, `app/grid/`,
+   or asserted section geometry changes. */
 
 /* The container reads content width so anchors stay pixel-exact with scrollbars. */
 .site-root {

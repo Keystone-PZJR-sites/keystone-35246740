@@ -1,5 +1,21 @@
 /** Asset paths and intrinsic dimensions. Consumers reference this registry
- * instead of hardcoding paths. */
+ * instead of hardcoding paths. The only literal paths outside it are the
+ * contexts that cannot import TS: `@font-face`, the root layout's preload
+ * hrefs, and app metadata.
+ *
+ * Images. Photography renders as `<picture>` with one media-gated
+ * `<source>` per width tier and the smallest tier as the `<img>` fallback.
+ * Tier cuts follow the grid gates; cut each at 2× its band's rendered
+ * frame. Explicit `width`/`height` on every image, WebP only, `alt=""`
+ * for ambient photography, `loading="lazy"` unless it is a first-view
+ * candidate. The deploy serves static assets directly, so this markup is
+ * the delivery mechanism.
+ *
+ * Files live under `public/media/<function>/` (hero-carousel, portfolio,
+ * engines, testimonials, brand, fonts). Only favicons, `og-image.jpg`, and
+ * `site.webmanifest` sit at the public root. Names are lowercase
+ * kebab-case, general to specific, identifiable without opening the file.
+ * Delete replaced assets and their entries here. */
 
 export interface MediaAsset {
   src: string;

@@ -1,6 +1,22 @@
 /** Figma icon geometry from 519:5431 and component glyphs. Path data stays
  * verbatim. Two-tone icons keep token palettes; single-color glyphs use
- * currentColor. Icons are decorative because controls own accessible names. */
+ * currentColor. Icons are decorative because controls own accessible names.
+ *
+ * Rules for vector art:
+ * - Never hand-author geometry. Export verbatim from Figma through the
+ *   console bridge; the only edit is normalizing paint to `currentColor`
+ *   where the icon tints with text.
+ * - Never export with Exclude / Boolean Subtract; ask design for a
+ *   flattened re-export (background one path, foreground separate paths).
+ * - Shapes with no vector geometry (dots, circles, squares, corner
+ *   triangles) are CSS with token fills, not files.
+ * - Used once and ≤ ~20 lines: inline in the component. Used twice
+ *   anywhere: here, with `size`/`className`. Complex artwork: a file in
+ *   `public/media/` registered in `media.ts`. SVG markup appears exactly once.
+ * - Figma exports are named by SHA hash; rename to descriptive kebab-case
+ *   and search here and `media.ts` for an existing copy first.
+ * - Decorative SVGs are `aria-hidden`; meaningful ones carry `role="img"`
+ *   and a name. */
 
 interface IconProps {
   /** Rendered box in px; the viewBox stays intrinsic. */
