@@ -1,5 +1,57 @@
 /* Every child of the chrome is fixed or absolute, so these wrappers are
    zero-height boxes that preserve navigation landmarks without affecting layout. */
+
+/* Designed constants for this file. */
+:root {
+  --z-nav: 50;
+  --z-portal: 9999;
+  --knav-btn-pr: 14px;
+  --knav-drawer-lg: 890px;
+  --knav-drawer-md: 800px;
+  --knav-drawer-work: 593px;
+  --knav-drawer-h: 338px;
+  --knav-sub-w-lg: 264px;
+  --knav-sub-w-md: 255px;
+  --knav-card-w-md: 208px;
+  --knav-label-w: 280px;
+  --knav-sub-pt: 10px;
+  --knav-copy-w: 216px;
+  --knav-rchip-pl: 10px;
+  --knav-decor-cell: 112px;
+  --knav-decor-top: -78px;
+  --knav-decor-cx: -76px;
+  --knav-decor-teal: #d4ece7;
+  --knav-decor-brown: #eee5dd;
+  --knav-decor-yellow: #fbebcb;
+  --knav-underline-dur: 320ms;
+  --knav-ink-dur: 180ms;
+  --knav-chev-dur: 300ms;
+  --knav-reveal-fade: 180ms;
+  --knav-reveal-slide: 240ms;
+  --knav-reveal-rise: 6px;
+  --knav-blk-fade: 320ms;
+  --knav-blk-slide: 380ms;
+  --knav-blk-rise: 12px;
+  --knav-stagger: 50ms;
+  --knav-stagger-res: calc(7 * var(--knav-stagger) / 3);
+  --knav-stagger-work: calc(7 * var(--knav-stagger) / 2);
+  --knav-stagger-base: 60ms;
+  --icon-swap-dur: 250ms;
+  --icon-swap-blur: 2px;
+  --icon-swap-start-scale: 0.25;
+  --knav-card-slide-dur: var(--motion-cell-slide-dur);
+  --knav-card-shadow-dur: var(--motion-card-shadow-dur);
+  --knav-card-shadow-out-dur: var(--motion-card-shadow-out-dur);
+  --knav-card-ease: var(--motion-drawer-ease);
+  --knav-card-slide-ease: var(--motion-cell-slide-ease);
+  --knav-sub-fill-dur: 300ms;
+  --knav-sub-fill-out-dur: 400ms;
+  --knav-dot-morph-dur: var(--motion-dot-morph-dur);
+  --knav-dot-morph-out-dur: var(--motion-dot-morph-out-dur);
+  --knav-dot-morph-out-ease: var(--motion-dot-morph-out-ease);
+  --knav-dot-rotation: var(--motion-dot-rotation);
+}
+
 .ks-nav,
 .ks-nav > nav {
   display: block;

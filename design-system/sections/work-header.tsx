@@ -93,16 +93,15 @@ const FIELD: Record<GridBand, BandMap> = {
 
 const BANDS = Object.keys(FIELD) as GridBand[];
 
-/* CTA mounts switch button sizes by responsive band. */
-
-function CtaRow({ size }: { size: "sm" | "md" | "lg" }) {
+/** The buttons take their size per band from `.wkh-cta`. */
+function CtaRow() {
   return (
-    <span className={`wkh-cta-row wkh-cta-${size}`}>
-      <ButtonFill size={size} chrome="teal" href={GET_STARTED_HREF}>
+    <span className="wkh-cta-row">
+      <ButtonFill size="inherit" chrome="teal" href={GET_STARTED_HREF}>
         Get Started
       </ButtonFill>
-      {size === "lg" && <span className="type type-fixed wkh-q">Got a question?</span>}
-      <ButtonGhost size={size} color="brown" icon={<IconChat />} action="open-chat">
+      <span className="type type-fixed wkh-q">Got a question?</span>
+      <ButtonGhost size="inherit" color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
     </span>
@@ -147,9 +146,7 @@ export function WorkHeaderSection() {
           marketing.
         </p>
         <div className="wkh-cta hx-rise" data-landmark="cta">
-          <CtaRow size="sm" />
-          <CtaRow size="md" />
-          <CtaRow size="lg" />
+          <CtaRow />
         </div>
       </header>
     </section>

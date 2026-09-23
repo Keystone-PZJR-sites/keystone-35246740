@@ -1,4 +1,7 @@
 .blog-lists {
+  --bl-u-rm: calc(var(--t) / 32);
+  --bl-u-rt: calc(var(--wA) + var(--wB));
+  --bl-u-rd: calc(var(--t) / 112);
   position: relative;
   padding: 0 var(--t) calc(var(--t) * 2);
   --bl-u: var(--bl-u-rm);

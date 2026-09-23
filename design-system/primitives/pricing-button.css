@@ -1,6 +1,12 @@
 /* Geometry scales from its lattice cell while width fills its container. */
 
+
 .pbtn {
+  --pbtn-cell-xs: 32px;
+  --pbtn-cell-sm: 48px;
+  --pbtn-cell-md: 64px;
+  --pbtn-cell-lg: 80px;
+  --pbtn-cell-xl: 112px;
   position: relative;
   /* Keep the negative-z lattice behind content but above the fill. */
   isolation: isolate;

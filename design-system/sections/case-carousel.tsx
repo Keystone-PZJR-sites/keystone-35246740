@@ -46,17 +46,12 @@ const SECTION_MAP: Record<GridBand, R[]> = {
   ],
 };
 
-/** Presentational button chrome; the card overlay owns the action. */
-function CtaPill({ size, mount }: { size: "sm" | "md" | "lg"; mount: string }) {
+/** Presentational button chrome sized per band by `.cc-cta`; the card
+ * overlay owns the action. */
+function CtaPill() {
   return (
-    <span
-      className={`type type-fixed cc-cta ${mount} btn-fill`}
-      data-size={size}
-      data-chrome="gray"
-      data-shape="pill"
-      aria-hidden="true"
-    >
-      <span className="btn-label">
+    <span className="cc-cta btn-fill" data-chrome="gray" data-shape="pill" aria-hidden="true">
+      <span className="type type-fixed btn-body">
         Read the case study
         <span className="btn-glyph">
           <IconNavTrigger variant="arrow" />
@@ -135,9 +130,7 @@ export function CaseCarouselSection() {
                           ])}
                         </div>
                       </div>
-                      <CtaPill size="sm" mount="cc-cta-rm" />
-                      <CtaPill size="md" mount="cc-cta-rt" />
-                      <CtaPill size="lg" mount="cc-cta-rd" />
+                      <CtaPill />
                     </div>
                     <div className="cc-image">
                       <picture>

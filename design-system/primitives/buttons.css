@@ -1,9 +1,13 @@
 /* Fill, ghost, and arrow buttons use fixed geometry per size.
    Interactive states have data-state equivalents for static rendering. */
 
+
 .btn-fill,
 .btn-ghost,
 .btn-arrow {
+  --btn-arrow-thru-dur: 500ms;
+  --btn-arrow-thru-exit-ease: cubic-bezier(0.64, 0, 0.78, 0);
+  --btn-arrow-thru-enter-ease: var(--motion-drawer-ease);
   appearance: none;
   border: 0;
   margin: 0;
@@ -12,86 +16,133 @@
   text-decoration: none;
   white-space: nowrap;
 }
+/* ---------------- size ----------------
+
+   A control's size is the `--btn-size` keyword its `.btn-body` sees on the
+   control. `data-size` on the control sets it; without `data-size` the
+   control inherits it, so a section can declare `--btn-size` per band on
+   any ancestor (`<ButtonFill size="inherit">`) and one control serves every
+   band instead of one hidden copy per band. */
+
+.btn-fill[data-size="xl"],
+.btn-ghost[data-size="xl"] { --btn-size: xl; }
+.btn-fill[data-size="lg"],
+.btn-ghost[data-size="lg"] { --btn-size: lg; }
+.btn-fill[data-size="md"],
+.btn-ghost[data-size="md"] { --btn-size: md; }
+.btn-fill[data-size="sm"],
+.btn-ghost[data-size="sm"] { --btn-size: sm; }
+.btn-ghost[data-size="xs"] { --btn-size: xs; }
+
 .btn-fill,
 .btn-ghost {
-  transition-property: background-color;
-  transition-duration: var(--motion-hover-duration);
-  transition-timing-function: var(--motion-hover-ease);
-}
-
-/* ---------------- button-fill ---------------- */
-
-.btn-fill {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
   border-radius: var(--radius-full);
-  background: var(--_bg);
-  color: var(--_ink);
 }
 .btn-fill[data-shape="box"] {
   border-radius: var(--radius-none);
 }
-
-/* Heights, shape padding, and label styles. */
-.btn-fill[data-size="xl"],
-.btn-fill[data-size="lg"] {
-  height: 48px;
-  padding-block: var(--btn-fill-pt);
+.btn-body {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  height: var(--_h);
+  transition-property: background-color;
+  transition-duration: var(--motion-hover-duration);
+  transition-timing-function: var(--motion-hover-ease);
 }
-.btn-fill[data-size="xl"] {
-  padding-left: var(--space-3xl);
-  padding-right: var(--space-2xl);
-  --font: var(--ts-text-xl-light-font);
-  --ls: var(--ts-text-xl-light-ls);
-  --opsz: var(--ts-text-xl-light-opsz);
+.btn-fill .btn-body {
+  padding: var(--_py) var(--_pr) var(--_py) var(--_pl);
+  gap: var(--space-xs);
+  background: var(--_bg);
+  color: var(--_ink);
 }
-.btn-fill[data-size="lg"] {
-  padding-left: var(--space-2xl);
-  padding-right: var(--space-xl);
-  --font: var(--ts-text-lg-light-font);
-  --ls: var(--ts-text-lg-light-ls);
-  --opsz: var(--ts-text-lg-light-opsz);
+.btn-fill[data-shape="box"] .btn-body {
+  padding-inline: var(--_pl-box) var(--_pr-box);
 }
-.btn-fill[data-size="md"] {
-  height: 40px;
-  padding-block: var(--space-md);
-  padding-left: var(--space-xl);
-  padding-right: var(--space-lg);
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
-}
-.btn-fill[data-size="sm"] {
-  height: 36px;
-  padding-block: var(--space-sm);
-  /* Small buttons use an optical left inset. */
-  padding-left: var(--btn-fill-pad-14);
-  padding-right: var(--btn-fill-pad-10);
-  --font: var(--ts-text-sm-light-font);
-  --ls: var(--ts-text-sm-light-ls);
-  --opsz: var(--ts-text-sm-light-opsz);
-}
-.btn-fill[data-size="xl"][data-shape="box"] {
-  padding-left: var(--space-2xl);
-  padding-right: var(--space-xl);
-}
-.btn-fill[data-size="lg"][data-shape="box"] {
-  padding-left: var(--space-xl);
-  padding-right: var(--space-lg);
-}
-.btn-fill[data-size="md"][data-shape="box"] {
-  padding-left: var(--space-lg);
-  padding-right: var(--space-md);
-}
-.btn-fill[data-size="sm"][data-shape="box"] {
-  /* Small box buttons use an optical left inset. */
-  padding-left: var(--space-lg);
-  padding-right: var(--space-md);
+.btn-ghost .btn-body {
+  padding-inline: var(--_px);
+  gap: var(--_gap, var(--space-md));
+  color: var(--_ink);
 }
 
-/* chromes */
+@container style(--btn-size: xl) {
+  .btn-body {
+    --_h: 48px;
+    --_py: calc(var(--space-md) + var(--space-2xs));
+    --_pl: var(--space-3xl);
+    --_pr: var(--space-2xl);
+    --_pl-box: var(--space-2xl);
+    --_pr-box: var(--space-xl);
+    --_px: var(--space-2xl);
+    --_icon: 20px;
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
+  }
+}
+@container style(--btn-size: lg) {
+  .btn-body {
+    --_h: 48px;
+    --_py: calc(var(--space-md) + var(--space-2xs));
+    --_pl: var(--space-2xl);
+    --_pr: var(--space-xl);
+    --_pl-box: var(--space-xl);
+    --_pr-box: var(--space-lg);
+    --_px: var(--space-xl);
+    --_icon: 20px;
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
+  }
+}
+@container style(--btn-size: md) {
+  .btn-body {
+    --_h: 40px;
+    --_py: var(--space-md);
+    --_pl: var(--space-xl);
+    --_pr: var(--space-lg);
+    --_pl-box: var(--space-lg);
+    --_pr-box: var(--space-md);
+    --_px: var(--space-lg);
+    --_icon: 18px;
+    --font: var(--ts-text-md-light-font);
+    --ls: var(--ts-text-md-light-ls);
+    --opsz: var(--ts-text-md-light-opsz);
+  }
+}
+@container style(--btn-size: sm) {
+  .btn-body {
+    --_h: 36px;
+    --_py: var(--space-sm);
+    /* Small pills use an optical left inset. */
+    --_pl: calc(var(--space-lg) + var(--space-2xs));
+    --_pr: calc(var(--space-md) + var(--space-2xs));
+    --_pl-box: var(--space-lg);
+    --_pr-box: var(--space-md);
+    --_px: var(--space-lg);
+    --_icon: 16px;
+    --font: var(--ts-text-sm-light-font);
+    --ls: var(--ts-text-sm-light-ls);
+    --opsz: var(--ts-text-sm-light-opsz);
+  }
+}
+@container style(--btn-size: xs) {
+  .btn-body {
+    --_h: 32px;
+    --_px: var(--space-lg);
+    --_gap: var(--space-sm);
+    --_icon: 14px;
+    --font: var(--ts-text-xs-light-font);
+    --ls: var(--ts-text-xs-light-ls);
+    --opsz: var(--ts-text-xs-light-opsz);
+  }
+}
+
+/* ---------------- button-fill ---------------- */
+
 .btn-fill[data-chrome="teal"] {
   --_bg: var(--color-teal-300);
   --_bg-hover: var(--color-teal-400);
@@ -108,14 +159,14 @@
 }
 
 @media (hover: hover) {
-  .btn-fill:hover {
+  .btn-fill:hover .btn-body {
     background: var(--_bg-hover);
   }
   .btn-fill:hover .btn-glyph {
     left: var(--btn-glyph-slide);
   }
 }
-.btn-fill[data-state="hover"] {
+.btn-fill[data-state="hover"] .btn-body {
   background: var(--_bg-hover);
 }
 .btn-fill[data-state="hover"] .btn-glyph {
@@ -129,16 +180,18 @@
 
 .btn-fill:disabled {
   cursor: not-allowed;
+  box-shadow: none;
+}
+.btn-fill:disabled .btn-body {
   background: var(--color-bg-300);
   color: var(--color-text-500);
-  box-shadow: none;
 }
 .btn-fill:disabled .btn-glyph {
   color: var(--color-text-600);
   left: 0;
 }
 @media (hover: hover) {
-  .btn-fill:disabled:hover {
+  .btn-fill:disabled:hover .btn-body {
     background: var(--color-bg-300);
   }
   .btn-fill:disabled:hover .btn-glyph {
@@ -146,12 +199,7 @@
   }
 }
 
-/* Label and icon use a 4px gap; the trailing glyph is an arrow. */
-.btn-fill .btn-label {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
+/* The trailing glyph is an arrow that slides on hover. */
 .btn-fill .btn-glyph {
   display: inline-flex;
   flex: none;
@@ -165,58 +213,6 @@
 /* ---------------- button-ghost ---------------- */
 
 .btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  box-sizing: border-box;
-  border-radius: var(--radius-full);
-  background-color: transparent;
-  color: var(--_ink);
-  gap: var(--space-md);
-}
-
-.btn-ghost[data-size="xl"] {
-  height: 48px;
-  padding-inline: var(--space-2xl);
-  --_icon: 20px;
-  --font: var(--ts-text-xl-light-font);
-  --ls: var(--ts-text-xl-light-ls);
-  --opsz: var(--ts-text-xl-light-opsz);
-}
-.btn-ghost[data-size="lg"] {
-  height: 48px;
-  padding-inline: var(--space-xl);
-  --_icon: 20px;
-  --font: var(--ts-text-lg-light-font);
-  --ls: var(--ts-text-lg-light-ls);
-  --opsz: var(--ts-text-lg-light-opsz);
-}
-.btn-ghost[data-size="md"] {
-  height: 40px;
-  padding-inline: var(--space-lg);
-  --_icon: 18px;
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
-}
-.btn-ghost[data-size="sm"] {
-  height: 36px;
-  padding-inline: var(--space-lg);
-  --_icon: 16px;
-  --font: var(--ts-text-sm-light-font);
-  --ls: var(--ts-text-sm-light-ls);
-  --opsz: var(--ts-text-sm-light-opsz);
-}
-.btn-ghost[data-size="xs"] {
-  height: 32px;
-  padding-inline: var(--space-lg);
-  gap: var(--space-sm);
-  --_icon: 14px;
-  --font: var(--ts-text-xs-light-font);
-  --ls: var(--ts-text-xs-light-ls);
-  --opsz: var(--ts-text-xs-light-opsz);
-}
-
-.btn-ghost[data-color="brown"] {
   --_ink: var(--color-brown-600);
   --_hover-bg: var(--color-brown-200);
   --_ring: var(--color-brown-200);
@@ -233,11 +229,11 @@
 }
 
 @media (hover: hover) {
-  .btn-ghost:not(:disabled):hover {
+  .btn-ghost:not(:disabled):hover .btn-body {
     background: var(--_hover-bg);
   }
 }
-.btn-ghost[data-state="hover"] {
+.btn-ghost[data-state="hover"] .btn-body {
   background: var(--_hover-bg);
 }
 /* Focus uses the chrome's light ring. */
@@ -401,8 +397,7 @@
   animation: btn-arrow-spin 1s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn-fill,
-  .btn-ghost,
+  .btn-body,
   .btn-arrow,
   .btn-arrow::before,
   .btn-fill .btn-glyph,

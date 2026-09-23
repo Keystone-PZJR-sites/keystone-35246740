@@ -3,7 +3,43 @@
    flow. Content that outgrows its budget pushes the strip down instead
    of colliding with it. The designed line counts below are the anchor
    frames' text heights; the derived gaps reproduce the designed tops. */
+
+
+/* Page-load choreography shared by the lattice sweep and the nav drop. */
+:root {
+  --load-sweep-duration: 700ms;
+  --load-sweep-offset: 120ms;
+  --load-nav-duration: 600ms;
+  --load-nav-drop: 8px;
+}
+
 .hero-section {
+  --hx-d-sub2: 410ms;
+  --hx-d-circle: 760ms;
+  --hx-d-img3: 900ms;
+  --hx-d-pass: 1450ms;
+  --hx-d-rect-m: 190ms;
+  --hx-d-circle-m: 330ms;
+  --hx-d-img3-m: 470ms;
+  --hx-d-sub1-m: 410ms;
+  --hx-d-sub2-m: 490ms;
+  --hx-d-cta-m: 570ms;
+  --hero-head-top-rm: calc(var(--t) * 96 / 32);
+  --hero-head-top-rt: calc((var(--wA) + var(--wB)) * 98);
+  --hero-head-top-rd: calc(var(--t) * 192 / 112);
+  --hero-h1-w-rm: calc(var(--wA) * 304 + var(--wB) * 408);
+  --hero-h1-w-rs: calc(var(--wA) * 408 + var(--wB) * 512);
+  --hero-h1-w-rt: calc((var(--wA) + var(--wB)) * 512);
+  --hero-h1-w-rd: calc(var(--t) * 672 / 112);
+  --hero-sub-top-rm: calc(var(--t) * 204 / 32);
+  --hero-sub-top-rt: calc((var(--wA) + var(--wB)) * 250);
+  --hero-sub-top-rd: calc(var(--t) * 396 / 112);
+  --hero-sub-w-rm: calc(var(--wA) * 310 + var(--wB) * 475);
+  --hero-sub-w-rs: calc(var(--wA) * 475 + var(--wB) * 640);
+  --hero-sub-w-rd: calc(var(--t) * 708 / 112);
+  --hero-cta-top-rm: calc(var(--t) * 357 / 32);
+  --hero-cta-top-rt: calc((var(--wA) + var(--wB)) * 355);
+  --hero-cta-top-rd: calc(var(--t) * 529 / 112);
   width: 100%;
   min-height: calc(var(--t) * 21);
   padding-top: var(--hero-head-top-rm);
@@ -258,29 +294,23 @@
     animation: none;
   }
 }
-/* One CTA row renders per band; rows wrap when the buttons outgrow the
-   column at narrow widths. */
+/* The CTA row wraps when the buttons outgrow the column at narrow
+   widths; the buttons grow a size per band. */
 .hx-cta {
-  display: none;
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3xl) var(--space-5xl);
-}
-.hx-cta-a {
-  display: flex;
   gap: var(--space-3xl);
+  --btn-size: md;
 }
 @container (min-width: 665px) {
-  .hx-cta-a { display: none; }
-  .hx-cta-b { display: flex; }
+  .hx-cta { gap: var(--space-3xl) var(--space-5xl); }
 }
 @container (min-width: 860px) {
-  .hx-cta-b { display: none; }
-  .hx-cta-c { display: flex; }
+  .hx-cta { --btn-size: lg; }
 }
 @container (min-width: 1130px) {
-  .hx-cta-c { display: none; }
-  .hx-cta-d { display: flex; }
+  .hx-cta { --btn-size: xl; }
 }
 
 .hx-window { height: 100%; }

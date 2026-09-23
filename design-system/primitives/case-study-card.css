@@ -1,7 +1,10 @@
 /* Interior values scale from --csc-u. Overlapping one-pixel borders
    keep shared seams crisp, and the overlay is the sole interaction. */
 
+
 .csc {
+  --csc-border-dur: 350ms;
+  --csc-border-out-dur: 250ms;
   --_u: var(--csc-u, 1px);
   position: relative;
   isolation: isolate;

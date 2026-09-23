@@ -1,7 +1,9 @@
 /* Grader input state order is load-bearing:
    default → hover → focus → active → filled → brown → error. */
 
+
 .grader {
+  --grader-ring-brown: #f1e9e4;
   position: relative; /* the select-menu anchors to the pill */
   display: flex;
   flex-direction: column;

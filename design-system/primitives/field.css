@@ -1,7 +1,11 @@
 /* Field chrome mirrors grader border/ring language with box radii
    so single-line and textarea controls share one surface. */
 
+
 .ks-field {
+  --field-h: 48px;
+  --field-textarea-min-h: calc(var(--t) * 2);
+  --field-check-size: var(--space-2xl);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);

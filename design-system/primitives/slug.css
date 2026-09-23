@@ -1,7 +1,10 @@
 /* Material, like the buttons: text-xs-medium at its fixed token pixels
    in every band. Only the marker and gap step at the rd gate. */
 
+
 .slug {
+  --sys-marker: 6px;
+  --sys-marker-rd: 7px;
   display: flex;
   align-items: center;
   gap: var(--space-md);

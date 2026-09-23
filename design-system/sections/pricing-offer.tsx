@@ -198,14 +198,17 @@ function ItemList({ items }: { items: typeof INCLUDED_ITEMS }) {
   );
 }
 
-function ChatRow({ ghost, className }: { ghost: "sm" | "md" | "lg"; className?: string }) {
+/** A chat row; its mount sets `--btn-size` and the label step per band. */
+function ChatRow({ className }: { className: string }) {
   return (
-    <span className={className ? `po-chat-row ${className}` : "po-chat-row"}>
-      <span className="type type-fixed po-chat-label">Got a question?</span>
-      <ButtonGhost size={ghost} color="brown" icon={<IconChat />} action="open-chat">
-        Talk to us
-      </ButtonGhost>
-    </span>
+    <div className={`po-chat ${className}`} data-landmark="chat">
+      <span className="po-chat-row">
+        <span className="type type-fixed po-chat-label">Got a question?</span>
+        <ButtonGhost size="inherit" color="brown" icon={<IconChat />} action="open-chat">
+          Talk to us
+        </ButtonGhost>
+      </span>
+    </div>
   );
 }
 
@@ -243,12 +246,7 @@ export function PricingOfferSection() {
           <span className="po-sub-seg">$50/month for a sales and marketing team.</span>{" "}
           <span className="po-sub-seg">Sounds ridiculous, but it’s true.</span>
         </p>
-        <div className="po-chat po-chat-head-rt" data-landmark="chat">
-          <ChatRow ghost="sm" />
-        </div>
-        <div className="po-chat po-chat-head-rd1" data-landmark="chat">
-          <ChatRow ghost="lg" />
-        </div>
+        <ChatRow className="po-chat-head" />
       </header>
 
       {/* The card and button form one tick-aligned geometry unit. */}
@@ -294,9 +292,7 @@ export function PricingOfferSection() {
         <span className="type type-fixed po-tag">No asterisks.</span>
       </div>
 
-      <div className="po-chat po-chat-card" data-landmark="chat">
-        <ChatRow ghost="md" />
-      </div>
+      <ChatRow className="po-chat-card" />
 
       {/* Layout switches between one list box and a staggered pair. */}
       <div className="po-list po-list-single" data-landmark="list">
@@ -316,27 +312,14 @@ export function PricingOfferSection() {
         <div className="po-box po-box-r">
           <ItemList items={INCLUDED_ITEMS.slice(4)} />
           <div className="po-list-cta">
-            <span className="po-cta-rt">
-              <ButtonFill size="sm" chrome="teal" href={PRICING_CHECKOUT_URL} external>
-                Start today
-              </ButtonFill>
-            </span>
-            <span className="po-cta-rd1">
-              <ButtonFill size="md" chrome="teal" href={PRICING_CHECKOUT_URL} external>
-                Start today
-              </ButtonFill>
-            </span>
+            <ButtonFill size="inherit" chrome="teal" href={PRICING_CHECKOUT_URL} external>
+              Start today
+            </ButtonFill>
           </div>
         </div>
       </div>
 
-      <div className="po-chat po-chat-list" data-landmark="chat">
-        <ChatRow ghost="md" className="po-cl-md" />
-        <ChatRow ghost="sm" className="po-cl-sm" />
-      </div>
-      <div className="po-chat po-chat-list-rd2" data-landmark="chat">
-        <ChatRow ghost="lg" />
-      </div>
+      <ChatRow className="po-chat-list" />
     </section>
   );
 }

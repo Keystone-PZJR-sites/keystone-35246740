@@ -1,6 +1,18 @@
 /* Flow frame: head budget, then the strip, then a clearance row. The
    strip's shadow paint space is part of the clearance row. */
+
 .case-carousel-section {
+  --cc-u-rm: calc(var(--t) / 32);
+  --cc-u-rt: calc(var(--wA) + var(--wB));
+  --cc-u-rd: calc(var(--t) / 112);
+  --cc-h2-gap-rm: calc(var(--t) * 12 / 32);
+  --cc-h2-w-rm: calc(var(--wA) * 288 + var(--wB) * 363.5);
+  --cc-h2-w-rs: calc(var(--wA) * 363.5 + var(--wB) * 439);
+  --cc-h2-w-rt: calc((var(--wA) + var(--wB)) * 439);
+  --cc-h2-w-rd: calc(var(--t) * 560 / 112);
+  --cc-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
+  --cc-head-gap-rd: calc(var(--t) * 40 / 112);
+  --cc-card-inactive: rgba(234, 232, 224, 0.5);
   width: 100%;
   min-height: calc(var(--t) * 25);
   padding-top: calc(var(--t) * 2);
@@ -411,44 +423,31 @@
 .cc-cta {
   margin-top: auto;
   align-self: flex-start;
-}
-.cc-cta-rt,
-.cc-cta-rd {
-  display: none;
+  --btn-size: sm;
 }
 @container (min-width: 665px) {
-  .cc-cta-rm {
-    display: none;
-  }
-  .cc-cta-rt {
-    display: inline-flex;
-  }
+  .cc-cta { --btn-size: md; }
 }
 @container (min-width: 860px) {
-  .cc-cta-rt {
-    display: none;
-  }
-  .cc-cta-rd {
-    display: inline-flex;
-  }
+  .cc-cta { --btn-size: lg; }
 }
 
 @media (hover: hover) {
-  .cc-card[data-state="active"]:hover .btn-fill {
+  .cc-card[data-state="active"]:hover .btn-body {
     background: var(--_bg-hover);
   }
   .cc-card[data-state="active"]:hover .btn-glyph {
     left: var(--btn-glyph-slide);
   }
 }
-.cc-link:focus-visible ~ .cc-info .btn-fill {
+.cc-link:focus-visible ~ .cc-info .btn-body {
   background: var(--_bg-hover);
 }
 .cc-link:focus-visible ~ .cc-info .btn-glyph {
   left: var(--btn-glyph-slide);
 }
 
-.cc-card .btn-fill {
+.cc-card .btn-body {
   transition:
     background-color var(--motion-hover-duration) var(--motion-hover-ease),
     color var(--motion-snap-dur) var(--motion-snap-ease);
@@ -555,7 +554,7 @@
   .cc-stat-v,
   .cc-stat-l,
   .cc-div,
-  .cc-card .btn-fill,
+  .cc-card .btn-body,
   .cc-card .btn-glyph {
     transition-duration: 0s;
     transition-delay: 0s;

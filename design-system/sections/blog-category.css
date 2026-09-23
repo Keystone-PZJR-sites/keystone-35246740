@@ -1,4 +1,16 @@
 .blog-category {
+  --bc-page-cell: 36px;
+  --bc-page-button-cell-rm: 48px;
+  --bc-page-button-cell-lg: 56px;
+  --bc-page-gap-rm: var(--space-xs);
+  --bc-page-gap-rt: var(--space-lg);
+  --bc-page-gap-rd: var(--space-md);
+  --bc-u-rm: calc(var(--t) / 32);
+  --bc-u-rt: calc(var(--wA) + var(--wB));
+  --bc-u-rd: calc(var(--t) / 112);
+  --bc-pager-w-rm: calc(var(--t) * 10);
+  --bc-pager-w-rt: calc(var(--t) * 6);
+  --bc-pager-w-rd: calc(var(--t) * 4);
   position: relative;
   display: flex;
   flex-direction: column;

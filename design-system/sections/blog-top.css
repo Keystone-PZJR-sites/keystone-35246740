@@ -1,7 +1,15 @@
 /* Flow frame: a grid inside the 1t side gutters. Each row holds its
    designed tick rows as a minimum and grows with its content; the cards
    hold their tick size the same way. */
+
 .blog-top {
+  --bt-u-rm: calc(var(--t) / 32);
+  --bt-u-rt: calc(var(--wA) + var(--wB));
+  --bt-u-rd: calc(var(--t) / 112);
+  --bt-search-w-rm: calc(var(--t) * 10);
+  --bt-search-w-rt: calc((var(--wA) + var(--wB)) * 336);
+  --bt-search-w-rd: calc(var(--t) * 336 / 112);
+  --blog-search-dur: var(--motion-deck-dur);
   width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 1fr);

@@ -1,9 +1,23 @@
 /* The deck scales as one unit and reorders through CSS slot values. */
 
+
 /* Flow frame: the head owns its tick rows as a minimum and the band is a
    tick block beneath it; from rd1 the two share one grid row inside the
    section's 1t vertical padding. */
 .work-section {
+  --wd-u-rm: calc(var(--t) / 32);
+  --wd-u-rt: calc(var(--wA) + var(--wB));
+  --wd-u-rd: calc(var(--t) / 112);
+  --wd-h2-gap-rm: calc(var(--t) * 12 / 32);
+  --wd-h2-w-rm: calc(var(--wA) * 304 + var(--wB) * 387.5);
+  --wd-h2-w-rs: calc(var(--wA) * 387.5 + var(--wB) * 471);
+  --wd-h2-w-rt: calc((var(--wA) + var(--wB)) * 471);
+  --wd-h2-w-rd: calc(var(--t) * 448 / 112);
+  --wd-head-gap-rt: calc((var(--wA) + var(--wB)) * 24);
+  --wd-head-gap-rd: calc(var(--t) * 40 / 112);
+  --wd-cta-gap-rd: calc(var(--t) * 48 / 112);
+  --wd-band-gap-rm: calc(var(--t) * 32 / 32);
+  --wd-band-gap-rt: calc((var(--wA) + var(--wB)) * 40);
   width: 100%;
   min-height: calc(var(--t) * 20);
   /* Share the boundary pixel with the preceding section. */

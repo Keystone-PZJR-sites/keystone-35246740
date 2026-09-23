@@ -1,8 +1,13 @@
 /* Responsive funnel box with semantic labels and presentational bars. */
 
+
 /* ---------------- section frame ---------------- */
 
 .csf-sec {
+  --cs-bar-h: 48px;
+  --cs-bar-h-d: 56px;
+  --cs-bar-label: 80px;
+  --cs-bar-label-d: 104px;
   min-height: calc(var(--t) * 15);
 }
 @container (min-width: 470px) {

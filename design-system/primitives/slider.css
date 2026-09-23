@@ -1,6 +1,12 @@
 /* Interior geometry scales from --sldr-w; focus and hit areas stay fixed. */
 
+
 .sldr {
+  --sldr-track-bevel: inset 0 1px 0 rgba(0, 0, 0, 0.25);
+  --sldr-thumb-bevel: 
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
+    1px 1px 0 rgba(0, 0, 0, 0.1);
   display: inline-flex;
   flex-direction: column;
   gap: calc(var(--_u) * 11);

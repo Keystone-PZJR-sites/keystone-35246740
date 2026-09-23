@@ -1,7 +1,23 @@
 /* Flow frame: the head starts at its designed tick row and the section
    holds its tick budget as a minimum, growing with the copy. */
 
+
 .work-header-section {
+  --wk-head-top-rm: calc(var(--t) * 100 / 32);
+  --wk-head-top-rs: calc(var(--t) * 112 / 48);
+  --wk-head-top-rt: calc(var(--t) * 80 / 64);
+  --wk-head-top-rd1: calc(var(--t) * 112 / 80);
+  --wk-head-top-rd2: calc(var(--t) * 174 / 112);
+  --wk-h1-w-rm: calc((var(--wA) + var(--wB)) * 304);
+  --wk-h1-w-rs: calc((var(--wA) + var(--wB)) * 336);
+  --wk-h1-w-rt: calc((var(--wA) + var(--wB)) * 480);
+  --wk-h1-w-rd1: calc((var(--wA) + var(--wB)) * 560);
+  --wk-h1-w-rd2: calc((var(--wA) + var(--wB)) * 896);
+  --wk-sub-w-rm: calc((var(--wA) + var(--wB)) * 240);
+  --wk-sub-w-rs: calc((var(--wA) + var(--wB)) * 336);
+  --wk-sub-w-rt: calc((var(--wA) + var(--wB)) * 480);
+  --wk-sub-w-rd1: calc((var(--wA) + var(--wB)) * 560);
+  --wk-sub-w-rd2: calc((var(--wA) + var(--wB)) * 560);
   width: 100%;
   min-height: calc(var(--t) * 17);
   padding-top: var(--wk-head-top-rm);
@@ -142,37 +158,29 @@
   }
 }
 
-/* CTA gaps and controls use fixed material spacing per band. */
+/* CTA gaps and controls use fixed material spacing per band; the
+   buttons grow a size per band (sm · md · lg from the tablet band). */
 .wkh-cta {
   display: flex;
   margin-top: calc((var(--wA) + var(--wB)) * 24);
+  --btn-size: sm;
+}
+@container (min-width: 470px) {
+  .wkh-cta { --btn-size: md; }
 }
 @container (min-width: 665px) {
-  .wkh-cta { margin-top: calc((var(--wA) + var(--wB)) * 40); }
+  .wkh-cta {
+    margin-top: calc((var(--wA) + var(--wB)) * 40);
+    --btn-size: lg;
+  }
 }
 
 .wkh-cta-row {
+  display: flex;
   align-items: center;
 }
 .wkh-cta-row > * + * {
   margin-left: var(--space-4xl);
-}
-
-/* band-gated per button size (sm rm · md rs · lg rt/rd1/rd2) */
-.wkh-cta-sm {
-  display: flex;
-}
-.wkh-cta-md,
-.wkh-cta-lg {
-  display: none;
-}
-@container (min-width: 470px) {
-  .wkh-cta-sm { display: none; }
-  .wkh-cta-md { display: flex; }
-}
-@container (min-width: 665px) {
-  .wkh-cta-md { display: none; }
-  .wkh-cta-lg { display: flex; }
 }
 
 /* The question label appears only on wide bands. */
@@ -185,15 +193,15 @@
 }
 @container (min-width: 860px) {
   .wkh-q { display: inline; }
-  .wkh-cta-lg .btn-ghost {
+  .wkh-cta-row .btn-ghost {
     margin-left: var(--space-xl);
   }
 }
 @container (min-width: 1130px) {
-  .wkh-cta-lg .wkh-q {
+  .wkh-q {
     margin-left: var(--space-5xl);
   }
-  .wkh-cta-lg .btn-ghost {
+  .wkh-cta-row .btn-ghost {
     margin-left: var(--space-3xl);
   }
 }

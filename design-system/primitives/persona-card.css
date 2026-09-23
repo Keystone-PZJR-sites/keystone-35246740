@@ -1,8 +1,10 @@
 /* Interior values scale from mount-provided units; fixed sizes provide defaults. */
 
+
 /* ---------------- pricing-tag ---------------- */
 
 .ptag {
+  --ps-cost-inactive: rgba(234, 232, 224, 0.5);
   --_tu: var(--ptag-u, 1px);
   display: inline-flex;
   align-items: center;

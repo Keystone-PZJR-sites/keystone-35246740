@@ -23,19 +23,16 @@ const RAIL: Record<GridBand, Rail> = {
 
 const BANDS = Object.keys(RAIL) as GridBand[];
 
-function ChatRow({
-  ghost,
-  label,
-  className,
-}: {
-  ghost: "sm" | "md" | "lg";
-  label: string;
-  className: string;
-}) {
+/** The chat row; `.faq-chat` sets the button size and label step per
+ * band, and the widest band swaps in the longer label. */
+function ChatRow() {
   return (
-    <div className={`faq-chat ${className}`}>
-      <span className="type faq-chat-label">{label}</span>
-      <ButtonGhost size={ghost} color="brown" icon={<IconChat />} action="open-chat">
+    <div className="faq-chat">
+      <span className="type faq-chat-label">
+        <span className="faq-chat-label-short">Got a question?</span>
+        <span className="faq-chat-label-long">Got another question?</span>
+      </span>
+      <ButtonGhost size="inherit" color="brown" icon={<IconChat />} action="open-chat">
         Talk to us
       </ButtonGhost>
     </div>
@@ -57,9 +54,7 @@ export function FaqSection() {
         <div className="faq-head-box">
           <h2 className="type faq-head">{FAQ_HEAD}</h2>
         </div>
-        <ChatRow ghost="sm" label="Got a question?" className="faq-chat-rt" />
-        <ChatRow ghost="md" label="Got a question?" className="faq-chat-rd1" />
-        <ChatRow ghost="lg" label="Got another question?" className="faq-chat-rd2" />
+        <ChatRow />
       </div>
 
       <FaqIsland items={FAQ_ITEMS} />

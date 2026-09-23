@@ -3,6 +3,18 @@
    portrait-cell grammar. Section frames live in their own files
    (company-hero.css …), imported after this one so their rules win. */
 
+
+/* Designed constants for this file. */
+.page {
+  --co-u-rm: calc(var(--t) / 32);
+  --co-u-rt: calc(var(--wA) + var(--wB));
+  --co-u-rd: calc(var(--t) / 112);
+  --co-h2-w-rm: calc(var(--wA) * 320 + var(--wB) * 480);
+  --co-h2-w-rs: calc(var(--wA) * 480 + var(--wB) * 560);
+  --co-h2-w-rt: calc((var(--wA) + var(--wB)) * 560);
+  --co-h2-w-rd: calc((var(--wA) + var(--wB)) * 832);
+}
+
 .company-hero,
 .company-story,
 .company-backers,

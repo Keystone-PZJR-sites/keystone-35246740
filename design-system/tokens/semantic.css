@@ -128,3 +128,31 @@
   /* The web-swatch hairline uses palette ink, unlike hard shadows. */
   --shadow-web-swatch: 0 1px 2px 0 rgba(108, 104, 96, 0.05);
 }
+
+/* Constants shared by more than one file. Section-local constants live
+   at the top of the section's own file. */
+:root {
+  --ring-w: 4px;
+  --motion-hover-duration: 150ms;
+  --motion-hover-ease: ease-in-out;
+  --btn-glyph-slide: calc(var(--fitem-gap-hover) - var(--fitem-gap));
+  --btn-glyph-slide-dur: var(--knav-ink-dur);
+  --fitem-gap: 3px;
+  --fitem-gap-hover: 5px;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --knav-bar-h: 44px;
+  --knav-logomark: 18px;
+  --hx-wm-w: 3.9563em;
+  --hx-wm-h: 0.8031em;
+  --hx-wm-drop: 0.19045;
+  --hx-d-h1a: 80ms;
+  --hx-d-h1b: 190ms;
+  --hx-d-sub1: 330ms;
+  --hx-d-cta: 490ms;
+  --hx-d-rect: 620ms;
+  --ps-snap-dur: var(--motion-snap-dur);
+  --ps-snap-ease: var(--motion-snap-ease);
+  --btn-inline-advance: 4px;
+  --csc-img-zoom: 1%;
+}
