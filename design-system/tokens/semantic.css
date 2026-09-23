@@ -112,19 +112,14 @@
   --radius-full: 9999px;
 
   /* Shadow ink is a deliberate warm near-black outside the palette. */
-  --shadow-ink: #554d44;
-  --shadow-hard-round: 3px 4px 0 0 rgba(85, 77, 68, 0.15);
-  --shadow-hard-square: 4px 4px 0 0 rgba(85, 77, 68, 0.15);
-  --shadow-hard-square-md: 3px 3px 0 0 rgba(85, 77, 68, 0.15);
+  --shadow-ink: rgba(85, 77, 68, 0.15);
+  --shadow-hard-square: 4px 4px 0 0 var(--shadow-ink);
+  --shadow-hard-square-md: 3px 3px 0 0 var(--shadow-ink);
   /* The 1px step uses its drawn 0.2 alpha, unlike the larger steps. */
   --shadow-hard-square-xs: 1px 1px 0 0 rgba(85, 77, 68, 0.2);
   /* Zero-offset shadows preserve structure for smooth interpolation. */
-  --shadow-hard-square-0: 0 0 0 0 rgba(85, 77, 68, 0.15);
-  --shadow-hard-square-md-0: 0 0 0 0 rgba(85, 77, 68, 0.15);
-  /* Figma "noise" effect: black at 6%, noise size 0.5. CSS has no noise
-     primitive; consumers implement it with a texture asset that reads
-     this opacity. */
-  --noise-opacity: 0.06;
+  --shadow-hard-square-0: 0 0 0 0 var(--shadow-ink);
+  --shadow-hard-square-md-0: 0 0 0 0 var(--shadow-ink);
   /* The web-swatch hairline uses palette ink, unlike hard shadows. */
   --shadow-web-swatch: 0 1px 2px 0 rgba(108, 104, 96, 0.05);
 }

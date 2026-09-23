@@ -14,15 +14,13 @@
   transition-timing-function: var(--motion-hover-ease);
 }
 
-.fitem[data-size="sm"] {
-  --font: var(--ts-text-sm-regular-font);
-  --ls: var(--ts-text-sm-regular-ls);
-  --opsz: var(--ts-text-sm-regular-opsz);
-}
-.fitem[data-size="md"] {
+/* The step's size rides the grid: the footer sets `--fs0/--fs1` per band. */
+.fitem {
   --font: var(--ts-text-md-regular-font);
   --ls: var(--ts-text-md-regular-ls);
   --opsz: var(--ts-text-md-regular-opsz);
+  --fs0: var(--ts-text-md-regular-fs);
+  --lh0: var(--ts-text-md-regular-lh);
 }
 
 .fitem[data-chrome="light"] {

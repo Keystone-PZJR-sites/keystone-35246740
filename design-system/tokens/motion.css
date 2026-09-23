@@ -81,11 +81,6 @@
   /* Inactive carousel images remain translucent so the lattice reads through. */
   --motion-ghost-opacity: 0.5;
 
-  /* Entrances fire once at the visibility threshold; mobile opens earlier. */
-  --motion-enter-frac: 0.25;
-  --motion-enter-frac-rm: 0.18;
-  --motion-enter-stagger: 120ms;
-
   /* Two-clock entrances ink quickly and settle more slowly. */
   --motion-entrance-ring-fade-dur: 700ms;
   --motion-entrance-ring-move-dur: 900ms;

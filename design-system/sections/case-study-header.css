@@ -233,7 +233,7 @@
   --lh0: var(--ts-text-2xs-regular-lh);
   --ls: var(--ts-text-2xs-regular-ls);
   --opsz: var(--ts-text-2xs-regular-opsz);
-  margin-bottom: 2px;
+  margin-bottom: var(--space-2xs);
 }
 .csh-pair dd {
   margin: 0;
@@ -297,7 +297,7 @@
 @container (min-width: 470px) {
   .csh-meta .cs-tags { column-gap: var(--space-md); }
   .csh-meta .cs-tag {
-    padding: 2px 6px;
+    padding: var(--space-2xs) var(--space-sm);
     --font: var(--ts-text-sm-regular-font);
     --fs0: var(--ts-text-sm-regular-fs);
     --lh0: var(--ts-text-sm-regular-lh);

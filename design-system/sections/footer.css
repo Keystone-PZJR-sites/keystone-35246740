@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 .f-tag {
-  margin-bottom: 32px;
+  margin-bottom: var(--space-4xl);
 }
 .f-inpcol {
   width: var(--_gw);
@@ -49,7 +49,7 @@
     width: var(--_gw);
   }
   .f-tag {
-    margin-bottom: 40px;
+    margin-bottom: var(--space-5xl);
   }
 }
 
@@ -93,11 +93,11 @@
   }
   .f-tag {
     margin-bottom: 0;
-    padding: 8px 32px;
+    padding: var(--space-md) var(--space-4xl);
   }
   .f-inp {
     margin-left: -1px;
-    padding: 8px 32px;
+    padding: var(--space-md) var(--space-4xl);
     align-items: stretch;
   }
   /* Match heading insets so footer dots share a vertical axis. */
@@ -112,10 +112,10 @@
     --_gw: calc(var(--wB) * 528);
   }
   .f-tag {
-    padding: 8px 56px;
+    padding: var(--space-md) 56px;
   }
   .f-inp {
-    padding: 8px 56px;
+    padding: var(--space-md) 56px;
   }
 }
 
@@ -124,13 +124,13 @@
 .f-tagrow {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-lg);
   padding-left: var(--space-2xs);
 }
 .f-promptrow {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-lg);
   margin-bottom: var(--space-xl);
 }
 
@@ -142,7 +142,7 @@
 }
 .f-dot-tag {
   background: var(--color-orange-400);
-  margin-top: 12px;
+  margin-top: var(--space-lg);
 }
 .f-dot-prompt {
   background: var(--color-teal-400);
@@ -222,12 +222,12 @@
     margin-top: 19px;
   }
   .f-tagline {
-    font-size: calc(var(--wA) * 32 + var(--wB) * 42);
-    line-height: calc(var(--wA) * 38 + var(--wB) * 50);
+    --fs0: 32; --fs1: 42;
+    --lh0: 38; --lh1: 50;
   }
   .f-prompt {
-    font-size: calc(var(--wA) * 16 + var(--wB) * 18);
-    line-height: calc(var(--wA) * 22 + var(--wB) * 26);
+    --fs0: 16; --fs1: 18;
+    --lh0: 22; --lh1: 26;
   }
   .f-brk-a {
     display: revert;
@@ -245,8 +245,8 @@
     --lh0: 0; --lh1: var(--ts-display-serif-md-plus-thin-lh);
   }
   .f-prompt {
-    font-size: calc(var(--wB) * 18);
-    line-height: calc(var(--wB) * 26);
+    --fs0: 0; --fs1: 18;
+    --lh0: 0; --lh1: 26;
   }
 }
 
@@ -384,7 +384,7 @@
 .fnav-hg {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-lg);
   padding-left: var(--space-2xs);
 }
 .fnav-static {
@@ -427,8 +427,8 @@
    closed row bottom — above the first item's slot — so the wrap sweeps
    its own bottom-up clip on the same curve; visibility flips after. */
 .fnav-listwrap {
-  margin-top: 8px;
-  padding-left: 16px;
+  margin-top: var(--space-md);
+  padding-left: var(--space-xl);
   visibility: hidden;
   pointer-events: none;
   clip-path: inset(0 0 100% 0);
@@ -449,7 +449,7 @@
   padding: var(--space-none);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-md);
 }
 /* flex items, not inline baselines — an inline-flex link on the li's
    baseline would add descender space below every item */
@@ -457,9 +457,10 @@
   display: flex;
 }
 
+/* Footer nav items ride the grid instead of the item's fixed step. */
 .fnav-list .fitem {
-  font-size: calc(var(--wA) * 14 + var(--wB) * 16);
-  line-height: calc(var(--wA) * 18 + var(--wB) * 22);
+  --fs0: 14; --fs1: 16;
+  --lh0: 18; --lh1: 22;
 }
 @container (min-width: 470px) {
   .f-nav {
@@ -484,15 +485,15 @@
     --lh-px: 24px;
   }
   .fnav-listwrap {
-    margin-top: 12px;
+    margin-top: var(--space-lg);
     padding-left: 22px;
   }
   .fnav-list {
     gap: 10px;
   }
   .fnav-list .fitem {
-    font-size: 16px;
-    line-height: 22px;
+    --fs-px: 16px;
+    --lh-px: 22px;
   }
 }
 
@@ -508,7 +509,7 @@
   .fnav-group[data-open] {
     width: calc(var(--t) * 3 + 1px);
     height: calc(var(--t) * 4 + 1px);
-    padding: 20px 20px 0;
+    padding: var(--space-2xl) var(--space-2xl) 0;
     overflow: visible;
     background: none;
     box-shadow: none;
@@ -525,7 +526,7 @@
   .fnav-static {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-md);
     padding-left: var(--space-2xs);
   }
   .fnav-dot {
@@ -542,29 +543,30 @@
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
-    margin-top: 12px;
-    padding-left: 16px;
+    margin-top: var(--space-lg);
+    padding-left: var(--space-xl);
     visibility: visible;
     pointer-events: auto;
     clip-path: none;
     transition: none;
   }
   .fnav-list {
-    gap: 8px;
+    gap: var(--space-md);
   }
   .fnav-list .fitem {
-    font-size: calc(var(--wA) * 14 + var(--wB) * 16);
-    line-height: calc(var(--wA) * 18 + var(--wB) * 22);
+    --fs-px: initial; --lh-px: initial;
+    --fs0: 14; --fs1: 16;
+    --lh0: 18; --lh1: 22;
   }
 }
 
 @container (min-width: 860px) {
   .fnav-group,
   .fnav-group[data-open] {
-    padding: 24px 32px 0;
+    padding: var(--space-3xl) var(--space-4xl) 0;
   }
   .fnav-static {
-    gap: 12px;
+    gap: var(--space-lg);
   }
   .fnav-dot {
     width: 8px;
@@ -578,14 +580,14 @@
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
-    padding-left: 24px;
+    padding-left: var(--space-3xl);
   }
   .fnav-list {
-    gap: 12px;
+    gap: var(--space-lg);
   }
   .fnav-list .fitem {
-    font-size: 16px;
-    line-height: 22px;
+    --fs-px: 16px;
+    --lh-px: 22px;
   }
 }
 
@@ -593,7 +595,7 @@
   .fnav-group,
   .fnav-group[data-open] {
     height: calc(var(--t) * 3 + 1px);
-    padding: 48px 56px 0;
+    padding: var(--space-6xl) 56px 0;
   }
   .fnav-name {
     --font: var(--ts-display-serif-2xs-medium-font);
@@ -603,11 +605,12 @@
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
-    margin-top: 16px;
+    margin-top: var(--space-xl);
   }
   .fnav-list .fitem {
-    font-size: calc(var(--wB) * 16);
-    line-height: calc(var(--wB) * 22);
+    --fs-px: initial; --lh-px: initial;
+    --fs0: 0; --fs1: 16;
+    --lh0: 0; --lh1: 22;
   }
 }
 

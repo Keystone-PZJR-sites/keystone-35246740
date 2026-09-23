@@ -35,7 +35,7 @@
 .csf-box {
   border: 1px solid var(--color-border-000);
   min-height: calc(var(--t) * 14 + 1px);
-  padding: 16px;
+  padding: var(--space-xl);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -43,7 +43,7 @@
 @container (min-width: 470px) {
   .csf-box {
     min-height: calc(var(--t) * 9 + 1px);
-    padding: 16px 20px;
+    padding: var(--space-xl) var(--space-2xl);
   }
 }
 @container (min-width: 665px) {
@@ -52,7 +52,7 @@
 @container (min-width: 860px) {
   .csf-box {
     min-height: calc(var(--t) * 6 + 1px);
-    padding: 20px;
+    padding: var(--space-2xl);
   }
 }
 @container (min-width: 1130px) {
@@ -112,12 +112,12 @@
 .csf-label {
   flex: none;
   width: var(--cs-bar-label);
-  margin-right: 16px;
+  margin-right: var(--space-xl);
 }
 @container (min-width: 470px) {
   .csf-label {
     width: var(--cs-bar-label-d);
-    margin-right: 24px;
+    margin-right: var(--space-3xl);
   }
 }
 .csf-label .cs-pill {
@@ -172,7 +172,7 @@
 
 /* First values sit inside bars; later values sit after them. */
 .csf-num {
-  margin-left: 16px;
+  margin-left: var(--space-xl);
   color: var(--color-text-200);
   --font: var(--ts-text-xl-regular-font);
   --fs0: var(--ts-text-xl-regular-fs);
