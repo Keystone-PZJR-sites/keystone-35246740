@@ -36,8 +36,8 @@ Read this file, then `REFACTOR.md` if it exists.
   (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
   spacing come from tokens; controls are fixed material px. See
   `design-system/grid/engine.css`.
-- Motion is CSS only, named in `tokens/motion.css`, and every grammar renders
-  settled under `prefers-reduced-motion`. Hover styles sit under `@media (hover: hover)`.
+- Motion is CSS only. Every duration, curve, and distance is a token in
+  `tokens/motion.css`; read the laws in its header before adding any motion.
 - Data comes from `@keystone-sites/core` (`lib/server-api`) or a typed
   `*-data.ts` module, validated at the boundary. Forms and chat go through the
   Keystone route handlers in `app/api/`.
