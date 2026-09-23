@@ -211,7 +211,6 @@ export function FooterSection({ social = {} }: { social?: FooterSocial }) {
         {g.items.map((item) => (
           <li key={item.label}>
             <FooterItem
-              size="md"
               chrome={item.chrome ?? "light"}
               href={item.href}
               arrow={item.arrow}

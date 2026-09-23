@@ -224,7 +224,7 @@
 }
 @container (min-width: 860px) {
   .co-cell-name {
-    font-size: calc((var(--wA) + var(--wB)) * 14);
-    line-height: calc((var(--wA) + var(--wB)) * 18);
+    --fs0: 14;
+    --lh0: 18;
   }
 }

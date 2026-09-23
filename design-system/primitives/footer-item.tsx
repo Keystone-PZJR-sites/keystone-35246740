@@ -5,7 +5,6 @@ import { IconNavTrigger } from "../icons";
 import { EXTERNAL_LINK } from "../site-links";
 
 interface FooterItemProps {
-  size?: "sm" | "md";
   chrome?: "light" | "dark";
   href: string;
   /** Trailing arrow glyph; tints with the label in every state. */
@@ -17,7 +16,6 @@ interface FooterItemProps {
 }
 
 export function FooterItem({
-  size = "md",
   chrome = "light",
   href,
   arrow = false,
@@ -27,8 +25,7 @@ export function FooterItem({
 }: FooterItemProps) {
   return (
     <a
-      className="type type-fixed fitem"
-      data-size={size}
+      className="type fitem"
       data-chrome={chrome}
       data-state={forceState}
       href={href}

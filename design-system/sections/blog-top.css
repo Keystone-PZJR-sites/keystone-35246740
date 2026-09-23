@@ -342,7 +342,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 12px;
+  gap: var(--space-lg);
 }
 .bt-social {
   display: grid;

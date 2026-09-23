@@ -31,12 +31,6 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
 
-  /* GT Standard opsz pins use type-scale steps, not named instances. */
-  --font-opsz-text-compact: 24;
-  --font-opsz-text: 26;
-  --font-opsz-display-2xs: 28;
-  --font-opsz-display: 30;
-
   /* GT Standard VF slnt axis (0–6). WebKit renders oblique when omitted. */
   --font-sans-slnt: "slnt" 0;
 }
