@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test:visual": "playwright test",
     "preview": "npx opennextjs-cloudflare build && npx wrangler dev",
     "deploy": "npx opennextjs-cloudflare build && npx wrangler deploy",
     "cf-typegen": "wrangler types --include-runtime false --env-interface CloudflareEnv cloudflare-env.d.ts"
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.20.6",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -30,7 +32,6 @@
     "eslint": "^9",
     "eslint-config-next": "^16.3.4",
     "postcss": "^8",
-    "puppeteer-core": "^25.8.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.130.0"

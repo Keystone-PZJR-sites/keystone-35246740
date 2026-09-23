@@ -101,8 +101,11 @@ Read this file, then `REFACTOR.md` if it exists.
 ## Verify before you say done
 
 - `npx tsc --noEmit` and `npm run lint`: zero errors, zero warnings.
-- Visual change: checked in the browser at the widths above, reduced motion on
-  and off. Report what you measured, not "looks right".
+- Visual change: `npm run test:visual` (every route × every anchor and gate)
+  against baselines refreshed from the reference build with
+  `BASE_URL=<ref> npm run test:visual -- --update-snapshots`. Then look at the
+  widths you touched with reduced motion on and off. Report what you
+  measured, not "looks right".
 
 ## Git
 

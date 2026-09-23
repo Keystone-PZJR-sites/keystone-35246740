@@ -3,6 +3,9 @@
 
 # testing
 /coverage
+/tests/__screenshots__/
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
