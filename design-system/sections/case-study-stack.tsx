@@ -38,7 +38,7 @@ function ServiceCell({ cell }: { cell: StackCell }) {
         {CELL_ICONS[cell.icon](ICON_CUTS[cell.icon])}
       </span>
       <div className="cst-cell-text">
-        <p className="type cst-title">{cell.title}</p>
+        <p className="type ts-text-md-medium cst-title">{cell.title}</p>
         <p className="type cst-desc">
           {cell.descShort ? (
             <>
@@ -61,10 +61,10 @@ export function CaseStudyStackSection({ study }: { study: CaseStudy }) {
       <CaseStudyLattice section="stack" />
       <div className="cs-content cst-content" data-landmark="stack">
         <div className="cst-header">
-          <h2 className="cs-h2 type" id="stack-h">
+          <h2 className="cs-h2 type ts-text-xl-regular" id="stack-h">
             {study.stack.head}
           </h2>
-          <p className="cs-body type cst-subhead">{study.stack.subhead}</p>
+          <p className="cs-body type ts-text-md-light cst-subhead">{study.stack.subhead}</p>
         </div>
         <div className="cst-table">
           <div className="cst-logo-cell" aria-hidden="true">

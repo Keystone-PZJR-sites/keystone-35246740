@@ -17,26 +17,17 @@
 
 .legal-eyebrow {
   color: var(--color-text-400);
-  --font: var(--ts-text-nav-label-font);
-  --ls: var(--ts-text-nav-label-ls);
-  --opsz: var(--ts-text-nav-label-opsz);
-  --case: var(--ts-text-nav-label-case);
 }
 
 .legal-h1 {
   max-width: calc(var(--t) * 9);
   margin-top: var(--space-xl);
   color: var(--color-text-100);
-  --font: var(--ts-display-serif-md-extralight-font);
-  --ls: var(--ts-display-serif-md-extralight-ls);
 }
 
 .legal-prose {
   margin-top: var(--t);
   color: var(--color-text-300);
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
 }
 
 .legal-prose > * + * {
@@ -46,16 +37,11 @@
 .legal-h2 {
   margin-top: var(--space-5xl);
   color: var(--color-text-100);
-  --font: var(--ts-display-serif-xs-light-font);
-  --ls: var(--ts-display-serif-xs-light-ls);
 }
 
 .legal-h3 {
   margin-top: var(--space-3xl);
   color: var(--color-text-200);
-  --font: var(--ts-text-xl-medium-font);
-  --ls: var(--ts-text-xl-medium-ls);
-  --opsz: var(--ts-text-xl-medium-opsz);
 }
 
 .legal-prose :is(ul, ol) {

@@ -21,9 +21,6 @@
   border: 1px solid var(--_border);
   border-radius: var(--radius-full);
   box-shadow: 0 0 0 var(--ring-w) var(--_ring);
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
   /* default state palette (teal chrome) */
   --_border: var(--color-border-000);
   --_ring: var(--color-bg-200);
@@ -254,10 +251,6 @@
   display: block;
   padding: var(--space-sm) var(--space-md) var(--space-none);
   color: var(--color-text-400);
-  --font: var(--ts-text-nav-label-font);
-  --ls: var(--ts-text-nav-label-ls);
-  --opsz: var(--ts-text-nav-label-opsz);
-  --case: var(--ts-text-nav-label-case);
 }
 
 .grader-option {
@@ -305,8 +298,5 @@
 .grader-error {
   margin: var(--space-none);
   padding-inline: var(--space-xl);
-  --font: var(--ts-text-sm-light-font);
-  --ls: var(--ts-text-sm-light-ls);
-  --opsz: var(--ts-text-sm-light-opsz);
   color: var(--color-red-500);
 }

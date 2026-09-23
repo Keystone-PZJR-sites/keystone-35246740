@@ -94,8 +94,6 @@
 }
 
 .sys-h2 {
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: var(--sys-h2-gap-rm);
   margin-left: var(--t);
@@ -234,9 +232,6 @@
   transform: translate(-50%, -50%);
 }
 .sys-tag-label {
-  --font: var(--ts-text-xs-regular-font);
-  --ls: var(--ts-text-xs-regular-ls);
-  --opsz: var(--ts-text-xs-regular-opsz);
   display: block;
   background: var(--color-bg-300);
   color: var(--color-text-200);

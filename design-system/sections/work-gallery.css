@@ -38,8 +38,6 @@
 .wg-title {
   margin: 0 0 0 calc(var(--t) / 2);
   color: var(--color-text-100);
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
 }
 @container (min-width: 470px) {
   .wg-title { margin-left: var(--t); }

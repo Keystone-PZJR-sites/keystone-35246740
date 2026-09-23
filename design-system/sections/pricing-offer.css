@@ -129,10 +129,6 @@
   margin: var(--space-lg) 0 0;
   color: var(--color-text-100);
   max-width: var(--po-h1-w-rm);
-  --font: var(--ts-display-serif-sm-plus-thin-font);
-  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --ls: var(--ts-display-serif-sm-plus-thin-ls);
 }
 @container (min-width: 470px) {
   .po-h1 { max-width: var(--po-h1-w-rs); }
@@ -171,11 +167,6 @@
   margin: var(--space-3xl) 0 0;
   color: var(--color-text-400);
   max-width: var(--po-sub-w-rm);
-  --font: var(--ts-text-md-light-font);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
 }
 /* the two designed paragraphs (rm/rt/rd1): block segments with the
    12px paragraph spacing; at the 1130 gate they return to inline flow
@@ -243,9 +234,6 @@
 }
 .po-chat-label {
   color: var(--color-text-400);
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
 }
 @container (min-width: 470px) {
   .po-chat-card .po-chat-label,
@@ -435,18 +423,12 @@
 }
 .po-price-num {
   /* The 4xl display step at the price's own size, set solid (line-height = size). */
-  --font: var(--ts-display-sans-4xl-light-font);
-  --ls: var(--ts-display-sans-4xl-light-ls);
-  --opsz: var(--ts-display-sans-4xl-light-opsz);
   --fs-px: var(--po-price-rm);
   --lh-px: var(--fs-px);
 }
 .po-price-per {
   margin-left: var(--po-price-gap);
   padding: var(--space-sm) var(--space-md) 0 0;
-  --font: var(--ts-text-xs-light-font);
-  --ls: var(--ts-text-xs-light-ls);
-  --opsz: var(--ts-text-xs-light-opsz);
 }
 @container (min-width: 860px) {
   .po-price-num { --fs-px: var(--po-price-rd1); }
@@ -464,11 +446,6 @@
    above it — "the tick wins") */
 .po-fine {
   margin: auto 0 0;
-  --font: var(--ts-text-lg-light-font);
-  --fs0: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-lg-light-lh);
-  --ls: var(--ts-text-lg-light-ls);
-  --opsz: var(--ts-text-lg-light-opsz);
 }
 @container (min-width: 470px) {
   .po-fine {
@@ -520,9 +497,6 @@
   background: var(--color-teal-200);
   color: var(--color-teal-600);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  --font: var(--ts-text-2xs-medium-font);
-  --ls: var(--ts-text-2xs-medium-ls);
-  --opsz: var(--ts-text-2xs-medium-opsz);
   white-space: nowrap;
 }
 @container (min-width: 860px) {
@@ -702,11 +676,6 @@
 .po-list-head {
   margin: 0 0 calc((var(--wA) + var(--wB)) * 20);
   color: var(--color-text-300);
-  --font: var(--ts-text-md-medium-font);
-  --fs0: var(--ts-text-md-medium-fs);
-  --lh0: var(--ts-text-md-medium-lh);
-  --ls: var(--ts-text-md-medium-ls);
-  --opsz: var(--ts-text-md-medium-opsz);
 }
 @container (min-width: 470px) {
   .po-list-head { margin-bottom: calc((var(--wA) + var(--wB)) * 16); }

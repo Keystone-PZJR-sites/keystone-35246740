@@ -88,7 +88,7 @@ export function SystemSection() {
 
       <div className="sys-head">
         <Slug layout="rail">A complete marketing system</Slug>
-        <h2 className="type sys-h2">
+        <h2 className="type ts-display-serif-xs-extralight sys-h2">
           Five engines that deeply understand your business working together.
         </h2>
       </div>
@@ -128,7 +128,7 @@ export function SystemSection() {
           </div>
           {ENGINES.map((e, i) => (
             <span key={e.id} className="sys-tag" data-engine={e.id} style={{ "--_bi": i }}>
-              <span className="type sys-tag-label">{e.label}</span>
+              <span className="type ts-text-xs-regular sys-tag-label">{e.label}</span>
             </span>
           ))}
         </div>

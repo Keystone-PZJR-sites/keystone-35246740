@@ -215,11 +215,15 @@ export function ContactFormIsland({ form }: ContactFormIslandProps) {
         </ButtonFill>
       </div>
 
-      <div className="type type-fixed contact-form-status" aria-live="polite" role="status">
+      <div
+        className="type type-fixed ts-text-sm-medium contact-form-status"
+        aria-live="polite"
+        role="status"
+      >
         {status.kind === "success" ? CONTACT_SUCCESS_MESSAGE : null}
       </div>
       {status.kind === "error" ? (
-        <p className="type type-fixed contact-form-error" role="alert">
+        <p className="type type-fixed ts-text-sm-medium contact-form-error" role="alert">
           {status.message}
         </p>
       ) : null}

@@ -48,7 +48,7 @@ export function CompanyHeroSection() {
     <section className="sec company-hero" aria-label="About Keystone" data-landmark="company-hero">
       <header className="coh-head" data-landmark="head">
         <Slug>{COMPANY_HERO.eyebrow}</Slug>
-        <h1 className="type coh-h1">{COMPANY_HERO.title}</h1>
+        <h1 className="type ts-display-serif-sm-plus-thin coh-h1">{COMPANY_HERO.title}</h1>
       </header>
 
       <figure className="coh-media" data-landmark="media">

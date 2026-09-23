@@ -99,7 +99,7 @@ function Portrait({ member }: { member: TeamRosterMember }) {
       return <img src={member.portrait.url} width={400} height={400} alt="" loading="lazy" />;
     case "initials":
       return (
-        <span className="type co-cell-initials" aria-hidden="true">
+        <span className="type ts-display-serif-sm-extralight co-cell-initials" aria-hidden="true">
           {initials(member.name)}
         </span>
       );
@@ -116,8 +116,8 @@ export function CompanyTeamSection({ members }: { members: TeamRosterMember[] })
     >
       <header className="cot-head" data-landmark="head">
         <Slug>{COMPANY_TEAM.eyebrow}</Slug>
-        <h2 className="type co-h2">{COMPANY_TEAM.title}</h2>
-        <p className="type cot-desc co-body-text">{COMPANY_TEAM.description}</p>
+        <h2 className="type ts-display-serif-xs-extralight co-h2">{COMPANY_TEAM.title}</h2>
+        <p className="type ts-text-md-light cot-desc co-body-text">{COMPANY_TEAM.description}</p>
       </header>
 
       {/* Names and roles render as visible captions; portraits stay alt="". */}
@@ -127,8 +127,10 @@ export function CompanyTeamSection({ members }: { members: TeamRosterMember[] })
             <span className="co-cell-photo">
               <Portrait member={member} />
             </span>
-            <span className="type co-cell-name">{member.name}</span>
-            {member.position && <span className="type co-cell-role">{member.position}</span>}
+            <span className="type ts-text-sm-medium co-cell-name">{member.name}</span>
+            {member.position && (
+              <span className="type ts-text-xs-light co-cell-role">{member.position}</span>
+            )}
           </li>
         ))}
       </ul>

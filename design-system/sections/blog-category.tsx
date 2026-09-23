@@ -117,7 +117,7 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
               : BLOG_CATEGORY_CONTENT.categoryLabel}
           </span>
         </Slug>
-        <h1 className="type bc-h1">{model.heading}</h1>
+        <h1 className="type ts-display-serif-sm-plus-thin bc-h1">{model.heading}</h1>
       </header>
 
       <div className="bc-content">
@@ -153,7 +153,7 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             </ul>
           ) : (
             model.type === "search" && (
-              <p className="type bc-empty">{BLOG_CATEGORY_CONTENT.emptyResults}</p>
+              <p className="type ts-text-xl-light bc-empty">{BLOG_CATEGORY_CONTENT.emptyResults}</p>
             )
           )}
         </div>
@@ -177,12 +177,16 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
             {blogPageWindow(model.pagination.currentPage, model.pagination.totalPages).map(
               (item) =>
                 item.type === "ellipsis" ? (
-                  <span className="type type-fixed bc-page-cell" key={item.key} aria-hidden="true">
+                  <span
+                    className="type type-fixed ts-text-md-light bc-page-cell"
+                    key={item.key}
+                    aria-hidden="true"
+                  >
                     {BLOG_CATEGORY_CONTENT.ellipsis}
                   </span>
                 ) : (
                   <a
-                    className="type type-fixed bc-page-cell"
+                    className="type type-fixed ts-text-md-light bc-page-cell"
                     href={blogPageHref(model.pagination, item.page)}
                     aria-current={item.page === model.pagination.currentPage ? "page" : undefined}
                     key={item.page}

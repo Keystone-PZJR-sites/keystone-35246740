@@ -13,10 +13,12 @@ export default function ErrorPage({ reset }: { error: Error; reset: () => void }
       <main>
         <article className="sec legal-section">
           <header className="legal-header">
-            <p className="type type-fixed legal-eyebrow">{LEGAL_EYEBROW}</p>
-            <h1 className="type type-fixed legal-h1">Something went wrong</h1>
+            <p className="type type-fixed ts-text-nav-label legal-eyebrow">{LEGAL_EYEBROW}</p>
+            <h1 className="type type-fixed ts-display-serif-md-extralight legal-h1">
+              Something went wrong
+            </h1>
           </header>
-          <div className="type type-fixed legal-prose">
+          <div className="type type-fixed ts-text-md-light legal-prose">
             <p>This page hit an error. Trying again usually fixes it.</p>
             <p>
               <button type="button" onClick={reset}>

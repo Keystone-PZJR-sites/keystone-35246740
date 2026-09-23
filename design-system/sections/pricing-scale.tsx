@@ -81,7 +81,7 @@ export function PricingScaleSection() {
       <PricingScaleIsland personas={PERSONAS.map(({ hue, tagLabel }) => ({ hue, tagLabel }))}>
         <div className="ps-block" data-landmark="price-scale">
           <div className="ps-content">
-            <h2 className="type ps-head">
+            <h2 className="type ts-display-serif-xs-extralight ps-head">
               {PRICE_SCALE_HEAD[0]}
               <br />
               {PRICE_SCALE_HEAD[1]}
@@ -93,7 +93,7 @@ export function PricingScaleSection() {
                 </li>
               ))}
             </ul>
-            <p className="type ps-subhead">{PRICE_SCALE_SUBHEAD}</p>
+            <p className="type ts-text-md-light ps-subhead">{PRICE_SCALE_SUBHEAD}</p>
             <div className="ps-sl ps-sl-rt">
               <Slider size="md" label={SLIDER_LABEL} valueText={rest.tagLabel} />
             </div>

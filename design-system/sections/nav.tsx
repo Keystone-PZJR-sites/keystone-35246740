@@ -173,10 +173,12 @@ function SolutionsDrawerContent() {
                 href={engineAnchor(e.id)}
               >
                 <span className="knav-subhead">
-                  <span className="type type-fixed knav-subtitle">{e.label}</span>
+                  <span className="type type-fixed ts-display-serif-2xs-medium knav-subtitle">
+                    {e.label}
+                  </span>
                   <i className="knav-subdot" data-engine={e.id} aria-hidden="true" />
                 </span>
-                <span className="type type-fixed knav-subdesc">{e.desc}</span>
+                <span className="type type-fixed ts-text-sm-light knav-subdesc">{e.desc}</span>
               </a>
             ))}
           </div>,
@@ -184,11 +186,11 @@ function SolutionsDrawerContent() {
         <i className="knav-dvr" aria-hidden="true" />
         <a className="knav-card knav-fcard knav-blk" style={blk(7)} href={SITE_LINKS.approach}>
           <Decor variant="feature" />
-          <span className="type type-fixed knav-fcopy">
+          <span className="type type-fixed ts-text-xl-light knav-fcopy">
             One system, one full picture of your business’s marketing, starting with your site.
           </span>
           <span className="knav-frow">
-            <span className="type type-fixed knav-flabel">Our approach</span>
+            <span className="type type-fixed ts-text-lg-light knav-flabel">Our approach</span>
             <IconArrowRight />
           </span>
         </a>
@@ -224,10 +226,12 @@ function ResourcesDrawerContent() {
             </span>
             <span className="knav-cbody">
               <span className="knav-crow">
-                <span className="type type-fixed knav-ctitle">{card.title}</span>
+                <span className="type type-fixed ts-display-serif-xs-regular knav-ctitle">
+                  {card.title}
+                </span>
                 <IconArrowRight />
               </span>
-              <span className="type type-fixed knav-cdesc">{card.desc}</span>
+              <span className="type type-fixed ts-text-lg-light knav-cdesc">{card.desc}</span>
             </span>
           </a>,
         ])}
@@ -263,10 +267,12 @@ function WorkDrawerContent() {
             </span>
             <span className="knav-cbody">
               <span className="knav-crow">
-                <span className="type type-fixed knav-ctitle">{card.title}</span>
+                <span className="type type-fixed ts-display-serif-xs-regular knav-ctitle">
+                  {card.title}
+                </span>
                 <IconArrowRight />
               </span>
-              <span className="type type-fixed knav-cdesc">{card.desc}</span>
+              <span className="type type-fixed ts-text-lg-light knav-cdesc">{card.desc}</span>
             </span>
           </a>,
         ])}
@@ -279,12 +285,12 @@ function EngineChips() {
   return (
     <>
       {ENGINES.map((e) => (
-        <a key={e.id} className="type knav-chip" href={engineAnchor(e.id)}>
+        <a key={e.id} className="type ts-text-sm-regular knav-chip" href={engineAnchor(e.id)}>
           <i className="knav-chipdot" data-engine={e.id} aria-hidden="true" />
           {e.label}
         </a>
       ))}
-      <a className="type knav-chip" href={SITE_LINKS.solutions}>
+      <a className="type ts-text-sm-regular knav-chip" href={SITE_LINKS.solutions}>
         All
       </a>
     </>
@@ -297,7 +303,7 @@ function WorkChips() {
       {WORK_CARDS.map((card) => (
         <a
           key={card.id}
-          className="type knav-rchip"
+          className="type ts-text-sm-regular knav-rchip"
           data-card={card.id}
           href={card.href}
           {...(card.external ? EXTERNAL_LINK : {})}
@@ -316,7 +322,7 @@ function ResourceChips() {
       {RESOURCE_CARDS.map((card) => (
         <a
           key={card.id}
-          className="type knav-rchip"
+          className="type ts-text-sm-regular knav-rchip"
           data-card={card.id}
           href={card.href}
           {...(card.external ? EXTERNAL_LINK : {})}

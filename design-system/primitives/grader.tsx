@@ -203,7 +203,7 @@ export function GraderInput({
       onFocus={() => setFocused(true)}
       onBlur={onBlur}
     >
-      <div className="grader-field">
+      <div className="grader-field ts-text-md-light">
         <span className="grader-sparkle">
           <IconSparkle />
         </span>
@@ -257,7 +257,7 @@ export function GraderInput({
         />
       )}
       {error && (
-        <p className="type type-fixed grader-error" id={errorId} role="alert">
+        <p className="type type-fixed ts-text-sm-light grader-error" id={errorId} role="alert">
           {noMatchMessage}
         </p>
       )}

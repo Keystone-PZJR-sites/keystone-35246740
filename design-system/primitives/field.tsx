@@ -14,7 +14,7 @@ function FieldShell({ id, label, required, helpText, children }: FieldShellProps
   const helpId = helpText ? `${id}-help` : undefined;
   return (
     <div className="ks-field">
-      <label className="type type-fixed ks-field-label" htmlFor={id}>
+      <label className="type type-fixed ts-text-sm-medium ks-field-label" htmlFor={id}>
         <span>{label}</span>
         {required ? (
           <span className="ks-field-req" aria-hidden="true">
@@ -24,7 +24,7 @@ function FieldShell({ id, label, required, helpText, children }: FieldShellProps
       </label>
       {children}
       {helpText ? (
-        <p className="type type-fixed ks-field-help" id={helpId}>
+        <p className="type type-fixed ts-text-sm-light ks-field-help" id={helpId}>
           {helpText}
         </p>
       ) : null}
@@ -116,7 +116,11 @@ export function FieldCheckbox({
           required={required}
           aria-describedby={[labelId, helpId].filter(Boolean).join(" ") || undefined}
         />
-        <label id={labelId} htmlFor={id} className="type type-fixed ks-field-check-label">
+        <label
+          id={labelId}
+          htmlFor={id}
+          className="type type-fixed ts-text-sm-light ks-field-check-label"
+        >
           {label}
           {required ? (
             <span className="ks-field-req" aria-hidden="true">
@@ -126,7 +130,7 @@ export function FieldCheckbox({
         </label>
       </div>
       {helpText ? (
-        <p className="type type-fixed ks-field-help" id={helpId}>
+        <p className="type type-fixed ts-text-sm-light ks-field-help" id={helpId}>
           {helpText}
         </p>
       ) : null}

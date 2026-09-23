@@ -47,7 +47,7 @@ export function GraderSelectMenu({
         const labelId = `${id}-${section.key}`;
         return (
           <li key={section.key} className="grader-group" role="group" aria-labelledby={labelId}>
-            <span className="type type-fixed grader-group-label" id={labelId}>
+            <span className="type type-fixed ts-text-nav-label grader-group-label" id={labelId}>
               {section.label}
             </span>
             <ul className="grader-group-rows" role="presentation">

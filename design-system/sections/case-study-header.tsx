@@ -28,7 +28,7 @@ export function CaseStudyHeaderSection({ study }: { study: CaseStudy }) {
             <Slug className="hx-rise" aria-hidden>
               Case Study
             </Slug>
-            <h1 className="type csh-h1 hx-rise">
+            <h1 className="type ts-display-serif-sm-plus-thin csh-h1 hx-rise">
               {study.h1.seg1}
               {study.h1.seg2 && <br className="csh-br-rt" aria-hidden="true" />}
               {study.h1.seg2}

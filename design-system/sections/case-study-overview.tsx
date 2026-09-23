@@ -11,10 +11,10 @@ export function CaseStudyOverviewSection({ study }: { study: CaseStudy }) {
       <CaseStudyLattice section="overview" />
       <div className="cs-content cso-content" data-landmark="overview">
         <div className="cso-frame">
-          <h2 className="cs-h2 type" id="overview-h">
+          <h2 className="cs-h2 type ts-text-xl-regular" id="overview-h">
             {study.overview.head}
           </h2>
-          <p className="cs-body type cso-body">{study.overview.body}</p>
+          <p className="cs-body type ts-text-md-light cso-body">{study.overview.body}</p>
           <CaseStudyFeatureList items={study.overview.items} className="cso-list" />
           <div className="cso-stats">
             {study.overview.stats.map((stat) => (

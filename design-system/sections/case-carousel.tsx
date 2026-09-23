@@ -67,7 +67,9 @@ export function CaseCarouselSection() {
 
       <div className="cc-head flow-budget">
         <Slug layout="rail">Demand that turns into growth</Slug>
-        <h2 className="type cc-h2">Marketing that delivers on its promise.</h2>
+        <h2 className="type ts-display-serif-xs-extralight cc-h2">
+          Marketing that delivers on its promise.
+        </h2>
       </div>
 
       <CaseCarouselIsland>
@@ -92,7 +94,7 @@ export function CaseCarouselSection() {
                     />
                     <div className="cc-info">
                       <div className="cc-body">
-                        <p className="type cc-desc">
+                        <p className="type ts-text-md-light cc-desc">
                           <span className="hx-sr">{description}</span>
                           <span aria-hidden="true">
                             <span className="cc-wm" />
@@ -112,11 +114,13 @@ export function CaseCarouselSection() {
                               key={stat.label}
                               className={si === 2 ? "cc-stat cc-stat-3" : "cc-stat"}
                             >
-                              <span className="type cc-stat-v">
+                              <span className="type ts-text-2xl-light cc-stat-v">
                                 {stat.value}
                                 {stat.star && <IconStar className="cc-star" />}
                               </span>
-                              <span className="type cc-stat-l">{stat.label}</span>
+                              <span className="type ts-text-xs-regular cc-stat-l">
+                                {stat.label}
+                              </span>
                             </div>,
                           ])}
                         </div>

@@ -81,9 +81,6 @@
 .gv-label {
   padding: 0 var(--gv-rail-pad);
   color: var(--color-text-300);
-  --font: var(--ts-text-sm-medium-font);
-  --ls: var(--ts-text-sm-medium-ls);
-  --opsz: var(--ts-text-sm-medium-opsz);
   white-space: nowrap;
   display: none;
 }
@@ -102,9 +99,6 @@
 }
 .gv-name {
   color: var(--color-text-300);
-  --font: var(--ts-text-sm-light-font);
-  --ls: var(--ts-text-sm-light-ls);
-  --opsz: var(--ts-text-sm-light-opsz);
   white-space: nowrap;
   display: none;
 }

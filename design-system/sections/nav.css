@@ -173,9 +173,6 @@
   display: flex;
   align-items: center;
   gap: var(--fitem-gap);
-  --font: var(--ts-text-sm-medium-font);
-  --ls: var(--ts-text-sm-medium-ls);
-  --opsz: var(--ts-text-sm-medium-opsz);
   color: var(--color-text-300);
   transition: color var(--knav-ink-dur) var(--motion-hover-ease);
 }
@@ -376,8 +373,6 @@
   gap: var(--space-md);
 }
 .knav-subtitle {
-  --font: var(--ts-display-serif-2xs-medium-font);
-  --ls: var(--ts-display-serif-2xs-medium-ls);
   color: var(--color-text-100);
 }
 .knav-subdot {
@@ -398,9 +393,6 @@
     rotate var(--_dur) var(--_ease);
 }
 .knav-subdesc {
-  --font: var(--ts-text-sm-light-font);
-  --ls: var(--ts-text-sm-light-ls);
-  --opsz: var(--ts-text-sm-light-opsz);
   color: var(--color-text-300);
 }
 /* Rotate while morphing the engine marker from circle to square. */
@@ -503,9 +495,6 @@
 .knav-fcopy {
   position: relative;
   width: min(var(--knav-copy-w), 100%);
-  --font: var(--ts-text-xl-light-font);
-  --ls: var(--ts-text-xl-light-ls);
-  --opsz: var(--ts-text-xl-light-opsz);
   color: var(--color-teal-600);
 }
 .knav-frow {
@@ -517,9 +506,6 @@
 }
 .knav-flabel {
   flex: 1;
-  --font: var(--ts-text-lg-light-font);
-  --ls: var(--ts-text-lg-light-ls);
-  --opsz: var(--ts-text-lg-light-opsz);
 }
 .knav-frow svg {
   flex: none;
@@ -577,17 +563,12 @@
   color: var(--_title);
 }
 .knav-ctitle {
-  --font: var(--ts-display-serif-xs-regular-font);
-  --ls: var(--ts-display-serif-xs-regular-ls);
   white-space: nowrap;
 }
 .knav-crow svg {
   flex: none;
 }
 .knav-cdesc {
-  --font: var(--ts-text-lg-light-font);
-  --ls: var(--ts-text-lg-light-ls);
-  --opsz: var(--ts-text-lg-light-opsz);
   color: var(--_desc);
 }
 
@@ -924,9 +905,6 @@ a.knav-row {
 }
 .knav-rlabel {
   padding-left: var(--space-2xs);
-  --font: var(--ts-display-sans-2xs-light-font);
-  --ls: var(--ts-display-sans-2xs-light-ls);
-  --opsz: var(--ts-display-sans-2xs-light-opsz);
   /* Holds the step's size below 470, rides the band to the xs step, then holds. */
   --fs-px: calc(var(--ts-display-sans-2xs-light-fs) * 1px);
   --lh-px: calc(var(--ts-display-sans-2xs-light-lh) * 1px);
@@ -1017,9 +995,6 @@ a.knav-row {
   background: var(--color-bg-000);
   text-decoration: none;
   color: var(--color-text-200);
-  --font: var(--ts-text-sm-regular-font);
-  --ls: var(--ts-text-sm-regular-ls);
-  --opsz: var(--ts-text-sm-regular-opsz);
   --fs0: 14; --fs1: 20;
   --lh0: 18; --lh1: 26;
   white-space: nowrap;
@@ -1040,9 +1015,6 @@ a.knav-row {
   background: var(--_chipbg);
   text-decoration: none;
   color: var(--_label);
-  --font: var(--ts-text-sm-regular-font);
-  --ls: var(--ts-text-sm-regular-ls);
-  --opsz: var(--ts-text-sm-regular-opsz);
   --fs0: 14; --fs1: 20;
   --lh0: 18; --lh1: 26;
   white-space: nowrap;

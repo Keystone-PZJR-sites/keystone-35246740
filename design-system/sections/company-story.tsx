@@ -16,12 +16,12 @@ export function CompanyStorySection() {
     >
       <header className="cos-head" data-landmark="head">
         <Slug>{COMPANY_STORY.eyebrow}</Slug>
-        <h2 className="type co-h2">{COMPANY_STORY.title}</h2>
+        <h2 className="type ts-display-serif-xs-extralight co-h2">{COMPANY_STORY.title}</h2>
       </header>
 
       <div className="cos-body" data-landmark="body">
         {COMPANY_STORY.paragraphs.map((paragraph) => (
-          <p className="type cos-p co-body-text" key={paragraph}>
+          <p className="type ts-text-md-light cos-p co-body-text" key={paragraph}>
             {paragraph}
           </p>
         ))}

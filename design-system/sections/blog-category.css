@@ -64,8 +64,6 @@
   height: 100%;
 }
 .bc-h1 {
-  --font: var(--ts-display-serif-sm-plus-thin-font);
-  --ls: var(--ts-display-serif-sm-plus-thin-ls);
   color: var(--color-text-100);
   margin-top: calc(var(--bc-u) * 16);
   max-width: calc(var(--t) * 10);
@@ -147,9 +145,6 @@
 }
 
 .bc-empty {
-  --font: var(--ts-text-xl-light-font);
-  --ls: var(--ts-text-xl-light-ls);
-  --opsz: var(--ts-text-xl-light-opsz);
   color: var(--color-text-300);
   --fs0: 20;
   --fs1: 20;
@@ -196,9 +191,6 @@
   height: var(--bc-page-cell);
   color: var(--color-text-300);
   text-decoration: none;
-  --font: var(--ts-text-md-light-font);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
 }
 .bc-page-cell[aria-current="page"] {
   background: var(--color-bg-000);

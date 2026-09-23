@@ -101,8 +101,6 @@
   padding-top: var(--bp-head-top-rm);
 }
 .bp-h1 {
-  --font: var(--ts-display-serif-sm-plus-thin-font);
-  --ls: var(--ts-display-serif-sm-plus-thin-ls);
   max-width: 100%;
   margin-top: var(--bp-h1-gap-rm);
   color: var(--color-text-100);
@@ -160,9 +158,6 @@
 .bp-h2 {
   margin: 0;
   color: var(--color-text-100);
-  --font: var(--ts-text-2xl-regular-font);
-  --ls: var(--ts-text-2xl-regular-ls);
-  --opsz: var(--ts-text-2xl-regular-opsz);
 }
 .bp-markdown-body {
   margin-top: var(--bp-head-body-gap);
@@ -211,9 +206,6 @@
 }
 .bp-h3 {
   color: var(--color-text-100);
-  --font: var(--ts-text-lg-medium-font);
-  --ls: var(--ts-text-lg-medium-ls);
-  --opsz: var(--ts-text-lg-medium-opsz);
 }
 .bp-markdown > h3:not(:first-child),
 .bp-markdown > h3 + * {

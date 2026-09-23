@@ -54,8 +54,6 @@
 }
 
 .bl-h3 {
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   --fs0: 24;
   --fs1: 36;

@@ -48,11 +48,6 @@ html:has(.load-sequence-case-study) {
 .cs-h2 {
   margin: 0;
   color: var(--color-text-100);
-  --font: var(--ts-text-xl-regular-font);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
-  --ls: var(--ts-text-xl-regular-ls);
-  --opsz: var(--ts-text-xl-regular-opsz);
 }
 @container (min-width: 665px) {
   .cs-h2 {
@@ -76,11 +71,6 @@ html:has(.load-sequence-case-study) {
 /* Section-body type ramp; each mount supplies its own color. */
 .cs-body {
   margin: 0;
-  --font: var(--ts-text-md-light-font);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --ls: var(--ts-text-md-light-ls);
-  --opsz: var(--ts-text-md-light-opsz);
 }
 @container (min-width: 860px) {
   .cs-body {

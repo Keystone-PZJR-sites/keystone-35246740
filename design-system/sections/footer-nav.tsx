@@ -73,13 +73,13 @@ export function FooterNav({ groups }: { groups: FooterNavGroup[] }) {
                   >
                     <span className="fnav-hg">
                       <span className="fnav-dot" data-g={g.id} aria-hidden="true" />
-                      <span className="type fnav-name">{g.label}</span>
+                      <span className="type ts-display-serif-3xs-medium fnav-name">{g.label}</span>
                     </span>
                     <IconChevronDownMedium className="fnav-chevron" />
                   </button>
                   <span className="fnav-static">
                     <span className="fnav-dot" data-g={g.id} aria-hidden="true" />
-                    <span className="type fnav-name">{g.label}</span>
+                    <span className="type ts-display-serif-3xs-medium fnav-name">{g.label}</span>
                   </span>
                 </h3>
                 <div className="fnav-listwrap" id={`fnav-${g.id}`}>

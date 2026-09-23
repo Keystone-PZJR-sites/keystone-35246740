@@ -72,8 +72,6 @@
 
 /* The headline wraps naturally and changes weight at wide desktop. */
 .wd-h2 {
-  --font: var(--ts-display-serif-xs-extralight-font);
-  --ls: var(--ts-display-serif-xs-extralight-ls);
   color: var(--color-text-100);
   margin-top: var(--wd-h2-gap-rm);
   margin-left: var(--t);

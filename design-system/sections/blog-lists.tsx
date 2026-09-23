@@ -121,7 +121,7 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
         <div className="bl-recent" data-landmark="recent">
           <div className="bl-sechead">
             <div className="bl-shrow">
-              <h3 className="type bl-h3">Recent Posts</h3>
+              <h3 className="type ts-display-serif-xs-extralight bl-h3">Recent Posts</h3>
             </div>
           </div>
           <CardRow
@@ -140,7 +140,7 @@ export function BlogListsSection({ landing }: { landing: BlogLandingModel }) {
             <section key={cat.slug} className="bl-catsec" aria-label={cat.name}>
               <div className="bl-sechead">
                 <div className="bl-shrow">
-                  <h3 className="type bl-h3">{cat.name}</h3>
+                  <h3 className="type ts-display-serif-xs-extralight bl-h3">{cat.name}</h3>
                   <ButtonFill
                     size="sm"
                     chrome="gray"

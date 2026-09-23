@@ -50,7 +50,7 @@ export function Slider({
           aria-valuetext={valueText}
         />
       </span>
-      <span className="type sldr-labels">
+      <span className="type ts-text-xs-regular sldr-labels">
         <span>Less work</span>
         <IconSliderArrow className="sldr-glyph" />
         <span>More work</span>

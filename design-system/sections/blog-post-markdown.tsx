@@ -10,7 +10,7 @@ function opensExternally(href: string | undefined): boolean {
 }
 
 const H3 = ({ children }: { children?: ReactNode }) => (
-  <h3 className="type type-fixed bp-h3">{children}</h3>
+  <h3 className="type type-fixed ts-text-lg-medium bp-h3">{children}</h3>
 );
 
 const BODY_COMPONENTS: Components = {
