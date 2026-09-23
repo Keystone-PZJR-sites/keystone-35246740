@@ -184,3 +184,13 @@ the end result differs slightly from today, if it is better.
   island is needed; a hash deep link (`/design/#p-slug`) picks the chapter
   until a tab is clicked.
 
+- `/design/` full inventory — every section (home, pricing, work, company,
+  case study, blog, contact, legal, nav and footer chrome) is mounted live
+  from the same API data the routes use, grouped by page with its file and
+  props; the eight primitives that were only listed (`GraderInput`,
+  `Slider`, `PersonaCard`, `CaseStudyCard`, `CaseStudyButton`,
+  `PricingButton`, `FaqQuestion`, `FooterItem`) are rendered at every size.
+  `pages/design.css` moved to `layer(pages)` so its host rules outrank the
+  sections they neutralise. `#primitives` and `#rules` joined the pixel
+  gate; `#sections` (~50k px, not tile-stable in Chrome) is gated
+  structurally instead. 150/150.

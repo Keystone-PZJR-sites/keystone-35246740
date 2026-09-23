@@ -46,7 +46,6 @@
 @import "./pages/case-study.css" layer(shared);
 @import "./pages/company.css" layer(shared);
 @import "./pages/landing.css" layer(shared);
-@import "./pages/design.css" layer(shared);
 
 /* Sections */
 @import "./sections/footer.css" layer(sections);
@@ -92,5 +91,7 @@
 @import "./sections/work-deck.css" layer(sections);
 @import "./sections/case-carousel.css" layer(sections);
 
-/* Pages */
+/* Pages. /design/ hosts every section and primitive, so its host
+   rules must outrank the sections they neutralise. */
 @import "./pages/our-work.css" layer(pages);
+@import "./pages/design.css" layer(pages);

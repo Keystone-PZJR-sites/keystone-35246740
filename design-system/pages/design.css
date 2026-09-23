@@ -482,8 +482,38 @@
 .ds-kind-frame .ld-hero-head {
   padding-top: 0;
 }
-.ds-shared-head {
+.ds-kind-note {
+  flex-basis: 100%;
+  color: var(--color-text-400);
+}
+.ds-group {
+  width: 100%;
   margin-top: calc(var(--t) * 1.5);
+  padding-top: var(--space-3xl);
+  border-top: 1px solid var(--color-border-000);
+}
+.ds-group-route {
+  margin-left: var(--space-lg);
+  font: inherit;
+  color: var(--color-text-400);
+}
+/* Hosts for primitives that expect a section's context. */
+.ds-card-host {
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+}
+.ds-faq-host {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: calc(var(--t) * 8);
+}
+.ds-dark-host {
+  display: inline-flex;
+  gap: var(--space-3xl);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--color-darkgray-600);
 }
 
 /* ---- rules prose ---- */

@@ -13,23 +13,22 @@ import { FieldCheckbox, FieldText, FieldTextarea } from "../primitives/field";
 import { Picture } from "../primitives/picture";
 import { PricingTag } from "../primitives/pricing-tag";
 import { Slug } from "../primitives/slug";
+import { CaseStudyButton } from "../primitives/case-study-button";
+import { CaseStudyCard } from "../primitives/case-study-card";
+import { FaqQuestion } from "../primitives/faq-question";
+import { FooterItem } from "../primitives/footer-item";
+import { GraderInput } from "../primitives/grader";
+import { PersonaCard } from "../primitives/persona-card";
+import { PricingButton } from "../primitives/pricing-button";
+import { Slider } from "../primitives/slider";
+import { FAQ_ITEMS } from "./faq-data";
 import { LANDING_ICONS } from "./landing-benefits";
+import { PERSONAS } from "./pricing-scale-data";
+import { CASE_STUDIES as CASE_SUMMARIES } from "./work-cases-data";
 
 const FILL_SIZES = ["xl", "lg", "md", "sm"] as const;
 const GHOST_SIZES = ["xl", "lg", "md", "sm", "xs"] as const;
 const ARROW_SIZES = ["lg", "md", "sm"] as const;
-
-/* Primitives whose mounts depend on a section's island or data model. */
-const BY_FILE = [
-  { name: "GraderInput", file: "primitives/grader.tsx", used: "homepage hero, footer" },
-  { name: "Slider", file: "primitives/slider.tsx", used: "pricing scale" },
-  { name: "PersonaCard", file: "primitives/persona-card.tsx", used: "homepage personas" },
-  { name: "CaseStudyCard", file: "primitives/case-study-card.tsx", used: "our work" },
-  { name: "CaseStudyButton", file: "primitives/case-study-button.tsx", used: "case studies" },
-  { name: "PricingButton", file: "primitives/pricing-button.tsx", used: "pricing offer" },
-  { name: "FaqQuestion", file: "primitives/faq-question.tsx", used: "homepage FAQ" },
-  { name: "FooterItem", file: "primitives/footer-item.tsx", used: "footer" },
-];
 
 function Spec({
   title,
@@ -264,25 +263,123 @@ export function DesignPrimitivesSection() {
       </Spec>
 
       <Spec
-        title="Mounted elsewhere"
-        file="primitives/"
-        note="These need a section's island or data model; see the file and the page that uses it."
+        title="GraderInput"
+        file="primitives/grader.tsx"
+        note="The website grader field: suggestions from Google Places, submits to the grader. chrome teal | brown."
       >
-        <table className="ds-table">
-          <tbody className="type type-fixed ts-text-sm-light">
-            {BY_FILE.map((p) => (
-              <tr key={p.name}>
-                <td>
-                  <code className="ds-code">{p.name}</code>
-                </td>
-                <td>
-                  <code className="ds-code">{p.file}</code>
-                </td>
-                <td>{p.used}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {(["lg", "md", "sm"] as const).map((size) => (
+          <Row key={size} label={`size="${size}"`}>
+            <GraderInput size={size} />
+            <GraderInput size={size} chrome="brown" />
+          </Row>
+        ))}
+      </Spec>
+
+      <Spec
+        title="Slider"
+        file="primitives/slider.tsx"
+        note="The pricing-scale range; the hue follows the persona."
+      >
+        {(["lg", "md", "sm"] as const).map((size) => (
+          <Row key={size} label={`size="${size}"`}>
+            <Slider size={size} label="Team size" />
+            <Slider size={size} label="Team size" forceHue="purple" />
+          </Row>
+        ))}
+      </Spec>
+
+      <Spec
+        title="PersonaCard"
+        file="primitives/persona-card.tsx"
+        note="A pricing persona (pricing-scale-data.ts PERSONAS). state active | inactive."
+      >
+        <Row label='size="md"'>
+          <PersonaCard persona={PERSONAS[0]} size="md" />
+          <PersonaCard persona={PERSONAS[1]} size="md" state="inactive" />
+        </Row>
+      </Spec>
+
+      <Spec
+        title="CaseStudyCard"
+        file="primitives/case-study-card.tsx"
+        note="A work card (work-cases-data.ts CASE_STUDIES); sized by its section's grid."
+      >
+        <div className="work-cases-section ds-card-host">
+          <CaseStudyCard study={CASE_SUMMARIES[0]} eager />
+        </div>
+      </Spec>
+
+      <Spec title="CaseStudyButton" file="primitives/case-study-button.tsx">
+        <Row label='size="lg" · "sm"'>
+          <CaseStudyButton label="Read the case study" href="#" />
+          <CaseStudyButton label="Read the case study" href="#" size="sm" />
+          <CaseStudyButton label="hover" href="#" forceState="hover" />
+        </Row>
+      </Spec>
+
+      <Spec
+        title="PricingButton"
+        file="primitives/pricing-button.tsx"
+        note="Sized by --pbtn-size on its mount; pinned here."
+      >
+        {(["xl", "lg", "md", "sm", "xs"] as const).map((size) => (
+          <Row key={size} label={`size="${size}"`}>
+            <PricingButton size={size} href="#">
+              Get started
+            </PricingButton>
+            <PricingButton size={size} href="#" forceState="hover">
+              hover
+            </PricingButton>
+          </Row>
+        ))}
+      </Spec>
+
+      <Spec
+        title="FaqQuestion"
+        file="primitives/faq-question.tsx"
+        note="A disclosure row (faq-data.ts FAQ_ITEMS). Section mounts are unsized; the section island toggles open."
+      >
+        <ul className="ds-faq-host">
+          <FaqQuestion
+            id="ds-fq-a"
+            question={FAQ_ITEMS[0].question}
+            answer={FAQ_ITEMS[0].answer}
+            size="md"
+          />
+          <FaqQuestion
+            id="ds-fq-b"
+            question={FAQ_ITEMS[1].question}
+            answer={FAQ_ITEMS[1].answer}
+            size="md"
+            open
+          />
+        </ul>
+      </Spec>
+
+      <Spec
+        title="FooterItem"
+        file="primitives/footer-item.tsx"
+        note="chrome light | dark · optional trailing arrow."
+      >
+        <Row label='chrome="light"'>
+          <FooterItem href="#">Our Approach</FooterItem>
+          <FooterItem href="#" arrow>
+            Login
+          </FooterItem>
+          <FooterItem href="#" forceState="hover">
+            hover
+          </FooterItem>
+        </Row>
+        <Row label='chrome="dark"'>
+          <span className="ds-dark-host">
+            <FooterItem href="#" chrome="dark">
+              Our Approach
+            </FooterItem>
+            <FooterItem href="#" chrome="dark" arrow>
+              Login
+            </FooterItem>
+          </span>
+        </Row>
       </Spec>
 
       <CloserRow />
