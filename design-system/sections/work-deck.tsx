@@ -37,16 +37,12 @@ export function WorkDeckSection() {
       </div>
 
       <div className="wd-head">
-        <Slug layout="rail">Work that creates demand</Slug>
+        <Slug layout="rail" className="wd-slug">
+          Work that creates demand
+        </Slug>
         <h2 className="type ts-display-serif-xs-extralight wd-h2">
           Beautiful websites, ads, social, and content that grow your business.
         </h2>
-        {/* The CTA moves into the header on wide bands. */}
-        <div className="wd-cta-head">
-          <ButtonFill size="lg" chrome="gray" href="/our-work">
-            View our work
-          </ButtonFill>
-        </div>
       </div>
 
       {/* Screen readers receive the full site roster in cascade order. */}
@@ -56,11 +52,12 @@ export function WorkDeckSection() {
         ))}
       </ul>
 
-      {/* Narrow bands add chrome and keep the CTA inside the cascade band. */}
+      {/* Narrow bands box the deck and CTA; from rd1 the wrappers dissolve
+          into the section grid and the CTA joins the header column. */}
       <div className="wd-band">
         <WorkDeckIsland sites={WORK_SITES} />
-        <div className="wd-cta-band">
-          <ButtonFill size="md" chrome="gray" href="/our-work">
+        <div className="wd-cta">
+          <ButtonFill size="inherit" chrome="gray" href="/our-work">
             View our work
           </ButtonFill>
         </div>
