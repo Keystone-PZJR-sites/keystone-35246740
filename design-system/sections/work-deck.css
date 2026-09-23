@@ -345,10 +345,3 @@
   -webkit-user-drag: none;
   user-select: none;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .wd-card,
-  .wd-shot {
-    transition: none;
-  }
-}

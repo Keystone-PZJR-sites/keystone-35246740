@@ -614,13 +614,6 @@
   box-shadow: 0 0 0 4px var(--color-bg-600);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .bt-search,
-  .bt-search-go,
-  .bt-social {
-    transition: none;
-  }
-}
 .page[data-motion="reduce"] .bt-search,
 .page[data-motion="reduce"] .bt-search-go,
 .page[data-motion="reduce"] .bt-social {

@@ -330,14 +330,3 @@
   .faq-ext.rd1 { display: none; }
   .faq-ext.rd2 { display: block; }
 }
-
-/* Reduced motion. */
-
-@media (prefers-reduced-motion: reduce) {
-  .faq-ext {
-    transition: none;
-  }
-  .faq-ext.on {
-    transition-delay: 0s;
-  }
-}

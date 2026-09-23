@@ -62,9 +62,3 @@
   display: inline-flex;
   flex: none;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .fitem {
-    transition-duration: 0s;
-  }
-}

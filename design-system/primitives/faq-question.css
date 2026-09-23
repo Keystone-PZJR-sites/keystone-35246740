@@ -185,14 +185,3 @@
 }
 
 /* Reduced motion snaps between disclosure states. */
-
-@media (prefers-reduced-motion: reduce) {
-  .fq,
-  .fq[data-open],
-  .fq-chevron,
-  .fq[data-open] .fq-chevron,
-  .fq-answer,
-  .fq[data-open] .fq-answer {
-    transition: none;
-  }
-}

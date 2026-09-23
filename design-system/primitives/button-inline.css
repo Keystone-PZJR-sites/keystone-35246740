@@ -53,10 +53,3 @@
 }
 
 /* Reduced motion preserves state styling without transitions. */
-@media (prefers-reduced-motion: reduce) {
-  .btn-inline,
-  .btn-inline-glyph {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}

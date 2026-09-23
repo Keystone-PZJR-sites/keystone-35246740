@@ -771,17 +771,3 @@
     --lh0: 0; --lh1: var(--ts-text-sm-regular-lh);
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .fnav-group,
-  .fnav-group[data-open],
-  .fnav-chevron,
-  .fnav-group[data-open] .fnav-chevron,
-  .fnav-listwrap,
-  .f-ext {
-    transition: none;
-  }
-  .f-ext.on {
-    transition-delay: 0s;
-  }
-}

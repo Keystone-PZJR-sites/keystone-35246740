@@ -374,14 +374,6 @@
   transition-timing-function: var(--motion-drawer-ease);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .blc,
-  .blf,
-  .blc-img img,
-  .blf-img img {
-    transition: none;
-  }
-}
 .page[data-motion="reduce"] .blc,
 .page[data-motion="reduce"] .blf,
 .page[data-motion="reduce"] .blc-img img,

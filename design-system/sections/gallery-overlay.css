@@ -189,10 +189,3 @@
   border: 0;
   display: block;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .gv,
-  .gv[data-closing] {
-    animation: none;
-  }
-}

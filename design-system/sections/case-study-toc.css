@@ -78,9 +78,3 @@
   --ls: var(--ts-text-md-medium-ls);
   --opsz: var(--ts-text-md-medium-opsz);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .toc-item a {
-    transition-duration: 0s;
-  }
-}

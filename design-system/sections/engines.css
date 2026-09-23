@@ -534,15 +534,7 @@
 }
 
 /* Reduced motion disables visual transitions while preserving navigation. */
-@media (prefers-reduced-motion: reduce) {
-  .e2-drawing,
-  .e2-sdrawing,
-  .e2-strack,
-  .e2-bc-dot,
-  .e2-io .e2-dot {
-    transition: none;
-  }
-}
+
 .page[data-motion="reduce"] .e2-drawing,
 .page[data-motion="reduce"] .e2-sdrawing,
 .page[data-motion="reduce"] .e2-strack,

@@ -204,13 +204,3 @@
   outline: none;
   box-shadow: 0 0 0 var(--ring-w) var(--color-teal-250);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .pbtn,
-  .pbtn-chip,
-  .pbtn-lattice,
-  .pbtn-lattice i {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}
