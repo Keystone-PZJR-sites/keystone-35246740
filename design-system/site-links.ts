@@ -19,7 +19,6 @@ export const SITE_LINKS = {
   gallery: "/our-work?gallery=1",
   pricing: "/pricing",
   company: "/company",
-  forDentists: "/for-dentists",
   design: "/design",
   resources: "/blog",
   blog: "/blog",

@@ -2,7 +2,7 @@
 
 Keystone's marketing site. Next.js App Router on Cloudflare (OpenNext).
 Design intent is the Figma file `ks-MarketingSite`; the code is what ships.
-Read this file, then `REFACTOR.md` if it exists.
+Read this file first.
 
 ## Never
 
@@ -119,7 +119,7 @@ with the site's craft — lattice paint, an image slot, the entrance, seated
 cards, a quote — because the kit sections already carry it:
 
 1. `design-system/pages/name-data.ts`: a `LandingPageData` (see
-   `pages/for-dentists-data.ts`): `meta`, then `sections`, an ordered list
+   `pages/landing-sample-data.ts`): `meta`, then `sections`, an ordered list
    where each entry is `{ kind, ...data }`. Kinds today: `hero`, `benefits`,
    `quote`, `closer`. Any order, any count, kinds may repeat. The hero
    picture is `heroCarouselPicture(n)` from `media.ts` until the page has

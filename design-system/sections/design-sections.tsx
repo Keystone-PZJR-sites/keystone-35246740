@@ -7,7 +7,7 @@
 import { Fragment, type ReactNode } from "react";
 import type { FormDefinition } from "@keystone-sites/core/types";
 import { renderLandingSection, type LandingSection } from "../pages/landing";
-import { FOR_DENTISTS } from "../pages/for-dentists-data";
+import { LANDING_SAMPLE } from "../pages/landing-sample-data";
 import { CloserRow } from "../primitives/closer-row";
 import { Slug } from "../primitives/slug";
 import type { BlogFilteredModel, BlogLandingModel, BlogPostDetailModel } from "./blog-data";
@@ -393,7 +393,7 @@ function EntryLabel({ e }: { e: Entry }) {
 
 export function DesignSectionsSection({ data }: { data: DesignSectionsData }) {
   const samples = (["hero", "benefits", "quote", "closer"] as const).map((kind) =>
-    FOR_DENTISTS.sections.find((s) => s.kind === kind)!,
+    LANDING_SAMPLE.sections.find((s) => s.kind === kind)!,
   );
 
   return (
@@ -422,7 +422,7 @@ export function DesignSectionsSection({ data }: { data: DesignSectionsData }) {
         <p className="type type-fixed ts-text-md-light ds-note">
           A landing page is <code>meta</code> plus an ordered <code>sections</code> list of{" "}
           <code>{"{ kind, …data }"}</code>. Each kind below renders from{" "}
-          <code>pages/for-dentists-data.ts</code>.
+          <code>pages/landing-sample-data.ts</code>.
         </p>
         <div className="ds-kinds">
           {samples.map((section) => (

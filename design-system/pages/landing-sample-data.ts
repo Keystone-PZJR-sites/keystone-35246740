@@ -1,12 +1,12 @@
-/** Authored copy for /for-dentists. Placeholder marketing copy pending
- * review; no Figma frame exists for this page — it is built from the
- * landing kit (pages/landing.tsx). */
+/** Specimen data for the landing kit (pages/landing.tsx): one section of
+ * every kind, rendered on /design/. A real landing page is a module like
+ * this one plus a route; this copy is a placeholder, not a shipped page. */
 
 import { heroCarouselPicture } from "../media";
 import { SITE_LINKS } from "../site-links";
 import type { LandingPageData } from "./landing";
 
-export const FOR_DENTISTS: LandingPageData = {
+export const LANDING_SAMPLE: LandingPageData = {
   meta: {
     title: "Keystone for dental practices | Keystone",
     description:
