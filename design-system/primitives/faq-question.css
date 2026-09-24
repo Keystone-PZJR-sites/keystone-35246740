@@ -49,12 +49,18 @@
 
 .fq-q {
   --font: var(--fq-q-f);
-  --fs0: var(--fq-q-fs0);
-  --fs1: var(--fq-q-fs1);
-  --lh0: var(--fq-q-lh0);
-  --lh1: var(--fq-q-lh1);
-  --fs-px: calc(var(--fq-u, 1px) * var(--fs));
-  --lh-px: calc(var(--fq-u, 1px) * var(--lh));
+  --fs-rm: var(--fq-q-fs-rm);
+  --fs-rs: var(--fq-q-fs-rs, var(--fs-rm));
+  --fs-rt: var(--fq-q-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--fq-q-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--fq-q-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--fq-q-lh-rm);
+  --lh-rs: var(--fq-q-lh-rs, var(--lh-rm));
+  --lh-rt: var(--fq-q-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--fq-q-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--fq-q-lh-rd2, var(--lh-rd1));
+  --fs-px: calc(var(--fq-u, 1px) * var(--fs-band));
+  --lh-px: calc(var(--fq-u, 1px) * var(--lh-band));
   --ls: var(--fq-q-ls);
   --opsz: var(--fq-q-opsz);
   color: var(--color-text-200);
@@ -92,12 +98,18 @@
 .fq-a {
   margin: var(--space-none);
   --font: var(--fq-a-f);
-  --fs0: var(--fq-a-fs0);
-  --fs1: var(--fq-a-fs1);
-  --lh0: var(--fq-a-lh0);
-  --lh1: var(--fq-a-lh1);
-  --fs-px: calc(var(--fq-u, 1px) * var(--fs));
-  --lh-px: calc(var(--fq-u, 1px) * var(--lh));
+  --fs-rm: var(--fq-a-fs-rm);
+  --fs-rs: var(--fq-a-fs-rs, var(--fs-rm));
+  --fs-rt: var(--fq-a-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--fq-a-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--fq-a-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--fq-a-lh-rm);
+  --lh-rs: var(--fq-a-lh-rs, var(--lh-rm));
+  --lh-rt: var(--fq-a-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--fq-a-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--fq-a-lh-rd2, var(--lh-rd1));
+  --fs-px: calc(var(--fq-u, 1px) * var(--fs-band));
+  --lh-px: calc(var(--fq-u, 1px) * var(--lh-band));
   --ls: var(--fq-a-ls);
   --opsz: var(--fq-a-opsz);
   color: var(--color-text-400);
@@ -107,13 +119,13 @@
 
 .fq[data-size] {
   --fq-q-f: var(--ts-text-md-light-font);
-  --fq-q-fs0: 16;
-  --fq-q-lh0: 22;
+  --fq-q-fs-rm: 16;
+  --fq-q-lh-rm: 22;
   --fq-q-ls: var(--ts-text-md-light-ls);
   --fq-q-opsz: var(--ts-text-md-light-opsz);
   --fq-a-f: var(--ts-text-md-light-font);
-  --fq-a-fs0: 16;
-  --fq-a-lh0: 22;
+  --fq-a-fs-rm: 16;
+  --fq-a-lh-rm: 22;
   --fq-a-ls: var(--ts-text-md-light-ls);
   --fq-a-opsz: var(--ts-text-md-light-opsz);
   --fq-a-inset: 0px;
@@ -177,13 +189,13 @@
   --fq-qrow: 32px;
   --fq-a-inset: 96px;
   --fq-q-f: var(--ts-text-xl-light-font);
-  --fq-q-fs0: 20;
-  --fq-q-lh0: 26;
+  --fq-q-fs-rm: 20;
+  --fq-q-lh-rm: 26;
   --fq-q-ls: var(--ts-text-xl-light-ls);
   --fq-q-opsz: var(--ts-text-xl-light-opsz);
   --fq-a-f: var(--ts-text-lg-light-font);
-  --fq-a-fs0: 18;
-  --fq-a-lh0: 26;
+  --fq-a-fs-rm: 18;
+  --fq-a-lh-rm: 26;
   --fq-a-ls: var(--ts-text-lg-light-ls);
   --fq-a-opsz: var(--ts-text-lg-light-opsz);
   height: 112px;

@@ -66,16 +66,13 @@
   width: calc(12 * var(--t));
   margin-left: var(--page-x);
 
-  /* Type's fluid progress: a plain number, 0 at the 384 anchor, 1 at 1344,
-     clamped. tan(atan2()) turns the px ratio into a unitless value. */
-  --k: clamp(0, tan(atan2(calc(var(--t) - 32px), 80px)), 1);
-  /* The late ramp: holds the 384 size through 768, then runs to 1344. A
-     component whose design keeps one size across the phone and tablet
-     bands sets `--k: var(--k-late)` on its root. */
-  --k-late: clamp(0, tan(atan2(calc(var(--t) - 64px), 48px)), 1);
   /* The base band interpolates 384→576 and extrapolates below 384. */
   --wA: calc((48px - var(--t)) / 16);
   --wB: calc((var(--t) - 32px) / 16);
+  /* The same weights as plain numbers, for unitless design values
+     (type sizes). tan(atan2()) strips the px. */
+  --kA: tan(atan2(var(--wA), 1px));
+  --kB: tan(atan2(var(--wB), 1px));
 }
 
 /* Midpoint gates select the nearest anchor. Compressed slices zoom type

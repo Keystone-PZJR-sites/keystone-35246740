@@ -104,8 +104,14 @@
   margin: calc((var(--wA) + var(--wB)) * 16) 0 0;
   color: var(--color-text-100);
   max-width: var(--cs-h1-w-rm);
-  --fs1: var(--ts-display-serif-lg-plus-thin-fs);
-  --lh1: var(--ts-display-serif-lg-plus-thin-lh);
+  --fs-rs: var(--ts-display-serif-md-thin-fs);
+  --fs-rt: var(--ts-display-serif-md-thin-fs);
+  --fs-rd1: var(--ts-display-serif-md-plus-thin-fs);
+  --fs-rd2: var(--ts-display-serif-lg-plus-thin-fs);
+  --lh-rs: var(--ts-display-serif-md-thin-lh);
+  --lh-rt: var(--ts-display-serif-md-thin-lh);
+  --lh-rd1: var(--ts-display-serif-md-plus-thin-lh);
+  --lh-rd2: var(--ts-display-serif-lg-plus-thin-lh);
 }
 .csh-br-rt,
 .csh-br-rsd2 {
@@ -224,10 +230,16 @@
   --ls: var(--ts-text-2xs-regular-ls);
   --opsz: var(--ts-text-2xs-regular-opsz);
   margin-bottom: var(--space-2xs);
-  --fs0: var(--ts-text-2xs-regular-fs);
-  --fs1: var(--ts-text-sm-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh);
-  --lh1: var(--ts-text-sm-regular-lh);
+  --fs-rm: var(--ts-text-2xs-regular-fs);
+  --fs-rs: var(--ts-text-xs-regular-fs);
+  --fs-rt: var(--ts-text-xs-regular-fs);
+  --fs-rd1: var(--ts-text-sm-regular-fs);
+  --fs-rd2: var(--ts-text-sm-regular-fs);
+  --lh-rm: var(--ts-text-2xs-regular-lh);
+  --lh-rs: var(--ts-text-xs-regular-lh);
+  --lh-rt: var(--ts-text-xs-regular-lh);
+  --lh-rd1: var(--ts-text-sm-regular-lh);
+  --lh-rd2: var(--ts-text-sm-regular-lh);
 }
 .csh-pair dd {
   margin: 0;
@@ -235,10 +247,16 @@
   --font: var(--ts-text-sm-light-font);
   --ls: var(--ts-text-sm-light-ls);
   --opsz: var(--ts-text-sm-light-opsz);
-  --fs0: var(--ts-text-sm-light-fs);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-sm-light-lh);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-sm-light-fs);
+  --fs-rs: var(--ts-text-md-light-fs);
+  --fs-rt: var(--ts-text-md-light-fs);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-sm-light-lh);
+  --lh-rs: var(--ts-text-md-light-lh);
+  --lh-rt: var(--ts-text-md-light-lh);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-lg-light-lh);
 }
 @container (--rs) {
   .csh-pair dt {
@@ -279,10 +297,16 @@
   --font: var(--ts-text-2xs-regular-font);
   --ls: var(--ts-text-2xs-regular-ls);
   --opsz: var(--ts-text-2xs-regular-opsz);
-  --fs0: var(--ts-text-2xs-regular-fs);
-  --fs1: var(--ts-text-md-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh);
-  --lh1: var(--ts-text-md-regular-lh);
+  --fs-rm: var(--ts-text-2xs-regular-fs);
+  --fs-rs: var(--ts-text-sm-regular-fs);
+  --fs-rt: var(--ts-text-sm-regular-fs);
+  --fs-rd1: var(--ts-text-sm-regular-fs);
+  --fs-rd2: var(--ts-text-md-regular-fs);
+  --lh-rm: var(--ts-text-2xs-regular-lh);
+  --lh-rs: var(--ts-text-sm-regular-lh);
+  --lh-rt: var(--ts-text-sm-regular-lh);
+  --lh-rd1: var(--ts-text-sm-regular-lh);
+  --lh-rd2: var(--ts-text-md-regular-lh);
 }
 @container (--rs) {
   .csh-meta .cs-tags { column-gap: var(--space-md); }

@@ -125,10 +125,16 @@
   --font: var(--ts-text-xs-regular-font);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --fs1: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
-  --lh1: var(--ts-text-md-light-lh);
+  --fs-rm: var(--ts-text-xs-regular-fs);
+  --fs-rs: var(--ts-text-sm-regular-fs);
+  --fs-rt: var(--ts-text-sm-regular-fs);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-md-light-fs);
+  --lh-rm: var(--ts-text-xs-regular-lh);
+  --lh-rs: var(--ts-text-sm-regular-lh);
+  --lh-rt: var(--ts-text-sm-regular-lh);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-md-light-lh);
 }
 @container (--rs) {
   .csf-label .cs-pill {
@@ -172,10 +178,16 @@
 .csf-num {
   margin-left: var(--space-xl);
   color: var(--color-text-200);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --fs1: var(--ts-display-sans-2xs-light-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
-  --lh1: var(--ts-display-sans-2xs-light-lh);
+  --fs-rm: var(--ts-text-xl-regular-fs);
+  --fs-rs: var(--ts-text-2xl-regular-fs);
+  --fs-rt: var(--ts-text-2xl-regular-fs);
+  --fs-rd1: var(--ts-display-sans-2xs-light-fs);
+  --fs-rd2: var(--ts-display-sans-2xs-light-fs);
+  --lh-rm: var(--ts-text-xl-regular-lh);
+  --lh-rs: var(--ts-text-2xl-regular-lh);
+  --lh-rt: var(--ts-text-2xl-regular-lh);
+  --lh-rd1: var(--ts-display-sans-2xs-light-lh);
+  --lh-rd2: var(--ts-display-sans-2xs-light-lh);
 }
 .csf-row[data-end] .csf-num {
   color: var(--color-teal-800);
@@ -201,10 +213,16 @@
   padding-top: var(--space-md);
   color: var(--color-text-400);
   max-width: calc((var(--wA) + var(--wB)) * 304);
-  --fs0: var(--ts-text-xs-light-fs);
-  --fs1: var(--ts-text-sm-light-fs);
-  --lh0: var(--ts-text-xs-light-lh);
-  --lh1: var(--ts-text-sm-light-lh);
+  --fs-rm: var(--ts-text-xs-light-fs);
+  --fs-rs: var(--ts-text-sm-light-fs);
+  --fs-rt: var(--ts-text-sm-light-fs);
+  --fs-rd1: var(--ts-text-sm-light-fs);
+  --fs-rd2: var(--ts-text-sm-light-fs);
+  --lh-rm: var(--ts-text-xs-light-lh);
+  --lh-rs: var(--ts-text-sm-light-lh);
+  --lh-rt: var(--ts-text-sm-light-lh);
+  --lh-rd1: var(--ts-text-sm-light-lh);
+  --lh-rd2: var(--ts-text-sm-light-lh);
 }
 @container (--rs) {
   .csf-disclaimer {

@@ -82,10 +82,16 @@
   margin: var(--space-none);
   color: var(--color-text-100);
   max-width: var(--faq-head-w-rm);
-  --fs1: var(--ts-display-serif-md-plus-extralight-fs);
-  --lh1: var(--ts-display-serif-md-plus-extralight-lh);
-  --fs-px: calc(var(--faq-u) * var(--fs));
-  --lh-px: calc(var(--faq-u) * var(--lh));
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--fs-rm);
+  --fs-rd1: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rd2: var(--ts-display-serif-md-plus-extralight-fs);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--lh-rm);
+  --lh-rd1: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rd2: var(--ts-display-serif-md-plus-extralight-lh);
+  --fs-px: calc(var(--faq-u) * var(--fs-band));
+  --lh-px: calc(var(--faq-u) * var(--lh-band));
 }
 @container (--rs) {
   /* one designed line inside the trued box — no wrap pin */
@@ -126,10 +132,16 @@
 .faq-chat-label {
   padding-left: calc(var(--faq-u) * 12);
   color: var(--color-text-400);
-  --fs1: var(--ts-text-xl-light-fs);
-  --lh1: var(--ts-text-xl-light-lh);
-  --fs-px: calc(var(--faq-u) * var(--fs));
-  --lh-px: calc(var(--faq-u) * var(--lh));
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--fs-rm);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-xl-light-fs);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--lh-rm);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-xl-light-lh);
+  --fs-px: calc(var(--faq-u) * var(--fs-band));
+  --lh-px: calc(var(--faq-u) * var(--lh-band));
 }
 .faq-chat-label-long {
   display: none;
@@ -205,13 +217,13 @@
   --fq-a-inset: 0px;
   --fq-q-f: var(--ts-text-md-light-font);
   --fq-u: var(--faq-u);
-  --fq-q-fs0: 16; --fq-q-fs1: 20;
-  --fq-q-lh0: 22; --fq-q-lh1: 26;
+  --fq-q-fs-rm: 16; --fq-q-fs-rd2: 20;
+  --fq-q-lh-rm: 22; --fq-q-lh-rd2: 26;
   --fq-q-ls: var(--ts-text-md-light-ls);
   --fq-q-opsz: var(--ts-text-md-light-opsz);
   --fq-a-f: var(--ts-text-md-light-font);
-  --fq-a-fs0: 16; --fq-a-fs1: 18;
-  --fq-a-lh0: 22; --fq-a-lh1: 26;
+  --fq-a-fs-rm: 16; --fq-a-fs-rd2: 18;
+  --fq-a-lh-rm: 22; --fq-a-lh-rd2: 26;
   --fq-a-ls: var(--ts-text-md-light-ls);
   --fq-a-opsz: var(--ts-text-md-light-opsz);
 }

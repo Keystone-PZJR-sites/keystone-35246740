@@ -38,19 +38,20 @@
    card's tick budget and grows with its copy. */
 .work-cases-section .csc {
   --csc-u: calc(var(--wA) + var(--wB));
-  /* Type: the 1344 end of each ramp; the primitive's defaults are the 384 end. */
-  --csc-cat-fs1: 14;
-  --csc-cat-lh1: 18;
-  --csc-sslug-fs1: 14;
-  --csc-sslug-lh1: 18;
-  --csc-label-fs1: 14;
-  --csc-label-lh1: 18;
-  --csc-title-fs1: 28;
-  --csc-title-lh1: 34;
-  --csc-desc-fs1: 18;
-  --csc-desc-lh1: 26;
-  --csc-num-fs1: 28;
-  --csc-num-lh1: 36;
+  /* Type anchors per band; unset anchors hold the one below. rm/rs ride the
+     primitive's defaults; rt takes the md numbers, rd1 the lg, rd2 the xl. */
+  --csc-cat-fs-rt: 14;
+  --csc-cat-lh-rt: 18;
+  --csc-sslug-fs-rt: 14;
+  --csc-sslug-lh-rt: 18;
+  --csc-label-fs-rt: 14;
+  --csc-label-lh-rt: 18;
+  --csc-title-fs-rd1: 28;
+  --csc-title-lh-rd1: 34;
+  --csc-desc-fs-rd1: 18;
+  --csc-desc-lh-rd1: 26;
+  --csc-num-fs-rd2: 28;
+  --csc-num-lh-rd2: 36;
   --csc-img-h: calc(var(--t) * 6);
   width: calc(var(--t) * 10.5);
   min-height: calc(var(--t) * 18);

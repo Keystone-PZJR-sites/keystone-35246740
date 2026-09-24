@@ -82,7 +82,7 @@ lines.push(`   Regenerate: node scripts/generate-type-css.mjs`);
 lines.push(``);
 lines.push(`   Per style: -font is a CSS font shorthand (weight size/lh family);`);
 lines.push(`   -fs and -lh are the same size and line-height as unitless design`);
-lines.push(`   px (for .type ramps: --fs0: var(--ts-x-fs)); -ls is letter-spacing;`);
+lines.push(`   px (for .type ramps: --fs-rm: var(--ts-x-fs)); -ls is letter-spacing;`);
 lines.push(`   -opsz is the pinned GT Standard optical size; -ps is Figma`);
 lines.push(`   paragraph spacing; -case is text-transform. Kyoto styles have no`);
 lines.push(`   -opsz. Consume through the .type class (primitives/text.css),`);
@@ -121,7 +121,7 @@ for (const s of styles) {
   const decls = [`--font: var(${b}-font)`, `--ls: var(${b}-ls)`];
   if (opsz !== null) decls.push(`--opsz: var(${b}-opsz)`);
   if (s.case === "UPPER") decls.push(`--case: var(${b}-case)`);
-  decls.push(`--fs0: var(${b}-fs)`, `--lh0: var(${b}-lh)`);
+  decls.push(`--fs-rm: var(${b}-fs)`, `--lh-rm: var(${b}-lh)`);
   lines.push(`.${b.slice(2)} {`, ...decls.map((d) => `  ${d};`), `}`);
 }
 lines.push(``);

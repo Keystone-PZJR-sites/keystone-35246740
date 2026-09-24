@@ -4,7 +4,7 @@
 
    Per style: -font is a CSS font shorthand (weight size/lh family);
    -fs and -lh are the same size and line-height as unitless design
-   px (for .type ramps: --fs0: var(--ts-x-fs)); -ls is letter-spacing;
+   px (for .type ramps: --fs-rm: var(--ts-x-fs)); -ls is letter-spacing;
    -opsz is the pinned GT Standard optical size; -ps is Figma
    paragraph spacing; -case is text-transform. Kyoto styles have no
    -opsz. Consume through the .type class (primitives/text.css),
@@ -652,897 +652,897 @@
 .ts-display-serif-4xl-extralight {
   --font: var(--ts-display-serif-4xl-extralight-font);
   --ls: var(--ts-display-serif-4xl-extralight-ls);
-  --fs0: var(--ts-display-serif-4xl-extralight-fs);
-  --lh0: var(--ts-display-serif-4xl-extralight-lh);
+  --fs-rm: var(--ts-display-serif-4xl-extralight-fs);
+  --lh-rm: var(--ts-display-serif-4xl-extralight-lh);
 }
 .ts-display-serif-4xl-light {
   --font: var(--ts-display-serif-4xl-light-font);
   --ls: var(--ts-display-serif-4xl-light-ls);
-  --fs0: var(--ts-display-serif-4xl-light-fs);
-  --lh0: var(--ts-display-serif-4xl-light-lh);
+  --fs-rm: var(--ts-display-serif-4xl-light-fs);
+  --lh-rm: var(--ts-display-serif-4xl-light-lh);
 }
 .ts-display-serif-4xl-regular {
   --font: var(--ts-display-serif-4xl-regular-font);
   --ls: var(--ts-display-serif-4xl-regular-ls);
-  --fs0: var(--ts-display-serif-4xl-regular-fs);
-  --lh0: var(--ts-display-serif-4xl-regular-lh);
+  --fs-rm: var(--ts-display-serif-4xl-regular-fs);
+  --lh-rm: var(--ts-display-serif-4xl-regular-lh);
 }
 .ts-display-serif-4xl-medium {
   --font: var(--ts-display-serif-4xl-medium-font);
   --ls: var(--ts-display-serif-4xl-medium-ls);
-  --fs0: var(--ts-display-serif-4xl-medium-fs);
-  --lh0: var(--ts-display-serif-4xl-medium-lh);
+  --fs-rm: var(--ts-display-serif-4xl-medium-fs);
+  --lh-rm: var(--ts-display-serif-4xl-medium-lh);
 }
 .ts-display-serif-3xl-thin {
   --font: var(--ts-display-serif-3xl-thin-font);
   --ls: var(--ts-display-serif-3xl-thin-ls);
-  --fs0: var(--ts-display-serif-3xl-thin-fs);
-  --lh0: var(--ts-display-serif-3xl-thin-lh);
+  --fs-rm: var(--ts-display-serif-3xl-thin-fs);
+  --lh-rm: var(--ts-display-serif-3xl-thin-lh);
 }
 .ts-display-serif-3xl-extralight {
   --font: var(--ts-display-serif-3xl-extralight-font);
   --ls: var(--ts-display-serif-3xl-extralight-ls);
-  --fs0: var(--ts-display-serif-3xl-extralight-fs);
-  --lh0: var(--ts-display-serif-3xl-extralight-lh);
+  --fs-rm: var(--ts-display-serif-3xl-extralight-fs);
+  --lh-rm: var(--ts-display-serif-3xl-extralight-lh);
 }
 .ts-display-serif-3xl-light {
   --font: var(--ts-display-serif-3xl-light-font);
   --ls: var(--ts-display-serif-3xl-light-ls);
-  --fs0: var(--ts-display-serif-3xl-light-fs);
-  --lh0: var(--ts-display-serif-3xl-light-lh);
+  --fs-rm: var(--ts-display-serif-3xl-light-fs);
+  --lh-rm: var(--ts-display-serif-3xl-light-lh);
 }
 .ts-display-serif-3xl-regular {
   --font: var(--ts-display-serif-3xl-regular-font);
   --ls: var(--ts-display-serif-3xl-regular-ls);
-  --fs0: var(--ts-display-serif-3xl-regular-fs);
-  --lh0: var(--ts-display-serif-3xl-regular-lh);
+  --fs-rm: var(--ts-display-serif-3xl-regular-fs);
+  --lh-rm: var(--ts-display-serif-3xl-regular-lh);
 }
 .ts-display-serif-3xl-medium {
   --font: var(--ts-display-serif-3xl-medium-font);
   --ls: var(--ts-display-serif-3xl-medium-ls);
-  --fs0: var(--ts-display-serif-3xl-medium-fs);
-  --lh0: var(--ts-display-serif-3xl-medium-lh);
+  --fs-rm: var(--ts-display-serif-3xl-medium-fs);
+  --lh-rm: var(--ts-display-serif-3xl-medium-lh);
 }
 .ts-display-serif-2xl-thin {
   --font: var(--ts-display-serif-2xl-thin-font);
   --ls: var(--ts-display-serif-2xl-thin-ls);
-  --fs0: var(--ts-display-serif-2xl-thin-fs);
-  --lh0: var(--ts-display-serif-2xl-thin-lh);
+  --fs-rm: var(--ts-display-serif-2xl-thin-fs);
+  --lh-rm: var(--ts-display-serif-2xl-thin-lh);
 }
 .ts-display-serif-2xl-extralight {
   --font: var(--ts-display-serif-2xl-extralight-font);
   --ls: var(--ts-display-serif-2xl-extralight-ls);
-  --fs0: var(--ts-display-serif-2xl-extralight-fs);
-  --lh0: var(--ts-display-serif-2xl-extralight-lh);
+  --fs-rm: var(--ts-display-serif-2xl-extralight-fs);
+  --lh-rm: var(--ts-display-serif-2xl-extralight-lh);
 }
 .ts-display-serif-2xl-light {
   --font: var(--ts-display-serif-2xl-light-font);
   --ls: var(--ts-display-serif-2xl-light-ls);
-  --fs0: var(--ts-display-serif-2xl-light-fs);
-  --lh0: var(--ts-display-serif-2xl-light-lh);
+  --fs-rm: var(--ts-display-serif-2xl-light-fs);
+  --lh-rm: var(--ts-display-serif-2xl-light-lh);
 }
 .ts-display-serif-2xl-regular {
   --font: var(--ts-display-serif-2xl-regular-font);
   --ls: var(--ts-display-serif-2xl-regular-ls);
-  --fs0: var(--ts-display-serif-2xl-regular-fs);
-  --lh0: var(--ts-display-serif-2xl-regular-lh);
+  --fs-rm: var(--ts-display-serif-2xl-regular-fs);
+  --lh-rm: var(--ts-display-serif-2xl-regular-lh);
 }
 .ts-display-serif-2xl-medium {
   --font: var(--ts-display-serif-2xl-medium-font);
   --ls: var(--ts-display-serif-2xl-medium-ls);
-  --fs0: var(--ts-display-serif-2xl-medium-fs);
-  --lh0: var(--ts-display-serif-2xl-medium-lh);
+  --fs-rm: var(--ts-display-serif-2xl-medium-fs);
+  --lh-rm: var(--ts-display-serif-2xl-medium-lh);
 }
 .ts-display-serif-xl-plus-thin {
   --font: var(--ts-display-serif-xl-plus-thin-font);
   --ls: var(--ts-display-serif-xl-plus-thin-ls);
-  --fs0: var(--ts-display-serif-xl-plus-thin-fs);
-  --lh0: var(--ts-display-serif-xl-plus-thin-lh);
+  --fs-rm: var(--ts-display-serif-xl-plus-thin-fs);
+  --lh-rm: var(--ts-display-serif-xl-plus-thin-lh);
 }
 .ts-display-serif-xl-thin {
   --font: var(--ts-display-serif-xl-thin-font);
   --ls: var(--ts-display-serif-xl-thin-ls);
-  --fs0: var(--ts-display-serif-xl-thin-fs);
-  --lh0: var(--ts-display-serif-xl-thin-lh);
+  --fs-rm: var(--ts-display-serif-xl-thin-fs);
+  --lh-rm: var(--ts-display-serif-xl-thin-lh);
 }
 .ts-display-serif-xl-extralight {
   --font: var(--ts-display-serif-xl-extralight-font);
   --ls: var(--ts-display-serif-xl-extralight-ls);
-  --fs0: var(--ts-display-serif-xl-extralight-fs);
-  --lh0: var(--ts-display-serif-xl-extralight-lh);
+  --fs-rm: var(--ts-display-serif-xl-extralight-fs);
+  --lh-rm: var(--ts-display-serif-xl-extralight-lh);
 }
 .ts-display-serif-xl-light {
   --font: var(--ts-display-serif-xl-light-font);
   --ls: var(--ts-display-serif-xl-light-ls);
-  --fs0: var(--ts-display-serif-xl-light-fs);
-  --lh0: var(--ts-display-serif-xl-light-lh);
+  --fs-rm: var(--ts-display-serif-xl-light-fs);
+  --lh-rm: var(--ts-display-serif-xl-light-lh);
 }
 .ts-display-serif-xl-regular {
   --font: var(--ts-display-serif-xl-regular-font);
   --ls: var(--ts-display-serif-xl-regular-ls);
-  --fs0: var(--ts-display-serif-xl-regular-fs);
-  --lh0: var(--ts-display-serif-xl-regular-lh);
+  --fs-rm: var(--ts-display-serif-xl-regular-fs);
+  --lh-rm: var(--ts-display-serif-xl-regular-lh);
 }
 .ts-display-serif-xl-medium {
   --font: var(--ts-display-serif-xl-medium-font);
   --ls: var(--ts-display-serif-xl-medium-ls);
-  --fs0: var(--ts-display-serif-xl-medium-fs);
-  --lh0: var(--ts-display-serif-xl-medium-lh);
+  --fs-rm: var(--ts-display-serif-xl-medium-fs);
+  --lh-rm: var(--ts-display-serif-xl-medium-lh);
 }
 .ts-display-serif-lg-plus-thin {
   --font: var(--ts-display-serif-lg-plus-thin-font);
   --ls: var(--ts-display-serif-lg-plus-thin-ls);
-  --fs0: var(--ts-display-serif-lg-plus-thin-fs);
-  --lh0: var(--ts-display-serif-lg-plus-thin-lh);
+  --fs-rm: var(--ts-display-serif-lg-plus-thin-fs);
+  --lh-rm: var(--ts-display-serif-lg-plus-thin-lh);
 }
 .ts-display-serif-lg-plus-extralight {
   --font: var(--ts-display-serif-lg-plus-extralight-font);
   --ls: var(--ts-display-serif-lg-plus-extralight-ls);
-  --fs0: var(--ts-display-serif-lg-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-lg-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-lg-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-lg-plus-extralight-lh);
 }
 .ts-display-serif-lg-plus-light {
   --font: var(--ts-display-serif-lg-plus-light-font);
   --ls: var(--ts-display-serif-lg-plus-light-ls);
-  --fs0: var(--ts-display-serif-lg-plus-light-fs);
-  --lh0: var(--ts-display-serif-lg-plus-light-lh);
+  --fs-rm: var(--ts-display-serif-lg-plus-light-fs);
+  --lh-rm: var(--ts-display-serif-lg-plus-light-lh);
 }
 .ts-display-serif-lg-thin {
   --font: var(--ts-display-serif-lg-thin-font);
   --ls: var(--ts-display-serif-lg-thin-ls);
-  --fs0: var(--ts-display-serif-lg-thin-fs);
-  --lh0: var(--ts-display-serif-lg-thin-lh);
+  --fs-rm: var(--ts-display-serif-lg-thin-fs);
+  --lh-rm: var(--ts-display-serif-lg-thin-lh);
 }
 .ts-display-serif-lg-extralight {
   --font: var(--ts-display-serif-lg-extralight-font);
   --ls: var(--ts-display-serif-lg-extralight-ls);
-  --fs0: var(--ts-display-serif-lg-extralight-fs);
-  --lh0: var(--ts-display-serif-lg-extralight-lh);
+  --fs-rm: var(--ts-display-serif-lg-extralight-fs);
+  --lh-rm: var(--ts-display-serif-lg-extralight-lh);
 }
 .ts-display-serif-lg-light {
   --font: var(--ts-display-serif-lg-light-font);
   --ls: var(--ts-display-serif-lg-light-ls);
-  --fs0: var(--ts-display-serif-lg-light-fs);
-  --lh0: var(--ts-display-serif-lg-light-lh);
+  --fs-rm: var(--ts-display-serif-lg-light-fs);
+  --lh-rm: var(--ts-display-serif-lg-light-lh);
 }
 .ts-display-serif-lg-regular {
   --font: var(--ts-display-serif-lg-regular-font);
   --ls: var(--ts-display-serif-lg-regular-ls);
-  --fs0: var(--ts-display-serif-lg-regular-fs);
-  --lh0: var(--ts-display-serif-lg-regular-lh);
+  --fs-rm: var(--ts-display-serif-lg-regular-fs);
+  --lh-rm: var(--ts-display-serif-lg-regular-lh);
 }
 .ts-display-serif-lg-medium {
   --font: var(--ts-display-serif-lg-medium-font);
   --ls: var(--ts-display-serif-lg-medium-ls);
-  --fs0: var(--ts-display-serif-lg-medium-fs);
-  --lh0: var(--ts-display-serif-lg-medium-lh);
+  --fs-rm: var(--ts-display-serif-lg-medium-fs);
+  --lh-rm: var(--ts-display-serif-lg-medium-lh);
 }
 .ts-display-serif-md-plus-thin {
   --font: var(--ts-display-serif-md-plus-thin-font);
   --ls: var(--ts-display-serif-md-plus-thin-ls);
-  --fs0: var(--ts-display-serif-md-plus-thin-fs);
-  --lh0: var(--ts-display-serif-md-plus-thin-lh);
+  --fs-rm: var(--ts-display-serif-md-plus-thin-fs);
+  --lh-rm: var(--ts-display-serif-md-plus-thin-lh);
 }
 .ts-display-serif-md-plus-extralight {
   --font: var(--ts-display-serif-md-plus-extralight-font);
   --ls: var(--ts-display-serif-md-plus-extralight-ls);
-  --fs0: var(--ts-display-serif-md-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-md-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-md-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-md-plus-extralight-lh);
 }
 .ts-display-serif-md-plus-light {
   --font: var(--ts-display-serif-md-plus-light-font);
   --ls: var(--ts-display-serif-md-plus-light-ls);
-  --fs0: var(--ts-display-serif-md-plus-light-fs);
-  --lh0: var(--ts-display-serif-md-plus-light-lh);
+  --fs-rm: var(--ts-display-serif-md-plus-light-fs);
+  --lh-rm: var(--ts-display-serif-md-plus-light-lh);
 }
 .ts-display-serif-md-thin {
   --font: var(--ts-display-serif-md-thin-font);
   --ls: var(--ts-display-serif-md-thin-ls);
-  --fs0: var(--ts-display-serif-md-thin-fs);
-  --lh0: var(--ts-display-serif-md-thin-lh);
+  --fs-rm: var(--ts-display-serif-md-thin-fs);
+  --lh-rm: var(--ts-display-serif-md-thin-lh);
 }
 .ts-display-serif-md-extralight {
   --font: var(--ts-display-serif-md-extralight-font);
   --ls: var(--ts-display-serif-md-extralight-ls);
-  --fs0: var(--ts-display-serif-md-extralight-fs);
-  --lh0: var(--ts-display-serif-md-extralight-lh);
+  --fs-rm: var(--ts-display-serif-md-extralight-fs);
+  --lh-rm: var(--ts-display-serif-md-extralight-lh);
 }
 .ts-display-serif-md-light {
   --font: var(--ts-display-serif-md-light-font);
   --ls: var(--ts-display-serif-md-light-ls);
-  --fs0: var(--ts-display-serif-md-light-fs);
-  --lh0: var(--ts-display-serif-md-light-lh);
+  --fs-rm: var(--ts-display-serif-md-light-fs);
+  --lh-rm: var(--ts-display-serif-md-light-lh);
 }
 .ts-display-serif-md-regular {
   --font: var(--ts-display-serif-md-regular-font);
   --ls: var(--ts-display-serif-md-regular-ls);
-  --fs0: var(--ts-display-serif-md-regular-fs);
-  --lh0: var(--ts-display-serif-md-regular-lh);
+  --fs-rm: var(--ts-display-serif-md-regular-fs);
+  --lh-rm: var(--ts-display-serif-md-regular-lh);
 }
 .ts-display-serif-md-medium {
   --font: var(--ts-display-serif-md-medium-font);
   --ls: var(--ts-display-serif-md-medium-ls);
-  --fs0: var(--ts-display-serif-md-medium-fs);
-  --lh0: var(--ts-display-serif-md-medium-lh);
+  --fs-rm: var(--ts-display-serif-md-medium-fs);
+  --lh-rm: var(--ts-display-serif-md-medium-lh);
 }
 .ts-display-serif-sm-plus-thin {
   --font: var(--ts-display-serif-sm-plus-thin-font);
   --ls: var(--ts-display-serif-sm-plus-thin-ls);
-  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-thin-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-thin-lh);
 }
 .ts-display-serif-sm-plus-extralight {
   --font: var(--ts-display-serif-sm-plus-extralight-font);
   --ls: var(--ts-display-serif-sm-plus-extralight-ls);
-  --fs0: var(--ts-display-serif-sm-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-sm-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-extralight-lh);
 }
 .ts-display-serif-sm-plus-light {
   --font: var(--ts-display-serif-sm-plus-light-font);
   --ls: var(--ts-display-serif-sm-plus-light-ls);
-  --fs0: var(--ts-display-serif-sm-plus-light-fs);
-  --lh0: var(--ts-display-serif-sm-plus-light-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-light-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-light-lh);
 }
 .ts-display-serif-sm-plus-regular {
   --font: var(--ts-display-serif-sm-plus-regular-font);
   --ls: var(--ts-display-serif-sm-plus-regular-ls);
-  --fs0: var(--ts-display-serif-sm-plus-regular-fs);
-  --lh0: var(--ts-display-serif-sm-plus-regular-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-regular-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-regular-lh);
 }
 .ts-display-serif-sm-plus-medium {
   --font: var(--ts-display-serif-sm-plus-medium-font);
   --ls: var(--ts-display-serif-sm-plus-medium-ls);
-  --fs0: var(--ts-display-serif-sm-plus-medium-fs);
-  --lh0: var(--ts-display-serif-sm-plus-medium-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-medium-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-medium-lh);
 }
 .ts-display-serif-sm-extralight {
   --font: var(--ts-display-serif-sm-extralight-font);
   --ls: var(--ts-display-serif-sm-extralight-ls);
-  --fs0: var(--ts-display-serif-sm-extralight-fs);
-  --lh0: var(--ts-display-serif-sm-extralight-lh);
+  --fs-rm: var(--ts-display-serif-sm-extralight-fs);
+  --lh-rm: var(--ts-display-serif-sm-extralight-lh);
 }
 .ts-display-serif-sm-thin {
   --font: var(--ts-display-serif-sm-thin-font);
   --ls: var(--ts-display-serif-sm-thin-ls);
-  --fs0: var(--ts-display-serif-sm-thin-fs);
-  --lh0: var(--ts-display-serif-sm-thin-lh);
+  --fs-rm: var(--ts-display-serif-sm-thin-fs);
+  --lh-rm: var(--ts-display-serif-sm-thin-lh);
 }
 .ts-display-serif-sm-light {
   --font: var(--ts-display-serif-sm-light-font);
   --ls: var(--ts-display-serif-sm-light-ls);
-  --fs0: var(--ts-display-serif-sm-light-fs);
-  --lh0: var(--ts-display-serif-sm-light-lh);
+  --fs-rm: var(--ts-display-serif-sm-light-fs);
+  --lh-rm: var(--ts-display-serif-sm-light-lh);
 }
 .ts-display-serif-sm-regular {
   --font: var(--ts-display-serif-sm-regular-font);
   --ls: var(--ts-display-serif-sm-regular-ls);
-  --fs0: var(--ts-display-serif-sm-regular-fs);
-  --lh0: var(--ts-display-serif-sm-regular-lh);
+  --fs-rm: var(--ts-display-serif-sm-regular-fs);
+  --lh-rm: var(--ts-display-serif-sm-regular-lh);
 }
 .ts-display-serif-sm-medium {
   --font: var(--ts-display-serif-sm-medium-font);
   --ls: var(--ts-display-serif-sm-medium-ls);
-  --fs0: var(--ts-display-serif-sm-medium-fs);
-  --lh0: var(--ts-display-serif-sm-medium-lh);
+  --fs-rm: var(--ts-display-serif-sm-medium-fs);
+  --lh-rm: var(--ts-display-serif-sm-medium-lh);
 }
 .ts-display-serif-xs-plus-light {
   --font: var(--ts-display-serif-xs-plus-light-font);
   --ls: var(--ts-display-serif-xs-plus-light-ls);
-  --fs0: var(--ts-display-serif-xs-plus-light-fs);
-  --lh0: var(--ts-display-serif-xs-plus-light-lh);
+  --fs-rm: var(--ts-display-serif-xs-plus-light-fs);
+  --lh-rm: var(--ts-display-serif-xs-plus-light-lh);
 }
 .ts-display-serif-xs-plus-regular {
   --font: var(--ts-display-serif-xs-plus-regular-font);
   --ls: var(--ts-display-serif-xs-plus-regular-ls);
-  --fs0: var(--ts-display-serif-xs-plus-regular-fs);
-  --lh0: var(--ts-display-serif-xs-plus-regular-lh);
+  --fs-rm: var(--ts-display-serif-xs-plus-regular-fs);
+  --lh-rm: var(--ts-display-serif-xs-plus-regular-lh);
 }
 .ts-display-serif-xs-plus-extralight {
   --font: var(--ts-display-serif-xs-plus-extralight-font);
   --ls: var(--ts-display-serif-xs-plus-extralight-ls);
-  --fs0: var(--ts-display-serif-xs-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-xs-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-xs-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-xs-plus-extralight-lh);
 }
 .ts-display-serif-xs-extralight {
   --font: var(--ts-display-serif-xs-extralight-font);
   --ls: var(--ts-display-serif-xs-extralight-ls);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
+  --fs-rm: var(--ts-display-serif-xs-extralight-fs);
+  --lh-rm: var(--ts-display-serif-xs-extralight-lh);
 }
 .ts-display-serif-xs-light {
   --font: var(--ts-display-serif-xs-light-font);
   --ls: var(--ts-display-serif-xs-light-ls);
-  --fs0: var(--ts-display-serif-xs-light-fs);
-  --lh0: var(--ts-display-serif-xs-light-lh);
+  --fs-rm: var(--ts-display-serif-xs-light-fs);
+  --lh-rm: var(--ts-display-serif-xs-light-lh);
 }
 .ts-display-serif-xs-regular {
   --font: var(--ts-display-serif-xs-regular-font);
   --ls: var(--ts-display-serif-xs-regular-ls);
-  --fs0: var(--ts-display-serif-xs-regular-fs);
-  --lh0: var(--ts-display-serif-xs-regular-lh);
+  --fs-rm: var(--ts-display-serif-xs-regular-fs);
+  --lh-rm: var(--ts-display-serif-xs-regular-lh);
 }
 .ts-display-serif-xs-medium {
   --font: var(--ts-display-serif-xs-medium-font);
   --ls: var(--ts-display-serif-xs-medium-ls);
-  --fs0: var(--ts-display-serif-xs-medium-fs);
-  --lh0: var(--ts-display-serif-xs-medium-lh);
+  --fs-rm: var(--ts-display-serif-xs-medium-fs);
+  --lh-rm: var(--ts-display-serif-xs-medium-lh);
 }
 .ts-display-serif-2xs-plus-extralight {
   --font: var(--ts-display-serif-2xs-plus-extralight-font);
   --ls: var(--ts-display-serif-2xs-plus-extralight-ls);
-  --fs0: var(--ts-display-serif-2xs-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-2xs-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-2xs-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-2xs-plus-extralight-lh);
 }
 .ts-display-serif-2xs-plus-light {
   --font: var(--ts-display-serif-2xs-plus-light-font);
   --ls: var(--ts-display-serif-2xs-plus-light-ls);
-  --fs0: var(--ts-display-serif-2xs-plus-light-fs);
-  --lh0: var(--ts-display-serif-2xs-plus-light-lh);
+  --fs-rm: var(--ts-display-serif-2xs-plus-light-fs);
+  --lh-rm: var(--ts-display-serif-2xs-plus-light-lh);
 }
 .ts-display-serif-2xs-plus-regular {
   --font: var(--ts-display-serif-2xs-plus-regular-font);
   --ls: var(--ts-display-serif-2xs-plus-regular-ls);
-  --fs0: var(--ts-display-serif-2xs-plus-regular-fs);
-  --lh0: var(--ts-display-serif-2xs-plus-regular-lh);
+  --fs-rm: var(--ts-display-serif-2xs-plus-regular-fs);
+  --lh-rm: var(--ts-display-serif-2xs-plus-regular-lh);
 }
 .ts-display-serif-2xs-extralight {
   --font: var(--ts-display-serif-2xs-extralight-font);
   --ls: var(--ts-display-serif-2xs-extralight-ls);
-  --fs0: var(--ts-display-serif-2xs-extralight-fs);
-  --lh0: var(--ts-display-serif-2xs-extralight-lh);
+  --fs-rm: var(--ts-display-serif-2xs-extralight-fs);
+  --lh-rm: var(--ts-display-serif-2xs-extralight-lh);
 }
 .ts-display-serif-2xs-light {
   --font: var(--ts-display-serif-2xs-light-font);
   --ls: var(--ts-display-serif-2xs-light-ls);
-  --fs0: var(--ts-display-serif-2xs-light-fs);
-  --lh0: var(--ts-display-serif-2xs-light-lh);
+  --fs-rm: var(--ts-display-serif-2xs-light-fs);
+  --lh-rm: var(--ts-display-serif-2xs-light-lh);
 }
 .ts-display-serif-2xs-regular {
   --font: var(--ts-display-serif-2xs-regular-font);
   --ls: var(--ts-display-serif-2xs-regular-ls);
-  --fs0: var(--ts-display-serif-2xs-regular-fs);
-  --lh0: var(--ts-display-serif-2xs-regular-lh);
+  --fs-rm: var(--ts-display-serif-2xs-regular-fs);
+  --lh-rm: var(--ts-display-serif-2xs-regular-lh);
 }
 .ts-display-serif-2xs-medium {
   --font: var(--ts-display-serif-2xs-medium-font);
   --ls: var(--ts-display-serif-2xs-medium-ls);
-  --fs0: var(--ts-display-serif-2xs-medium-fs);
-  --lh0: var(--ts-display-serif-2xs-medium-lh);
+  --fs-rm: var(--ts-display-serif-2xs-medium-fs);
+  --lh-rm: var(--ts-display-serif-2xs-medium-lh);
 }
 .ts-display-serif-3xs-extralight {
   --font: var(--ts-display-serif-3xs-extralight-font);
   --ls: var(--ts-display-serif-3xs-extralight-ls);
-  --fs0: var(--ts-display-serif-3xs-extralight-fs);
-  --lh0: var(--ts-display-serif-3xs-extralight-lh);
+  --fs-rm: var(--ts-display-serif-3xs-extralight-fs);
+  --lh-rm: var(--ts-display-serif-3xs-extralight-lh);
 }
 .ts-display-serif-3xs-light {
   --font: var(--ts-display-serif-3xs-light-font);
   --ls: var(--ts-display-serif-3xs-light-ls);
-  --fs0: var(--ts-display-serif-3xs-light-fs);
-  --lh0: var(--ts-display-serif-3xs-light-lh);
+  --fs-rm: var(--ts-display-serif-3xs-light-fs);
+  --lh-rm: var(--ts-display-serif-3xs-light-lh);
 }
 .ts-display-serif-3xs-regular {
   --font: var(--ts-display-serif-3xs-regular-font);
   --ls: var(--ts-display-serif-3xs-regular-ls);
-  --fs0: var(--ts-display-serif-3xs-regular-fs);
-  --lh0: var(--ts-display-serif-3xs-regular-lh);
+  --fs-rm: var(--ts-display-serif-3xs-regular-fs);
+  --lh-rm: var(--ts-display-serif-3xs-regular-lh);
 }
 .ts-display-serif-3xs-medium {
   --font: var(--ts-display-serif-3xs-medium-font);
   --ls: var(--ts-display-serif-3xs-medium-ls);
-  --fs0: var(--ts-display-serif-3xs-medium-fs);
-  --lh0: var(--ts-display-serif-3xs-medium-lh);
+  --fs-rm: var(--ts-display-serif-3xs-medium-fs);
+  --lh-rm: var(--ts-display-serif-3xs-medium-lh);
 }
 .ts-display-serif-4xs-plus-light {
   --font: var(--ts-display-serif-4xs-plus-light-font);
   --ls: var(--ts-display-serif-4xs-plus-light-ls);
-  --fs0: var(--ts-display-serif-4xs-plus-light-fs);
-  --lh0: var(--ts-display-serif-4xs-plus-light-lh);
+  --fs-rm: var(--ts-display-serif-4xs-plus-light-fs);
+  --lh-rm: var(--ts-display-serif-4xs-plus-light-lh);
 }
 .ts-display-serif-4xs-plus-medium {
   --font: var(--ts-display-serif-4xs-plus-medium-font);
   --ls: var(--ts-display-serif-4xs-plus-medium-ls);
-  --fs0: var(--ts-display-serif-4xs-plus-medium-fs);
-  --lh0: var(--ts-display-serif-4xs-plus-medium-lh);
+  --fs-rm: var(--ts-display-serif-4xs-plus-medium-fs);
+  --lh-rm: var(--ts-display-serif-4xs-plus-medium-lh);
 }
 .ts-display-serif-4xs-extralight {
   --font: var(--ts-display-serif-4xs-extralight-font);
   --ls: var(--ts-display-serif-4xs-extralight-ls);
-  --fs0: var(--ts-display-serif-4xs-extralight-fs);
-  --lh0: var(--ts-display-serif-4xs-extralight-lh);
+  --fs-rm: var(--ts-display-serif-4xs-extralight-fs);
+  --lh-rm: var(--ts-display-serif-4xs-extralight-lh);
 }
 .ts-display-serif-4xs-light {
   --font: var(--ts-display-serif-4xs-light-font);
   --ls: var(--ts-display-serif-4xs-light-ls);
-  --fs0: var(--ts-display-serif-4xs-light-fs);
-  --lh0: var(--ts-display-serif-4xs-light-lh);
+  --fs-rm: var(--ts-display-serif-4xs-light-fs);
+  --lh-rm: var(--ts-display-serif-4xs-light-lh);
 }
 .ts-display-serif-4xs-regular {
   --font: var(--ts-display-serif-4xs-regular-font);
   --ls: var(--ts-display-serif-4xs-regular-ls);
-  --fs0: var(--ts-display-serif-4xs-regular-fs);
-  --lh0: var(--ts-display-serif-4xs-regular-lh);
+  --fs-rm: var(--ts-display-serif-4xs-regular-fs);
+  --lh-rm: var(--ts-display-serif-4xs-regular-lh);
 }
 .ts-display-serif-4xs-medium {
   --font: var(--ts-display-serif-4xs-medium-font);
   --ls: var(--ts-display-serif-4xs-medium-ls);
-  --fs0: var(--ts-display-serif-4xs-medium-fs);
-  --lh0: var(--ts-display-serif-4xs-medium-lh);
+  --fs-rm: var(--ts-display-serif-4xs-medium-fs);
+  --lh-rm: var(--ts-display-serif-4xs-medium-lh);
 }
 .ts-display-sans-4xl-plus-semibold {
   --font: var(--ts-display-sans-4xl-plus-semibold-font);
   --ls: var(--ts-display-sans-4xl-plus-semibold-ls);
   --opsz: var(--ts-display-sans-4xl-plus-semibold-opsz);
-  --fs0: var(--ts-display-sans-4xl-plus-semibold-fs);
-  --lh0: var(--ts-display-sans-4xl-plus-semibold-lh);
+  --fs-rm: var(--ts-display-sans-4xl-plus-semibold-fs);
+  --lh-rm: var(--ts-display-sans-4xl-plus-semibold-lh);
 }
 .ts-display-sans-4xl-light {
   --font: var(--ts-display-sans-4xl-light-font);
   --ls: var(--ts-display-sans-4xl-light-ls);
   --opsz: var(--ts-display-sans-4xl-light-opsz);
-  --fs0: var(--ts-display-sans-4xl-light-fs);
-  --lh0: var(--ts-display-sans-4xl-light-lh);
+  --fs-rm: var(--ts-display-sans-4xl-light-fs);
+  --lh-rm: var(--ts-display-sans-4xl-light-lh);
 }
 .ts-display-sans-4xl-regular {
   --font: var(--ts-display-sans-4xl-regular-font);
   --ls: var(--ts-display-sans-4xl-regular-ls);
   --opsz: var(--ts-display-sans-4xl-regular-opsz);
-  --fs0: var(--ts-display-sans-4xl-regular-fs);
-  --lh0: var(--ts-display-sans-4xl-regular-lh);
+  --fs-rm: var(--ts-display-sans-4xl-regular-fs);
+  --lh-rm: var(--ts-display-sans-4xl-regular-lh);
 }
 .ts-display-sans-4xl-medium {
   --font: var(--ts-display-sans-4xl-medium-font);
   --ls: var(--ts-display-sans-4xl-medium-ls);
   --opsz: var(--ts-display-sans-4xl-medium-opsz);
-  --fs0: var(--ts-display-sans-4xl-medium-fs);
-  --lh0: var(--ts-display-sans-4xl-medium-lh);
+  --fs-rm: var(--ts-display-sans-4xl-medium-fs);
+  --lh-rm: var(--ts-display-sans-4xl-medium-lh);
 }
 .ts-display-sans-4xl-semibold {
   --font: var(--ts-display-sans-4xl-semibold-font);
   --ls: var(--ts-display-sans-4xl-semibold-ls);
   --opsz: var(--ts-display-sans-4xl-semibold-opsz);
-  --fs0: var(--ts-display-sans-4xl-semibold-fs);
-  --lh0: var(--ts-display-sans-4xl-semibold-lh);
+  --fs-rm: var(--ts-display-sans-4xl-semibold-fs);
+  --lh-rm: var(--ts-display-sans-4xl-semibold-lh);
 }
 .ts-display-sans-3xl-light {
   --font: var(--ts-display-sans-3xl-light-font);
   --ls: var(--ts-display-sans-3xl-light-ls);
   --opsz: var(--ts-display-sans-3xl-light-opsz);
-  --fs0: var(--ts-display-sans-3xl-light-fs);
-  --lh0: var(--ts-display-sans-3xl-light-lh);
+  --fs-rm: var(--ts-display-sans-3xl-light-fs);
+  --lh-rm: var(--ts-display-sans-3xl-light-lh);
 }
 .ts-display-sans-3xl-regular {
   --font: var(--ts-display-sans-3xl-regular-font);
   --ls: var(--ts-display-sans-3xl-regular-ls);
   --opsz: var(--ts-display-sans-3xl-regular-opsz);
-  --fs0: var(--ts-display-sans-3xl-regular-fs);
-  --lh0: var(--ts-display-sans-3xl-regular-lh);
+  --fs-rm: var(--ts-display-sans-3xl-regular-fs);
+  --lh-rm: var(--ts-display-sans-3xl-regular-lh);
 }
 .ts-display-sans-3xl-medium {
   --font: var(--ts-display-sans-3xl-medium-font);
   --ls: var(--ts-display-sans-3xl-medium-ls);
   --opsz: var(--ts-display-sans-3xl-medium-opsz);
-  --fs0: var(--ts-display-sans-3xl-medium-fs);
-  --lh0: var(--ts-display-sans-3xl-medium-lh);
+  --fs-rm: var(--ts-display-sans-3xl-medium-fs);
+  --lh-rm: var(--ts-display-sans-3xl-medium-lh);
 }
 .ts-display-sans-3xl-semibold {
   --font: var(--ts-display-sans-3xl-semibold-font);
   --ls: var(--ts-display-sans-3xl-semibold-ls);
   --opsz: var(--ts-display-sans-3xl-semibold-opsz);
-  --fs0: var(--ts-display-sans-3xl-semibold-fs);
-  --lh0: var(--ts-display-sans-3xl-semibold-lh);
+  --fs-rm: var(--ts-display-sans-3xl-semibold-fs);
+  --lh-rm: var(--ts-display-sans-3xl-semibold-lh);
 }
 .ts-display-sans-2xl-light {
   --font: var(--ts-display-sans-2xl-light-font);
   --ls: var(--ts-display-sans-2xl-light-ls);
   --opsz: var(--ts-display-sans-2xl-light-opsz);
-  --fs0: var(--ts-display-sans-2xl-light-fs);
-  --lh0: var(--ts-display-sans-2xl-light-lh);
+  --fs-rm: var(--ts-display-sans-2xl-light-fs);
+  --lh-rm: var(--ts-display-sans-2xl-light-lh);
 }
 .ts-display-sans-2xl-regular {
   --font: var(--ts-display-sans-2xl-regular-font);
   --ls: var(--ts-display-sans-2xl-regular-ls);
   --opsz: var(--ts-display-sans-2xl-regular-opsz);
-  --fs0: var(--ts-display-sans-2xl-regular-fs);
-  --lh0: var(--ts-display-sans-2xl-regular-lh);
+  --fs-rm: var(--ts-display-sans-2xl-regular-fs);
+  --lh-rm: var(--ts-display-sans-2xl-regular-lh);
 }
 .ts-display-sans-2xl-medium {
   --font: var(--ts-display-sans-2xl-medium-font);
   --ls: var(--ts-display-sans-2xl-medium-ls);
   --opsz: var(--ts-display-sans-2xl-medium-opsz);
-  --fs0: var(--ts-display-sans-2xl-medium-fs);
-  --lh0: var(--ts-display-sans-2xl-medium-lh);
+  --fs-rm: var(--ts-display-sans-2xl-medium-fs);
+  --lh-rm: var(--ts-display-sans-2xl-medium-lh);
 }
 .ts-display-sans-2xl-semibold {
   --font: var(--ts-display-sans-2xl-semibold-font);
   --ls: var(--ts-display-sans-2xl-semibold-ls);
   --opsz: var(--ts-display-sans-2xl-semibold-opsz);
-  --fs0: var(--ts-display-sans-2xl-semibold-fs);
-  --lh0: var(--ts-display-sans-2xl-semibold-lh);
+  --fs-rm: var(--ts-display-sans-2xl-semibold-fs);
+  --lh-rm: var(--ts-display-sans-2xl-semibold-lh);
 }
 .ts-display-sans-xl-light {
   --font: var(--ts-display-sans-xl-light-font);
   --ls: var(--ts-display-sans-xl-light-ls);
   --opsz: var(--ts-display-sans-xl-light-opsz);
-  --fs0: var(--ts-display-sans-xl-light-fs);
-  --lh0: var(--ts-display-sans-xl-light-lh);
+  --fs-rm: var(--ts-display-sans-xl-light-fs);
+  --lh-rm: var(--ts-display-sans-xl-light-lh);
 }
 .ts-display-sans-xl-regular {
   --font: var(--ts-display-sans-xl-regular-font);
   --ls: var(--ts-display-sans-xl-regular-ls);
   --opsz: var(--ts-display-sans-xl-regular-opsz);
-  --fs0: var(--ts-display-sans-xl-regular-fs);
-  --lh0: var(--ts-display-sans-xl-regular-lh);
+  --fs-rm: var(--ts-display-sans-xl-regular-fs);
+  --lh-rm: var(--ts-display-sans-xl-regular-lh);
 }
 .ts-display-sans-xl-medium {
   --font: var(--ts-display-sans-xl-medium-font);
   --ls: var(--ts-display-sans-xl-medium-ls);
   --opsz: var(--ts-display-sans-xl-medium-opsz);
-  --fs0: var(--ts-display-sans-xl-medium-fs);
-  --lh0: var(--ts-display-sans-xl-medium-lh);
+  --fs-rm: var(--ts-display-sans-xl-medium-fs);
+  --lh-rm: var(--ts-display-sans-xl-medium-lh);
 }
 .ts-display-sans-xl-semibold {
   --font: var(--ts-display-sans-xl-semibold-font);
   --ls: var(--ts-display-sans-xl-semibold-ls);
   --opsz: var(--ts-display-sans-xl-semibold-opsz);
-  --fs0: var(--ts-display-sans-xl-semibold-fs);
-  --lh0: var(--ts-display-sans-xl-semibold-lh);
+  --fs-rm: var(--ts-display-sans-xl-semibold-fs);
+  --lh-rm: var(--ts-display-sans-xl-semibold-lh);
 }
 .ts-display-sans-lg-light {
   --font: var(--ts-display-sans-lg-light-font);
   --ls: var(--ts-display-sans-lg-light-ls);
   --opsz: var(--ts-display-sans-lg-light-opsz);
-  --fs0: var(--ts-display-sans-lg-light-fs);
-  --lh0: var(--ts-display-sans-lg-light-lh);
+  --fs-rm: var(--ts-display-sans-lg-light-fs);
+  --lh-rm: var(--ts-display-sans-lg-light-lh);
 }
 .ts-display-sans-lg-regular {
   --font: var(--ts-display-sans-lg-regular-font);
   --ls: var(--ts-display-sans-lg-regular-ls);
   --opsz: var(--ts-display-sans-lg-regular-opsz);
-  --fs0: var(--ts-display-sans-lg-regular-fs);
-  --lh0: var(--ts-display-sans-lg-regular-lh);
+  --fs-rm: var(--ts-display-sans-lg-regular-fs);
+  --lh-rm: var(--ts-display-sans-lg-regular-lh);
 }
 .ts-display-sans-lg-medium {
   --font: var(--ts-display-sans-lg-medium-font);
   --ls: var(--ts-display-sans-lg-medium-ls);
   --opsz: var(--ts-display-sans-lg-medium-opsz);
-  --fs0: var(--ts-display-sans-lg-medium-fs);
-  --lh0: var(--ts-display-sans-lg-medium-lh);
+  --fs-rm: var(--ts-display-sans-lg-medium-fs);
+  --lh-rm: var(--ts-display-sans-lg-medium-lh);
 }
 .ts-display-sans-lg-semibold {
   --font: var(--ts-display-sans-lg-semibold-font);
   --ls: var(--ts-display-sans-lg-semibold-ls);
   --opsz: var(--ts-display-sans-lg-semibold-opsz);
-  --fs0: var(--ts-display-sans-lg-semibold-fs);
-  --lh0: var(--ts-display-sans-lg-semibold-lh);
+  --fs-rm: var(--ts-display-sans-lg-semibold-fs);
+  --lh-rm: var(--ts-display-sans-lg-semibold-lh);
 }
 .ts-display-sans-md-light {
   --font: var(--ts-display-sans-md-light-font);
   --ls: var(--ts-display-sans-md-light-ls);
   --opsz: var(--ts-display-sans-md-light-opsz);
-  --fs0: var(--ts-display-sans-md-light-fs);
-  --lh0: var(--ts-display-sans-md-light-lh);
+  --fs-rm: var(--ts-display-sans-md-light-fs);
+  --lh-rm: var(--ts-display-sans-md-light-lh);
 }
 .ts-display-sans-md-regular {
   --font: var(--ts-display-sans-md-regular-font);
   --ls: var(--ts-display-sans-md-regular-ls);
   --opsz: var(--ts-display-sans-md-regular-opsz);
-  --fs0: var(--ts-display-sans-md-regular-fs);
-  --lh0: var(--ts-display-sans-md-regular-lh);
+  --fs-rm: var(--ts-display-sans-md-regular-fs);
+  --lh-rm: var(--ts-display-sans-md-regular-lh);
 }
 .ts-display-sans-md-medium {
   --font: var(--ts-display-sans-md-medium-font);
   --ls: var(--ts-display-sans-md-medium-ls);
   --opsz: var(--ts-display-sans-md-medium-opsz);
-  --fs0: var(--ts-display-sans-md-medium-fs);
-  --lh0: var(--ts-display-sans-md-medium-lh);
+  --fs-rm: var(--ts-display-sans-md-medium-fs);
+  --lh-rm: var(--ts-display-sans-md-medium-lh);
 }
 .ts-display-sans-md-semibold {
   --font: var(--ts-display-sans-md-semibold-font);
   --ls: var(--ts-display-sans-md-semibold-ls);
   --opsz: var(--ts-display-sans-md-semibold-opsz);
-  --fs0: var(--ts-display-sans-md-semibold-fs);
-  --lh0: var(--ts-display-sans-md-semibold-lh);
+  --fs-rm: var(--ts-display-sans-md-semibold-fs);
+  --lh-rm: var(--ts-display-sans-md-semibold-lh);
 }
 .ts-display-sans-sm-light {
   --font: var(--ts-display-sans-sm-light-font);
   --ls: var(--ts-display-sans-sm-light-ls);
   --opsz: var(--ts-display-sans-sm-light-opsz);
-  --fs0: var(--ts-display-sans-sm-light-fs);
-  --lh0: var(--ts-display-sans-sm-light-lh);
+  --fs-rm: var(--ts-display-sans-sm-light-fs);
+  --lh-rm: var(--ts-display-sans-sm-light-lh);
 }
 .ts-display-sans-sm-regular {
   --font: var(--ts-display-sans-sm-regular-font);
   --ls: var(--ts-display-sans-sm-regular-ls);
   --opsz: var(--ts-display-sans-sm-regular-opsz);
-  --fs0: var(--ts-display-sans-sm-regular-fs);
-  --lh0: var(--ts-display-sans-sm-regular-lh);
+  --fs-rm: var(--ts-display-sans-sm-regular-fs);
+  --lh-rm: var(--ts-display-sans-sm-regular-lh);
 }
 .ts-display-sans-sm-medium {
   --font: var(--ts-display-sans-sm-medium-font);
   --ls: var(--ts-display-sans-sm-medium-ls);
   --opsz: var(--ts-display-sans-sm-medium-opsz);
-  --fs0: var(--ts-display-sans-sm-medium-fs);
-  --lh0: var(--ts-display-sans-sm-medium-lh);
+  --fs-rm: var(--ts-display-sans-sm-medium-fs);
+  --lh-rm: var(--ts-display-sans-sm-medium-lh);
 }
 .ts-display-sans-sm-semibold {
   --font: var(--ts-display-sans-sm-semibold-font);
   --ls: var(--ts-display-sans-sm-semibold-ls);
   --opsz: var(--ts-display-sans-sm-semibold-opsz);
-  --fs0: var(--ts-display-sans-sm-semibold-fs);
-  --lh0: var(--ts-display-sans-sm-semibold-lh);
+  --fs-rm: var(--ts-display-sans-sm-semibold-fs);
+  --lh-rm: var(--ts-display-sans-sm-semibold-lh);
 }
 .ts-display-sans-xs-light {
   --font: var(--ts-display-sans-xs-light-font);
   --ls: var(--ts-display-sans-xs-light-ls);
   --opsz: var(--ts-display-sans-xs-light-opsz);
-  --fs0: var(--ts-display-sans-xs-light-fs);
-  --lh0: var(--ts-display-sans-xs-light-lh);
+  --fs-rm: var(--ts-display-sans-xs-light-fs);
+  --lh-rm: var(--ts-display-sans-xs-light-lh);
 }
 .ts-display-sans-xs-regular {
   --font: var(--ts-display-sans-xs-regular-font);
   --ls: var(--ts-display-sans-xs-regular-ls);
   --opsz: var(--ts-display-sans-xs-regular-opsz);
-  --fs0: var(--ts-display-sans-xs-regular-fs);
-  --lh0: var(--ts-display-sans-xs-regular-lh);
+  --fs-rm: var(--ts-display-sans-xs-regular-fs);
+  --lh-rm: var(--ts-display-sans-xs-regular-lh);
 }
 .ts-display-sans-xs-medium {
   --font: var(--ts-display-sans-xs-medium-font);
   --ls: var(--ts-display-sans-xs-medium-ls);
   --opsz: var(--ts-display-sans-xs-medium-opsz);
-  --fs0: var(--ts-display-sans-xs-medium-fs);
-  --lh0: var(--ts-display-sans-xs-medium-lh);
+  --fs-rm: var(--ts-display-sans-xs-medium-fs);
+  --lh-rm: var(--ts-display-sans-xs-medium-lh);
 }
 .ts-display-sans-xs-semibold {
   --font: var(--ts-display-sans-xs-semibold-font);
   --ls: var(--ts-display-sans-xs-semibold-ls);
   --opsz: var(--ts-display-sans-xs-semibold-opsz);
-  --fs0: var(--ts-display-sans-xs-semibold-fs);
-  --lh0: var(--ts-display-sans-xs-semibold-lh);
+  --fs-rm: var(--ts-display-sans-xs-semibold-fs);
+  --lh-rm: var(--ts-display-sans-xs-semibold-lh);
 }
 .ts-display-sans-2xs-light {
   --font: var(--ts-display-sans-2xs-light-font);
   --ls: var(--ts-display-sans-2xs-light-ls);
   --opsz: var(--ts-display-sans-2xs-light-opsz);
-  --fs0: var(--ts-display-sans-2xs-light-fs);
-  --lh0: var(--ts-display-sans-2xs-light-lh);
+  --fs-rm: var(--ts-display-sans-2xs-light-fs);
+  --lh-rm: var(--ts-display-sans-2xs-light-lh);
 }
 .ts-display-sans-2xs-regular {
   --font: var(--ts-display-sans-2xs-regular-font);
   --ls: var(--ts-display-sans-2xs-regular-ls);
   --opsz: var(--ts-display-sans-2xs-regular-opsz);
-  --fs0: var(--ts-display-sans-2xs-regular-fs);
-  --lh0: var(--ts-display-sans-2xs-regular-lh);
+  --fs-rm: var(--ts-display-sans-2xs-regular-fs);
+  --lh-rm: var(--ts-display-sans-2xs-regular-lh);
 }
 .ts-text-nav-label {
   --font: var(--ts-text-nav-label-font);
   --ls: var(--ts-text-nav-label-ls);
   --opsz: var(--ts-text-nav-label-opsz);
   --case: var(--ts-text-nav-label-case);
-  --fs0: var(--ts-text-nav-label-fs);
-  --lh0: var(--ts-text-nav-label-lh);
+  --fs-rm: var(--ts-text-nav-label-fs);
+  --lh-rm: var(--ts-text-nav-label-lh);
 }
 .ts-text-2xl-light {
   --font: var(--ts-text-2xl-light-font);
   --ls: var(--ts-text-2xl-light-ls);
   --opsz: var(--ts-text-2xl-light-opsz);
-  --fs0: var(--ts-text-2xl-light-fs);
-  --lh0: var(--ts-text-2xl-light-lh);
+  --fs-rm: var(--ts-text-2xl-light-fs);
+  --lh-rm: var(--ts-text-2xl-light-lh);
 }
 .ts-text-2xl-regular {
   --font: var(--ts-text-2xl-regular-font);
   --ls: var(--ts-text-2xl-regular-ls);
   --opsz: var(--ts-text-2xl-regular-opsz);
-  --fs0: var(--ts-text-2xl-regular-fs);
-  --lh0: var(--ts-text-2xl-regular-lh);
+  --fs-rm: var(--ts-text-2xl-regular-fs);
+  --lh-rm: var(--ts-text-2xl-regular-lh);
 }
 .ts-text-2xl-medium {
   --font: var(--ts-text-2xl-medium-font);
   --ls: var(--ts-text-2xl-medium-ls);
   --opsz: var(--ts-text-2xl-medium-opsz);
-  --fs0: var(--ts-text-2xl-medium-fs);
-  --lh0: var(--ts-text-2xl-medium-lh);
+  --fs-rm: var(--ts-text-2xl-medium-fs);
+  --lh-rm: var(--ts-text-2xl-medium-lh);
 }
 .ts-text-2xl-semibold {
   --font: var(--ts-text-2xl-semibold-font);
   --ls: var(--ts-text-2xl-semibold-ls);
   --opsz: var(--ts-text-2xl-semibold-opsz);
-  --fs0: var(--ts-text-2xl-semibold-fs);
-  --lh0: var(--ts-text-2xl-semibold-lh);
+  --fs-rm: var(--ts-text-2xl-semibold-fs);
+  --lh-rm: var(--ts-text-2xl-semibold-lh);
 }
 .ts-text-xl-light {
   --font: var(--ts-text-xl-light-font);
   --ls: var(--ts-text-xl-light-ls);
   --opsz: var(--ts-text-xl-light-opsz);
-  --fs0: var(--ts-text-xl-light-fs);
-  --lh0: var(--ts-text-xl-light-lh);
+  --fs-rm: var(--ts-text-xl-light-fs);
+  --lh-rm: var(--ts-text-xl-light-lh);
 }
 .ts-text-xl-regular {
   --font: var(--ts-text-xl-regular-font);
   --ls: var(--ts-text-xl-regular-ls);
   --opsz: var(--ts-text-xl-regular-opsz);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
+  --fs-rm: var(--ts-text-xl-regular-fs);
+  --lh-rm: var(--ts-text-xl-regular-lh);
 }
 .ts-text-xl-medium {
   --font: var(--ts-text-xl-medium-font);
   --ls: var(--ts-text-xl-medium-ls);
   --opsz: var(--ts-text-xl-medium-opsz);
-  --fs0: var(--ts-text-xl-medium-fs);
-  --lh0: var(--ts-text-xl-medium-lh);
+  --fs-rm: var(--ts-text-xl-medium-fs);
+  --lh-rm: var(--ts-text-xl-medium-lh);
 }
 .ts-text-xl-semibold {
   --font: var(--ts-text-xl-semibold-font);
   --ls: var(--ts-text-xl-semibold-ls);
   --opsz: var(--ts-text-xl-semibold-opsz);
-  --fs0: var(--ts-text-xl-semibold-fs);
-  --lh0: var(--ts-text-xl-semibold-lh);
+  --fs-rm: var(--ts-text-xl-semibold-fs);
+  --lh-rm: var(--ts-text-xl-semibold-lh);
 }
 .ts-text-lg-light {
   --font: var(--ts-text-lg-light-font);
   --ls: var(--ts-text-lg-light-ls);
   --opsz: var(--ts-text-lg-light-opsz);
-  --fs0: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-lg-light-lh);
 }
 .ts-text-lg-regular {
   --font: var(--ts-text-lg-regular-font);
   --ls: var(--ts-text-lg-regular-ls);
   --opsz: var(--ts-text-lg-regular-opsz);
-  --fs0: var(--ts-text-lg-regular-fs);
-  --lh0: var(--ts-text-lg-regular-lh);
+  --fs-rm: var(--ts-text-lg-regular-fs);
+  --lh-rm: var(--ts-text-lg-regular-lh);
 }
 .ts-text-lg-medium {
   --font: var(--ts-text-lg-medium-font);
   --ls: var(--ts-text-lg-medium-ls);
   --opsz: var(--ts-text-lg-medium-opsz);
-  --fs0: var(--ts-text-lg-medium-fs);
-  --lh0: var(--ts-text-lg-medium-lh);
+  --fs-rm: var(--ts-text-lg-medium-fs);
+  --lh-rm: var(--ts-text-lg-medium-lh);
 }
 .ts-text-lg-semibold {
   --font: var(--ts-text-lg-semibold-font);
   --ls: var(--ts-text-lg-semibold-ls);
   --opsz: var(--ts-text-lg-semibold-opsz);
-  --fs0: var(--ts-text-lg-semibold-fs);
-  --lh0: var(--ts-text-lg-semibold-lh);
+  --fs-rm: var(--ts-text-lg-semibold-fs);
+  --lh-rm: var(--ts-text-lg-semibold-lh);
 }
 .ts-text-md-light {
   --font: var(--ts-text-md-light-font);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
-  --fs0: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
 }
 .ts-text-md-regular {
   --font: var(--ts-text-md-regular-font);
   --ls: var(--ts-text-md-regular-ls);
   --opsz: var(--ts-text-md-regular-opsz);
-  --fs0: var(--ts-text-md-regular-fs);
-  --lh0: var(--ts-text-md-regular-lh);
+  --fs-rm: var(--ts-text-md-regular-fs);
+  --lh-rm: var(--ts-text-md-regular-lh);
 }
 .ts-text-md-medium {
   --font: var(--ts-text-md-medium-font);
   --ls: var(--ts-text-md-medium-ls);
   --opsz: var(--ts-text-md-medium-opsz);
-  --fs0: var(--ts-text-md-medium-fs);
-  --lh0: var(--ts-text-md-medium-lh);
+  --fs-rm: var(--ts-text-md-medium-fs);
+  --lh-rm: var(--ts-text-md-medium-lh);
 }
 .ts-text-md-semibold {
   --font: var(--ts-text-md-semibold-font);
   --ls: var(--ts-text-md-semibold-ls);
   --opsz: var(--ts-text-md-semibold-opsz);
-  --fs0: var(--ts-text-md-semibold-fs);
-  --lh0: var(--ts-text-md-semibold-lh);
+  --fs-rm: var(--ts-text-md-semibold-fs);
+  --lh-rm: var(--ts-text-md-semibold-lh);
 }
 .ts-text-sm-light {
   --font: var(--ts-text-sm-light-font);
   --ls: var(--ts-text-sm-light-ls);
   --opsz: var(--ts-text-sm-light-opsz);
-  --fs0: var(--ts-text-sm-light-fs);
-  --lh0: var(--ts-text-sm-light-lh);
+  --fs-rm: var(--ts-text-sm-light-fs);
+  --lh-rm: var(--ts-text-sm-light-lh);
 }
 .ts-text-sm-regular {
   --font: var(--ts-text-sm-regular-font);
   --ls: var(--ts-text-sm-regular-ls);
   --opsz: var(--ts-text-sm-regular-opsz);
-  --fs0: var(--ts-text-sm-regular-fs);
-  --lh0: var(--ts-text-sm-regular-lh);
+  --fs-rm: var(--ts-text-sm-regular-fs);
+  --lh-rm: var(--ts-text-sm-regular-lh);
 }
 .ts-text-sm-medium {
   --font: var(--ts-text-sm-medium-font);
   --ls: var(--ts-text-sm-medium-ls);
   --opsz: var(--ts-text-sm-medium-opsz);
-  --fs0: var(--ts-text-sm-medium-fs);
-  --lh0: var(--ts-text-sm-medium-lh);
+  --fs-rm: var(--ts-text-sm-medium-fs);
+  --lh-rm: var(--ts-text-sm-medium-lh);
 }
 .ts-text-sm-semibold {
   --font: var(--ts-text-sm-semibold-font);
   --ls: var(--ts-text-sm-semibold-ls);
   --opsz: var(--ts-text-sm-semibold-opsz);
-  --fs0: var(--ts-text-sm-semibold-fs);
-  --lh0: var(--ts-text-sm-semibold-lh);
+  --fs-rm: var(--ts-text-sm-semibold-fs);
+  --lh-rm: var(--ts-text-sm-semibold-lh);
 }
 .ts-text-xs-light {
   --font: var(--ts-text-xs-light-font);
   --ls: var(--ts-text-xs-light-ls);
   --opsz: var(--ts-text-xs-light-opsz);
-  --fs0: var(--ts-text-xs-light-fs);
-  --lh0: var(--ts-text-xs-light-lh);
+  --fs-rm: var(--ts-text-xs-light-fs);
+  --lh-rm: var(--ts-text-xs-light-lh);
 }
 .ts-text-xs-regular {
   --font: var(--ts-text-xs-regular-font);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
+  --fs-rm: var(--ts-text-xs-regular-fs);
+  --lh-rm: var(--ts-text-xs-regular-lh);
 }
 .ts-text-xs-medium {
   --font: var(--ts-text-xs-medium-font);
   --ls: var(--ts-text-xs-medium-ls);
   --opsz: var(--ts-text-xs-medium-opsz);
-  --fs0: var(--ts-text-xs-medium-fs);
-  --lh0: var(--ts-text-xs-medium-lh);
+  --fs-rm: var(--ts-text-xs-medium-fs);
+  --lh-rm: var(--ts-text-xs-medium-lh);
 }
 .ts-text-xs-semibold {
   --font: var(--ts-text-xs-semibold-font);
   --ls: var(--ts-text-xs-semibold-ls);
   --opsz: var(--ts-text-xs-semibold-opsz);
-  --fs0: var(--ts-text-xs-semibold-fs);
-  --lh0: var(--ts-text-xs-semibold-lh);
+  --fs-rm: var(--ts-text-xs-semibold-fs);
+  --lh-rm: var(--ts-text-xs-semibold-lh);
 }
 .ts-text-2xs-light {
   --font: var(--ts-text-2xs-light-font);
   --ls: var(--ts-text-2xs-light-ls);
   --opsz: var(--ts-text-2xs-light-opsz);
-  --fs0: var(--ts-text-2xs-light-fs);
-  --lh0: var(--ts-text-2xs-light-lh);
+  --fs-rm: var(--ts-text-2xs-light-fs);
+  --lh-rm: var(--ts-text-2xs-light-lh);
 }
 .ts-text-2xs-regular {
   --font: var(--ts-text-2xs-regular-font);
   --ls: var(--ts-text-2xs-regular-ls);
   --opsz: var(--ts-text-2xs-regular-opsz);
-  --fs0: var(--ts-text-2xs-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh);
+  --fs-rm: var(--ts-text-2xs-regular-fs);
+  --lh-rm: var(--ts-text-2xs-regular-lh);
 }
 .ts-text-2xs-medium {
   --font: var(--ts-text-2xs-medium-font);
   --ls: var(--ts-text-2xs-medium-ls);
   --opsz: var(--ts-text-2xs-medium-opsz);
-  --fs0: var(--ts-text-2xs-medium-fs);
-  --lh0: var(--ts-text-2xs-medium-lh);
+  --fs-rm: var(--ts-text-2xs-medium-fs);
+  --lh-rm: var(--ts-text-2xs-medium-lh);
 }
 .ts-text-2xs-semibold {
   --font: var(--ts-text-2xs-semibold-font);
   --ls: var(--ts-text-2xs-semibold-ls);
   --opsz: var(--ts-text-2xs-semibold-opsz);
-  --fs0: var(--ts-text-2xs-semibold-fs);
-  --lh0: var(--ts-text-2xs-semibold-lh);
+  --fs-rm: var(--ts-text-2xs-semibold-fs);
+  --lh-rm: var(--ts-text-2xs-semibold-lh);
 }
 .ts-text-3xs-light {
   --font: var(--ts-text-3xs-light-font);
   --ls: var(--ts-text-3xs-light-ls);
   --opsz: var(--ts-text-3xs-light-opsz);
-  --fs0: var(--ts-text-3xs-light-fs);
-  --lh0: var(--ts-text-3xs-light-lh);
+  --fs-rm: var(--ts-text-3xs-light-fs);
+  --lh-rm: var(--ts-text-3xs-light-lh);
 }
 .ts-text-3xs-regular {
   --font: var(--ts-text-3xs-regular-font);
   --ls: var(--ts-text-3xs-regular-ls);
   --opsz: var(--ts-text-3xs-regular-opsz);
-  --fs0: var(--ts-text-3xs-regular-fs);
-  --lh0: var(--ts-text-3xs-regular-lh);
+  --fs-rm: var(--ts-text-3xs-regular-fs);
+  --lh-rm: var(--ts-text-3xs-regular-lh);
 }
 .ts-text-3xs-medium {
   --font: var(--ts-text-3xs-medium-font);
   --ls: var(--ts-text-3xs-medium-ls);
   --opsz: var(--ts-text-3xs-medium-opsz);
-  --fs0: var(--ts-text-3xs-medium-fs);
-  --lh0: var(--ts-text-3xs-medium-lh);
+  --fs-rm: var(--ts-text-3xs-medium-fs);
+  --lh-rm: var(--ts-text-3xs-medium-lh);
 }
 .ts-text-3xs-semibold {
   --font: var(--ts-text-3xs-semibold-font);
   --ls: var(--ts-text-3xs-semibold-ls);
   --opsz: var(--ts-text-3xs-semibold-opsz);
-  --fs0: var(--ts-text-3xs-semibold-fs);
-  --lh0: var(--ts-text-3xs-semibold-lh);
+  --fs-rm: var(--ts-text-3xs-semibold-fs);
+  --lh-rm: var(--ts-text-3xs-semibold-lh);
 }

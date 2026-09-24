@@ -159,39 +159,57 @@
   margin: 0;
   color: var(--color-text-400);
   --font: var(--csc-cat-f, var(--ts-text-xs-light-font));
-  --fs0: var(--csc-cat-fs, var(--ts-text-xs-light-fs));
-  --fs1: var(--csc-cat-fs1);
-  --lh0: var(--csc-cat-lh, var(--ts-text-xs-light-lh));
-  --lh1: var(--csc-cat-lh1);
+  --fs-rm: var(--csc-cat-fs-rm, var(--ts-text-xs-light-fs));
+  --fs-rs: var(--csc-cat-fs-rs, var(--fs-rm));
+  --fs-rt: var(--csc-cat-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--csc-cat-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--csc-cat-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--csc-cat-lh-rm, var(--ts-text-xs-light-lh));
+  --lh-rs: var(--csc-cat-lh-rs, var(--lh-rm));
+  --lh-rt: var(--csc-cat-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--csc-cat-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--csc-cat-lh-rd2, var(--lh-rd1));
   --ls: var(--csc-cat-ls, var(--ts-text-xs-light-ls));
   --opsz: var(--csc-cat-opsz, var(--ts-text-xs-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 .csc-title {
   margin: calc(var(--_u) * var(--csc-cat-gap, 6)) 0 0;
   color: var(--color-text-100);
   --font: var(--csc-title-f, var(--ts-display-serif-xs-light-font));
-  --fs0: var(--csc-title-fs, var(--ts-display-serif-xs-light-fs));
-  --fs1: var(--csc-title-fs1);
-  --lh0: var(--csc-title-lh, var(--ts-display-serif-xs-light-lh));
-  --lh1: var(--csc-title-lh1);
+  --fs-rm: var(--csc-title-fs-rm, var(--ts-display-serif-xs-light-fs));
+  --fs-rs: var(--csc-title-fs-rs, var(--fs-rm));
+  --fs-rt: var(--csc-title-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--csc-title-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--csc-title-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--csc-title-lh-rm, var(--ts-display-serif-xs-light-lh));
+  --lh-rs: var(--csc-title-lh-rs, var(--lh-rm));
+  --lh-rt: var(--csc-title-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--csc-title-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--csc-title-lh-rd2, var(--lh-rd1));
   --ls: var(--csc-title-ls, var(--ts-display-serif-xs-light-ls));
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 .csc-desc {
   margin: calc(var(--_u) * var(--csc-title-gap, 12)) 0 0;
   color: var(--color-text-300);
   --font: var(--csc-desc-f, var(--ts-text-md-light-font));
-  --fs0: var(--csc-desc-fs, var(--ts-text-md-light-fs));
-  --fs1: var(--csc-desc-fs1);
-  --lh0: var(--csc-desc-lh, var(--ts-text-md-light-lh));
-  --lh1: var(--csc-desc-lh1);
+  --fs-rm: var(--csc-desc-fs-rm, var(--ts-text-md-light-fs));
+  --fs-rs: var(--csc-desc-fs-rs, var(--fs-rm));
+  --fs-rt: var(--csc-desc-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--csc-desc-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--csc-desc-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--csc-desc-lh-rm, var(--ts-text-md-light-lh));
+  --lh-rs: var(--csc-desc-lh-rs, var(--lh-rm));
+  --lh-rt: var(--csc-desc-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--csc-desc-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--csc-desc-lh-rd2, var(--lh-rd1));
   --ls: var(--csc-desc-ls, var(--ts-text-md-light-ls));
   --opsz: var(--csc-desc-opsz, var(--ts-text-md-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 
 /* ---------------- the stats block ---------------- */
@@ -200,14 +218,20 @@
   margin: 0;
   color: var(--color-text-400);
   --font: var(--csc-sslug-f, var(--ts-text-xs-light-font));
-  --fs0: var(--csc-sslug-fs, var(--ts-text-xs-light-fs));
-  --fs1: var(--csc-sslug-fs1);
-  --lh0: var(--csc-sslug-lh, var(--ts-text-xs-light-lh));
-  --lh1: var(--csc-sslug-lh1);
+  --fs-rm: var(--csc-sslug-fs-rm, var(--ts-text-xs-light-fs));
+  --fs-rs: var(--csc-sslug-fs-rs, var(--fs-rm));
+  --fs-rt: var(--csc-sslug-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--csc-sslug-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--csc-sslug-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--csc-sslug-lh-rm, var(--ts-text-xs-light-lh));
+  --lh-rs: var(--csc-sslug-lh-rs, var(--lh-rm));
+  --lh-rt: var(--csc-sslug-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--csc-sslug-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--csc-sslug-lh-rd2, var(--lh-rd1));
   --ls: var(--csc-sslug-ls, var(--ts-text-xs-light-ls));
   --opsz: var(--csc-sslug-opsz, var(--ts-text-xs-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 
 /* three equal cells on a 16 gap with 1px border/000 full-height
@@ -242,14 +266,20 @@
   align-items: center;
   color: var(--color-text-300);
   --font: var(--csc-num-f, var(--ts-text-2xl-light-font));
-  --fs0: var(--csc-num-fs, var(--ts-text-2xl-light-fs));
-  --fs1: var(--csc-num-fs1);
-  --lh0: var(--csc-num-lh, var(--ts-text-2xl-light-lh));
-  --lh1: var(--csc-num-lh1);
+  --fs-rm: var(--csc-num-fs-rm, var(--ts-text-2xl-light-fs));
+  --fs-rs: var(--csc-num-fs-rs, var(--fs-rm));
+  --fs-rt: var(--csc-num-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--csc-num-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--csc-num-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--csc-num-lh-rm, var(--ts-text-2xl-light-lh));
+  --lh-rs: var(--csc-num-lh-rs, var(--lh-rm));
+  --lh-rt: var(--csc-num-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--csc-num-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--csc-num-lh-rd2, var(--lh-rd1));
   --ls: var(--csc-num-ls, var(--ts-text-2xl-light-ls));
   --opsz: var(--csc-num-opsz, var(--ts-text-2xl-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 /* The star follows the numeral; labels wrap naturally in narrow cells. */
 .csc-star {
@@ -263,14 +293,20 @@
   width: min-content;
   color: var(--color-text-400);
   --font: var(--csc-label-f, var(--ts-text-xs-light-font));
-  --fs0: var(--csc-label-fs, var(--ts-text-xs-light-fs));
-  --fs1: var(--csc-label-fs1);
-  --lh0: var(--csc-label-lh, var(--ts-text-xs-light-lh));
-  --lh1: var(--csc-label-lh1);
+  --fs-rm: var(--csc-label-fs-rm, var(--ts-text-xs-light-fs));
+  --fs-rs: var(--csc-label-fs-rs, var(--fs-rm));
+  --fs-rt: var(--csc-label-fs-rt, var(--fs-rs));
+  --fs-rd1: var(--csc-label-fs-rd1, var(--fs-rt));
+  --fs-rd2: var(--csc-label-fs-rd2, var(--fs-rd1));
+  --lh-rm: var(--csc-label-lh-rm, var(--ts-text-xs-light-lh));
+  --lh-rs: var(--csc-label-lh-rs, var(--lh-rm));
+  --lh-rt: var(--csc-label-lh-rt, var(--lh-rs));
+  --lh-rd1: var(--csc-label-lh-rd1, var(--lh-rt));
+  --lh-rd2: var(--csc-label-lh-rd2, var(--lh-rd1));
   --ls: var(--csc-label-ls, var(--ts-text-xs-light-ls));
   --opsz: var(--csc-label-opsz, var(--ts-text-xs-light-opsz));
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 
 .csc-cta {

@@ -21,10 +21,22 @@
   color: var(--color-text-100);
   margin-top: calc(var(--co-u) * 16);
   max-width: calc(var(--co-u) * 320);
-  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --fs1: 72;
-  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --lh1: 78;
+  --fs-rm: var(--ts-display-serif-sm-plus-thin-fs);
+  --fs-rs: 54;
+  --fs-rt: 50;
+  --fs-rd1: 51.4286;
+  --fs-rd2: 72;
+  --lh-rm: var(--ts-display-serif-sm-plus-thin-lh);
+  --lh-rs: 63;
+  --lh-rt: 60;
+  --lh-rd1: 55.7143;
+  --lh-rd2: 78;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: 72;
+  --lh-rs-to: 84;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .coh-h1 {

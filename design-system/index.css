@@ -24,9 +24,9 @@
 @import "./grid/engine.css" layer(grid);
 
 /* Primitives */
+@import "./primitives/text.css" layer(primitives);
 @import "./primitives/buttons.css" layer(primitives);
 @import "./primitives/grader.css" layer(primitives);
-@import "./primitives/text.css" layer(primitives);
 @import "./primitives/faq-question.css" layer(primitives);
 @import "./primitives/footer-item.css" layer(primitives);
 @import "./primitives/pricing-button.css" layer(primitives);

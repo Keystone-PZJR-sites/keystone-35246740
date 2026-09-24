@@ -84,10 +84,16 @@
 .csr-quote-body {
   margin: 0;
   max-width: calc((var(--wA) + var(--wB)) * 304);
-  --fs0: var(--ts-display-serif-2xs-plus-extralight-fs);
-  --fs1: var(--ts-display-serif-sm-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-2xs-plus-extralight-lh);
-  --lh1: var(--ts-display-serif-sm-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-2xs-plus-extralight-fs);
+  --fs-rs: var(--ts-display-serif-xs-extralight-fs);
+  --fs-rt: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rd1: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rd2: var(--ts-display-serif-sm-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-2xs-plus-extralight-lh);
+  --lh-rs: var(--ts-display-serif-xs-extralight-lh);
+  --lh-rt: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rd1: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rd2: var(--ts-display-serif-sm-plus-extralight-lh);
 }
 .csr-quote .cs-quote-attrib {
   margin-top: calc((var(--wA) + var(--wB)) * 24);
