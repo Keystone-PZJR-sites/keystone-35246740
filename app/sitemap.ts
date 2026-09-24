@@ -8,7 +8,6 @@ const STATIC_PATHS = [
   "/our-work/",
   "/pricing/",
   "/company/",
-  "/for-dentists/",
   "/blog/",
   "/contact/",
   "/privacy/",
