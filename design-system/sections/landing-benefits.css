@@ -36,8 +36,8 @@
 .ld-card-copy {
   margin: var(--space-md) 0 0;
   color: var(--color-text-300);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rd2: var(--ts-text-lg-light-lh);
 }
 @container (--rt) {
   .ld-cards {

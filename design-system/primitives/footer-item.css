@@ -14,13 +14,21 @@
   transition-timing-function: var(--motion-hover-ease);
 }
 
-/* The step's size rides the grid: the footer sets the `--fs0/--fs1` ramp ends. */
+/* The step's size rides the grid: the footer sets the `--fs-rm/--fs-rd2` ramp ends. */
 .fitem {
   --font: var(--ts-text-md-regular-font);
   --ls: var(--ts-text-md-regular-ls);
   --opsz: var(--ts-text-md-regular-opsz);
-  --fs0: var(--ts-text-md-regular-fs);
-  --lh0: var(--ts-text-md-regular-lh);
+  --fs-rm: var(--ts-text-md-regular-fs);
+  --fs-rs: var(--ts-text-md-regular-fs);
+  --fs-rt: var(--ts-text-md-regular-fs);
+  --fs-rd1: var(--ts-text-md-regular-fs);
+  --fs-rd2: var(--ts-text-md-regular-fs);
+  --lh-rm: var(--ts-text-md-regular-lh);
+  --lh-rs: var(--ts-text-md-regular-lh);
+  --lh-rt: var(--ts-text-md-regular-lh);
+  --lh-rd1: var(--ts-text-md-regular-lh);
+  --lh-rd2: var(--ts-text-md-regular-lh);
 }
 
 .fitem[data-chrome="light"] {

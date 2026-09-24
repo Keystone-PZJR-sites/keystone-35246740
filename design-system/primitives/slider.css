@@ -163,8 +163,8 @@
   justify-content: space-between;
   color: var(--color-text-400);
   white-space: nowrap;
-  --fs-px: calc(var(--_u) * var(--fs));
-  --lh-px: calc(var(--_u) * var(--lh));
+  --fs-px: calc(var(--_u) * var(--fs-band));
+  --lh-px: calc(var(--_u) * var(--lh-band));
 }
 .sldr-glyph {
   width: calc(var(--_u) * 13);

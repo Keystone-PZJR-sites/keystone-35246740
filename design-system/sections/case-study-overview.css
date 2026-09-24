@@ -105,10 +105,16 @@
   --font: var(--ts-text-md-light-font);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: var(--ts-text-md-light-fs);
+  --fs-rt: var(--ts-text-md-light-fs);
+  --fs-rd1: var(--ts-text-lg-light-fs);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: var(--ts-text-md-light-lh);
+  --lh-rt: var(--ts-text-md-light-lh);
+  --lh-rd1: var(--ts-text-lg-light-lh);
+  --lh-rd2: var(--ts-text-lg-light-lh);
 }
 @container (--rd1) {
   .cso-list { gap: calc((var(--wA) + var(--wB)) * 12); }
@@ -173,10 +179,16 @@
   --ls: var(--ts-display-sans-xs-light-ls);
   --opsz: var(--ts-display-sans-xs-light-opsz);
   margin-bottom: var(--space-xs);
-  --fs0: var(--ts-display-sans-xs-light-fs);
-  --fs1: var(--ts-display-sans-lg-light-fs);
-  --lh0: var(--ts-display-sans-xs-light-lh);
-  --lh1: var(--ts-display-sans-lg-light-lh);
+  --fs-rm: var(--ts-display-sans-xs-light-fs);
+  --fs-rs: var(--ts-display-sans-xs-light-fs);
+  --fs-rt: var(--ts-display-sans-lg-light-fs);
+  --fs-rd1: var(--ts-display-sans-md-light-fs);
+  --fs-rd2: var(--ts-display-sans-lg-light-fs);
+  --lh-rm: var(--ts-display-sans-xs-light-lh);
+  --lh-rs: var(--ts-display-sans-xs-light-lh);
+  --lh-rt: var(--ts-display-sans-lg-light-lh);
+  --lh-rd1: var(--ts-display-sans-md-light-lh);
+  --lh-rd2: var(--ts-display-sans-lg-light-lh);
 }
 @container (--rt) {
   .cso-stats .cs-cell-value {
@@ -205,10 +217,16 @@
   --font: var(--ts-text-xs-regular-font);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --fs1: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
-  --lh1: var(--ts-text-md-light-lh);
+  --fs-rm: var(--ts-text-xs-regular-fs);
+  --fs-rs: var(--ts-text-sm-regular-fs);
+  --fs-rt: var(--ts-text-sm-regular-fs);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-md-light-fs);
+  --lh-rm: var(--ts-text-xs-regular-lh);
+  --lh-rs: var(--ts-text-sm-regular-lh);
+  --lh-rt: var(--ts-text-sm-regular-lh);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-md-light-lh);
 }
 @container (--rs) {
   .cso-stats .cs-pill {

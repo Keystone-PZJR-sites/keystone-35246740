@@ -126,18 +126,24 @@
 .ps-head,
 .ps-subhead,
 .ps-chip {
-  --fs-px: calc(var(--ps-u) * var(--fs));
-  --lh-px: calc(var(--ps-u) * var(--lh));
+  --fs-px: calc(var(--ps-u) * var(--fs-band));
+  --lh-px: calc(var(--ps-u) * var(--lh-band));
 }
 
 .ps-head {
   margin: 0;
   color: var(--color-text-100);
   max-width: calc(var(--ps-u) * 288);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: var(--ts-display-serif-md-plus-extralight-fs);
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: var(--ts-display-serif-md-plus-extralight-lh);
+  --fs-rm: var(--ts-display-serif-xs-extralight-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--fs-rm);
+  --fs-rd1: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rd2: var(--ts-display-serif-md-plus-extralight-fs);
+  --lh-rm: var(--ts-display-serif-xs-extralight-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--lh-rm);
+  --lh-rd1: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rd2: var(--ts-display-serif-md-plus-extralight-lh);
 }
 @container (--rs) {
   .ps-head { max-width: calc(var(--ps-u) * 160); }
@@ -164,10 +170,16 @@
   margin: calc(var(--ps-u) * 24) 0 0;
   color: var(--color-text-400);
   max-width: calc(var(--ps-u) * 288);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--ts-text-sm-light-fs);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--ts-text-sm-light-lh);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-lg-light-lh);
 }
 @container (--rs) {
   .ps-subhead { max-width: calc(var(--ps-u) * 160); }
@@ -239,10 +251,16 @@
   --font: var(--ts-text-xs-regular-font);
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --fs1: var(--ts-text-md-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
-  --lh1: var(--ts-text-md-regular-lh);
+  --fs-rm: var(--ts-text-xs-regular-fs);
+  --fs-rs: var(--ts-text-2xs-regular-fs);
+  --fs-rt: var(--ts-text-xs-regular-fs);
+  --fs-rd1: var(--ts-text-xs-regular-fs);
+  --fs-rd2: var(--ts-text-md-regular-fs);
+  --lh-rm: var(--ts-text-xs-regular-lh);
+  --lh-rs: var(--ts-text-2xs-regular-lh);
+  --lh-rt: var(--ts-text-xs-regular-lh);
+  --lh-rd1: var(--ts-text-xs-regular-lh);
+  --lh-rd2: var(--ts-text-md-regular-lh);
 }
 @container (--rs) {
   .ps-chip {
@@ -420,17 +438,31 @@
   width: 100%;
   height: 100%;
   --pcard-u: var(--ps-u);
-  /* Type: the 1344 end of each ramp; the primitive's defaults are the 384 end. */
-  --pc-title-fs1: 24;
-  --pc-title-lh1: 32;
-  --pc-story-fs1: 18;
-  --pc-story-lh1: 26;
-  --ptag-fs1: 14;
-  --ptag-lh1: 18;
-  --pc-est-fs1: 36;
-  --pc-est-lh1: 42;
-  --pc-tag-fs1: 12;
-  --pc-tag-lh1: 16;
+  /* Type anchors per band; unset anchors hold the one below. */
+  --pc-title-fs-rs: 16;
+  --pc-title-lh-rs: 22;
+  --pc-title-fs-rt: 18;
+  --pc-title-lh-rt: 26;
+  --pc-title-fs-rd1: 20;
+  --pc-title-lh-rd1: 26;
+  --pc-title-fs-rd2: 24;
+  --pc-title-lh-rd2: 32;
+  --pc-story-fs-rt: 14;
+  --pc-story-lh-rt: 18;
+  --pc-story-fs-rd1: 16;
+  --pc-story-lh-rd1: 22;
+  --pc-story-fs-rd2: 18;
+  --pc-story-lh-rd2: 26;
+  --ptag-fs-rt: 12;
+  --ptag-lh-rt: 16;
+  --ptag-fs-rd1: 14;
+  --ptag-lh-rd1: 18;
+  --pc-est-fs-rd1: 28;
+  --pc-est-lh-rd1: 36;
+  --pc-est-fs-rd2: 36;
+  --pc-est-lh-rd2: 42;
+  --pc-tag-fs-rd2: 12;
+  --pc-tag-lh-rd2: 16;
 }
 .ps-slot .pcard-box {
   flex: 1;

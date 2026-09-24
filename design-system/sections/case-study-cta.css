@@ -37,10 +37,16 @@
   margin: 0;
   padding-top: calc((var(--wA) + var(--wB)) * 48);
   color: var(--color-text-200);
-  --fs0: var(--ts-text-lg-light-fs);
-  --fs1: var(--ts-text-2xl-light-fs);
-  --lh0: var(--ts-text-lg-light-lh);
-  --lh1: var(--ts-text-2xl-light-lh);
+  --fs-rm: var(--ts-text-lg-light-fs);
+  --fs-rs: var(--ts-text-xl-light-fs);
+  --fs-rt: var(--ts-text-lg-light-fs);
+  --fs-rd1: var(--ts-text-xl-light-fs);
+  --fs-rd2: var(--ts-text-2xl-light-fs);
+  --lh-rm: var(--ts-text-lg-light-lh);
+  --lh-rs: var(--ts-text-xl-light-lh);
+  --lh-rt: var(--ts-text-lg-light-lh);
+  --lh-rd1: var(--ts-text-xl-light-lh);
+  --lh-rd2: var(--ts-text-2xl-light-lh);
 }
 @container (--rs) {
   .csc-boiler {

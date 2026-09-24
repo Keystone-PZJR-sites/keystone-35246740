@@ -151,17 +151,35 @@
 
 .f-tagline {
   color: var(--color-text-200);
-  --fs0: var(--ts-display-serif-xs-plus-light-fs);
-  --fs1: var(--ts-display-serif-md-plus-thin-fs);
-  --lh0: var(--ts-display-serif-xs-plus-light-lh);
-  --lh1: var(--ts-display-serif-md-plus-thin-lh);
+  --fs-rm: var(--ts-display-serif-xs-plus-light-fs);
+  --fs-rs: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rt: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rd1: var(--ts-display-serif-sm-extralight-fs);
+  --fs-rd2: var(--ts-display-serif-md-plus-thin-fs);
+  --lh-rm: var(--ts-display-serif-xs-plus-light-lh);
+  --lh-rs: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rt: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rd1: var(--ts-display-serif-sm-extralight-lh);
+  --lh-rd2: var(--ts-display-serif-md-plus-thin-lh);
+  --fs-rm-to: var(--ts-display-serif-sm-light-fs);
+  --lh-rm-to: var(--ts-display-serif-sm-light-lh);
+  --fs-rd1-to: var(--ts-display-serif-md-plus-extralight-fs);
+  --lh-rd1-to: var(--ts-display-serif-md-plus-extralight-lh);
 }
 .f-prompt {
   color: var(--color-text-300);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--fs-rm);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--lh-rm);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-lg-light-lh);
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 
 .f-brk-b {
@@ -360,8 +378,8 @@
 .fnav-dot[data-g="findus"] { background: var(--color-blue-400); }
 
 .fnav-name {
-  --fs0: var(--ts-display-serif-3xs-regular-fs); --fs1: var(--ts-display-serif-2xs-medium-fs);
-  --lh0: var(--ts-display-serif-3xs-regular-lh); --lh1: var(--ts-display-serif-2xs-medium-lh);
+  --fs-rm: var(--ts-display-serif-3xs-regular-fs); --fs-rs: var(--ts-display-serif-3xs-regular-fs); --fs-rt: var(--ts-display-serif-4xs-plus-medium-fs); --fs-rd1: var(--ts-display-serif-3xs-medium-fs); --fs-rd2: var(--ts-display-serif-2xs-medium-fs);
+  --lh-rm: var(--ts-display-serif-3xs-regular-lh); --lh-rs: var(--ts-display-serif-3xs-regular-lh); --lh-rt: var(--ts-display-serif-4xs-plus-medium-lh); --lh-rd1: var(--ts-display-serif-3xs-medium-lh); --lh-rd2: var(--ts-display-serif-2xs-medium-lh); --fs-rm-to: var(--ts-display-serif-2xs-plus-regular-fs); --lh-rm-to: var(--ts-display-serif-2xs-plus-regular-lh); --fs-rt-to: var(--fs-rd1); --lh-rt-to: var(--lh-rd1); --fs-rd1-to: var(--fs-rd2); --lh-rd1-to: var(--lh-rd2);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -414,8 +432,8 @@
 
 /* Footer nav items ride the grid instead of the item's fixed step. */
 .fnav-list .fitem {
-  --fs0: 14; --fs1: 16;
-  --lh0: 18; --lh1: 22;
+  --fs-rm: 14; --fs-rs: 14; --fs-rt: 14; --fs-rd1: 14; --fs-rd2: 16;
+  --lh-rm: 18; --lh-rs: 18; --lh-rt: 18; --lh-rd1: 18; --lh-rd2: 22; --fs-rm-to: 16; --lh-rm-to: 22; --fs-rt-to: 16; --lh-rt-to: 22;
 }
 @container (--rs) {
   .f-nav {
@@ -433,9 +451,12 @@
     width: 8px;
     height: 8px;
   }
+  /* The 576 design pins the group name and items in px through the band. */
   .fnav-name {
     --font: var(--ts-display-serif-2xs-plus-regular-font);
     --ls: var(--ts-display-serif-2xs-plus-regular-ls);
+    --fs-px: 20px;
+    --lh-px: 24px;
   }
   .fnav-listwrap {
     margin-top: var(--space-lg);
@@ -443,6 +464,10 @@
   }
   .fnav-list {
     gap: 10px;
+  }
+  .fnav-list .fitem {
+    --fs-px: 16px;
+    --lh-px: 22px;
   }
 }
 
@@ -485,6 +510,12 @@
   .fnav-name {
     --font: var(--ts-display-serif-4xs-plus-medium-font);
     --ls: var(--ts-display-serif-4xs-plus-medium-ls);
+    --fs-px: initial;
+    --lh-px: initial;
+  }
+  .fnav-list .fitem {
+    --fs-px: initial;
+    --lh-px: initial;
   }
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
@@ -523,6 +554,10 @@
   .fnav-list {
     gap: var(--space-lg);
   }
+  .fnav-list .fitem {
+    --fs-px: 16px;
+    --lh-px: 22px;
+  }
 }
 
 @container (--rd2) {
@@ -538,6 +573,10 @@
   .fnav-listwrap,
   .fnav-group[data-open] .fnav-listwrap {
     margin-top: var(--space-xl);
+  }
+  .fnav-list .fitem {
+    --fs-px: initial;
+    --lh-px: initial;
   }
 }
 
@@ -620,8 +659,8 @@
   --font: var(--ts-text-2xs-regular-font);
   --opsz: var(--ts-text-2xs-regular-opsz);
   --ls: -0.02em;
-  --fs0: var(--ts-text-2xs-regular-fs); --fs1: var(--ts-text-sm-regular-fs);
-  --lh0: var(--ts-text-2xs-regular-lh); --lh1: var(--ts-text-sm-regular-lh);
+  --fs-rm: var(--ts-text-2xs-regular-fs); --fs-rs: var(--ts-text-2xs-regular-fs); --fs-rt: var(--ts-text-2xs-regular-fs); --fs-rd1: var(--ts-text-xs-regular-fs); --fs-rd2: var(--ts-text-sm-regular-fs);
+  --lh-rm: var(--ts-text-2xs-regular-lh); --lh-rs: var(--ts-text-2xs-regular-lh); --lh-rt: var(--ts-text-2xs-regular-lh); --lh-rd1: var(--ts-text-xs-regular-lh); --lh-rd2: var(--ts-text-sm-regular-lh); --fs-rm-to: var(--ts-text-xs-regular-fs); --lh-rm-to: var(--ts-text-xs-regular-lh); --fs-rd1-to: var(--fs-rd2); --lh-rd1-to: var(--lh-rd2);
   color: var(--color-text-500);
   white-space: nowrap;
 }
@@ -660,6 +699,8 @@
 @container (--rs) {
   .f-copy {
     --ls: var(--ts-text-xs-regular-ls);
+    --fs-px: 12px;
+    --lh-px: 16px;
   }
 }
 
@@ -680,6 +721,8 @@
     padding-inline: var(--space-none);
     padding-right: var(--t);
     border-bottom: none;
+    --fs-px: initial;
+    --lh-px: initial;
   }
 }
 

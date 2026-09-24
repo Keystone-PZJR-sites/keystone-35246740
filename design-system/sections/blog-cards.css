@@ -69,10 +69,22 @@
   --ls: var(--ts-text-nav-label-ls);
   --opsz: var(--ts-text-nav-label-opsz);
   --case: var(--ts-text-nav-label-case);
-  --fs0: var(--ts-text-nav-label-fs);
-  --fs1: 10;
-  --lh0: var(--ts-text-nav-label-lh);
-  --lh1: 12;
+  --fs-rm: var(--ts-text-nav-label-fs);
+  --fs-rs: 15;
+  --fs-rt: var(--ts-text-nav-label-fs);
+  --fs-rd1: 7.1429;
+  --fs-rd2: 10;
+  --lh-rm: var(--ts-text-nav-label-lh);
+  --lh-rs: 18;
+  --lh-rt: var(--ts-text-nav-label-lh);
+  --lh-rd1: 8.5714;
+  --lh-rd2: 12;
+  --fs-rm-to: 15;
+  --lh-rm-to: 18;
+  --fs-rs-to: 20;
+  --lh-rs-to: 24;
+  --fs-rd1-to: 10;
+  --lh-rd1-to: 12;
 }
 
 .blc-title {
@@ -82,10 +94,22 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  --fs0: var(--ts-text-md-medium-fs);
-  --fs1: 20;
-  --lh0: var(--ts-text-md-medium-lh);
-  --lh1: 26;
+  --fs-rm: var(--ts-text-md-medium-fs);
+  --fs-rs: 24;
+  --fs-rt: 18;
+  --fs-rd1: 14.2857;
+  --fs-rd2: 20;
+  --lh-rm: var(--ts-text-md-medium-lh);
+  --lh-rs: 33;
+  --lh-rt: 26;
+  --lh-rd1: 18.5714;
+  --lh-rd2: 26;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: 32;
+  --lh-rs-to: 44;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .blc-title {
@@ -110,10 +134,22 @@
   -webkit-line-clamp: 4;
   overflow: hidden;
   height: calc(var(--bl-u) * 96);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: 20;
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: 26;
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: 24;
+  --fs-rt: 18;
+  --fs-rd1: 14.2857;
+  --fs-rd2: 20;
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: 33;
+  --lh-rt: 26;
+  --lh-rd1: 18.5714;
+  --lh-rd2: 26;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: 32;
+  --lh-rs-to: 44;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .blc-desc {
@@ -198,10 +234,22 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 36;
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 42;
+  --fs-rm: var(--ts-display-serif-xs-extralight-fs);
+  --fs-rs: 36;
+  --fs-rt: 24;
+  --fs-rd1: 25.7143;
+  --fs-rd2: 36;
+  --lh-rm: var(--ts-display-serif-xs-extralight-lh);
+  --lh-rs: 45;
+  --lh-rt: 30;
+  --lh-rd1: 30;
+  --lh-rd2: 42;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: 48;
+  --lh-rs-to: 60;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rd1) {
   .blf-title {
@@ -218,10 +266,22 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   margin-top: calc(var(--bl-u) * 12);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: 20;
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: 26;
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: 24;
+  --fs-rt: 18;
+  --fs-rd1: 14.2857;
+  --fs-rd2: 20;
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: 33;
+  --lh-rt: 26;
+  --lh-rd1: 18.5714;
+  --lh-rd2: 26;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: 32;
+  --lh-rs-to: 44;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .blf-desc {

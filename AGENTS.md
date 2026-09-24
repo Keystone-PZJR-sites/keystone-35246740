@@ -48,10 +48,14 @@ Read this file, then `REFACTOR.md` if it exists.
   keyword on the mount at each gate; never render one hidden copy per band.
 - Text is `type ts-<figma-style>` (for example `type ts-text-md-light`;
   `type-fixed` for material sizes). The generated class sets `--font`/`--ls`/
-  `--opsz` and the 384 size (`--fs0/--lh0`); the element's base rule sets
-  `--fs1/--lh1` for its 1344 size and the size runs fluidly between. Never
-  set a size inside `@container`; a band that switches style restates only
-  `--font`/`--ls`/`--opsz`.
+  `--opsz` and the 384 size (`--fs-rm/--lh-rm`); the element's base rule names
+  the other designed anchors (`--fs-rs/rt/rd1/rd2`, `--lh-*`) and, per band,
+  where the size runs above its anchor (`--fs-rs-to: var(--fs-rt)`); a band
+  without a target holds. Below an anchor the size zooms with the tick, so
+  every anchor renders exactly. Never set a size inside `@container`; a band
+  that switches style restates only `--font`/`--ls`/`--opsz`. A component
+  that scales through its own unit pins `--fs-px: calc(var(--_u) *
+  var(--fs-band))`. The law and its reasons: `primitives/text.css`.
   Every state change is a CSS transition or animation; `base.css` zeroes them
   all under reduced motion.
 - Motion is CSS only. Every duration, curve, and distance is a token in

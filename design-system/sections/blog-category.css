@@ -67,10 +67,20 @@
   color: var(--color-text-100);
   margin-top: calc(var(--bc-u) * 16);
   max-width: calc(var(--t) * 10);
-  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --fs1: var(--ts-display-serif-3xl-thin-fs);
-  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --lh1: var(--ts-display-serif-3xl-thin-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-thin-fs);
+  --fs-rs: var(--ts-display-serif-sm-plus-thin-fs);
+  --fs-rt: 48;
+  --fs-rd1: 51.4286;
+  --fs-rd2: var(--ts-display-serif-3xl-thin-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-thin-lh);
+  --lh-rs: var(--ts-display-serif-sm-plus-thin-lh);
+  --lh-rt: 56;
+  --lh-rd1: 55.7143;
+  --lh-rd2: var(--ts-display-serif-3xl-thin-lh);
+  --fs-rm-to: 54;
+  --lh-rm-to: 63;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .bc-h1 {
@@ -138,8 +148,16 @@
 
 .bc-empty {
   color: var(--color-text-300);
-  --fs0: var(--ts-text-xl-light-fs);
-  --lh0: var(--ts-text-xl-light-lh);
+  --fs-rm: var(--ts-text-xl-light-fs);
+  --fs-rs: var(--ts-text-xl-light-fs);
+  --fs-rt: var(--ts-text-xl-light-fs);
+  --fs-rd1: var(--ts-text-xl-light-fs);
+  --fs-rd2: var(--ts-text-xl-light-fs);
+  --lh-rm: var(--ts-text-xl-light-lh);
+  --lh-rs: var(--ts-text-xl-light-lh);
+  --lh-rt: var(--ts-text-xl-light-lh);
+  --lh-rd1: var(--ts-text-xl-light-lh);
+  --lh-rd2: var(--ts-text-xl-light-lh);
 }
 
 .bc-pagination {

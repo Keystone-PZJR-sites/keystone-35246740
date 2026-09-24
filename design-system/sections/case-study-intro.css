@@ -27,10 +27,16 @@
   align-items: flex-start;
   height: calc(var(--t) * 2);
   color: var(--color-text-100);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --fs1: var(--ts-display-sans-2xs-regular-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
-  --lh1: var(--ts-display-sans-2xs-regular-lh);
+  --fs-rm: var(--ts-text-xl-regular-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--ts-text-2xl-regular-fs);
+  --fs-rd1: var(--ts-text-2xl-regular-fs);
+  --fs-rd2: var(--ts-display-sans-2xs-regular-fs);
+  --lh-rm: var(--ts-text-xl-regular-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--ts-text-2xl-regular-lh);
+  --lh-rd1: var(--ts-text-2xl-regular-lh);
+  --lh-rd2: var(--ts-display-sans-2xs-regular-lh);
 }
 @container (--rs) {
   .csi-head {
@@ -68,10 +74,16 @@
   --cell-w: calc(var(--t) * 5.25 + 1px);
   --cell-h: calc(var(--t) * 4 + 1px);
   --cs-cell-pad: 12px;
-  --fs0: var(--ts-text-sm-regular-fs);
-  --fs1: var(--ts-text-md-light-fs);
-  --lh0: var(--ts-text-sm-regular-lh);
-  --lh1: var(--ts-text-md-light-lh);
+  --fs-rm: var(--ts-text-sm-regular-fs);
+  --fs-rs: var(--ts-text-xs-regular-fs);
+  --fs-rt: var(--ts-text-sm-regular-fs);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-md-light-fs);
+  --lh-rm: var(--ts-text-sm-regular-lh);
+  --lh-rs: var(--ts-text-xs-regular-lh);
+  --lh-rt: var(--ts-text-sm-regular-lh);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-md-light-lh);
 }
 .csi-grid > .cs-cell {
   margin: -1px 0 0 -1px;
@@ -134,10 +146,16 @@
   --opsz: var(--ts-display-sans-sm-light-opsz);
   /* With column-reverse, this margin separates the numeral from its label. */
   margin-bottom: var(--space-xs);
-  --fs0: var(--ts-display-sans-sm-light-fs);
-  --fs1: var(--ts-display-sans-2xl-light-fs);
-  --lh0: var(--ts-display-sans-sm-light-lh);
-  --lh1: var(--ts-display-sans-2xl-light-lh);
+  --fs-rm: var(--ts-display-sans-sm-light-fs);
+  --fs-rs: var(--ts-display-sans-xs-light-fs);
+  --fs-rt: var(--ts-display-sans-lg-light-fs);
+  --fs-rd1: var(--ts-display-sans-md-light-fs);
+  --fs-rd2: var(--ts-display-sans-2xl-light-fs);
+  --lh-rm: var(--ts-display-sans-sm-light-lh);
+  --lh-rs: var(--ts-display-sans-xs-light-lh);
+  --lh-rt: var(--ts-display-sans-lg-light-lh);
+  --lh-rd1: var(--ts-display-sans-md-light-lh);
+  --lh-rd2: var(--ts-display-sans-2xl-light-lh);
 }
 @container (--rs) {
   .csi-grid .cs-cell-value {
@@ -186,8 +204,16 @@
   --ls: var(--ts-text-xs-regular-ls);
   --opsz: var(--ts-text-xs-regular-opsz);
   max-width: calc((var(--wA) + var(--wB)) * 196);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --lh0: var(--ts-text-xs-regular-lh);
+  --fs-rm: var(--ts-text-xs-regular-fs);
+  --fs-rs: var(--ts-text-xs-regular-fs);
+  --fs-rt: var(--ts-text-xs-regular-fs);
+  --fs-rd1: var(--ts-text-xs-regular-fs);
+  --fs-rd2: var(--ts-text-xs-regular-fs);
+  --lh-rm: var(--ts-text-xs-regular-lh);
+  --lh-rs: var(--ts-text-xs-regular-lh);
+  --lh-rt: var(--ts-text-xs-regular-lh);
+  --lh-rd1: var(--ts-text-xs-regular-lh);
+  --lh-rd2: var(--ts-text-xs-regular-lh);
 }
 @container (--rs) {
   .csi-grid .cs-cell-disclaimer .cs-pill { max-width: none; }

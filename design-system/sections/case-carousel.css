@@ -82,10 +82,22 @@
   margin-top: var(--cc-h2-gap-rm);
   margin-left: var(--t);
   max-width: var(--cc-h2-w-rm);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 50;
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 60;
+  --fs-rm: var(--ts-display-serif-xs-extralight-fs);
+  --fs-rs: 30;
+  --fs-rt: 36;
+  --fs-rd1: 35.7143;
+  --fs-rd2: 50;
+  --lh-rm: var(--ts-display-serif-xs-extralight-lh);
+  --lh-rs: 36;
+  --lh-rt: 42;
+  --lh-rd1: 42.8571;
+  --lh-rd2: 60;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: var(--fs-rt);
+  --lh-rs-to: var(--lh-rt);
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rs) {
   .cc-h2 {
@@ -254,10 +266,22 @@
 .cc-desc {
   color: var(--color-text-200);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: 20;
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: 26;
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: 17;
+  --fs-rt: 18;
+  --fs-rd1: 14.2857;
+  --fs-rd2: 20;
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: 24;
+  --lh-rt: 26;
+  --lh-rd1: 18.5714;
+  --lh-rd2: 26;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: var(--fs-rt);
+  --lh-rs-to: var(--lh-rt);
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 
 .cc-wm {
@@ -308,10 +332,22 @@
   gap: calc(var(--cc-u) * 4);
   color: var(--color-text-100);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
-  --fs0: var(--ts-text-2xl-light-fs);
-  --fs1: 32;
-  --lh0: var(--ts-text-2xl-light-lh);
-  --lh1: 38;
+  --fs-rm: var(--ts-text-2xl-light-fs);
+  --fs-rs: 26;
+  --fs-rt: 28;
+  --fs-rd1: 22.8571;
+  --fs-rd2: 32;
+  --lh-rm: var(--ts-text-2xl-light-lh);
+  --lh-rs: 34;
+  --lh-rt: 36;
+  --lh-rd1: 27.1429;
+  --lh-rd2: 38;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: var(--fs-rt);
+  --lh-rs-to: var(--lh-rt);
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .cc-stat-v {
@@ -339,10 +375,18 @@
   width: min-content;
   color: var(--color-text-400);
   transition: color var(--motion-snap-dur) var(--motion-snap-ease);
-  --fs0: var(--ts-text-xs-regular-fs);
-  --fs1: 14;
-  --lh0: var(--ts-text-xs-regular-lh);
-  --lh1: 18;
+  --fs-rm: var(--ts-text-xs-regular-fs);
+  --fs-rs: var(--ts-text-xs-regular-fs);
+  --fs-rt: var(--ts-text-xs-regular-fs);
+  --fs-rd1: 10;
+  --fs-rd2: 14;
+  --lh-rm: var(--ts-text-xs-regular-lh);
+  --lh-rs: var(--ts-text-xs-regular-lh);
+  --lh-rt: var(--ts-text-xs-regular-lh);
+  --lh-rd1: 12.8571;
+  --lh-rd2: 18;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rd1) {
   .cc-stat-l {

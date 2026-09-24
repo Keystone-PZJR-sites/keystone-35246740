@@ -48,10 +48,16 @@ html:has(.load-sequence-case-study) {
 .cs-h2 {
   margin: 0;
   color: var(--color-text-100);
-  --fs0: var(--ts-text-xl-regular-fs);
-  --fs1: var(--ts-display-sans-2xs-regular-fs);
-  --lh0: var(--ts-text-xl-regular-lh);
-  --lh1: var(--ts-display-sans-2xs-regular-lh);
+  --fs-rm: var(--ts-text-xl-regular-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--ts-text-2xl-regular-fs);
+  --fs-rd1: var(--ts-text-2xl-regular-fs);
+  --fs-rd2: var(--ts-display-sans-2xs-regular-fs);
+  --lh-rm: var(--ts-text-xl-regular-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--ts-text-2xl-regular-lh);
+  --lh-rd1: var(--ts-text-2xl-regular-lh);
+  --lh-rd2: var(--ts-display-sans-2xs-regular-lh);
 }
 @container (--rt) {
   .cs-h2 {
@@ -71,10 +77,16 @@ html:has(.load-sequence-case-study) {
 /* Section-body type ramp; each mount supplies its own color. */
 .cs-body {
   margin: 0;
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--fs-rm);
+  --fs-rd1: var(--ts-text-lg-light-fs);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--lh-rm);
+  --lh-rd1: var(--ts-text-lg-light-lh);
+  --lh-rd2: var(--ts-text-lg-light-lh);
 }
 @container (--rd1) {
   .cs-body {

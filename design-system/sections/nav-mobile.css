@@ -1,12 +1,8 @@
 /* Mobile navigation (below rd1): the fixed bar, the full-screen menu
    panel, accordion rows, and chips. Shared constants live in nav.css. */
 
-/* The mobile nav lives below rd1, so its type ramps 384 → 768 (its last
-   designed anchor) rather than to 1344: a local --k over that span. */
-.knav-m {
-  --k: clamp(0, tan(atan2(calc(var(--t) - 32px), 32px)), 1);
-}
-
+/* The mobile nav lives below rd1; 768 is its last designed anchor, so
+   rd1 and rd2 restate the 768 sizes. */
 /* Pointer-initiated closes return focus without showing a keyboard ring. */
 .knav-mtoggle[data-quiet-focus]:focus-visible {
   box-shadow: none;
@@ -267,10 +263,18 @@ a.knav-row {
 }
 .knav-rlabel {
   padding-left: var(--space-2xs);
-  --fs0: var(--ts-display-sans-2xs-light-fs);
-  --fs1: var(--ts-display-sans-xs-light-fs);
-  --lh0: var(--ts-display-sans-2xs-light-lh);
-  --lh1: var(--ts-display-sans-xs-light-lh);
+  --fs-rm: var(--ts-display-sans-2xs-light-fs);
+  --fs-rs: var(--ts-display-sans-2xs-light-fs);
+  --fs-rt: var(--ts-display-sans-2xs-light-fs);
+  --fs-rd1: var(--ts-display-sans-2xs-light-fs);
+  --fs-rd2: var(--ts-display-sans-xs-light-fs);
+  --lh-rm: var(--ts-display-sans-2xs-light-lh);
+  --lh-rs: var(--ts-display-sans-2xs-light-lh);
+  --lh-rt: var(--ts-display-sans-2xs-light-lh);
+  --lh-rd1: var(--ts-display-sans-2xs-light-lh);
+  --lh-rd2: var(--ts-display-sans-xs-light-lh);
+  --fs-rs-to: var(--ts-display-sans-xs-light-fs);
+  --lh-rs-to: var(--ts-display-sans-xs-light-lh);
   color: var(--color-text-200);
   white-space: nowrap;
 }
@@ -359,10 +363,20 @@ a.knav-row {
   text-decoration: none;
   color: var(--color-text-200);
   white-space: nowrap;
-  --fs0: var(--ts-text-sm-regular-fs);
-  --fs1: var(--ts-text-2xl-light-fs);
-  --lh0: var(--ts-text-sm-regular-lh);
-  --lh1: var(--ts-text-2xl-light-lh);
+  --fs-rm: var(--ts-text-sm-regular-fs);
+  --fs-rs: var(--ts-text-xl-light-fs);
+  --fs-rt: var(--ts-text-xl-light-fs);
+  --fs-rd1: var(--ts-text-xl-light-fs);
+  --fs-rd2: var(--ts-text-2xl-light-fs);
+  --lh-rm: var(--ts-text-sm-regular-lh);
+  --lh-rs: var(--ts-text-xl-light-lh);
+  --lh-rt: var(--ts-text-xl-light-lh);
+  --lh-rd1: var(--ts-text-xl-light-lh);
+  --lh-rd2: var(--ts-text-2xl-light-lh);
+  --fs-rm-to: var(--ts-text-xl-regular-fs);
+  --lh-rm-to: var(--ts-text-xl-regular-lh);
+  --fs-rs-to: var(--ts-text-2xl-light-fs);
+  --lh-rs-to: var(--ts-text-2xl-light-lh);
 }
 .knav-chipdot {
   flex: none;
@@ -381,10 +395,20 @@ a.knav-row {
   text-decoration: none;
   color: var(--_label);
   white-space: nowrap;
-  --fs0: var(--ts-text-sm-regular-fs);
-  --fs1: var(--ts-text-2xl-light-fs);
-  --lh0: var(--ts-text-sm-regular-lh);
-  --lh1: var(--ts-text-2xl-light-lh);
+  --fs-rm: var(--ts-text-sm-regular-fs);
+  --fs-rs: var(--ts-text-xl-light-fs);
+  --fs-rt: var(--ts-text-xl-light-fs);
+  --fs-rd1: var(--ts-text-xl-light-fs);
+  --fs-rd2: var(--ts-text-2xl-light-fs);
+  --lh-rm: var(--ts-text-sm-regular-lh);
+  --lh-rs: var(--ts-text-xl-light-lh);
+  --lh-rt: var(--ts-text-xl-light-lh);
+  --lh-rd1: var(--ts-text-xl-light-lh);
+  --lh-rd2: var(--ts-text-2xl-light-lh);
+  --fs-rm-to: var(--ts-text-xl-regular-fs);
+  --lh-rm-to: var(--ts-text-xl-regular-lh);
+  --fs-rs-to: var(--ts-text-2xl-light-fs);
+  --lh-rs-to: var(--ts-text-2xl-light-lh);
 }
 /* The icon uses independent ink from its label. */
 .knav-rchipicon {

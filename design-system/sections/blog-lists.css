@@ -55,10 +55,22 @@
 
 .bl-h3 {
   color: var(--color-text-100);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 40;
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 48;
+  --fs-rm: var(--ts-display-serif-xs-extralight-fs);
+  --fs-rs: 36;
+  --fs-rt: 36;
+  --fs-rd1: 28.5714;
+  --fs-rd2: 40;
+  --lh-rm: var(--ts-display-serif-xs-extralight-lh);
+  --lh-rs: 45;
+  --lh-rt: 42;
+  --lh-rd1: 34.2857;
+  --lh-rd2: 48;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: 48;
+  --lh-rs-to: 60;
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 @container (--rt) {
   .bl-h3 {

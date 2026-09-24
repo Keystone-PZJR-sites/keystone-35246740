@@ -66,10 +66,22 @@
 
 .e2-name {
   color: var(--color-text-100);
-  --fs0: var(--ts-display-serif-xs-extralight-fs);
-  --fs1: 42;
-  --lh0: var(--ts-display-serif-xs-extralight-lh);
-  --lh1: 50;
+  --fs-rm: var(--ts-display-serif-xs-extralight-fs);
+  --fs-rs: 30;
+  --fs-rt: 36;
+  --fs-rd1: 30;
+  --fs-rd2: 42;
+  --lh-rm: var(--ts-display-serif-xs-extralight-lh);
+  --lh-rs: 36;
+  --lh-rt: 42;
+  --lh-rd1: 35.7143;
+  --lh-rd2: 50;
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: var(--fs-rt);
+  --lh-rs-to: var(--lh-rt);
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 
 .e2-desc {
@@ -81,10 +93,22 @@
   --font: var(--ts-text-md-light-font);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-xl-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-xl-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: 18;
+  --fs-rt: var(--ts-text-xl-light-fs);
+  --fs-rd1: 14.2857;
+  --fs-rd2: var(--ts-text-xl-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: 24;
+  --lh-rt: var(--ts-text-xl-light-lh);
+  --lh-rd1: 18.5714;
+  --lh-rd2: var(--ts-text-xl-light-lh);
+  --fs-rm-to: var(--fs-rs);
+  --lh-rm-to: var(--lh-rs);
+  --fs-rs-to: var(--fs-rt);
+  --lh-rs-to: var(--lh-rt);
+  --fs-rd1-to: var(--fs-rd2);
+  --lh-rd1-to: var(--lh-rd2);
 }
 .e2-desc .type + .type {
   margin-top: var(--e2-ps-sub);

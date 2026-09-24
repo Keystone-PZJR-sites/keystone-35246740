@@ -8,8 +8,9 @@
    (k·t + 1px) grow their row by the pixel; the following track gives it
    back so the section total stays on the tick. */
 .pricing-offer-section {
-  --po-price-fs0: 88;
-  --po-price-fs1: 176;
+  --po-price-fs-rm: 88;
+  --po-price-fs-rd1: 128;
+  --po-price-fs-rd2: 176;
   --po-price-gap: -4px;
   --po-tag-pad-x-rm: 10px;
   --po-chat-drop-card-rm: 38px;
@@ -128,10 +129,16 @@
   margin: var(--space-lg) 0 0;
   color: var(--color-text-100);
   max-width: var(--po-h1-w-rm);
-  --fs0: var(--ts-display-serif-sm-plus-thin-fs);
-  --fs1: var(--ts-display-serif-3xl-thin-fs);
-  --lh0: var(--ts-display-serif-sm-plus-thin-lh);
-  --lh1: var(--ts-display-serif-3xl-thin-lh);
+  --fs-rm: var(--ts-display-serif-sm-plus-thin-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--ts-display-serif-md-thin-fs);
+  --fs-rd1: var(--ts-display-serif-lg-thin-fs);
+  --fs-rd2: var(--ts-display-serif-3xl-thin-fs);
+  --lh-rm: var(--ts-display-serif-sm-plus-thin-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--ts-display-serif-md-thin-lh);
+  --lh-rd1: var(--ts-display-serif-lg-thin-lh);
+  --lh-rd2: var(--ts-display-serif-3xl-thin-lh);
 }
 @container (--rs) {
   .po-h1 { max-width: var(--po-h1-w-rs); }
@@ -164,10 +171,16 @@
   margin: var(--space-3xl) 0 0;
   color: var(--color-text-400);
   max-width: var(--po-sub-w-rm);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-2xl-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-2xl-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--ts-text-lg-light-fs);
+  --fs-rd1: var(--ts-text-xl-light-fs);
+  --fs-rd2: var(--ts-text-2xl-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--ts-text-lg-light-lh);
+  --lh-rd1: var(--ts-text-xl-light-lh);
+  --lh-rd2: var(--ts-text-2xl-light-lh);
 }
 /* the two designed paragraphs (rm/rt/rd1): block segments with the
    12px paragraph spacing; at the 1130 gate they return to inline flow
@@ -373,8 +386,6 @@
   background: var(--color-bg-000);
   color: var(--color-teal-600);
   padding: var(--space-2xl) var(--space-3xl) var(--space-3xl);
-  /* The card's type holds its phone sizes through the tablet band. */
-  --k: var(--k-late);
 }
 @container (--rs) {
   .po-card { padding: var(--space-lg) var(--space-xl) var(--space-xl); }
@@ -420,10 +431,19 @@
 }
 .po-price-num {
   /* The 4xl display step at the price's own size, set solid (line-height = size). */
-  --fs0: var(--po-price-fs0);
-  --fs1: var(--po-price-fs1);
-  --lh0: var(--po-price-fs0);
-  --lh1: var(--po-price-fs1);
+  --fs-rm: var(--po-price-fs-rm);
+  --fs-rs: var(--po-price-fs-rm);
+  --fs-rt: var(--po-price-fs-rm);
+  --fs-rd1: var(--po-price-fs-rd1);
+  --fs-rd2: var(--po-price-fs-rd2);
+  --lh-rm: var(--po-price-fs-rm);
+  --lh-rs: var(--po-price-fs-rm);
+  --lh-rt: var(--po-price-fs-rm);
+  --lh-rd1: var(--po-price-fs-rd1);
+  --lh-rd2: var(--po-price-fs-rd2);
+  /* The design pins the numeral in px in every band; it does not zoom. */
+  --fs-px: calc(var(--fs-band) * 1px);
+  --lh-px: calc(var(--lh-band) * 1px);
 }
 .po-price-per {
   margin-left: var(--po-price-gap);
@@ -441,10 +461,16 @@
    above it — "the tick wins") */
 .po-fine {
   margin: auto 0 0;
-  --fs0: var(--ts-text-lg-light-fs);
-  --fs1: var(--ts-text-2xl-light-fs);
-  --lh0: var(--ts-text-lg-light-lh);
-  --lh1: var(--ts-text-2xl-light-lh);
+  --fs-rm: var(--ts-text-lg-light-fs);
+  --fs-rs: var(--ts-text-md-light-fs);
+  --fs-rt: var(--ts-text-lg-light-fs);
+  --fs-rd1: var(--ts-text-xl-light-fs);
+  --fs-rd2: var(--ts-text-2xl-light-fs);
+  --lh-rm: var(--ts-text-lg-light-lh);
+  --lh-rs: var(--ts-text-md-light-lh);
+  --lh-rt: var(--ts-text-lg-light-lh);
+  --lh-rd1: var(--ts-text-xl-light-lh);
+  --lh-rd2: var(--ts-text-2xl-light-lh);
 }
 @container (--rs) {
   .po-fine {
@@ -667,10 +693,16 @@
 .po-list-head {
   margin: 0 0 calc((var(--wA) + var(--wB)) * 20);
   color: var(--color-text-300);
-  --fs0: var(--ts-text-md-medium-fs);
-  --fs1: var(--ts-text-2xl-medium-fs);
-  --lh0: var(--ts-text-md-medium-lh);
-  --lh1: var(--ts-text-2xl-medium-lh);
+  --fs-rm: var(--ts-text-md-medium-fs);
+  --fs-rs: var(--fs-rm);
+  --fs-rt: var(--fs-rm);
+  --fs-rd1: var(--ts-text-xl-medium-fs);
+  --fs-rd2: var(--ts-text-2xl-medium-fs);
+  --lh-rm: var(--ts-text-md-medium-lh);
+  --lh-rs: var(--lh-rm);
+  --lh-rt: var(--lh-rm);
+  --lh-rd1: var(--ts-text-xl-medium-lh);
+  --lh-rd2: var(--ts-text-2xl-medium-lh);
 }
 @container (--rs) {
   .po-list-head { margin-bottom: calc((var(--wA) + var(--wB)) * 16); }
@@ -714,10 +746,16 @@
   --font: var(--ts-text-md-light-font);
   --ls: var(--ts-text-md-light-ls);
   --opsz: var(--ts-text-md-light-opsz);
-  --fs0: var(--ts-text-md-light-fs);
-  --fs1: var(--ts-text-lg-light-fs);
-  --lh0: var(--ts-text-md-light-lh);
-  --lh1: var(--ts-text-lg-light-lh);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rs: var(--ts-text-md-light-fs);
+  --fs-rt: var(--ts-text-sm-light-fs);
+  --fs-rd1: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--ts-text-lg-light-fs);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rs: var(--ts-text-md-light-lh);
+  --lh-rt: var(--ts-text-sm-light-lh);
+  --lh-rd1: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--ts-text-lg-light-lh);
 }
 @container (--rs) {
   .po-items li { gap: var(--space-xl); }
@@ -823,10 +861,7 @@
    inside the right box; none at rd2 — the card's xl button is the
    block's only CTA) */
 .po-list-cta {
-  /* Sinks to the bottom pad; when the list fills the box the auto margin
-     collapses to zero, so the pad keeps a gap above the button. */
   margin-top: auto;
-  padding-top: var(--space-2xl);
   align-self: flex-end;
   --btn-size: sm;
 }
