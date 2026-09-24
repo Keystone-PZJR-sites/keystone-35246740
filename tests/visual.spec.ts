@@ -9,7 +9,6 @@ const ROUTES = [
   "/pricing/",
   "/our-work/",
   "/company/",
-  "/for-dentists/",
   "/design/",
   "/design/#primitives",
   "/design/#rules",
@@ -21,8 +20,13 @@ const ROUTES = [
   "/accessibility/",
 ];
 
-/* Anchors 384 · 576 · 768 · 960 · 1344, gates 470 · 665 · 860 · 1130, and 1600. */
-const WIDTHS = [384, 470, 576, 665, 768, 860, 960, 1130, 1344, 1600];
+/* Anchors 384 · 576 · 768 · 960 · 1344, gates 470 · 665 · 860 · 1130, a
+ * mid-run width in every band (type mid-interpolation, fractional tick),
+ * and 1600 past the cap. */
+const WIDTHS = [
+  384, 430, 470, 520, 576, 620, 665, 717, 768, 810, 860, 900, 960, 1024, 1080, 1130, 1200, 1344,
+  1600,
+];
 
 for (const route of ROUTES) {
   for (const width of WIDTHS) {
