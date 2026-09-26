@@ -18,13 +18,9 @@ export interface Plan {
   tag?: string;
 }
 
-/** Stripe checkout for the Starter plan; the "Start today" CTA in the
- * scale section opens the same link. */
+/** The one Stripe payment link. Plan selection happens on Stripe, so
+ * every plan CTA and the scale section's "Start today" open it. */
 export const PRICING_CHECKOUT_URL = "https://pay.keystone.app/b/fZucN6fhC7vhe6j5ux0VO02";
-
-/* Growth and Scale have no checkout links in the design yet; their
-   CTAs are stubbed to "#" until the links exist. */
-const PENDING_CHECKOUT_URL = "#";
 
 export const PER_MONTH = "/month";
 
@@ -38,7 +34,7 @@ export const PLANS: [Plan, Plan, Plan] = [
     items: [
       "Custom designed and built website with two rounds of revisions",
       "100/100 Google Lighthouse SEO Score",
-      "Monthly Website, SEO and Google Maps audits and updates",
+      "Monthly website, SEO, and Google Maps audits and updates",
       "Easy chat-based website editor for changes, and access to our team for one round of custom changes each month",
       "24x7 virtual customer support",
     ],
@@ -48,29 +44,27 @@ export const PLANS: [Plan, Plan, Plan] = [
     name: "Growth",
     description: "Businesses ready to dominate their online competition.",
     amount: "$300",
-    cta: { label: "Grow with Keystone", href: PENDING_CHECKOUT_URL },
+    cta: { label: "Grow with Keystone", href: PRICING_CHECKOUT_URL, external: true },
     lead: "Everything in Starter, plus",
     items: [
       "Daily content updates and weekly audits",
       "Daily posting on Instagram & Facebook",
       "One daily optimized ad campaign on Facebook & Instagram or Google",
       "AI lead follow-up and conversion via iMessages/SMS",
-      "Dedicated Growth Partner for campaign management, strategy, and custom Website changes",
+      "Dedicated Growth Partner for campaign management, strategy, and custom website changes",
     ],
     tag: "Most popular.",
   },
   {
     id: "scale",
     name: "Scale",
-    /* The design repeats Starter's description here (1129:17842);
-       flagged to design, transcribed as drawn. */
-    description: "Small businesses ready to step up their online web presence.",
+    description: "Businesses ready to grow as quickly as possible.",
     amount: "$600",
-    cta: { label: "Scale with Keystone", href: PENDING_CHECKOUT_URL },
+    cta: { label: "Scale with Keystone", href: PRICING_CHECKOUT_URL, external: true },
     lead: "Everything in Growth, plus",
     items: [
       "Complex websites with 50+ pages",
-      "Custom integration with other CRMs, booking systems and marketing tools",
+      "Custom integration with other CRMs, booking systems, and marketing tools",
       "Unlimited daily optimized ad campaigns on Facebook & Instagram or Google",
       "Customizable AI receptionist for primary or backup phone answering",
       "Weekly strategy meetings with dedicated Growth Partner",

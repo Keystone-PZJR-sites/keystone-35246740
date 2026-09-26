@@ -187,7 +187,7 @@ function groups(d: DesignSectionsData): Group[] {
           name: "FaqSection",
           file: "sections/faq.tsx",
           props: "—",
-          data: "faq-data.ts (FAQ_ITEMS)",
+          data: "faq-data.tsx (FAQ_ITEMS)",
           note: "Uses FaqQuestion.",
           mount: <FaqSection />,
         },
