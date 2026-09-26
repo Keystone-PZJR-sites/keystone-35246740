@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { IconChevronDownSmall } from "../icons";
 
 /** FAQ disclosure row with content-derived open height. */
@@ -8,7 +9,8 @@ export interface FaqQuestionProps {
   /** Base for the disclosure's aria-controls wiring. */
   id: string;
   question: string;
-  answer: string;
+  /** Prose; an inline <a> reads as a prose link. */
+  answer: ReactNode;
   /** Designed anchor size — catalog mounts only; section mounts are
    * unsized and ride the band restatements in faq.css. */
   size?: FaqQuestionSize;

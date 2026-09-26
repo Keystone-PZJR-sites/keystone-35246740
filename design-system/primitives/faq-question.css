@@ -95,6 +95,18 @@
   transition: clip-path var(--motion-drawer-duration) var(--motion-drawer-ease-open);
 }
 
+/* Inline links read as prose links, as in legal and blog copy. */
+.fq-a a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-200);
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 0.18em;
+}
+.fq-a a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-200);
+}
 .fq-a {
   margin: var(--space-none);
   --font: var(--fq-a-f);

@@ -16,7 +16,7 @@ export const INCLUDES_COLUMNS: [IncludeItem[], IncludeItem[]] = [
   [
     {
       icon: "logomark",
-      text: "The platform: visibility and control of your business data, leads, conversations, website, social media, maps listings, and blogs in one place.",
+      text: "The Keystone platform, with your business data, leads, conversations, website, social media, maps listings, and blog in one place",
     },
     {
       icon: "website",
@@ -26,7 +26,7 @@ export const INCLUDES_COLUMNS: [IncludeItem[], IncludeItem[]] = [
       icon: "sparkle",
       text: "An easy-to-use AI website editor that makes changes instantly, in plain language",
     },
-    { icon: "analytics", text: "Analytics that track your entire online presence." },
+    { icon: "analytics", text: "Analytics that track your entire online presence" },
   ],
   [
     {
@@ -37,10 +37,10 @@ export const INCLUDES_COLUMNS: [IncludeItem[], IncludeItem[]] = [
       icon: "aiChat",
       text: "An AI chat agent that answers questions and captures leads from your website",
     },
-    { icon: "maps", text: "Manage your Google Maps profiles and easily reply to new reviews" },
+    { icon: "maps", text: "Google Maps profile management, with easy replies to new reviews" },
     {
       icon: "listing",
-      text: "Create, publish, and monitor ad campaigns on Facebook & Instagram",
+      text: "Ad campaigns on Facebook & Instagram, created, published, and monitored for you",
     },
   ],
 ];
