@@ -172,6 +172,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  /* Fill the column so the button lands on its right edge from rt. */
+  width: 100%;
   gap: calc(var(--u) * 20);
   margin-top: calc(var(--u) * 32);
   --btn-size: md;
