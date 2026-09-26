@@ -18,8 +18,7 @@ export interface Plan {
   tag?: string;
 }
 
-/** Stripe payment links, one per plan. Defined here only; the scale
- * section's "Start today" opens the Starter link. */
+/** Stripe payment links, one per plan. Defined here only. */
 export const CHECKOUT_URLS: Record<PlanId, string> = {
   starter: "https://pay.keystone.app/b/fZucN6fhC7vhe6j5ux0VO02",
   growth: "https://pay.keystone.app/b/4gMaEY5H2g1N3rF1eh0VO01",
