@@ -13,7 +13,7 @@ type GhostSize = FillSize | "xs";
 
 interface ButtonFillProps {
   size?: FillSize;
-  chrome?: "teal" | "gray";
+  chrome?: "teal" | "gray" | "blue";
   shape?: "pill" | "box";
   type?: "button" | "submit";
   /** Renders link chrome when provided. */

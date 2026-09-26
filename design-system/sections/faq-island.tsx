@@ -9,7 +9,7 @@ import type { FaqItem } from "./faq-data";
 /* The first growth row follows the static rail run in each band. */
 const EXT_BANDS = [
   { band: "rm", gx: [11], gy0: 15 },
-  { band: "rs", gx: [10, 11], gy0: 8 },
+  { band: "rs", gx: [11], gy0: 9 },
   { band: "rt", gx: [11], gy0: 6 },
   { band: "rd1", gx: [11], gy0: 6 },
   { band: "rd2", gx: [11], gy0: 6 },

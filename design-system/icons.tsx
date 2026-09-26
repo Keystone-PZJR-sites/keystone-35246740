@@ -440,6 +440,140 @@ export function IconMaps({ size = 20, className }: Props) {
   );
 }
 
+/** icons/analytics (1161:28844) — intrinsic gray two-tone: stroked
+ * chart on stand, filled sparkle. */
+export function IconAnalytics({ size = 20, className }: Props) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.9372 3.125H2.29167V15.2083H17.7083V10.375"
+        stroke="var(--color-lightgray-800, #b1aa9a)"
+        strokeWidth="1.25"
+        strokeLinecap="square"
+      />
+      <path
+        d="M6.45833 10.625V11.875M10 6.45833V11.875M13.5417 8.95833V11.875M7.38078 15.6256L6.66667 18.125M12.6204 15.6256L13.3346 18.125"
+        stroke="var(--color-lightgray-800, #b1aa9a)"
+        strokeWidth="1.25"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12.916 5.39251C14.0153 5.39251 14.6981 5.63576 15.1141 6.05167C15.5299 6.46759 15.7731 7.15042 15.7731 8.24967H16.7256C16.7256 7.15042 16.9688 6.46759 17.3846 6.05167C17.8006 5.63576 18.4834 5.39251 19.5827 5.39251V4.44017C18.4834 4.44017 17.8006 4.19692 17.3846 3.78102C16.9688 3.36512 16.7256 2.68228 16.7256 1.58301H15.7731C15.7731 2.68228 15.5299 3.36512 15.1141 3.78102C14.6981 4.19692 14.0153 4.44017 12.916 4.44017V5.39251Z"
+        fill="var(--color-darkgray-100, #847f71)"
+      />
+    </svg>
+  );
+}
+
+/** icons/social (613:21387) — intrinsic gray two-tone: calendar, sparkle. */
+export function IconSocial({ size = 20, className }: Props) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.125 15.4527C12.2762 15.4527 12.9853 15.7075 13.4153 16.1375C13.8452 16.5675 14.1 17.2765 14.1 18.4278H15.15C15.15 17.2765 15.4048 16.5675 15.8348 16.1375C16.2648 15.7075 16.9738 15.4527 18.125 15.4527V14.4027C16.9738 14.4027 16.2648 14.1479 15.8348 13.718C15.4048 13.288 15.15 12.579 15.15 11.4277H14.1C14.1 12.579 13.8452 13.288 13.4153 13.718C12.9853 14.1479 12.2762 14.4027 11.125 14.4027V15.4527Z"
+        fill="var(--color-darkgray-100, #847f71)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.4502 3.49023H12.2842V1.5752H13.5342V3.49023H16.8672V10.3252H15.6172V8.24219H3.11719V16.1592H9.78418V17.4092H1.86719V3.49023H5.2002V1.5752H6.4502V3.49023ZM3.11719 6.99219H15.6172V4.74023H3.11719V6.99219Z"
+        fill="var(--color-lightgray-800, #b1aa9a)"
+      />
+    </svg>
+  );
+}
+
+/** icons/listing (613:21388) — intrinsic gray two-tone: ad frame, sparkle. */
+export function IconListing({ size = 20, className }: Props) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1.25 17.0833V3.75H9.75V5H2.5V15.8333H16.6667V11.9167H17.9167V17.0833H1.25Z"
+        fill="var(--color-lightgray-800, #b1aa9a)"
+      />
+      <path
+        d="M9.45345 7.99999V13H4.45345V7.99999H9.45345ZM14.2972 11.333V12.583H10.9642V11.333H14.2972ZM5.70345 11.75H8.20345V9.24999H5.70345V11.75ZM12.2972 8.41698V9.66698H10.9642V8.41698H12.2972Z"
+        fill="var(--color-lightgray-800, #b1aa9a)"
+      />
+      <path
+        d="M11.7393 5.50626C12.8905 5.50626 13.5995 5.25146 14.0295 4.82152C14.4595 4.3915 14.7143 3.68247 14.7143 2.53125H15.7643C15.7643 3.68247 16.0191 4.3915 16.449 4.82152C16.879 5.25146 17.5881 5.50626 18.7393 5.50626V6.55626C17.5881 6.55626 16.879 6.81106 16.449 7.241C16.0191 7.67102 15.7643 8.38005 15.7643 9.53127H14.7143C14.7143 8.38005 14.4595 7.67102 14.0295 7.241C13.5995 6.81106 12.8905 6.55626 11.7393 6.55626V5.50626Z"
+        fill="var(--color-darkgray-100, #847f71)"
+      />
+    </svg>
+  );
+}
+
+/** icons/check (pricing-card-2 list, 1176:34648) — currentColor stroke. */
+export function IconCheck({ size = 18, className }: Props) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 18 18"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.0625 9.79688L7.425 12.1875L12.9375 5.8125"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="square"
+      />
+    </svg>
+  );
+}
+
+/** ksLogomark (plan-includes item, 1138:22849) — currentColor. */
+export function IconLogomark({ size = 16, className }: Props) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3.9169 8.18055C5.78814 8.1806 7.3049 9.69756 7.30492 11.5688C7.3049 13.44 5.78814 14.957 3.9169 14.9571C2.04562 14.9571 0.528674 13.4401 0.528646 11.5688C0.528667 9.69752 2.04562 8.18055 3.9169 8.18055Z"
+        fill="currentColor"
+      />
+      <path
+        d="M12.5829 6.99234L15.4714 14.6921H9.7964L6.96733 7.15877H0.812737V1.0037H6.96757V6.83301L9.50734 1.00275L15.1828 1.00181L12.5829 6.99234Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 /** icons/reception (613:21384) — intrinsic gray two-tone. */
 export function IconReception({ size = 20, className }: Props) {
   return (
@@ -503,30 +637,6 @@ export function IconReviews({ size = 20, className }: Props) {
       />
       <path
         d="M11.25 7.16665C12.3464 7.16665 13.0217 7.40932 13.4312 7.81879C13.8407 8.22832 14.0833 8.90359 14.0833 10H15.0834C15.0834 8.90359 15.326 8.22832 15.7355 7.81879C16.145 7.40932 16.8203 7.16665 17.9167 7.16665V6.16665C16.8203 6.16665 16.145 5.92398 15.7355 5.51451C15.326 5.10497 15.0834 4.4297 15.0834 3.3333H14.0833C14.0833 4.4297 13.8407 5.10497 13.4312 5.51451C13.0217 5.92398 12.3464 6.16665 11.25 6.16665V7.16665Z"
-        fill="var(--color-darkgray-100, #847f71)"
-      />
-    </svg>
-  );
-}
-
-/** icons/tokens (613:21381) — intrinsic gray two-tone. */
-export function IconTokens({ size = 20, className }: Props) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M17.083 9.99902C17.0828 6.08716 13.9109 2.91602 9.99902 2.91602C6.08726 2.91619 2.91619 6.08726 2.91602 9.99902C2.91602 13.9109 6.08716 17.0828 9.99902 17.083C13.911 17.083 17.083 13.911 17.083 9.99902ZM18.333 9.99902C18.333 14.6014 14.6014 18.333 9.99902 18.333C5.3968 18.3328 1.66602 14.6013 1.66602 9.99902C1.66619 5.39691 5.39691 1.66619 9.99902 1.66602C14.6013 1.66602 18.3328 5.3968 18.333 9.99902Z"
-        fill="var(--color-lightgray-800, #b1aa9a)"
-      />
-      <path
-        d="M6.666 10.4994C7.7624 10.4994 8.43767 10.7421 8.84721 11.1516C9.25668 11.5611 9.49935 12.2364 9.49935 13.3328H10.4994C10.4994 12.2364 10.742 11.5611 11.1515 11.1516C11.561 10.7421 12.2363 10.4994 13.3327 10.4994V9.49941C12.2363 9.49941 11.561 9.25674 11.1515 8.84727C10.742 8.43774 10.4994 7.76247 10.4994 6.66606H9.49935C9.49935 7.76247 9.25668 8.43774 8.84721 8.84727C8.43767 9.25674 7.7624 9.49941 6.666 9.49941V10.4994Z"
         fill="var(--color-darkgray-100, #847f71)"
       />
     </svg>
