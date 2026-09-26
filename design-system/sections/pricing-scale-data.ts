@@ -17,7 +17,7 @@ export const PERSONAS: [PersonaContent, PersonaContent, PersonaContent, PersonaC
   {
     id: "growth",
     hue: "teal",
-    title: "Accounting firm with two CPAs.",
+    title: "An accounting firm with two CPAs.",
     plan: "On Growth",
     price: "$300/mo",
     story:
