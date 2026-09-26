@@ -37,11 +37,14 @@ export function FaqIsland({ items }: { items: FaqItem[] }) {
         if (!answer) return 0;
         const style = getComputedStyle(row);
         const closed = parseFloat(style.getPropertyValue("--fq-closed")) || 1;
-        const padTop = parseFloat(style.paddingTop) || 0;
+        /* The drawer's margin-top is --fq-gap resolved to px. */
+        const gap = parseFloat(getComputedStyle(answer).marginTop) || 0;
         const contentBottom =
           answer.getBoundingClientRect().bottom - row.getBoundingClientRect().top;
-        /* Use the smallest whole tick with balanced bottom padding. */
-        const open = Math.max(closed, Math.ceil((contentBottom + padTop - 0.5) / t));
+        /* The smallest whole tick that leaves at least the drawer gap
+           beneath the answer; mirroring the top pad rounded four-line
+           answers up a whole tick of air. */
+        const open = Math.max(closed, Math.ceil((contentBottom + gap - 0.5) / t));
         row.style.setProperty("--fq-open", String(open));
         row.style.setProperty("--drawer-extra", String(open - closed));
         return open - closed;
