@@ -49,4 +49,4 @@ export const INCLUDES_NOTE =
   "Your subscription covers all the work in your plan, with extra credits to try out new features. You can add on additional work at any time.";
 
 /** The price list is not published yet; the link stays stubbed. */
-export const A_LA_CARTE = { label: "See the a la carte price list", href: "#" } as const;
+export const A_LA_CARTE = { label: "See the à la carte price list", href: "#" } as const;
