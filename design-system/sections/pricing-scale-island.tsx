@@ -4,12 +4,10 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { attachSwipe } from "../lib/swipe";
-import type { SliderHue, SliderState } from "../primitives/slider";
-
-const STATES: SliderState[] = ["less", "middle", "more"];
+import type { PersonaHue } from "../primitives/persona-card";
 
 interface IslandPersona {
-  hue: SliderHue;
+  hue: PersonaHue;
   tagLabel: string;
 }
 
@@ -53,7 +51,7 @@ export function PricingScaleIsland({ personas, children }: PricingScaleIslandPro
       const persona = personasRef.current[k];
       strip.style.setProperty("--ps-k", String(k));
       sliders.forEach((s) => {
-        s.dataset.state = STATES[k];
+        s.dataset.k = String(k);
         s.dataset.hue = persona.hue;
       });
       inputs.forEach((input) => {

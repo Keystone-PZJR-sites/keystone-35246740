@@ -189,6 +189,15 @@
   --_ink: var(--color-text-200);
   --_glyph: var(--color-text-500);
 }
+/* The Scale plan's button (1129:17842): blue/250 on blue/800. Hover and
+   ring step one swatch like the teal chrome; the design draws rest only. */
+.btn-fill[data-chrome="blue"] {
+  --_bg: var(--color-blue-250);
+  --_bg-hover: var(--color-blue-300);
+  --_ring: var(--color-blue-400);
+  --_ink: var(--color-blue-800);
+  --_glyph: var(--color-blue-600);
+}
 
 @media (hover: hover) {
   .btn-fill:hover .btn-body {

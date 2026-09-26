@@ -1,0 +1,52 @@
+/** "Every plan includes" (plan-includes, 1129:17126) and the a la carte
+ * row beneath it (1129:17127). The two columns are the lg layout; md
+ * and sm stack them in order. */
+
+export type IncludeIcon =
+  "logomark" | "website" | "sparkle" | "analytics" | "social" | "aiChat" | "maps" | "listing";
+
+export interface IncludeItem {
+  icon: IncludeIcon;
+  text: string;
+}
+
+export const INCLUDES_HEAD = "Every plan includes";
+
+export const INCLUDES_COLUMNS: [IncludeItem[], IncludeItem[]] = [
+  [
+    {
+      icon: "logomark",
+      text: "The platform: visibility and control of your business data, leads, conversations, website, social media, maps listings, and blogs in one place.",
+    },
+    {
+      icon: "website",
+      text: "A custom SEO-optimized website with advanced web security, performance tools, and no traffic limits",
+    },
+    {
+      icon: "sparkle",
+      text: "An easy-to-use AI website editor that makes changes instantly, in plain language",
+    },
+    { icon: "analytics", text: "Analytics that track your entire online presence." },
+  ],
+  [
+    {
+      icon: "social",
+      text: "A social media marketing system to manage and plan Instagram & Facebook posts",
+    },
+    {
+      icon: "aiChat",
+      text: "An AI chat agent that answers questions and captures leads from your website",
+    },
+    { icon: "maps", text: "Manage your Google Maps profiles and easily reply to new reviews" },
+    {
+      icon: "listing",
+      text: "Create, publish, and monitor ad campaigns on Facebook & Instagram",
+    },
+  ],
+];
+
+export const INCLUDES_NOTE =
+  "Your subscription covers all the work in your plan, with extra credits to try out new features. You can add on additional work at any time.";
+
+/** The price list is not published yet; the link stays stubbed. */
+export const A_LA_CARTE = { label: "See the a la carte price list", href: "#" } as const;

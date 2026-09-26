@@ -1,0 +1,86 @@
+/* Pricing header. Three designs: 384 (1170:33193) for rm and rs, 768
+   (1170:32287) for rt and rd1, 1344 (1129:17105) for rd2. Inline padding
+   is structure in ticks; the vertical rhythm is designed px on the
+   section unit. The headline and subhead ride the shared ramps with
+   their 768 anchors named. */
+
+.ph {
+  --u: calc(var(--wA) + var(--wB));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(var(--u) * 40) calc(var(--t) * 1.5) calc(var(--u) * 24) calc(var(--t) / 2);
+}
+@container (--rt) {
+  .ph {
+    padding: calc(var(--u) * 56) var(--t) calc(var(--u) * 40);
+  }
+}
+@container (--rd2) {
+  .ph {
+    padding: calc(var(--u) * 84) var(--t) calc(var(--u) * 56);
+  }
+}
+
+.ph-h1 {
+  margin: calc(var(--u) * 16) 0 0;
+  --fs-rt: var(--ts-display-serif-lg-plus-thin-fs);
+  --lh-rt: var(--ts-display-serif-lg-plus-thin-lh);
+}
+@container (--rt) {
+  .ph-h1 {
+    margin-top: calc(var(--u) * 24);
+    /* The 768 frame keeps a 96 right inset inside the 640 column. */
+    max-width: calc(100% - var(--u) * 96);
+  }
+}
+@container (--rd2) {
+  .ph-h1 {
+    max-width: calc(var(--u) * 676);
+  }
+}
+
+.ph-sub {
+  margin: calc(var(--u) * 24) 0 0;
+  color: var(--color-text-400);
+  --fs-rt: var(--ts-text-lg-light-fs);
+  --lh-rt: var(--ts-text-lg-light-lh);
+}
+@container (--rt) {
+  .ph-sub {
+    margin-top: calc(var(--u) * 32);
+  }
+}
+@container (--rd2) {
+  .ph-sub {
+    margin-top: calc(var(--u) * 40);
+    max-width: calc(var(--u) * 560);
+  }
+}
+
+/* The chat row is material: md control and label until rd2, then lg. */
+.ph-chat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  margin-top: calc(var(--u) * 24);
+  --btn-size: md;
+}
+.ph-q {
+  color: var(--color-text-400);
+}
+@container (--rt) {
+  .ph-chat {
+    margin-top: calc(var(--u) * 32);
+  }
+}
+@container (--rd2) {
+  .ph-chat {
+    margin-top: calc(var(--u) * 40);
+    --btn-size: lg;
+  }
+  .ph-q {
+    --font: var(--ts-text-xl-light-font);
+    --ls: var(--ts-text-xl-light-ls);
+    --opsz: var(--ts-text-xl-light-opsz);
+  }
+}

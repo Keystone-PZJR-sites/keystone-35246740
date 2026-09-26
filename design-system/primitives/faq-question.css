@@ -188,11 +188,12 @@
   --fq-pl: 40px;
   --fq-qrow: 32px;
   --fq-a-inset: 96px;
-  --fq-q-f: var(--ts-text-xl-light-font);
-  --fq-q-fs-rm: 20;
+  /* Pricing v2 (1161:26591) sets the widest question in text-lg-light. */
+  --fq-q-f: var(--ts-text-lg-light-font);
+  --fq-q-fs-rm: 18;
   --fq-q-lh-rm: 26;
-  --fq-q-ls: var(--ts-text-xl-light-ls);
-  --fq-q-opsz: var(--ts-text-xl-light-opsz);
+  --fq-q-ls: var(--ts-text-lg-light-ls);
+  --fq-q-opsz: var(--ts-text-lg-light-opsz);
   --fq-a-f: var(--ts-text-lg-light-font);
   --fq-a-fs-rm: 18;
   --fq-a-lh-rm: 26;

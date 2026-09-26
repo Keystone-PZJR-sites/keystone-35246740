@@ -29,7 +29,7 @@
 @import "./primitives/grader.css" layer(primitives);
 @import "./primitives/faq-question.css" layer(primitives);
 @import "./primitives/footer-item.css" layer(primitives);
-@import "./primitives/pricing-button.css" layer(primitives);
+@import "./primitives/plan-card.css" layer(primitives);
 @import "./primitives/slider.css" layer(primitives);
 @import "./primitives/persona-card.css" layer(primitives);
 @import "./primitives/button-inline.css" layer(primitives);
@@ -53,8 +53,11 @@
 @import "./sections/nav.css" layer(sections);
 @import "./sections/nav-desktop.css" layer(sections);
 @import "./sections/nav-mobile.css" layer(sections);
-@import "./sections/pricing-offer.css" layer(sections);
+@import "./sections/pricing-header.css" layer(sections);
+@import "./sections/pricing-plans.css" layer(sections);
+@import "./sections/pricing-includes.css" layer(sections);
 @import "./sections/pricing-scale.css" layer(sections);
+@import "./sections/pricing-inquiry.css" layer(sections);
 @import "./sections/faq.css" layer(sections);
 @import "./sections/work-header.css" layer(sections);
 @import "./sections/work-cases.css" layer(sections);

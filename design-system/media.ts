@@ -81,9 +81,9 @@ export function heroCarouselPicture(frame: number): PictureSet {
 }
 
 /* Persona cuts are art-directed per band and ordered largest-first, with
- * xs as fallback. Multiply treatment is baked in; card titles carry meaning. */
+ * xs as fallback. The card paints its hue overlay; titles carry meaning. */
 
-export type PersonaId = "steady" | "active" | "highgrowth";
+export type PersonaId = "steady" | "growth" | "active" | "highgrowth";
 
 export interface PersonaTier {
   cut: "xs" | "sm" | "md" | "lg" | "xl";
@@ -102,7 +102,7 @@ export const PERSONA_TIERS: PersonaTier[] = [
   { cut: "xs", media: null, width: 608, height: 384 },
 ];
 
-/** persona-{steady|active|highgrowth}-{tier}.webp under
+/** persona-{steady|growth|active|highgrowth}-{tier}.webp under
  * public/media/personas. */
 export function personaSrc(persona: PersonaId, cut: PersonaTier["cut"]): string {
   return `/media/personas/persona-${persona}-${cut}.webp`;

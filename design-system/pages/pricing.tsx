@@ -1,8 +1,11 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { GridField } from "@/design-system/grid/field";
 import { NavChrome } from "@/design-system/sections/nav";
-import { PricingOfferSection } from "@/design-system/sections/pricing-offer";
+import { PricingHeaderSection } from "@/design-system/sections/pricing-header";
+import { PricingPlansSection } from "@/design-system/sections/pricing-plans";
+import { PricingIncludesSection } from "@/design-system/sections/pricing-includes";
 import { PricingScaleSection } from "@/design-system/sections/pricing-scale";
+import { PricingInquirySection } from "@/design-system/sections/pricing-inquiry";
 import { FaqSection } from "@/design-system/sections/faq";
 import { FooterSection } from "@/design-system/sections/footer";
 
@@ -17,8 +20,11 @@ export async function PricingPage() {
       <GridField />
       <NavChrome />
       <main>
-        <PricingOfferSection />
+        <PricingHeaderSection />
+        <PricingPlansSection />
+        <PricingIncludesSection />
         <PricingScaleSection />
+        <PricingInquirySection />
         <FaqSection />
       </main>
       <FooterSection

@@ -44,7 +44,7 @@ Read this file first.
   never a pixel width. See `design-system/grid/engine.css` and `gates.js`.
 - A control's size is a keyword its mount can set per band: `--btn-size` for
   `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
-  `--pbtn-size` for `PricingButton`. Pass `size="inherit"` and declare the
+  `--plan-size` for `PlanCard`, `--pcard-size` for `PersonaCard`. Pass `size="inherit"` and declare the
   keyword on the mount at each gate; never render one hidden copy per band.
 - Text is `type ts-<figma-style>` (for example `type ts-text-md-light`;
   `type-fixed` for material sizes). The generated class sets `--font`/`--ls`/

@@ -1,4 +1,6 @@
-/** FAQ content shared by every responsive layout. */
+/** FAQ content (Pricing v2 faq, 1161:26591). Questions follow the
+ * design's order; answers come from the faq-question set's open
+ * variants. */
 
 export interface FaqItem {
   id: string;
@@ -13,9 +15,11 @@ export const FAQ_HEAD = "Questions we get a lot.";
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    id: "overage",
-    question: "What if I use more than usual?",
-    answer: CREDITS_ANSWER,
+    id: "custom",
+    question: "What if I need custom work?",
+    /* The design shows this row closed only; the answer restates the
+       custom-inquiry copy until design supplies one. */
+    answer: "A custom system, plan, and support tailored to your business — talk to us.",
   },
   {
     id: "lock-in",

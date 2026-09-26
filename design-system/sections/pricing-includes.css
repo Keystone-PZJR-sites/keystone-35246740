@@ -1,0 +1,220 @@
+/* Every plan includes. 384 (1170:33518): box at ½t / 11t, single
+   column, 16/22 text. 768 (1170:32612): box at 1t / 10t, single column,
+   18/26 text. 1344 (1129:17125): two 487 columns either side of a rule.
+   The note row follows at 32 / 48 / 64 below. Type here scales by the
+   section unit with flat anchors, since the box picks its own step. */
+
+.pinc {
+  --u: calc(var(--wA) + var(--wB));
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 calc(var(--t) / 2) calc(var(--u) * 48);
+}
+@container (--rt) {
+  .pinc {
+    padding: 0 var(--t) calc(var(--u) * 64);
+  }
+}
+@container (--rd2) {
+  .pinc {
+    padding-bottom: calc(var(--u) * 80);
+  }
+}
+.pinc .type {
+  --fs-px: calc(var(--u) * var(--fs-band));
+  --lh-px: calc(var(--u) * var(--lh-band));
+}
+
+/* ---- the box ---- */
+
+.pinc-box {
+  box-sizing: border-box;
+  background: var(--color-bg-100);
+  border: 1px solid var(--color-border-000);
+  box-shadow: var(--shadow-hard-square);
+  padding: calc(var(--u) * 16) calc(var(--u) * 16) calc(var(--u) * 24);
+}
+@container (--rt) {
+  .pinc-box {
+    padding: calc(var(--u) * 24) calc(var(--u) * 24) calc(var(--u) * 28);
+  }
+}
+@container (--rd2) {
+  .pinc-box {
+    padding: calc(var(--u) * 24) calc(var(--u) * 32) calc(var(--u) * 32);
+  }
+}
+
+.pinc-head {
+  margin: 0 0 calc(var(--u) * 16);
+  color: var(--color-text-300);
+  --font: var(--ts-text-xl-medium-font);
+  --ls: var(--ts-text-xl-medium-ls);
+  --opsz: var(--ts-text-xl-medium-opsz);
+  --fs-rm: var(--ts-text-xl-medium-fs);
+  --fs-rd2: var(--fs-rm);
+  --lh-rm: var(--ts-text-xl-medium-lh);
+  --lh-rd2: var(--lh-rm);
+}
+@container (--rt) {
+  .pinc-head {
+    margin-bottom: calc(var(--u) * 24);
+    --font: var(--ts-text-2xl-medium-font);
+    --ls: var(--ts-text-2xl-medium-ls);
+    --opsz: var(--ts-text-2xl-medium-opsz);
+    --fs-rm: var(--ts-text-2xl-medium-fs);
+    --lh-rm: var(--ts-text-2xl-medium-lh);
+  }
+}
+
+/* One column until rd2; then two with a hairline between. */
+.pinc-cols {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 20);
+}
+.pinc-divider {
+  display: none;
+}
+@container (--rd2) {
+  .pinc-cols {
+    flex-direction: row;
+    align-items: stretch;
+    gap: calc(var(--u) * 40);
+  }
+  .pinc-divider {
+    display: block;
+    flex: none;
+    width: 1px;
+    background: var(--color-border-000);
+  }
+}
+.pinc-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@container (--rd2) {
+  .pinc-col {
+    gap: calc(var(--u) * 26);
+  }
+}
+
+.pinc-item {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 12);
+}
+@container (--rt) {
+  .pinc-item {
+    gap: calc(var(--u) * 16);
+  }
+}
+@container (--rd2) {
+  .pinc-item {
+    gap: calc(var(--u) * 24);
+  }
+}
+/* A 32 icon well; the logomark sits in a filled, rounded tile. */
+.pinc-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: calc(var(--u) * 32);
+  height: calc(var(--u) * 32);
+  color: var(--color-text-200);
+  /* The sparkle is drawn grey here, not teal (1129:17125). */
+  --sparkle-a: var(--color-lightgray-800);
+  --sparkle-b: var(--color-darkgray-100);
+}
+.pinc-icon svg {
+  display: block;
+  width: calc(var(--u) * 20);
+  height: calc(var(--u) * 20);
+}
+.pinc-item[data-icon="logomark"] .pinc-icon {
+  background: var(--color-bg-200);
+  border-radius: calc(var(--u) * 8);
+}
+.pinc-item[data-icon="logomark"] .pinc-icon svg {
+  width: calc(var(--u) * 16);
+  height: calc(var(--u) * 16);
+}
+.pinc-text {
+  color: var(--color-text-300);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--fs-rm);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--lh-rm);
+}
+@container (--rt) {
+  .pinc-text {
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
+    --fs-rm: var(--ts-text-lg-light-fs);
+    --lh-rm: var(--ts-text-lg-light-lh);
+  }
+}
+
+/* ---- the note row ---- */
+
+.pinc-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--u) * 20);
+  margin-top: calc(var(--u) * 32);
+  --btn-size: md;
+}
+.pinc-note {
+  margin: 0;
+  color: var(--color-text-300);
+  max-width: calc(var(--u) * 336);
+  --font: var(--ts-text-md-light-font);
+  --ls: var(--ts-text-md-light-ls);
+  --opsz: var(--ts-text-md-light-opsz);
+  --fs-rm: var(--ts-text-md-light-fs);
+  --fs-rd2: var(--fs-rm);
+  --lh-rm: var(--ts-text-md-light-lh);
+  --lh-rd2: var(--lh-rm);
+}
+.pinc-cta {
+  flex: none;
+}
+/* 768 (1170:32754) keeps the 16/22 note and md control in one row. */
+@container (--rt) {
+  .pinc-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--u) * 24);
+    margin-top: calc(var(--u) * 48);
+  }
+  .pinc-note {
+    max-width: calc(var(--u) * 352);
+  }
+}
+@container (--rd2) {
+  .pinc-row {
+    margin-top: calc(var(--u) * 64);
+    --btn-size: lg;
+  }
+  .pinc-note {
+    max-width: calc(var(--u) * 720);
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
+    --fs-rm: var(--ts-text-lg-light-fs);
+    --lh-rm: var(--ts-text-lg-light-lh);
+  }
+}

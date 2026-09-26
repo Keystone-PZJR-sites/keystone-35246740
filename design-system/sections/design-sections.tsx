@@ -36,7 +36,10 @@ import { EnginesSection } from "./engines";
 import { FaqSection } from "./faq";
 import { HeroSection } from "./hero";
 import { LegalContentSection } from "./legal-content";
-import { PricingOfferSection } from "./pricing-offer";
+import { PricingHeaderSection } from "./pricing-header";
+import { PricingIncludesSection } from "./pricing-includes";
+import { PricingInquirySection } from "./pricing-inquiry";
+import { PricingPlansSection } from "./pricing-plans";
 import { PricingScaleSection } from "./pricing-scale";
 import { SystemSection } from "./system";
 import { WorkCasesSection } from "./work-cases";
@@ -144,11 +147,26 @@ function groups(d: DesignSectionsData): Group[] {
       route: "/pricing/",
       entries: [
         {
-          name: "PricingOfferSection",
-          file: "sections/pricing-offer.tsx",
+          name: "PricingHeaderSection",
+          file: "sections/pricing-header.tsx",
           props: "—",
-          data: "pricing-offer-data.ts",
-          mount: <PricingOfferSection />,
+          data: "pricing-header-data.ts",
+          mount: <PricingHeaderSection />,
+        },
+        {
+          name: "PricingPlansSection",
+          file: "sections/pricing-plans.tsx",
+          props: "—",
+          data: "pricing-plans-data.ts (PLANS)",
+          note: "Uses PlanCard.",
+          mount: <PricingPlansSection />,
+        },
+        {
+          name: "PricingIncludesSection",
+          file: "sections/pricing-includes.tsx",
+          props: "—",
+          data: "pricing-includes-data.ts",
+          mount: <PricingIncludesSection />,
         },
         {
           name: "PricingScaleSection",
@@ -157,6 +175,13 @@ function groups(d: DesignSectionsData): Group[] {
           data: "pricing-scale-data.ts (PERSONAS)",
           note: "Uses PersonaCard and Slider.",
           mount: <PricingScaleSection />,
+        },
+        {
+          name: "PricingInquirySection",
+          file: "sections/pricing-inquiry.tsx",
+          props: "—",
+          data: "pricing-inquiry-data.ts",
+          mount: <PricingInquirySection />,
         },
         {
           name: "FaqSection",

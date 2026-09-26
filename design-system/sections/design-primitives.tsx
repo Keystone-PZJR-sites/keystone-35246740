@@ -11,7 +11,6 @@ import { CloserRow } from "../primitives/closer-row";
 import { CtaRow } from "../primitives/cta-row";
 import { FieldCheckbox, FieldText, FieldTextarea } from "../primitives/field";
 import { Picture } from "../primitives/picture";
-import { PricingTag } from "../primitives/pricing-tag";
 import { Slug } from "../primitives/slug";
 import { CaseStudyButton } from "../primitives/case-study-button";
 import { CaseStudyCard } from "../primitives/case-study-card";
@@ -19,12 +18,13 @@ import { FaqQuestion } from "../primitives/faq-question";
 import { FooterItem } from "../primitives/footer-item";
 import { GraderInput } from "../primitives/grader";
 import { PersonaCard } from "../primitives/persona-card";
-import { PricingButton } from "../primitives/pricing-button";
+import { PlanCard } from "../primitives/plan-card";
 import { Slider } from "../primitives/slider";
 import { Toc } from "../primitives/toc";
 import { FAQ_ITEMS } from "./faq-data";
 import { LANDING_ICONS } from "./landing-benefits";
 import { PERSONAS } from "./pricing-scale-data";
+import { PLANS } from "./pricing-plans-data";
 import { CASE_STUDIES as CASE_SUMMARIES } from "./work-cases-data";
 
 const FILL_SIZES = ["xl", "lg", "md", "sm"] as const;
@@ -225,18 +225,6 @@ export function DesignPrimitivesSection() {
         </form>
       </Spec>
 
-      <Spec title="PricingTag" file="primitives/pricing-tag.tsx">
-        <Row label="xs · md · lg · xl">
-          <PricingTag size="xs">Included</PricingTag>
-          <PricingTag size="md">Included</PricingTag>
-          <PricingTag size="lg">Included</PricingTag>
-          <PricingTag size="xl">Included</PricingTag>
-          <PricingTag size="md" muted>
-            Muted
-          </PricingTag>
-        </Row>
-      </Spec>
-
       <Spec
         title="Icons"
         file="icons.tsx"
@@ -285,8 +273,9 @@ export function DesignPrimitivesSection() {
       >
         {(["lg", "md", "sm"] as const).map((size) => (
           <Row key={size} label={`size="${size}"`}>
-            <Slider size={size} label="Team size" />
-            <Slider size={size} label="Team size" forceHue="purple" />
+            <Slider size={size} label="Price scale" />
+            <Slider size={size} label="Price scale" forceStop={1} forceHue="teal" />
+            <Slider size={size} label="Price scale" forceStop={3} forceHue="purple" />
           </Row>
         ))}
       </Spec>
@@ -294,11 +283,27 @@ export function DesignPrimitivesSection() {
       <Spec
         title="PersonaCard"
         file="primitives/persona-card.tsx"
-        note="A pricing persona (pricing-scale-data.ts PERSONAS). state active | inactive."
+        note="A pricing persona (pricing-scale-data.ts PERSONAS). --pcard-size on the mount or size pinned; state active | inactive."
       >
-        <Row label='size="md"'>
+        <Row label='size="lg"'>
+          <PersonaCard persona={PERSONAS[2]} size="lg" />
+        </Row>
+        <Row label='size="md" · "sm"'>
           <PersonaCard persona={PERSONAS[0]} size="md" />
-          <PersonaCard persona={PERSONAS[1]} size="md" state="inactive" />
+          <PersonaCard persona={PERSONAS[1]} size="sm" state="inactive" />
+        </Row>
+      </Spec>
+
+      <Spec
+        title="PlanCard"
+        file="primitives/plan-card.tsx"
+        note="A plan (pricing-plans-data.ts PLANS). --plan-size on the mount or size pinned; hue by plan id."
+      >
+        <Row label='size="sm"'>
+          <PlanCard plan={PLANS[0]} size="sm" />
+        </Row>
+        <Row label='size="md"'>
+          <PlanCard plan={PLANS[1]} size="md" />
         </Row>
       </Spec>
 
@@ -318,23 +323,6 @@ export function DesignPrimitivesSection() {
           <CaseStudyButton label="Read the case study" href="#" size="sm" />
           <CaseStudyButton label="hover" href="#" forceState="hover" />
         </Row>
-      </Spec>
-
-      <Spec
-        title="PricingButton"
-        file="primitives/pricing-button.tsx"
-        note="Sized by --pbtn-size on its mount; pinned here."
-      >
-        {(["xl", "lg", "md", "sm", "xs"] as const).map((size) => (
-          <Row key={size} label={`size="${size}"`}>
-            <PricingButton size={size} href="#">
-              Get started
-            </PricingButton>
-            <PricingButton size={size} href="#" forceState="hover">
-              hover
-            </PricingButton>
-          </Row>
-        ))}
       </Spec>
 
       <Spec
