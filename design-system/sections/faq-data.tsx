@@ -52,6 +52,6 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "switch",
     question: "I already have a website. Why switch?",
     answer:
-      "We rebuild everything to modern design standards and web technologies, with our marketing engine built in. It audits and improves your site alongside your Growth Partner, so more people find you and trust what they find. Your social media, ads, maps profiles, and articles all run through the same system.",
+      "We rebuild everything to modern design standards and web technologies, with our marketing engine built in. It audits and improves your site continuously, so more people find you and trust what they find. Your social media, ads, maps profiles, and articles all run through the same system.",
   },
 ];
