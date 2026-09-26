@@ -6,6 +6,9 @@
 .pplans {
   --u: calc(var(--wA) + var(--wB));
   width: 100%;
+  /* #plans is the target of the scale section's "Start today"; clear
+     the sticky nav bar so the cards land in view. */
+  scroll-margin-top: calc(var(--knav-bar-h) + var(--t) / 2);
 }
 
 .pplans-row {

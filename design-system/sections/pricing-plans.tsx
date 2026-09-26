@@ -9,7 +9,7 @@ import { PLANS, PLANS_NOTE } from "./pricing-plans-data";
 
 export function PricingPlansSection() {
   return (
-    <section className="sec pplans" data-landmark="plans">
+    <section className="sec pplans" id="plans" data-landmark="plans">
       <div className="gx" aria-hidden="true">
         <GridRegion band="rd2" gx={0} gy={1} gw={12} gh={3} />
       </div>

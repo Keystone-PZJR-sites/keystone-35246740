@@ -5,7 +5,6 @@
 import { ButtonFill } from "../primitives/buttons";
 import { PersonaCard } from "../primitives/persona-card";
 import { Slider } from "../primitives/slider";
-import { CHECKOUT_URLS } from "./pricing-plans-data";
 import { PricingScaleIsland } from "./pricing-scale-island";
 import {
   KEYWORD_CHIPS,
@@ -39,9 +38,10 @@ export function PricingScaleSection() {
               forceHue={rest.hue}
             />
           </div>
-          {/* The 1344 frame alone carries a CTA under the slider. */}
+          {/* The 1344 frame alone carries a CTA under the slider; it
+              returns to the plan cards, where the plan is chosen. */}
           <div className="ps-cta">
-            <ButtonFill size="inherit" chrome="teal" href={CHECKOUT_URLS.starter} external>
+            <ButtonFill size="inherit" chrome="teal" href="#plans">
               {PRICE_SCALE_CTA}
             </ButtonFill>
           </div>
