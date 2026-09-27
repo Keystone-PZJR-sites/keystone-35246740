@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { OurWorkPage } from "@/design-system/pages/our-work";
+import { OurWorkPage } from "@/site/pages/our-work";
 
 /** The Our Work page with its development-only sweep hook. */
 export const metadata: Metadata = {

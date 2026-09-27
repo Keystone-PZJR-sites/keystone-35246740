@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { getBlogPostIndex } from "@/design-system/sections/blog-data";
-import { CASE_STUDIES } from "@/design-system/sections/case-study-data";
-import { SITE_URL } from "@/design-system/site";
+import { getBlogPostIndex } from "@/site/sections/blog-data";
+import { CASE_STUDIES } from "@/site/sections/case-study-data";
+import { SITE_URL } from "@keystone-sites/marketing-design-system/site";
 
 const STATIC_PATHS = [
   "/",

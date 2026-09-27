@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/design-system/pages/legal";
+import { LegalPage } from "@/site/pages/legal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Keystone",

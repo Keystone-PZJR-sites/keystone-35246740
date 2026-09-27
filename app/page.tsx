@@ -1,4 +1,4 @@
-import { HomePage } from "@/design-system/pages/home";
+import { HomePage } from "@/site/pages/home";
 
 /** The homepage. */
 export default function Home() {

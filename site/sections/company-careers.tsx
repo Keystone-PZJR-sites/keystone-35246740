@@ -1,0 +1,34 @@
+import { CloserRow } from "@keystone-sites/marketing-design-system/primitives/closer-row";
+import { ButtonFill } from "@keystone-sites/marketing-design-system/primitives/buttons";
+import { Slug } from "@keystone-sites/marketing-design-system/primitives/slug";
+import { SITE_LINKS } from "@keystone-sites/marketing-design-system/site-links";
+import { COMPANY_CAREERS } from "./company-data";
+
+/* Lattice: head, copy, and CTA in unpainted air; the flow closer sits
+ * flush at the section end — it meets the footer's own top row like
+ * the blog-category strip. The CTA never sits on the painted seam. No
+ * gutter furniture. */
+export function CompanyCareersSection() {
+  return (
+    <section
+      id="careers"
+      className="sec company-careers"
+      aria-label="Careers"
+      data-landmark="company-careers"
+    >
+      <header className="coc-head" data-landmark="head">
+        <Slug>{COMPANY_CAREERS.eyebrow}</Slug>
+        <h2 className="type ts-display-serif-xs-extralight co-h2">{COMPANY_CAREERS.title}</h2>
+        <p className="type ts-text-md-light coc-copy co-body-text">{COMPANY_CAREERS.copy}</p>
+      </header>
+
+      <div className="coc-cta" data-landmark="cta">
+        <ButtonFill size="inherit" chrome="teal" href={SITE_LINKS.contact}>
+          {COMPANY_CAREERS.ctaLabel}
+        </ButtonFill>
+      </div>
+
+      <CloserRow />
+    </section>
+  );
+}

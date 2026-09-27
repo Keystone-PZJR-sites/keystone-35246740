@@ -11,10 +11,10 @@ Read this file first.
 - Never start a dev server on port 3000. Run yours on another port, or use the
   owner's if it is running.
 - Never hardcode a value that means something. Colors, spacing, type, motion,
-  z-index, URLs, copy, and asset paths live in `design-system/tokens/`,
-  `*-data.ts` modules, `design-system/media.ts`, or `.env`. A constant only
+  z-index, URLs, copy, and asset paths live in the design system's `tokens/`,
+  `*-data.ts` modules, the design system's `media.ts`, or `.env`. A constant only
   one file needs is a custom property on that file's root selector, at the top.
-- Never write CSS outside `design-system/`. No utility classes in site markup,
+- Never write CSS outside `site/` (or the design system). No utility classes in site markup,
   no CSS modules, no CSS-in-JS, no `<style>`, no `!important` (two
   exceptions: the reduced-motion law in `base.css` and the packaged consent
   widget's bridge in `widgets.css`).
@@ -29,10 +29,19 @@ Read this file first.
 
 ## How the site is built
 
-- `app/` routes only mount a `design-system/pages/*` composition and pass data.
-- `design-system/` layers build strictly upward: `tokens` → `base` → `grid`
-  → `primitives` → `sections` → `pages`. A layer imports only layers below it.
-  `index.css` assembles the cascade; add a file to its layer, never rules to the index.
+- The design system is the package `@keystone-sites/marketing-design-system`
+  (repo `keystone-marketing-design-system`, linked here with `file:` while
+  both are developed side by side; `npm install` re-copies it after a change
+  there). It owns `tokens`, `base`, `grid`, every `primitive`, the shared
+  chrome (`nav`, `footer`, `faq`, `gallery-overlay`, `site-chat`), the landing
+  kit, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Anything two
+  Keystone sites could use lives there, never here.
+- `app/` routes only mount a `site/pages/*` composition and pass data.
+- `site/` holds this site's sections and pages: `site/sections` → `site/pages`.
+  Layers build strictly upward: `tokens` → `base` → `grid` → `primitives` →
+  `sections` → `pages`. A layer imports only layers below it. `site/index.css`
+  imports the package's `index.css` and then assembles this site's cascade;
+  add a file to its layer, never rules to the index.
 - A section owns `name.tsx`, `name.css`, `name-data.ts`, and at most one
   island `name-island.tsx`. Sections compose primitives; pages compose sections.
 - Server Components by default. An island receives typed props or wraps
@@ -41,7 +50,7 @@ Read this file first.
   (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
   spacing come from tokens; controls are fixed material px. Gates are named
   by the band they open: `@container (--rs)`, `(--rt)`, `(--rd1)`, `(--rd2)`;
-  never a pixel width. See `design-system/grid/engine.css` and `gates.js`.
+  never a pixel width. See the design system's `grid/engine.css` and `gates.js`.
 - A control's size is a keyword its mount can set per band: `--btn-size` for
   `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
   `--plan-size` for `PlanCard`, `--pcard-size` for `PersonaCard`. Pass `size="inherit"` and declare the
@@ -103,8 +112,8 @@ Read this file first.
   against rendered bounds through the Figma console bridge. Strokes produce
   ±0.5px artifacts (23/31/33 mean 24/32): transcribe the intended value.
 - Token values come from the variables API and text styles, not rendered
-  frames. Type changes: update `tokens/type-styles.json`, then run
-  `node scripts/generate-type-css.mjs`.
+  frames. Type changes: in the design system repo, update
+  `tokens/type-styles.json`, then run `npm run type-css`.
 - When a node disagrees with its siblings or the pattern, flag it to design
   and record the resolution in a comment at the value. Never build the error.
 
@@ -118,7 +127,7 @@ vertical, a campaign, a persona) is copy plus two files, and it arrives
 with the site's craft — lattice paint, an image slot, the entrance, seated
 cards, a quote — because the kit sections already carry it:
 
-1. `design-system/pages/name-data.ts`: a `LandingPageData` (see
+1. `site/pages/name-data.ts`: a `LandingPageData` (see
    `pages/landing-sample-data.ts`): `meta`, then `sections`, an ordered list
    where each entry is `{ kind, ...data }`. Kinds today: `hero`, `benefits`,
    `quote`, `closer`. Any order, any count, kinds may repeat. The hero
@@ -128,10 +137,10 @@ cards, a quote — because the kit sections already carry it:
    `<LandingPage data={NAME} />`. Add the route to `site-links.ts`,
    `app/sitemap.ts`, and `tests/visual.spec.ts`.
 
-When no kind says what a page needs, add one — a section file pair
-(`sections/landing-<kind>.tsx/.css`, registered in `index.css`), its
-variant in `LandingSection`, and one line in `SECTIONS`
-(`pages/landing.tsx`) — so every landing page can use it. Never a
+When no kind says what a page needs, add one in the design system — a
+section file pair (`sections/landing-<kind>.tsx/.css`, registered in its
+`index.css`), its variant in `LandingSection`, and one line in `SECTIONS`
+(`sections/landing.tsx`) — so every landing page can use it. Never a
 page-local section or CSS file.
 
 A page with its own Figma frames is composed from sections instead:
@@ -139,7 +148,7 @@ A page with its own Figma frames is composed from sections instead:
 1. Read the frames for every band you will render.
 2. Search before you build: `primitives/`, `sections/`, `icons.tsx`,
    `media.ts`, `tokens/`, and the existing `data-action` contracts.
-3. Compose the page in `design-system/pages/name.tsx`; mount it from
+3. Compose the page in `site/pages/name.tsx`; mount it from
    `app/name/page.tsx` with `metadata`. Add the route to `site-links.ts`,
    `app/sitemap.ts`, and `tests/visual.spec.ts`.
 4. A new dependency needs a reason in the change; prefer the platform.

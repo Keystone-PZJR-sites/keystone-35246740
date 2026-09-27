@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ContactPage } from "@/design-system/pages/contact";
+import { ContactPage } from "@/site/pages/contact";
 
 export const metadata: Metadata = {
   title: "Contact | Keystone",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { CompanyPage } from "@/design-system/pages/company";
-import { COMPANY_META } from "@/design-system/sections/company-data";
+import { CompanyPage } from "@/site/pages/company";
+import { COMPANY_META } from "@/site/sections/company-data";
 
 export const metadata: Metadata = {
   title: COMPANY_META.title,

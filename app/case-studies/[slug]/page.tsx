@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CaseStudyPage } from "@/design-system/pages/case-study";
-import { CASE_STUDIES, getCaseStudy } from "@/design-system/sections/case-study-data";
+import { CaseStudyPage } from "@/site/pages/case-study";
+import { CASE_STUDIES, getCaseStudy } from "@/site/sections/case-study-data";
 
 /** Only populated case studies receive static routes. Unknown slugs 404. */
 

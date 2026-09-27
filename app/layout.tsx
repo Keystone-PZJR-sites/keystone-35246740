@@ -1,10 +1,10 @@
-import "@/design-system/index.css";
-import "@/design-system/widgets.css";
+import "@/site/index.css";
+import "@keystone-sites/marketing-design-system/widgets.css";
 import type { Metadata, Viewport } from "next";
 import { CONSENT_REGIME_BOOTSTRAP_SCRIPT } from "@keystone-sites/core/consent";
 import { CookieConsentModal } from "@keystone-sites/widgets/consent/CookieConsentModal";
-import { SiteChat } from "@/design-system/sections/site-chat";
-import { SITE_URL } from "@/design-system/site";
+import { SiteChat } from "@keystone-sites/marketing-design-system/sections/site-chat";
+import { SITE_URL } from "@keystone-sites/marketing-design-system/site";
 
 /* Static metadata never blocks HTML delivery. */
 export const metadata: Metadata = {

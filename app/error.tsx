@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { GridField } from "@/design-system/grid/field";
-import { LEGAL_EYEBROW } from "@/design-system/pages/legal-data";
+import { GridField } from "@keystone-sites/marketing-design-system/grid/field";
+import { LEGAL_EYEBROW } from "@/site/pages/legal-data";
 
 /** The route error boundary. Next requires a client component here; it
  * stays markup-only on the legal-page classes so the shared chunk carries

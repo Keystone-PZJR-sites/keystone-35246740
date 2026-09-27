@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/design-system/site";
+import { SITE_URL } from "@keystone-sites/marketing-design-system/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -47,6 +47,7 @@ const nextConfig: NextConfig = {
     "@keystone-sites/core",
     "@keystone-sites/services",
     "@keystone-sites/widgets",
+    "@keystone-sites/marketing-design-system",
   ],
 };
 

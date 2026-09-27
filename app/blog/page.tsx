@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPage } from "@/design-system/pages/blog";
-import {
-  getBlogFiltered,
-  getBlogLanding,
-  type BlogPageModel,
-} from "@/design-system/sections/blog-data";
-import { SITE_LINKS } from "@/design-system/site-links";
+import { BlogPage } from "@/site/pages/blog";
+import { getBlogFiltered, getBlogLanding, type BlogPageModel } from "@/site/sections/blog-data";
+import { SITE_LINKS } from "@keystone-sites/marketing-design-system/site-links";
 
 interface BlogRouteProps {
   searchParams: Promise<{

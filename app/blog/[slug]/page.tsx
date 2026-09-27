@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPostPage } from "@/design-system/pages/blog-post";
-import { getBlogPostDetail } from "@/design-system/sections/blog-data";
-import { SITE_LINKS } from "@/design-system/site-links";
+import { BlogPostPage } from "@/site/pages/blog-post";
+import { getBlogPostDetail } from "@/site/sections/blog-data";
+import { SITE_LINKS } from "@keystone-sites/marketing-design-system/site-links";
 
 interface BlogPostRouteProps {
   params: Promise<{ slug: string }>;

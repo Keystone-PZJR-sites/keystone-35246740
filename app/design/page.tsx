@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DesignPage } from "@/design-system/pages/design";
+import { DesignPage } from "@/site/pages/design";
 
 export const metadata: Metadata = {
   title: "Design system | Keystone",

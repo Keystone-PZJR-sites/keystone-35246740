@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
-import { GridField } from "@/design-system/grid/field";
-import { LegalContentSection } from "@/design-system/sections/legal-content";
-import { NavChrome } from "@/design-system/sections/nav";
-import { FooterSection } from "@/design-system/sections/footer";
-import { LEGAL_EYEBROW } from "@/design-system/pages/legal-data";
+import { GridField } from "@keystone-sites/marketing-design-system/grid/field";
+import { LegalContentSection } from "@/site/sections/legal-content";
+import { NavChrome } from "@keystone-sites/marketing-design-system/sections/nav";
+import { FooterSection } from "@keystone-sites/marketing-design-system/sections/footer";
+import { LEGAL_EYEBROW } from "@/site/pages/legal-data";
 
 export const metadata: Metadata = {
   title: "Page not found | Keystone",

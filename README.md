@@ -23,10 +23,10 @@ npm run preview                                     # OpenNext build + wrangler 
 
 ## Layout
 
-- `app/` — routes; each mounts a `design-system/pages/*` composition.
-- `design-system/` — tokens → base → grid → primitives → sections → pages.
-- `public/media/` — fonts and art-directed image tiers, indexed by `design-system/media.ts`.
-- `scripts/` — `generate-type-css.mjs` (Figma text styles → `tokens/type.css`).
+- `app/` — routes; each mounts a `site/pages/*` composition.
+- `site/` — this site's sections and pages, on top of `@keystone-sites/marketing-design-system`
+  (tokens → base → grid → primitives → shared sections), linked from `../keystone-marketing-design-system`.
+- `public/media/` — fonts and art-directed image tiers, indexed by the design system's `media.ts`.
 - `tests/` — the Playwright visual gate (`playwright.config.ts`).
 
 ## Routes
