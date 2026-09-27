@@ -29,8 +29,11 @@
   --lh-px: calc(var(--u) * var(--lh-band));
 }
 
+/* Crumb to headline follows the site's head-gap idiom (blog-top,
+   company-hero): 16 on the 384 tick, 16 units at rt, 24 on the 1344
+   tick from rd1. */
 .uh-h1 {
-  margin: calc(var(--u) * 16) 0 0;
+  margin: calc(var(--t) * 16 / 32) 0 0;
   color: var(--color-text-100);
   text-wrap: balance;
   --fs-rd2: var(--fs-rm);
@@ -38,6 +41,7 @@
 }
 @container (--rt) {
   .uh-h1 {
+    margin-top: calc(var(--u) * 16);
     --font: var(--ts-display-serif-md-extralight-font);
     --ls: var(--ts-display-serif-md-extralight-ls);
     --fs-rm: var(--ts-display-serif-md-extralight-fs);
@@ -46,18 +50,13 @@
 }
 @container (--rd1) {
   .uh-h1 {
+    margin-top: calc(var(--t) * 24 / 112);
     --font: var(--ts-display-serif-lg-extralight-font);
     --ls: var(--ts-display-serif-lg-extralight-ls);
     --fs-rm: var(--ts-display-serif-lg-extralight-fs);
     --lh-rm: var(--ts-display-serif-lg-extralight-lh);
   }
 }
-@container (--rd2) {
-  .uh-h1 {
-    margin-top: calc(var(--u) * 24);
-  }
-}
-
 /* Intro: the copy over the tags until rd1, then tags beside the copy in
    two equal columns. The 768 stack holds the copy a tick short of the
    column (1213:54245, intro-stack padding-right 64). */

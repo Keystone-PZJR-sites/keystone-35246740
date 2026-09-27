@@ -29,16 +29,24 @@
   }
 }
 
+/* Slug to headline follows the site's head-gap idiom (blog-top,
+   company-hero): 16 on the 384 tick, 16 units at rt, 24 on the 1344
+   tick from rd1. */
 .ph-h1 {
-  margin: calc(var(--u) * 16) 0 0;
+  margin: calc(var(--t) * 16 / 32) 0 0;
   --fs-rt: var(--ts-display-serif-lg-plus-thin-fs);
   --lh-rt: var(--ts-display-serif-lg-plus-thin-lh);
 }
 @container (--rt) {
   .ph-h1 {
-    margin-top: calc(var(--u) * 24);
+    margin-top: calc(var(--u) * 16);
     /* The 768 frame keeps a 96 right inset inside the 640 column. */
     max-width: calc(100% - var(--u) * 96);
+  }
+}
+@container (--rd1) {
+  .ph-h1 {
+    margin-top: calc(var(--t) * 24 / 112);
   }
 }
 @container (--rd2) {
