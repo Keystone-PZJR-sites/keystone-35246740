@@ -1,24 +1,27 @@
 /* Price list header. Three designs: 384 (1213:54244) for rm and rs,
    768 (1213:54245) for rt, 1344 (1213:54246) for rd1 and rd2. Inline
    padding is structure in ticks; the vertical rhythm is designed px on
-   the section unit, as on the pricing page. The frames start under the
-   44px nav bar (1184:51686), so the top padding adds it. Type scales by
-   the unit with flat anchors and switches style at the gates. */
+   the section unit, as on the pricing page. The top follows the site's
+   head-top idiom (blog-top, company-hero): 80 on the 384 tick, 80 units
+   at rt, 176 on the 1344 tick from rd1, so the crumb starts on the same
+   line as every other page; the frames' nav bar plus 48 / 96 is
+   superseded. Type scales by the unit with flat anchors and switches
+   style at the gates. */
 
 .uh {
   --u: calc(var(--wA) + var(--wB));
   box-sizing: border-box;
   width: 100%;
-  padding: calc(var(--knav-bar-h) + var(--u) * 48) calc(var(--t) / 2) 0;
+  padding: calc(var(--t) * 80 / 32) calc(var(--t) / 2) 0;
 }
 @container (--rt) {
   .uh {
-    padding-inline: var(--t);
+    padding: calc(var(--u) * 80) var(--t) 0;
   }
 }
-@container (--rd2) {
+@container (--rd1) {
   .uh {
-    padding-top: calc(var(--knav-bar-h) + var(--u) * 96);
+    padding-top: calc(var(--t) * 176 / 112);
   }
 }
 .uh .type {

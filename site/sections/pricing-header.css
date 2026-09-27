@@ -2,22 +2,30 @@
    (1170:32287) for rt and rd1, 1344 (1129:17105) for rd2. Inline padding
    is structure in ticks; the vertical rhythm is designed px on the
    section unit. The headline and subhead ride the shared ramps with
-   their 768 anchors named. */
+   their 768 anchors named. The top follows the site's head-top idiom
+   (blog-top, company-hero): 80 on the 384 tick, 80 units at rt, 176 on
+   the 1344 tick from rd1, so the slug starts on the same line as every
+   other page; the frames' 40 / 56 / 84 is superseded. */
 
 .ph {
   --u: calc(var(--wA) + var(--wB));
   box-sizing: border-box;
   width: 100%;
-  padding: calc(var(--u) * 40) calc(var(--t) * 1.5) calc(var(--u) * 24) calc(var(--t) / 2);
+  padding: calc(var(--t) * 80 / 32) calc(var(--t) * 1.5) calc(var(--u) * 24) calc(var(--t) / 2);
 }
 @container (--rt) {
   .ph {
-    padding: calc(var(--u) * 56) var(--t) calc(var(--u) * 40);
+    padding: calc(var(--u) * 80) var(--t) calc(var(--u) * 40);
+  }
+}
+@container (--rd1) {
+  .ph {
+    padding-top: calc(var(--t) * 176 / 112);
   }
 }
 @container (--rd2) {
   .ph {
-    padding: calc(var(--u) * 84) var(--t) calc(var(--u) * 56);
+    padding-bottom: calc(var(--u) * 56);
   }
 }
 
