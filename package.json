@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@keystone-sites/core": "^1.1.4",
-    "@keystone-sites/marketing-design-system": "^1.0.0",
+    "@keystone-sites/marketing-design-system": "^1.0.1",
     "@keystone-sites/services": "^1.0.2",
     "@keystone-sites/widgets": "^1.2.5",
     "next": "^16.3.4",
