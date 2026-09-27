@@ -34,8 +34,9 @@ Read this file first.
   both are developed side by side; `npm install` re-copies it after a change
   there). It owns `tokens`, `base`, `grid`, every `primitive`, the shared
   chrome (`nav`, `footer`, `faq`, `gallery-overlay`, `site-chat`), the landing
-  kit, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Anything two
-  Keystone sites could use lives there, never here.
+  kit, the themes, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Its
+  rules are its own `AGENTS.md`; its catalog renders everything from the
+  source. Anything two Keystone sites could use lives there, never here.
 - `app/` routes only mount a `site/pages/*` composition and pass data.
 - `site/` holds this site's sections and pages: `site/sections` → `site/pages`.
   Layers build strictly upward: `tokens` → `base` → `grid` → `primitives` →
@@ -119,16 +120,17 @@ Read this file first.
 
 ## Building new pages
 
-Open `/design/` first (`app/design/`): the tokens, type styles, every
-primitive at every size, the landing kit's kinds, and this file, rendered
-from the source. It is not indexed and lives in the visual gate like any
-route. Then start from the landing kit. A page without its own Figma frames (a
+Open the design system's catalog first (`npm run catalog` in the
+`keystone-marketing-design-system` repo, then <http://localhost:3140>): the
+tokens, type styles, every primitive at every size on both grounds, the
+landing kit's kinds, and the system's own `AGENTS.md`, rendered from the
+source. Then start from the landing kit. A page without its own Figma frames (a
 vertical, a campaign, a persona) is copy plus two files, and it arrives
 with the site's craft — lattice paint, an image slot, the entrance, seated
 cards, a quote — because the kit sections already carry it:
 
-1. `site/pages/name-data.ts`: a `LandingPageData` (see
-   `pages/landing-sample-data.ts`): `meta`, then `sections`, an ordered list
+1. `site/pages/name-data.ts`: a `LandingPageData` (see the design system's
+   `sections/landing-sample.ts`): `meta`, then `sections`, an ordered list
    where each entry is `{ kind, ...data }`. Kinds today: `hero`, `benefits`,
    `quote`, `closer`. Any order, any count, kinds may repeat. The hero
    picture is `heroCarouselPicture(n)` from `media.ts` until the page has
@@ -192,9 +194,8 @@ The vocabulary, each with its home:
 - The CTA row, `primitives/cta-row.tsx`: fill button, "Got a question?" from
   rs, ghost `open-chat`; it sets `--btn-size` per band.
 - A long page's side rail, `primitives/toc.tsx`: `Toc items` in a
-  desktop-only absolute rail beside the content (`sections/case-study-toc.css`,
-  `.ds-toc-rail` in `pages/design.css`); the active row follows
-  `lib/use-active-section`.
+  desktop-only absolute rail beside the content (`sections/case-study-toc.css`);
+  the active row follows `lib/use-active-section`.
 
 ## Verify before you say done
 

@@ -11,8 +11,7 @@ export default defineConfig({
   fullyParallel: true,
   workers: 4,
   retries: 0,
-  /* /design/#sections mounts every section on one page (~50k px tall);
-     its full-page shot needs more than the defaults. */
+  /* Full-page shots of the long routes need more than the defaults. */
   timeout: 90_000,
   expect: { timeout: 20_000 },
   reporter: [["list"]],

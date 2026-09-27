@@ -47,7 +47,5 @@
 @import "./sections/work-deck.css" layer(sections);
 @import "./sections/case-carousel.css" layer(sections);
 
-/* Pages. /design/ hosts every section and primitive, so its host
-   rules must outrank the sections they neutralise. */
+/* Pages */
 @import "./pages/our-work.css" layer(pages);
-@import "./pages/design.css" layer(pages);
