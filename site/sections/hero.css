@@ -438,24 +438,6 @@
   }
 }
 
-@keyframes hx-rise {
-  from { opacity: 0; transform: translateY(var(--motion-rise-distance)); }
-}
-@keyframes hx-rise-move {
-  from { transform: translateY(var(--motion-rise-distance)); }
-}
-@keyframes hx-fade {
-  from { opacity: 0; }
-}
-@keyframes hx-sweep-v {
-  from { transform: scaleY(0); }
-}
-@keyframes hx-sweep-h {
-  from { transform: scaleX(0); }
-}
-@keyframes hx-nav-drop {
-  from { opacity: 0; transform: translateY(calc(-1 * var(--load-nav-drop))); }
-}
 @keyframes hx-chip-wipe {
   from { clip-path: inset(0 100% 0 0); }
   to { clip-path: inset(0 0 0 0); }
