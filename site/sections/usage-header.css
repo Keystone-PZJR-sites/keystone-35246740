@@ -1,0 +1,117 @@
+/* Usage price list header. Three designs: 384 (1184:52428) for rm and
+   rs, 768 (1184:52157) for rt, 1344 (1184:51689) for rd1 and rd2. Inline
+   padding is structure in ticks; the vertical rhythm is designed px on
+   the section unit, as on the pricing page. Type scales by the unit with
+   flat anchors and switches style at the gates. */
+
+.uh {
+  --u: calc(var(--wA) + var(--wB));
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(var(--u) * 48) calc(var(--t) / 2) 0 var(--t);
+}
+@container (--rt) {
+  .uh {
+    padding-right: var(--t);
+  }
+}
+@container (--rd2) {
+  .uh {
+    padding-top: calc(var(--u) * 96);
+  }
+}
+.uh .type {
+  --fs-px: calc(var(--u) * var(--fs-band));
+  --lh-px: calc(var(--u) * var(--lh-band));
+}
+
+/* The crumb: the parent in the slug's own colour, the separator in the
+   hairline grey, the current page a step darker. */
+.uh-crumb-sep {
+  color: var(--color-bg-600);
+}
+.uh-crumb {
+  color: var(--color-text-300);
+}
+
+.uh-h1 {
+  margin: calc(var(--u) * 16) 0 0;
+  color: var(--color-text-100);
+  text-wrap: balance;
+  --fs-rd2: var(--fs-rm);
+  --lh-rd2: var(--lh-rm);
+}
+@container (--rt) {
+  .uh-h1 {
+    --font: var(--ts-display-serif-md-extralight-font);
+    --ls: var(--ts-display-serif-md-extralight-ls);
+    --fs-rm: var(--ts-display-serif-md-extralight-fs);
+    --lh-rm: var(--ts-display-serif-md-extralight-lh);
+  }
+}
+@container (--rd1) {
+  .uh-h1 {
+    --font: var(--ts-display-serif-lg-extralight-font);
+    --ls: var(--ts-display-serif-lg-extralight-ls);
+    --fs-rm: var(--ts-display-serif-lg-extralight-fs);
+    --lh-rm: var(--ts-display-serif-lg-extralight-lh);
+  }
+}
+@container (--rd2) {
+  .uh-h1 {
+    margin-top: calc(var(--u) * 24);
+  }
+}
+
+/* Intro: the copy over the tags until rd1, then tags beside the copy in
+   two equal columns. */
+.uh-intro {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: calc(var(--u) * 20);
+  margin-top: calc(var(--u) * 28);
+}
+@container (--rd1) {
+  .uh-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: calc(var(--u) * 48);
+  }
+}
+@container (--rd2) {
+  .uh-intro {
+    margin-top: calc(var(--u) * 40);
+  }
+}
+
+.uh-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  --tag-size: sm;
+}
+@container (--rt) {
+  .uh-tags {
+    --tag-size: md;
+  }
+}
+
+.uh-body {
+  margin: 0;
+  color: var(--color-text-300);
+  --fs-rd2: var(--fs-rm);
+  --lh-rd2: var(--lh-rm);
+}
+@container (--rd1) {
+  .uh-body {
+    --font: var(--ts-text-lg-light-font);
+    --ls: var(--ts-text-lg-light-ls);
+    --opsz: var(--ts-text-lg-light-opsz);
+    --fs-rm: var(--ts-text-lg-light-fs);
+    --lh-rm: var(--ts-text-lg-light-lh);
+  }
+}

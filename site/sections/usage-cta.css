@@ -1,0 +1,95 @@
+/* Usage price list closer. 384 (1184:52840): a column — full-width
+   button, centred chat prompt, notes. 768 (1184:52478) and 1344
+   (1184:51962): actions and notes in two equal columns, centred on each
+   other. The block sits 28 / 28 / 40 under the table and closes the
+   list 56 above the footer, all on the section unit. */
+
+.uc {
+  --u: calc(var(--wA) + var(--wB));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 16);
+  width: 100%;
+  margin-top: calc(var(--u) * 28);
+  padding: 0 calc(var(--t) / 2) calc(var(--u) * 56) var(--t);
+}
+@container (--rt) {
+  .uc {
+    flex-direction: row;
+    gap: calc(var(--u) * 48);
+    padding-right: var(--t);
+  }
+}
+@container (--rd2) {
+  .uc {
+    margin-top: calc(var(--u) * 40);
+  }
+}
+.uc .type:not(.type-fixed) {
+  --fs-px: calc(var(--u) * var(--fs-band));
+  --lh-px: calc(var(--u) * var(--lh-band));
+  --fs-rd2: var(--fs-rm);
+  --lh-rd2: var(--lh-rm);
+}
+
+/* Actions: the button stretches across the column at 384 and returns to
+   its own width when the row opens at rt. */
+.uc-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 16);
+  width: 100%;
+}
+@container (--rt) {
+  .uc-actions {
+    flex: none;
+    flex-direction: row;
+    gap: calc(var(--u) * 24);
+    width: auto;
+  }
+  .uc-actions .btn-fill[data-stretch] {
+    display: inline-flex;
+    width: auto;
+  }
+}
+/* From rd1 the two halves are equal columns (1184:51963 · 51959). */
+@container (--rd1) {
+  .uc-actions {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+.uc-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  white-space: nowrap;
+}
+.uc-q {
+  color: var(--color-brown-700);
+}
+
+/* Notes: the range caveat over the placeholder footnote. */
+.uc-notes {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 6);
+  width: 100%;
+}
+@container (--rt) {
+  .uc-notes {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+.uc-note {
+  margin: 0;
+  color: var(--color-text-300);
+}
+.uc-footnote {
+  margin: 0;
+  color: var(--color-text-500);
+}

@@ -1,0 +1,201 @@
+/* Usage price list table. Three designs: 384 (1184:52452) for rm and
+   rs, 768 (1184:52181) for rt, 1344 (1184:51713) for rd1 and rd2. The
+   category rule spans the column; the job rows and their rule sit one
+   indent in. Vertical rhythm and the price column are designed px on the
+   section unit; type scales by the unit with flat anchors and switches
+   style at the tablet gate. */
+
+.ut {
+  --u: calc(var(--wA) + var(--wB));
+  /* The category swatch's corner (1184:51724). */
+  --ut-swatch-r: 3px;
+  --ut-indent: calc(var(--u) * 18);
+  --ut-price-w: calc(var(--u) * 128);
+  --ut-row-y: calc(var(--u) * 12);
+  --ut-cat-y: calc(var(--u) * 22);
+  --ut-cat-gap: var(--space-md);
+  /* Name to count, driver under name, credits under price (1184:51725,
+     51730, 51733). */
+  --ut-count-gap: calc(var(--u) * 10);
+  --ut-driver-gap: calc(var(--u) * 3);
+  --ut-credits-gap: 1px;
+  --ut-swatch: 10px;
+  --ut-job-pr: calc(var(--u) * 16);
+  box-sizing: border-box;
+  align-items: stretch;
+  width: 100%;
+  margin-top: calc(var(--u) * 28);
+  padding: 0 calc(var(--t) / 2) 0 var(--t);
+}
+@container (--rt) {
+  .ut {
+    --ut-indent: calc(var(--u) * 24);
+    --ut-price-w: calc(var(--u) * 180);
+    --ut-row-y: calc(var(--u) * 14);
+    --ut-cat-y: calc(var(--u) * 18);
+    --ut-cat-gap: var(--space-lg);
+    --ut-swatch: 12px;
+    --ut-job-pr: calc(var(--u) * 32);
+    padding-right: var(--t);
+  }
+}
+@container (--rd1) {
+  .ut {
+    --ut-price-w: calc(var(--u) * 220);
+  }
+}
+@container (--rd2) {
+  .ut {
+    margin-top: calc(var(--u) * 40);
+  }
+}
+.ut .type {
+  --fs-px: calc(var(--u) * var(--fs-band));
+  --lh-px: calc(var(--u) * var(--lh-band));
+  --fs-rd2: var(--fs-rm);
+  --lh-rd2: var(--lh-rm);
+}
+
+/* ---- the label row ---- */
+
+.ut-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-left: var(--ut-indent);
+  padding-bottom: calc(var(--u) * 10);
+}
+.ut-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ut-credits-gap);
+  margin: 0;
+}
+.ut-label-price {
+  flex: none;
+  width: var(--ut-price-w);
+  align-items: flex-end;
+  text-align: right;
+}
+.ut-label-name {
+  color: var(--color-text-100);
+}
+.ut-label-sub {
+  color: var(--color-text-400);
+}
+
+/* ---- a category ---- */
+
+.ut-cat {
+  padding-top: calc(var(--u) * 32);
+}
+.ut-cat-head {
+  display: flex;
+  align-items: center;
+  gap: var(--ut-cat-gap);
+  margin: 0;
+  padding: var(--ut-cat-y) 0;
+  border-top: 1px solid var(--color-bg-400);
+}
+.ut-swatch {
+  flex: none;
+  width: var(--ut-swatch);
+  height: var(--ut-swatch);
+  border-radius: var(--ut-swatch-r);
+  background: var(--_fill);
+}
+.ut-cat-name {
+  color: var(--color-text-000);
+}
+@container (--rt) {
+  .ut-cat-name {
+    --font: var(--ts-text-2xl-regular-font);
+    --ls: var(--ts-text-2xl-regular-ls);
+    --opsz: var(--ts-text-2xl-regular-opsz);
+    --fs-rm: var(--ts-text-2xl-regular-fs);
+    --lh-rm: var(--ts-text-2xl-regular-lh);
+  }
+}
+.ut-cat-count {
+  margin-left: calc(var(--ut-count-gap) - var(--ut-cat-gap));
+  color: var(--color-text-500);
+}
+
+/* ---- the rows ---- */
+
+.ut-table {
+  width: calc(100% - var(--ut-indent));
+  margin-left: var(--ut-indent);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.ut-col-price {
+  width: var(--ut-price-w);
+}
+.ut-row > th,
+.ut-row > td {
+  padding: var(--ut-row-y) 0;
+  border-top: 1px solid var(--color-border-000);
+  vertical-align: top;
+  text-align: left;
+  font-weight: inherit;
+}
+.ut-row > .ut-job {
+  padding-right: var(--ut-job-pr);
+}
+.ut-row > .ut-cost {
+  text-align: right;
+  white-space: nowrap;
+}
+.ut-job-name,
+.ut-job-driver,
+.ut-price,
+.ut-credits {
+  display: block;
+}
+.ut-job-driver {
+  margin-top: var(--ut-driver-gap);
+  color: var(--color-text-400);
+}
+.ut-credits {
+  margin-top: var(--ut-credits-gap);
+  color: var(--color-text-500);
+}
+.ut-job-name {
+  color: var(--color-text-300);
+}
+.ut-price {
+  color: var(--color-text-000);
+}
+@container (--rt) {
+  .ut-job-name {
+    --font: var(--ts-text-md-regular-font);
+    --ls: var(--ts-text-md-regular-ls);
+    --opsz: var(--ts-text-md-regular-opsz);
+    --fs-rm: var(--ts-text-md-regular-fs);
+    --lh-rm: var(--ts-text-md-regular-lh);
+  }
+  .ut-price {
+    --font: var(--ts-text-md-medium-font);
+    --ls: var(--ts-text-md-medium-ls);
+    --opsz: var(--ts-text-md-medium-opsz);
+    --fs-rm: var(--ts-text-md-medium-fs);
+    --lh-rm: var(--ts-text-md-medium-lh);
+  }
+  .ut-job-driver,
+  .ut-credits {
+    --font: var(--ts-text-sm-light-font);
+    --ls: var(--ts-text-sm-light-ls);
+    --opsz: var(--ts-text-sm-light-opsz);
+    --fs-rm: var(--ts-text-sm-light-fs);
+    --lh-rm: var(--ts-text-sm-light-lh);
+  }
+}
+
+/* The closing rule under the last row, one indent in like the rows. */
+.ut-end {
+  display: block;
+  height: 1px;
+  margin-left: var(--ut-indent);
+  background: var(--color-border-000);
+}

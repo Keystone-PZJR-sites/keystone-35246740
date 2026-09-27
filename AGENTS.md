@@ -46,9 +46,9 @@ Then read the rest of this file.
 ## How the site is built
 
 - The design system is the package `@keystone-sites/marketing-design-system`
-  (repo `keystone-marketing-design-system`, linked here with `file:` while
-  both are developed side by side; `npm install` re-copies it after a change
-  there). It owns `tokens`, `base`, `grid`, every `primitive`, the shared
+  (repo `keystone-marketing-design-system`, published to npm; this site pins a
+  `^` range, so a DS change ships as a DS release first and a bump here
+  second). It owns `tokens`, `base`, `grid`, every `primitive`, the shared
   chrome (`nav`, `footer`, `faq`, `gallery-overlay`, `site-chat`), the landing
   kit, the themes, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Its
   rules are its `AGENTS.md` and `rules/` (see the top of this file); its
