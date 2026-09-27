@@ -1,8 +1,8 @@
 /* Need something different? 384 (1170:33824): heading, then body beside
    the chat button. 768 (1170:32930) and 1344 (1129:17222): heading over
-   body on the left, button centred at the right. The 1344 frame opens
-   with one painted lattice row, so its top padding is a tick plus the
-   designed 64. */
+   body on the left, button centred at the right. Every frame opens with
+   one painted lattice row, so the top padding is a tick plus the
+   designed 32 / 48 / 64. */
 
 .pinq {
   --u: calc(var(--wA) + var(--wB));
@@ -16,7 +16,7 @@
   align-items: center;
   column-gap: calc(var(--u) * 16);
   row-gap: calc(var(--u) * 24);
-  padding: calc(var(--u) * 32) calc(var(--t) / 2) calc(var(--u) * 40);
+  padding: calc(var(--t) + var(--u) * 32) calc(var(--t) / 2) calc(var(--u) * 40);
   --btn-size: md;
 }
 @container (--rt) {
@@ -25,7 +25,7 @@
       "head cta"
       "body cta";
     row-gap: calc(var(--u) * 6);
-    padding: calc(var(--u) * 48) var(--t);
+    padding: calc(var(--t) + var(--u) * 48) var(--t) calc(var(--u) * 48);
   }
 }
 @container (--rd2) {
