@@ -52,7 +52,7 @@ Then read the rest of this file.
   chrome (`nav`, `footer`, `faq`, `gallery-overlay`, `site-chat`), the landing
   kit, the themes, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Its
   rules are its `AGENTS.md` and `rules/` (see the top of this file); its
-  catalog renders everything, rules included, from the source. Anything two
+  catalog renders every part from the source and points at the rules. Anything two
   Keystone sites could use lives there, never here.
 - `app/` routes only mount a `site/pages/*` composition and pass data.
 - `site/` holds this site's sections and pages: `site/sections` → `site/pages`.
