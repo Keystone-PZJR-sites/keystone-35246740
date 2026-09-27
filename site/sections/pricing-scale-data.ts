@@ -50,10 +50,8 @@ export const PERSONAS: [PersonaContent, PersonaContent, PersonaContent, PersonaC
 /* One line at 384 (1170:33672); the 768 and 1344 columns wrap it. */
 export const PRICE_SCALE_HEAD = "Then it scales with you";
 
-/* The design's text carries a doubled space before "add on"; a typo,
-   transcribed with one. */
 export const PRICE_SCALE_SUBHEAD =
-  "Your subscription covers all the work in your plan and with extra usage, you can add on additional work at any time.";
+  "Your subscription covers all the work in your plan and you can add on additional work at any time.";
 
 export const PRICE_SCALE_CTA = "Start today";
 
