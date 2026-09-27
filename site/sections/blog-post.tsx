@@ -1,5 +1,5 @@
 import { GridRegion } from "@keystone-sites/marketing-design-system/grid/region";
-import { Slug } from "@keystone-sites/marketing-design-system/primitives/slug";
+import { Breadcrumb } from "@keystone-sites/marketing-design-system/primitives/breadcrumb";
 import { SITE_LINKS } from "@keystone-sites/marketing-design-system/site-links";
 import type { BlogPostDetailModel } from "./blog-data";
 import { BLOG_POST_CONTENT } from "./blog-post-data";
@@ -24,17 +24,19 @@ export function BlogPostSection({ post }: BlogPostSectionProps) {
 
       <div className="bp-rounder">
         <header className="bp-head" data-landmark="head">
-          <Slug>
-            <a href={SITE_LINKS.blog}>{BLOG_POST_CONTENT.blogLabel}</a>
-            {primaryTag && (
-              <>
-                <span aria-hidden="true">/</span>
-                <a href={`${SITE_LINKS.blog}?tag=${encodeURIComponent(primaryTag.slug)}`}>
-                  {primaryTag.name}
-                </a>
-              </>
-            )}
-          </Slug>
+          <Breadcrumb
+            items={[
+              { label: BLOG_POST_CONTENT.blogLabel, href: SITE_LINKS.blog },
+              ...(primaryTag
+                ? [
+                    {
+                      label: primaryTag.name,
+                      href: `${SITE_LINKS.blog}?tag=${encodeURIComponent(primaryTag.slug)}`,
+                    },
+                  ]
+                : []),
+            ]}
+          />
           <h1 className="type type-fixed ts-display-serif-sm-plus-thin bp-h1">{post.title}</h1>
         </header>
 

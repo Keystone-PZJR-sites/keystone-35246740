@@ -26,15 +26,6 @@
   --lh-px: calc(var(--u) * var(--lh-band));
 }
 
-/* The crumb: the parent in the slug's own colour, the separator in the
-   hairline grey, the current page a step darker. */
-.uh-crumb-sep {
-  color: var(--color-bg-600);
-}
-.uh-crumb {
-  color: var(--color-text-300);
-}
-
 .uh-h1 {
   margin: calc(var(--u) * 16) 0 0;
   color: var(--color-text-100);
