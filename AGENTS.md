@@ -50,7 +50,7 @@ Read this file first.
   (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
   spacing come from tokens; controls are fixed material px. Gates are named
   by the band they open: `@container (--rs)`, `(--rt)`, `(--rd1)`, `(--rd2)`;
-  never a pixel width. See the design system's `grid/engine.css` and `gates.js`.
+  never a pixel width. See the design system's `grid/engine.css` and `gates.cjs`.
 - A control's size is a keyword its mount can set per band: `--btn-size` for
   `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
   `--plan-size` for `PlanCard`, `--pcard-size` for `PersonaCard`. Pass `size="inherit"` and declare the
