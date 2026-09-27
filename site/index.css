@@ -18,7 +18,7 @@
 @import "./sections/pricing-inquiry.css" layer(sections);
 @import "./sections/price-list-header.css" layer(sections);
 @import "./sections/price-list-table.css" layer(sections);
-@import "./sections/price-list-cta.css" layer(sections);
+@import "./sections/price-list-note.css" layer(sections);
 @import "./sections/work-header.css" layer(sections);
 @import "./sections/work-cases.css" layer(sections);
 @import "./sections/work-gallery.css" layer(sections);

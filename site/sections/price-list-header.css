@@ -1,5 +1,5 @@
-/* Price list header. Three designs: 384 (1184:52428) for rm and
-   rs, 768 (1184:52157) for rt, 1344 (1184:51689) for rd1 and rd2. Inline
+/* Price list header. Three designs: 384 (1213:54244) for rm and rs,
+   768 (1213:54245) for rt, 1344 (1213:54246) for rd1 and rd2. Inline
    padding is structure in ticks; the vertical rhythm is designed px on
    the section unit, as on the pricing page. The frames start under the
    44px nav bar (1184:51686), so the top padding adds it. Type scales by
@@ -9,11 +9,11 @@
   --u: calc(var(--wA) + var(--wB));
   box-sizing: border-box;
   width: 100%;
-  padding: calc(var(--knav-bar-h) + var(--u) * 48) calc(var(--t) / 2) 0 var(--t);
+  padding: calc(var(--knav-bar-h) + var(--u) * 48) calc(var(--t) / 2) 0;
 }
 @container (--rt) {
   .uh {
-    padding-right: var(--t);
+    padding-inline: var(--t);
   }
 }
 @container (--rd2) {
@@ -65,12 +65,19 @@
 }
 
 /* Intro: the copy over the tags until rd1, then tags beside the copy in
-   two equal columns. */
+   two equal columns. The 768 stack holds the copy a tick short of the
+   column (1213:54245, intro-stack padding-right 64). */
 .uh-intro {
   display: flex;
   flex-direction: column-reverse;
   gap: calc(var(--u) * 20);
   margin-top: calc(var(--u) * 28);
+}
+@container (--rt) {
+  .uh-intro {
+    margin-top: calc(var(--u) * 32);
+    padding-right: var(--t);
+  }
 }
 @container (--rd1) {
   .uh-intro {
@@ -78,6 +85,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
     gap: calc(var(--u) * 48);
+    padding-right: 0;
   }
 }
 @container (--rd2) {
@@ -95,19 +103,30 @@
   list-style: none;
   --tag-size: sm;
 }
+/* A flex item carries no line strut, so the row is the tag's height. */
+.uh-tags > li {
+  display: flex;
+}
 @container (--rt) {
   .uh-tags {
     --tag-size: md;
   }
 }
+/* Beside the copy the chips sit 4 down (1213:54246, category-chips). */
+@container (--rd1) {
+  .uh-tags {
+    padding-block: calc(var(--u) * 4);
+  }
+}
 
+/* 16/22 at 384; 18/26 from 768. */
 .uh-body {
   margin: 0;
   color: var(--color-text-300);
   --fs-rd2: var(--fs-rm);
   --lh-rd2: var(--lh-rm);
 }
-@container (--rd1) {
+@container (--rt) {
   .uh-body {
     --font: var(--ts-text-lg-light-font);
     --ls: var(--ts-text-lg-light-ls);
