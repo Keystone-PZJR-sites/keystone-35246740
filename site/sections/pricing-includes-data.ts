@@ -48,10 +48,9 @@ export const INCLUDES_COLUMNS: [IncludeItem[], IncludeItem[]] = [
 ];
 
 export const INCLUDES_NOTE =
-  "Your subscription covers all the work in your plan, with extra credits to try out new features. You can add on additional work at any time.";
+  "Your subscription covers all the work in your plan, with extra work credits to try out new services and features. You can add more work any time.";
 
-/** The price list is not published yet; the link stays stubbed. */
 export const A_LA_CARTE = {
   label: "See the à la carte price list",
-  href: SITE_LINKS.usagePriceList,
+  href: SITE_LINKS.priceList,
 } as const;

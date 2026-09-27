@@ -2,13 +2,13 @@ import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
 import { GridField } from "@keystone-sites/marketing-design-system/grid/field";
 import { NavChrome } from "@keystone-sites/marketing-design-system/sections/nav";
 import { FooterSection } from "@keystone-sites/marketing-design-system/sections/footer";
-import { UsageHeaderSection } from "@/site/sections/usage-header";
-import { UsageTableSection } from "@/site/sections/usage-table";
-import { UsageCtaSection } from "@/site/sections/usage-cta";
+import { PriceListHeaderSection } from "@/site/sections/price-list-header";
+import { PriceListTableSection } from "@/site/sections/price-list-table";
+import { PriceListCtaSection } from "@/site/sections/price-list-cta";
 
-/** Usage price list composition (Usage price list · r5, 1184:51216): the
+/** Price list composition (Usage price list · r5, 1184:51216): the
  * pricing page's à la carte companion. Renders settled, like pricing. */
-export async function UsagePriceListPage() {
+export async function PriceListPage() {
   const companyInfo = await getCompanyInformation();
   return (
     <div className="page">
@@ -16,9 +16,9 @@ export async function UsagePriceListPage() {
       <GridField />
       <NavChrome />
       <main>
-        <UsageHeaderSection />
-        <UsageTableSection />
-        <UsageCtaSection />
+        <PriceListHeaderSection />
+        <PriceListTableSection />
+        <PriceListCtaSection />
       </main>
       <FooterSection
         social={{

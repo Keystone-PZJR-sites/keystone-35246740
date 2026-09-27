@@ -1,4 +1,4 @@
-/* Usage price list table. Three designs: 384 (1184:52452) for rm and
+/* Price list table. Three designs: 384 (1184:52452) for rm and
    rs, 768 (1184:52181) for rt, 1344 (1184:51713) for rd1 and rd2. The
    category rule spans the column; the job rows and their rule sit one
    indent in. Vertical rhythm and the price column are designed px on the
@@ -14,11 +14,11 @@
   --ut-row-y: calc(var(--u) * 12);
   --ut-cat-y: calc(var(--u) * 22);
   --ut-cat-gap: var(--space-md);
-  /* Name to count, driver under name, credits under price (1184:51725,
-     51730, 51733). */
+  /* Name to count, driver under name (1184:51725, 51730). */
   --ut-count-gap: calc(var(--u) * 10);
   --ut-driver-gap: calc(var(--u) * 3);
-  --ut-credits-gap: 1px;
+  /* Label to its sub-line (1184:51716). */
+  --ut-label-gap: 1px;
   --ut-swatch: 10px;
   --ut-job-pr: calc(var(--u) * 16);
   box-sizing: border-box;
@@ -68,7 +68,7 @@
 .ut-label {
   display: flex;
   flex-direction: column;
-  gap: var(--ut-credits-gap);
+  gap: var(--ut-label-gap);
   margin: 0;
 }
 .ut-label-price {
@@ -144,22 +144,18 @@
   padding-right: var(--ut-job-pr);
 }
 .ut-row > .ut-cost {
+  vertical-align: middle;
   text-align: right;
   white-space: nowrap;
 }
 .ut-job-name,
 .ut-job-driver,
-.ut-price,
-.ut-credits {
+.ut-price {
   display: block;
 }
 .ut-job-driver {
   margin-top: var(--ut-driver-gap);
   color: var(--color-text-400);
-}
-.ut-credits {
-  margin-top: var(--ut-credits-gap);
-  color: var(--color-text-500);
 }
 .ut-job-name {
   color: var(--color-text-300);
@@ -182,8 +178,7 @@
     --fs-rm: var(--ts-text-md-medium-fs);
     --lh-rm: var(--ts-text-md-medium-lh);
   }
-  .ut-job-driver,
-  .ut-credits {
+  .ut-job-driver {
     --font: var(--ts-text-sm-light-font);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
