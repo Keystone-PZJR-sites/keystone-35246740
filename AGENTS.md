@@ -2,7 +2,23 @@
 
 Keystone's marketing site. Next.js App Router on Cloudflare (OpenNext).
 Design intent is the Figma file `ks-MarketingSite`; the code is what ships.
-Read this file first.
+
+## The design system's rules come first
+
+Every token, primitive, section, theme, grid law, and motion law lives in
+the package `@keystone-sites/marketing-design-system`, and so do its rules.
+Before touching anything under `site/` or `app/`, read — from
+`node_modules/@keystone-sites/marketing-design-system/` (source repo
+`../keystone-marketing-design-system`):
+
+1. `AGENTS.md` — the system's laws.
+2. `rules/design-system.md` — tokens, styling, motion grammars, fonts, SVG, media.
+3. `rules/grid-and-layout.md` — the five-anchor grid, the units, the grid and type laws.
+
+Those files govern; this file only adds what is specific to this site.
+Where they seem to disagree, the package wins — fix the wording here. A rule
+the package needs is changed in the package, never overridden locally.
+Then read the rest of this file.
 
 ## Never
 
@@ -35,8 +51,9 @@ Read this file first.
   there). It owns `tokens`, `base`, `grid`, every `primitive`, the shared
   chrome (`nav`, `footer`, `faq`, `gallery-overlay`, `site-chat`), the landing
   kit, the themes, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Its
-  rules are its own `AGENTS.md`; its catalog renders everything from the
-  source. Anything two Keystone sites could use lives there, never here.
+  rules are its `AGENTS.md` and `rules/` (see the top of this file); its
+  catalog renders everything, rules included, from the source. Anything two
+  Keystone sites could use lives there, never here.
 - `app/` routes only mount a `site/pages/*` composition and pass data.
 - `site/` holds this site's sections and pages: `site/sections` → `site/pages`.
   Layers build strictly upward: `tokens` → `base` → `grid` → `primitives` →

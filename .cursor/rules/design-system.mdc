@@ -1,0 +1,13 @@
+---
+description: Follow the design system package's rules — they govern every token, primitive, section, grid, type, and motion decision in this site
+globs: site/**/*.tsx, site/**/*.css, app/**/*.tsx, app/**/*.css
+alwaysApply: true
+---
+
+This site consumes `@keystone-sites/marketing-design-system`. The package's rules are canonical and are not duplicated here. Before changing anything under `site/` or `app/`, read, from `node_modules/@keystone-sites/marketing-design-system/` (source: `../keystone-marketing-design-system`):
+
+1. `AGENTS.md`
+2. `rules/design-system.md`
+3. `rules/grid-and-layout.md`
+
+Then read this repo's `AGENTS.md` for what is specific to the marketing site. A rule the package needs changes in the package, never as a local override; where the two disagree, the package wins.
