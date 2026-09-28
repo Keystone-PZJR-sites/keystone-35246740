@@ -60,7 +60,7 @@
 .ut-labels {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   padding: var(--ut-label-y) var(--ut-inset);
   background: var(--color-bg-200);
 }
