@@ -1,8 +1,8 @@
 /** The price list (Usage price list · r5, 1184:51216): seven
- * categories of jobs, each with what drives its cost and its typical
- * range in dollars. Credits are explained once, in the header. The
- * header's chips and the table read the same list, so a category is
- * named once. */
+ * categories of jobs, each with what drives its cost, its typical range
+ * in dollars, and the same range in credits. The header's chips and the
+ * table read the same list, so a category is named once; `chip` is the
+ * shorter label its chip carries. */
 
 import type { Hue } from "@keystone-sites/marketing-design-system/primitives/status";
 
@@ -10,11 +10,13 @@ export interface PriceListJob {
   name: string;
   driver: string;
   price: string;
+  credits: string;
 }
 
 export interface PriceListCategory {
   id: string;
   name: string;
+  chip?: string;
   hue: Hue;
   jobs: PriceListJob[];
 }
@@ -23,6 +25,7 @@ export const PRICE_LIST_TABLE_LABELS = {
   job: "Job",
   jobSub: "What drives the cost",
   price: "Price range",
+  priceSub: "1 credit is 10¢",
   /** "5 jobs", "1 job". */
   count: (n: number) => (n === 1 ? "1 job" : `${n} jobs`),
 } as const;
@@ -36,27 +39,32 @@ export const PRICE_LIST_CATEGORIES: PriceListCategory[] = [
       {
         name: "Website update",
         driver: "Number of pages touched.",
-        price: "$0.50–$5",
+        price: "$0.10–$0.30",
+        credits: "1–3 credits",
       },
       {
-        name: "New website page",
+        name: "New page",
         driver: "Page length, whether new photos are needed.",
-        price: "$5–$25",
+        price: "$1.50–$4",
+        credits: "15–40 credits",
       },
       {
         name: "Campaign landing pages (set)",
         driver: "How many versions are in the set.",
-        price: "$5–$25",
+        price: "$4–$12",
+        credits: "40–120 credits",
       },
       {
-        name: "Website rebuild",
+        name: "Site rebuild",
         driver: "Number of pages, complexity of integrations, number of revisions.",
-        price: "$100–$200",
+        price: "$30–$100",
+        credits: "300–1,000 credits",
       },
       {
-        name: "Website grader scan",
-        driver: "Number of pages scanned.",
-        price: "$2.50–$5",
+        name: "Suggested site improvement",
+        driver: "Whether you approve each change or let it go live on its own.",
+        price: "$0.20–$0.80",
+        credits: "2–8 credits",
       },
     ],
   },
@@ -66,24 +74,28 @@ export const PRICE_LIST_CATEGORIES: PriceListCategory[] = [
     hue: "yellow",
     jobs: [
       {
-        name: "Short post drafting and editing (~600 words)",
-        driver: "Research depth, number of images, rounds of edits.",
-        price: "$2–$4",
+        name: "Short post (~600 words)",
+        driver: "Research depth, number of images.",
+        price: "$1.20–$2.50",
+        credits: "12–25 credits",
       },
       {
-        name: "Blog post drafting and editing (~1,200 words)",
-        driver: "Research depth, number of images, rounds of edits.",
-        price: "$5–$10",
+        name: "Blog post (~1,200 words)",
+        driver: "Research depth, number of images.",
+        price: "$2.50–$5",
+        credits: "25–50 credits",
       },
       {
-        name: "Long-form guide research and writing",
-        driver: "Length, number of sections, how much data your Growth Partner gathers.",
-        price: "$15–$50",
+        name: "Long-form guide",
+        driver: "Length, number of sections, how much data is gathered.",
+        price: "$6–$15",
+        credits: "60–150 credits",
       },
       {
-        name: "Old post refresh and re-edit",
-        driver: "How much of the post your Growth Partner rewrites.",
-        price: "$1–$3",
+        name: "Refresh an old post",
+        driver: "How much of the post is rewritten.",
+        price: "$0.50–$1.50",
+        credits: "5–15 credits",
       },
     ],
   },
@@ -93,19 +105,22 @@ export const PRICE_LIST_CATEGORIES: PriceListCategory[] = [
     hue: "orange",
     jobs: [
       {
-        name: "Text post writing and scheduling",
+        name: "Text post",
         driver: "Number of platforms it goes to.",
-        price: "$0.50–$2.50",
+        price: "$0.10–$0.30",
+        credits: "1–3 credits",
       },
       {
-        name: "Image post creation and editing",
-        driver: "Number of images, rounds of revisions.",
-        price: "$2.50–$7.50",
+        name: "Post with images",
+        driver: "Number of images and revisions.",
+        price: "$0.40–$1.20",
+        credits: "4–12 credits",
       },
       {
-        name: "A month of posts, planned and scheduled",
-        driver: "How often you post, the mix of formats your Growth Partner plans.",
-        price: "$75–$150",
+        name: "A month of scheduled posts",
+        driver: "How often you post, the mix of formats.",
+        price: "$4–$12",
+        credits: "40–120 credits",
       },
     ],
   },
@@ -115,19 +130,22 @@ export const PRICE_LIST_CATEGORIES: PriceListCategory[] = [
     hue: "pink",
     jobs: [
       {
-        name: "Campaign strategy and build",
-        driver: "Number of platforms and audiences your Growth Partner sets up.",
-        price: "$50–$250",
+        name: "Campaign build",
+        driver: "Number of platforms and audiences.",
+        price: "$4–$12",
+        credits: "40–120 credits",
       },
       {
-        name: "New ad writing and design",
+        name: "New ad",
         driver: "Format, number of versions.",
-        price: "$5–$10",
+        price: "$0.80–$2.50",
+        credits: "8–25 credits",
       },
       {
-        name: "Ad management and optimization, per month",
-        driver: "Number of campaigns, how often your Growth Partner shifts budgets.",
-        price: "$100–$250",
+        name: "Ad management, per month",
+        driver: "Number of campaigns, how often budgets shift.",
+        price: "$2–$8",
+        credits: "20–80 credits",
       },
     ],
   },
@@ -139,17 +157,20 @@ export const PRICE_LIST_CATEGORIES: PriceListCategory[] = [
       {
         name: "Profile upkeep, per location per month",
         driver: "How often your details change.",
-        price: "$5–$10",
+        price: "$0.50–$2",
+        credits: "5–20 credits",
       },
       {
         name: "Review request",
-        driver: "Sent by text after the visit.",
+        driver: "Placeholder price, set as a text message.",
         price: "$0.20–$0.50",
+        credits: "2–5 credits",
       },
       {
         name: "Review reply",
         driver: "Length and sensitivity of the reply.",
         price: "$0.10–$0.30",
+        credits: "1–3 credits",
       },
     ],
   },
@@ -161,34 +182,40 @@ export const PRICE_LIST_CATEGORIES: PriceListCategory[] = [
       {
         name: "Phone call",
         driver: "Call length, whether a booking is made.",
-        price: "$0.25–$1",
+        price: "$1.50–$4",
+        credits: "15–40 credits",
       },
       {
         name: "Text reply or follow-up",
         driver: "Thread length, whether photos are involved.",
-        price: "$0.10–$0.50",
+        price: "$0.20–$0.50",
+        credits: "2–5 credits",
       },
       {
         name: "Web chat",
         driver: "Length of the conversation.",
-        price: "$0.05–$0.10",
+        price: "$0.10–$0.30",
+        credits: "1–3 credits",
       },
       {
         name: "Sorting who’s ready to book, per customer",
         driver: "How much history there is to read.",
-        price: "$0.05–$0.10",
+        price: "$0.10–$0.30",
+        credits: "1–3 credits",
       },
     ],
   },
   {
     id: "growth-partner",
     name: "Your Growth Partner",
+    chip: "Growth Partner",
     hue: "purple",
     jobs: [
       {
         name: "Strategy session",
-        driver: "$25 an hour.",
-        price: "$25–$75",
+        driver: "Placeholder price. A flat session.",
+        price: "$25",
+        credits: "250 credits",
       },
     ],
   },

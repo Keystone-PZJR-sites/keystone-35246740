@@ -1,7 +1,7 @@
 /* Every plan includes. 384 (1170:33518): box at ½t / 11t, single
    column, 16/22 text. 768 (1170:32612): box at 1t / 10t, single column,
    18/26 text. 1344 (1129:17125): two 487 columns either side of a rule.
-   The note row follows at 32 / 48 / 64 below. Type here scales by the
+   The note row follows at 32 / 48 / 80 below. Type here scales by the
    section unit with flat anchors, since the box picks its own step. */
 
 .pinc {
@@ -208,8 +208,7 @@
 }
 @container (--rd2) {
   .pinc-row {
-    margin-top: calc(var(--u) * 64);
-    --btn-size: lg;
+    margin-top: calc(var(--u) * 80);
   }
   .pinc-note {
     max-width: calc(var(--u) * 720);

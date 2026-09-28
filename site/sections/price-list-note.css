@@ -1,0 +1,53 @@
+/* Price list footnote. 384 (1213:54343): 12/16, 40 under the table and
+   40 above the footer. 768 (1213:54331): 14/18, 64 and 48. 1344
+   (1213:54327): 16/22, 64 and 64. Centred across the column. */
+
+.un {
+  --u: calc(var(--wA) + var(--wB));
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: calc(var(--u) * 40);
+  padding: 0 calc(var(--t) / 2) calc(var(--u) * 40);
+}
+@container (--rt) {
+  .un {
+    margin-top: calc(var(--u) * 64);
+    padding: 0 var(--t) calc(var(--u) * 48);
+  }
+}
+@container (--rd1) {
+  .un {
+    padding-bottom: calc(var(--u) * 64);
+  }
+}
+
+/* The note spans the column (1213:54327 is fill-width), so the centring
+   holds against the section's start-aligned column. */
+.un-note {
+  align-self: stretch;
+  margin: 0;
+  color: var(--color-text-300);
+  text-align: center;
+  --fs-px: calc(var(--u) * var(--fs-band));
+  --lh-px: calc(var(--u) * var(--lh-band));
+  --fs-rd2: var(--fs-rm);
+  --lh-rd2: var(--lh-rm);
+}
+@container (--rt) {
+  .un-note {
+    --font: var(--ts-text-sm-light-font);
+    --ls: var(--ts-text-sm-light-ls);
+    --opsz: var(--ts-text-sm-light-opsz);
+    --fs-rm: var(--ts-text-sm-light-fs);
+    --lh-rm: var(--ts-text-sm-light-lh);
+  }
+}
+@container (--rd1) {
+  .un-note {
+    --font: var(--ts-text-md-light-font);
+    --ls: var(--ts-text-md-light-ls);
+    --opsz: var(--ts-text-md-light-opsz);
+    --fs-rm: var(--ts-text-md-light-fs);
+    --lh-rm: var(--ts-text-md-light-lh);
+  }
+}

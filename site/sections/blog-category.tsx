@@ -4,7 +4,7 @@ import {
   type GridBand,
 } from "@keystone-sites/marketing-design-system/grid/region";
 import { ButtonArrow } from "@keystone-sites/marketing-design-system/primitives/buttons";
-import { Slug } from "@keystone-sites/marketing-design-system/primitives/slug";
+import { Breadcrumb } from "@keystone-sites/marketing-design-system/primitives/breadcrumb";
 import { SITE_LINKS } from "@keystone-sites/marketing-design-system/site-links";
 import { ArticleCard, FeaturedArticleCard } from "./blog-cards";
 import { BLOG_CATEGORY_CONTENT } from "./blog-category-data";
@@ -112,15 +112,17 @@ export function BlogCategorySection({ model }: BlogCategorySectionProps) {
       </div>
 
       <header className="bc-head" data-landmark="head">
-        <Slug>
-          <a href={SITE_LINKS.blog}>{BLOG_CATEGORY_CONTENT.blogLabel}</a>
-          <span aria-hidden="true">/</span>
-          <span>
-            {model.type === "search"
-              ? BLOG_CATEGORY_CONTENT.searchLabel
-              : BLOG_CATEGORY_CONTENT.categoryLabel}
-          </span>
-        </Slug>
+        <Breadcrumb
+          items={[
+            { label: BLOG_CATEGORY_CONTENT.blogLabel, href: SITE_LINKS.blog },
+            {
+              label:
+                model.type === "search"
+                  ? BLOG_CATEGORY_CONTENT.searchLabel
+                  : BLOG_CATEGORY_CONTENT.categoryLabel,
+            },
+          ]}
+        />
         <h1 className="type ts-display-serif-sm-plus-thin bc-h1">{model.heading}</h1>
       </header>
 

@@ -1,24 +1,27 @@
-/* Price list header. Three designs: 384 (1184:52428) for rm and
-   rs, 768 (1184:52157) for rt, 1344 (1184:51689) for rd1 and rd2. Inline
+/* Price list header. Three designs: 384 (1213:54244) for rm and rs,
+   768 (1213:54245) for rt, 1344 (1213:54246) for rd1 and rd2. Inline
    padding is structure in ticks; the vertical rhythm is designed px on
-   the section unit, as on the pricing page. The frames start under the
-   44px nav bar (1184:51686), so the top padding adds it. Type scales by
-   the unit with flat anchors and switches style at the gates. */
+   the section unit, as on the pricing page. The top follows the site's
+   head-top idiom (blog-top, company-hero): 80 on the 384 tick, 80 units
+   at rt, 176 on the 1344 tick from rd1, so the crumb starts on the same
+   line as every other page; the frames' nav bar plus 48 / 96 is
+   superseded. Type scales by the unit with flat anchors and switches
+   style at the gates. */
 
 .uh {
   --u: calc(var(--wA) + var(--wB));
   box-sizing: border-box;
   width: 100%;
-  padding: calc(var(--knav-bar-h) + var(--u) * 48) calc(var(--t) / 2) 0 var(--t);
+  padding: calc(var(--t) * 80 / 32) calc(var(--t) / 2) 0;
 }
 @container (--rt) {
   .uh {
-    padding-right: var(--t);
+    padding: calc(var(--u) * 80) var(--t) 0;
   }
 }
-@container (--rd2) {
+@container (--rd1) {
   .uh {
-    padding-top: calc(var(--knav-bar-h) + var(--u) * 96);
+    padding-top: calc(var(--t) * 176 / 112);
   }
 }
 .uh .type {
@@ -26,17 +29,11 @@
   --lh-px: calc(var(--u) * var(--lh-band));
 }
 
-/* The crumb: the parent in the slug's own colour, the separator in the
-   hairline grey, the current page a step darker. */
-.uh-crumb-sep {
-  color: var(--color-bg-600);
-}
-.uh-crumb {
-  color: var(--color-text-300);
-}
-
+/* Crumb to headline follows the site's head-gap idiom (blog-top,
+   company-hero): 16 on the 384 tick, 16 units at rt, 24 on the 1344
+   tick from rd1. */
 .uh-h1 {
-  margin: calc(var(--u) * 16) 0 0;
+  margin: calc(var(--t) * 16 / 32) 0 0;
   color: var(--color-text-100);
   text-wrap: balance;
   --fs-rd2: var(--fs-rm);
@@ -44,6 +41,7 @@
 }
 @container (--rt) {
   .uh-h1 {
+    margin-top: calc(var(--u) * 16);
     --font: var(--ts-display-serif-md-extralight-font);
     --ls: var(--ts-display-serif-md-extralight-ls);
     --fs-rm: var(--ts-display-serif-md-extralight-fs);
@@ -52,25 +50,27 @@
 }
 @container (--rd1) {
   .uh-h1 {
+    margin-top: calc(var(--t) * 24 / 112);
     --font: var(--ts-display-serif-lg-extralight-font);
     --ls: var(--ts-display-serif-lg-extralight-ls);
     --fs-rm: var(--ts-display-serif-lg-extralight-fs);
     --lh-rm: var(--ts-display-serif-lg-extralight-lh);
   }
 }
-@container (--rd2) {
-  .uh-h1 {
-    margin-top: calc(var(--u) * 24);
-  }
-}
-
 /* Intro: the copy over the tags until rd1, then tags beside the copy in
-   two equal columns. */
+   two equal columns. The 768 stack holds the copy a tick short of the
+   column (1213:54245, intro-stack padding-right 64). */
 .uh-intro {
   display: flex;
   flex-direction: column-reverse;
   gap: calc(var(--u) * 20);
   margin-top: calc(var(--u) * 28);
+}
+@container (--rt) {
+  .uh-intro {
+    margin-top: calc(var(--u) * 32);
+    padding-right: var(--t);
+  }
 }
 @container (--rd1) {
   .uh-intro {
@@ -78,6 +78,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
     gap: calc(var(--u) * 48);
+    padding-right: 0;
   }
 }
 @container (--rd2) {
@@ -95,19 +96,30 @@
   list-style: none;
   --tag-size: sm;
 }
+/* A flex item carries no line strut, so the row is the tag's height. */
+.uh-tags > li {
+  display: flex;
+}
 @container (--rt) {
   .uh-tags {
     --tag-size: md;
   }
 }
+/* Beside the copy the chips sit 4 down (1213:54246, category-chips). */
+@container (--rd1) {
+  .uh-tags {
+    padding-block: calc(var(--u) * 4);
+  }
+}
 
+/* 16/22 at 384; 18/26 from 768. */
 .uh-body {
   margin: 0;
   color: var(--color-text-300);
   --fs-rd2: var(--fs-rm);
   --lh-rd2: var(--lh-rm);
 }
-@container (--rd1) {
+@container (--rt) {
   .uh-body {
     --font: var(--ts-text-lg-light-font);
     --ls: var(--ts-text-lg-light-ls);

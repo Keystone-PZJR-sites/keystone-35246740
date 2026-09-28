@@ -1,7 +1,10 @@
 /* Plans. 384 (1170:33214): cards bleed the full 12 ticks and stack; the
    note sits centred in a 112 frame. 768 (1170:32308): cards stack in the
    10-tick column. 1344 (1129:17117): three cards share the column. The
-   row names the card design and unit for the band. */
+   row names the card design and unit for the band. Figma centres the
+   card strokes, so neighbours share one line and the outer edges sit on
+   the lattice: the inset column is line-inclusive (k·t + 1px) and cards
+   overlap by the shared pixel. */
 
 .pplans {
   --u: calc(var(--wA) + var(--wB));
@@ -18,9 +21,12 @@
   --plan-size: sm;
   --plan-u: var(--u);
 }
+.pplans-row > .plan + .plan {
+  margin-top: -1px;
+}
 @container (--rt) {
   .pplans-row {
-    width: calc(var(--t) * 10);
+    width: calc(var(--t) * 10 + 1px);
     margin-left: var(--t);
     --plan-size: md;
   }
@@ -29,6 +35,10 @@
   .pplans-row {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     --plan-size: lg;
+  }
+  .pplans-row > .plan + .plan {
+    margin-top: 0;
+    margin-left: -1px;
   }
 }
 

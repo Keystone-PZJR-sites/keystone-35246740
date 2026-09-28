@@ -1,52 +1,51 @@
-/* Price list table. Three designs: 384 (1184:52452) for rm and
-   rs, 768 (1184:52181) for rt, 1344 (1184:51713) for rd1 and rd2. The
-   category rule spans the column; the job rows and their rule sit one
-   indent in. Vertical rhythm and the price column are designed px on the
-   section unit; type scales by the unit with flat anchors and switches
-   style at the tablet gate. */
+/* Price list table. Three designs, one per row-component size: sm 384
+   (1184:52452) for rm and rs, md 768 (1184:52181) for rt, lg 1344
+   (1184:51713) for rd1 and rd2. The label band and the category rule
+   span the column; the job rows and their rules sit one inset in from
+   both edges, the band's own inline padding. Vertical rhythm, insets
+   and the price column are designed px on the section unit; type scales
+   by the unit with flat anchors and switches style at the gates. */
 
 .ut {
   --u: calc(var(--wA) + var(--wB));
-  /* The category swatch's corner (1184:51724). */
-  --ut-swatch-r: 3px;
-  --ut-indent: calc(var(--u) * 18);
-  --ut-price-w: calc(var(--u) * 128);
-  --ut-row-y: calc(var(--u) * 12);
-  --ut-cat-y: calc(var(--u) * 22);
-  --ut-cat-gap: var(--space-md);
-  /* Name to count, driver under name (1184:51725, 51730). */
-  --ut-count-gap: calc(var(--u) * 10);
-  --ut-driver-gap: calc(var(--u) * 3);
-  /* Label to its sub-line (1184:51716). */
-  --ut-label-gap: 1px;
-  --ut-swatch: 10px;
+  /* price-list-item / -header, sm (1204:53274, 1208:54054). */
+  --ut-inset: calc(var(--u) * 16);
+  --ut-price-w: calc(var(--u) * 112);
   --ut-job-pr: calc(var(--u) * 16);
+  --ut-line-gap: calc(var(--u) * 2);
+  --ut-row-y: calc(var(--u) * 16);
+  --ut-label-y: calc(var(--u) * 12);
+  /* price-list-category, sm (1204:53265); categories after the first
+     sit 28 below the last row (1184:52452). */
+  --ut-cat-y: calc(var(--u) * 20);
+  --ut-cat-gap: calc(var(--u) * 8);
+  --ut-cat-pt: calc(var(--u) * 28);
+  --ut-count-gap: calc(var(--u) * 10);
+  /* tool-dot, size=8 (1208:53971): a square in the hue's dot stop. */
+  --ut-dot: 8px;
   box-sizing: border-box;
   align-items: stretch;
   width: 100%;
-  margin-top: calc(var(--u) * 28);
-  padding: 0 calc(var(--t) / 2) 0 var(--t);
+  margin-top: calc(var(--u) * 40);
+  padding: 0 calc(var(--t) / 2);
 }
 @container (--rt) {
   .ut {
-    --ut-indent: calc(var(--u) * 24);
+    --ut-inset: calc(var(--u) * 20);
     --ut-price-w: calc(var(--u) * 180);
-    --ut-row-y: calc(var(--u) * 14);
-    --ut-cat-y: calc(var(--u) * 18);
-    --ut-cat-gap: var(--space-lg);
-    --ut-swatch: 12px;
     --ut-job-pr: calc(var(--u) * 32);
-    padding-right: var(--t);
+    --ut-line-gap: calc(var(--u) * 4);
+    --ut-cat-gap: calc(var(--u) * 12);
+    --ut-cat-pt: calc(var(--u) * 32);
+    margin-top: calc(var(--u) * 64);
+    padding-inline: var(--t);
   }
 }
 @container (--rd1) {
   .ut {
+    --ut-inset: calc(var(--u) * 24);
     --ut-price-w: calc(var(--u) * 220);
-  }
-}
-@container (--rd2) {
-  .ut {
-    margin-top: calc(var(--u) * 40);
+    --ut-cat-gap: calc(var(--u) * 16);
   }
 }
 .ut .type {
@@ -56,29 +55,27 @@
   --lh-rd2: var(--lh-rm);
 }
 
-/* ---- the label row ---- */
+/* ---- the label band ---- */
 
 .ut-labels {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-left: var(--ut-indent);
-  padding-bottom: calc(var(--u) * 10);
+  padding: var(--ut-label-y) var(--ut-inset);
+  background: var(--color-bg-200);
 }
 .ut-label {
   display: flex;
   flex-direction: column;
-  gap: var(--ut-label-gap);
   margin: 0;
 }
 .ut-label-price {
   flex: none;
-  width: var(--ut-price-w);
   align-items: flex-end;
   text-align: right;
 }
 .ut-label-name {
-  color: var(--color-text-100);
+  color: var(--color-text-200);
 }
 .ut-label-sub {
   color: var(--color-text-400);
@@ -86,8 +83,8 @@
 
 /* ---- a category ---- */
 
-.ut-cat {
-  padding-top: calc(var(--u) * 32);
+.ut-cat + .ut-cat {
+  padding-top: var(--ut-cat-pt);
 }
 .ut-cat-head {
   display: flex;
@@ -97,24 +94,14 @@
   padding: var(--ut-cat-y) 0;
   border-top: 1px solid var(--color-bg-400);
 }
-.ut-swatch {
+.ut-dot {
   flex: none;
-  width: var(--ut-swatch);
-  height: var(--ut-swatch);
-  border-radius: var(--ut-swatch-r);
-  background: var(--_fill);
+  width: var(--ut-dot);
+  height: var(--ut-dot);
+  background: var(--_dot);
 }
 .ut-cat-name {
-  color: var(--color-text-000);
-}
-@container (--rt) {
-  .ut-cat-name {
-    --font: var(--ts-text-2xl-regular-font);
-    --ls: var(--ts-text-2xl-regular-ls);
-    --opsz: var(--ts-text-2xl-regular-opsz);
-    --fs-rm: var(--ts-text-2xl-regular-fs);
-    --lh-rm: var(--ts-text-2xl-regular-lh);
-  }
+  color: var(--color-text-100);
 }
 .ut-cat-count {
   margin-left: calc(var(--ut-count-gap) - var(--ut-cat-gap));
@@ -124,8 +111,8 @@
 /* ---- the rows ---- */
 
 .ut-table {
-  width: calc(100% - var(--ut-indent));
-  margin-left: var(--ut-indent);
+  width: calc(100% - 2 * var(--ut-inset));
+  margin-inline: var(--ut-inset);
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -144,53 +131,57 @@
   padding-right: var(--ut-job-pr);
 }
 .ut-row > .ut-cost {
-  vertical-align: middle;
   text-align: right;
   white-space: nowrap;
 }
 .ut-job-name,
 .ut-job-driver,
-.ut-price {
+.ut-price,
+.ut-credits {
   display: block;
 }
-.ut-job-driver {
-  margin-top: var(--ut-driver-gap);
-  color: var(--color-text-400);
+.ut-job-driver,
+.ut-credits {
+  margin-top: var(--ut-line-gap);
 }
-.ut-job-name {
+.ut-job-name,
+.ut-price {
   color: var(--color-text-300);
 }
-.ut-price {
-  color: var(--color-text-000);
+.ut-job-driver {
+  color: var(--color-text-400);
 }
+.ut-credits {
+  color: var(--color-text-500);
+}
+
+/* ---- md and lg type (1204:53259, 1204:53244) ---- */
+
 @container (--rt) {
-  .ut-job-name {
-    --font: var(--ts-text-md-regular-font);
-    --ls: var(--ts-text-md-regular-ls);
-    --opsz: var(--ts-text-md-regular-opsz);
-    --fs-rm: var(--ts-text-md-regular-fs);
-    --lh-rm: var(--ts-text-md-regular-lh);
-  }
-  .ut-price {
-    --font: var(--ts-text-md-medium-font);
-    --ls: var(--ts-text-md-medium-ls);
-    --opsz: var(--ts-text-md-medium-opsz);
-    --fs-rm: var(--ts-text-md-medium-fs);
-    --lh-rm: var(--ts-text-md-medium-lh);
-  }
-  .ut-job-driver {
+  .ut-label-sub,
+  .ut-job-driver,
+  .ut-credits {
     --font: var(--ts-text-sm-light-font);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
     --fs-rm: var(--ts-text-sm-light-fs);
     --lh-rm: var(--ts-text-sm-light-lh);
   }
+  .ut-job-name,
+  .ut-price {
+    --font: var(--ts-text-md-regular-font);
+    --ls: var(--ts-text-md-regular-ls);
+    --opsz: var(--ts-text-md-regular-opsz);
+    --fs-rm: var(--ts-text-md-regular-fs);
+    --lh-rm: var(--ts-text-md-regular-lh);
+  }
 }
-
-/* The closing rule under the last row, one indent in like the rows. */
-.ut-end {
-  display: block;
-  height: 1px;
-  margin-left: var(--ut-indent);
-  background: var(--color-border-000);
+@container (--rd1) {
+  .ut-cat-name {
+    --font: var(--ts-text-2xl-regular-font);
+    --ls: var(--ts-text-2xl-regular-ls);
+    --opsz: var(--ts-text-2xl-regular-opsz);
+    --fs-rm: var(--ts-text-2xl-regular-fs);
+    --lh-rm: var(--ts-text-2xl-regular-lh);
+  }
 }
