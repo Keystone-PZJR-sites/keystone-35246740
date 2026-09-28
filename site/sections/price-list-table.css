@@ -131,49 +131,52 @@
   padding-right: var(--ut-job-pr);
 }
 .ut-row > .ut-cost {
+  vertical-align: middle;
   text-align: right;
   white-space: nowrap;
 }
 .ut-job-name,
 .ut-job-driver,
-.ut-price,
-.ut-credits {
+.ut-price {
   display: block;
 }
-.ut-job-driver,
-.ut-credits {
+.ut-job-driver {
   margin-top: var(--ut-line-gap);
 }
-.ut-job-name,
-.ut-price {
+.ut-job-name {
   color: var(--color-text-300);
+}
+.ut-price {
+  color: var(--color-text-000);
 }
 .ut-job-driver {
   color: var(--color-text-400);
-}
-.ut-credits {
-  color: var(--color-text-500);
 }
 
 /* ---- md and lg type (1204:53259, 1204:53244) ---- */
 
 @container (--rt) {
   .ut-label-sub,
-  .ut-job-driver,
-  .ut-credits {
+  .ut-job-driver {
     --font: var(--ts-text-sm-light-font);
     --ls: var(--ts-text-sm-light-ls);
     --opsz: var(--ts-text-sm-light-opsz);
     --fs-rm: var(--ts-text-sm-light-fs);
     --lh-rm: var(--ts-text-sm-light-lh);
   }
-  .ut-job-name,
-  .ut-price {
+  .ut-job-name {
     --font: var(--ts-text-md-regular-font);
     --ls: var(--ts-text-md-regular-ls);
     --opsz: var(--ts-text-md-regular-opsz);
     --fs-rm: var(--ts-text-md-regular-fs);
     --lh-rm: var(--ts-text-md-regular-lh);
+  }
+  .ut-price {
+    --font: var(--ts-text-md-medium-font);
+    --ls: var(--ts-text-md-medium-ls);
+    --opsz: var(--ts-text-md-medium-opsz);
+    --fs-rm: var(--ts-text-md-medium-fs);
+    --lh-rm: var(--ts-text-md-medium-lh);
   }
 }
 @container (--rd1) {

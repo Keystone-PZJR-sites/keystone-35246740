@@ -2,8 +2,8 @@
 
 export const PRICE_LIST_HEADER = {
   crumbParent: "Pricing",
-  crumb: "Usage Price List",
-  headline: "What usage buys.",
+  crumb: "Price List",
+  headline: "What each job costs.",
   intro:
     "Below, twenty-three common jobs and what they typically cost. Examples of the work, not all of it. Work credits can be purchased on-demand or with optional autofill.",
 } as const;

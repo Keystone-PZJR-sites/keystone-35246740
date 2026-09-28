@@ -2,7 +2,7 @@
  * rows price-list-header 1208:54055, price-list-category 1204:53275,
  * price-list-item 1204:53276): a label band, then each category as a
  * dotted heading over its jobs, each job a hairline row with the driver
- * under the name and the range over its credits at the right. Semantic
+ * under the name and the range at the right. Semantic
  * tables, one per category, so a reader hears "Job, Price range" for
  * every row. */
 
@@ -42,8 +42,7 @@ function CategoryTable({ category }: { category: PriceListCategory }) {
                 <span className="type ts-text-xs-light ut-job-driver">{job.driver}</span>
               </th>
               <td className="ut-cost">
-                <span className="type ts-text-xs-medium ut-price">{job.price}</span>
-                <span className="type ts-text-xs-light ut-credits">{job.credits}</span>
+                <span className="type ts-text-sm-medium ut-price">{job.price}</span>
               </td>
             </tr>
           ))}
@@ -68,9 +67,6 @@ export function PriceListTableSection() {
         <p className="ut-label ut-label-price">
           <span className="type ts-text-sm-regular ut-label-name">
             {PRICE_LIST_TABLE_LABELS.price}
-          </span>
-          <span className="type ts-text-xs-light ut-label-sub">
-            {PRICE_LIST_TABLE_LABELS.priceSub}
           </span>
         </p>
       </div>
