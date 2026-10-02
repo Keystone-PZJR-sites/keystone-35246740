@@ -6,12 +6,10 @@ import type { Plan, PlanId } from "@keystone-sites/marketing-design-system/primi
 
 export type { Plan, PlanId };
 
-/** Stripe payment links, one per plan. Defined here only. */
-export const CHECKOUT_URLS: Record<PlanId, string> = {
-  starter: "https://pay.keystone.app/b/fZucN6fhC7vhe6j5ux0VO02",
-  growth: "https://pay.keystone.app/b/4gMaEY5H2g1N3rF1eh0VO01",
-  scale: "https://pay.keystone.app/b/7sYbJ29Xi9Dp6DR5ux0VO05",
-};
+/** Where every plan's button goes: the console's signup. The plan is chosen there, from the
+ * business's own catalogue, once the account exists — so nothing about the plan rides in the
+ * URL and this site never speaks to Stripe. Defined here only. */
+export const SIGNUP_URL = "https://go.keystone.app/create-account";
 
 export { PER_MONTH } from "@keystone-sites/marketing-design-system/primitives/plan-card";
 
@@ -21,7 +19,7 @@ export const PLANS: [Plan, Plan, Plan] = [
     name: "Starter",
     description: "Small businesses ready to step up their online web presence.",
     amount: "$50",
-    cta: { label: "Start with Keystone", href: CHECKOUT_URLS.starter, external: true },
+    cta: { label: "Start with Keystone", href: SIGNUP_URL, external: true },
     items: [
       "Custom designed and built website with two rounds of revisions",
       "100/100 Google Lighthouse SEO Score",
@@ -35,7 +33,7 @@ export const PLANS: [Plan, Plan, Plan] = [
     name: "Growth",
     description: "Businesses ready to dominate their online competition.",
     amount: "$300",
-    cta: { label: "Grow with Keystone", href: CHECKOUT_URLS.growth, external: true },
+    cta: { label: "Grow with Keystone", href: SIGNUP_URL, external: true },
     lead: "Everything in Starter, plus",
     items: [
       "Daily content updates and weekly audits",
@@ -51,7 +49,7 @@ export const PLANS: [Plan, Plan, Plan] = [
     name: "Scale",
     description: "Businesses ready to grow as quickly as possible.",
     amount: "$600",
-    cta: { label: "Scale with Keystone", href: CHECKOUT_URLS.scale, external: true },
+    cta: { label: "Scale with Keystone", href: SIGNUP_URL, external: true },
     lead: "Everything in Growth, plus",
     items: [
       "Complex websites with 50+ pages",
