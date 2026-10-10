@@ -1,9 +1,19 @@
 import type { FormFieldItem } from "@keystone-sites/core/types";
+import { SITE_LINKS } from "@keystone-sites/marketing-design-system/site-links";
 
 export const CONTACT_EYEBROW = "Contact";
 export const CONTACT_TITLE = "Talk with Keystone";
 export const CONTACT_LEDE =
   "Tell us about your business and how we can help with sales, marketing, and growth. We’ll reply shortly.";
+
+/** For people already on Keystone, who want a guide rather than a sales reply. */
+export const CONTACT_CUSTOMER_NOTE = {
+  lead: "Already a customer?",
+  support: { label: "The Support Center", href: SITE_LINKS.support },
+  middle: " has guides for every tool, and the ",
+  developers: { label: "Developer Center", href: SITE_LINKS.developers },
+  tail: " covers the API and MCP server.",
+} as const;
 
 export const CONTACT_SUBMIT_LABEL = "Send message";
 export const CONTACT_SUBMITTING_LABEL = "Sending…";

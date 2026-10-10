@@ -33,6 +33,38 @@
   color: var(--color-text-300);
 }
 
+/* The customer note sits under the lede at the lede's measure; its links
+   read as prose links, like the legal pages'. */
+.contact-note {
+  max-width: calc(var(--t) * 8);
+  margin-top: var(--space-lg);
+  color: var(--color-text-400);
+}
+
+.contact-note-lead {
+  color: var(--color-text-200);
+}
+
+.contact-note a {
+  color: var(--color-text-200);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-200);
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color var(--motion-hover-duration) var(--motion-hover-ease);
+}
+
+@media (hover: hover) {
+  .contact-note a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+.contact-note a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ring-w) var(--color-teal-200);
+}
+
 .contact-body {
   margin-top: var(--t);
 }
