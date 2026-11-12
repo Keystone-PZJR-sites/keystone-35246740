@@ -1,5 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { applyConsentRegimeCookie, gscVerificationResponse } from "@keystone-sites/core/consent/middleware";
+import {
+  applyConsentRegimeCookie,
+  gscVerificationResponse,
+} from "@keystone-sites/core/consent/middleware";
 
 /** Stamps the consent-regime cookie on every response. Redirects live in
  * `next.config.ts` and run before this. Stays on the `middleware` convention
