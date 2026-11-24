@@ -1,8 +1,10 @@
 /* The ask, which the fold and the foot share: the composer's frame, its empty line and the chips
    under it. */
 
+/* Over the chips under it, so the +'s menu opens across them. */
 .home-composer {
   position: relative;
+  z-index: 3;
   width: min(calc(var(--u) * 18), 100%);
   margin-top: calc(var(--u) * 1.4);
 }

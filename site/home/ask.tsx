@@ -146,6 +146,8 @@ export type AskState = {
   fill: (entry: Entry) => void;
   /** Takes the chip back out. */
   clear: () => void;
+  /** Drops in a prompt that isn't one of the five, and takes out the chip of any that was set. */
+  drop: (prompt: string) => void;
 };
 
 export function useAsk(composer: ComposerState): AskState {
@@ -168,6 +170,11 @@ export function useAsk(composer: ComposerState): AskState {
       dropped.current = "";
       setAt(undefined);
       composer.focus();
+    },
+    drop(prompt) {
+      dropped.current = "";
+      setAt(undefined);
+      composer.load(prompt);
     },
   };
 }

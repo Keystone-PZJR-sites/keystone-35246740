@@ -1,3 +1,4 @@
+import type { ComposerPrompt } from "@keystone-sites/marketing-design-system/composer";
 import type { Hue } from "@keystone-sites/marketing-design-system/hue";
 import type { Plan } from "@keystone-sites/marketing-design-system/plans";
 import type { ShapeName } from "@keystone-sites/marketing-design-system/shape";
@@ -107,40 +108,78 @@ export const ENTRIES: readonly Entry[] = [
   },
 ];
 
-// The plans as they are sold today, shortened.
+// What the composer's + offers: the asks an owner has between customers, each dropped in whole.
+export const WILDCARDS: readonly ComposerPrompt[] = [
+  {
+    label: "Spy on my competition",
+    prompt: "Show me how my top three local competitors show up online, and where I’m behind.",
+  },
+  {
+    label: "Fill my slowest day",
+    prompt: "Help me fill my slowest day of the week with an offer, a post and an ad.",
+  },
+  {
+    label: "Reply to my reviews",
+    prompt: "Write replies to my latest Google reviews, the good ones and the bad ones.",
+  },
+  {
+    label: "Ask ChatGPT about me",
+    prompt:
+      "What do ChatGPT and Google’s AI say when someone nearby asks for a business like mine?",
+  },
+  {
+    label: "Win back my regulars",
+    prompt: "Draft a text to customers I haven’t seen in three months that brings them back.",
+  },
+  {
+    label: "Make my best review a post",
+    prompt: "Turn my best review into an Instagram post for this week.",
+  },
+];
+
+// The plans as keystone.app/pricing sells them, word for word.
 export const PLANS: readonly Plan[] = [
   {
     name: "Starter",
     price: "$50",
-    line: "Get found and look the part.",
+    line: "Small businesses ready to step up their online web presence.",
     list: [
-      "A custom website, built for you",
-      "Monthly website, SEO and Google Maps updates",
-      "Edit your site by chat",
+      "Beautiful, SEO-optimized website with up to 5 custom pages",
+      "Access to Keystone CRM and business platform",
+      "Easy chat-based AI website editor for ongoing changes",
+      "100/100 Google Lighthouse SEO Score",
+      "Monthly website, SEO, and Google Maps audits and updates",
+      "24x7 virtual customer support and assistance",
     ],
   },
   {
     name: "Growth",
     price: "$300",
-    line: "Fill the calendar.",
+    line: "Businesses ready to dominate their online competition.",
     list: [
-      "Everything in Starter",
-      "Daily posts on Instagram and Facebook",
-      "A daily optimized ad campaign",
-      "AI lead follow-up by text",
-      "A dedicated Growth Partner",
+      "Everything in Starter, plus",
+      "Complex websites with up to 30 custom pages",
+      "Search SEO with an extensive website structure and dedicated landing pages",
+      "AI SEO so answer engines like ChatGPT and Google AI recommend your business",
+      "Local SEO across your Google Business Profile, Google Maps, and reviews",
+      "Content SEO with regular articles and blog posts",
+      "Daily audits and optimizations",
+      "AI lead follow-up and conversion via webchat and text message",
+      "Dedicated Growth Partner with weekly analysis, strategy, and updates over email",
     ],
     featured: true,
   },
   {
     name: "Scale",
     price: "$600",
-    line: "Answer everyone, everywhere.",
+    line: "Businesses ready to grow as quickly as possible.",
     list: [
-      "Everything in Growth",
-      "Unlimited ad campaigns",
-      "A customizable AI receptionist",
-      "Weekly strategy with your Growth Partner",
+      "Everything in Growth, plus",
+      "AI voice assistant for primary or backup phone answering",
+      "Optimized ad campaigns on Facebook & Instagram or Google",
+      "Daily posting on Instagram & Facebook",
+      "Custom integration with other CRMs, booking systems, and marketing tools",
+      "Monthly strategy meetings with dedicated Growth Partner",
     ],
   },
 ];

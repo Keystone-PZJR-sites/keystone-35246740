@@ -74,7 +74,6 @@
   right: var(--u);
   bottom: var(--home-hang);
   width: calc(var(--u) * 6);
-  min-height: calc(var(--u) * 7);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -169,8 +168,8 @@
   align-self: stretch;
   display: grid;
   gap: calc(var(--u) * 0.1);
-  margin: auto 0 0;
-  padding: calc(var(--u) * 0.25) 0 0;
+  margin: 0;
+  padding: calc(var(--u) * 0.2) 0 0;
   border-top: 1px solid var(--stone);
   list-style: none;
 }
@@ -310,27 +309,26 @@
 }
 
 /* The receptionist: the call on the picture's top edge, the text after it on its foot. */
-/* Two cells tall, from the peek's top, so the picture's top edge runs through its middle. */
+/* On the peek's top line, as tall as its icon and two lines, so the picture still cuts it. */
 .home-call {
   right: var(--u);
   top: var(--u);
   width: calc(var(--u) * 8);
-  height: calc(var(--u) * 2);
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: calc(var(--u) * 0.3);
-  padding-inline: calc(var(--u) * 0.4);
+  gap: calc(var(--u) * 0.22);
+  padding: calc(var(--u) * 0.2) calc(var(--u) * 0.28);
 }
 .home-call__icon {
   display: grid;
   place-items: center;
-  width: calc(var(--u) * 1.2);
-  height: calc(var(--u) * 1.2);
+  width: calc(var(--u) * 0.9);
+  height: calc(var(--u) * 0.9);
   border-radius: 3px;
   background: var(--h-full);
   color: var(--h-ink);
-  font-size: calc(var(--u) * 0.55);
+  font-size: calc(var(--u) * 0.46);
 }
 /* Ringing until it's answered: a short shake, then a rest. */
 .home-call:not([data-answered]) .home-call__icon > svg {
@@ -368,16 +366,33 @@
 .home-call__state > [data-on] {
   opacity: 1;
 }
+.home-call__len {
+  margin-inline-start: 0.45em;
+  font-weight: 400;
+  color: var(--soft);
+  font-variant-numeric: tabular-nums;
+}
 .home-call__who {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45em;
+  min-width: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
   color: var(--soft);
 }
-.home-call__who > span {
+.home-call__name {
+  flex: none;
+  color: var(--ink);
+  font-weight: 500;
+}
+.home-call__detail {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   opacity: 0;
   transition: opacity 500ms var(--out) 200ms;
 }
-.home-call__who > [data-on] {
+.home-call__detail[data-on] {
   opacity: 1;
 }
 .home-call__head {
@@ -387,7 +402,7 @@
   gap: calc(var(--u) * 0.25);
 }
 .home-call__time,
-.home-text__head,
+.home-text__time,
 .home-ads__when,
 .home-cal__count,
 .home-cal__at {
@@ -402,12 +417,11 @@
   left: var(--u);
   bottom: var(--home-hang);
   width: calc(var(--u) * 7);
-  min-height: calc(var(--u) * 4);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: calc(var(--u) * 0.25);
-  padding: calc(var(--u) * 0.4);
+  align-items: stretch;
+  gap: calc(var(--u) * 0.22);
+  padding: calc(var(--u) * 0.28) calc(var(--u) * 0.32) calc(var(--u) * 0.32);
   animation: none;
   opacity: 0;
   transform: translateY(8px);
@@ -419,14 +433,26 @@
   opacity: 1;
   transform: none;
 }
-/* The reply being written, where the message will sit, then the message in its place. */
+.home-text__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--u) * 0.25);
+}
+/* The reply being written in the message's place, then the message over it. */
+.home-text__slot {
+  display: grid;
+}
+.home-text__typing,
+.home-text__bubble {
+  grid-area: 1 / 1;
+}
 .home-text__typing {
-  position: absolute;
-  right: calc(var(--u) * 0.4);
-  bottom: calc(var(--u) * 0.4);
+  justify-self: start;
+  align-self: center;
   display: flex;
   gap: 4px;
-  padding: calc(var(--u) * 0.25) calc(var(--u) * 0.3);
+  padding: calc(var(--u) * 0.22) calc(var(--u) * 0.28);
   border-radius: 3px;
   background: var(--h-light);
   opacity: 0;
@@ -462,16 +488,14 @@
   }
 }
 .home-text__bubble {
-  align-self: flex-end;
-  margin: auto 0 0;
-  max-width: 94%;
-  padding: calc(var(--u) * 0.2) calc(var(--u) * 0.3);
+  margin: 0;
+  padding: calc(var(--u) * 0.2) calc(var(--u) * 0.28);
   border-radius: 3px;
   background: var(--h-light);
   color: var(--h-deep);
   opacity: 0;
   transform: translateY(4px) scale(0.97);
-  transform-origin: right bottom;
+  transform-origin: left bottom;
   transition:
     opacity 400ms var(--out),
     transform 600ms var(--out);

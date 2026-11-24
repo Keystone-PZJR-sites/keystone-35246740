@@ -9,7 +9,7 @@ import { type ReactNode, useEffect, useRef } from "react";
 import { LOGIN_URL } from "@/site/console";
 import { useCookieChoices } from "@/site/consent/cookie-choices";
 import { AskLine, Chips } from "./ask";
-import { COPY } from "./content";
+import { COPY, WILDCARDS } from "./content";
 
 // What a visitor still wants to know at the foot. Each drops into the composer as written.
 const QUESTIONS = [
@@ -61,6 +61,15 @@ export function Foot({ composer }: { composer: ComposerState }) {
     },
     "pin",
   );
+  // Where the foot doesn't hold (foot.css), the line scrolls up under the nav: it fades over its
+  // first line's height as it comes up, and is gone as it reaches the nav's bottom edge.
+  const title = useRef<HTMLHeadingElement>(null);
+  useScrollProgress(title, (_, node) => {
+    const nav = document.querySelector(".ks-nav")?.getBoundingClientRect().bottom ?? 0;
+    const rect = node.getBoundingClientRect();
+    const fade = Math.min(1, Math.max(0, (rect.top - nav) / (rect.height / 2)));
+    node.style.setProperty("--home-fade", fade.toFixed(3));
+  });
   useEffect(() => {
     const node = ref.current;
     const box = lockup.current;
@@ -79,13 +88,18 @@ export function Foot({ composer }: { composer: ComposerState }) {
     <footer ref={ref} className="home-foot ks-ground" data-ground="ink">
       <div className="home-foot__stage">
         <div className="home-foot__ask">
-          <h2 className="ks-h1 home-foot__title">
+          <h2 ref={title} className="ks-h1 home-foot__title">
             {COPY.close[0]}
             <br />
             {COPY.close[1]}
           </h2>
           <div className="home-composer">
-            <Composer composer={composer} tone="ink" placeholder={<AskLine />} />
+            <Composer
+              composer={composer}
+              tone="ink"
+              placeholder={<AskLine />}
+              prompts={WILDCARDS}
+            />
           </div>
           <Chips>
             {QUESTIONS.map((question) => (

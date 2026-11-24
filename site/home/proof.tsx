@@ -259,26 +259,36 @@ function Receptionist() {
           <span className="home-call__head">
             <span className="home-call__state">
               <b data-on={answered ? undefined : ""}>Incoming call</b>
-              <b data-on={answered ? "" : undefined}>Call answered · 1:12</b>
+              <b data-on={answered ? "" : undefined}>
+                Call answered<span className="home-call__len">1:12</span>
+              </b>
             </span>
             <span className="home-call__time">2:14 PM</span>
           </span>
           <span className="home-call__who">
-            Dana M.<span data-on={answered ? "" : undefined}> · a Thursday gel fill</span>
+            <span className="home-call__name">Dana M.</span>
+            <span className="home-call__detail" data-on={answered ? "" : undefined}>
+              Thursday gel fill
+            </span>
           </span>
         </span>
       </div>
       <div className="home-sat home-text" data-in={beat >= 2 ? "" : undefined}>
-        <span className="home-text__head">Texted Dana · 2:15 PM</span>
-        <span className="home-text__typing" data-on={beat === 2 ? "" : undefined} aria-hidden>
-          <i />
-          <i />
-          <i />
+        <span className="home-text__head">
+          <b>Texted Dana</b>
+          <span className="home-text__time">2:15 PM</span>
         </span>
-        <p className="home-text__bubble" data-on={beat >= 3 ? "" : undefined}>
-          Hi Dana, Thursday at 10 AM is open. Book it here:
-          <span className="home-text__link">book.studio/thu-10am</span>
-        </p>
+        <span className="home-text__slot">
+          <span className="home-text__typing" data-on={beat === 2 ? "" : undefined} aria-hidden>
+            <i />
+            <i />
+            <i />
+          </span>
+          <p className="home-text__bubble" data-on={beat >= 3 ? "" : undefined}>
+            Hi Dana, Thursday at 10 AM is open. Book it here:
+            <span className="home-text__link">book.studio/thu-10am</span>
+          </p>
+        </span>
       </div>
     </>
   );

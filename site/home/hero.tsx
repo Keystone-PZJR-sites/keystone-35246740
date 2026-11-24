@@ -6,7 +6,7 @@ import { Shape } from "@keystone-sites/marketing-design-system/shape";
 import { Split } from "@keystone-sites/marketing-design-system/split";
 import type { CSSProperties, KeyboardEvent } from "react";
 import { AskLine, type AskState, Chips } from "./ask";
-import { COPY, ENTRIES } from "./content";
+import { COPY, ENTRIES, WILDCARDS } from "./content";
 
 /** The fold (1b): the line, the composer, and the five ways in under it, each of which drops its
     prompt in and sets its category beside the +. */
@@ -46,6 +46,10 @@ export function Hero({ composer, ask }: { composer: ComposerState; ask: AskState
         <Composer
           composer={composer}
           placeholder={<AskLine fixed={set} />}
+          prompts={WILDCARDS}
+          onPrompt={(wildcard) => {
+            ask.drop(wildcard.prompt);
+          }}
           tools={
             set ? (
               <span key={set.id} className="home-set" data-hue={set.hue}>

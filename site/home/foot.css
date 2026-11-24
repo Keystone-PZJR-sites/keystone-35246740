@@ -43,6 +43,11 @@
   padding-block: var(--home-clear);
   translate: 0 calc(var(--home-p, 0) * var(--home-shift) * -1);
 }
+/* The block is its own layer (its translate), under the lockup that follows it; while the
+   composer's + menu is open it comes over the lockup, so the menu's last lines can be reached. */
+.home-foot__ask:has(.ks-prompts[data-open]) {
+  z-index: 1;
+}
 /* 64 on 80, a step under the fold's line, and 72 over the composer. */
 .home-foot__title {
   margin: 0 calc(var(--u) * 0.5) 1.125em;
@@ -122,7 +127,6 @@ p.home-foot__set {
 }
 .home-foot__set--quiet {
   font-size: var(--home-print-type);
-  letter-spacing: 0.24px;
   color: var(--home-quiet);
 }
 .home-foot__set--quiet > :is(a, button):hover {
@@ -177,7 +181,7 @@ p.home-foot__set {
     translate: none;
   }
   .home .home-foot__title {
-    opacity: 1;
+    opacity: var(--home-fade, 1);
   }
   .home .home-foot__lockup {
     position: static;
