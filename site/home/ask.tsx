@@ -1,7 +1,7 @@
 "use client";
 
-import type { ComposerState } from "@keystone-sites/marketing-design-system/composer";
-import { useReducedMotion } from "@keystone-sites/marketing-design-system/motion";
+import type { ComposerState } from "@keystonepzjr/marketing-design-system/composer";
+import { useReducedMotion } from "@keystonepzjr/marketing-design-system/motion";
 import {
   Children,
   type CSSProperties,

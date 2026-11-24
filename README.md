@@ -1,7 +1,7 @@
 # Keystone marketing site
 
 The homepage and the legal pages of keystone.app. Next.js 16 (App Router, Turbopack) on
-Cloudflare Workers through OpenNext, drawn with `@keystone-sites/marketing-design-system`.
+Cloudflare Workers through OpenNext, drawn with `@keystonepzjr/marketing-design-system`.
 Agents and contributors: read `AGENTS.md` first.
 
 ## Run

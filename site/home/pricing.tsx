@@ -1,8 +1,8 @@
 "use client";
 
-import { Chip } from "@keystone-sites/marketing-design-system/chip";
-import type { ComposerState } from "@keystone-sites/marketing-design-system/composer";
-import { Plans } from "@keystone-sites/marketing-design-system/plans";
+import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import type { ComposerState } from "@keystonepzjr/marketing-design-system/composer";
+import { Plans } from "@keystonepzjr/marketing-design-system/plans";
 import { useEffect, useRef } from "react";
 import { PLANS } from "./content";
 

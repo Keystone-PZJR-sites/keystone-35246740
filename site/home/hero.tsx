@@ -1,9 +1,9 @@
 "use client";
 
-import { Chip } from "@keystone-sites/marketing-design-system/chip";
-import { Composer, type ComposerState } from "@keystone-sites/marketing-design-system/composer";
-import { Shape } from "@keystone-sites/marketing-design-system/shape";
-import { Split } from "@keystone-sites/marketing-design-system/split";
+import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Composer, type ComposerState } from "@keystonepzjr/marketing-design-system/composer";
+import { Shape } from "@keystonepzjr/marketing-design-system/shape";
+import { Split } from "@keystonepzjr/marketing-design-system/split";
 import type { CSSProperties, KeyboardEvent } from "react";
 import { AskLine, type AskState, Chips } from "./ask";
 import { COPY, ENTRIES, WILDCARDS } from "./content";

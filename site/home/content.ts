@@ -1,7 +1,7 @@
-import type { ComposerPrompt } from "@keystone-sites/marketing-design-system/composer";
-import type { Hue } from "@keystone-sites/marketing-design-system/hue";
-import type { Plan } from "@keystone-sites/marketing-design-system/plans";
-import type { ShapeName } from "@keystone-sites/marketing-design-system/shape";
+import type { ComposerPrompt } from "@keystonepzjr/marketing-design-system/composer";
+import type { Hue } from "@keystonepzjr/marketing-design-system/hue";
+import type { Plan } from "@keystonepzjr/marketing-design-system/plans";
+import type { ShapeName } from "@keystonepzjr/marketing-design-system/shape";
 
 // The page's words. Sentence case, short sentences, no dashes.
 export const COPY = {

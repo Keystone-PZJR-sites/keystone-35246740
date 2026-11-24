@@ -10,12 +10,12 @@ Workers (OpenNext).
 - Never commit, stage, or push unless asked in that turn.
 - Never read, print or copy `.env`.
 - Never restyle a design-system part or a `@keystone-sites/*` widget from here. A part that
-  should look different changes in `@keystone-sites/marketing-design-system`, with its catalog
+  should look different changes in `@keystonepzjr/marketing-design-system`, with its catalog
   demo, and the site takes the new version.
 
 ## How the site is built
 
-- **The design system** is `@keystone-sites/marketing-design-system` 2.x: tokens, fonts, the Set
+- **The design system** is `@keystonepzjr/marketing-design-system` 2.x: tokens, fonts, the Set
   (`.ks`, the lattice cell `--u`, keys) and its parts (nav, composer, chip, plans, prose, footer
   and the rest), in plain CSS and React, with motion from its `motion` hooks and no animation
   library. A change to how something looks lands in the design system and comes here as a new

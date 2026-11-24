@@ -1,10 +1,10 @@
 "use client";
 
-import { Chip } from "@keystone-sites/marketing-design-system/chip";
-import { Composer, type ComposerState } from "@keystone-sites/marketing-design-system/composer";
-import { Icon, type IconName } from "@keystone-sites/marketing-design-system/icon";
-import { useScrollProgress } from "@keystone-sites/marketing-design-system/motion";
-import { Wordmark } from "@keystone-sites/marketing-design-system/wordmark";
+import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Composer, type ComposerState } from "@keystonepzjr/marketing-design-system/composer";
+import { Icon, type IconName } from "@keystonepzjr/marketing-design-system/icon";
+import { useScrollProgress } from "@keystonepzjr/marketing-design-system/motion";
+import { Wordmark } from "@keystonepzjr/marketing-design-system/wordmark";
 import { type ReactNode, useEffect, useRef } from "react";
 import { LOGIN_URL } from "@/site/console";
 import { useCookieChoices } from "@/site/consent/cookie-choices";

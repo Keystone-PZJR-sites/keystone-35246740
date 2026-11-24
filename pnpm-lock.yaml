@@ -11,15 +11,15 @@ importers:
       '@keystone-sites/core':
         specifier: ^1.2.3
         version: 1.3.0(next@16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@keystone-sites/marketing-design-system':
-        specifier: ^2.0.1
-        version: 2.0.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@keystone-sites/services':
         specifier: ^1.0.2
         version: 1.0.2(@opentelemetry/api@1.10.0)(@types/react@19.3.0)(next@16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@keystone-sites/widgets':
         specifier: ^1.3.0
         version: 1.4.2(@opentelemetry/api@1.10.0)(@types/react@19.3.0)(next@16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@keystonepzjr/marketing-design-system':
+        specifier: ^2.0.2
+        version: 2.0.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next:
         specifier: ^16.3.4
         version: 16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -895,12 +895,6 @@ packages:
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
 
-  '@keystone-sites/marketing-design-system@2.0.1':
-    resolution: {integrity: sha512-LAo2Y6ZlBi1mlu/E/dA9PCVrrFaFCH2JD6kTnj9v8UtqH6GhSbKI5UYfz7u6ucUpb2jC+mdsop+la1KMKnUzPg==}
-    peerDependencies:
-      react: ^19.2.0
-      react-dom: ^19.2.0
-
   '@keystone-sites/services@1.0.2':
     resolution: {integrity: sha512-m+Xy+muB3jf8gqIHt1z3+foi7rIP9LX2DiYf1yqfRPkeMULn8Uf3Xb2Jdvl9a3L5MsSPgfl8cksdrPofED2jPA==}
     peerDependencies:
@@ -914,6 +908,12 @@ packages:
       next: '>=15.0.0'
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
+
+  '@keystonepzjr/marketing-design-system@2.0.2':
+    resolution: {integrity: sha512-cKNIYuDe3WH3B3zWGcY9WDF+5ONhUuUpZkxVW/qreAwTC6pbeBlzY4NyyXCLD0QKACgT/bn1sVOesCPdkbOvQQ==}
+    peerDependencies:
+      react: ^19.2.0
+      react-dom: ^19.2.0
 
   '@napi-rs/wasm-runtime@1.2.6':
     resolution: {integrity: sha512-mRyDmEw9/fCDXCGfL1sbgIw/GUK0PVxRW4YwgPN61F3LQ+fSyoBFarJVzgGyhF6kRzEQZ0FejDqm4WLXSeqQmw==}
@@ -5237,17 +5237,6 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
       server-only: 0.0.1
 
-  '@keystone-sites/marketing-design-system@2.0.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
-    dependencies:
-      '@central-icons-react/square-outlined-radius-0-stroke-1.5': 1.2.22(react@19.3.0)
-      react: 19.3.0
-      react-dom: 19.3.0(react@19.3.0)
-      react-markdown: 10.1.0(@types/react@19.3.0)(react@19.3.0)
-      remark-gfm: 4.0.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
   '@keystone-sites/services@1.0.2(@opentelemetry/api@1.10.0)(@types/react@19.3.0)(next@16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@keystone-sites/core': 1.3.0(next@16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -5281,6 +5270,17 @@ snapshots:
       - '@opentelemetry/api'
       - '@types/react'
       - preact-render-to-string
+      - supports-color
+
+  '@keystonepzjr/marketing-design-system@2.0.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+    dependencies:
+      '@central-icons-react/square-outlined-radius-0-stroke-1.5': 1.2.22(react@19.3.0)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      react-markdown: 10.1.0(@types/react@19.3.0)(react@19.3.0)
+      remark-gfm: 4.0.1
+    transitivePeerDependencies:
+      - '@types/react'
       - supports-color
 
   '@napi-rs/wasm-runtime@1.2.6(@emnapi/core@2.0.0-beta.2)(@emnapi/runtime@2.0.0-beta.2)':

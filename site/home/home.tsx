@@ -1,8 +1,8 @@
 "use client";
 
-import { useComposer } from "@keystone-sites/marketing-design-system/composer";
-import { useScrollProgress } from "@keystone-sites/marketing-design-system/motion";
-import { Nav } from "@keystone-sites/marketing-design-system/nav";
+import { useComposer } from "@keystonepzjr/marketing-design-system/composer";
+import { useScrollProgress } from "@keystonepzjr/marketing-design-system/motion";
+import { Nav } from "@keystonepzjr/marketing-design-system/nav";
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { HANDOFF_SCRIPT, launch, LOGIN_URL } from "@/site/console";

@@ -1,5 +1,5 @@
 import { getCompanyInformation } from "@keystone-sites/core/lib/server-api";
-import { Prose } from "@keystone-sites/marketing-design-system/prose";
+import { Prose } from "@keystonepzjr/marketing-design-system/prose";
 import { notFound } from "next/navigation";
 import { Frame } from "@/site/frame";
 import { ACCESSIBILITY_STATEMENT, LEGAL_DOCUMENTS, type LegalDocument } from "./documents";

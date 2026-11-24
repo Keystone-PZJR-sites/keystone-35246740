@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@keystone-sites/marketing-design-system/icon";
-import { useInView, useReducedMotion } from "@keystone-sites/marketing-design-system/motion";
+import { Icon } from "@keystonepzjr/marketing-design-system/icon";
+import { useInView, useReducedMotion } from "@keystonepzjr/marketing-design-system/motion";
 import {
   type CSSProperties,
   type ReactNode,

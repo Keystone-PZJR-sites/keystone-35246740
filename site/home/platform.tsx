@@ -1,12 +1,12 @@
 "use client";
 
-import { Chip } from "@keystone-sites/marketing-design-system/chip";
+import { Chip } from "@keystonepzjr/marketing-design-system/chip";
 import {
   prefersReducedMotion,
   useScrollProgress,
-} from "@keystone-sites/marketing-design-system/motion";
-import { Photo } from "@keystone-sites/marketing-design-system/photo";
-import { Shape } from "@keystone-sites/marketing-design-system/shape";
+} from "@keystonepzjr/marketing-design-system/motion";
+import { Photo } from "@keystonepzjr/marketing-design-system/photo";
+import { Shape } from "@keystonepzjr/marketing-design-system/shape";
 import { type CSSProperties, useRef, useState } from "react";
 import { ENTRIES, type Entry } from "./content";
 import { Proof } from "./proof";

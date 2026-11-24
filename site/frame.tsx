@@ -1,5 +1,5 @@
-import { Footer } from "@keystone-sites/marketing-design-system/footer";
-import { Nav } from "@keystone-sites/marketing-design-system/nav";
+import { Footer } from "@keystonepzjr/marketing-design-system/footer";
+import { Nav } from "@keystonepzjr/marketing-design-system/nav";
 import type { ReactNode } from "react";
 import { LOGIN_URL } from "@/site/console";
 import { SmallPrint } from "@/site/legal/small-print";

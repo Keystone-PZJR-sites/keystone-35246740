@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip } from "@keystone-sites/marketing-design-system/chip";
+import { Chip } from "@keystonepzjr/marketing-design-system/chip";
 import { Frame } from "@/site/frame";
 
 export default function ErrorPage({ reset }: { error: Error; reset: () => void }) {

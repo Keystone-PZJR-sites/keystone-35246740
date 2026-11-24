@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   },
   // These packages ship TypeScript source.
   transpilePackages: [
-    "@keystone-sites/marketing-design-system",
+    "@keystonepzjr/marketing-design-system",
     "@keystone-sites/core",
     "@keystone-sites/services",
     "@keystone-sites/widgets",

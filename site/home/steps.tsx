@@ -1,11 +1,11 @@
 "use client";
 
-import type { Hue } from "@keystone-sites/marketing-design-system/hue";
+import type { Hue } from "@keystonepzjr/marketing-design-system/hue";
 import {
   useInView,
   useReducedMotion,
   useScrollProgress,
-} from "@keystone-sites/marketing-design-system/motion";
+} from "@keystonepzjr/marketing-design-system/motion";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 // The copilot, the workspace, routines and integrations: each a word, what it means, and the part
