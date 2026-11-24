@@ -1,0 +1,89 @@
+/* Pricing, after 29 without its eyebrow or its terms: the line on the left and the ask on the
+   right, over the three plans, on the page's measure, at the middle of a window of its own.
+   Pinned by its foot, so the composer comes up over it: --home-pin is the window's height less its
+   own, written by the page, and nothing in a window taller than it. It holds there for a stretch
+   of scroll (.home-wait) before the composer comes. */
+.home-pricing {
+  position: sticky;
+  top: var(--home-pin, 0px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: calc(var(--u) * 3) var(--home-edge);
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+.home-wait {
+  display: block;
+  height: 40svh;
+}
+.home-pricing__inner {
+  display: grid;
+  gap: var(--u);
+}
+.home-pricing__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: calc(var(--u) * 0.6) var(--u);
+}
+.home .home-pricing__ask {
+  padding-inline: var(--key-pad-plain);
+}
+/* The plans as three cards without rules, told apart by their grounds; the price runs on into
+   its unit. */
+.home-pricing .ks-plans,
+.home-pricing .ks-plan + .ks-plan {
+  border: 0;
+}
+.home-pricing .ks-plan__price {
+  gap: 2px;
+}
+
+/* The plans side by side at a tablet's width, a swipe apart, the next showing at the edge; on a
+   phone, one over the next. */
+@media (min-width: 721px) and (max-width: 860px) {
+  .home-pricing .ks-plans {
+    display: flex;
+    gap: calc(var(--u) * 0.5);
+    margin-inline: calc(var(--u) * -1);
+    padding-inline: var(--u);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--u);
+    scrollbar-width: none;
+    background: none;
+  }
+  .home-pricing .ks-plans::-webkit-scrollbar {
+    display: none;
+  }
+  .home-pricing .ks-plan {
+    flex: 0 0 min(340px, calc(100% - var(--u)));
+    scroll-snap-align: start;
+  }
+  .home-pricing .ks-plan:not([data-featured]) {
+    background: var(--white);
+  }
+}
+
+@media (max-width: 720px) {
+  .home-pricing {
+    padding-block: var(--home-section);
+  }
+}
+
+/* A window too short to hold the plans: let them run their length and scroll past, unpinned,
+   with no wait. */
+@media (max-height: 520px), (prefers-reduced-motion: reduce) {
+  .home-pricing {
+    position: relative;
+    top: 0;
+  }
+  .home-wait {
+    display: none;
+  }
+}

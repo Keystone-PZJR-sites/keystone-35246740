@@ -1,16 +1,11 @@
 # dependencies
 /node_modules
 
-# testing
-/coverage
-/tests/__screenshots__/
-/test-results/
-/playwright-report/
-
 # next.js
 /.next/
 /out/
 /.open-next/
+/.wrangler/
 
 # production
 /build
@@ -23,7 +18,7 @@
 /tmp/
 
 # debug
-npm-debug.log*
+pnpm-debug.log*
 
 # environment
 .env*

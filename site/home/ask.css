@@ -1,0 +1,99 @@
+/* The ask, which the fold and the foot share: the composer's frame, its empty line, the trim
+   standing out of its top edge and the chips under it. */
+
+.home-composer {
+  position: relative;
+  width: min(calc(var(--u) * 18), 100%);
+  margin-top: calc(var(--u) * 1.4);
+}
+.home-composer .ks-composer {
+  width: 100%;
+}
+
+/* The empty line, after 28: the ask, and a rule drawn under it for as long as it holds. */
+.home-askline {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  padding-bottom: 2px;
+}
+.home-askline__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-askline__rule {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1.5px;
+  background: var(--h-full);
+  transform-origin: left center;
+  animation: home-measure var(--home-hold, 3400ms) linear both;
+}
+.home-askline:not([data-hue]) .home-askline__rule {
+  background: var(--ink);
+}
+.ks-composer[data-tone="ink"] .home-askline:not([data-hue]) .home-askline__rule {
+  background: var(--text-paper);
+}
+.home-askline[data-still] .home-askline__rule {
+  animation: none;
+}
+@keyframes home-measure {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* The trim: fifteen lattice lines, a cell apart, half a cell tall, from 89px in. */
+.home-trim {
+  position: absolute;
+  left: calc(var(--u) * 2.225);
+  bottom: 100%;
+  display: flex;
+  gap: calc(var(--u) - 1px);
+  height: calc(var(--u) * 0.5);
+  pointer-events: none;
+}
+.home-trim i {
+  width: 1px;
+  height: 100%;
+  background: var(--line);
+  transform-origin: 50% 100%;
+}
+
+/* The lines are counted and broken by the page (Chips); each is centred under the last. A break
+   is a line of its own, the gap tall, so the rows between lines carry no gap. */
+.home-chips {
+  align-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 var(--keys-gap);
+  margin-top: calc(var(--u) * 0.4);
+}
+.home-chips__break {
+  flex-basis: 100%;
+  height: var(--keys-gap);
+}
+.home-chips .ks-chip {
+  flex: none;
+}
+
+@media (max-width: 720px) {
+  .home .home-composer {
+    width: calc(var(--u) * 11);
+    max-width: 100%;
+  }
+  .home-trim {
+    left: calc(var(--u) * 2);
+  }
+  .home-trim i:nth-child(n + 9) {
+    display: none;
+  }
+  .home .home-off-phone {
+    display: none;
+  }
+}

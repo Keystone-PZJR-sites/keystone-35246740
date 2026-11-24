@@ -1,17 +1,15 @@
-import "@/site/index.css";
-import "@keystone-sites/marketing-design-system/widgets.css";
+import "@/site/styles.css";
 import type { Metadata, Viewport } from "next";
 import { CONSENT_REGIME_BOOTSTRAP_SCRIPT } from "@keystone-sites/core/consent";
+import { KeystoneServices } from "@keystone-sites/services/services/KeystoneServices";
 import { CookieConsentModal } from "@keystone-sites/widgets/consent/CookieConsentModal";
-import { SiteChat } from "@keystone-sites/marketing-design-system/sections/site-chat";
-import { SITE_URL } from "@keystone-sites/marketing-design-system/site";
+import { COPY } from "@/site/home/content";
+import { SITE_URL } from "@/site/site";
 
-/* Static metadata never blocks HTML delivery. */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Keystone | Sales and marketing that runs itself.",
-  description:
-    "Keystone powers your website and everything that runs through it: ads, social, reviews, content, and follow-ups that convert.",
+  title: `Keystone | ${COPY.h1.join(" ")}`,
+  description: COPY.sub,
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
@@ -33,58 +31,21 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/og-image.jpg"],
-  },
+  twitter: { card: "summary_large_image", images: ["/og-image.jpg"] },
 };
 
-export const viewport: Viewport = {
-  // bg/100 — the literal because the token stylesheet cannot be read here.
-  themeColor: "#f8f7f2",
-};
+export const viewport: Viewport = { viewportFit: "cover" };
 
-/** `.site-root` provides the grid's size container. Site chat mounts
- * outside `.page`, so fixed chat chrome does not affect grid geometry. */
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  /* The consent bootstrap stamps data-consent-regime on <html> before
-   * hydration; React must not treat that attribute as a mismatch. */
+/* The consent bootstrap stamps data-consent-regime on <html> before hydration, which React must not
+ * treat as a mismatch. */
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="light" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: CONSENT_REGIME_BOOTSTRAP_SCRIPT }} />
-        {/*
-         * Cold-load guard — inlined in the raw HTML so the page color is
-         * right from byte 1, before any stylesheet arrives. The literal is
-         * the bg/100 token value; a token var cannot be used here because
-         * the token stylesheet has not loaded yet.
-         */}
-        <style>{`html,body{background-color:#f8f7f2}`}</style>
-
-        {/*
-         * Preload hints for the two site fonts. The browser discovers
-         * @font-face rules only after parsing the CSS, so without these
-         * the font fetches start hundreds of milliseconds late. Both are
-         * small self-hosted variable fonts.
-         */}
-        <link
-          rel="preload"
-          href="/media/fonts/gt-standard-standard-vf.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/media/fonts/pp-kyoto-variable-upright-vf.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </head>
-      <body className="site-root">
-        {children}
-        <SiteChat />
+      <body>
+        <KeystoneServices>{children}</KeystoneServices>
         <CookieConsentModal />
       </body>
     </html>

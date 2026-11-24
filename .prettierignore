@@ -3,10 +3,7 @@
 .open-next
 node_modules
 public
+pnpm-lock.yaml
 cloudflare-env.d.ts
 next-env.d.ts
-# CSS keeps its hand-set one-line band rules
-*.css
 *.md
-# Figma export, read by scripts/generate-type-css.mjs
-design-system/tokens/type-styles.json

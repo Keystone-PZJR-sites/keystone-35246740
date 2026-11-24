@@ -20,37 +20,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
+      - uses: ./.github/actions/setup
 
       - name: Check types
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: Build with OpenNext
-        run: npx opennextjs-cloudflare build
+        run: pnpm exec opennextjs-cloudflare build
         env:
           API_URL: ${{ secrets.API_URL }}
           API_KEY: ${{ secrets.API_KEY }}
-          AUTH_API_URL: ${{ secrets.AUTH_API_URL }}
-          NEXT_PUBLIC_GRADER_URL: ${{ secrets.NEXT_PUBLIC_GRADER_URL }}
-          NEXT_PUBLIC_GRADER_API_URL: ${{ secrets.NEXT_PUBLIC_GRADER_API_URL }}
-          NEXT_PUBLIC_GRADER_SEARCH_PATHS: ${{ secrets.NEXT_PUBLIC_GRADER_SEARCH_PATHS }}
+          NEXT_PUBLIC_CONSOLE_URL: ${{ secrets.NEXT_PUBLIC_CONSOLE_URL }}
 
       - name: Upload Worker version (preview)
         id: upload
         run: |
           set -euo pipefail
           output="$(
-            npx wrangler versions upload \
+            pnpm exec wrangler versions upload \
               --name "${{ github.event.repository.name }}" \
               --message "preview ${{ github.ref_name }} ${{ github.sha }}" \
               --tag "preview-${{ github.sha }}" \

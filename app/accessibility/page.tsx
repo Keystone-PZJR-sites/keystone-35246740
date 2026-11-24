@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/site/pages/legal";
+import { LEGAL_DOCUMENTS } from "@/site/legal/documents";
+import { LegalPage } from "@/site/legal/legal-page";
 
 export const metadata: Metadata = {
-  title: "Accessibility Statement | Keystone",
-  description: "Keystone's commitment to an accessible website and how to reach us about barriers.",
+  title: `${LEGAL_DOCUMENTS.accessibility.title} | Keystone`,
+  description: LEGAL_DOCUMENTS.accessibility.description,
 };
 
 export default function AccessibilityPage() {

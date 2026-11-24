@@ -1,0 +1,19 @@
+/* A page of the site's own: clear of the fixed nav, a cell in from the window, the title over
+   what the page holds. */
+.frame {
+  display: grid;
+  align-content: start;
+  gap: calc(var(--u) * 1.2);
+  min-height: 70svh;
+  padding: calc(var(--u) * 4) var(--u) calc(var(--u) * 3);
+}
+.frame__head {
+  display: grid;
+  gap: calc(var(--u) * 0.4);
+  max-width: 68ch;
+}
+@media (max-width: 720px) {
+  .frame {
+    padding: calc(var(--u) * 3.5) calc(var(--u) * 0.5) calc(var(--u) * 2);
+  }
+}

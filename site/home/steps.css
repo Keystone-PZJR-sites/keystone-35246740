@@ -1,0 +1,301 @@
+/* How Keystone works (Figma › 03 How Keystone works - start, - end): a window tall, the line over
+   a row of four square blocks wider than the page. The run around it is a window tall plus twice
+   the row's overhang (--home-over, measured by the page), so the row crosses at half the scroll's
+   speed. The lattice rides with the row: a light tab above the first and third blocks' top right
+   corners with deep lines running down from it over the corner, and a light strip showing a cell
+   below the second block and below and past the fourth. */
+.home-how {
+  position: relative;
+  height: calc(140svh + var(--home-over, 0px) * 2);
+}
+/* The line and the row sit at the window's middle, on the page's left edge. Auto margins rather
+   than centring, so a short window keeps the line clear of the nav and gives up the gap first. */
+.home-steps {
+  --home-clear: max(calc(var(--u) * 2.2), 92px);
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(
+    calc(var(--u) * 1.4),
+    calc(100svh - var(--u) * 13 - var(--home-clear) * 2),
+    calc(var(--u) * 2.6)
+  );
+  height: 100svh;
+  padding: var(--home-clear) var(--home-edge);
+  border-top: 1px solid var(--line);
+  overflow: clip;
+}
+.home-steps__title {
+  margin-top: auto;
+  padding-top: 8px;
+  text-wrap: wrap;
+}
+.home-steps__row {
+  position: relative;
+  align-self: flex-start;
+  margin-bottom: auto;
+  translate: calc(var(--home-p, 0) * var(--home-over, 0px) * -1) 0;
+}
+.home-steps__grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+}
+.home-step {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--u);
+  width: calc(var(--u) * 10);
+  height: calc(var(--u) * 10);
+  padding: var(--u);
+  background: var(--h-full);
+  color: var(--h-ink);
+}
+.home-step__n {
+  font-family: var(--mono);
+  font-weight: var(--mono-weight);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+.home-step__text {
+  display: grid;
+  gap: calc(var(--u) * 0.6);
+}
+.home-step__title {
+  font-family: var(--ext);
+  font-weight: 400;
+  font-size: calc(var(--u) * 0.76);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.home-step__body {
+  display: grid;
+  gap: calc(var(--u) * 0.6);
+  font-weight: 300;
+  font-size: calc(var(--u) * 0.45);
+  line-height: calc(var(--u) * 0.6);
+}
+
+/* The lattice around the row, in two kinds of piece. Rules sit on the pixel before each cell
+   line and none closes a piece's edge. Each piece comes on as the hero's marks do, fill first and
+   rules after, out from the block it hangs on. */
+
+/* On a block's top right corner: a cell of light standing on the block, its columns running down
+   two cells into the block in the hue's deep, and one row across the corner. --w is its width in
+   cells. */
+.home-corner {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--u) * -1);
+  width: calc(var(--u) * var(--w));
+  height: calc(var(--u) * 3);
+  pointer-events: none;
+}
+.home-corner__fill,
+.home-corner::before,
+.home-corner::after {
+  content: "";
+  position: absolute;
+}
+.home-corner__fill {
+  inset: 0 0 auto;
+  height: var(--u);
+  background: var(--h-light);
+}
+.home-corner::before {
+  z-index: 1;
+  left: calc(var(--u) - 1px);
+  top: 0;
+  bottom: 0;
+  width: calc((var(--w) - 2) * var(--u) + 1px);
+  background:
+    linear-gradient(to right, var(--h-full) 1px, transparent 1px) 0 0 / var(--u) var(--u) repeat-x,
+    linear-gradient(to right, var(--h-deep) 1px, transparent 1px) 0 var(--u) / var(--u)
+      calc(100% - var(--u)) repeat-x;
+}
+.home-corner::after {
+  z-index: 1;
+  top: calc(var(--u) * 2 - 1px);
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--h-deep);
+}
+.home-corner--one {
+  left: calc(var(--u) * 7);
+  --w: 3;
+  --home-at: 1000ms;
+}
+.home-corner--three {
+  left: calc(var(--u) * 28);
+  --w: 2;
+  --home-at: 1300ms;
+}
+
+/* Under a block: two cells of light, the upper one behind the block and the lower showing below
+   the row, with columns in the part that shows. --w is its width in cells, --past how many of
+   them stand out past the block's right edge, where one row carries the block's foot across. */
+.home-steps__strip {
+  position: absolute;
+  top: calc(var(--u) * 9);
+  width: calc(var(--u) * var(--w));
+  height: calc(var(--u) * 2 - 1px);
+  background: var(--h-light);
+  --past: 0;
+}
+.home-steps__strip::before,
+.home-steps__strip::after {
+  content: "";
+  position: absolute;
+}
+.home-steps__strip::before {
+  left: calc(var(--u) - 1px);
+  top: var(--u);
+  bottom: 0;
+  width: calc((var(--w) - 2) * var(--u) + 1px);
+  background: linear-gradient(to right, var(--h-full) 1px, transparent 1px) 0 0 / var(--u) 100%;
+}
+.home-steps__strip::after {
+  top: calc(var(--u) - 1px);
+  right: 0;
+  width: calc(var(--u) * var(--past));
+  height: 1px;
+  background: var(--h-full);
+}
+.home-steps__strip--two {
+  left: calc(var(--u) * 14);
+  --w: 5;
+  --home-at: 1600ms;
+}
+/* The fourth's runs a cell past the block, to the page's edge when the row comes to rest. */
+.home-steps__strip--four {
+  left: calc(var(--u) * 37);
+  --w: 4;
+  --past: 1;
+  --home-at: 0ms;
+}
+
+/* On arrival: the line, then the blocks one after another, then the lattice comes on. */
+.home-steps:not([data-in]) :is(.home-steps__title, .home-step, .home-corner, .home-steps__strip) {
+  visibility: hidden;
+}
+.home-steps[data-in]:not([data-still]) .home-steps__title {
+  animation: home-step-in 1200ms var(--out) both;
+}
+.home-steps[data-in]:not([data-still]) .home-step {
+  animation: home-step-in 1200ms var(--out) both;
+  animation-delay: calc(200ms + var(--i) * 200ms);
+}
+@keyframes home-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--u) * 0.6));
+  }
+}
+/* A corner: the light rises off the block's top edge, then the columns draw down through it into
+   the block and the row draws in from the block's right edge. */
+.home-steps[data-in]:not([data-still]) .home-corner__fill {
+  animation: home-open-up 900ms var(--out) var(--home-at) both;
+}
+.home-steps[data-in]:not([data-still]) .home-corner::before {
+  animation: home-draw-down 900ms var(--out) calc(var(--home-at) + 200ms) both;
+}
+.home-steps[data-in]:not([data-still]) .home-corner::after {
+  animation: home-draw-left 900ms var(--out) calc(var(--home-at) + 300ms) both;
+}
+@keyframes home-open-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+/* A strip: the light opens out from behind its block, down and past the block's edge, then the
+   columns draw down from the block's foot and the row draws out from its corner. Block four's
+   waits until the row is nearly at rest at the end of the run. */
+.home-steps:not([data-end]) .home-steps__strip--four {
+  visibility: hidden;
+}
+.home-steps[data-in]:not([data-still]) .home-steps__strip--two,
+.home-steps[data-end]:not([data-still]) .home-steps__strip--four {
+  animation: home-open-under 900ms var(--out) var(--home-at) both;
+}
+.home-steps[data-in]:not([data-still]) .home-steps__strip--two::before,
+.home-steps[data-end]:not([data-still]) .home-steps__strip--four::before {
+  animation: home-draw-down 900ms var(--out) calc(var(--home-at) + 200ms) both;
+}
+.home-steps[data-in]:not([data-still]) .home-steps__strip--two::after,
+.home-steps[data-end]:not([data-still]) .home-steps__strip--four::after {
+  animation: home-draw-right 900ms var(--out) calc(var(--home-at) + 300ms) both;
+}
+/* It starts as the part the block hides, and stays unseen until then: the block is still fading
+   in when the section arrives. */
+@keyframes home-open-under {
+  from {
+    opacity: 0;
+    clip-path: inset(0 calc(var(--u) * var(--past)) calc(var(--u) - 1px) 0);
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* Without the pin (a narrow window, or reduced motion): the row scrolls sideways by hand. */
+@media (max-width: 960px), (prefers-reduced-motion: reduce) {
+  .home-how {
+    height: auto;
+  }
+  .home-steps {
+    position: relative;
+    height: auto;
+    padding-inline: 0;
+  }
+  .home-steps__title,
+  .home-steps__row {
+    padding-inline: var(--home-edge);
+  }
+  /* No bar under it: the blocks running off the window's edge say there is more. */
+  .home-steps__row {
+    align-self: stretch;
+    scroll-padding-inline: var(--home-edge);
+    scrollbar-width: none;
+    translate: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+  }
+  .home-steps__row::-webkit-scrollbar {
+    display: none;
+  }
+  .home-step {
+    scroll-snap-align: start;
+  }
+  .home-corner,
+  .home-steps__strip {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .home-step {
+    width: min(calc(var(--u) * 10), 82vw);
+  }
+}
+
+@media (max-width: 720px) {
+  .home-steps {
+    padding-block: var(--home-section);
+  }
+  .home-step {
+    height: calc(var(--u) * 8);
+    padding: calc(var(--u) * 0.75);
+  }
+}

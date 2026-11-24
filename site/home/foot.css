@@ -1,0 +1,305 @@
+/* The foot is a window and a run of scroll (--home-run) tall and its stage pins for the run. Over
+   it the lockup comes up from the window's foot, the line fades, and the composer and its
+   questions rise to the middle of what the nav and the lockup leave: from 2.65 cells under the
+   window's middle, where the block's centring puts them, to halfway between the nav's edge and
+   the lockup's top. */
+.home .home-foot {
+  position: relative;
+  z-index: 4;
+  height: calc(100svh + var(--home-run));
+  text-align: center;
+  --home-run: 70svh;
+  /* The muted paper the foot's small print is drawn in. */
+  --home-quiet: #a39f93;
+  /* Room for the nav over a window's first line, and the nav's own bottom edge. */
+  --home-clear: max(calc(var(--u) * 2.5), 96px);
+  --home-nav: calc(var(--u) * 0.6 + 56px);
+}
+.home-foot__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+}
+.home-foot__ask {
+  --home-shift: calc(var(--u) * 2.65 + var(--home-lock, 0px) / 2 - var(--home-nav) / 2);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--home-clear);
+  translate: 0 calc(var(--home-p, 0) * var(--home-shift) * -1);
+}
+/* 64 on 80, a step under the fold's line, and 72 over the composer. */
+.home-foot__title {
+  margin: 0 calc(var(--u) * 0.5) 1.125em;
+  font-size: min(calc(var(--u) * 1.6), calc((100vw - var(--u)) / 9.6));
+  line-height: 1.25;
+  letter-spacing: -0.0225em;
+  white-space: nowrap;
+  opacity: clamp(0, calc(1 - var(--home-p, 0) * 2.5), 1);
+}
+.home .home-foot .home-composer {
+  max-width: calc(100% - var(--u));
+  margin-top: 0;
+}
+/* 32 from the composer to the questions. */
+.home-foot .home-chips {
+  margin: calc(var(--u) * 0.8) calc(var(--u) * 0.5) 0;
+}
+.home-foot .home-trim i {
+  background: var(--char);
+}
+.home-foot .ks-chip[data-variant="stone"] {
+  --chip-bg: var(--line-ink);
+  --chip-fg: var(--text-paper);
+}
+.home-foot .ks-chip[data-variant="stone"]:hover {
+  --chip-bg: var(--char);
+}
+.home-foot :where(button, a, textarea):focus-visible {
+  outline-color: var(--text-paper);
+}
+
+/* The lockup: the wordmark, a line's strength on the ink, from the window's left edge to a hair
+   past its right, between two lines. Over it, the way in said to customers on the left and the
+   podcast and the social pages on the right; under it, the small print. */
+.home-foot__lockup {
+  position: absolute;
+  inset: auto 0 0;
+  overflow-x: clip;
+  text-align: left;
+  translate: 0 calc((1 - var(--home-p, 0)) * 100%);
+}
+.home-foot__word {
+  display: block;
+  width: 100.36%;
+  max-width: none;
+  height: auto;
+  color: var(--line-ink);
+}
+.home-foot__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--u);
+  padding: calc(var(--u) * 0.3) var(--home-edge);
+  font-size: var(--home-link-type);
+  line-height: 20px;
+}
+.home-foot__links--base {
+  padding-block: calc(var(--u) * 0.15) calc(var(--u) * 0.15 + env(safe-area-inset-bottom, 0px));
+}
+/* A run of links on one line, each in a row 40 tall for the pointer and the finger. */
+.home-foot__set {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 calc(var(--u) * 0.6);
+}
+.home-foot__set > :where(a, button, span),
+p.home-foot__set {
+  padding-block: calc((var(--home-link-row) - 20px) / 2);
+}
+.home-foot__set > :is(a, button) {
+  transition: color 120ms var(--out);
+}
+.home-foot__set > :is(a, button):hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.home-foot__set--quiet {
+  font-size: var(--home-print-type);
+  letter-spacing: 0.24px;
+  color: var(--home-quiet);
+}
+.home-foot__set--quiet > :is(a, button):hover {
+  color: var(--text-paper);
+}
+.home-foot__said {
+  gap: 0 calc(var(--u) * 0.3);
+}
+.home-foot__said > span {
+  color: var(--home-quiet);
+}
+/* The way in: a word with an arrow that leans on hover. */
+.home .home-foot__login {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 0.2);
+  font-weight: 500;
+}
+.home-foot__login > svg {
+  font-size: calc(var(--u) * 0.45);
+  transition: translate 160ms var(--out);
+}
+.home-foot__login:hover > svg {
+  translate: 2px 0;
+}
+/* What a phone shows in place of a name or with it: the social pages' marks, an arrow out, the
+   small print's short words. */
+.home-foot__icon,
+.home-foot__out,
+.home-foot__short {
+  display: none;
+}
+
+/* The foot without its hold, where a window has no room for the composer over the lockup (narrow,
+   short, or much wider than it is tall) or motion is reduced: the lockup follows the composer's
+   window down the page. */
+@media (max-width: 960px),
+  (max-height: 760px),
+  (min-aspect-ratio: 2/1),
+  (prefers-reduced-motion: reduce) {
+  .home .home-foot {
+    height: auto;
+  }
+  .home .home-foot__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+  .home .home-foot__ask {
+    position: static;
+    min-height: 100svh;
+    translate: none;
+  }
+  .home .home-foot__title {
+    opacity: 1;
+  }
+  .home .home-foot__lockup {
+    position: static;
+    translate: none;
+  }
+}
+
+/* The composer at the top of its own screen rather than a window's middle, so the lockup follows
+   on under the questions. Then the lockup as lists between rules, a row a tap: the way in, the
+   podcast, the four social pages as their marks in a row of cells, the wordmark, and the small
+   print two to a line with the year under it. */
+@media (max-width: 720px) {
+  .home .home-foot__ask {
+    min-height: 0;
+    padding-block: calc(var(--u) * 4) var(--home-section);
+  }
+  .home-foot__links {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+  }
+  .home-foot__links > .home-foot__set {
+    border-top: 1px solid var(--line-ink);
+  }
+  .home-foot__said {
+    position: relative;
+    justify-content: space-between;
+    padding-inline: var(--home-edge);
+  }
+  p.home-foot__said {
+    padding-block: 0;
+  }
+  .home-foot__said > :where(a, span) {
+    padding-block: 18px;
+  }
+  .home .home-foot__login {
+    font-size: 17px;
+  }
+  /* The whole row takes the tap. */
+  .home-foot__login::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .home-foot__follow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+  .home-foot__follow > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 18px;
+  }
+  .home-foot__follow > a:not([data-icon]) {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    padding-inline: var(--home-edge);
+    border-bottom: 1px solid var(--line-ink);
+  }
+  .home-foot__follow > a[data-icon] + a[data-icon] {
+    border-left: 1px solid var(--line-ink);
+  }
+  .home-foot__follow > a[data-icon] .home-foot__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .home-foot__follow .home-foot__icon {
+    display: block;
+    font-size: 20px;
+  }
+  .home-foot__follow .home-foot__out {
+    display: block;
+    font-size: 18px;
+    color: var(--home-quiet);
+  }
+  .home-foot__follow > a:hover {
+    text-decoration: none;
+    background: var(--char);
+  }
+  .home-foot__links > .home-foot__follow {
+    border-bottom: 1px solid var(--line-ink);
+  }
+  /* The close at the fold's size, not filling the width on its shorter lines. */
+  .home .home-foot__title {
+    font-size: var(--home-h1);
+    line-height: var(--home-h1-leading);
+  }
+  /* The way in is in the menu. */
+  .home-foot__said {
+    display: none;
+  }
+  .home-foot__links > .home-foot__follow {
+    border-top: 1px solid var(--line-ink);
+  }
+  /* The wordmark first, from edge to edge; then the links; then the small print: the four in their
+     short words across the measure, the year centred under them. */
+  .home .home-foot__lockup {
+    display: flex;
+    flex-direction: column;
+  }
+  .home-foot__word {
+    order: -1;
+    margin: 0 0 calc(var(--u) * 0.5);
+  }
+  .home-foot__links--base {
+    gap: 0;
+    padding: calc(var(--u) * 0.25) var(--home-edge)
+      calc(var(--u) * 0.5 + env(safe-area-inset-bottom, 0px));
+  }
+  .home-foot__links--base > .home-foot__set {
+    border-top: 0;
+  }
+  .home-foot__links--base > div.home-foot__set {
+    justify-content: space-between;
+    gap: 0 calc(var(--u) * 0.5);
+  }
+  .home-foot__links--base > p.home-foot__set {
+    order: 1;
+    justify-content: center;
+  }
+  .home-foot__long {
+    display: none;
+  }
+  .home-foot__short {
+    display: inline;
+  }
+}

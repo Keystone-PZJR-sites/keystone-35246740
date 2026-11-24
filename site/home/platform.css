@@ -1,0 +1,344 @@
+/* The platform (Figma › 02 Timeline): 1a's five outcomes on 22's pinned stage. */
+
+/* The section's top rule, as a place to hang the mark that sits on it. */
+.home-plat__rule {
+  position: relative;
+  z-index: 2;
+  display: block;
+  height: 0;
+  pointer-events: none;
+}
+/* On the rule (Figma › Shape · Diamond, 963 across and 39.5 above it): three cells of red lines
+   whose upper row lies on the rule itself, over a diamond of red's light a pixel down and right
+   of them. */
+.home-mark--red {
+  left: calc(max(0px, (100% - var(--page)) / 2) + var(--u) * 24.075);
+  top: calc(var(--u) * -1);
+  width: calc(var(--u) * 3);
+  height: calc(var(--u) * 3);
+}
+.home-mark--red .home-mark__fill {
+  inset: 0;
+  translate: 1px 1px;
+  background: var(--h-light);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  animation: home-disc 1100ms var(--out) 2000ms both;
+}
+.home-mark--red .home-mark__lines {
+  --home-line: var(--h-full);
+}
+.home-mark--red .home-mark__lines::before {
+  width: calc(var(--u) + 1px);
+  animation: home-draw-down 900ms var(--out) 2200ms both;
+}
+.home-mark--red .home-mark__lines::after {
+  height: calc(var(--u) + 1px);
+  animation: home-draw-right 900ms var(--out) 2300ms both;
+}
+
+.home-plat {
+  --home-p: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 100svh;
+  display: grid;
+  align-items: stretch;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+/* The scrolling that turns the five parts, half a window each. */
+.home-plat__track {
+  height: 250svh;
+  pointer-events: none;
+}
+.home-plat__split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  height: 100%;
+}
+
+/* The words: a cell in from the page's edge and three short of the middle, the hairline a cell
+   to their left. */
+.home-plat__left {
+  display: flex;
+  align-items: center;
+  gap: var(--u);
+  padding-inline: var(--u) calc(var(--u) * 3);
+}
+
+/* The hairline: five lengths, one to a part, and a bar that travels them with the scroll. Each
+   length is a button, wider than it looks. */
+.home-clock {
+  position: relative;
+  flex: none;
+  display: grid;
+  grid-auto-rows: minmax(0, 1fr);
+  width: 1px;
+  height: calc(var(--u) * 6.15);
+  background: var(--line);
+}
+.home-clock__bar {
+  position: absolute;
+  z-index: 1;
+  left: -1px;
+  top: 0;
+  width: 3px;
+  height: 20%;
+  background: var(--ink);
+  transform: translateY(calc(var(--home-p) * 400%));
+  will-change: transform;
+  pointer-events: none;
+}
+.home-clock__item {
+  position: relative;
+  width: 1px;
+}
+.home-clock__item::before,
+.home-clock__item::after {
+  content: "";
+  position: absolute;
+  inset: 0 -12px;
+}
+.home-clock__item::after {
+  inset: 0 -1px;
+  background: var(--line);
+  opacity: 0;
+  transition: opacity 160ms var(--out);
+}
+.home-clock__item:hover::after {
+  opacity: 1;
+}
+.ks .home-clock__item:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+}
+
+/* One part in words: tile, outcome, how, and the button, 32 apart as drawn. */
+.home-story {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--u) * 0.8);
+}
+.home-plat__left > .home-story {
+  container-type: inline-size;
+  animation: home-story-in 420ms var(--out) both;
+}
+/* Pinned, each headline is two whole lines: a cell tall, or less where the words' column is
+   narrower than the longest line (12.9em, "your business customers."). */
+.home-plat__left .home-story__title {
+  font-size: min(var(--u), calc(100cqi / 12.9));
+  line-height: 1.2;
+}
+@keyframes home-story-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+/* The entry's shape on its hue's light (Figma › entry-chip, without its label). */
+.home-story__tile {
+  display: grid;
+  place-items: center;
+  width: var(--u);
+  height: var(--u);
+  border-radius: 4px;
+  background: var(--h-light);
+  color: var(--h-full);
+  font-size: calc(var(--u) * 0.5);
+}
+.home-story__title {
+  font-family: var(--ext);
+  font-weight: 400;
+  font-size: var(--u);
+  line-height: calc(var(--u) * 1.2);
+  letter-spacing: -0.03375em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.home-story__title span {
+  display: block;
+}
+@media (max-width: 1040px) {
+  .home-story__title span {
+    display: inline;
+  }
+}
+.home-story__body {
+  font-weight: 300;
+  font-size: max(16px, calc(var(--u) * 0.5));
+  line-height: 1.45;
+  color: var(--soft);
+  text-wrap: pretty;
+}
+/* 44 under the words, and the fold's chips' type. */
+.home .home-story__ask {
+  margin-top: calc(var(--u) * 0.3);
+  font-size: var(--key-lead);
+  line-height: 1;
+}
+
+/* The picture half: the photograph on its grounds, centred, a cell clear of the middle rule. */
+.home-plat__right {
+  display: grid;
+  place-items: center;
+  padding-inline: var(--u);
+  border-left: 1px solid var(--line);
+}
+
+/* Fifteen cells by twelve, in cells of its own so it shrinks whole where the half is narrower. */
+.home-plate {
+  --u: min(var(--home-u), calc((50vw - var(--home-u) * 2) / 15));
+  position: relative;
+  width: calc(var(--u) * 15);
+}
+.home-plate__art {
+  position: relative;
+  height: calc(var(--u) * 12);
+}
+.home .home-plate__sheet,
+.home .home-plate__peek,
+.home .home-plate__strip {
+  position: absolute;
+  transition: background-color 360ms var(--out);
+}
+.home-plate__sheet {
+  left: 0;
+  top: 0;
+  width: calc(var(--u) * 12);
+  height: calc(var(--u) * 9);
+}
+.home-plate__peek {
+  left: var(--u);
+  top: var(--u);
+  width: calc(var(--u) * 7);
+  height: calc(var(--u) * 4);
+}
+.home-plate__window {
+  position: absolute;
+  left: calc(var(--u) * 2);
+  top: calc(var(--u) * 2);
+  right: 0;
+  bottom: var(--u);
+  overflow: hidden;
+  background: var(--stone);
+}
+.home-plate__reel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(0, calc(var(--at, 0) * -100%), 0);
+  transition: transform 620ms var(--out);
+}
+.home-plate__photo {
+  flex: none;
+  width: 100%;
+  height: 100%;
+}
+/* Under the photograph's foot: seven cells of the light with no edge, only the lines between. */
+.home-plate__strip {
+  left: calc(var(--u) * 7);
+  top: calc(var(--u) * 11);
+  width: calc(var(--u) * 7);
+  height: var(--u);
+}
+.home-plate__strip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--u);
+  width: calc(var(--u) * 5 + 1px);
+  background: linear-gradient(to right, var(--g-line) 1px, transparent 1px) 0 0 / var(--u) 100%;
+}
+
+.home-plat__list {
+  display: none;
+}
+
+/* The platform without its pin (a narrow window, or reduced motion): the five one after another
+   down the page, between rules; on a phone the words over the picture. */
+@media (max-width: 1040px), (prefers-reduced-motion: reduce) {
+  .home-plat,
+  .home-plat__track {
+    display: none;
+  }
+  .home-plat__list {
+    display: grid;
+    border-top: 1px solid var(--line);
+  }
+  .home-plat__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(var(--u) * 1.25);
+    padding: var(--home-section) var(--home-edge);
+  }
+  .home-plat__item + .home-plat__item {
+    border-top: 1px solid var(--line);
+  }
+  /* The picture fills its column, at no more than its drawn size. */
+  .home-plat__pic {
+    container-type: inline-size;
+  }
+  .home-plat__pic .home-plate {
+    --u: min(var(--home-u), calc(100cqi / 15));
+    --home-pu: min(var(--home-u), calc(100cqi / 15));
+  }
+  /* The pieces under the picture, at the page's cell, up over its foot by two of its cells. */
+  .home-plat__item .home-proof {
+    --u: var(--home-u);
+    position: relative;
+    inset: auto;
+    display: grid;
+    justify-items: start;
+    gap: calc(var(--u) * 0.3);
+    margin-top: calc(var(--home-pu) * -2);
+    padding-inline: var(--home-pu);
+  }
+  .home-plat__item .home-sat {
+    position: relative;
+    inset: auto;
+    min-height: 0;
+    max-width: 100%;
+    animation: none;
+  }
+}
+@media (max-width: 1040px) {
+  .home-mark--red {
+    left: auto;
+    right: calc(var(--u) * 2);
+  }
+}
+
+/* From a tablet's width up, words and picture in halves; on a tablet the picture changes sides
+   from one to the next. */
+@media (min-width: 721px) and (max-width: 1040px),
+  (min-width: 721px) and (prefers-reduced-motion: reduce) {
+  .home-plat__item {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: calc(var(--u) * 1.5);
+  }
+}
+@media (min-width: 721px) and (max-width: 1040px) {
+  .home-plat__item:nth-child(even) .home-plat__pic {
+    order: -1;
+  }
+  .home-plat__item .home-story__title {
+    font-size: calc(var(--u) * 0.8);
+    line-height: var(--u);
+  }
+}
+
+@media (max-width: 720px) {
+  .home-story__title {
+    font-size: calc(var(--u) * 0.8);
+    line-height: 1.2;
+  }
+}

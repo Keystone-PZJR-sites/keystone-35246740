@@ -1,0 +1,434 @@
+/* What the part leaves behind (Proof): one or two pieces of the product on the photograph's edge,
+   placed in the plate's cells over what the picture can spare. The photograph is the window from
+   two cells in to the right edge and from two cells down to a cell from the foot. */
+.home-proof {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  pointer-events: none;
+  font-size: max(11px, calc(var(--u) * 0.34));
+  line-height: 1.4;
+  text-align: left;
+  color: var(--ink);
+}
+/* Each sits on the plate's lattice: edges on its lines, whole cells wide and tall. Those on the foot
+   start a cell in, under the peek's edge, and hang a cell below the strip. */
+.home-sat {
+  --home-hang: calc(var(--u) * -1);
+  position: absolute;
+  background: var(--white);
+  border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+  border-radius: 4px;
+  box-shadow: var(--lift);
+  animation: home-story-in 480ms var(--out) 80ms both;
+}
+.home-sat + .home-sat {
+  animation-delay: 420ms;
+}
+.home-proof b {
+  font-weight: 500;
+}
+
+/* The grader: its scorecard over the gym's blurred kettlebells, clear of the owner. */
+.home-score {
+  right: var(--u);
+  bottom: var(--home-hang);
+  width: calc(var(--u) * 6);
+  min-height: calc(var(--u) * 7);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--u) * 0.25);
+  padding: calc(var(--u) * 0.4);
+}
+.home-score__label {
+  font-family: var(--mono);
+  font-weight: var(--mono-weight);
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+.home-score__value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  color: var(--soft);
+}
+.home-score__value b {
+  font-family: var(--serif);
+  font-weight: 200;
+  font-size: calc(var(--u) * 1.5);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+/* The bands as one line, split where they meet, filled to the score, the knob there. */
+.home-score__scale {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  gap: 2px;
+  height: 5px;
+  margin-block: calc(var(--u) * 0.15) calc(var(--u) * 0.05);
+}
+.home-score__scale i {
+  flex-basis: 0;
+  border-radius: 1px;
+  background:
+    linear-gradient(var(--h-full), var(--h-full)) 0 0 / var(--fill) 100% no-repeat,
+    var(--stone);
+}
+.home .home-score__knob {
+  position: absolute;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  translate: -50% -50%;
+  border: 3px solid var(--h-full);
+  border-radius: 50%;
+  background: var(--white);
+}
+/* The grade in words, on the plate's hue (as the card's pill sets it on the grade's). */
+.home-score__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 1.8em;
+  padding-inline: 0.6em;
+  border-radius: 3px;
+  background: var(--h-full);
+  color: var(--h-ink);
+  font-weight: 500;
+  font-size: 0.9em;
+}
+.home-score__pill i {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+}
+.home-score__areas {
+  align-self: stretch;
+  display: grid;
+  gap: calc(var(--u) * 0.1);
+  margin: auto 0 0;
+  padding: calc(var(--u) * 0.25) 0 0;
+  border-top: 1px solid var(--stone);
+  list-style: none;
+}
+.home-score__areas li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(var(--u) * 1.5) 2ch;
+  align-items: center;
+  gap: calc(var(--u) * 0.2);
+  white-space: nowrap;
+}
+.home-score__areas i {
+  height: 4px;
+  border-radius: 1px;
+  background:
+    linear-gradient(var(--h-full), var(--h-full)) 0 0 / var(--w) 100% no-repeat,
+    var(--stone);
+}
+.home-score__areas b {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The website: the site in a bare window, eight cells by five, with "Live" on its corner. */
+.home-browser {
+  left: var(--u);
+  bottom: var(--home-hang);
+  width: calc(var(--u) * 8);
+  border: 0;
+  background: none;
+}
+.home-browser__frame {
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--white);
+}
+.home-browser__bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: calc(var(--u) * 0.5);
+  padding-inline: calc(var(--u) * 0.25);
+  background: var(--white);
+}
+.home-browser__bar i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.home-browser__screen {
+  display: grid;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.home-browser__page {
+  grid-area: 1 / 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transition: opacity 600ms var(--out);
+}
+.home-browser__page[data-on] {
+  opacity: 1;
+}
+/* A small pill centred on the window's corner, half outside, over the bar. */
+.home-browser__live {
+  position: absolute;
+  right: 0;
+  top: 0;
+  translate: 40% -50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 2em;
+  padding-inline: 0.75em;
+  border-radius: 3px;
+  background: var(--white);
+  border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+  box-shadow: var(--lift);
+  font-weight: 500;
+}
+.home-browser__live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--h-full);
+}
+
+/* The receptionist: the call on the picture's top edge, the text after it on its foot. */
+/* Two cells tall, from the peek's top, so the picture's top edge runs through its middle. */
+.home-call {
+  right: var(--u);
+  top: var(--u);
+  width: calc(var(--u) * 8);
+  height: calc(var(--u) * 2);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: calc(var(--u) * 0.3);
+  padding-inline: calc(var(--u) * 0.4);
+}
+.home-call__icon {
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 1.2);
+  height: calc(var(--u) * 1.2);
+  border-radius: 3px;
+  background: var(--h-full);
+  color: var(--h-ink);
+  font-size: calc(var(--u) * 0.55);
+}
+.home-call__words {
+  display: grid;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.home-call__words > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--soft);
+}
+.home-call__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--u) * 0.25);
+}
+.home-call__time,
+.home-text__head,
+.home-ads__when,
+.home-cal__count,
+.home-cal__at {
+  font-family: var(--mono);
+  font-weight: var(--mono-weight);
+  font-size: 0.85em;
+  font-variant-numeric: tabular-nums;
+  color: var(--soft);
+  white-space: nowrap;
+}
+.home-text {
+  left: var(--u);
+  bottom: var(--home-hang);
+  width: calc(var(--u) * 7);
+  min-height: calc(var(--u) * 4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--u) * 0.25);
+  padding: calc(var(--u) * 0.4);
+}
+.home-text__bubble {
+  align-self: flex-end;
+  margin: auto 0 0;
+  max-width: 94%;
+  padding: calc(var(--u) * 0.2) calc(var(--u) * 0.3);
+  border-radius: 3px;
+  background: var(--h-light);
+  color: var(--h-deep);
+}
+.home-text__link {
+  display: block;
+  width: fit-content;
+  margin-top: 4px;
+  padding: 1px 7px;
+  border-radius: 2px;
+  background: var(--white);
+  font-family: var(--mono);
+  font-weight: var(--mono-weight);
+  font-size: 0.85em;
+}
+
+/* The ads: a week of the campaign's numbers over the engine at the picture's lower left. */
+.home-ads {
+  left: var(--u);
+  bottom: var(--home-hang);
+  width: calc(var(--u) * 7);
+  min-height: calc(var(--u) * 4);
+  display: grid;
+  align-content: space-between;
+  gap: calc(var(--u) * 0.2);
+  padding: calc(var(--u) * 0.4);
+}
+.home-ads__head,
+.home-cal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 0.3);
+  white-space: nowrap;
+}
+.home-ads__head > span:first-child,
+.home-cal__head > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+.home-ads__main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: calc(var(--u) * 0.5);
+}
+.home-ads__big {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--soft);
+}
+.home-ads__big b {
+  font-family: var(--serif);
+  font-weight: 200;
+  font-size: calc(var(--u) * 1.3);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.home-ads__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: calc(var(--u) * 0.95);
+}
+.home-ads__chart i {
+  flex: 1;
+  height: calc(var(--h) * 100%);
+  border-radius: 1px;
+  background: var(--h-mid);
+}
+.home .home-ads__chart [data-on] {
+  background: var(--h-full);
+}
+.home-ads__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--u) * 0.3);
+  margin: 0;
+  padding-top: calc(var(--u) * 0.2);
+  border-top: 1px solid var(--stone);
+}
+.home-ads__stats dt {
+  color: var(--soft);
+}
+.home-ads__stats dd {
+  margin: 0;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The social: the week's calendar over the shop's blurred plants at the lower left. */
+.home-cal {
+  left: var(--u);
+  bottom: var(--home-hang);
+  width: calc(var(--u) * 9);
+  min-height: calc(var(--u) * 4);
+  display: grid;
+  align-content: space-between;
+  gap: calc(var(--u) * 0.2);
+  padding: calc(var(--u) * 0.4);
+}
+.home-cal__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.home-cal__day {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.home-cal__date {
+  display: grid;
+  justify-items: center;
+  color: var(--soft);
+  font-size: 0.85em;
+  line-height: 1.25;
+}
+.home-cal__date b {
+  display: grid;
+  place-items: center;
+  width: 1.9em;
+  height: 1.9em;
+  border-radius: 3px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.home .home-cal__day[data-today] b {
+  background: var(--h-full);
+  color: var(--h-ink);
+}
+.home-cal__thumb {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  border-radius: 2px;
+  background: url("/photos/florist.jpg") var(--crop, 50% 50%) / 420% auto no-repeat;
+}
+.home-cal__thumb[data-empty] {
+  background: var(--paper);
+}
+.home-cal__at {
+  font-size: max(10px, 0.75em);
+  line-height: 1.4;
+}
+.home-cal__at[data-done] {
+  color: var(--h-deep);
+  font-size: 0.9em;
+}
+.home-cal__day:has([data-empty])::after {
+  content: "";
+  height: 1.05em;
+}

@@ -1,0 +1,10 @@
+/* The homepage, a section to a file, in the order the cascade was drawn in: a later file's rule
+   can outrank an earlier one's at the same weight. */
+@import "./page.css";
+@import "./ask.css";
+@import "./hero.css";
+@import "./proof.css";
+@import "./platform.css";
+@import "./steps.css";
+@import "./pricing.css";
+@import "./foot.css";

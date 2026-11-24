@@ -1,0 +1,41 @@
+/* The page's scale: each size the homepage repeats, named once, and what it becomes on a phone.
+   The sections read these names rather than numbers of their own, so a change made here lands
+   everywhere the size shows. Sizes a single section owns stay with the section; keys are the
+   Set's (--key and the rest). */
+.home {
+  position: relative;
+  /* The page's cell by another name, for a part that sets --u to a size of its own. */
+  --home-u: var(--u);
+  /* The page's edge, for a part as wide as the window: a cell in from the window, or from the
+     page's measure where the window is wider than it. */
+  --home-edge: max(var(--u), calc((100% - var(--page)) / 2 + var(--u)));
+  /* The fold's line, never wider than the page: its second line is 11.1em long. */
+  --home-h1: min(calc(var(--u) * 1.8), calc((100vw - var(--u)) / 11.4));
+  --home-h1-leading: 1.1112;
+  /* Room above and below a section that isn't a window tall. */
+  --home-section: calc(var(--u) * 2.5);
+  /* A run of text links: the type, the row each stands in, and the small print's type. */
+  --home-link-type: 15px;
+  --home-link-row: 40px;
+  --home-print-type: 14px;
+}
+@media (max-width: 720px) {
+  .home {
+    --home-edge: calc(var(--u) * 0.5);
+    --home-section: calc(var(--u) * 2);
+    --home-link-type: 16px;
+    --home-link-row: 32px;
+    --home-print-type: 13px;
+  }
+}
+
+/* Everything under the fold is one stack. Each sheet pins at the window's top and stays there
+   until the stack ends, so the next one is set down over it. */
+.home-deck {
+  position: relative;
+}
+/* A section's place in the stack, for the nav: a pinned sheet can't be scrolled to. */
+.home-anchor {
+  display: block;
+  height: 0;
+}

@@ -1,0 +1,10 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+
+# The Central icon pack's preinstall checks for a licence key; it never needs to run here.
+ignoredBuiltDependencies:
+  - "@central-icons-react/square-outlined-radius-0-stroke-1.5"
+  - core-js
+  - unrs-resolver

@@ -1,0 +1,354 @@
+/* The fold (1b, Figma › Frame 22, in cells): the line, the composer, the five ways in and the
+   two corner marks. */
+
+.home-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 832 of a 900 window, as drawn, so the platform's top rule and its mark show at the foot. */
+  min-height: max(calc(100svh - var(--u) * 1.7), calc(var(--u) * 16));
+  /* 220px at 900 tall, as drawn (Figma › Site · Hero · Chat only); a taller window lets the stack
+     down a little, a shorter one up. */
+  padding: clamp(
+      calc(var(--u) * 4.5),
+      calc(var(--u) * 5.5 + (100svh - 900px) * 0.4),
+      calc(var(--u) * 9)
+    )
+    calc(var(--u) * 0.5) calc(var(--u) * 2);
+  text-align: center;
+}
+.home-h1 {
+  position: relative;
+  font-size: var(--home-h1);
+  line-height: var(--home-h1-leading);
+  white-space: nowrap;
+}
+.home-h1 .ks-split__unit {
+  animation: home-rise 1000ms var(--out) both;
+  animation-delay: calc(120ms + var(--i) * 80ms);
+}
+@keyframes home-rise {
+  from {
+    transform: translateY(108%);
+  }
+}
+
+.home-hero .home-composer {
+  animation: home-arrive 900ms var(--out) 620ms both;
+}
+@keyframes home-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--u) * 0.4));
+  }
+}
+
+/* A correction to the kit's composer against the render: the resting send key's glyph is pear
+   full. */
+.home-hero .ks-composer:not([data-ready]) .ks-send {
+  color: var(--pear-400);
+}
+
+/* Focused, the composer's edge is a step lighter than the kit's; with an entry set, its hue. */
+.home-hero .ks-composer:focus-within {
+  border-color: var(--gray-900);
+}
+.home-hero .home-composer[data-hue] .ks-composer:focus-within {
+  border-color: var(--h-full);
+}
+
+.home-hero .home-trim i {
+  animation: home-tick 520ms var(--out) both;
+  animation-delay: calc(1500ms + var(--i) * 32ms);
+}
+@keyframes home-tick {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* The row's lead-in (Figma › Chips): Extended, muted, 56 under the composer and 24 over the row. */
+.home-ways {
+  margin: calc(var(--u) * 1.4) 0 0;
+  font-family: var(--ext);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  text-align: center;
+  animation: home-fade 700ms var(--out) both;
+  animation-delay: 1000ms;
+}
+.home-hero .home-chips {
+  margin-top: calc(var(--u) * 0.6);
+}
+.home-hero .home-chips .ks-chip {
+  animation: home-fade 700ms var(--out) both;
+  animation-delay: calc(1080ms + var(--i) * 90ms);
+}
+@keyframes home-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The five ways in, as 6 draws them: the hue's light with its shape as a small key, which turns
+   a quarter, grows a touch and goes to the hue's deep under the pointer (Figma › entry-chip).
+   Once one is in the composer the rest go quiet, a pale stone, and the one set stays tinted,
+   spent. A quiet one hovers as a tinted one does. */
+.home .home-entry {
+  font-size: var(--key-lead);
+  line-height: 1;
+}
+.home-entry > .ks-shape,
+.home-set__name > .ks-shape {
+  transition:
+    transform 420ms var(--set),
+    color 200ms var(--out);
+}
+.home-entry:not(:disabled):hover > .ks-shape,
+.home-entry:focus-visible > .ks-shape,
+.home-set:hover .home-set__name > .ks-shape {
+  transform: rotate(90deg) scale(1.1);
+}
+/* The wedge only lies flat again after a half turn; a quarter turn stands it on a point. */
+.home-entry:not(:disabled):hover > .ks-shape[data-shape="wedge"],
+.home-entry:focus-visible > .ks-shape[data-shape="wedge"],
+.home-set:hover .home-set__name > .ks-shape[data-shape="wedge"] {
+  transform: rotate(180deg) scale(1.1);
+}
+.home .home-entry:not(:disabled):hover > .ks-shape,
+.home .home-entry:focus-visible > .ks-shape {
+  color: var(--h-deep);
+}
+.home .home-entry[data-variant="stone"] {
+  --chip-bg: var(--gray-200);
+  --chip-fg: var(--gray-dark-100);
+}
+.home .home-entry[data-variant="stone"] > .ks-shape {
+  color: var(--gray-800);
+}
+.home .home-entry[data-variant="stone"]:hover,
+.home .home-entry[data-variant="stone"]:focus-visible {
+  --chip-bg: var(--h-mid);
+  --chip-fg: var(--h-deep);
+}
+.home .home-entry[data-variant="stone"]:hover > .ks-shape,
+.home .home-entry[data-variant="stone"]:focus-visible > .ks-shape {
+  color: var(--h-deep);
+}
+.home .home-chips .home-entry:disabled {
+  --chip-bg: var(--h-light);
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+
+/* The entry, set in the composer (after 6a): the hue's light, its shape as a small key, its
+   category in the hue's deep. The cross takes it back out. */
+.home-set {
+  display: inline-flex;
+  flex: none;
+  height: var(--key);
+  background: var(--h-light);
+  border-radius: 4px;
+  animation: home-pop 520ms var(--set) both;
+}
+.home .home-set__name {
+  --chip-bg: transparent;
+  height: var(--key);
+  padding-right: 8px;
+  border-radius: 4px 0 0 4px;
+}
+.home-set__x {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  color: var(--h-soft);
+  font-size: 12px;
+  border-radius: 0 4px 4px 0;
+  transition:
+    background-color 160ms var(--out),
+    color 160ms var(--out);
+}
+.home .home-set__x:hover {
+  background: var(--h-mid);
+  color: var(--h-deep);
+}
+@keyframes home-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.94);
+  }
+}
+
+/* The sketch's two corner marks. Each sits on lattice lines and is the last thing to arrive. */
+.home-marks {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+}
+.home-mark {
+  position: absolute;
+}
+.home-mark__fill,
+.home-mark__lines,
+.home-mark__lines::before,
+.home-mark__lines::after {
+  content: "";
+  position: absolute;
+}
+/* Top left: a sky circle under four cells of lines, the circle 24px up and left of them. */
+.home-mark--sky {
+  left: calc(max(0px, (100% - var(--page)) / 2) + var(--u) * 3);
+  top: calc(var(--u) * 3);
+  width: calc(var(--u) * 4);
+  height: calc(var(--u) * 4);
+}
+.home-mark--sky .home-mark__fill {
+  inset: 0;
+  translate: calc(var(--u) * -0.6) calc(var(--u) * -0.6);
+  border-radius: 50%;
+  background: var(--h-light);
+  animation: home-disc 1100ms var(--out) 1700ms both;
+}
+@keyframes home-disc {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+}
+.home-mark__lines {
+  inset: 0;
+  /* As drawn, the marks' lines are the hue's middle strength, quieter than a sheet's. */
+  --home-line: var(--h-mid);
+}
+.home-mark__lines::before {
+  left: var(--u);
+  top: 0;
+  bottom: 0;
+  width: calc(var(--u) * 2 + 1px);
+  background: linear-gradient(to right, var(--home-line) 1px, transparent 1px) 0 0 / var(--u) 100%;
+}
+.home-mark__lines::after {
+  top: var(--u);
+  left: 0;
+  right: 0;
+  height: calc(var(--u) * 2 + 1px);
+  background: linear-gradient(to bottom, var(--home-line) 1px, transparent 1px) 0 0 / 100% var(--u);
+}
+.home-mark--sky .home-mark__lines::before {
+  animation: home-draw-down 900ms var(--out) 1900ms both;
+}
+.home-mark--sky .home-mark__lines::after {
+  animation: home-draw-right 900ms var(--out) 2000ms both;
+}
+@keyframes home-draw-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes home-draw-right {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+/* Top right: three cells of purple lattice off the page's corner, two of them filled. It comes
+   out of the corner: the fill opens from it, then the columns draw down and the rows draw in
+   from the right edge. */
+.home-mark--purple {
+  right: 0;
+  top: 0;
+  width: calc(var(--u) * 3);
+  height: calc(var(--u) * 3);
+}
+.home-mark--purple .home-mark__fill {
+  top: 0;
+  right: 0;
+  width: calc(var(--u) * 2);
+  height: calc(var(--u) * 2);
+  background: var(--h-light);
+  animation: home-open-corner 900ms var(--out) 1800ms both;
+}
+@keyframes home-open-corner {
+  from {
+    clip-path: inset(0 0 100% 100%);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+.home-mark--purple .home-mark__lines::before {
+  width: calc(var(--u) + 1px);
+  animation: home-draw-down 900ms var(--out) 2000ms both;
+}
+.home-mark--purple .home-mark__lines::after {
+  height: calc(var(--u) + 1px);
+  animation: home-draw-left 900ms var(--out) 2100ms both;
+}
+@keyframes home-draw-left {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* The fold at a tablet's width: the stack at the window's middle, as on a phone. */
+@media (min-width: 721px) and (max-width: 1040px) {
+  .home-hero {
+    justify-content: center;
+    padding-block: calc(var(--u) * 3) calc(var(--u) * 2);
+  }
+}
+/* A window too short for the stack (a phone on its side): it starts under the nav. */
+@media (min-width: 721px) and (max-height: 520px) {
+  .home-hero {
+    justify-content: flex-start;
+    padding-top: calc(var(--u) * 2.6);
+  }
+}
+
+@media (max-width: 720px) {
+  /* No sketch at this width. The composer sits at the window's middle, the h1 above it and the
+     chiplets below; the trim keeps its two-cell inset with as many ticks as fit. */
+  .home-hero {
+    --home-fs: calc((100vw - var(--u)) / 11.4);
+    min-height: calc(100svh - var(--u) * 2);
+    padding-top: calc(50svh - 60px - var(--u) * 1.2 - var(--home-fs) * 2.2224);
+    padding-bottom: var(--u);
+  }
+  .home-hero .home-composer {
+    margin-top: calc(var(--u) * 1.2);
+  }
+  .home-hero .home-chips {
+    margin-top: calc(var(--u) * 0.5);
+  }
+  /* The corner marks, reduced: the sky circle on three cells above the h1. The purple block
+     would sit under the nav, so it is left out. */
+  .home-mark--purple {
+    display: none;
+  }
+  .home-mark--sky {
+    left: calc(var(--u) * 1.5);
+    top: calc(50svh - 60px - var(--u) * 5.6 - var(--home-fs) * 2.2224);
+    width: calc(var(--u) * 3);
+    height: calc(var(--u) * 3);
+  }
+  .home-mark--sky .home-mark__lines::before {
+    width: calc(var(--u) + 1px);
+  }
+  .home-mark--sky .home-mark__lines::after {
+    height: calc(var(--u) + 1px);
+  }
+}

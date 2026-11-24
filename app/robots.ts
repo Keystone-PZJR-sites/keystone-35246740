@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@keystone-sites/marketing-design-system/site";
+import { SITE_URL } from "@/site/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/api/"] },
+    rules: { userAgent: "*", allow: "/" },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

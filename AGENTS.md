@@ -1,237 +1,67 @@
 # AGENTS.md — keystone-35246740
 
-Keystone's marketing site. Next.js App Router on Cloudflare (OpenNext).
-Design intent is the Figma file `ks-MarketingSite`; the code is what ships.
-
-## The design system's rules come first
-
-Every token, primitive, section, theme, grid law, and motion law lives in
-the package `@keystone-sites/marketing-design-system`, and so do its rules.
-Before touching anything under `site/` or `app/`, read — from
-`node_modules/@keystone-sites/marketing-design-system/` (source repo
-`../keystone-marketing-design-system`):
-
-1. `AGENTS.md` — the system's laws.
-2. `rules/design-system.md` — tokens, styling, motion grammars, fonts, SVG, media.
-3. `rules/grid-and-layout.md` — the five-anchor grid, the units, the grid and type laws.
-
-Those files govern; this file only adds what is specific to this site.
-Where they seem to disagree, the package wins — fix the wording here. A rule
-the package needs is changed in the package, never overridden locally.
-Then read the rest of this file.
+Keystone's marketing site: the homepage, the legal pages and nothing else. Every way off the
+homepage is a prompt sent to Ask Keystone in the console. Next.js App Router on Cloudflare
+Workers (OpenNext).
 
 ## Never
 
-- Never read geometry, type, or color from screenshots or memory. Read the
-  live Figma node through the Figma MCP. If the MCP is unreachable, stop and say so.
-- Never start a dev server on port 3000. Run yours on another port, or use the
-  owner's if it is running.
-- Never hardcode a value that means something. Colors, spacing, type, motion,
-  z-index, URLs, copy, and asset paths live in the design system's `tokens/`,
-  `*-data.ts` modules, the design system's `media.ts`, or `.env`. A constant only
-  one file needs is a custom property on that file's root selector, at the top.
-- Never write CSS outside `site/` (or the design system). No utility classes in site markup,
-  no CSS modules, no CSS-in-JS, no `<style>`, no `!important` (two
-  exceptions: the reduced-motion law in `base.css` and the packaged consent
-  widget's bridge in `widgets.css`).
-- Never customize a `@keystone-sites/*` widget beyond its props.
-- Never put `'use client'` on a page or layout (`app/error.tsx`, which Next
-  requires to be a client component, stays markup-only). Interactivity is a
-  leaf island.
-- Never suppress a lint or type error. Never use `any` or `as` at a data boundary.
-- Never invent copy, a component API, or a file. Read it first; ask if unclear.
-- Never delete a route or config file without being asked.
+- Never start a dev server on port 3000. `pnpm dev` runs on 3340.
 - Never commit, stage, or push unless asked in that turn.
+- Never read, print or copy `.env`.
+- Never restyle a design-system part or a `@keystone-sites/*` widget from here. A part that
+  should look different changes in `@keystone-sites/marketing-design-system`, with its catalog
+  demo, and the site takes the new version.
 
 ## How the site is built
 
-- The design system is the package `@keystone-sites/marketing-design-system`
-  (repo `keystone-marketing-design-system`, published to npm; this site pins a
-  `^` range, so a DS change ships as a DS release first and a bump here
-  second). It owns `tokens`, `base`, `grid`, every `primitive`, the shared
-  chrome (`nav`, `footer`, `faq`, `gallery-overlay`, `site-chat`), the landing
-  kit, the themes, `icons.tsx`, `media.ts`, `site-links.ts`, and `lib/`. Its
-  rules are its `AGENTS.md` and `rules/` (see the top of this file); its
-  catalog renders every part from the source and points at the rules. Anything two
-  Keystone sites could use lives there, never here.
-- `app/` routes only mount a `site/pages/*` composition and pass data.
-- `site/` holds this site's sections and pages: `site/sections` → `site/pages`.
-  Layers build strictly upward: `tokens` → `base` → `grid` → `primitives` →
-  `sections` → `pages`. A layer imports only layers below it. `site/index.css`
-  imports the package's `index.css` and then assembles this site's cascade;
-  add a file to its layer, never rules to the index.
-- A section owns `name.tsx`, `name.css`, `name-data.ts`, and at most one
-  island `name-island.tsx`. Sections compose primitives; pages compose sections.
-- Server Components by default. An island receives typed props or wraps
-  server-rendered children; it never fetches. Route JS is measured in bytes.
-- Layout is container-query driven on `.site-root` with the tick `--t`
-  (page width ÷ 12, capped at 112px). Structure is written in `--t`; type and
-  spacing come from tokens; controls are fixed material px. Gates are named
-  by the band they open: `@container (--rs)`, `(--rt)`, `(--rd1)`, `(--rd2)`;
-  never a pixel width. See the design system's `grid/engine.css` and `gates.cjs`.
-- A control's size is a keyword its mount can set per band: `--btn-size` for
-  `ButtonFill`/`ButtonGhost`/`ButtonArrow`, `--grader-size` for `GraderInput`,
-  `--plan-size` for `PlanCard`, `--pcard-size` for `PersonaCard`. Pass `size="inherit"` and declare the
-  keyword on the mount at each gate; never render one hidden copy per band.
-- Text is `type ts-<figma-style>` (for example `type ts-text-md-light`;
-  `type-fixed` for material sizes). The generated class sets `--font`/`--ls`/
-  `--opsz` and the 384 size (`--fs-rm/--lh-rm`); the element's base rule names
-  the other designed anchors (`--fs-rs/rt/rd1/rd2`, `--lh-*`) and, per band,
-  where the size runs above its anchor (`--fs-rs-to: var(--fs-rt)`); a band
-  without a target holds. Below an anchor the size zooms with the tick, so
-  every anchor renders exactly. Never set a size inside `@container`; a band
-  that switches style restates only `--font`/`--ls`/`--opsz`. A component
-  that scales through its own unit pins `--fs-px: calc(var(--_u) *
-  var(--fs-band))`. The law and its reasons: `primitives/text.css`.
-  Every state change is a CSS transition or animation; `base.css` zeroes them
-  all under reduced motion.
-- Motion is CSS only. Every duration, curve, and distance is a token in
-  `tokens/motion.css`; read the laws in its header before adding any motion.
-- Data comes from `@keystone-sites/core` (`lib/server-api`) or a typed
-  `*-data.ts` module, validated at the boundary. Forms and chat go through the
-  Keystone route handlers in `app/api/`.
-- Images are art-directed `<picture>` tier sets from `media.ts`, with
-  `width`/`height`, WebP, `alt=""` when ambient. Fonts are licensed and
-  self-hosted; never load them from a URL.
-- Accessibility baseline: semantic HTML before ARIA, keyboard reachable,
-  visible `:focus-visible`, 44px targets, WCAG AA contrast, `<dialog>`
-  semantics for overlays with focus returned to the opener. Overlays lock
-  scroll only through `lib/scroll-lock.ts`.
-- Inline `style` carries only per-instance values the CSS cannot know
-  (a CSS custom property, a color role, a frame index). Anything constant
-  is a class.
-- Comments say why, never what, and record the Figma node id a value came
-  from. User-facing strings use literal Unicode, not escapes.
+- **The design system** is `@keystone-sites/marketing-design-system` 2.x: tokens, fonts, the Set
+  (`.ks`, the lattice cell `--u`, keys) and its parts (nav, composer, chip, plans, prose, footer
+  and the rest), in plain CSS and React, with motion from its `motion` hooks and no animation
+  library. A change to how something looks lands in the design system and comes here as a new
+  version. `site/styles.css` takes its stylesheet, then Tailwind's theme and utilities for the
+  consent bar's own classes, and nothing else.
+- **The homepage** (`site/home/`) is a section to a file, each a `.tsx` and its `.css`: `hero`,
+  `platform` (with `proof`, what each part leaves behind), `steps`, `pricing` and `foot`, with
+  `ask` (the composer's frame, its cycling line, the trim and the chips) shared by the fold and
+  the foot. `home.tsx` sets them out under the system's `Nav`; `home.css` imports the sheets in
+  the order their cascade was drawn in, and `page.css` holds the page's scale. `content.ts` holds
+  the words, the five ways in and the plans. Classes are `home-*`; the system's are `ks-*`.
+  Photographs are in `public/photos/`, the sites Keystone built in `public/sites/`.
+- **Every composer sends to the console**: `launch` in `site/console.ts` opens its `/guest` with
+  the prompt, and Log in goes to its `/login`.
+- **The legal pages** (`site/legal/`) are `site/frame.tsx`, the system's `Nav` and `Footer` around
+  a title, with the document in the system's `Prose`. Terms and Privacy are the backend's markdown
+  for Keystone (`getCompanyInformation`); Accessibility is `ACCESSIBILITY_STATEMENT`.
+  `{{business.*}}` tokens are filled from Keystone's company record, and a token it has nothing
+  for fails loudly. The not-found and error pages use the same frame.
+- **Consent and analytics** come from `@keystone-sites/*`: the regime bootstrap script and the
+  proxy's cookie (`proxy.ts`), `KeystoneServices` (PostHog, GTM, Meta Pixel, configured by the backend
+  and gated by consent), and `CookieConsentModal`, the consent bar every Keystone site shares, in
+  its own look. `site/consent/cookie-choices.tsx` names the way back to it by regime (CCPA's
+  "Do Not Sell or Share My Personal Information") and opens it.
+- **The console** is `NEXT_PUBLIC_CONSOLE_URL`, read only through `site/console.ts`.
 
-## React islands
+## Running it with the console
 
-- Browser APIs (`window`, `document`, measurement) run only in effects or
-  handlers, never during render; the first client render matches the SSR HTML.
-- One owner per piece of state: React, or a timer/animation the component
-  reads through a ref. No module-level mutable state. Derive, don't sync:
-  status computed from other state is computed in render, not stored.
-- Every effect cleans up (listeners, timers, observers) and survives Strict
-  Mode double-mount and HMR. Timers are not a sync primitive.
-- Prefer native CSS state (`:hover`, `:focus-within`, `:has()`, `data-*`)
-  over JS. Classify external data into a discriminated union at the boundary.
-- Cross-section behaviour is a declarative `data-action` attribute on the
-  control (`open-chat`, `open-gallery`), handled by one delegated document
-  listener in the owning island. Never wire `onClick` across sections.
-- Forms are uncontrolled, work without JS (real `action`), and submit
-  through the Keystone route handlers. No `console.log` in shipped code.
-
-## Reading Figma
-
-- Before building or changing anything designed, run `get_metadata`,
-  `get_variable_defs`, and `get_design_context` on the node, fresh.
-- Read every variant of a component set; never scale one to derive another.
-  Cells equal to the anchor ticks (32/48/64/80/112) are `1t`, not px.
-- Metadata `x`/`y` inside a grid auto-layout can be stale; verify geometry
-  against rendered bounds through the Figma console bridge. Strokes produce
-  ±0.5px artifacts (23/31/33 mean 24/32): transcribe the intended value.
-- Token values come from the variables API and text styles, not rendered
-  frames. Type changes: in the design system repo, update
-  `tokens/type-styles.json`, then run `npm run type-css`.
-- When a node disagrees with its siblings or the pattern, flag it to design
-  and record the resolution in a comment at the value. Never build the error.
-
-## Building new pages
-
-Open the design system's catalog first (`npm run catalog` in the
-`keystone-marketing-design-system` repo, then <http://localhost:3140>): the
-tokens, type styles, every primitive at every size on both grounds, the
-landing kit's kinds, and the system's own `AGENTS.md`, rendered from the
-source. Then start from the landing kit. A page without its own Figma frames (a
-vertical, a campaign, a persona) is copy plus two files, and it arrives
-with the site's craft — lattice paint, an image slot, the entrance, seated
-cards, a quote — because the kit sections already carry it:
-
-1. `site/pages/name-data.ts`: a `LandingPageData` (see the design system's
-   `sections/landing-sample.ts`): `meta`, then `sections`, an ordered list
-   where each entry is `{ kind, ...data }`. Kinds today: `hero`, `benefits`,
-   `quote`, `closer`. Any order, any count, kinds may repeat. The hero
-   picture is `heroCarouselPicture(n)` from `media.ts` until the page has
-   its own photography.
-2. `app/name/page.tsx`: `metadata` from `data.meta`, then
-   `<LandingPage data={NAME} />`. Add the route to `site-links.ts`,
-   `app/sitemap.ts`, and `tests/visual.spec.ts`.
-
-When no kind says what a page needs, add one in the design system — a
-section file pair (`sections/landing-<kind>.tsx/.css`, registered in its
-`index.css`), its variant in `LandingSection`, and one line in `SECTIONS`
-(`sections/landing.tsx`) — so every landing page can use it. Never a
-page-local section or CSS file.
-
-A page with its own Figma frames is composed from sections instead:
-
-1. Read the frames for every band you will render.
-2. Search before you build: `primitives/`, `sections/`, `icons.tsx`,
-   `media.ts`, `tokens/`, and the existing `data-action` contracts.
-3. Compose the page in `site/pages/name.tsx`; mount it from
-   `app/name/page.tsx` with `metadata`. Add the route to `site-links.ts`,
-   `app/sitemap.ts`, and `tests/visual.spec.ts`.
-4. A new dependency needs a reason in the change; prefer the platform.
-
-A section is this shape, and nothing in it is a number:
-
-```tsx
-<section className="sec my-sec" data-landmark="my">
-  <Slug>Eyebrow</Slug>
-  <h2 className="type ts-display-serif-xs-extralight ramp-h2 my-head">Headline</h2>
-  <p className="type ts-text-md-light ramp-body my-body">Body copy.</p>
-  <CtaRow cta={{ label: "See pricing", href: SITE_LINKS.pricing }} />
-  <CloserRow />
-</section>
-```
-
-```css
-.my-sec { padding-inline: var(--t); padding-top: var(--t); }
-.my-head { margin-top: var(--space-lg); max-width: calc(8 * var(--t)); }
-.my-body { margin-top: var(--space-2xl); max-width: calc(6 * var(--t)); }
-```
-
-Bands rm · rs · rt · rd1 · rd2 sit at 384 · 576 · 768 · 960 · 1344; a gate opens the next band.
-
-The vocabulary, each with its home:
-
-- Type ramps (384 → 1344), `primitives/ramps.css`: `ramp-h1` sm-plus-thin →
-  3xl-thin; `ramp-h2` xs-extralight → xl-extralight; `ramp-body` text-md-light
-  → text-xl-light; `ramp-quote` 2xs-plus-extralight → sm-plus-extralight
-  with the opening mark hanging. Pair each with its 384 `ts-` class.
-- Lattice paint: a section sits in unpainted air, hosts a seated
-  `GridRegion` frame in a `.gx` overlay (`sections/landing-hero.tsx`), or
-  closes with a `CloserRow` (`primitives/closer-row.tsx`) a tick below its
-  content. Cells that are the grid are line-inclusive, `k·t + 1px`, and
-  overlap neighbours by that pixel (`sections/landing-benefits.css`).
-- Imagery: a `PictureSet` from `media.ts` rendered by `primitives/picture.tsx`
-  inside a fixed-tick frame.
-- Entrance: the page class `load-sequence-rise`, `hx-rise` on each rising
-  element with a `--_d` delay token, and a `LoadOrchestrator` naming the last
-  beat (`pages/landing.tsx`).
-- The CTA row, `primitives/cta-row.tsx`: fill button, "Got a question?" from
-  rs, ghost `open-chat`; it sets `--btn-size` per band.
-- A long page's side rail, `primitives/toc.tsx`: `Toc items` in a
-  desktop-only absolute rail beside the content (`sections/case-study-toc.css`);
-  the active row follows `lib/use-active-section`.
+1. The console (`keystone-console`) on 5500, with sor-service and the services it talks to.
+2. `.env` from `.env.example`, with `NEXT_PUBLIC_CONSOLE_URL=http://localhost:5500`.
+3. `pnpm install`, then `pnpm dev`: <http://localhost:3340>. Sending from a composer opens the
+   console's guest chat on the prompt.
 
 ## Verify before you say done
 
-- `npx tsc --noEmit`, `npm run lint`, `npm run format:check`: zero errors, zero warnings.
-- Visual change: `npm run test:visual` (every route × every anchor and gate)
-  against baselines refreshed from the reference build with
-  `BASE_URL=<ref> npm run test:visual -- --update-snapshots`. Then look at the
-  widths you touched with reduced motion on and off. Report what you
-  measured, not "looks right".
+`pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm format:check`, `pnpm build`. A change to the
+homepage's look: screenshot it at 1440, 1100 and 375, with and without reduced motion.
 
 ## Git
 
-Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`, `docs:`).
-Plain, short, active sentences. One logical change per commit; `tsc` and
-`lint` pass before each. Branches `feature/`, `fix/`, `chore/`. Never force-push `main`.
+Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`, `docs:`). Branches `feature/`,
+`fix/`, `chore/`. Never force-push `main`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+## This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 

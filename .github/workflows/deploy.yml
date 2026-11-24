@@ -12,51 +12,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
+      - uses: ./.github/actions/setup
 
       - name: Check types
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: Formatting
-        run: npm run format:check
+        run: pnpm format:check
 
       - name: Build with OpenNext
-        run: npx opennextjs-cloudflare build
+        run: pnpm exec opennextjs-cloudflare build
         env:
           API_URL: ${{ secrets.API_URL }}
-          AUTH_API_URL: ${{ secrets.AUTH_API_URL }}
           API_KEY: ${{ secrets.API_KEY }}
-          NEXT_PUBLIC_GRADER_URL: ${{ secrets.NEXT_PUBLIC_GRADER_URL }}
-          NEXT_PUBLIC_GRADER_API_URL: ${{ secrets.NEXT_PUBLIC_GRADER_API_URL }}
-          NEXT_PUBLIC_GRADER_SEARCH_PATHS: ${{ secrets.NEXT_PUBLIC_GRADER_SEARCH_PATHS }}
+          NEXT_PUBLIC_CONSOLE_URL: ${{ secrets.NEXT_PUBLIC_CONSOLE_URL }}
 
       - name: Set Cloudflare Worker Secrets
         run: |
-          echo "${{ secrets.API_KEY }}" | npx wrangler secret put API_KEY --name ${{ github.event.repository.name }}
-          echo "${{ secrets.API_URL }}" | npx wrangler secret put API_URL --name ${{ github.event.repository.name }}
-          echo "${{ secrets.AUTH_API_URL }}" | npx wrangler secret put AUTH_API_URL --name ${{ github.event.repository.name }}
+          echo "${{ secrets.API_KEY }}" | pnpm exec wrangler secret put API_KEY --name ${{ github.event.repository.name }}
+          echo "${{ secrets.API_URL }}" | pnpm exec wrangler secret put API_URL --name ${{ github.event.repository.name }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deploy to Cloudflare Workers
-        run: npx wrangler deploy --name ${{ github.event.repository.name }}
+        run: pnpm exec wrangler deploy --name ${{ github.event.repository.name }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Warm OpenNext cache
-        run: npx opennextjs-cloudflare populateCache remote -- --name ${{ github.event.repository.name }}
+        run: pnpm exec opennextjs-cloudflare populateCache remote -- --name ${{ github.event.repository.name }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

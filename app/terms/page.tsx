@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/site/pages/legal";
+import { LEGAL_DOCUMENTS } from "@/site/legal/documents";
+import { LegalPage } from "@/site/legal/legal-page";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Keystone",
-  description: "The terms that govern use of Keystone's website and services.",
+  title: `${LEGAL_DOCUMENTS.terms.title} | Keystone`,
+  description: LEGAL_DOCUMENTS.terms.description,
 };
 
 export default function TermsPage() {

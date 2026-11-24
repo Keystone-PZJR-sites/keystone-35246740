@@ -25,7 +25,7 @@ const eslintConfig = defineConfig([
           caughtErrorsIgnorePattern: "^_",
         },
       ],
-      // Art-directed tier sets use native <picture>/<img> markup.
+      // Images are served as they are (`images.unoptimized`), so a plain <img> is the element.
       "@next/next/no-img-element": "off",
     },
   },

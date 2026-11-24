@@ -1,0 +1,5 @@
+@import "@keystone-sites/marketing-design-system/styles.css";
+/* The consent bar draws with Tailwind classes of its own, and is the only thing here that does. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "../node_modules/@keystone-sites/widgets/src/design_system/consent";
