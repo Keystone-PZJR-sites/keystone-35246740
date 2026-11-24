@@ -1,3 +1,4 @@
+import { INGEST_PATH, regionNamed } from "@keystonepzjr/web-product-analytics/regions";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -15,6 +16,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Analytics reach PostHog through the site's own origin, where a blocker that drops PostHog's
+  // hosts lets them through. PostHog's paths end in a slash Next must not take off.
+  async rewrites() {
+    const region = regionNamed(process.env.NEXT_PUBLIC_POSTHOG_REGION);
+    return [
+      { source: `${INGEST_PATH}/static/:path*`, destination: `${region.assets}/static/:path*` },
+      { source: `${INGEST_PATH}/:path*`, destination: `${region.ingest}/:path*` },
+    ];
+  },
+  skipTrailingSlashRedirect: true,
   // These packages ship TypeScript source.
   transpilePackages: [
     "@keystonepzjr/marketing-design-system",

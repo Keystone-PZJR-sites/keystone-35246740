@@ -1,3 +1,6 @@
+import type { Surface } from "@keystonepzjr/web-product-analytics";
+import { analytics } from "@/site/analytics";
+
 // Next inlines a NEXT_PUBLIC_ variable only where it is read by its full literal name.
 const origin = process.env.NEXT_PUBLIC_CONSOLE_URL;
 if (!origin) throw new Error("NEXT_PUBLIC_CONSOLE_URL is not set.");
@@ -24,9 +27,15 @@ export const LOGIN_URL = consoleUrl("/login");
 export const HANDOFF_SCRIPT = consoleUrl("/handoff.js");
 
 /** Opens Keystone with a prompt: the guest arrival, which answers whatever was asked. The composer
-    it was sent from grows into Keystone on the way, once the console's script is here. */
-export function launch(prompt: string, from: HTMLElement | null) {
-  const url = consoleUrl(`/guest?prompt=${encodeURIComponent(prompt)}`);
+    it was sent from grows into Keystone on the way, once the console's script is here, and the
+    visitor goes in as who they were here, so the console's analytics carry on with them. */
+export function launch(prompt: string, from: HTMLElement | null, surface: Surface) {
+  analytics.track(
+    "message_sent",
+    { sender: "person", surface, characters: prompt.length },
+    { now: true },
+  );
+  const url = analytics.carry(consoleUrl(`/guest?prompt=${encodeURIComponent(prompt)}`));
   if (window.KSHandoff) window.KSHandoff.launch({ prompt, from, url });
   else window.location.assign(url);
 }

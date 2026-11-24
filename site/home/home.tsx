@@ -23,9 +23,9 @@ const LINKS = [
 /** The homepage, inside `.ks`, the scope the Set's CSS hangs off. Every composer on it sends its
     prompt into Keystone. */
 export function Home() {
-  const composer = useComposer({ onSend: launch });
+  const composer = useComposer({ onSend: (prompt, from) => launch(prompt, from, "site_hero") });
   const ask = useAsk(composer);
-  const closing = useComposer({ onSend: launch });
+  const closing = useComposer({ onSend: (prompt, from) => launch(prompt, from, "site_foot") });
   // The nav turns to ink as the foot comes up under it. While the foot reaches the window's foot,
   // Safari's toolbar and what lies past the page's end are ink too (page.css).
   const [dark, setDark] = useState(false);

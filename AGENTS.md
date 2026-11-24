@@ -32,17 +32,23 @@ Workers (OpenNext).
   the prompt, and Log in goes to its `/login`. On the way the composer grows into Keystone: the
   console's `/handoff.js`, which the homepage loads from the console, draws the move on both
   pages and carries it across in the address's fragment, so it works across origins. Without the
-  script, `launch` just goes.
+  script, `launch` just goes. The fragment carries the visitor too (`analytics.carry`), so the
+  console's analytics go on as the same person.
 - **The legal pages** (`site/legal/`) are `site/frame.tsx`, the system's `Nav` and `Footer` around
   a title, with the document in the system's `Prose`. Terms and Privacy are the backend's markdown
   for Keystone (`getCompanyInformation`); Accessibility is `ACCESSIBILITY_STATEMENT`.
   `{{business.*}}` tokens are filled from Keystone's company record, and a token it has nothing
   for fails loudly. The not-found and error pages use the same frame.
-- **Consent and analytics** come from `@keystone-sites/*`: the regime bootstrap script and the
-  proxy's cookie (`proxy.ts`), `KeystoneServices` (PostHog, GTM, Meta Pixel, configured by the backend
-  and gated by consent), and `CookieConsentModal`, the consent bar every Keystone site shares, in
-  its own look. `site/consent/cookie-choices.tsx` names the way back to it by regime (CCPA's
-  "Do Not Sell or Share My Personal Information") and opens it.
+- **Consent** comes from `@keystone-sites/*`: the regime bootstrap script and the proxy's cookie
+  (`proxy.ts`), `KeystoneServices` (GTM and Meta Pixel, configured by the backend and gated by
+  consent; its customer-site PostHog is off), and `CookieConsentModal`, the consent bar every
+  Keystone site shares, in its own look. `site/consent/cookie-choices.tsx` names the way back to it
+  by regime (CCPA's "Do Not Sell or Share My Personal Information") and opens it.
+- **Analytics** are Keystone's web product analytics (`@keystonepzjr/web-product-analytics`), the same
+  PostHog project as the console's: `site/analytics.ts` sets them up, and
+  `site/consent/analytics-consent.tsx` starts them and holds them to the consent bar's choice (no
+  choice yet, or no, counts the visit without cookies). Events are the package's typed list, sent
+  with `analytics.track`; they reach PostHog through `/ingest` (`next.config.ts`).
 - **The console** is `NEXT_PUBLIC_CONSOLE_URL`, read only through `site/console.ts`.
 
 ## Running it with the console

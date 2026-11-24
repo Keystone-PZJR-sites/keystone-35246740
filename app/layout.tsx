@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { CONSENT_REGIME_BOOTSTRAP_SCRIPT } from "@keystone-sites/core/consent";
 import { KeystoneServices } from "@keystone-sites/services/services/KeystoneServices";
 import { CookieConsentModal } from "@keystone-sites/widgets/consent/CookieConsentModal";
+import { AnalyticsConsent } from "@/site/consent/analytics-consent";
 import { COPY } from "@/site/home/content";
 import { SITE_URL } from "@/site/site";
 
@@ -45,8 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: CONSENT_REGIME_BOOTSTRAP_SCRIPT }} />
       </head>
       <body>
-        <KeystoneServices>{children}</KeystoneServices>
+        <KeystoneServices posthog={false}>{children}</KeystoneServices>
         <CookieConsentModal />
+        <AnalyticsConsent />
       </body>
     </html>
   );

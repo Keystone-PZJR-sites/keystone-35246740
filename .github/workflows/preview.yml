@@ -34,6 +34,7 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           API_KEY: ${{ secrets.API_KEY }}
           NEXT_PUBLIC_CONSOLE_URL: ${{ secrets.NEXT_PUBLIC_CONSOLE_URL }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY_DEVELOPMENT }}
 
       - name: Upload Worker version (preview)
         id: upload
