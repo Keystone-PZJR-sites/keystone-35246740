@@ -5,7 +5,7 @@ import { Composer, type ComposerState } from "@keystone-sites/marketing-design-s
 import { Shape } from "@keystone-sites/marketing-design-system/shape";
 import { Split } from "@keystone-sites/marketing-design-system/split";
 import type { CSSProperties, KeyboardEvent } from "react";
-import { AskLine, type AskState, Chips, Trim } from "./ask";
+import { AskLine, type AskState, Chips } from "./ask";
 import { COPY, ENTRIES } from "./content";
 
 /** The fold (1b): the line, the composer, and the five ways in under it, each of which drops its
@@ -43,7 +43,6 @@ export function Hero({ composer, ask }: { composer: ComposerState; ask: AskState
         <Split text={COPY.h1[1]} from={3} />
       </h1>
       <div className="home-composer" data-hue={set?.hue} onKeyDownCapture={onLineKey}>
-        <Trim />
         <Composer
           composer={composer}
           placeholder={<AskLine fixed={set} />}

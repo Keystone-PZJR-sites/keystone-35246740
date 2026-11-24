@@ -58,16 +58,6 @@
   border-color: var(--h-full);
 }
 
-.home-hero .home-trim i {
-  animation: home-tick 520ms var(--out) both;
-  animation-delay: calc(1500ms + var(--i) * 32ms);
-}
-@keyframes home-tick {
-  from {
-    transform: scaleY(0);
-  }
-}
-
 /* The row's lead-in (Figma › Chips): Extended, muted, 56 under the composer and 24 over the row. */
 .home-ways {
   margin: calc(var(--u) * 1.4) 0 0;
@@ -320,16 +310,21 @@
 }
 
 @media (max-width: 720px) {
-  /* No sketch at this width. The composer sits at the window's middle, the h1 above it and the
-     chiplets below; the trim keeps its two-cell inset with as many ticks as fit. */
+  /* No sketch at this width. The composer sits at the window's middle with the h1 above it; the
+     chiplets sit two cells further down than the foot's, and the fold grows by as much, so the
+     composer has the screen to itself. */
   .home-hero {
     --home-fs: calc((100vw - var(--u)) / 11.4);
-    min-height: calc(100svh - var(--u) * 2);
+    --home-drop: calc(var(--u) * 2);
+    min-height: calc(100svh - var(--u) * 2 + var(--home-drop));
     padding-top: calc(50svh - 60px - var(--u) * 1.2 - var(--home-fs) * 2.2224);
     padding-bottom: var(--u);
   }
   .home-hero .home-composer {
     margin-top: calc(var(--u) * 1.2);
+  }
+  .home-ways {
+    margin-top: calc(var(--u) * 1.4 + var(--home-drop));
   }
   .home-hero .home-chips {
     margin-top: calc(var(--u) * 0.5);

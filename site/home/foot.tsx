@@ -8,7 +8,7 @@ import { Wordmark } from "@keystone-sites/marketing-design-system/wordmark";
 import { type ReactNode, useEffect, useRef } from "react";
 import { LOGIN_URL } from "@/site/console";
 import { useCookieChoices } from "@/site/consent/cookie-choices";
-import { AskLine, Chips, Trim } from "./ask";
+import { AskLine, Chips } from "./ask";
 import { COPY } from "./content";
 
 // What a visitor still wants to know at the foot. Each drops into the composer as written.
@@ -85,7 +85,6 @@ export function Foot({ composer }: { composer: ComposerState }) {
             {COPY.close[1]}
           </h2>
           <div className="home-composer">
-            <Trim />
             <Composer composer={composer} tone="ink" placeholder={<AskLine />} />
           </div>
           <Chips>

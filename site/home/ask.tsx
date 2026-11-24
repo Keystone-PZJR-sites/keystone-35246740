@@ -57,20 +57,6 @@ export function AskLine({ fixed }: { fixed?: Entry }) {
   );
 }
 
-const TICKS = Array.from({ length: 15 }, (_, index) => index);
-
-/** The grid trim (Figma › Prompt Grid): a row of the lattice's own lines standing half a cell out
-    of the composer's top edge, stopping two cells short of each end. */
-export function Trim() {
-  return (
-    <span className="home-trim" aria-hidden>
-      {TICKS.map((index) => (
-        <i key={index} style={{ "--i": index } as CSSProperties} />
-      ))}
-    </span>
-  );
-}
-
 // The ways `count` lines can share `total` chips evenly, the longer lines first, then later.
 function shares(total: number, count: number): number[][] {
   const base = Math.floor(total / count);

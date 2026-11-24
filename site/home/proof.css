@@ -23,11 +23,50 @@
   box-shadow: var(--lift);
   animation: home-story-in 480ms var(--out) 80ms both;
 }
-.home-sat + .home-sat {
-  animation-delay: 420ms;
-}
 .home-proof b {
   font-weight: 500;
+}
+
+/* A figure that rolls (Count): each digit a window one line tall over a strip of figures, with
+   the figure it shows set unseen in its place, so the digit sits on the line and is as wide as
+   text sets it. The fade stays inside the room a figure leaves at the tightest line (0.8). A
+   leading digit not yet reached takes no room and opens as it is. */
+.home-count {
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  interpolate-size: allow-keywords;
+}
+.home-count__digit {
+  position: relative;
+  display: inline-block;
+  transition:
+    width 360ms var(--out),
+    opacity 360ms var(--out);
+}
+.home-count__digit[data-off] {
+  width: 0;
+  opacity: 0;
+}
+.home-count__ghost {
+  visibility: hidden;
+}
+.home-count__window {
+  position: absolute;
+  inset: 0 -0.1em;
+  overflow: hidden;
+  mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+}
+.home-count__strip {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.1em;
+  transform: translateY(calc(var(--at) * -1lh));
+  transition: transform 760ms cubic-bezier(0.3, 0.75, 0.1, 1);
+  transition-delay: calc(var(--column) * 50ms);
+}
+.home-count__strip > span {
+  height: 1lh;
 }
 
 /* The grader: its scorecard over the gym's blurred kettlebells, clear of the owner. */
@@ -79,9 +118,18 @@
   background:
     linear-gradient(var(--h-full), var(--h-full)) 0 0 / var(--fill) 100% no-repeat,
     var(--stone);
+  transition: background-size 1000ms cubic-bezier(0.45, 0, 0.1, 1);
+}
+/* The knob rides a layer as wide as the line, moved to the score, so it travels with the fill. */
+.home-score__ride {
+  position: absolute;
+  inset: 0;
+  transform: translateX(calc(var(--to) * 1%));
+  transition: transform 1000ms cubic-bezier(0.45, 0, 0.1, 1);
 }
 .home .home-score__knob {
   position: absolute;
+  left: 0;
   top: 50%;
   width: 13px;
   height: 13px;
@@ -102,6 +150,15 @@
   color: var(--h-ink);
   font-weight: 500;
   font-size: 0.9em;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 500ms var(--out),
+    transform 700ms var(--out);
+}
+.home-score__pill[data-in] {
+  opacity: 1;
+  transform: none;
 }
 .home-score__pill i {
   width: 6px;
@@ -123,6 +180,11 @@
   align-items: center;
   gap: calc(var(--u) * 0.2);
   white-space: nowrap;
+  color: var(--soft);
+  transition: color 300ms var(--out);
+}
+.home-score__areas li[data-read] {
+  color: var(--ink);
 }
 .home-score__areas i {
   height: 4px;
@@ -130,6 +192,7 @@
   background:
     linear-gradient(var(--h-full), var(--h-full)) 0 0 / var(--w) 100% no-repeat,
     var(--stone);
+  transition: background-size 700ms var(--out);
 }
 .home-score__areas b {
   text-align: right;
@@ -150,12 +213,35 @@
   background: var(--white);
 }
 .home-browser__bar {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 5px;
   height: calc(var(--u) * 0.5);
   padding-inline: calc(var(--u) * 0.25);
   background: var(--white);
+}
+/* A page loading: a line runs along the bar's foot, then fades as the page comes in. */
+.home-browser__load {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--h-full);
+  transform-origin: left center;
+  animation: home-load var(--load, 700ms) cubic-bezier(0.45, 0, 0.1, 1) forwards;
+}
+@keyframes home-load {
+  0% {
+    transform: scaleX(0);
+  }
+  80% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
 }
 .home-browser__bar i {
   width: 6px;
@@ -167,6 +253,15 @@
   display: grid;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 600ms var(--out),
+    transform 800ms var(--out);
+}
+.home-browser__screen[data-in] {
+  opacity: 1;
+  transform: none;
 }
 .home-browser__page {
   grid-area: 1 / 1;
@@ -197,6 +292,15 @@
   border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
   box-shadow: var(--lift);
   font-weight: 500;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 500ms var(--out),
+    transform 700ms var(--out);
+}
+.home-browser__live[data-in] {
+  opacity: 1;
+  transform: none;
 }
 .home-browser__live i {
   width: 7px;
@@ -228,15 +332,53 @@
   color: var(--h-ink);
   font-size: calc(var(--u) * 0.55);
 }
+/* Ringing until it's answered: a short shake, then a rest. */
+.home-call:not([data-answered]) .home-call__icon > svg {
+  animation: home-ring 1100ms ease-in-out infinite;
+}
+@keyframes home-ring {
+  0%,
+  40%,
+  100% {
+    rotate: 0deg;
+  }
+  8%,
+  24% {
+    rotate: -12deg;
+  }
+  16%,
+  32% {
+    rotate: 12deg;
+  }
+}
 .home-call__words {
   display: grid;
   line-height: 1.3;
   white-space: nowrap;
 }
-.home-call__words > span:last-child {
+/* The state in one cell, as wide as its longer words, so the time beside it holds its place. */
+.home-call__state {
+  display: grid;
+}
+.home-call__state > b {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity 300ms var(--out);
+}
+.home-call__state > [data-on] {
+  opacity: 1;
+}
+.home-call__who {
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--soft);
+}
+.home-call__who > span {
+  opacity: 0;
+  transition: opacity 500ms var(--out) 200ms;
+}
+.home-call__who > [data-on] {
+  opacity: 1;
 }
 .home-call__head {
   display: flex;
@@ -266,6 +408,58 @@
   align-items: flex-start;
   gap: calc(var(--u) * 0.25);
   padding: calc(var(--u) * 0.4);
+  animation: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 500ms var(--out),
+    transform 800ms var(--out);
+}
+.home-text[data-in] {
+  opacity: 1;
+  transform: none;
+}
+/* The reply being written, where the message will sit, then the message in its place. */
+.home-text__typing {
+  position: absolute;
+  right: calc(var(--u) * 0.4);
+  bottom: calc(var(--u) * 0.4);
+  display: flex;
+  gap: 4px;
+  padding: calc(var(--u) * 0.25) calc(var(--u) * 0.3);
+  border-radius: 3px;
+  background: var(--h-light);
+  opacity: 0;
+  transition: opacity 240ms var(--out);
+}
+.home-text__typing[data-on] {
+  opacity: 1;
+}
+.home-text__typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--h-deep);
+  opacity: 0.35;
+  animation: home-typing 1000ms ease-in-out infinite;
+}
+.home-text__typing i:nth-child(2) {
+  animation-delay: 160ms;
+}
+.home-text__typing i:nth-child(3) {
+  animation-delay: 320ms;
+}
+@keyframes home-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: none;
+  }
+  30% {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
 }
 .home-text__bubble {
   align-self: flex-end;
@@ -275,6 +469,16 @@
   border-radius: 3px;
   background: var(--h-light);
   color: var(--h-deep);
+  opacity: 0;
+  transform: translateY(4px) scale(0.97);
+  transform-origin: right bottom;
+  transition:
+    opacity 400ms var(--out),
+    transform 600ms var(--out);
+}
+.home-text__bubble[data-on] {
+  opacity: 1;
+  transform: none;
 }
 .home-text__link {
   display: block;
@@ -334,17 +538,24 @@
   letter-spacing: -0.02em;
   color: var(--ink);
 }
+/* The week's bars on a baseline, each rising on its day; the latest day in the hue's full. */
 .home-ads__chart {
   display: flex;
   align-items: flex-end;
   gap: 4px;
   height: calc(var(--u) * 0.95);
+  background: linear-gradient(var(--stone), var(--stone)) bottom / 100% 1px no-repeat;
 }
 .home-ads__chart i {
   flex: 1;
-  height: calc(var(--h) * 100%);
+  height: 100%;
   border-radius: 1px;
   background: var(--h-mid);
+  transform: scaleY(var(--h));
+  transform-origin: center bottom;
+  transition:
+    transform 520ms var(--out),
+    background-color 200ms var(--out);
 }
 .home .home-ads__chart [data-on] {
   background: var(--h-full);
@@ -361,9 +572,26 @@
   color: var(--soft);
 }
 .home-ads__stats dd {
+  display: flex;
+  align-items: baseline;
   margin: 0;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+}
+/* What a lead cost, once the week is in: a dash until then, in the same cell. */
+.home-ads__stats .home-ads__per {
+  display: grid;
+}
+.home-ads__per > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity 400ms var(--out);
+}
+.home-ads__per > span:first-child {
+  color: var(--soft);
+}
+.home-ads__per > [data-on] {
+  opacity: 1;
 }
 
 /* The social: the week's calendar over the shop's blurred plants at the lower left. */
@@ -411,24 +639,46 @@
   background: var(--h-full);
   color: var(--h-ink);
 }
-.home-cal__thumb {
+/* Every day has its slot; a post lands in its own from just above, with its time or tick. */
+.home-cal__slot {
+  position: relative;
   width: 100%;
   aspect-ratio: 5 / 4;
   border-radius: 2px;
-  background: url("/photos/florist.jpg") var(--crop, 50% 50%) / 420% auto no-repeat;
-}
-.home-cal__thumb[data-empty] {
   background: var(--paper);
 }
+.home-cal__thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: url("/photos/florist.jpg") var(--crop, 50% 50%) / 420% auto no-repeat;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 400ms var(--out),
+    transform 700ms var(--out);
+}
 .home-cal__at {
+  min-height: 1.4em;
   font-size: max(10px, 0.75em);
   line-height: 1.4;
+  opacity: 0;
+  transition: opacity 400ms var(--out) 120ms;
+}
+.home-cal__thumb[data-on],
+.home-cal__at[data-on] {
+  opacity: 1;
+  transform: none;
 }
 .home-cal__at[data-done] {
   color: var(--h-deep);
   font-size: 0.9em;
 }
-.home-cal__day:has([data-empty])::after {
-  content: "";
-  height: 1.05em;
+
+/* Held still, each piece is already where its story ends. */
+@media (prefers-reduced-motion: reduce) {
+  .home .home-proof * {
+    transition: none;
+    animation: none;
+  }
 }

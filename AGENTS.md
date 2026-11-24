@@ -23,13 +23,16 @@ Workers (OpenNext).
   consent bar's own classes, and nothing else.
 - **The homepage** (`site/home/`) is a section to a file, each a `.tsx` and its `.css`: `hero`,
   `platform` (with `proof`, what each part leaves behind), `steps`, `pricing` and `foot`, with
-  `ask` (the composer's frame, its cycling line, the trim and the chips) shared by the fold and
+  `ask` (the composer's frame, its cycling line and the chips) shared by the fold and
   the foot. `home.tsx` sets them out under the system's `Nav`; `home.css` imports the sheets in
   the order their cascade was drawn in, and `page.css` holds the page's scale. `content.ts` holds
   the words, the five ways in and the plans. Classes are `home-*`; the system's are `ks-*`.
   Photographs are in `public/photos/`, the sites Keystone built in `public/sites/`.
 - **Every composer sends to the console**: `launch` in `site/console.ts` opens its `/guest` with
-  the prompt, and Log in goes to its `/login`.
+  the prompt, and Log in goes to its `/login`. On the way the composer grows into Keystone: the
+  console's `/handoff.js`, which the homepage loads from the console, draws the move on both
+  pages and carries it across in the address's fragment, so it works across origins. Without the
+  script, `launch` just goes.
 - **The legal pages** (`site/legal/`) are `site/frame.tsx`, the system's `Nav` and `Footer` around
   a title, with the document in the system's `Prose`. Terms and Privacy are the backend's markdown
   for Keystone (`getCompanyInformation`); Accessibility is `ACCESSIBILITY_STATEMENT`.

@@ -3,8 +3,9 @@
 import { useComposer } from "@keystone-sites/marketing-design-system/composer";
 import { useScrollProgress } from "@keystone-sites/marketing-design-system/motion";
 import { Nav } from "@keystone-sites/marketing-design-system/nav";
-import { useRef, useState } from "react";
-import { launch, LOGIN_URL } from "@/site/console";
+import Script from "next/script";
+import { useEffect, useRef, useState } from "react";
+import { HANDOFF_SCRIPT, launch, LOGIN_URL } from "@/site/console";
 import { useAsk } from "./ask";
 import { Foot } from "./foot";
 import { Hero } from "./hero";
@@ -25,19 +26,28 @@ export function Home() {
   const composer = useComposer({ onSend: launch });
   const ask = useAsk(composer);
   const closing = useComposer({ onSend: launch });
-  // The nav turns to ink as the foot comes up under it.
+  // The nav turns to ink as the foot comes up under it. While the foot reaches the window's foot,
+  // Safari's toolbar and what lies past the page's end are ink too (page.css).
   const [dark, setDark] = useState(false);
+  const [foot, setFoot] = useState(false);
   const sheets = useRef<HTMLSpanElement>(null);
   useScrollProgress(
     sheets,
     (_, node) => {
-      setDark(node.getBoundingClientRect().top < 64);
+      const top = node.getBoundingClientRect().top;
+      setDark(top < 64);
+      setFoot(top < window.innerHeight);
     },
     "pass",
   );
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-foot", foot);
+    return () => document.documentElement.removeAttribute("data-foot");
+  }, [foot]);
 
   return (
     <div className="ks" id="top">
+      {foot && <span className="home-sill" aria-hidden />}
       <main className="home">
         <Nav
           home={{ label: "Keystone, top of page", href: "#top" }}
@@ -61,6 +71,7 @@ export function Home() {
           <Foot composer={closing} />
         </div>
       </main>
+      <Script src={HANDOFF_SCRIPT} strategy="lazyOnload" />
     </div>
   );
 }

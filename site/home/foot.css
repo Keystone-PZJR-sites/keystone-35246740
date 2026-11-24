@@ -15,6 +15,17 @@
   --home-clear: max(calc(var(--u) * 2.5), 96px);
   --home-nav: calc(var(--u) * 0.6 + 56px);
 }
+/* The foot ends part way through a pixel, and so does the page's paper under it: drawn edge on
+   edge, a trace of the paper shows there as a hairline against the ink past the page's end. One
+   band of ink across the edge covers that pixel whole. */
+.home .home-foot::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -2px;
+  height: 4px;
+  background: var(--g-fill);
+  pointer-events: none;
+}
 .home-foot__stage {
   position: sticky;
   top: 0;
@@ -48,9 +59,6 @@
 /* 32 from the composer to the questions. */
 .home-foot .home-chips {
   margin: calc(var(--u) * 0.8) calc(var(--u) * 0.5) 0;
-}
-.home-foot .home-trim i {
-  background: var(--char);
 }
 .home-foot .ks-chip[data-variant="stone"] {
   --chip-bg: var(--line-ink);
