@@ -137,19 +137,18 @@ export const WILDCARDS: readonly ComposerPrompt[] = [
   },
 ];
 
-// The plans as keystone.app/pricing sells them, word for word.
+// The plans, each a short line to a bullet.
 export const PLANS: readonly Plan[] = [
   {
     name: "Starter",
     price: "$50",
     line: "Small businesses ready to step up their online web presence.",
     list: [
-      "Beautiful, SEO-optimized website with up to 5 custom pages",
-      "Access to Keystone CRM and business platform",
-      "Easy chat-based AI website editor for ongoing changes",
-      "100/100 Google Lighthouse SEO Score",
-      "Monthly website, SEO, and Google Maps audits and updates",
-      "24x7 virtual customer support and assistance",
+      "Custom website, up to 5 pages",
+      "Edit your site by chat",
+      "Keystone CRM included",
+      "Monthly SEO and Maps updates",
+      "24/7 support",
     ],
   },
   {
@@ -158,14 +157,11 @@ export const PLANS: readonly Plan[] = [
     line: "Businesses ready to dominate their online competition.",
     list: [
       "Everything in Starter, plus",
-      "Complex websites with up to 30 custom pages",
-      "Search SEO with an extensive website structure and dedicated landing pages",
-      "AI SEO so answer engines like ChatGPT and Google AI recommend your business",
-      "Local SEO across your Google Business Profile, Google Maps, and reviews",
-      "Content SEO with regular articles and blog posts",
-      "Daily audits and optimizations",
-      "AI lead follow-up and conversion via webchat and text message",
-      "Dedicated Growth Partner with weekly analysis, strategy, and updates over email",
+      "Websites up to 30 pages",
+      "Search, AI and local SEO",
+      "Weekly blog posts",
+      "AI lead follow-up by text",
+      "A dedicated Growth Partner",
     ],
     featured: true,
   },
@@ -175,11 +171,11 @@ export const PLANS: readonly Plan[] = [
     line: "Businesses ready to grow as quickly as possible.",
     list: [
       "Everything in Growth, plus",
-      "AI voice assistant for primary or backup phone answering",
-      "Optimized ad campaigns on Facebook & Instagram or Google",
-      "Daily posting on Instagram & Facebook",
-      "Custom integration with other CRMs, booking systems, and marketing tools",
-      "Monthly strategy meetings with dedicated Growth Partner",
+      "AI phone receptionist",
+      "Ad campaigns on Meta or Google",
+      "Daily Instagram and Facebook posts",
+      "Custom integrations",
+      "Monthly strategy meetings",
     ],
   },
 ];
