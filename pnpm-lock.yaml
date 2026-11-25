@@ -18,8 +18,8 @@ importers:
         specifier: ^1.3.0
         version: 1.4.2(@opentelemetry/api@1.10.0)(@types/react@19.3.0)(next@16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.10.0)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@keystonepzjr/marketing-design-system':
-        specifier: ^2.0.2
-        version: 2.0.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^2.0.3
+        version: 2.0.3(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@keystonepzjr/web-product-analytics':
         specifier: ^0.1.1
         version: 0.1.1(posthog-js@1.454.2(@types/react@19.3.0)(react@19.3.0))
@@ -915,8 +915,8 @@ packages:
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
 
-  '@keystonepzjr/marketing-design-system@2.0.2':
-    resolution: {integrity: sha512-cKNIYuDe3WH3B3zWGcY9WDF+5ONhUuUpZkxVW/qreAwTC6pbeBlzY4NyyXCLD0QKACgT/bn1sVOesCPdkbOvQQ==}
+  '@keystonepzjr/marketing-design-system@2.0.3':
+    resolution: {integrity: sha512-gvc+EF+kSCOYpZLu0upaNLSnfsNcCWQk+rqSXlhoKCgm8QVgK/ID+hoeaTK8sn5x+fAStCOtLlU2dYFiK5Qyaw==}
     peerDependencies:
       react: ^19.2.0
       react-dom: ^19.2.0
@@ -5283,7 +5283,7 @@ snapshots:
       - preact-render-to-string
       - supports-color
 
-  '@keystonepzjr/marketing-design-system@2.0.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@keystonepzjr/marketing-design-system@2.0.3(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@central-icons-react/square-outlined-radius-0-stroke-1.5': 1.2.22(react@19.3.0)
       react: 19.3.0

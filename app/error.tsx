@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Button } from "@keystonepzjr/marketing-design-system/button";
 import { Frame } from "@/site/frame";
 
 export default function ErrorPage({ reset }: { error: Error; reset: () => void }) {
@@ -9,9 +9,9 @@ export default function ErrorPage({ reset }: { error: Error; reset: () => void }
       title="Something went wrong"
       description="This page hit an error. Trying again usually fixes it."
       action={
-        <Chip variant="ink" onClick={reset}>
+        <Button variant="ink" onClick={reset}>
           Try again
-        </Chip>
+        </Button>
       }
     />
   );

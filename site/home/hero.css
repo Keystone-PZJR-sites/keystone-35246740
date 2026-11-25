@@ -74,103 +74,13 @@
 .home-hero .home-chips {
   margin-top: calc(var(--u) * 0.6);
 }
-.home-hero .home-chips .ks-chip {
+.home-hero .home-chips .ks-button {
   animation: home-fade 700ms var(--out) both;
   animation-delay: calc(1080ms + var(--i) * 90ms);
 }
 @keyframes home-fade {
   from {
     opacity: 0;
-  }
-}
-
-/* The five ways in, as 6 draws them: the hue's light with its shape as a small key, which turns
-   a quarter, grows a touch and goes to the hue's deep under the pointer (Figma › entry-chip).
-   Once one is in the composer the rest go quiet, a pale stone, and the one set stays tinted,
-   spent. A quiet one hovers as a tinted one does. */
-.home .home-entry {
-  font-size: var(--key-lead);
-  line-height: 1;
-}
-.home-entry > .ks-shape,
-.home-set__name > .ks-shape {
-  transition:
-    transform 420ms var(--set),
-    color 200ms var(--out);
-}
-.home-entry:not(:disabled):hover > .ks-shape,
-.home-entry:focus-visible > .ks-shape,
-.home-set:hover .home-set__name > .ks-shape {
-  transform: rotate(90deg) scale(1.1);
-}
-/* The wedge only lies flat again after a half turn; a quarter turn stands it on a point. */
-.home-entry:not(:disabled):hover > .ks-shape[data-shape="wedge"],
-.home-entry:focus-visible > .ks-shape[data-shape="wedge"],
-.home-set:hover .home-set__name > .ks-shape[data-shape="wedge"] {
-  transform: rotate(180deg) scale(1.1);
-}
-.home .home-entry:not(:disabled):hover > .ks-shape,
-.home .home-entry:focus-visible > .ks-shape {
-  color: var(--h-deep);
-}
-.home .home-entry[data-variant="stone"] {
-  --chip-bg: var(--gray-200);
-  --chip-fg: var(--gray-dark-100);
-}
-.home .home-entry[data-variant="stone"] > .ks-shape {
-  color: var(--gray-800);
-}
-.home .home-entry[data-variant="stone"]:hover,
-.home .home-entry[data-variant="stone"]:focus-visible {
-  --chip-bg: var(--h-mid);
-  --chip-fg: var(--h-deep);
-}
-.home .home-entry[data-variant="stone"]:hover > .ks-shape,
-.home .home-entry[data-variant="stone"]:focus-visible > .ks-shape {
-  color: var(--h-deep);
-}
-.home .home-chips .home-entry:disabled {
-  --chip-bg: var(--h-light);
-  opacity: 0.5;
-  cursor: default;
-  transform: none;
-}
-
-/* The entry, set in the composer (after 6a): the hue's light, its shape as a small key, its
-   category in the hue's deep. The cross takes it back out. */
-.home-set {
-  display: inline-flex;
-  flex: none;
-  height: var(--key);
-  background: var(--h-light);
-  border-radius: 4px;
-  animation: home-pop 520ms var(--set) both;
-}
-.home .home-set__name {
-  --chip-bg: transparent;
-  height: var(--key);
-  padding-right: 8px;
-  border-radius: 4px 0 0 4px;
-}
-.home-set__x {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  color: var(--h-soft);
-  font-size: 12px;
-  border-radius: 0 4px 4px 0;
-  transition:
-    background-color 160ms var(--out),
-    color 160ms var(--out);
-}
-.home .home-set__x:hover {
-  background: var(--h-mid);
-  color: var(--h-deep);
-}
-@keyframes home-pop {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.94);
   }
 }
 

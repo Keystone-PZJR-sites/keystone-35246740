@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Button } from "@keystonepzjr/marketing-design-system/button";
 import type { ComposerState } from "@keystonepzjr/marketing-design-system/composer";
 import { Plans } from "@keystonepzjr/marketing-design-system/plans";
 import { useEffect, useRef } from "react";
@@ -46,14 +46,14 @@ export function Pricing({ composer }: { composer: ComposerState }) {
           <h2 id="home-pricing-title" className="ks-h2">
             Simple plans, no contracts.
           </h2>
-          <Chip
+          <Button
             className="home-pricing__ask"
             onClick={() => {
               composer.load(PRICING_PROMPT);
             }}
           >
             Ask Keystone about pricing
-          </Chip>
+          </Button>
         </header>
         <Plans
           plans={PLANS}

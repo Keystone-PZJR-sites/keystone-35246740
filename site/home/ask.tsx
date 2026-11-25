@@ -91,7 +91,7 @@ export function Chips({
   useLayoutEffect(() => {
     const node = ref.current;
     if (!node) return;
-    const chips = [...node.querySelectorAll<HTMLElement>(".ks-chip")];
+    const chips = [...node.querySelectorAll<HTMLElement>(".ks-button")];
     const measure = () => {
       const gap = parseFloat(getComputedStyle(node).columnGap) || 0;
       const room = node.clientWidth + 0.5;

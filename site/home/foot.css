@@ -63,12 +63,12 @@
 .home-foot .home-chips {
   margin: calc(var(--u) * 0.8) calc(var(--u) * 0.5) 0;
 }
-.home-foot .ks-chip[data-variant="stone"] {
-  --chip-bg: var(--line-ink);
-  --chip-fg: var(--text-paper);
+.home-foot .ks-button[data-variant="stone"] {
+  --button-bg: var(--line-ink);
+  --button-fg: var(--text-paper);
 }
-.home-foot .ks-chip[data-variant="stone"]:hover {
-  --chip-bg: var(--char);
+.home-foot .ks-button[data-variant="stone"]:hover {
+  --button-bg: var(--char);
 }
 .home-foot :where(button, a, textarea):focus-visible {
   outline-color: var(--text-paper);

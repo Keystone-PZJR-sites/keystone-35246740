@@ -176,11 +176,9 @@
   color: var(--soft);
   text-wrap: pretty;
 }
-/* 44 under the words, and the fold's chips' type. */
+/* 44 under the words. */
 .home .home-story__ask {
   margin-top: calc(var(--u) * 0.3);
-  font-size: var(--key-lead);
-  line-height: 1;
 }
 
 /* The picture half: the photograph on its grounds, centred, a cell clear of the middle rule. */

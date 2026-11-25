@@ -63,7 +63,7 @@
   flex-basis: 100%;
   height: var(--keys-gap);
 }
-.home-chips .ks-chip {
+.home-chips .ks-button {
   flex: none;
 }
 

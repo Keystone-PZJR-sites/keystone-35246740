@@ -30,9 +30,6 @@
   justify-content: space-between;
   gap: calc(var(--u) * 0.6) var(--u);
 }
-.home .home-pricing__ask {
-  padding-inline: var(--key-pad-plain);
-}
 /* The plans as three cards without rules, told apart by their grounds; the price runs on into
    its unit. */
 .home-pricing .ks-plans,

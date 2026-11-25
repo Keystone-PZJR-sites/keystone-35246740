@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Button } from "@keystonepzjr/marketing-design-system/button";
 import { Composer, type ComposerState } from "@keystonepzjr/marketing-design-system/composer";
 import { useScrollProgress } from "@keystonepzjr/marketing-design-system/motion";
 import { useEffect, useRef } from "react";
@@ -75,7 +75,7 @@ export function Foot({ composer }: { composer: ComposerState }) {
           </div>
           <Chips>
             {QUESTIONS.map((question) => (
-              <Chip
+              <Button
                 key={question}
                 className={question === OFF_PHONE ? "home-off-phone" : undefined}
                 onClick={() => {
@@ -83,7 +83,7 @@ export function Foot({ composer }: { composer: ComposerState }) {
                 }}
               >
                 {question}
-              </Chip>
+              </Button>
             ))}
           </Chips>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Button } from "@keystonepzjr/marketing-design-system/button";
 import {
   prefersReducedMotion,
   useScrollProgress,
@@ -120,8 +120,9 @@ function Story({ entry, onChoose }: { entry: Entry; onChoose: (entry: Entry) => 
         ))}
       </h2>
       <p className="home-story__body">{entry.body}</p>
-      <Chip
+      <Button
         variant="hue"
+        size="lg"
         hue={entry.hue}
         icon="arrow-up"
         className="home-story__ask"
@@ -130,7 +131,7 @@ function Story({ entry, onChoose }: { entry: Entry; onChoose: (entry: Entry) => 
         }}
       >
         {entry.label}
-      </Chip>
+      </Button>
     </div>
   );
 }

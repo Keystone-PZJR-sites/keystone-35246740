@@ -1,9 +1,9 @@
 "use client";
 
-import { Chip } from "@keystonepzjr/marketing-design-system/chip";
+import { Button } from "@keystonepzjr/marketing-design-system/button";
 import { Composer, type ComposerState } from "@keystonepzjr/marketing-design-system/composer";
-import { Shape } from "@keystonepzjr/marketing-design-system/shape";
 import { Split } from "@keystonepzjr/marketing-design-system/split";
+import { Tag } from "@keystonepzjr/marketing-design-system/tag";
 import type { CSSProperties, KeyboardEvent } from "react";
 import { AskLine, type AskState, Chips } from "./ask";
 import { COPY, ENTRIES, WILDCARDS } from "./content";
@@ -52,20 +52,15 @@ export function Hero({ composer, ask }: { composer: ComposerState; ask: AskState
           }}
           tools={
             set ? (
-              <span key={set.id} className="home-set" data-hue={set.hue}>
-                <span className="ks-chip home-set__name" data-variant="hue">
-                  <Shape name={set.shape} />
-                  {set.name}
-                </span>
-                <button
-                  type="button"
-                  className="home-set__x"
-                  aria-label={`Clear ${set.label}`}
-                  onClick={ask.clear}
-                >
-                  <Cross />
-                </button>
-              </span>
+              <Tag
+                key={set.id}
+                hue={set.hue}
+                shape={set.shape}
+                clearLabel={`Clear ${set.label}`}
+                onClear={ask.clear}
+              >
+                {set.name}
+              </Tag>
             ) : null
           }
         />
@@ -79,12 +74,13 @@ export function Hero({ composer, ask }: { composer: ComposerState; ask: AskState
         {ENTRIES.map((each, index) => {
           const on = each.id === set?.id;
           return (
-            <Chip
+            <Button
               key={each.id}
-              variant={set && !on ? "stone" : "hue"}
+              variant={set && !on ? "quiet" : "hue"}
+              size="lg"
               hue={each.hue}
               shape={each.shape}
-              className="home-entry"
+              pressed={set ? on : undefined}
               disabled={on}
               style={{ "--i": index } as CSSProperties}
               onClick={() => {
@@ -92,27 +88,10 @@ export function Hero({ composer, ask }: { composer: ComposerState; ask: AskState
               }}
             >
               {each.label}
-            </Chip>
+            </Button>
           );
         })}
       </Chips>
     </section>
-  );
-}
-
-// The set chip's cross, finer than the Set's close glyph.
-function Cross() {
-  return (
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 12 12"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      aria-hidden
-    >
-      <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" strokeLinecap="square" />
-    </svg>
   );
 }
