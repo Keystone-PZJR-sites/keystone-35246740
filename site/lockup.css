@@ -1,0 +1,210 @@
+/* The lockup: the wordmark, a line's strength on the ink, from the window's left edge to a hair
+   past its right, between two lines. Over it, the way in said to customers on the left and the
+   podcast and the social pages on the right; under it, the small print. */
+.lockup {
+  overflow-x: clip;
+  text-align: left;
+  /* A cell in from the window, or from the page's measure where the window is wider than it. */
+  --lockup-edge: max(var(--u), calc((100% - var(--page)) / 2 + var(--u)));
+  /* A run of text links: the type, the row each stands in, and the small print's type. */
+  --lockup-link-type: 15px;
+  --lockup-link-row: 40px;
+  --lockup-print-type: 14px;
+  /* The muted paper the small print is drawn in. */
+  --lockup-quiet: #a39f93;
+}
+/* Past either end of the page a browser shows the canvas: the root's colour, or in Safari the
+   body's, one colour for both ends. A page that ends on the lockup starts on paper, so the canvas
+   is paper over the first half of the page's scroll and ink over the second; in between the page
+   covers it. Without scroll-driven animation it stays paper. */
+@supports (animation-timeline: scroll()) {
+  :root:has(.lockup),
+  :root:has(.lockup) body {
+    animation: lockup-canvas linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes lockup-canvas {
+  0%,
+  50% {
+    background-color: var(--gray-100);
+  }
+  50.01%,
+  100% {
+    background-color: var(--gray-dark-950);
+  }
+}
+.lockup :where(button, a):focus-visible {
+  outline-color: var(--text-paper);
+}
+.lockup__word {
+  display: block;
+  width: 100.36%;
+  max-width: none;
+  height: auto;
+  color: var(--line-ink);
+}
+.lockup__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--u);
+  padding: calc(var(--u) * 0.3) var(--lockup-edge);
+  font-size: var(--lockup-link-type);
+  line-height: 20px;
+}
+.lockup__links--base {
+  padding-block: calc(var(--u) * 0.15) calc(var(--u) * 0.15 + env(safe-area-inset-bottom, 0px));
+}
+/* A run of links on one line, each in a row 40 tall for the pointer and the finger. */
+.lockup__set {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 calc(var(--u) * 0.6);
+}
+.lockup__set > :where(a, button, span),
+p.lockup__set {
+  padding-block: calc((var(--lockup-link-row) - 20px) / 2);
+}
+.lockup__set > :is(a, button) {
+  transition: color 120ms var(--out);
+}
+.lockup__set > :is(a, button):hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.lockup__set--quiet {
+  font-size: var(--lockup-print-type);
+  color: var(--lockup-quiet);
+}
+.lockup__set--quiet > :is(a, button):hover {
+  color: var(--text-paper);
+}
+.lockup__said {
+  gap: 0 calc(var(--u) * 0.3);
+}
+.lockup__said > span {
+  color: var(--lockup-quiet);
+}
+/* The way in: a word with an arrow that leans on hover. */
+.lockup .lockup__login {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 0.2);
+  font-weight: 500;
+}
+.lockup__login > svg {
+  font-size: calc(var(--u) * 0.45);
+  transition: translate 160ms var(--out);
+}
+.lockup__login:hover > svg {
+  translate: 2px 0;
+}
+/* What a phone shows in place of a name or with it: the social pages' marks, an arrow out, the
+   small print's short words. */
+.lockup__icon,
+.lockup__out,
+.lockup__short {
+  display: none;
+}
+
+/* On a phone, lists between rules, a row a tap: the podcast, the four social pages as their marks
+   in a row of cells, the wordmark, and the small print across the measure with the year under
+   it. */
+@media (max-width: 720px) {
+  .lockup {
+    display: flex;
+    flex-direction: column;
+    --lockup-edge: calc(var(--u) * 0.5);
+    --lockup-link-type: 16px;
+    --lockup-link-row: 32px;
+    --lockup-print-type: 13px;
+  }
+  .lockup__links {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+  }
+  .lockup__links > .lockup__set {
+    border-top: 1px solid var(--line-ink);
+  }
+  /* The way in is in the menu. */
+  .lockup__said {
+    display: none;
+  }
+  .lockup__follow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+  .lockup__follow > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 18px;
+  }
+  .lockup__follow > a:not([data-icon]) {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    padding-inline: var(--lockup-edge);
+    border-bottom: 1px solid var(--line-ink);
+  }
+  .lockup__follow > a[data-icon] + a[data-icon] {
+    border-left: 1px solid var(--line-ink);
+  }
+  .lockup__follow > a[data-icon] .lockup__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .lockup__follow .lockup__icon {
+    display: block;
+    font-size: 20px;
+  }
+  .lockup__follow .lockup__out {
+    display: block;
+    font-size: 18px;
+    color: var(--lockup-quiet);
+  }
+  .lockup__follow > a:hover {
+    text-decoration: none;
+    background: var(--char);
+  }
+  .lockup__links > .lockup__follow {
+    border-bottom: 1px solid var(--line-ink);
+  }
+  /* The wordmark first, from edge to edge; then the links; then the small print: the four in their
+     short words across the measure, the year centred under them. */
+  .lockup__word {
+    order: -1;
+    margin: 0 0 calc(var(--u) * 0.5);
+  }
+  .lockup__links--base {
+    gap: 0;
+    padding: calc(var(--u) * 0.25) var(--lockup-edge)
+      calc(var(--u) * 0.5 + env(safe-area-inset-bottom, 0px));
+  }
+  .lockup__links--base > .lockup__set {
+    border-top: 0;
+  }
+  .lockup__links--base > div.lockup__set {
+    justify-content: space-between;
+    gap: 0 calc(var(--u) * 0.5);
+  }
+  .lockup__links--base > p.lockup__set {
+    order: 1;
+    justify-content: center;
+  }
+  .lockup__long {
+    display: none;
+  }
+  .lockup__short {
+    display: inline;
+  }
+}

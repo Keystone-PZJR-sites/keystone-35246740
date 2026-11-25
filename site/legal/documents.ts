@@ -2,20 +2,23 @@ export type LegalDocument = "terms" | "privacy" | "accessibility";
 
 export const LEGAL_DOCUMENTS: Record<
   LegalDocument,
-  { title: string; description: string; href: string }
+  { title: string; short: string; description: string; href: string }
 > = {
   terms: {
     title: "Terms of Service",
+    short: "Terms",
     description: "The terms that govern use of Keystone's website and services.",
     href: "/terms",
   },
   privacy: {
     title: "Privacy Policy",
+    short: "Privacy",
     description: "How Keystone collects, uses and protects your information.",
     href: "/privacy-policy",
   },
   accessibility: {
     title: "Accessibility Statement",
+    short: "Accessibility",
     description:
       "Keystone's commitment to an accessible website and how to reach us about barriers.",
     href: "/accessibility",

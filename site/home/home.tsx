@@ -4,7 +4,7 @@ import { useComposer } from "@keystonepzjr/marketing-design-system/composer";
 import { useScrollProgress } from "@keystonepzjr/marketing-design-system/motion";
 import { Nav } from "@keystonepzjr/marketing-design-system/nav";
 import Script from "next/script";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { HANDOFF_SCRIPT, launch, LOGIN_URL } from "@/site/console";
 import { useAsk } from "./ask";
 import { Foot } from "./foot";
@@ -29,7 +29,7 @@ export function Home() {
   const ask = useAsk(composer);
   const closing = useComposer({ onSend: (prompt, from) => launch(prompt, from, "site_foot") });
   // The nav turns to ink as the foot comes up under it. While the foot reaches the window's foot,
-  // Safari's toolbar and what lies past the page's end are ink too (page.css).
+  // Safari's toolbar is ink too (page.css).
   const [dark, setDark] = useState(false);
   const [foot, setFoot] = useState(false);
   const sheets = useRef<HTMLSpanElement>(null);
@@ -42,11 +42,6 @@ export function Home() {
     },
     "pass",
   );
-  useEffect(() => {
-    document.documentElement.toggleAttribute("data-foot", foot);
-    return () => document.documentElement.removeAttribute("data-foot");
-  }, [foot]);
-
   return (
     <div className="ks" id="top">
       {foot && <span className="home-sill" aria-hidden />}

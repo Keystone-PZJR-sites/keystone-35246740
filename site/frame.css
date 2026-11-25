@@ -1,19 +1,74 @@
-/* A page of the site's own: clear of the fixed nav, a cell in from the window, the title over
-   what the page holds. */
+/* A page of the site's own: clear of the fixed nav, one column of a reading measure at the window's
+   middle, the title centred over what the page holds and ruled off from it. */
 .frame {
-  display: grid;
-  align-content: start;
-  gap: calc(var(--u) * 1.2);
   min-height: 70svh;
   padding: calc(var(--u) * 4) var(--u) calc(var(--u) * 3);
 }
+.frame__col {
+  display: grid;
+  gap: calc(var(--u) * 1.2);
+  max-width: 68ch;
+  margin-inline: auto;
+}
 .frame__head {
   display: grid;
+  justify-items: center;
   gap: calc(var(--u) * 0.4);
-  max-width: 68ch;
+  text-align: center;
+}
+.frame__head:not(:last-child) {
+  padding-bottom: calc(var(--u) * 1.2);
+  border-bottom: 1px solid var(--line);
+}
+/* The legal documents as a line of mono, this one underlined; each a row 48 tall for the finger. */
+.frame__docs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 calc(var(--u) * 0.3);
+  margin-bottom: calc(var(--u) * 0.4);
+  font-family: var(--mono);
+  font-weight: var(--mono-weight);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.02em;
+}
+.frame__doc {
+  padding: 14px 6px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition:
+    color 120ms var(--out),
+    text-decoration-color 120ms var(--out);
+}
+@media (hover: hover) {
+  .frame__doc:hover {
+    color: var(--ink);
+  }
+}
+.frame__doc[aria-current="page"] {
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+.ks .frame__lead {
+  max-width: 44ch;
+  text-wrap: balance;
+}
+.frame__meta {
+  margin-top: calc(var(--u) * 0.2);
+  color: var(--muted);
+}
+.frame__action {
+  margin-top: calc(var(--u) * 0.4);
 }
 @media (max-width: 720px) {
   .frame {
     padding: calc(var(--u) * 3.5) calc(var(--u) * 0.5) calc(var(--u) * 2);
+  }
+  /* On a phone the lockup opens on the wordmark, which wants ink over it as on the homepage. */
+  .frame__foot {
+    padding-top: var(--u);
   }
 }

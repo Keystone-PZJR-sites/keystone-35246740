@@ -14,16 +14,12 @@
   --home-h1-leading: 1.1112;
   /* Room above and below a section that isn't a window tall. */
   --home-section: calc(var(--u) * 2.5);
-  /* A run of text links: the type, the row each stands in, and the small print's type. */
-  --home-link-type: 15px;
-  --home-link-row: 40px;
-  --home-print-type: 14px;
 }
 /* Mobile Safari shows the page through its toolbar, unless it finds a fixed strip at the window's
    foot (5px of it at least): then it fills the toolbar with the strip's colour. So the strip is
-   there only while the foot is (home.tsx), and the toolbar is ink over the foot's ink and past
-   the page's end. The rest of it sits under the window's edge. Safari paints past the page's end
-   in the body's colour over the root's, and .ks paints its own paper, so both turn. */
+   there only while the foot is (home.tsx), and the toolbar is ink over the foot's ink. The rest
+   of it sits under the window's edge. Past the page's end is the lockup's to paint
+   (lockup.css). */
 .home-sill {
   position: fixed;
   left: 0;
@@ -34,17 +30,10 @@
   background: var(--ink);
   pointer-events: none;
 }
-:root[data-foot],
-:root[data-foot]:has(.ks) body {
-  background-color: var(--gray-dark-950);
-}
 @media (max-width: 720px) {
   .home {
     --home-edge: calc(var(--u) * 0.5);
     --home-section: calc(var(--u) * 2);
-    --home-link-type: 16px;
-    --home-link-row: 32px;
-    --home-print-type: 13px;
   }
 }
 

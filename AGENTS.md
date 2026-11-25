@@ -34,11 +34,13 @@ Workers (OpenNext).
   pages and carries it across in the address's fragment, so it works across origins. Without the
   script, `launch` just goes. The fragment carries the visitor too (`analytics.carry`), so the
   console's analytics go on as the same person.
-- **The legal pages** (`site/legal/`) are `site/frame.tsx`, the system's `Nav` and `Footer` around
-  a title, with the document in the system's `Prose`. Terms and Privacy are the backend's markdown
-  for Keystone (`getCompanyInformation`); Accessibility is `ACCESSIBILITY_STATEMENT`.
-  `{{business.*}}` tokens are filled from Keystone's company record, and a token it has nothing
-  for fails loudly. The not-found and error pages use the same frame.
+- **The legal pages** (`site/legal/`) are `site/frame.tsx`: the system's `Nav`, one centred column
+  with the documents' line, the title and what the document is over the system's `Prose`, and the
+  site's lockup (`site/lockup.tsx`, the homepage foot's wordmark, links and small print) on ink.
+  Terms and Privacy are the backend's markdown for Keystone (`getCompanyInformation`);
+  Accessibility is `ACCESSIBILITY_STATEMENT`. `{{business.*}}` tokens are filled from Keystone's
+  company record, and a token it has nothing for fails loudly. The not-found and error pages use
+  the same frame.
 - **Consent** comes from `@keystone-sites/*`: the regime bootstrap script and the proxy's cookie
   (`proxy.ts`), `KeystoneServices` (GTM and Meta Pixel, configured by the backend and gated by
   consent; its customer-site PostHog is off), and `CookieConsentModal`, the consent bar every
