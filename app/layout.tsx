@@ -24,15 +24,15 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        type: "image/jpeg",
-        alt: "Great businesses deserve to be found.",
+        type: "image/png",
+        alt: "Powerful tools for independent businesses.",
       },
     ],
   },
-  twitter: { card: "summary_large_image", images: ["/og-image.jpg"] },
+  twitter: { card: "summary_large_image", images: ["/og-image.png"] },
 };
 
 export const viewport: Viewport = { viewportFit: "cover" };
