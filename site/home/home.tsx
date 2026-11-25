@@ -20,6 +20,8 @@ const LINKS = [
   { label: "Pricing", href: "#pricing" },
 ];
 
+const TRY_PROMPT = "I want to try Keystone";
+
 /** The homepage, inside `.ks`, the scope the Set's CSS hangs off. Every composer on it sends its
     prompt into Keystone. */
 export function Home() {
@@ -53,7 +55,13 @@ export function Home() {
           home={{ label: "Keystone, top of page", href: "#top" }}
           links={LINKS}
           login={{ label: "Log in", href: LOGIN_URL }}
-          cta={{ label: "Try Keystone", onClick: dark ? closing.focus : composer.focus }}
+          cta={{
+            label: "Try Keystone",
+            onClick: () => {
+              if (dark) closing.load(TRY_PROMPT);
+              else ask.drop(TRY_PROMPT);
+            },
+          }}
           tone={dark ? "ink" : undefined}
         />
         <Hero composer={composer} ask={ask} />
