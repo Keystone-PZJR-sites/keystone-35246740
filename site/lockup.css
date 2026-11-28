@@ -1,5 +1,5 @@
-/* The lockup: the wordmark, a line's strength on the ink, from the window's left edge to a hair
-   past its right, between two lines. Over it, the way in said to customers on the left and the
+/* The lockup: the wordmark, a line's strength on the ink, from the window's left edge to its
+   right, between two lines. Over it, the way in said to customers on the left and the
    podcast and the social pages on the right; under it, the small print. */
 .lockup {
   overflow-x: clip;
@@ -39,7 +39,7 @@
 }
 .lockup__word {
   display: block;
-  width: 100.36%;
+  width: 100%;
   max-width: none;
   height: auto;
   color: var(--line-ink);
