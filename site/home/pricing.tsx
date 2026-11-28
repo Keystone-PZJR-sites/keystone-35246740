@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import { PLANS } from "./content";
 
 const PRICING_PROMPT = "How does Keystone pricing work?";
+const CREATE_ACCOUNT_URL = "https://go.keystone.app/create-account";
 
 // What each plan's button says: the plan's verb, and Keystone.
 const PLAN_CTA: Record<string, string> = {
@@ -15,8 +16,8 @@ const PLAN_CTA: Record<string, string> = {
   Scale: "Scale with Keystone",
 };
 
-/** Pricing: the line over the three plans. Each plan's button, and the one across from the line,
-    puts its question to the composer at the page's foot. The section pins once its foot reaches
+/** Pricing: the line over the three plans. Each plan's button goes to creating an account; the one
+    across from the line puts its question to the composer at the page's foot. The section pins once its foot reaches
     the window's foot (or its top the window's top, in a window taller than it), so the composer
     comes up over it. */
 export function Pricing({ composer }: { composer: ComposerState }) {
@@ -59,8 +60,8 @@ export function Pricing({ composer }: { composer: ComposerState }) {
           plans={PLANS}
           label={(plan) => PLAN_CTA[plan] ?? `Start with ${plan}`}
           per="/month"
-          onChoose={(plan) => {
-            composer.load(`Help me get started with the ${plan} plan for my business.`);
+          onChoose={() => {
+            window.location.assign(CREATE_ACCOUNT_URL);
           }}
         />
       </div>
